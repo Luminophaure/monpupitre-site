@@ -365,6 +365,7 @@ function coque(info,opts){
 function fondBureau(){
   if(Pupitre.masque('decor')){ document.body.classList.add('sans-decor'); return; }   // le bois uni d'avant, fenêtre en arche dans la zone
   document.body.dataset.fond='bureau';
+  mesurerFond();   // tout de suite, avant que la page ne défile vers son #hash : le contenu est déjà poussé sous la fenêtre
   const s=document.createElement('script'); s.src=RACINE+'assets/js/fond-bureau.js'; s.defer=true;
   s.onload=monterFond; document.head.appendChild(s);
 }
@@ -392,8 +393,9 @@ function monterFond(){
   f.querySelector('[data-objet="plante"]').title=js+' jour'+(js>1?'s':'')+' actif'+(js>1?'s':'')+' cette semaine';
   mesurerFond(); addEventListener('resize',mesurerFond);
 }
+const FOND_GEOMETRIE={jonction:268,largeur:1280,hauteur:900};   // la même que dans outils/fond_bureau.py
 function mesurerFond(){
-  const F=window.FOND_BUREAU; if(!F) return;
+  const F=window.FOND_BUREAU||FOND_GEOMETRIE;
   const vw=innerWidth, vh=innerHeight, r=document.documentElement.style;
   const boite=Math.min(vw,vh*1.42);                      // la scène ne grossit pas avec un écran large
   const s=Math.max(boite/F.largeur,vh/F.hauteur);        // « slice » : le plus grand des deux rapports
