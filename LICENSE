@@ -1,0 +1,82 @@
+Monpupitre — conditions d'utilisation
+© 2026 Vincent Grimal. Tous droits réservés, sauf dans la mesure indiquée ci-dessous.
+
+Ce projet réunit deux choses de nature différente, et elles ne sont pas soumises aux
+mêmes conditions. Lis le paragraphe qui correspond à ce que tu veux reprendre.
+
+
+1. LE CONTENU PÉDAGOGIQUE — Creative Commons BY-NC-SA 4.0
+   ---------------------------------------------------------------------------
+   Sont concernés : les cours et leurs explications, les définitions, propriétés,
+   méthodes, pièges, exemples et remarques, les énoncés et corrigés d'exercices,
+   les exercices « Corrige l'IA », les questions des quiz et des jeux, les
+   questions fréquentes, les figures et leurs légendes, et les textes
+   d'accompagnement de l'élève. Peu importe le fichier où ils se trouvent : une
+   question de quiz reste du contenu même lorsqu'elle est écrite dans un fichier
+   JavaScript.
+
+   Tu peux les partager et les adapter, y compris pour ta classe, à trois
+   conditions :
+
+     Attribution (BY)      citer Vincent Grimal et le projet Monpupitre, avec un
+                           lien vers la source, et signaler les modifications.
+     Pas d'usage commercial (NC)
+                           ne pas en tirer de revenu, directement ou non.
+     Partage dans les mêmes conditions (SA)
+                           ce que tu en tires se diffuse sous la même licence.
+
+   Texte complet : https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
+   Code juridique : https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.fr
+
+   Ces conditions s'adressent à toi, pas à l'auteur : Vincent Grimal reste
+   titulaire des droits et peut exploiter son travail comme il l'entend, y compris
+   commercialement, et accorder à qui le demande des conditions différentes.
+
+
+2. LE CODE DU SITE — tous droits réservés
+   ---------------------------------------------------------------------------
+   Sont concernés : les feuilles de style, les scripts, le moteur de quiz, le
+   tuteur, les laboratoires, les générateurs d'exercices (leur mécanique, pas
+   leurs questions), la structure des pages, les outils de fabrication et les
+   scripts de vérification.
+
+   Le code est consultable — c'est la nature d'un site statique, ton navigateur le
+   reçoit de toute façon — mais il n'est pas concédé. Toute reprise, adaptation,
+   redistribution ou mise en ligne, totale ou partielle, demande l'accord écrit
+   préalable de l'auteur. Consulter, étudier et apprendre de ce code est bien sûr
+   libre.
+
+
+3. LES ÉLÉMENTS DE TIERS
+   ---------------------------------------------------------------------------
+   Certains fichiers ne sont pas de l'auteur et gardent leur propre licence, qui
+   prime sur tout ce qui précède. Leurs mentions de licence sont conservées dans
+   le dépôt et ne doivent jamais être retirées :
+
+     assets/vendor/katex/   KaTeX, licence MIT (voir le fichier LICENSE du dossier)
+
+   Les polices de caractères, lorsqu'elles seront embarquées plutôt qu'appelées à
+   distance, viendront avec leur licence SIL Open Font License.
+
+   Les programmes officiels de l'Éducation nationale cités dans le projet sont des
+   documents publics ; les liens vers l'Onisep renvoient à leurs auteurs.
+
+
+4. CE QUI N'EST CONCÉDÉ PAR AUCUNE DES DEUX LICENCES
+   ---------------------------------------------------------------------------
+   Le nom « Monpupitre », la phrase « Le site qui ne fait pas tes devoirs à ta
+   place. », le logo et l'identité visuelle du projet. Une licence Creative Commons
+   ne porte jamais sur les marques : reprendre le contenu sous ces conditions ne
+   donne pas le droit de le présenter sous ce nom ni de laisser croire à un lien
+   avec le projet.
+
+
+5. AUCUNE GARANTIE
+   ---------------------------------------------------------------------------
+   Le site est fourni tel quel, sans garantie d'aucune sorte. Il est un outil de
+   travail personnel : il ne remplace ni un enseignement, ni un manuel, ni le
+   jugement d'un professeur.
+
+
+Pour toute demande — usage commercial, reprise du code, partenariat avec un
+établissement — écrire à Vincent Grimal <vince.grimal@gmail.com>.

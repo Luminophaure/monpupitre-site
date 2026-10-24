@@ -20,7 +20,13 @@ window.SITE = {
   nom: "Monpupitre",
   accroche: "Le site qui ne fait pas tes devoirs à ta place.",
   sousTitre: "Cours, méthodes, exercices corrigés, laboratoires et jeux, de la quatrième à la terminale.",
-  auteur: "",            // ton nom ou celui de l'association, affiché en bas de page
+  auteur: "Vincent Grimal",   // affiché en bas de page, à côté du copyright
+  /* La mention de licence du pied de page. Le fichier LICENSE, à la racine, fait foi :
+     le contenu pédagogique est en CC BY-NC-SA 4.0, le code reste tous droits réservés.
+     Changer l'une sans l'autre donnerait deux versions contradictoires. */
+  annee: 2026,
+  licence: { nom: "CC BY-NC-SA 4.0",
+             url: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" },
 };
 
 /* L'ORDRE DES NIVEAUX dans la colonne de gauche.

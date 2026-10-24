@@ -69,10 +69,16 @@ function barre(info){
   b.innerHTML='<div class="barre-in"><a class="marque" href="'+(window.AUTONOME?'#':RACINE+'index.html')+'"><span class="logo">f(x)</span><span>'+echap(S.nom)+'</span></a><nav class="fil" aria-label="Fil d\'Ariane">'+fil+'</nav><button class="btn-theme" type="button" aria-label="Changer de thème">◐ Thème</button></div>';
   document.body.prepend(b);
   b.querySelector('.btn-theme').addEventListener('click',()=>{
-    const r=document.documentElement, sombre= r.dataset.theme ? r.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    /* clair par défaut : sans choix enregistré, on part du clair (voir bureau.js) */
+    const r=document.documentElement, sombre= r.dataset.theme==='dark';
     const n= sombre?'light':'dark'; r.setAttribute('data-theme',n); try{localStorage.setItem('theme',n);}catch(e){} });
   const p=document.createElement('footer'); p.className='pied gutter';
-  p.innerHTML='<div class="in"><span>'+echap(S.nom)+(S.auteur?' · '+echap(S.auteur):'')+'</span>'+(window.AUTONOME?'':'<span><a href="'+RACINE+'index.html">Accueil</a> · <a href="'+RACINE+'guide.html">Mode d\'emploi</a></span>')+'</div>';
+  /* © et licence : hors ligne le lien vers Creative Commons serait mort, on garde le
+     texte seul. Même mention que dans bureau.js, qui bâtit le pied des autres pages. */
+  const l=S.licence, c='© '+(S.annee||new Date().getFullYear())+(S.auteur?' '+echap(S.auteur):'');
+  const mention='<span>'+c+(l?' · Contenu sous '+(window.AUTONOME?echap(l.nom)
+      :'<a rel="license noopener" target="_blank" href="'+l.url+'">'+echap(l.nom)+'</a>'):'')+'</span>';
+  p.innerHTML='<div class="in"><span>'+echap(S.nom)+'</span>'+mention+(window.AUTONOME?'':'<span><a href="'+RACINE+'index.html">Accueil</a> · <a href="'+RACINE+'guide.html">Mode d\'emploi</a></span>')+'</div>';
   document.body.appendChild(p);
 }
 

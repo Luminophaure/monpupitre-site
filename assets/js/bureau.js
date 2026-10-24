@@ -137,8 +137,24 @@ window.Pupitre=Pupitre;
 /* ---------- 2. La coque ---------- */
 let RACINE='', SITE={nom:'Monpupitre'}, MATIERES=[];
 const lien=p=>window.AUTONOME?'#':RACINE+p;
-const theme={ sombre(){ const r=document.documentElement; return r.dataset.theme ? r.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches; },
+/* Le clair est le défaut : sans choix enregistré, on est en clair, quel que soit le
+   réglage du système. Consulter prefers-color-scheme ici ferait croire à la bascule
+   qu'elle part du sombre sur une machine en sombre, et le premier clic ne ferait rien. */
+const theme={ sombre(){ return document.documentElement.dataset.theme==='dark'; },
   basculer(){ const n=theme.sombre()?'light':'dark'; document.documentElement.setAttribute('data-theme',n); try{ localStorage.setItem('theme',n); }catch(e){} } };
+
+/* La mention de licence du pied de page, lue dans window.SITE (voir chapitres.js).
+   Dans un fichier élève autonome, le lien vers Creative Commons serait mort hors ligne :
+   on garde alors le texte seul. Le même helper existe dans site.js, qui bâtit le pied
+   de ces fichiers-là sans passer par ici. */
+function mentionLicence(){
+  const S=window.SITE||{}, l=S.licence;
+  const c='© '+(S.annee||new Date().getFullYear())+(S.auteur?' '+echap(S.auteur):'');
+  if(!l) return '<span>'+c+'</span>';
+  const m=window.AUTONOME ? echap(l.nom)
+        : '<a rel="license noopener" target="_blank" href="'+l.url+'">'+echap(l.nom)+'</a>';
+  return '<span>'+c+' · Contenu sous '+m+'</span>';
+}
 
 /* le petit avatar : composé d'après les réglages de « Personnalisation » */
 function avatarSVG(taille,role){
@@ -301,7 +317,9 @@ function coque(info,opts){
   body.appendChild(bandeau(role,info)); body.appendChild(bur); body.appendChild(fond);
   const ci=coin(role); if(ci) body.appendChild(ci);
   const p=document.createElement('footer'); p.className='pied gutter';
-  p.innerHTML='<div class="in"><span>'+echap(SITE.nom)+' · '+echap(SITE.accroche||'')+'</span><span><a href="'+lien(((window.SITE||{}).accueil)||'index.html')+'">Accueil</a> · <a href="'+lien('aide.html')+'">Aide</a> · <a href="'+lien('guide.html')+'">Mode d\'emploi</a></span></div>';
+  p.innerHTML='<div class="in"><span>'+echap(SITE.nom)+' · '+echap(SITE.accroche||'')+'</span>'+
+    mentionLicence()+
+    '<span><a href="'+lien(((window.SITE||{}).accueil)||'index.html')+'">Accueil</a> · <a href="'+lien('aide.html')+'">Aide</a> · <a href="'+lien('guide.html')+'">Mode d\'emploi</a></span></div>';
   body.appendChild(p);
   // tiroir sur mobile
   const btn=document.querySelector('.ouvrir-classeur');
