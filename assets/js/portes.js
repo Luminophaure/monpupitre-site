@@ -274,7 +274,9 @@ function Personnalisation(body){ const p=P(), m=body.querySelector('#perso'); if
   function majAvatar(){ p.ecrire('avatar',av); m.querySelector('#avatar-grand').innerHTML=B().avatarSVG(140); document.querySelectorAll('.compte summary .avatar').forEach(a=>a.outerHTML=B().avatarSVG(30)); }
   m.addEventListener('click',e=>{
     const d=e.target.closest('[data-decor].decor-choix'); if(d){ p.ecrire('decor',d.dataset.decor); document.body.dataset.decor= d.dataset.decor==='heure'?B().decorHeure():d.dataset.decor; m.querySelectorAll('.decor-choix').forEach(x=>x.setAttribute('aria-pressed',x===d)); return; }
-    const bb=e.target.closest('[data-bureau] [data-v]'); if(bb){ const g=bb.closest('[data-bureau]'); g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===bb)); const maj={}; maj[g.dataset.bureau]=bb.dataset.v; B().bureau.rafraichir(maj); apercuBureau(m.querySelector('#apercu-bureau')); return; }
+    const bb=e.target.closest('[data-bureau] [data-v]'); if(bb){ const g=bb.closest('[data-bureau]'); g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===bb)); const maj={}; maj[g.dataset.bureau]=bb.dataset.v; B().bureau.rafraichir(maj);
+      if(g.dataset.bureau==='vue'){ const amb=!!(window.FOND_BUREAU.vues[bb.dataset.v]||{}).ambiance; const oo=m.querySelector('.options-objets'); if(oo) oo.hidden=amb; const no=m.querySelector('.note-ambiance'); if(no) no.hidden=!amb; }
+      apercuBureau(m.querySelector('#apercu-bureau')); return; }
     const b=e.target.closest('[data-v]'); if(!b) return; const g=b.closest('[data-cle]'); if(!g) return; const cle=g.dataset.cle; g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===b));
     if(cle==='ambiance'){ mus.ambiance=b.dataset.v; p.ecrire('musique',Object.assign(p.lire('musique',{}),{ambiance:mus.ambiance})); return; }
     av[cle]=b.dataset.v; majAvatar(); });
@@ -290,8 +292,11 @@ function atelierBureau(el){ if(!el) return;
     const bascule=(cle,liste)=>'<div class="bascule" data-bureau="'+cle+'">'+liste.map(x=>'<button type="button" data-v="'+x[0]+'" aria-pressed="'+(r[cle]===x[0])+'">'+echap(x[1])+'</button>').join('')+'</div>';
     const teintes=(cle,pal,champ)=>'<div class="pastilles" data-bureau="'+cle+'">'+Object.entries(pal).map(([k,d])=>'<button type="button" style="background:'+(d[champ]||d.base)[0]+'" data-v="'+k+'" aria-pressed="'+(r[cle]===k)+'" aria-label="'+echap(d.nom)+'" title="'+echap(d.nom)+'"></button>').join('')+'</div>';
     const palettes=(cle,pal)=>'<div class="pastilles" data-bureau="'+cle+'">'+Object.entries(pal).map(([k,d])=>{ const n=d.tons.length, deg=d.tons.map((c,i)=>c+' '+(100*i/n).toFixed(0)+'% '+(100*(i+1)/n).toFixed(0)+'%').join(','); return '<button type="button" style="background:linear-gradient(90deg,'+deg+')" data-v="'+k+'" aria-pressed="'+(r[cle]===k)+'" aria-label="'+echap(d.nom)+'" title="'+echap(d.nom)+'"></button>'; }).join('')+'</div>';
+    const vueBtns='<div class="bascule" data-bureau="vue">'+Object.entries(F.vues).map(([k,d])=>'<button type="button" data-v="'+k+'" aria-pressed="'+(r.vue===k)+'"'+(d.legende?' title="'+echap(d.legende)+'"':'')+'>'+echap(d.nom)+'</button>').join('')+'</div>';
+    const ambiance=!!(F.vues[r.vue]&&F.vues[r.vue].ambiance);
     el.innerHTML='<div class="apercu-bureau" id="apercu-bureau" aria-hidden="true"></div><div class="options">'+
-      '<div><span class="discret">La vue</span>'+bascule('vue',Object.entries(F.vues).map(([k,d])=>[k,d.nom]))+'</div>'+
+      '<div><span class="discret">La vue ou l\'ambiance</span>'+vueBtns+'<span class="discret note-ambiance"'+(ambiance?'':' hidden')+'>Dans une ambiance, la fenêtre, le mobilier et les objets sont ceux de l\'ambiance : les choix ci-dessous reviendront avec une vue « Douce » ou « Marquée ».</span></div>'+
+      '<div class="options-objets"'+(ambiance?' hidden':'')+'>'+
       '<div><span class="discret">La lampe</span>'+bascule('lampe',F.styles.lampe)+teintes('lampeCouleur',PAL.lampe)+'</div>'+
       '<div><span class="discret">Le pot à crayons</span>'+bascule('pot',F.styles.pot)+teintes('potCouleur',PAL.pot)+'</div>'+
       '<div><span class="discret">Les crayons</span>'+palettes('crayons',PAL.crayons)+'</div>'+
@@ -299,7 +304,7 @@ function atelierBureau(el){ if(!el) return;
       '<div><span class="discret">La plante</span>'+bascule('plante',F.styles.plante)+'</div>'+
       '<div><span class="discret">Le casque</span>'+teintes('casque',PAL.casque)+'</div>'+
       '<div><span class="discret">Les étagères</span>'+bascule('etagere',F.styles.etagere)+teintes('bois',PAL.bois)+'</div>'+
-      '<div><span class="discret">Les livres des étagères</span>'+palettes('livres',PAL.livres)+'</div>'+
+      '<div><span class="discret">Les livres des étagères</span>'+palettes('livres',PAL.livres)+'</div></div>'+
       '<div><button type="button" class="btn fantome petit" data-bureau-defaut>Revenir au bureau d\'origine</button></div></div>'+
       (P().masque('decor')?'<p class="discret pleine-largeur">Le bureau dessiné est masqué (voir « Affichage » plus bas) : ces choix s\'appliqueront quand tu le réafficheras.</p>':'');
     apercuBureau(el.querySelector('#apercu-bureau'));
@@ -310,11 +315,13 @@ function atelierBureau(el){ if(!el) return;
    aux places qu'ils ont sur un grand écran. Les couleurs suivent les jetons, donc le thème. */
 function apercuBureau(el){ const F=window.FOND_BUREAU; if(!el||!F) return;
   const r=B().bureau.reglages(), G=F.vues[r.vue]||F.vues.douce, J=G.jonction, fk=G.fk;
+  if(G.ambiance&&!window.FOND_AMBIANCES){ B().bureau.chargerAmbiances(()=>apercuBureau(el)); return; }
+  const amb= G.ambiance ? window.FOND_AMBIANCES.ambiances[r.vue] : null;
   const pc=(x,tot)=>(100*x/tot).toFixed(2)+'%';
-  const dessin=nom=>{ const o=F.objets[nom]; return typeof o==='string'?o:(o[r[nom]]||Object.values(o)[0]); };
+  const dessin=nom=>{ if(amb) return amb.objets[nom]; const o=F.objets[nom]; return typeof o==='string'?o:(o[r[nom]]||Object.values(o)[0]); };
   const obj=(nom,style)=>'<div class="ap-obj" data-objet="'+nom+'" style="'+style+'">'+dessin(nom)+'</div>';
-  el.innerHTML=(F.scenes[r.vue]||F.scenes.douce)+
-    '<div class="fb-fenetre" style="left:'+pc(640-430*fk,1280)+';top:'+pc(J-6-300*fk,800)+';width:'+pc(720*fk,1280)+';height:'+pc(300*fk,800)+'"></div>'+
+  el.innerHTML=(amb?window.FOND_AMBIANCES.scenes[r.vue]:(F.scenes[r.vue]||F.scenes.douce))+
+    (amb?'':'<div class="fb-fenetre" style="left:'+pc(640-430*fk,1280)+';top:'+pc(J-6-300*fk,800)+';width:'+pc(720*fk,1280)+';height:'+pc(300*fk,800)+'"></div>')+
     '<div class="ap-sousmain" style="top:'+pc(J-4,800)+'"></div><div class="ap-feuille" style="top:'+pc(J+10,800)+'"><i></i><i></i><i></i></div>'+
     obj('lampe','right:1%;top:'+pc(J-150,800)+';width:22%')+obj('pot','left:7%;top:'+pc(J-120,800)+';width:9%')+
     obj('livres','left:3%;top:52%;width:15%')+obj('plante','left:1%;bottom:-4%;width:21%')+

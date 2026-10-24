@@ -389,14 +389,28 @@ function appliquerBureau(){
   (P.livres[r.livres]||P.livres.site).tons.forEach((c,i)=>st.setProperty('--fb-livre-'+(i+1)+'-choix',c));
   (P.crayons[r.crayons]||P.crayons.site).tons.forEach((c,i)=>st.setProperty('--fb-crayon-'+(i+1)+'-choix',c));
   document.body.dataset.fbEtagere=r.etagere; document.body.dataset.fbVue=r.vue;
+  // une ambiance a son sous-main ; une vue ordinaire reprend celui du site
+  const A=window.FOND_AMBIANCES, amb=F.vues[r.vue]&&F.vues[r.vue].ambiance&&A&&A.ambiances[r.vue];
+  if(amb){ const [j,n]=amb.sousmain; st.setProperty('--fb-sousmain-jour',j[0]); st.setProperty('--fb-sousmain-b-jour',j[1]); st.setProperty('--fb-sousmain-nuit',n[0]); st.setProperty('--fb-sousmain-b-nuit',n[1]); document.body.dataset.fbAmbiance=r.vue; }
+  else { ['--fb-sousmain-jour','--fb-sousmain-b-jour','--fb-sousmain-nuit','--fb-sousmain-b-nuit'].forEach(k=>st.removeProperty(k)); delete document.body.dataset.fbAmbiance; }
 }
+/* les ambiances sont dans un second fichier, lourd : on ne le charge que si l'élève en a choisi une */
+function chargerAmbiances(apres){ if(window.FOND_AMBIANCES){ apres(); return; }
+  if(window._mpAmbiancesEnCours){ window._mpAmbiancesEnCours.push(apres); return; }
+  window._mpAmbiancesEnCours=[apres];
+  const s=document.createElement('script'); s.src=RACINE+'assets/js/fond-ambiances.js'; s.defer=true;
+  s.onload=()=>{ const l=window._mpAmbiancesEnCours; window._mpAmbiancesEnCours=null; l.forEach(f=>f()); }; document.head.appendChild(s); }
 function monterFond(){
   const F=window.FOND_BUREAU; if(!F) return;
   const body=document.body, r=reglagesBureau();
+  const vue=F.vues[r.vue]||F.vues.douce;
+  if(vue.ambiance&&!window.FOND_AMBIANCES){ chargerAmbiances(()=>{ appliquerBureau(); monterFond(); }); return; }
+  const amb= vue.ambiance ? window.FOND_AMBIANCES.ambiances[r.vue] : null;
   const ancien=document.querySelector('.fond-bureau'); if(ancien) ancien.remove();
   const f=document.createElement('div'); f.className='fond-bureau'; f.setAttribute('aria-hidden','true');
-  f.innerHTML=(F.scenes[r.vue]||F.scenes.douce)+'<div class="fb-fenetre"></div><div class="fb-lumiere">'+F.objets.lumiere+'</div>';
-  const dessin=(nom)=>{ const o=F.objets[nom]; return typeof o==='string' ? o : (o[r[nom]]||Object.values(o)[0]); };
+  const scene= amb ? window.FOND_AMBIANCES.scenes[r.vue] : (F.scenes[r.vue]||F.scenes.douce);
+  f.innerHTML=scene+'<div class="fb-fenetre"></div><div class="fb-lumiere">'+(amb?amb.objets.lumiere:F.objets.lumiere)+'</div>';
+  const dessin=(nom)=>{ if(amb) return amb.objets[nom]; const o=F.objets[nom]; return typeof o==='string' ? o : (o[r[nom]]||Object.values(o)[0]); };
   const objets=[['lampe','button','Thème clair ou sombre (la lampe)'],['tasse','button','Rappel de pause (la tasse)'],['casque','button','Musique de concentration (le casque)'],
                 ['pot','div',''],['livres','a','Les portes d\'entrée de ma matière (la pile de cahiers)'],['plante','div','']];
   objets.forEach(([nom,tag,label])=>{ const el=document.createElement(tag); el.className='fb-objet'; el.dataset.objet=nom;
@@ -466,5 +480,5 @@ function rappelDePause(ci){
 function chargerMusique(){ const s=document.createElement('script'); s.src=RACINE+'assets/js/musique.js'; s.defer=true; document.head.appendChild(s); }
 
 window.Bureau={coque,toast,avatarSVG,theme,lien:p=>lien(p),decorHeure,demoAction,
-  bureau:{reglages:reglagesBureau,enregistrer:enregistrerBureau,rafraichir:rafraichirBureau,DEFAUT:BUREAU_DEFAUT}};
+  bureau:{reglages:reglagesBureau,enregistrer:enregistrerBureau,rafraichir:rafraichirBureau,chargerAmbiances,DEFAUT:BUREAU_DEFAUT}};
 })();

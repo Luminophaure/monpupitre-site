@@ -157,6 +157,9 @@ body[data-fond="bureau"]{--largeur-bureau:1280px}
 .fond-bureau .fb-scene{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(100vw,142vh);height:100vh;overflow:visible;display:block}
 .fb-fenetre{position:absolute;left:var(--fb-fen-l,313px);top:var(--fb-fen-t,34px);width:var(--fb-fen-w,547px);height:var(--fb-fen-h,228px);background:var(--scene) no-repeat center bottom/100% 100%}
 .fb-equerres{display:none}body[data-fb-etagere="equerres"] .fb-equerres{display:block}
+/* les ambiances dessinent leur propre fenêtre, et portent des parties de jour et de nuit */
+body[data-fb-ambiance] .fb-fenetre{display:none}
+:root[data-theme="dark"] .fb-jour{display:none}:root:not([data-theme="dark"]) .fb-nuit{display:none}
 .fb-lumiere{position:absolute;right:0;top:calc(var(--fb-jonction,268px) - 120px * var(--fb-k,1));width:calc(720px * var(--fb-k,1));pointer-events:none}
 .fb-objet{position:absolute;pointer-events:auto;border:0;background:none;padding:0;margin:0;cursor:pointer;display:block;line-height:0;color:inherit;font:inherit}
 .fb-objet[data-objet="pot"],.fb-objet[data-objet="plante"]{cursor:default}
