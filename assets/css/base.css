@@ -7,7 +7,10 @@
 /* ---------- Socle ---------- */
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:var(--e-5);-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{margin:0;background:var(--bois);color:var(--ink);font:400 17px/1.6 var(--f-body)}
+/* 1.0625rem = 17 px, mais en rem : le texte du cours suit alors la taille de police que
+   l'élève a réglée dans son navigateur. En px, tout grossissait SAUF le corps du texte,
+   qui finissait plus petit que ses propres légendes. */
+body{margin:0;background:var(--bois);color:var(--ink);font:400 1.0625rem/1.6 var(--f-body)}
 img,svg,canvas,video{max-width:100%}
 [hidden]{display:none!important}
 h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0;letter-spacing:-.02em}
@@ -18,7 +21,13 @@ p,figure,blockquote{margin:0}
 ul,ol{margin:0;padding-left:1.3em}
 li+li{margin-top:var(--e-1)}
 a{color:var(--blue)}
-:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:var(--r-s)}
+/* Un anneau à DEUX couleurs, parce qu'une seule ne peut pas tenir sur tous les fonds :
+   `--c-maths` vaut exactement `--blue`, si bien qu'un anneau bleu était invisible sur
+   l'onglet de maths sélectionné — or c'est précisément l'élément qui reçoit le focus
+   quand on tabule dans la barre d'onglets. Le halo clair extérieur garantit le contraste
+   sur un fond sombre, le trait sombre sur un fond clair. */
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px;border-radius:var(--r-s);
+  box-shadow:0 0 0 6px var(--feuille)}
 code{font-family:var(--f-mono);font-size:.9em;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
 /* écrans tactiles (iPhone, iPad, Android) */
 :is(button,a,summary,label,input,select){touch-action:manipulation;-webkit-tap-highlight-color:transparent}  /* pas de zoom au double toucher */

@@ -39,7 +39,10 @@ function construireQuestion(conteneur,q,surReponse,opts){ opts=opts||{};
   const id='r'+Math.random().toString(36).slice(2,8);
   if(q.type==='qcm') h+='<ul class="choix">'+q.choix.map((c,i)=>'<li><button type="button" data-i="'+i+'">'+c+'</button></li>').join('')+'</ul>';
   else h+='<form class="saisie"><label class="discret" for="'+id+'">Ta réponse :</label><input id="'+id+'" type="text" autocomplete="off" inputmode="text"><button class="btn" type="submit">Valider</button></form>';
-  h+='<div class="zone-retour"></div></div>';
+  /* aria-live : le verdict et l'explication sont injectés ici sans que le focus bouge.
+     Sans région live, un élève au lecteur d'écran répond et n'apprend rien — or le
+     verdict est tout le travail pédagogique du quiz. */
+  h+='<div class="zone-retour" role="status" aria-live="polite"></div></div>';
   conteneur.innerHTML=h;
   const el=conteneur.firstElementChild; site().maths(el);
   let reg=null;
