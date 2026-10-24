@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Notion de fonction · Seconde</title>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body data-matiere="maths" data-chapitre="fonctions" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Seconde · Fonctions</span>
+  <h1>Notion de fonction</h1>
+  <p class="chapeau">Une fonction associe à chaque nombre <span class="vx">x</span> <strong>un unique</strong> nombre <span class="vy">f(x)</span>. Formule, tableau et courbe sont trois façons d'écrire la même information.</p>
+  <ul class="objectifs">
+    <li>Calculer une image</li><li>Trouver des antécédents</li><li>Lire un graphique</li><li>Utiliser un tableau de valeurs</li><li>Savoir si un point est sur une courbe</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Le prix d'une course en taxi dépend de la distance :</strong> prise en charge 2,50 €, puis 1,80 € par kilomètre. Pour 7 km, le compteur affiche $2{,}5+1{,}8\times 7=15{,}10$ €. Le prix est une <em>fonction</em> de la distance. Et la question inverse se pose tout le temps : « avec 20 €, jusqu'où puis-je aller ? », c'est chercher un <em>antécédent</em>. Les courbes de température, de batterie ou d'audience se lisent de la même façon : une heure en entrée, une valeur en sortie.</p>
+    <p class="discret">Ils s'en servent : les infirmiers (la dose d'un médicament dépend du poids), les prévisionnistes météo (lire à quelle heure la température atteint 0 °C), les analystes de données (toute courbe de tableau de bord). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-definition">1. Une machine à nombres</h3>
+<div class="bloc definition" data-titre="Fonction">
+    <p>Une <strong>fonction</strong> $f$ est un procédé qui, à chaque nombre $\ant{x}$ d'un ensemble $D$, associe <strong>un seul</strong> nombre, noté $\img{f(x)}$.</p>
+    <p>On écrit $f : \ant{x} \longmapsto \img{f(x)}$. L'ensemble $D$ est l'<strong>ensemble de définition</strong> de $f$.</p>
+  </div>
+
+  <div class="bloc exemple">
+    <p>Dans tout le chapitre : $f(x) = x^2 - 2x - 3$.</p>
+    <p>$f(\ant{4}) = 4^2 - 2\times 4 - 3 = 16 - 8 - 3 = \img{5}$.</p>
+  </div>
+
+  
+  <!-- ===== 2 ===== -->
+  <h3 id="c-vocabulaire">2. Le vocabulaire : ce qui entre, ce qui sort</h3>
+<div class="colonnes">
+    <div class="carte bleue">
+      <strong><span class="vx">x</span> : ce qui entre</strong>
+      <ul><li>s'appelle <strong>un antécédent</strong></li><li>se lit sur l'axe des <strong>abscisses</strong> (horizontal)</li><li>c'est la ligne du <strong>haut</strong> d'un tableau</li><li>c'est la <strong>1<sup>re</sup> coordonnée</strong> d'un point</li></ul>
+    </div>
+    <div class="carte rose">
+      <strong><span class="vy">f(x)</span> : ce qui sort</strong>
+      <ul><li>s'appelle <strong>l'image</strong> de x</li><li>se lit sur l'axe des <strong>ordonnées</strong> (vertical)</li><li>c'est la ligne du <strong>bas</strong> d'un tableau</li><li>c'est la <strong>2<sup>e</sup> coordonnée</strong> d'un point</li></ul>
+    </div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Quatre phrases, une seule information">
+    <ul>
+      <li>$f(\ant{4}) = \img{5}$</li>
+      <li>l'image de $\ant{4}$ par $f$ est $\img{5}$</li>
+      <li>$\ant{4}$ est <em>un</em> antécédent de $\img{5}$ par $f$</li>
+      <li>le point de coordonnées $(\ant{4}\,;\,\img{5})$ appartient à la courbe de $f$</li>
+    </ul>
+  </div>
+
+  
+  <!-- ===== 3 ===== -->
+  <h3 id="c-representations">3. Trois représentations de la même fonction</h3>
+
+  <div class="colonnes">
+    <div class="carte">
+      <strong>Tableau de valeurs</strong>
+      <div class="defile"><table class="valeurs">
+        <tr><th>x</th><td>−2</td><td>−1</td><td>0</td><td>1</td><td>2</td><td>3</td><td class="marque-x">4</td></tr>
+        <tr><th>f(x)</th><td>5</td><td>0</td><td>−3</td><td>−4</td><td>−3</td><td>0</td><td class="marque-y">5</td></tr>
+      </table></div>
+      <p class="discret">Rapide à lire, mais ne montre que quelques valeurs.</p>
+    </div>
+    <figure class="graphe" data-f="x^2 - 2x - 3" data-nom="f" data-fenetre="-3 5.5 -5 7" data-image="4">
+      <figcaption>Le point $(4\,;\,5)$ est sur la courbe : c'est la même information que $f(4)=5$.</figcaption>
+    </figure>
+  </div>
+
+  <div class="bloc definition" data-titre="Courbe représentative">
+    <p>La courbe $\mathcal{C}_f$ est l'ensemble des points $M(\ant{x}\,;\,\img{f(x)})$ pour $x \in D$.</p>
+    <p>Autrement dit : <strong>$A(x_A\,;\,y_A)$ est sur $\mathcal{C}_f$ si et seulement si $y_A = f(x_A)$.</strong></p>
+  </div>
+
+  
+  <!-- ===== 4 ===== -->
+  <h3 id="c-methodes">4. Les méthodes</h3>
+  <p>Trois questions reviennent sans cesse. Pour chacune, trois outils possibles : la formule, le tableau, la courbe.</p>
+<div class="defile">
+    <table class="simple large">
+      <thead><tr><th>Je cherche…</th><th>Avec la formule</th><th>Avec un tableau</th><th>Avec la courbe</th></tr></thead>
+      <tbody>
+        <tr><th>l'<span class="vy">image</span> de <span class="vx">a</span></th><td>Je calcule $f(a)$.</td><td>Je trouve $a$ en haut, je lis <strong>en dessous</strong>.</td><td>Je pars de $a$ sur l'axe horizontal, je vais <strong>verticalement</strong> jusqu'à la courbe, je lis l'ordonnée.</td></tr>
+        <tr><th>les <span class="vx">antécédents</span> de <span class="vy">b</span></th><td>Je résous $f(x) = b$.</td><td>Je trouve $b$ en bas, je lis <strong>au-dessus</strong>. Le tableau peut en oublier.</td><td>Je trace la droite $y = b$, je lis les <strong>abscisses</strong> des points d'intersection.</td></tr>
+        <tr><th>si $A(p\,;\,q)$ est sur la courbe</th><td>Je calcule $f(p)$ et je compare à $q$.</td><td>Je regarde si $q$ est sous $p$.</td><td>Je place $A$ (lecture approchée, à confirmer par le calcul).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="bloc methode" data-titre="Calculer une image">
+    <ol class="etapes">
+      <li><span>J'écris la formule avec <strong>des parenthèses à la place de x</strong> : $f(\;\;) = (\;\;)^2 - 2(\;\;) - 3$.</span></li>
+      <li><span>Je remplis les parenthèses avec le nombre.</span></li>
+      <li><span>Je calcule en respectant les priorités.</span></li>
+      <li><span>Je conclus par une phrase : « l'image de … par $f$ est … ».</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Calculer l'image de $-2$ par $f$, avec $f(x)=x^2-2x-3$.</p>
+      <ol class="pas">
+        <li><strong>Les parenthèses.</strong> $f(\;\;) = (\;\;)^2 - 2\times(\;\;) - 3$.</li>
+        <li><strong>On remplit.</strong> $f(-2) = (-2)^2 - 2\times(-2) - 3$.</li>
+        <li><strong>Les priorités.</strong> $(-2)^2=4$ et $-2\times(-2)=+4$, donc $f(-2)=4+4-3=5$.</li>
+        <li><strong>La phrase.</strong> L'image de $-2$ par $f$ est $5$ : le point $(-2\,;\,5)$ est sur la courbe.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Lire des antécédents sur un graphique">
+    <ol class="etapes">
+      <li><span>Je repère le nombre $b$ sur l'axe des <strong>ordonnées</strong>.</span></li>
+      <li><span>Je trace la droite <strong>horizontale</strong> d'équation $y = b$.</span></li>
+      <li><span>Je marque <strong>tous</strong> les points où elle coupe la courbe.</span></li>
+      <li><span>Je lis l'<strong>abscisse</strong> de chacun : ce sont les antécédents. S'il n'y en a pas, $b$ n'a pas d'antécédent.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Sur la courbe de $f$ ci-dessous, lire les antécédents de $0$.</p>
+      <figure class="graphe" data-f="x^2 - 2x - 3" data-nom="f" data-fenetre="-3 5 -5 7" data-antecedents="0"></figure>
+      <ol class="pas">
+        <li><strong>Le nombre.</strong> $0$ est sur l'axe des ordonnées : c'est l'axe des abscisses lui-même.</li>
+        <li><strong>La droite.</strong> On suit la droite $y=0$, horizontale.</li>
+        <li><strong>Les points.</strong> Elle coupe la courbe en deux points.</li>
+        <li><strong>Les abscisses.</strong> $-1$ et $3$ : $0$ a deux antécédents par $f$. Vérification par le calcul : $f(-1)=1+2-3=0$ et $f(3)=9-6-3=0$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Trouver des antécédents par le calcul">
+    <p>Chercher les antécédents de $b$, c'est résoudre l'équation $f(x)=b$. Quand $f$ est du premier degré, on isole $x$ en faisant la même opération aux deux membres. C'est l'objet des exercices guidés, dans l'onglet « Exercices corrigés ».</p>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Soit $g(x)=3x-5$. Trouver l'antécédent de $7$ par $g$.</p>
+      <ol class="pas">
+        <li><strong>L'équation.</strong> On cherche $x$ tel que $g(x)=7$, soit $3x-5=7$.</li>
+        <li><strong>On isole $3x$.</strong> On ajoute 5 aux deux membres : $3x=12$.</li>
+        <li><strong>On isole $x$.</strong> On divise les deux membres par 3 : $x=4$.</li>
+        <li><strong>On vérifie et on conclut.</strong> $g(4)=12-5=7$. L'antécédent de $7$ par $g$ est $4$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-pieges">5. Les pièges classiques</h3>
+<div class="bloc piege" data-titre="Une image est unique, les antécédents non">
+    <p>Avec notre $f$ : $0$ a deux antécédents ($-1$ et $3$), $-4$ n'en a qu'un ($1$), $-5$ n'en a aucun. C'est pour ça qu'on dit « <em>l'</em>image » mais « <em>un</em> antécédent ».</p>
+  </div>
+  <div class="bloc piege" data-titre="Les parenthèses avec les négatifs">
+    <p class="faux">$f(-2) = -2^2 - 2\times -2 - 3$</p>
+    <p class="juste">$f(-2) = (-2)^2 - 2\times(-2) - 3 = 4 + 4 - 3 = 5$</p>
+  </div>
+  <div class="bloc piege" data-titre="f(2) et f(x) = 2">
+    <p>$f(2)$ : je <strong>calcule</strong> une image. $f(x) = 2$ : je <strong>résous</strong> une équation pour trouver les antécédents de $2$.</p>
+  </div>
+  <div class="bloc remarque">
+    <p>Une lecture graphique donne une valeur <strong>approchée</strong> : on écrit « par lecture graphique » ou « environ ». Seul le calcul donne une valeur exacte.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-videos">6. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <!-- Pour une vidéo YouTube : data-youtube="identifiant ou lien complet" -->
+    <div class="video" data-titre="Image et antécédent : la méthode"></div>
+    <div class="video" data-titre="Lire un graphique pas à pas"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires pour manipuler l'idée de fonction : une machine qui transforme les nombres, des courbes à lire sans formule, et les trois représentations qui bougent ensemble.</p>
+
+  <div class="labo" data-labo="fonctions" data-outil="machine"></div>
+  <div class="labo" data-labo="fonctions" data-outil="courbe"></div>
+  <div class="labo" data-labo="fonctions" data-outil="trois"></div>
+</section>
+
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie. Le quiz vérifie l'essentiel du cours. En bas, le contrôle blanc : le jeu en conditions réelles, chronométré, sans correction avant la fin.</p>
+
+  <div class="jeu" data-generateurs="fonctions" data-questions="10" data-titre="Le jeu des 10 questions"></div>
+
+  <div class="quiz" data-titre="Quiz de cours">
+    <div class="question">
+      <p>Combien d'images un nombre peut-il avoir par une fonction ?</p>
+      <ul class="choix" data-melanger="non">
+        <li>Aucune</li><li class="bon">Une seule</li><li>Deux</li><li>Autant qu'on veut</li>
+      </ul>
+      <div class="explication">C'est la définition : à chaque $x$ de l'ensemble de définition correspond <strong>une seule</strong> image.</div>
+    </div>
+    <div class="question" data-reponse="5">
+      <p>Soit $f(x) = x^2 - 2x - 3$. Calcule $f(-2)$.</p>
+      <div class="explication">$f(-2) = (-2)^2 - 2\times(-2) - 3 = 4 + 4 - 3 = 5$.</div>
+    </div>
+    <div class="question">
+      <p>Sur un graphique, pour lire les antécédents de $3$, je trace…</p>
+      <ul class="choix">
+        <li class="bon">la droite horizontale $y = 3$</li><li>la droite verticale $x = 3$</li><li>la droite qui passe par l'origine</li>
+      </ul>
+      <div class="explication">On cherche les points d'<strong>ordonnée</strong> $3$, donc on trace l'horizontale $y = 3$ et on lit les abscisses.</div>
+    </div>
+  </div>
+</section>
+
+<section id="exercices" data-onglet="Exercices corrigés">
+  <h2>Exercices</h2>
+  <p>D'abord les exercices guidés avec le tuteur : tu écris chaque étape, le vérificateur contrôle, personne ne donne la réponse. Puis les exercices classiques, par difficulté, avec leur correction.</p>
+
+  <h3 id="ex-guides">Avec le tuteur : trouver un antécédent, étape par étape</h3>
+  <p>Trouver les antécédents de $b$ par $f$, c'est résoudre l'équation $f(x)=b$. Écris chaque étape : le vérificateur contrôle que ta ligne a bien la même solution que la précédente, et le tuteur ne donne jamais la réponse.</p>
+  <div class="tuteurs">
+    <div class="tuteur" data-tuteur="equation" data-id="antecedent-1" data-depart="2x-3=7" data-consigne="Soit $f(x)=2x-3$. Quel est l'antécédent de 7 par $f$ ? Résous"></div>
+    <div class="tuteur" data-tuteur="equation" data-id="antecedent-2" data-depart="5-3x=-4" data-consigne="Soit $g(x)=5-3x$. Quel est l'antécédent de −4 par $g$ ? Résous"></div>
+    <div class="tuteur" data-tuteur="equation" data-id="antecedent-3" data-depart="4x+1=x-8" data-consigne="Pour quelle valeur de $x$ a-t-on $f(x)=g(x)$, avec $f(x)=4x+1$ et $g(x)=x-8$ ? Résous"></div>
+  </div>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+
+  <article class="exercice" data-niveau="1" data-titre="Traduire">
+    <ol>
+      <li>On sait que $f(5) = 2$. Écris cette information de trois autres façons.</li>
+      <li>« $-3$ a pour image $7$ par $g$ ». Traduis par une égalité, puis par un point.</li>
+      <li>Le point $C(-1\,;\,0)$ est sur la courbe de $h$. Qu'en déduit-on ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>L'image de $5$ est $2$ ; $5$ est un antécédent de $2$ ; le point $(5\,;\,2)$ est sur la courbe de $f$.</li>
+        <li>$g(-3) = 7$ ; le point $(-3\,;\,7)$ est sur la courbe de $g$.</li>
+        <li>$h(-1) = 0$ : l'image de $-1$ est $0$, et $-1$ est un antécédent de $0$. La courbe coupe l'axe des abscisses en $x = -1$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Calculer des images">
+    <p>Soit $f(x) = 3x^2 - 5x + 1$. Calcule $f(0)$, $f(2)$, $f(-1)$ et $f\!\left(\tfrac13\right)$.</p>
+    <details class="correction">
+      <p>$f(0) = 1$</p>
+      <p>$f(2) = 3\times 4 - 10 + 1 = 3$</p>
+      <p>$f(-1) = 3\times(-1)^2 - 5\times(-1) + 1 = 3 + 5 + 1 = 9$</p>
+      <p>$f\!\left(\tfrac13\right) = 3\times\tfrac19 - \tfrac53 + 1 = \tfrac13 - \tfrac53 + \tfrac33 = -\tfrac13$</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Antécédents par le calcul">
+    <ol>
+      <li>Soit $g(x) = -2x + 7$. Trouve l'antécédent de $3$, puis celui de $0$.</li>
+      <li>Soit $h(x) = x^2 - 9$. Trouve les antécédents de $0$, de $-9$ et de $-10$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$-2x + 7 = 3 \iff -2x = -4 \iff x = 2$. Puis $-2x + 7 = 0 \iff x = \tfrac72 = 3{,}5$.</li>
+        <li>$x^2 - 9 = 0 \iff x^2 = 9 \iff x = 3$ ou $x = -3$.<br>
+            $x^2 - 9 = -9 \iff x^2 = 0 \iff x = 0$ : un seul antécédent.<br>
+            $x^2 - 9 = -10 \iff x^2 = -1$ : impossible, un carré est positif. Aucun antécédent.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Lecture graphique">
+    <p>Voici la courbe d'une fonction $g$ définie sur $[-4\,;\,5]$.</p>
+    <figure class="graphe panoramique" data-noeuds="-4,3 -3,1 -2,-1 -1,-2 0,-1 1,1 2,3 3,2 4,0 5,-1" data-nom="g" data-fenetre="-5 6 -3 4"></figure>
+    <ol>
+      <li>Lis l'image de $-2$, de $0$ et de $2$.</li>
+      <li>Lis les antécédents de $3$, puis de $-1$.</li>
+      <li>Donne les antécédents de $0$ (valeurs approchées si besoin).</li>
+      <li>$4$ a-t-il des antécédents ? Et $-2$ ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$g(-2) = -1$ ; $g(0) = -1$ ; $g(2) = 3$.</li>
+        <li>Antécédents de $3$ : $-4$ et $2$. Antécédents de $-1$ : $-2$, $0$ et $5$.</li>
+        <li>Environ $-2{,}5$ ; environ $0{,}5$ ; et $4$.</li>
+        <li>$4$ n'a aucun antécédent (la courbe ne dépasse pas $3$). $-2$ a un seul antécédent : $-1$.</li>
+      </ol>
+      <figure class="graphe panoramique" data-noeuds="-4,3 -3,1 -2,-1 -1,-2 0,-1 1,1 2,3 3,2 4,0 5,-1" data-nom="g" data-fenetre="-5 6 -3 4" data-antecedents="0">
+        <figcaption>La droite $y = 0$ coupe la courbe en trois points.</figcaption>
+      </figure>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Corrige l'IA">
+    <p>Une IA a rédigé cette réponse. Elle est sûre d'elle. Trouve l'erreur, puis corrige.</p>
+    <blockquote class="copie-ia">« Soit $f(x)=x^2-2x-3$. On calcule l'image de $-2$ : $f(-2)=-2^2-2\times(-2)-3=-4+4-3=-3$. L'image de $-2$ est donc $-3$, et le point $(-2\,;\,-3)$ est sur la courbe. »</blockquote>
+    <details class="correction">
+      <p>L'erreur est au carré : $(-2)^2=4$, pas $-4$. Sans parenthèses, $-2^2$ se lit $-(2^2)=-4$, et c'est le piège dans lequel l'IA est tombée, avec beaucoup d'assurance.</p>
+      <p>Correction : $f(-2)=(-2)^2-2\times(-2)-3=4+4-3=5$. L'image de $-2$ est $5$ et le point $(-2\,;\,5)$ est sur la courbe. Vérifie-le dans le labo « La machine à nombres ».</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Synthèse">
+    <p>Soit $f$ définie sur $\R$ par $f(x) = -x^2 + 2x + 3$.</p>
+    <ol>
+      <li>Montre que $f(x) = -(x+1)(x-3)$, puis que $f(x) = -(x-1)^2 + 4$.</li>
+      <li>Dresse le tableau de valeurs pour $x$ entier de $-2$ à $4$.</li>
+      <li>Calcule les antécédents de $0$, puis ceux de $3$.</li>
+      <li>$5$ a-t-il des antécédents ? Justifie par le calcul.</li>
+      <li>Les points $A(-2\,;\,-5)$ et $B(0{,}5\,;\,3{,}5)$ sont-ils sur la courbe ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$-(x+1)(x-3) = -(x^2 - 2x - 3)$<br>$\phantom{-(x+1)(x-3)} = -x^2 + 2x + 3$ ✓<br>$-(x-1)^2 + 4 = -(x^2 - 2x + 1) + 4$<br>$\phantom{-(x-1)^2 + 4} = -x^2 + 2x + 3$ ✓</li>
+        <li><div class="defile"><table class="valeurs"><tr><th>x</th><td>−2</td><td>−1</td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr><tr><th>f(x)</th><td>−5</td><td>0</td><td>3</td><td>4</td><td>3</td><td>0</td><td>−5</td></tr></table></div></li>
+        <li>$-(x+1)(x-3) = 0 \iff x = -1$ ou $x = 3$.<br>$-x^2 + 2x + 3 = 3 \iff x(-x + 2) = 0 \iff x = 0$ ou $x = 2$.</li>
+        <li>$(x-1)^2 \geq 0$ donc $f(x) = -(x-1)^2 + 4 \leq 4 &lt; 5$ : aucun antécédent.</li>
+        <li>$f(-2) = -4 - 4 + 3 = -5$ : $A$ est sur la courbe.<br>$f(0{,}5) = -0{,}25 + 1 + 3 = 3{,}75 \neq 3{,}5$ : $B$ n'y est pas.</li>
+      </ol>
+      <figure class="graphe" data-f="-x^2 + 2x + 3" data-nom="f" data-fenetre="-3 5 -6 5" data-points="A(-2;-5)" data-antecedents="3"></figure>
+    </details>
+  </article>
+</section>
+
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Quelle est la différence entre f et f(x) ?</summary>
+      <div><p>$f$ est la fonction (la machine). $f(x)$ est un nombre : l'image de $x$. On dit « la fonction $f$ », et « $f(3)$ vaut 5 ».</p></div></details>
+    <details><summary>Comment savoir si on me demande une image ou un antécédent ?</summary>
+      <div><p>Cherche ce qui est donné. Si on te donne <span class="vx">x</span> et qu'on veut le résultat, c'est une image : tu calcules. Si on te donne le résultat et qu'on veut <span class="vx">x</span>, c'est un antécédent : tu résous une équation.</p></div></details>
+    <details><summary>Le tableau de valeurs suffit-il pour trouver tous les antécédents ?</summary>
+      <div><p>Non. Le tableau ne montre que quelques valeurs de $x$. Il peut exister d'autres antécédents entre ou en dehors des colonnes. Il faut la courbe ou le calcul pour être complet.</p></div></details>
+    <details><summary>Pourquoi ma calculatrice donne −4 pour −2² ?</summary>
+      <div><p>Parce que $-2^2$ signifie $-(2^2) = -4$. Pour élever $-2$ au carré, il faut taper $(-2)^2$, qui vaut $4$. C'est le même piège que dans les calculs d'images.</p></div></details>
+    <details><summary>Une courbe peut-elle « revenir en arrière » ?</summary>
+      <div><p>Non : chaque $x$ n'a qu'une image, donc une droite verticale coupe la courbe d'une fonction au plus une fois. Un cercle, par exemple, n'est pas la courbe d'une fonction.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

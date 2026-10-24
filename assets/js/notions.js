@@ -1,0 +1,50 @@
+/* =====================================================================
+   LA CARTE DES NOTIONS — tracée à la main par le pédagogue.
+   Chaque notion : id, nom, matière, niveau (rangée), chapitre du
+   catalogue (pour son état et son lien), et « vraie vie ».
+   Les liens « sert à comprendre » : [de, vers]. Jamais générés.
+   ===================================================================== */
+window.NOTIONS = {
+  maths: {
+    rangees: [['quatrieme','Quatrième'],['seconde','Seconde'],['premiere','Première'],['terminale','Terminale']],
+    notions: [
+      {id:'expr',  nom:'Expression littérale', niveau:'quatrieme', chapitre:'calcul-litteral-4', vie:'Chaque formule d\'un tableur, chaque ligne de code.'},
+      {id:'reduire', nom:'Réduire', niveau:'quatrieme', chapitre:'calcul-litteral-4', vie:'Simplifier un devis, un tarif.'},
+      {id:'developper', nom:'Développer', niveau:'quatrieme', chapitre:'calcul-litteral-4', vie:'Calculer une aire, un prix avec remise.'},
+      {id:'factoriser', nom:'Factoriser', niveau:'quatrieme', chapitre:'calcul-litteral-4', vie:'Mettre en facteur pour résoudre.'},
+      {id:'equation', nom:'Équation du 1er degré', niveau:'quatrieme', chapitre:'equations-4', vie:'Trouver l\'inconnue : un prix, une durée, une dose.'},
+      {id:'fonction', nom:'Notion de fonction', niveau:'seconde', chapitre:'fonctions', vie:'Un prix qui dépend de la quantité, une température de l\'heure.'},
+      {id:'image', nom:'Image et antécédent', niveau:'seconde', chapitre:'fonctions', vie:'Lire un graphique de la météo ou de la banque.'},
+      {id:'courbe', nom:'Courbe d\'une fonction', niveau:'seconde', chapitre:'fonctions', vie:'Les graphiques des journaux et des applis.'},
+      {id:'resoudre', nom:'Résoudre f(x) = k', niveau:'seconde', chapitre:'fonctions', vie:'À quelle heure la température atteint 20 °C ?'},
+      {id:'translation', nom:'Vecteurs et translation', niveau:'seconde', chapitre:'vecteurs', vie:'Déplacer un objet dans un jeu vidéo.'},
+      {id:'somme', nom:'Somme de vecteurs', niveau:'seconde', chapitre:'vecteurs', vie:'Forces et vitesses en physique, trajets GPS.'},
+      {id:'produit', nom:'Produit par un réel', niveau:'seconde', chapitre:'vecteurs', vie:'Agrandir, réduire, changer de sens.'},
+      {id:'derivee', nom:'Dérivation', niveau:'premiere', chapitre:'derivation', vie:'La vitesse, la pente, l\'optimisation.'},
+      {id:'suites', nom:'Suites numériques', niveau:'premiere', chapitre:'suites', vie:'Intérêts composés, population, dose d\'un médicament.'},
+      {id:'limsuites', nom:'Limites de suites', niveau:'terminale', chapitre:'limites-comp', vie:'Vers quoi tend un capital, une population ?'},
+      {id:'limfonctions', nom:'Limites de fonctions', niveau:'terminale', chapitre:'limites-comp', vie:'Comportement d\'un modèle quand le temps devient grand.'},
+      {id:'espace', nom:'Vecteurs de l\'espace', niveau:'terminale', chapitre:'espace-vecteurs', vie:'Images 3D, robots, drones.'},
+      {id:'droitesplans', nom:'Droites et plans', niveau:'terminale', chapitre:'espace-vecteurs', vie:'Trajectoires, architecture, impression 3D.'},
+    ],
+    liens: [['expr','reduire'],['reduire','developper'],['developper','factoriser'],['reduire','equation'],['factoriser','equation'],['expr','fonction'],['fonction','image'],['image','courbe'],['image','resoudre'],['equation','resoudre'],['courbe','derivee'],['fonction','suites'],['suites','limsuites'],['limsuites','limfonctions'],['courbe','limfonctions'],['translation','somme'],['somme','produit'],['produit','espace'],['espace','droitesplans'],['derivee','limfonctions']],
+  },
+  'physique-chimie': {
+    rangees: [['seconde','Seconde'],['premiere','Première'],['premiere-st2s','Première ST2S'],['terminale','Terminale']],
+    notions: [
+      {id:'onde', nom:'Onde et période', niveau:'seconde', chapitre:'son', vie:'Le son, la lumière, les vagues.'},
+      {id:'concentration', nom:'Concentrations', niveau:'premiere-st2s', chapitre:'solutions-ph', vie:'Le sérum physiologique, une dose de médicament.'},
+      {id:'ph', nom:'pH, acides et bases', niveau:'premiere-st2s', chapitre:'solutions-ph', vie:'Le vinaigre, la Javel, le suc gastrique.'},
+      {id:'oxydo', nom:'Oxydoréduction', niveau:'premiere-st2s', chapitre:'oxydoreduction', vie:'Désinfecter une plaie, javelliser une surface.'},
+      {id:'secteur', nom:'Tension du secteur', niveau:'premiere-st2s', chapitre:'electricite-habitat', vie:'La prise, le lit médicalisé, la bouilloire.'},
+      {id:'protection', nom:'Risques et protections électriques', niveau:'premiere-st2s', chapitre:'electricite-habitat', vie:'Le disjoncteur, la terre, la salle de bain.'},
+      {id:'spectre', nom:'Spectre électromagnétique', niveau:'premiere-st2s', chapitre:'infrarouges', vie:'Radio, micro-ondes, lumière, rayons X.'},
+      {id:'wien', nom:'Rayonnement thermique et loi de Wien', niveau:'premiere-st2s', chapitre:'infrarouges', vie:'Le thermomètre frontal, la caméra thermique.'},
+      {id:'longueur', nom:'Longueur d\'onde', niveau:'premiere', chapitre:'ondes-1', vie:'La couleur d\'un laser, la fréquence d\'une radio.'},
+      {id:'diffraction', nom:'Diffraction', niveau:'terminale', chapitre:'diffraction-interferences', vie:'Mesurer l\'épaisseur d\'un cheveu, limite des télescopes.'},
+      {id:'interferences', nom:'Interférences', niveau:'terminale', chapitre:'diffraction-interferences', vie:'Couleurs des bulles de savon, casques antibruit.'},
+      {id:'doppler', nom:'Effet Doppler', niveau:'terminale', chapitre:'son-doppler', vie:'Radar routier, échographie, étoiles qui s\'éloignent.'},
+    ],
+    liens: [['onde','longueur'],['longueur','diffraction'],['longueur','interferences'],['diffraction','interferences'],['onde','doppler'],['concentration','ph'],['ph','oxydo'],['secteur','protection'],['spectre','wien'],['onde','spectre']],
+  },
+};

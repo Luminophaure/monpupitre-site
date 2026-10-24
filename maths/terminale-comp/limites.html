@@ -1,0 +1,605 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de limites.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/terminale-comp/limites.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Limites de suites et de fonctions · Terminale</title>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body data-matiere="maths" data-chapitre="limites-comp" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Terminale maths complémentaires · Analyse</span>
+  <h1>Limites de suites et de fonctions</h1>
+  <p class="chapeau">Une limite décrit ce que fait une suite ou une fonction <strong>tout au bout</strong> : quand $n$ devient immense, ou quand $x$ s'approche d'une valeur. Trois outils suffisent pour la trouver : les limites de référence, les opérations, et la comparaison.</p>
+  <ul class="objectifs">
+    <li>Comprendre la définition</li><li>Connaître les limites de référence</li><li>Calculer avec les opérations</li><li>Lever une forme indéterminée</li><li>Utiliser la comparaison et les gendarmes</li><li>Interpréter une asymptote</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Une infirmière règle une perfusion.</strong> Chaque heure, l'organisme élimine une partie du médicament et la perfusion en apporte une dose fixe. La quantité dans le sang monte, puis se stabilise : elle a une <strong>limite</strong>. Connaître cette limite, c'est savoir si la dose stable sera efficace, et sans danger. L'exercice « La perfusion » fait le calcul complet.</p>
+    <p class="discret">Ils s'en servent : les pharmaciens et les médecins (dose d'équilibre d'un traitement), les ingénieurs (régime stable d'un moteur ou d'un circuit), les actuaires (rentes et remboursements sur le très long terme). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-definition">1. Ce qu'est une limite</h3>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Limite finie d'une suite">
+      <p>La suite $(u_n)$ <strong>tend vers le réel $\ell$</strong> si tout intervalle ouvert contenant $\ell$, aussi petit soit-il, contient <strong>tous</strong> les termes de la suite à partir d'un certain rang.</p>
+      <p>On écrit $\lim\limits_{n\to+\infty} u_n = \ell$ et on dit que la suite <strong>converge</strong> vers $\ell$.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 462 290" role="img" aria-label="Les termes d'une suite oscillent autour de 2 puis restent dans une bande étroite autour de 2 à partir du rang 8."><rect class="bande" x="10" y="112.0" width="416" height="36.0"/><g class="trace t-n pointille"><line x1="10" y1="130" x2="426" y2="130"/></g><g class="trace t-n"><line x1="10" y1="250" x2="433.8" y2="250.0"/><polygon points="441.6,250.0 428.6,255.8 428.6,244.2"/></g><g class="trace t-n"><line x1="10" y1="268.0" x2="10.0" y2="17.8"/><polygon points="10.0,10.0 15.9,23.0 4.1,23.0"/></g><text class="moyen" x="426.0" y="271.0">n</text><circle class="pt pt-v" cx="36" cy="202.0" r="4.5"/><circle class="pt pt-v" cx="62" cy="72.4" r="4.5"/><circle class="pt pt-v" cx="88" cy="176.1" r="4.5"/><circle class="pt pt-v" cx="114" cy="93.1" r="4.5"/><circle class="pt pt-v" cx="140" cy="159.5" r="4.5"/><circle class="pt pt-v" cx="166" cy="106.4" r="4.5"/><circle class="pt pt-v" cx="192" cy="148.9" r="4.5"/><circle class="pt pt-u" cx="218" cy="114.9" r="4.5"/><circle class="pt pt-u" cx="244" cy="142.1" r="4.5"/><circle class="pt pt-u" cx="270" cy="120.3" r="4.5"/><circle class="pt pt-u" cx="296" cy="137.7" r="4.5"/><circle class="pt pt-u" cx="322" cy="123.8" r="4.5"/><circle class="pt pt-u" cx="348" cy="134.9" r="4.5"/><circle class="pt pt-u" cx="374" cy="126.0" r="4.5"/><circle class="pt pt-u" cx="400" cy="133.2" r="4.5"/><g class="trace t-w pointille"><line x1="218" y1="262.0" x2="218" y2="34.0"/></g><text class="moyen" x="225.8" y="43.0">rang N = 8</text><text class="lettre" x="431.2" y="127.0">ℓ</text><text class="moyen" x="17.8" y="104.8">bande ℓ ± ε</text></svg><figcaption>Quelle que soit la largeur $\varepsilon$ de la bande, les termes finissent par y entrer et n'en ressortent plus.</figcaption></figure>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Limite infinie d'une suite">
+      <p>La suite $(u_n)$ <strong>tend vers $+\infty$</strong> si, pour tout réel $A$, aussi grand soit-il, tous les termes sont supérieurs à $A$ à partir d'un certain rang. On écrit $\lim\limits_{n\to+\infty} u_n = +\infty$. Pour $-\infty$, les termes finissent sous tout seuil.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 462 284" role="img" aria-label="Les termes d'une suite qui tend vers plus l'infini dépassent un seuil A et restent au-dessus."><g class="trace t-v pointille"><line x1="10" y1="115.0" x2="426" y2="115.0"/></g><text class="moyen" x="20.4" y="104.5">seuil A</text><g class="trace t-n"><line x1="10" y1="262" x2="433.8" y2="262.0"/><polygon points="441.6,262.0 428.6,267.9 428.6,256.1"/></g><g class="trace t-n"><line x1="10" y1="274.6" x2="10.0" y2="17.8"/><polygon points="10.0,10.0 15.9,23.0 4.1,23.0"/></g><text class="moyen" x="426.0" y="276.7">n</text><circle class="pt pt-v" cx="36" cy="261.1" r="4.5"/><circle class="pt pt-v" cx="62" cy="258.3" r="4.5"/><circle class="pt pt-v" cx="88" cy="253.7" r="4.5"/><circle class="pt pt-v" cx="114" cy="247.2" r="4.5"/><circle class="pt pt-v" cx="140" cy="238.9" r="4.5"/><circle class="pt pt-v" cx="166" cy="228.7" r="4.5"/><circle class="pt pt-v" cx="192" cy="216.7" r="4.5"/><circle class="pt pt-v" cx="218" cy="202.9" r="4.5"/><circle class="pt pt-v" cx="244" cy="187.2" r="4.5"/><circle class="pt pt-v" cx="270" cy="169.6" r="4.5"/><circle class="pt pt-v" cx="296" cy="150.2" r="4.5"/><circle class="pt pt-v" cx="322" cy="128.9" r="4.5"/><circle class="pt pt-u" cx="348" cy="105.8" r="4.5"/><circle class="pt pt-u" cx="374" cy="80.9" r="4.5"/><circle class="pt pt-u" cx="400" cy="54.1" r="4.5"/></svg><figcaption>Chaque seuil $A$ finit par être dépassé, définitivement.</figcaption></figure>
+  </div>
+
+  <div class="bloc remarque">
+    <p>Une suite peut n'avoir <strong>aucune limite</strong>. C'est le cas de $(-1)^n$, qui vaut $1, -1, 1, -1\ldots$ et ne se rapproche d'aucun nombre. Une suite qui n'a pas de limite finie est dite <strong>divergente</strong>.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Trouver un rang à partir duquel la suite est proche de sa limite">
+    <ol class="etapes">
+      <li><span>Écris l'écart $|u_n-\ell|$ le plus simplement possible.</span></li>
+      <li><span>Résous l'inéquation $|u_n-\ell|&lt;\varepsilon$ en $n$, puis prends le premier entier qui convient.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> $u_n=2-\dfrac3n$ pour $n\ge1$. À partir de quel rang $N$ les termes sont-ils à moins de $0{,}01$ de $2$ ?</p>
+      <ol class="pas">
+        <li><strong>L'écart.</strong> $|u_n-2|=\left|-\dfrac3n\right|=\dfrac3n$, car $n&gt;0$.</li>
+        <li><strong>L'inéquation.</strong> $\dfrac3n&lt;0{,}01\iff 3&lt;0{,}01\,n\iff n&gt;300$.</li>
+        <li><strong>Le rang.</strong> À partir de $N=301$, tous les termes sont dans la bande $]1{,}99\,;2{,}01[$.</li>
+        <li><strong>Vérifier.</strong> Dans le labo « Le microscope à limites » (onglet Explorer), choisis cette suite, $\ell=2$ et $\varepsilon=0{,}01$ : il affiche le même rang.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-reference">2. Les limites de référence</h3>
+
+  <div class="bloc propriete" data-titre="Suites de référence">
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Tendent vers $+\infty$</th><th>Tendent vers $0$</th></tr></thead>
+      <tbody>
+        <tr><td>$n$, $\;n^2$, $\;n^3$, $\;n^k$ ($k\ge1$)</td><td>$\frac1n$, $\;\frac1{n^2}$, $\;\frac1{n^3}$, $\;\frac1{n^k}$</td></tr>
+        <tr><td>$\sqrt n$</td><td>$\frac{1}{\sqrt n}$</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Suites géométriques">
+    <ul>
+      <li>si $q &gt; 1$ : $\lim q^n = +\infty$ ;</li>
+      <li>si $q = 1$ : $q^n = 1$ pour tout $n$, la limite est $1$ ;</li>
+      <li>si $-1 &lt; q &lt; 1$ : $\lim q^n = 0$ ;</li>
+      <li>si $q \le -1$ : la suite $(q^n)$ n'a pas de limite.</li>
+    </ul>
+  </div>
+
+
+  <div class="bloc methode" data-titre="Trouver la limite d'une expression avec q puissance n">
+    <ol class="etapes">
+      <li><span>Repère la raison $q$ et place-la : $q&gt;1$, $-1&lt;q&lt;1$, $q\le-1$.</span></li>
+      <li><span>Déduis la limite de $q^n$, puis termine avec les opérations (produit par un nombre, somme).</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Déterminer les limites de $a_n=3-2\times0{,}9^n$ et de $b_n=5\times1{,}1^n-2$.</p>
+      <ol class="pas">
+        <li><strong>Pour $a_n$.</strong> $-1&lt;0{,}9&lt;1$, donc $\lim0{,}9^n=0$.</li>
+        <li><strong>Les opérations.</strong> Par produit, $2\times0{,}9^n\to0$ ; par somme, $\lim a_n=3-0=3$.</li>
+        <li><strong>Pour $b_n$.</strong> $1{,}1&gt;1$, donc $\lim1{,}1^n=+\infty$. Par produit par $5&gt;0$, $5\times1{,}1^n\to+\infty$, et par somme $\lim b_n=+\infty$.</li>
+        <li><strong>À retenir.</strong> La constante ajoutée ne change rien quand la suite part à l'infini ; elle devient la limite quand $q^n$ s'écrase sur $0$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-fonctions">3. Limites de fonctions et asymptotes</h3>
+  <p>Pour une fonction, on regarde ce que devient $f(x)$ quand $x$ part vers $+\infty$, vers $-\infty$, ou s'approche d'un réel $a$. Les définitions sont les mêmes que pour les suites, et chaque limite a une traduction graphique.</p>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Asymptote horizontale">
+      <p>Si $\lim\limits_{x\to+\infty} f(x) = \ell$ (ou en $-\infty$), la droite d'équation $y=\ell$ est <strong>asymptote horizontale</strong> à la courbe : la courbe s'en rapproche autant qu'on veut.</p>
+    </div>
+    <div class="bloc definition" data-titre="Asymptote verticale">
+      <p>Si $\lim\limits_{x\to a} f(x) = +\infty$ ou $-\infty$ (à gauche ou à droite), la droite d'équation $x=a$ est <strong>asymptote verticale</strong> à la courbe.</p>
+    </div>
+  </div>
+
+  <figure class="graphe" data-f="(2x+1)/(x-1)" data-nom="f" data-fenetre="-6 8 -5 9">
+    <figcaption>$f(x)=\frac{2x+1}{x-1}$ : asymptote horizontale $y=2$ en $\pm\infty$, asymptote verticale $x=1$.</figcaption>
+  </figure>
+
+  <div class="bloc propriete" data-titre="Fonctions de référence">
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Fonction</th><th>en $+\infty$</th><th>en $-\infty$</th><th>en $0$</th></tr></thead>
+      <tbody>
+        <tr><td>$x^2$, $x^4$…</td><td>$+\infty$</td><td>$+\infty$</td><td>$0$</td></tr>
+        <tr><td>$x$, $x^3$…</td><td>$+\infty$</td><td>$-\infty$</td><td>$0$</td></tr>
+        <tr><td>$\frac1x$</td><td>$0$</td><td>$0$</td><td>$-\infty$ à gauche, $+\infty$ à droite</td></tr>
+        <tr><td>$\sqrt x$</td><td>$+\infty$</td><td>non définie</td><td>$0$</td></tr>
+        <tr><td>$e^x$</td><td>$+\infty$</td><td>$0$</td><td>$1$</td></tr>
+        <tr><td>$\ln x$</td><td>$+\infty$</td><td>non définie</td><td>$-\infty$ (à droite)</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+
+  <div class="bloc methode" data-titre="Trouver une limite en un réel a où le dénominateur s'annule">
+    <ol class="etapes">
+      <li><span>Calcule la limite du numérateur : si elle est non nulle, le quotient part vers l'infini.</span></li>
+      <li><span>Étudie le <strong>signe</strong> du dénominateur juste à gauche et juste à droite de $a$.</span></li>
+      <li><span>Conclus des deux côtés, puis interprète : la droite $x=a$ est asymptote verticale.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> $g(x)=\dfrac{x+1}{x-2}$. Déterminer les limites de $g$ en $2$, à gauche et à droite.</p>
+      <ol class="pas">
+        <li><strong>Le numérateur.</strong> $x+1\to3$ quand $x\to2$ : un nombre positif, non nul.</li>
+        <li><strong>Le signe du dénominateur.</strong> Si $x&gt;2$, $x-2&gt;0$ : il tend vers $0^+$. Si $x&lt;2$, il tend vers $0^-$.</li>
+        <li><strong>Les deux limites.</strong> $\dfrac{3}{0^+}$ donne $\lim\limits_{x\to2^+}g(x)=+\infty$ ; $\dfrac{3}{0^-}$ donne $\lim\limits_{x\to2^-}g(x)=-\infty$.</li>
+        <li><strong>L'interprétation.</strong> La droite d'équation $x=2$ est asymptote verticale à la courbe de $g$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-operations">4. Calculer avec les opérations</h3>
+  <p>Quand on connaît les limites de $u_n$ et de $v_n$, on en déduit souvent celle de leur somme, de leur produit ou de leur quotient. Les règles sont naturelles, sauf dans quatre cas. Elles valent aussi pour les fonctions.</p>
+
+  <div class="tables-operations">
+    <div class="bloc propriete" data-titre="Somme">
+      <div class="defile"><table class="simple">
+        <thead><tr><th>$\lim u_n$</th><th>$\lim v_n$</th><th>$\lim(u_n+v_n)$</th></tr></thead>
+        <tbody>
+          <tr><td>$\ell$</td><td>$\ell'$</td><td>$\ell+\ell'$</td></tr>
+          <tr><td>$\ell$</td><td>$\pm\infty$</td><td>$\pm\infty$</td></tr>
+          <tr><td>$+\infty$</td><td>$+\infty$</td><td>$+\infty$</td></tr>
+          <tr><td>$-\infty$</td><td>$-\infty$</td><td>$-\infty$</td></tr>
+          <tr><td>$+\infty$</td><td>$-\infty$</td><td class="fi">forme indéterminée</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="bloc propriete" data-titre="Produit">
+      <div class="defile"><table class="simple">
+        <thead><tr><th>$\lim u_n$</th><th>$\lim v_n$</th><th>$\lim(u_n v_n)$</th></tr></thead>
+        <tbody>
+          <tr><td>$\ell$</td><td>$\ell'$</td><td>$\ell\ell'$</td></tr>
+          <tr><td>$\ell\neq0$</td><td>$\pm\infty$</td><td>$\pm\infty$ (règle des signes)</td></tr>
+          <tr><td>$\pm\infty$</td><td>$\pm\infty$</td><td>$\pm\infty$ (règle des signes)</td></tr>
+          <tr><td>$0$</td><td>$\pm\infty$</td><td class="fi">forme indéterminée</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="bloc propriete" data-titre="Quotient">
+      <div class="defile"><table class="simple">
+        <thead><tr><th>$\lim u_n$</th><th>$\lim v_n$</th><th>$\lim\frac{u_n}{v_n}$</th></tr></thead>
+        <tbody>
+          <tr><td>$\ell$</td><td>$\ell'\neq0$</td><td>$\frac{\ell}{\ell'}$</td></tr>
+          <tr><td>$\ell$</td><td>$\pm\infty$</td><td>$0$</td></tr>
+          <tr><td>$\pm\infty$</td><td>$\ell'\neq0$</td><td>$\pm\infty$ (signes)</td></tr>
+          <tr><td>$\ell\neq0$ ou $\pm\infty$</td><td>$0$</td><td>$\pm\infty$ (signe de $v_n$)</td></tr>
+          <tr><td>$\pm\infty$</td><td>$\pm\infty$</td><td class="fi">forme indéterminée</td></tr>
+          <tr><td>$0$</td><td>$0$</td><td class="fi">forme indéterminée</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Les quatre formes indéterminées">
+    <p>$\infty-\infty \qquad 0\times\infty \qquad \dfrac{\infty}{\infty} \qquad \dfrac{0}{0}$</p>
+    <p>« Indéterminée » ne veut pas dire que la limite n'existe pas. Cela veut dire que <strong>les règles ne permettent pas de conclure</strong> : il faut d'abord transformer l'expression.</p>
+  </div>
+
+
+  <div class="bloc methode" data-titre="Lever une forme indéterminée : factoriser par le terme dominant">
+    <ol class="etapes">
+      <li><span>Repère la forme indéterminée.</span></li>
+      <li><span>Factorise le numérateur et le dénominateur par leur terme de plus haut degré, puis simplifie.</span></li>
+      <li><span>Reprends les opérations : les termes en $\frac1n$ disparaissent.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Déterminer $\lim\limits_{n\to+\infty}\dfrac{3n^2+2n-1}{n^2+4}$.</p>
+      <ol class="pas">
+        <li><strong>La forme.</strong> Le numérateur et le dénominateur tendent vers $+\infty$ : forme $\frac{\infty}{\infty}$, les règles ne concluent pas.</li>
+        <li><strong>Factoriser.</strong> $u_n=\dfrac{n^2\left(3+\frac2n-\frac1{n^2}\right)}{n^2\left(1+\frac4{n^2}\right)}=\dfrac{3+\frac2n-\frac1{n^2}}{1+\frac4{n^2}}$.</li>
+        <li><strong>Les opérations.</strong> $\frac2n$, $\frac1{n^2}$ et $\frac4{n^2}$ tendent vers $0$ : le numérateur tend vers $3$, le dénominateur vers $1$.</li>
+        <li><strong>Conclusion.</strong> Par quotient, $\lim u_n=3$.</li>
+        <li><strong>Et pour $\infty-\infty$ ?</strong> Même idée : $n^2-5n=n^2\left(1-\frac5n\right)$, avec $n^2\to+\infty$ et $1-\frac5n\to1$, donc par produit la limite est $+\infty$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-comparaison">5. Comparer et encadrer</h3>
+  <p>Avec $\sin n$, $\cos n$ ou $(-1)^n$, les opérations ne servent à rien : ces suites n'ont pas de limite. On contourne le problème en <strong>comparant</strong> la suite à d'autres, plus simples.</p>
+
+  <div class="colonnes">
+    <div class="bloc theoreme" data-titre="Comparaison">
+      <p>Si $u_n \ge v_n$ à partir d'un certain rang et $\lim v_n = +\infty$, alors $\lim u_n = +\infty$.</p>
+      <p>Si $u_n \le w_n$ à partir d'un certain rang et $\lim w_n = -\infty$, alors $\lim u_n = -\infty$.</p>
+    </div>
+    <div class="bloc theoreme" data-titre="Théorème des gendarmes">
+      <p>Si $v_n \le u_n \le w_n$ à partir d'un certain rang, et si $(v_n)$ et $(w_n)$ convergent vers <strong>la même limite</strong> $\ell$, alors $\lim u_n = \ell$.</p>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 462 260" role="img" aria-label="Une suite coincée entre deux suites qui tendent toutes les deux vers 2."><g class="trace t-n"><line x1="10" y1="250" x2="433.8" y2="250.0"/><polygon points="441.6,250.0 428.6,255.8 428.6,244.2"/></g><g class="trace t-n"><line x1="10" y1="250" x2="10.0" y2="17.8"/><polygon points="10.0,10.0 15.9,23.0 4.1,23.0"/></g><text class="moyen" x="426.0" y="229.0">n</text><g class="trace t-n pointille"><line x1="10" y1="130" x2="426" y2="130"/></g><circle class="pt pt-v" cx="36" cy="34.0" r="4.5"/><circle class="pt pt-v" cx="36" cy="226.0" r="4.5"/><circle class="pt pt-u" cx="36" cy="49.2" r="4.5"/><circle class="pt pt-v" cx="62" cy="82.0" r="4.5"/><circle class="pt pt-v" cx="62" cy="178.0" r="4.5"/><circle class="pt pt-u" cx="62" cy="86.4" r="4.5"/><circle class="pt pt-v" cx="88" cy="98.0" r="4.5"/><circle class="pt pt-v" cx="88" cy="162.0" r="4.5"/><circle class="pt pt-u" cx="88" cy="125.5" r="4.5"/><circle class="pt pt-v" cx="114" cy="106.0" r="4.5"/><circle class="pt pt-v" cx="114" cy="154.0" r="4.5"/><circle class="pt pt-u" cx="114" cy="148.2" r="4.5"/><circle class="pt pt-v" cx="140" cy="110.8" r="4.5"/><circle class="pt pt-v" cx="140" cy="149.2" r="4.5"/><circle class="pt pt-u" cx="140" cy="148.4" r="4.5"/><circle class="pt pt-v" cx="166" cy="114.0" r="4.5"/><circle class="pt pt-v" cx="166" cy="146.0" r="4.5"/><circle class="pt pt-u" cx="166" cy="134.5" r="4.5"/><circle class="pt pt-v" cx="192" cy="116.3" r="4.5"/><circle class="pt pt-v" cx="192" cy="143.7" r="4.5"/><circle class="pt pt-u" cx="192" cy="121.0" r="4.5"/><circle class="pt pt-v" cx="218" cy="118.0" r="4.5"/><circle class="pt pt-v" cx="218" cy="142.0" r="4.5"/><circle class="pt pt-u" cx="218" cy="118.1" r="4.5"/><circle class="pt pt-v" cx="244" cy="119.3" r="4.5"/><circle class="pt pt-v" cx="244" cy="140.7" r="4.5"/><circle class="pt pt-u" cx="244" cy="125.6" r="4.5"/><circle class="pt pt-v" cx="270" cy="120.4" r="4.5"/><circle class="pt pt-v" cx="270" cy="139.6" r="4.5"/><circle class="pt pt-u" cx="270" cy="135.2" r="4.5"/><circle class="pt pt-v" cx="296" cy="121.3" r="4.5"/><circle class="pt pt-v" cx="296" cy="138.7" r="4.5"/><circle class="pt pt-u" cx="296" cy="138.7" r="4.5"/><circle class="pt pt-v" cx="322" cy="122.0" r="4.5"/><circle class="pt pt-v" cx="322" cy="138.0" r="4.5"/><circle class="pt pt-u" cx="322" cy="134.3" r="4.5"/><circle class="pt pt-v" cx="348" cy="122.6" r="4.5"/><circle class="pt pt-v" cx="348" cy="137.4" r="4.5"/><circle class="pt pt-u" cx="348" cy="126.9" r="4.5"/><circle class="pt pt-v" cx="374" cy="123.1" r="4.5"/><circle class="pt pt-v" cx="374" cy="136.9" r="4.5"/><circle class="pt pt-u" cx="374" cy="123.2" r="4.5"/><circle class="pt pt-v" cx="400" cy="123.6" r="4.5"/><circle class="pt pt-v" cx="400" cy="136.4" r="4.5"/><circle class="pt pt-u" cx="400" cy="125.8" r="4.5"/><text class="lettre" x="431.2" y="127.0">2</text><text class="moyen" x="93.2" y="61.0">w</text><text class="moyen" x="93.2" y="205.0">v</text><text class="moyen" x="147.8" y="109.0">u</text></svg><figcaption>Les gendarmes $v_n$ et $w_n$ (en rose) tendent vers $2$ ; la suite $u_n$, coincée entre eux, n'a pas le choix.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Encadrer une suite qui oscille">
+    <ol class="etapes">
+      <li><span>Pars de l'encadrement connu : $-1\le\cos n\le1$ (de même pour $\sin n$ et $(-1)^n$).</span></li>
+      <li><span>Reconstruis l'expression étape par étape, en surveillant le sens des inégalités.</span></li>
+      <li><span>Calcule la limite des deux bornes, puis cite le théorème.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Déterminer la limite de $w_n=\dfrac{2n+\sin n}{n}$.</p>
+      <ol class="pas">
+        <li><strong>L'encadrement de départ.</strong> $-1\le\sin n\le1$.</li>
+        <li><strong>On ajoute $2n$.</strong> $2n-1\le2n+\sin n\le2n+1$.</li>
+        <li><strong>On divise par $n&gt;0$.</strong> Le sens ne change pas : $2-\dfrac1n\le w_n\le2+\dfrac1n$.</li>
+        <li><strong>Les bornes.</strong> $\frac1n\to0$, donc les deux bornes tendent vers $2$.</li>
+        <li><strong>Conclusion.</strong> D'après le théorème des gendarmes, $\lim w_n=2$.</li>
+        <li><strong>Et pour l'infini ?</strong> Un seul gendarme suffit : $n^2+(-1)^n\ge n^2-1$ et $n^2-1\to+\infty$, donc par comparaison $\lim\left(n^2+(-1)^n\right)=+\infty$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque">
+    <p>Ces deux théorèmes s'appliquent aussi aux fonctions, en $+\infty$, en $-\infty$ ou en un réel $a$.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-strategie">6. Face à une limite</h3>
+  <div class="bloc methode" data-titre="Dans quel ordre réfléchir">
+    <ol class="etapes">
+      <li><span><strong>Je reconnais une forme de référence ?</strong> ($\frac1n$, $\sqrt n$, $q^n$, $e^x$, $\ln x$…) Je conclus directement.</span></li>
+      <li><span><strong>Il y a du $\sin$, du $\cos$ ou du $(-1)^n$ ?</strong> J'encadre, puis j'applique la comparaison ou les gendarmes.</span></li>
+      <li><span><strong>Sinon, j'applique les opérations</strong> terme par terme.</span></li>
+      <li><span><strong>Je tombe sur une forme indéterminée ?</strong> Je factorise par le terme dominant, puis je reprends les opérations.</span></li>
+      <li><span><strong>Je rédige</strong> en citant ce que j'utilise : « par somme », « par quotient », « d'après le théorème des gendarmes ».</span></li>
+    </ol>
+  </div>
+
+
+  <h3 id="c-pieges">Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="∞ − ∞ n'est pas égal à 0">
+    <p class="faux">$\lim (n^2 - n) = \infty - \infty = 0$</p>
+    <p class="juste">$n^2-n = n^2\left(1-\frac1n\right) \to +\infty$</p>
+  </div>
+  <div class="bloc piege" data-titre="∞ / ∞ n'est pas égal à 1">
+    <p>$\frac{n^2}{n} \to +\infty$, $\frac{n}{n^2}\to 0$, $\frac{3n}{n}\to3$ : le quotient de deux infinis peut donner n'importe quoi.</p>
+  </div>
+  <div class="bloc piege" data-titre="Raison négative">
+    <p>$(-0{,}5)^n \to 0$ car $-1 &lt; -0{,}5 &lt; 1$. Mais $(-2)^n$ n'a <strong>pas</strong> de limite : ce n'est pas $-\infty$, car les termes changent de signe.</p>
+  </div>
+  <div class="bloc piege" data-titre="Diviser par 0">
+    <p>$\frac{1}{x-2}$ en $2$ : il faut regarder <strong>les deux côtés</strong>. À droite, $x-2 \to 0^+$ et la limite est $+\infty$ ; à gauche, $x-2\to0^-$ et elle vaut $-\infty$.</p>
+  </div>
+  <div class="bloc piege" data-titre="Le mauvais sens de comparaison">
+    <p>Savoir que $u_n \le n^2$ ne permet <strong>pas</strong> de conclure. Pour obtenir $+\infty$, il faut minorer $u_n$ par une suite qui tend vers $+\infty$.</p>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Six laboratoires pour voir les limites avant de les calculer. Commence par le microscope : il met la définition en action.</p>
+  <div class="labo" data-labo="limites" data-outil="microscope"></div>
+  <div class="labo" data-labo="limites" data-outil="geometrique"></div>
+  <div class="labo" data-labo="limites" data-outil="infini"></div>
+  <div class="labo" data-labo="limites" data-outil="machine"></div>
+  <div class="labo" data-labo="limites" data-outil="dominant"></div>
+  <div class="labo" data-labo="limites" data-outil="gendarmes"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, dans toutes les catégories du chapitre. Le bilan de fin de partie te dit quoi retravailler. Le quiz vérifie les réflexes du cours.</p>
+
+  <div class="jeu" data-generateurs="limites" data-questions="10" data-titre="Le défi des limites"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Que vaut $\lim\limits_{n\to+\infty}(-0{,}5)^n$ ?</p>
+      <ul class="choix"><li class="bon">$0$</li><li>$-\infty$</li><li>pas de limite</li><li>$+\infty$</li></ul>
+      <div class="explication">$-1&lt;-0{,}5&lt;1$ : la suite s'écrase sur 0, en alternant de signe.</div>
+    </div>
+    <div class="question">
+      <p>Laquelle est une forme indéterminée ?</p>
+      <ul class="choix"><li class="bon">$\frac{\infty}{\infty}$</li><li>$\frac{0}{\infty}$</li><li>$+\infty+\infty$</li><li>$3\times\infty$</li></ul>
+      <div class="explication">$\frac0\infty=0$, $+\infty+\infty=+\infty$ et $3\times\infty=\infty$. Seul $\frac\infty\infty$ est indéterminé.</div>
+    </div>
+    <div class="question" data-reponse="2,5|5/2">
+      <p>Calcule $\lim\limits_{n\to+\infty}\dfrac{5n^2-n}{2n^2+3}$.</p>
+      <div class="explication">Degrés égaux : la limite est le quotient des coefficients dominants, $\frac52=2{,}5$.</div>
+    </div>
+    <div class="question">
+      <p>On sait que $u_n\ge v_n$ et $\lim v_n=+\infty$. Alors…</p>
+      <ul class="choix"><li class="bon">$\lim u_n=+\infty$</li><li>on ne peut pas conclure</li><li>$\lim u_n=\lim v_n$ seulement si $u_n=v_n$</li></ul>
+      <div class="explication">C'est le théorème de comparaison : $u_n$ est au-dessus d'une suite qui tend vers $+\infty$.</div>
+    </div>
+    <div class="question">
+      <p>Que vaut $\lim\limits_{x\to0^-}\dfrac1x$ ?</p>
+      <ul class="choix"><li class="bon">$-\infty$</li><li>$+\infty$</li><li>$0$</li></ul>
+      <div class="explication">Par la gauche, $x$ est négatif : son inverse est un grand nombre négatif.</div>
+    </div>
+    <div class="question">
+      <p>Que vaut $\lim\limits_{n\to+\infty}1{,}05^n$ ?</p>
+      <ul class="choix"><li class="bon">$+\infty$</li><li>$1$</li><li>$1{,}05$</li><li>$0$</li></ul>
+      <div class="explication">$1{,}05&gt;1$ : même une raison à peine plus grande que $1$ finit par dépasser tout seuil.</div>
+    </div>
+    <div class="question">
+      <p>Que vaut $\lim\limits_{n\to+\infty}(n-n^2)$ ?</p>
+      <ul class="choix"><li class="bon">$-\infty$</li><li>$0$</li><li>$+\infty$</li><li>on ne peut pas savoir</li></ul>
+      <div class="explication">Forme $\infty-\infty$ : on factorise, $n-n^2=n^2\left(\frac1n-1\right)$, avec $\frac1n-1\to-1$. Le terme $-n^2$ l'emporte.</div>
+    </div>
+    <div class="question">
+      <p>Pour tout $n$, $0\le u_n\le2$. Alors…</p>
+      <ul class="choix"><li class="bon">on ne peut pas conclure sur la limite</li><li>$\lim u_n=1$</li><li>$\lim u_n=0$</li><li>$\lim u_n=2$</li></ul>
+      <div class="explication">Les bornes $0$ et $2$ sont différentes : la suite peut converger vers n'importe quel nombre de $[0\,;2]$, ou osciller.</div>
+    </div>
+    <div class="question" data-reponse="5">
+      <p>Calcule $\lim\limits_{x\to+\infty}\left(e^{-x}+5\right)$.</p>
+      <div class="explication">$e^{-x}=\frac1{e^x}\to0$, donc par somme la limite est $5$ : la droite $y=5$ est asymptote horizontale.</div>
+    </div>
+    <div class="question">
+      <p>$\lim\limits_{x\to+\infty}f(x)=2$. Graphiquement, cela signifie…</p>
+      <ul class="choix"><li class="bon">la droite $y=2$ est asymptote horizontale en $+\infty$</li><li>la droite $x=2$ est asymptote verticale</li><li>la courbe passe par le point $(2\,;0)$</li><li>$f(2)=+\infty$</li></ul>
+      <div class="explication">Une limite finie en l'infini donne une asymptote horizontale ; une limite infinie en un réel donne une asymptote verticale.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre : ★ limites simples, ★★ opérations et formes indéterminées, ★★★ comparaison et problème de synthèse. Rédige ta réponse avant d'ouvrir la correction.</p>
+
+  <h3>Niveau 1 · Limites simples</h3>
+
+  <article class="exercice" data-niveau="1" data-titre="Suites de référence">
+    <p>Déterminer la limite de chaque suite.</p>
+    <p>a) $u_n=\dfrac{1}{n^2}$ &nbsp;&nbsp; b) $v_n=5+\dfrac1n$ &nbsp;&nbsp; c) $w_n=-n^3$ &nbsp;&nbsp; d) $t_n=\dfrac{3}{\sqrt n}$</p>
+    <details class="correction">
+      <p>a) $n^2 \to +\infty$, donc par quotient $\lim \frac{1}{n^2} = 0$.</p>
+      <p>b) $\lim\frac1n = 0$, donc par somme $\lim v_n = 5+0 = 5$.</p>
+      <p>c) $n^3\to+\infty$, donc son opposé tend vers $-\infty$ : $\lim w_n=-\infty$.</p>
+      <p>d) $\sqrt n\to+\infty$, donc par quotient $\lim \frac{3}{\sqrt n}=0$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Suites géométriques">
+    <p>Déterminer, si elle existe, la limite de chaque suite.</p>
+    <p>a) $0{,}8^n$ &nbsp;&nbsp; b) $1{,}05^n$ &nbsp;&nbsp; c) $(-0{,}5)^n$ &nbsp;&nbsp; d) $2\times3^n$ &nbsp;&nbsp; e) $(-2)^n$</p>
+    <details class="correction">
+      <p>a) $-1&lt;0{,}8&lt;1$, donc $\lim 0{,}8^n=0$.</p>
+      <p>b) $1{,}05&gt;1$, donc $\lim 1{,}05^n=+\infty$. Même une raison à peine supérieure à 1 finit par exploser.</p>
+      <p>c) $-1&lt;-0{,}5&lt;1$, donc $\lim(-0{,}5)^n=0$ (les termes alternent de signe mais s'écrasent sur 0).</p>
+      <p>d) $3&gt;1$, donc $3^n\to+\infty$ ; multiplié par $2&gt;0$, $\lim 2\times3^n=+\infty$.</p>
+      <p>e) $-2\le-1$ : la suite $(-2)^n$ n'a pas de limite. Ses termes $1, -2, 4, -8, 16\ldots$ grandissent en valeur absolue en changeant de signe.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Fonctions de référence et asymptotes">
+    <p>Déterminer chaque limite, puis donner l'asymptote correspondante quand il y en a une.</p>
+    <p>a) $\lim\limits_{x\to+\infty}\frac1x$ &nbsp; b) $\lim\limits_{x\to-\infty}e^x$ &nbsp; c) $\lim\limits_{x\to0^+}\ln x$ &nbsp; d) $\lim\limits_{x\to0^-}\frac1x$ &nbsp; e) $\lim\limits_{x\to+\infty}\sqrt x$</p>
+    <details class="correction">
+      <p>a) $0$ : la droite $y=0$ est asymptote horizontale à la courbe de $\frac1x$ en $+\infty$.</p>
+      <p>b) $0$ : la droite $y=0$ est asymptote horizontale à la courbe de $e^x$ en $-\infty$.</p>
+      <p>c) $-\infty$ : la droite $x=0$ est asymptote verticale à la courbe de $\ln$.</p>
+      <p>d) $-\infty$ : $x$ est un petit nombre négatif, son inverse est un grand nombre négatif. La droite $x=0$ est asymptote verticale.</p>
+      <p>e) $+\infty$ : pas d'asymptote, la courbe monte sans limite (lentement).</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Conjecturer, puis démontrer">
+    <p>On pose $u_n = 2-\dfrac3n$ pour $n\ge1$.</p>
+    <ol>
+      <li>Calculer $u_1$, $u_{10}$, $u_{100}$ et $u_{1000}$.</li>
+      <li>Conjecturer la limite de la suite.</li>
+      <li>Démontrer cette conjecture.</li>
+      <li>À partir de quel rang a-t-on $|u_n-2| &lt; 0{,}01$ ? Vérifier avec le microscope à limites.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$u_1=-1$ ; $u_{10}=1{,}7$ ; $u_{100}=1{,}97$ ; $u_{1000}=1{,}997$.</li>
+        <li>Les termes se rapprochent de $2$ : on conjecture $\lim u_n=2$.</li>
+        <li>$\lim\frac3n=0$, donc par somme $\lim u_n=2-0=2$.</li>
+        <li>$|u_n-2|=\frac3n$, et $\frac3n&lt;0{,}01 \iff n&gt;300$. À partir du rang $301$, tous les termes sont à moins de $0{,}01$ de $2$. Dans le microscope : choisir la suite $2-\frac3n$, $\ell=2$ et $\varepsilon=0{,}01$, il affiche $N=301$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Opérations et formes indéterminées</h3>
+
+  <article class="exercice" data-niveau="2" data-titre="Opérations sans piège">
+    <p>Déterminer la limite de chaque suite, en citant la règle utilisée.</p>
+    <p>a) $u_n=n^2+3n$ &nbsp; b) $v_n=\left(2+\frac1n\right)\left(5-\frac1{n^2}\right)$ &nbsp; c) $w_n=\dfrac{4}{1+\frac1n}$ &nbsp; d) $t_n=-2n+\frac1n$</p>
+    <details class="correction">
+      <p>a) $n^2\to+\infty$ et $3n\to+\infty$, donc par somme $\lim u_n=+\infty$.</p>
+      <p>b) $2+\frac1n\to2$ et $5-\frac1{n^2}\to5$, donc par produit $\lim v_n=10$.</p>
+      <p>c) $1+\frac1n\to1$, donc par quotient $\lim w_n=\frac41=4$.</p>
+      <p>d) $-2n\to-\infty$ et $\frac1n\to0$, donc par somme $\lim t_n=-\infty$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Forme « ∞ − ∞ »">
+    <p>Déterminer la limite de : a) $u_n=n^2-5n$ &nbsp; b) $v_n=3n-n^2$ &nbsp; c) $w_n=n-\sqrt n$</p>
+    <details class="correction">
+      <p>Les trois sont des formes indéterminées $\infty-\infty$ : on factorise par le terme dominant.</p>
+      <p>a) $u_n=n^2\left(1-\frac5n\right)$. Or $n^2\to+\infty$ et $1-\frac5n\to1$, donc par produit $\lim u_n=+\infty$.</p>
+      <p>b) $v_n=n^2\left(\frac3n-1\right)$. Or $n^2\to+\infty$ et $\frac3n-1\to-1$, donc par produit $\lim v_n=-\infty$.</p>
+      <p>c) $w_n=n\left(1-\frac{\sqrt n}{n}\right)=n\left(1-\frac{1}{\sqrt n}\right)$. Or $n\to+\infty$ et $1-\frac1{\sqrt n}\to1$, donc $\lim w_n=+\infty$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Forme « ∞ / ∞ »">
+    <p>Déterminer la limite de chaque suite.</p>
+    <p>a) $\dfrac{3n^2+2n-1}{n^2+4}$ &nbsp; b) $\dfrac{2n+1}{n^2+1}$ &nbsp; c) $\dfrac{n^3-1}{5n^2+n}$ &nbsp; d) $\dfrac{4-n}{2n+3}$</p>
+    <details class="correction">
+      <p>a) $\dfrac{n^2\left(3+\frac2n-\frac1{n^2}\right)}{n^2\left(1+\frac4{n^2}\right)}=\dfrac{3+\frac2n-\frac1{n^2}}{1+\frac4{n^2}}$. Le numérateur tend vers $3$, le dénominateur vers $1$ : la limite est $3$.</p>
+      <p>b) $\dfrac{n\left(2+\frac1n\right)}{n^2\left(1+\frac1{n^2}\right)}=\dfrac{2+\frac1n}{n\left(1+\frac1{n^2}\right)}$. Le numérateur tend vers $2$, le dénominateur vers $+\infty$ : la limite est $0$.</p>
+      <p>c) $\dfrac{n^3\left(1-\frac1{n^3}\right)}{n^2\left(5+\frac1n\right)}=n\times\dfrac{1-\frac1{n^3}}{5+\frac1n}$. La fraction tend vers $\frac15$ et $n\to+\infty$ : la limite est $+\infty$.</p>
+      <p>d) $\dfrac{n\left(\frac4n-1\right)}{n\left(2+\frac3n\right)}=\dfrac{\frac4n-1}{2+\frac3n}$, qui tend vers $\dfrac{-1}{2}=-0{,}5$.</p>
+      <p class="discret">Règle à retenir : si les degrés sont égaux, la limite est le quotient des coefficients dominants ; si le haut l'emporte, $\pm\infty$ ; si le bas l'emporte, $0$. Mais en devoir, il faut rédiger la factorisation.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Limites de fonctions">
+    <ol>
+      <li>Calculer $\lim\limits_{x\to+\infty}\dfrac{2x^2-x+1}{x^2+3}$ et interpréter graphiquement.</li>
+      <li>Calculer $\lim\limits_{x\to2^+}\dfrac1{x-2}$ et $\lim\limits_{x\to2^-}\dfrac1{x-2}$ et interpréter graphiquement.</li>
+      <li>Calculer $\lim\limits_{x\to+\infty}\left(e^{-x}+5\right)$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$\dfrac{x^2\left(2-\frac1x+\frac1{x^2}\right)}{x^2\left(1+\frac3{x^2}\right)}=\dfrac{2-\frac1x+\frac1{x^2}}{1+\frac3{x^2}}\to2$. La droite $y=2$ est asymptote horizontale en $+\infty$.</li>
+        <li>Quand $x\to2^+$, $x-2\to0^+$, donc $\frac1{x-2}\to+\infty$. Quand $x\to2^-$, $x-2\to0^-$, donc $\frac1{x-2}\to-\infty$. La droite $x=2$ est asymptote verticale.</li>
+        <li>$e^{-x}=\frac1{e^x}$ et $e^x\to+\infty$, donc $e^{-x}\to0$. Par somme, la limite est $5$ : la droite $y=5$ est asymptote horizontale.</li>
+      </ol>
+      <figure class="graphe" data-f="1/(x-2)" data-nom="f" data-fenetre="-3 7 -6 6">
+        <figcaption>$\frac{1}{x-2}$ : la courbe file vers $+\infty$ à droite de 2 et vers $-\infty$ à gauche.</figcaption>
+      </figure>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Le paradoxe de Zénon">
+    <p>Achille court vers un arbre. Il parcourt d'abord 1 km, puis la moitié de cette distance, puis la moitié de la moitié, et ainsi de suite. On note $S_n=1+0{,}5+0{,}5^2+\cdots+0{,}5^n$ la distance parcourue après $n+1$ étapes.</p>
+    <ol>
+      <li>Montrer que $S_n=2\left(1-0{,}5^{n+1}\right)$.</li>
+      <li>En déduire $\lim S_n$. Achille arrive-t-il à l'arbre, situé à 2 km ?</li>
+      <li>Déterminer aussi les limites de $a_n=3-2\times0{,}9^n$ et $b_n=5\times1{,}1^n-2$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$S_n$ est la somme des $n+1$ premiers termes d'une suite géométrique de premier terme 1 et de raison $0{,}5$ : $S_n=\dfrac{1-0{,}5^{n+1}}{1-0{,}5}=\dfrac{1-0{,}5^{n+1}}{0{,}5}=2\left(1-0{,}5^{n+1}\right)$.</li>
+        <li>$-1&lt;0{,}5&lt;1$, donc $0{,}5^{n+1}\to0$ et $\lim S_n=2$. Une infinité d'étapes peut avoir une longueur totale finie : Achille parcourt bien les 2 km. C'est la réponse au paradoxe.</li>
+        <li>$0{,}9^n\to0$ donc $\lim a_n=3$. $1{,}1&gt;1$ donc $1{,}1^n\to+\infty$ et $\lim b_n=+\infty$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Corrige l'IA">
+    <p>Une IA a rédigé cette réponse. Elle est sûre d'elle. Trouve l'erreur, puis donne la bonne limite.</p>
+    <blockquote class="copie-ia">« On cherche $\lim\limits_{n\to+\infty}\dfrac{n^2+1}{n+1}$. Le numérateur tend vers $+\infty$ et le dénominateur aussi. Comme $\frac{\infty}{\infty}=1$, la limite vaut $1$. »</blockquote>
+    <details class="correction">
+      <p>$\frac{\infty}{\infty}$ est une <strong>forme indéterminée</strong> : elle ne vaut pas $1$, elle ne vaut rien tant qu'on n'a pas transformé l'expression.</p>
+      <p>On factorise : $\dfrac{n^2\left(1+\frac1{n^2}\right)}{n\left(1+\frac1n\right)}=n\times\dfrac{1+\frac1{n^2}}{1+\frac1n}$. La fraction tend vers $1$ et $n\to+\infty$, donc par produit la limite est $+\infty$.</p>
+      <p>La réponse de l'IA avait l'air propre et sûre d'elle. C'est justement pour ça qu'il faut la relire.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Comparaison et synthèse</h3>
+
+  <article class="exercice" data-niveau="3" data-titre="Comparaison vers l'infini">
+    <p>a) Déterminer la limite de $u_n=n^2+(-1)^n$. &nbsp; b) Déterminer la limite de $v_n=-n+\cos n$.</p>
+    <details class="correction">
+      <p>a) Pour tout $n$, $(-1)^n\ge-1$, donc $u_n\ge n^2-1$. Or $\lim(n^2-1)=+\infty$. D'après le théorème de comparaison, $\lim u_n=+\infty$.</p>
+      <p>b) Pour tout $n$, $\cos n\le1$, donc $v_n\le-n+1$. Or $\lim(-n+1)=-\infty$. D'après le théorème de comparaison, $\lim v_n=-\infty$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Les gendarmes">
+    <p>Déterminer la limite de : a) $u_n=\dfrac{(-1)^n}{n}$ &nbsp; b) $v_n=\dfrac{\cos n}{n^2}$ &nbsp; c) $w_n=\dfrac{2n+\sin n}{n}$</p>
+    <details class="correction">
+      <p>a) $-1\le(-1)^n\le1$, et en divisant par $n&gt;0$ : $-\frac1n\le u_n\le\frac1n$. Les deux bornes tendent vers $0$, donc d'après le théorème des gendarmes, $\lim u_n=0$.</p>
+      <p>b) $-1\le\cos n\le1$, donc $-\frac1{n^2}\le v_n\le\frac1{n^2}$. Les deux bornes tendent vers $0$ : $\lim v_n=0$ (gendarmes).</p>
+      <p>c) $-1\le\sin n\le1$, donc $2n-1\le2n+\sin n\le2n+1$, puis en divisant par $n&gt;0$ : $2-\frac1n\le w_n\le2+\frac1n$. Les deux bornes tendent vers $2$ : $\lim w_n=2$ (gendarmes).</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Peut-on conclure ?">
+    <p>Pour chaque information, dire si l'on peut conclure sur la limite de $(u_n)$ et, si oui, la donner.</p>
+    <p>a) $u_n\le n^2$ &nbsp; b) $0\le u_n\le2$ &nbsp; c) $u_n\ge\sqrt n$ &nbsp; d) $1-\frac1n\le u_n\le1+\frac1{n^2}$</p>
+    <details class="correction">
+      <p>a) Non. Une majoration par une suite qui tend vers $+\infty$ ne dit rien : $u_n$ pourrait valoir $0$, $-n$ ou $n$.</p>
+      <p>b) Non. La suite est bornée, mais les bornes $0$ et $2$ sont différentes : elle peut converger vers n'importe quel nombre de $[0\,;2]$ ou osciller.</p>
+      <p>c) Oui : $\sqrt n\to+\infty$ et $u_n$ est au-dessus, donc $\lim u_n=+\infty$ (comparaison).</p>
+      <p>d) Oui : les deux bornes tendent vers $1$, donc $\lim u_n=1$ (gendarmes). Les bornes n'ont pas besoin d'être symétriques.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Comparaison pour les fonctions">
+    <ol>
+      <li>Montrer que pour tout $x&gt;0$, $1-\frac1x\le\dfrac{x+\sin x}{x}\le1+\frac1x$, puis en déduire $\lim\limits_{x\to+\infty}\dfrac{x+\sin x}{x}$.</li>
+      <li>Déterminer $\lim\limits_{x\to+\infty}\left(x^2+\cos x\right)$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$-1\le\sin x\le1$ donc $x-1\le x+\sin x\le x+1$. En divisant par $x&gt;0$ : $1-\frac1x\le\frac{x+\sin x}{x}\le1+\frac1x$. Les deux bornes tendent vers $1$ en $+\infty$ : par les gendarmes, la limite vaut $1$.</li>
+        <li>$\cos x\ge-1$ donc $x^2+\cos x\ge x^2-1$, qui tend vers $+\infty$. Par comparaison, $\lim\limits_{x\to+\infty}(x^2+\cos x)=+\infty$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Synthèse : la perfusion">
+    <p>Un patient est placé sous perfusion. Chaque heure, son organisme élimine $20\,\%$ du médicament présent dans le sang, puis la perfusion en apporte $10$ mg. Au départ, il n'y a pas de médicament dans le sang. On note $u_n$ la quantité (en mg) au bout de $n$ heures : $u_0=0$.</p>
+    <ol>
+      <li>Justifier que $u_{n+1}=0{,}8\,u_n+10$.</li>
+      <li>On pose $v_n=u_n-50$. Montrer que $(v_n)$ est géométrique de raison $0{,}8$.</li>
+      <li>En déduire que $u_n=50-50\times0{,}8^n$.</li>
+      <li>Déterminer $\lim u_n$ et interpréter.</li>
+      <li>Le traitement est efficace dès que la quantité dépasse $45$ mg. À partir de quelle heure est-ce le cas ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Éliminer $20\,\%$, c'est multiplier par $1-0{,}2=0{,}8$. On ajoute ensuite $10$ mg : $u_{n+1}=0{,}8\,u_n+10$.</li>
+        <li>$v_{n+1}=u_{n+1}-50=0{,}8\,u_n+10-50=0{,}8\,u_n-40=0{,}8\,(u_n-50)=0{,}8\,v_n$. La suite $(v_n)$ est géométrique de raison $0{,}8$ et de premier terme $v_0=u_0-50=-50$.</li>
+        <li>$v_n=-50\times0{,}8^n$, donc $u_n=v_n+50=50-50\times0{,}8^n$.</li>
+        <li>$-1&lt;0{,}8&lt;1$ donc $0{,}8^n\to0$ et $\lim u_n=50$. À long terme, la quantité de médicament se stabilise autour de $50$ mg : ce que l'organisme élimine compense exactement ce qu'apporte la perfusion.</li>
+        <li>$u_n&gt;45\iff50\times0{,}8^n&lt;5\iff0{,}8^n&lt;0{,}1$. Comme $0{,}8^{10}\approx0{,}107$ et $0{,}8^{11}\approx0{,}086$, c'est vrai dès $n=11$ : le traitement est efficace à partir de la 11<sup>e</sup> heure. Avec le logarithme : $n&gt;\frac{\ln0{,}1}{\ln0{,}8}\approx10{,}3$.</li>
+      </ol>
+      <figure class="graphe" data-f="50-50*0.8^x" data-nom="u" data-fenetre="-1 25 -5 60" data-antecedents="45">
+        <figcaption>La courbe rejoint l'asymptote $y=50$ ; elle franchit $45$ mg vers $x\approx10{,}3$.</figcaption>
+      </figure>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Une suite peut-elle atteindre sa limite ?</summary>
+      <div><p>Oui. La suite constante égale à 3 a pour limite 3, et tous ses termes valent 3. La limite décrit ce dont les termes se rapprochent, qu'ils l'atteignent ou non.</p></div></details>
+    <details><summary>Pourquoi ∞ − ∞ ne fait pas 0 ?</summary>
+      <div><p>Parce que « $\infty$ » n'est pas un nombre : c'est une façon de dire « grandit sans limite ». $n^2-n$ et $n-n^2$ sont tous deux de la forme $\infty-\infty$, et pourtant l'un tend vers $+\infty$ et l'autre vers $-\infty$. Tout dépend de qui grandit le plus vite.</p></div></details>
+    <details><summary>Par quoi factoriser pour lever une forme indéterminée ?</summary>
+      <div><p>Par le terme qui grandit le plus vite : la plus haute puissance de $n$ (ou de $x$), séparément au numérateur et au dénominateur. Le laboratoire « Qui domine ? » montre pourquoi ce terme finit par tout écraser.</p></div></details>
+    <details><summary>Une suite croissante tend-elle forcément vers +∞ ?</summary>
+      <div><figure class="figure-svg petite"><svg viewBox="0 0 462 245" role="img" aria-label="Une suite croissante qui se rapproche de 2 sans jamais le dépasser."><g class="trace t-v pointille"><line x1="10" y1="60" x2="426" y2="60"/></g><g class="trace t-n"><line x1="10" y1="160" x2="433.8" y2="160.0"/><polygon points="441.6,160.0 428.6,165.8 428.6,154.2"/></g><g class="trace t-n"><line x1="10" y1="175.0" x2="10.0" y2="17.8"/><polygon points="10.0,10.0 15.9,23.0 4.1,23.0"/></g><text class="moyen" x="426.0" y="177.5">n</text><circle class="pt pt-u" cx="36" cy="210.0" r="4.5"/><circle class="pt pt-u" cx="62" cy="135.0" r="4.5"/><circle class="pt pt-u" cx="88" cy="110.0" r="4.5"/><circle class="pt pt-u" cx="114" cy="97.5" r="4.5"/><circle class="pt pt-u" cx="140" cy="90.0" r="4.5"/><circle class="pt pt-u" cx="166" cy="85.0" r="4.5"/><circle class="pt pt-u" cx="192" cy="81.4" r="4.5"/><circle class="pt pt-u" cx="218" cy="78.8" r="4.5"/><circle class="pt pt-u" cx="244" cy="76.7" r="4.5"/><circle class="pt pt-u" cx="270" cy="75.0" r="4.5"/><circle class="pt pt-u" cx="296" cy="73.6" r="4.5"/><circle class="pt pt-u" cx="322" cy="72.5" r="4.5"/><circle class="pt pt-u" cx="348" cy="71.5" r="4.5"/><circle class="pt pt-u" cx="374" cy="70.7" r="4.5"/><circle class="pt pt-u" cx="400" cy="70.0" r="4.5"/><text class="lettre" x="431.2" y="57.5">2</text></svg></figure><p>Non. $u_n=2-\frac3n$ est croissante et tend vers $2$ : elle monte, mais de moins en moins vite, sans jamais dépasser 2.</p></div></details>
+    <details><summary>Les gendarmes marchent-ils avec un seul gendarme ?</summary>
+      <div><p>Pour une limite infinie, oui : c'est le théorème de comparaison (un minorant qui tend vers $+\infty$ suffit). Pour une limite finie, non : il faut deux bornes qui ont la même limite.</p></div></details>
+    <details><summary>Faut-il écrire « lim » à chaque ligne ?</summary>
+      <div><p>On évite d'écrire « $\lim u_n = \ldots$ » tant qu'on ne sait pas que la limite existe. On rédige plutôt : « $n^2\to+\infty$ et $\frac1n\to0$, donc par somme, $\lim u_n=+\infty$ ».</p></div></details>
+  </div>
+
+  <h3>Vidéos</h3>
+  <div class="videos">
+    <div class="video" data-titre="La définition de la limite en 5 minutes"></div>
+    <div class="video" data-titre="Lever une forme indéterminée"></div>
+    <div class="video" data-titre="Le théorème des gendarmes"></div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,48 @@
+/* =====================================================================
+   BASE — le socle commun à toutes les pages, et les petites classes
+   utilitaires réutilisables partout (dans le HTML comme dans le JS).
+   Aucune couleur écrite en dur : tout vient de variables.css.
+   ===================================================================== */
+
+/* ---------- Socle ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--e-5);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bois);color:var(--ink);font:400 17px/1.6 var(--f-body)}
+img,svg,canvas,video{max-width:100%}
+[hidden]{display:none!important}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0;letter-spacing:-.02em}
+h1{font-size:var(--t-3xl);font-weight:800;line-height:.98;letter-spacing:-.035em}
+h2{font-size:var(--t-2xl);font-weight:800;letter-spacing:-.03em}
+h3{font-size:var(--t-xl);font-weight:800}
+p,figure,blockquote{margin:0}
+ul,ol{margin:0;padding-left:1.3em}
+li+li{margin-top:var(--e-1)}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:var(--r-s)}
+code{font-family:var(--f-mono);font-size:.9em;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+/* écrans tactiles (iPhone, iPad, Android) */
+:is(button,a,summary,label,input,select){touch-action:manipulation;-webkit-tap-highlight-color:transparent}  /* pas de zoom au double toucher */
+:is(input,select,textarea){font-size:max(16px,1em)}  /* en dessous de 16px, Safari iOS zoome sur le champ */
+canvas{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}  /* pas de loupe ni de menu pendant un glissement */
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+/* ---------- Utilitaires ---------- */
+.gutter{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.pile{display:grid;gap:var(--e-3);min-width:0;align-content:start}      /* éléments empilés, espacés régulièrement */
+.ligne{display:flex;flex-wrap:wrap;gap:var(--e-2);align-items:center}  /* éléments côte à côte, qui passent à la ligne */
+.colonnes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:var(--e-4)}
+.colonnes > *,.pile > *{min-width:0}
+.defile{overflow-x:auto;max-width:100%}                                 /* tableau ou figure large : défile dans son cadre */
+.a-droite{margin-left:auto}
+.pleine-largeur{grid-column:1 / -1}
+.attenue{color:var(--muted)}
+.discret{color:var(--muted);font-size:var(--t-s)}
+.surtitre{font:600 var(--t-xs) var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.manuscrit{font-family:var(--f-hand);font-size:1.4em;line-height:1.1}
+.m{font-family:var(--f-mono);font-size:.95em;font-variant-numeric:tabular-nums}
+.vx{color:var(--blue);font-weight:700}
+.vy{color:var(--pink);font-weight:700}
+.faux{color:var(--ko);text-decoration:line-through;text-decoration-thickness:2px}
+.juste{color:var(--ok);font-weight:700}
+.fi{color:var(--ko);font-weight:700}
+.ok{color:var(--ok)} .ko{color:var(--ko)}

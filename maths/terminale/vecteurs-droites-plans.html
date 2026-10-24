@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Vecteurs, droites et plans de l'espace · Terminale</title>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body data-matiere="maths" data-chapitre="espace-vecteurs" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Terminale spécialité · Géométrie dans l'espace</span>
+  <h1>Vecteurs, droites et plans de l'espace</h1>
+  <p class="chapeau">On reprend les vecteurs de la seconde, avec <strong>une dimension de plus</strong>. Presque tout se passe comme dans le plan, sauf une surprise : dans l'espace, deux droites peuvent ne jamais se croiser sans être parallèles.</p>
+  <ul class="objectifs">
+    <li>Combiner des vecteurs</li><li>Reconnaître des vecteurs coplanaires</li><li>Montrer qu'on a une base</li><li>Écrire une représentation paramétrique</li><li>Étudier la position de deux droites</li><li>Couper une droite et un plan</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Deux avions se croisent sur l'écran radar.</strong> Le contrôleur aérien voit leurs traces se couper, mais l'écran montre le ciel vu de dessus : il écrase l'altitude. Dans l'espace, les deux trajectoires droites peuvent très bien ne jamais se rencontrer. Savoir si deux droites de l'espace se coupent vraiment, c'est exactement ce que ce chapitre apprend à faire.</p>
+    <p class="discret">Ils s'en servent : les contrôleurs aériens (séparation des trajectoires), les infographistes 3D (un logiciel de rendu calcule où un rayon de lumière, une droite, coupe chaque surface), les géomètres-topographes. Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1.1 ===== -->
+  <h3 id="c-vecteurs">1. Les vecteurs de l'espace</h3>
+
+  <div class="bloc definition" data-titre="Vecteur de l'espace">
+    <p>Comme dans le plan, un vecteur $\overrightarrow{AB}$ représente un <strong>déplacement</strong> : une direction, un sens et une longueur. Deux vecteurs sont égaux s'ils représentent le même déplacement : $\overrightarrow{AB}=\overrightarrow{DC}$ signifie que $ABCD$ est un parallélogramme (éventuellement aplati).</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Les règles ne changent pas">
+      <ul>
+        <li><strong>Relation de Chasles :</strong> $\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}$.</li>
+        <li><strong>Combinaison linéaire :</strong> avec deux réels $a$ et $b$, le vecteur $a\vec u+b\vec v$ se construit en mettant bout à bout $a\vec u$ et $b\vec v$.</li>
+        <li><strong>Colinéarité :</strong> $\vec u$ et $\vec v$ sont colinéaires s'il existe un réel $k$ tel que $\vec v=k\vec u$ (ou si $\vec u=\vec 0$).</li>
+      </ul>
+    </div>
+    <figure class="figure-svg">
+      <svg viewBox="0 0 400 340" role="img" aria-label="Cube ABCDEFGH : la face ABCD est en bas, E est au-dessus de A, F au-dessus de B, G au-dessus de C, H au-dessus de D. I est le milieu de l'arête EF.">
+        <g class="arete"><path d="M70 300 H240 L320 240 M240 300 V130 M70 300 V130 H240 L320 70 V240 M70 130 L150 70 H320"/></g>
+        <g class="arete cachee"><path d="M70 300 L150 240 H320 M150 240 V70"/></g>
+        <g class="trace t-u"><path d="M70 300 H232" /><path d="M224 293 L240 300 L224 307" /></g>
+        <g class="trace t-v"><path d="M70 300 V138" /><path d="M63 154 L70 138 L77 154" /></g>
+        <g class="trace t-w"><path d="M70 300 L144 245" /><path d="M128 247 L150 240 L138 258" /></g>
+        <circle class="pt" cx="155" cy="130" r="5"/>
+        <g class="lettres">
+          <text x="52" y="318">A</text><text x="244" y="320">B</text><text x="326" y="250">C</text><text x="132" y="232">D</text>
+          <text x="50" y="128">E</text><text x="246" y="124">F</text><text x="326" y="64">G</text><text x="132" y="62">H</text>
+          <text x="150" y="120">I</text>
+        </g>
+      </svg>
+      <figcaption>Le cube $ABCDEFGH$ : la face $ABCD$ en bas, $E$ au-dessus de $A$. Les arêtes cachées sont en pointillés. $I$ est le milieu de $[EF]$.</figcaption>
+    </figure>
+  </div>
+
+  <div class="bloc methode" data-titre="Exprimer un vecteur avec la relation de Chasles">
+    <ol class="etapes">
+      <li><span>Part du point de départ et cherche un <strong>chemin</strong> le long des arêtes jusqu'au point d'arrivée.</span></li>
+      <li><span>Écris le chemin avec Chasles, puis remplace chaque vecteur par un vecteur égal parmi ceux qu'on te donne.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Dans le cube ci-dessus, exprimer $\overrightarrow{AI}$ puis $\overrightarrow{DI}$ en fonction de $\overrightarrow{AB}$, $\overrightarrow{AD}$ et $\overrightarrow{AE}$.</p>
+      <ol class="pas">
+        <li><strong>Un chemin de A à I.</strong> On monte de $A$ à $E$, puis on avance de $E$ jusqu'au milieu de $[EF]$ : $\overrightarrow{AI}=\overrightarrow{AE}+\overrightarrow{EI}$.</li>
+        <li><strong>On remplace.</strong> $I$ est le milieu de $[EF]$, donc $\overrightarrow{EI}=\frac12\overrightarrow{EF}$. Et $\overrightarrow{EF}=\overrightarrow{AB}$ (face avant, un carré). Donc $\overrightarrow{AI}=\overrightarrow{AE}+\frac12\overrightarrow{AB}$.</li>
+        <li><strong>Pour $\overrightarrow{DI}$, on passe par A.</strong> $\overrightarrow{DI}=\overrightarrow{DA}+\overrightarrow{AI}=-\overrightarrow{AD}+\frac12\overrightarrow{AB}+\overrightarrow{AE}$.</li>
+        <li><strong>On conclut.</strong> $\overrightarrow{AI}=\frac12\overrightarrow{AB}+\overrightarrow{AE}$ et $\overrightarrow{DI}=\frac12\overrightarrow{AB}-\overrightarrow{AD}+\overrightarrow{AE}$. Passer par un point dont on connaît déjà le vecteur ($A$ ici) évite de chercher un nouveau chemin.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 1.2 ===== -->
+  <h3 id="c-droites-plans">2. Droites et plans, avec des vecteurs</h3>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Droite de l'espace">
+      <p>La droite $d$ passant par $A$ et de <strong>vecteur directeur</strong> $\vec u$ (non nul) est l'ensemble des points $M$ tels que</p>
+      <p class="formule">$\overrightarrow{AM}=t\,\vec u$, avec $t$ réel.</p>
+      <p>Tout vecteur non nul colinéaire à $\vec u$ dirige aussi $d$.</p>
+    </div>
+    <div class="bloc definition" data-titre="Plan de l'espace">
+      <p>Le plan $\mathcal P$ passant par $A$ et dirigé par deux vecteurs $\vec u$ et $\vec v$ <strong>non colinéaires</strong> est l'ensemble des points $M$ tels que</p>
+      <p class="formule">$\overrightarrow{AM}=x\,\vec u+y\,\vec v$, avec $x$ et $y$ réels.</p>
+      <p>On dit que $(\vec u,\vec v)$ est un <strong>couple de vecteurs directeurs</strong> de $\mathcal P$.</p>
+    </div>
+  </div>
+
+  <div class="bloc remarque">
+    <p>Trois points $A$, $B$, $C$ non alignés définissent un unique plan $(ABC)$, dirigé par $\overrightarrow{AB}$ et $\overrightarrow{AC}$. Un plan, c'est « un point et deux directions » : dans le labo « La droite en marche » (onglet Explorer), tu peux faire balayer un plan par un point $M$ qui dépend de deux paramètres.</p>
+  </div>
+
+  <!-- ===== 1.3 ===== -->
+  <h3 id="c-coplanaires">3. Vecteurs coplanaires</h3>
+
+  <div class="bloc definition" data-titre="Vecteurs coplanaires">
+    <p>Trois vecteurs $\vec u$, $\vec v$, $\vec w$ sont <strong>coplanaires</strong> si, quand on les dessine à partir d'un même point $O$, leurs extrémités et $O$ sont dans un même plan.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le critère qu'on utilise en pratique">
+    <p>Si $\vec u$ et $\vec v$ ne sont pas colinéaires :</p>
+    <p class="formule">$\vec u$, $\vec v$, $\vec w$ coplanaires $\iff$ il existe deux réels $a$ et $b$ tels que $\vec w=a\vec u+b\vec v$.</p>
+    <p>Autrement dit, $\vec w$ s'obtient en combinant les deux autres : il ne fait pas « sortir » du plan qu'ils dirigent.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Deux à deux non colinéaires ne suffit pas">
+    <p>Trois vecteurs peuvent n'être colinéaires deux à deux et pourtant être coplanaires. Dans le cube, $\overrightarrow{AB}$, $\overrightarrow{AD}$ et $\overrightarrow{AC}$ ne sont pas colinéaires deux à deux, mais ils sont tous dans la face du bas : $\overrightarrow{AC}=\overrightarrow{AB}+\overrightarrow{AD}$.</p>
+  </div>
+
+  <!-- ===== 1.4 ===== -->
+  <h3 id="c-bases">4. Bases et repères de l'espace</h3>
+
+  <div class="bloc definition" data-titre="Base de l'espace">
+    <p>Trois vecteurs $\vec\imath$, $\vec\jmath$, $\vec k$ <strong>non coplanaires</strong> forment une <strong>base</strong> de l'espace.</p>
+  </div>
+  <div class="bloc theoreme" data-titre="Décomposition dans une base">
+    <p>Si $(\vec\imath,\vec\jmath,\vec k)$ est une base, alors pour tout vecteur $\vec u$ il existe un <strong>unique</strong> triplet de réels $(x\,;y\,;z)$ tel que</p>
+    <p class="formule">$\vec u=x\,\vec\imath+y\,\vec\jmath+z\,\vec k$.</p>
+    <p>Ce sont les <strong>coordonnées</strong> de $\vec u$ dans la base. Avec un point origine $O$, on obtient un <strong>repère</strong> $(O\,;\vec\imath,\vec\jmath,\vec k)$ : les coordonnées d'un point $M$ sont celles du vecteur $\overrightarrow{OM}$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Calculer avec les coordonnées">
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Objet</th><th>Formule</th></tr></thead>
+      <tbody>
+        <tr><td>Vecteur $\overrightarrow{AB}$</td><td>$\overrightarrow{AB}\begin{pmatrix}x_B-x_A\\y_B-y_A\\z_B-z_A\end{pmatrix}$ : « arrivée moins départ »</td></tr>
+        <tr><td>Milieu $I$ de $[AB]$</td><td>$I\left(\dfrac{x_A+x_B}{2}\,;\dfrac{y_A+y_B}{2}\,;\dfrac{z_A+z_B}{2}\right)$</td></tr>
+        <tr><td>Somme, produit par un réel</td><td>on additionne, on multiplie coordonnée par coordonnée</td></tr>
+        <tr><td>Colinéarité</td><td>$\vec v=k\vec u$ : les trois coordonnées sont proportionnelles, <strong>avec le même</strong> $k$</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="bloc methode" data-titre="Montrer que trois points sont alignés">
+    <ol class="etapes">
+      <li><span>Calcule les coordonnées de $\overrightarrow{AB}$ et de $\overrightarrow{AC}$.</span></li>
+      <li><span>Cherche $k$ avec la première coordonnée, puis <strong>vérifie</strong> qu'il marche pour les deux autres.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Les points $A(1\,;2\,;-1)$, $B(3\,;1\,;2)$ et $C(7\,;-1\,;8)$ sont-ils alignés ?</p>
+      <ol class="pas">
+        <li><strong>Les deux vecteurs.</strong> $\overrightarrow{AB}\begin{pmatrix}2\\-1\\3\end{pmatrix}$ et $\overrightarrow{AC}\begin{pmatrix}6\\-3\\9\end{pmatrix}$.</li>
+        <li><strong>Le coefficient.</strong> Sur la première coordonnée, $6=k\times2$ donne $k=3$.</li>
+        <li><strong>La vérification.</strong> $3\times(-1)=-3$ ✓ et $3\times3=9$ ✓. Donc $\overrightarrow{AC}=3\overrightarrow{AB}$.</li>
+        <li><strong>Conclusion.</strong> Les vecteurs sont colinéaires et ont le point $A$ en commun : $A$, $B$, $C$ sont alignés.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Montrer que trois vecteurs sont coplanaires">
+    <ol class="etapes">
+      <li><span>Vérifie que $\vec u$ et $\vec v$ ne sont pas colinéaires.</span></li>
+      <li><span>Écris $\vec w=a\vec u+b\vec v$ coordonnée par coordonnée : un système de <strong>trois équations à deux inconnues</strong>.</span></li>
+      <li><span>Résous avec deux équations, puis <strong>teste la troisième</strong>. Si elle est vérifiée, les vecteurs sont coplanaires.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Montrer que $\vec u\begin{pmatrix}1\\2\\-1\end{pmatrix}$, $\vec v\begin{pmatrix}0\\1\\3\end{pmatrix}$ et $\vec w\begin{pmatrix}2\\5\\1\end{pmatrix}$ sont coplanaires.</p>
+      <ol class="pas">
+        <li><strong>$\vec u$ et $\vec v$ ne sont pas colinéaires.</strong> La première coordonnée de $\vec v$ est $0$ alors que celle de $\vec u$ vaut $1$ : si $\vec v=k\vec u$, on aurait $k=0$, puis $\vec v=\vec 0$, ce qui est faux.</li>
+        <li><strong>Le système.</strong> $\vec w=a\vec u+b\vec v$ s'écrit $\begin{cases}2=a\\5=2a+b\\1=-a+3b\end{cases}$</li>
+        <li><strong>Deux équations suffisent pour trouver $a$ et $b$.</strong> La première donne $a=2$, la deuxième $b=5-4=1$.</li>
+        <li><strong>On teste la troisième.</strong> $-a+3b=-2+3=1$ ✓.</li>
+        <li><strong>Conclusion.</strong> $\vec w=2\vec u+\vec v$ : les trois vecteurs sont coplanaires.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Montrer que trois vecteurs forment une base">
+    <ol class="etapes">
+      <li><span>Il faut prouver qu'ils <strong>ne sont pas</strong> coplanaires.</span></li>
+      <li><span>Suppose $\vec w=a\vec u+b\vec v$ et montre que le système n'a <strong>aucune</strong> solution.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Montrer que $\vec u\begin{pmatrix}1\\0\\2\end{pmatrix}$, $\vec v\begin{pmatrix}-1\\1\\0\end{pmatrix}$ et $\vec w\begin{pmatrix}0\\1\\1\end{pmatrix}$ forment une base de l'espace.</p>
+      <ol class="pas">
+        <li><strong>$\vec u$ et $\vec v$ ne sont pas colinéaires.</strong> Si $\vec v=k\vec u$, la première coordonnée donne $k=-1$, et la deuxième $1=k\times0=0$ : impossible.</li>
+        <li><strong>On suppose $\vec w=a\vec u+b\vec v$.</strong> On obtient $\begin{cases}0=a-b\\1=b\\1=2a\end{cases}$</li>
+        <li><strong>On résout.</strong> La deuxième donne $b=1$, la première $a=b=1$.</li>
+        <li><strong>La troisième équation coince.</strong> $2a=2\neq1$ : le système n'a pas de solution.</li>
+        <li><strong>Conclusion.</strong> $\vec w$ ne s'écrit pas avec $\vec u$ et $\vec v$ : les trois vecteurs ne sont pas coplanaires, donc $(\vec u,\vec v,\vec w)$ est une base de l'espace.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Montrer que quatre points sont coplanaires">
+    <ol class="etapes">
+      <li><span>Quatre points $A$, $B$, $C$, $D$ sont coplanaires si $\overrightarrow{AB}$, $\overrightarrow{AC}$, $\overrightarrow{AD}$ le sont.</span></li>
+      <li><span>On applique la méthode précédente à ces trois vecteurs.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Les points $A(1\,;0\,;0)$, $B(0\,;1\,;0)$, $C(0\,;0\,;1)$ et $D(2\,;-3\,;2)$ sont-ils coplanaires ?</p>
+      <ol class="pas">
+        <li><strong>Les trois vecteurs.</strong> $\overrightarrow{AB}\begin{pmatrix}-1\\1\\0\end{pmatrix}$, $\overrightarrow{AC}\begin{pmatrix}-1\\0\\1\end{pmatrix}$, $\overrightarrow{AD}\begin{pmatrix}1\\-3\\2\end{pmatrix}$. Les deux premiers ne sont pas colinéaires (regarde les zéros).</li>
+        <li><strong>Le système.</strong> $\overrightarrow{AD}=a\overrightarrow{AB}+b\overrightarrow{AC}$ donne $\begin{cases}1=-a-b\\-3=a\\2=b\end{cases}$</li>
+        <li><strong>On teste.</strong> $a=-3$ et $b=2$, puis $-a-b=3-2=1$ ✓.</li>
+        <li><strong>Conclusion.</strong> $\overrightarrow{AD}=-3\overrightarrow{AB}+2\overrightarrow{AC}$ : les quatre points sont coplanaires.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 1.5 ===== -->
+  <h3 id="c-parametrique">5. Représentation paramétrique d'une droite</h3>
+
+  <div class="bloc propriete" data-titre="Représentation paramétrique">
+    <p>Dans un repère, la droite $d$ passant par $A(x_A\,;y_A\,;z_A)$ et de vecteur directeur $\vec u\begin{pmatrix}a\\b\\c\end{pmatrix}$ est l'ensemble des points $M(x\,;y\,;z)$ tels que :</p>
+    <p class="formule">$\left\{\begin{array}{l}x=x_A+a\,t\\y=y_A+b\,t\\z=z_A+c\,t\end{array}\right.\quad t\in\R$</p>
+    <p>C'est la traduction de $\overrightarrow{AM}=t\vec u$. Chaque valeur du <strong>paramètre</strong> $t$ donne un point de la droite.</p>
+  </div>
+
+  <div class="bloc remarque">
+    <p>Une droite a <strong>une infinité</strong> de représentations paramétriques : on peut changer de point de départ ou multiplier le vecteur directeur. Deux élèves peuvent avoir deux réponses justes différentes.</p>
+    <p>De la même façon, un plan passant par $A$ et dirigé par $\vec u$ et $\vec v$ a une représentation à <strong>deux</strong> paramètres : $\overrightarrow{AM}=s\vec u+t\vec v$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Établir une représentation paramétrique">
+    <ol class="etapes">
+      <li><span>Il faut <strong>un point</strong> et <strong>un vecteur directeur</strong>. Pour la droite $(AB)$ : le point $A$ et le vecteur $\overrightarrow{AB}$.</span></li>
+      <li><span>Recopie le modèle : coordonnée du point $+$ coordonnée du vecteur $\times t$.</span></li>
+      <li><span>Vérifie avec $t=0$ (tu dois retrouver $A$) et $t=1$ (tu dois retrouver $B$).</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Donner une représentation paramétrique de la droite $(AB)$, avec $A(2\,;-1\,;3)$ et $B(4\,;0\,;1)$.</p>
+      <ol class="pas">
+        <li><strong>Le vecteur directeur.</strong> $\overrightarrow{AB}\begin{pmatrix}4-2\\0-(-1)\\1-3\end{pmatrix}=\begin{pmatrix}2\\1\\-2\end{pmatrix}$.</li>
+        <li><strong>Le modèle.</strong> $(AB):\left\{\begin{array}{l}x=2+2t\\y=-1+t\\z=3-2t\end{array}\right.\quad t\in\R$</li>
+        <li><strong>Le contrôle.</strong> $t=0$ donne $(2\,;-1\,;3)$, c'est $A$ ✓. $t=1$ donne $(4\,;0\,;1)$, c'est $B$ ✓.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Savoir si un point est sur une droite">
+    <ol class="etapes">
+      <li><span>Remplace $x$, $y$, $z$ par les coordonnées du point.</span></li>
+      <li><span>Chaque équation donne une valeur de $t$. Le point est sur la droite si les trois valeurs sont <strong>les mêmes</strong>.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Avec la droite $(AB)$ ci-dessus, les points $C(6\,;1\,;-1)$ et $D(0\,;-2\,;4)$ sont-ils sur $(AB)$ ?</p>
+      <ol class="pas">
+        <li><strong>Pour C.</strong> $6=2+2t$ donne $t=2$. Avec $t=2$ : $y=-1+2=1$ ✓ et $z=3-4=-1$ ✓. Donc $C\in(AB)$, c'est le point de paramètre $2$.</li>
+        <li><strong>Pour D.</strong> $0=2+2t$ donne $t=-1$. Avec $t=-1$ : $y=-2$ ✓ mais $z=3+2=5\neq4$ ✗.</li>
+        <li><strong>Conclusion.</strong> $C$ est sur $(AB)$, $D$ n'y est pas. Une seule coordonnée fausse suffit pour dire non.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 1.6 ===== -->
+  <h3 id="c-positions">6. Positions relatives</h3>
+
+  <div class="bloc propriete" data-titre="Deux droites de l'espace">
+    <div class="positions">
+      <figure>
+        <svg viewBox="0 0 200 130" role="img" aria-label="Deux droites sécantes"><path class="d1" d="M20 110 L180 20"/><path class="d2" d="M20 30 L180 105"/><circle class="pt" cx="100" cy="66" r="5"/></svg>
+        <figcaption><strong>Sécantes</strong><br>un seul point commun</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 200 130" role="img" aria-label="Deux droites parallèles"><path class="d1" d="M20 95 L180 35"/><path class="d2" d="M20 120 L180 60"/></svg>
+        <figcaption><strong>Parallèles</strong><br>strictement, ou confondues</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 200 130" role="img" aria-label="Deux droites non coplanaires, sur deux faces opposées d'une boîte"><path class="boite" d="M30 50 H140 L180 20 M30 50 V115 H140 V50 M140 115 L180 85 V20 H70 L30 50"/><path class="boite cachee" d="M30 115 L70 85 H180 M70 85 V20"/><path class="d1" d="M30 50 L180 20"/><path class="d2" d="M140 115 L70 85"/></svg>
+        <figcaption><strong>Non coplanaires</strong><br>ni parallèles, ni sécantes</figcaption>
+      </figure>
+    </div>
+    <p>Deux droites sont <strong>coplanaires</strong> si un même plan les contient ; elles sont alors sécantes ou parallèles, comme dans le plan. Sinon, elles sont <strong>non coplanaires</strong> : aucun point commun, et pourtant pas parallèles.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Une droite et un plan">
+      <ul>
+        <li><strong>Sécants</strong> : un seul point commun.</li>
+        <li><strong>Parallèles</strong> : la droite est dans le plan, ou ne le touche jamais.</li>
+      </ul>
+      <p>$d$ est parallèle à $\mathcal P$ si et seulement si un vecteur directeur de $d$ est combinaison linéaire de deux vecteurs directeurs de $\mathcal P$.</p>
+    </div>
+    <div class="bloc propriete" data-titre="Deux plans">
+      <ul>
+        <li><strong>Parallèles</strong> : confondus ou sans point commun.</li>
+        <li><strong>Sécants</strong> : leur intersection est une droite.</li>
+      </ul>
+      <p>Si deux droites sécantes de $\mathcal P$ sont parallèles à $\mathcal P'$, alors $\mathcal P$ et $\mathcal P'$ sont parallèles.</p>
+    </div>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Théorème du toit">
+    <p>Si deux plans sécants contiennent deux droites parallèles, alors leur droite d'intersection est parallèle à ces deux droites. Pense au faîtage d'un toit : il est parallèle aux bords des deux pans.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Étudier la position relative de deux droites">
+    <ol class="etapes">
+      <li><span>Compare les vecteurs directeurs. <strong>Colinéaires</strong> : les droites sont parallèles (teste un point pour savoir si elles sont confondues).</span></li>
+      <li><span>Sinon, cherche un point commun : égalise les représentations, avec <strong>deux paramètres différents</strong> $t$ et $s$.</span></li>
+      <li><span>Résous avec deux équations, puis teste la troisième. Vérifiée : sécantes. Non vérifiée : non coplanaires.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Étudier la position de $d:\left\{\begin{array}{l}x=1+t\\y=2-t\\z=2t\end{array}\right.$ et $d':\left\{\begin{array}{l}x=2s\\y=s\\z=3-s\end{array}\right.$ ($t$, $s$ réels).</p>
+      <ol class="pas">
+        <li><strong>Les vecteurs directeurs.</strong> $\vec u\begin{pmatrix}1\\-1\\2\end{pmatrix}$ et $\vec v\begin{pmatrix}2\\1\\-1\end{pmatrix}$. Si $\vec v=k\vec u$, la première coordonnée donne $k=2$ mais la deuxième donne $k=-1$ : pas colinéaires. Les droites ne sont pas parallèles.</li>
+        <li><strong>Le système.</strong> Un point commun vérifie $\begin{cases}1+t=2s\\2-t=s\\2t=3-s\end{cases}$</li>
+        <li><strong>Deux équations.</strong> En additionnant les deux premières : $3=3s$, donc $s=1$, puis $t=2-s=1$.</li>
+        <li><strong>La troisième.</strong> $2t=2$ et $3-s=2$ ✓. Le système a une solution.</li>
+        <li><strong>Le point.</strong> Avec $t=1$ dans $d$ : $(2\,;1\,;2)$. Les droites sont sécantes en $K(2\,;1\,;2)$.</li>
+        <li><strong>Et si…</strong> on remplace $d'$ par $d''$ : $x=2s$, $y=s$, $z=1-s$ ? Les deux premières équations donnent encore $t=s=1$, mais la troisième devient $2=0$ ✗. Pas de point commun, pas parallèles : $d$ et $d''$ sont <strong>non coplanaires</strong>.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Montrer qu'une droite est parallèle à un plan">
+    <ol class="etapes">
+      <li><span>Prends un vecteur directeur $\vec w$ de la droite et deux vecteurs directeurs $\vec u$, $\vec v$ du plan.</span></li>
+      <li><span>Montre que $\vec w=a\vec u+b\vec v$ : c'est la méthode de la coplanarité.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Le plan $\mathcal P$ est dirigé par $\vec u\begin{pmatrix}1\\0\\1\end{pmatrix}$ et $\vec v\begin{pmatrix}0\\1\\-1\end{pmatrix}$. La droite $d$ a pour vecteur directeur $\vec w\begin{pmatrix}2\\3\\-1\end{pmatrix}$. Montrer que $d$ est parallèle à $\mathcal P$.</p>
+      <ol class="pas">
+        <li><strong>Le système.</strong> $\vec w=a\vec u+b\vec v$ s'écrit $\begin{cases}2=a\\3=b\\-1=a-b\end{cases}$</li>
+        <li><strong>On teste.</strong> $a=2$, $b=3$, et $a-b=-1$ ✓.</li>
+        <li><strong>Conclusion.</strong> $\vec w=2\vec u+3\vec v$ : $d$ est parallèle à $\mathcal P$. Pour savoir si elle est <em>dans</em> le plan, il resterait à tester un de ses points.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Trouver l'intersection d'une droite et d'un plan">
+    <ol class="etapes">
+      <li><span>Écris le plan avec deux paramètres et la droite avec un troisième.</span></li>
+      <li><span>Égalise : trois équations, trois inconnues. Une solution unique donne le point d'intersection.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> $\mathcal P$ passe par $A(1\,;0\,;0)$ et est dirigé par $\vec u\begin{pmatrix}1\\1\\0\end{pmatrix}$ et $\vec v\begin{pmatrix}0\\1\\1\end{pmatrix}$. La droite $d$ a pour représentation $x=t$, $y=1+t$, $z=2-t$. Trouver $d\cap\mathcal P$.</p>
+      <ol class="pas">
+        <li><strong>Le plan en paramètres.</strong> $M\in\mathcal P$ si $\overrightarrow{AM}=a\vec u+b\vec v$, soit $x=1+a$, $y=a+b$, $z=b$.</li>
+        <li><strong>Le système.</strong> $\begin{cases}t=1+a\\1+t=a+b\\2-t=b\end{cases}$</li>
+        <li><strong>On exprime tout avec $t$.</strong> $a=t-1$ et $b=2-t$, donc $a+b=1$. La deuxième équation devient $1+t=1$ : $t=0$.</li>
+        <li><strong>Le point.</strong> $t=0$ dans $d$ donne $(0\,;1\,;2)$. Contrôle dans le plan : $a=-1$, $b=2$ donnent $x=0$, $y=1$, $z=2$ ✓.</li>
+        <li><strong>Conclusion.</strong> $d$ coupe $\mathcal P$ au point $(0\,;1\,;2)$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 id="c-pieges">Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="« Pas parallèles, donc sécantes »">
+    <p class="faux">Les droites ne sont pas parallèles, donc elles se coupent.</p>
+    <p>Vrai dans le plan, faux dans l'espace : elles peuvent être non coplanaires. Il faut chercher le point commun.</p>
+  </div>
+  <div class="bloc piege" data-titre="Oublier la troisième équation">
+    <p>Avec trois équations et deux inconnues, deux équations donnent toujours une réponse. C'est la <strong>troisième</strong> qui décide. Ne pas la tester, c'est conclure au hasard.</p>
+  </div>
+  <div class="bloc piege" data-titre="Le même paramètre pour deux droites">
+    <p class="faux">$d : x=1+t$ … et $d' : x=2t$ …, on résout en $t$.</p>
+    <p>Les deux droites ne passent pas au point commun « au même moment ». Il faut deux lettres : $t$ pour l'une, $s$ pour l'autre.</p>
+  </div>
+  <div class="bloc piege" data-titre="Colinéaires « presque »">
+    <p>$\begin{pmatrix}2\\4\\6\end{pmatrix}$ et $\begin{pmatrix}1\\2\\4\end{pmatrix}$ ne sont pas colinéaires : $k=2$ marche pour les deux premières coordonnées, pas pour la troisième. Le même $k$ doit marcher partout.</p>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Les figures tournent : fais glisser le doigt ou la souris sur la scène. Chaque labo pose une question ; réponds-y avant de lire le verdict.</p>
+
+  <div class="labo" data-labo="espace" data-outil="droites"></div>
+  <div class="labo" data-labo="espace" data-outil="coplanaires"></div>
+  <div class="labo" data-labo="espace" data-outil="parametre"></div>
+  <div class="labo" data-labo="espace" data-outil="droitePlan"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie. Le bilan de fin de partie te dit quoi retravailler. Le quiz vérifie les réflexes du cours.</p>
+
+  <div class="jeu" data-generateurs="espace" data-questions="10" data-titre="Le défi de l'espace"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Deux droites de l'espace qui ne sont pas parallèles…</p>
+      <ul class="choix"><li>se coupent forcément</li><li class="bon">se coupent, ou sont non coplanaires</li><li>sont forcément non coplanaires</li><li>sont confondues</li></ul>
+      <div class="explication">Dans l'espace, il y a une troisième possibilité : ni parallèles, ni sécantes. Seul le calcul du point commun permet de trancher.</div>
+    </div>
+    <div class="question">
+      <p>Dans le cube $ABCDEFGH$, à quoi est égal $\overrightarrow{AB}+\overrightarrow{AD}+\overrightarrow{AE}$ ?</p>
+      <ul class="choix"><li class="bon">$\overrightarrow{AG}$</li><li>$\overrightarrow{AC}$</li><li>$\overrightarrow{AH}$</li><li>$\overrightarrow{AF}$</li></ul>
+      <div class="explication">$\overrightarrow{AB}+\overrightarrow{BC}+\overrightarrow{CG}=\overrightarrow{AG}$, car $\overrightarrow{AD}=\overrightarrow{BC}$ et $\overrightarrow{AE}=\overrightarrow{CG}$. C'est la grande diagonale du cube.</div>
+    </div>
+    <div class="question">
+      <p>Les vecteurs $\overrightarrow{AB}$, $\overrightarrow{AD}$ et $\overrightarrow{AC}$ du cube forment-ils une base ?</p>
+      <ul class="choix" ><li>oui, aucun n'est colinéaire à un autre</li><li class="bon">non, ils sont coplanaires</li><li>oui, car ils partent tous de $A$</li></ul>
+      <div class="explication">$\overrightarrow{AC}=\overrightarrow{AB}+\overrightarrow{AD}$ : les trois sont dans la face $ABCD$. Ne pas être colinéaires deux à deux ne suffit pas.</div>
+    </div>
+    <div class="question">
+      <p>Un vecteur directeur de la droite $\left\{\begin{array}{l}x=3-2t\\y=1\\z=4t\end{array}\right.$ est :</p>
+      <ul class="choix"><li>$\begin{pmatrix}3\\1\\0\end{pmatrix}$</li><li class="bon">$\begin{pmatrix}-2\\0\\4\end{pmatrix}$</li><li>$\begin{pmatrix}-2\\1\\4\end{pmatrix}$</li><li>$\begin{pmatrix}3\\0\\4\end{pmatrix}$</li></ul>
+      <div class="explication">Le vecteur directeur est formé des coefficients de $t$. Dans $y=1$, le coefficient de $t$ est $0$.</div>
+    </div>
+    <div class="question" data-reponse="3">
+      <p>Le point $C(7\,;-2\,;5)$ est sur la droite $x=1+2t$, $y=1-t$, $z=-1+2t$. Quelle est la valeur du paramètre $t$ en $C$ ?</p>
+      <div class="explication">$7=1+2t$ donne $t=3$, et on vérifie : $1-3=-2$ ✓, $-1+6=5$ ✓.</div>
+    </div>
+    <div class="question">
+      <p>On résout un système pour deux droites $d$ et $d'$ non parallèles. Les deux premières équations donnent $t=2$, $s=-1$, mais la troisième n'est pas vérifiée. Les droites sont :</p>
+      <ul class="choix"><li>sécantes</li><li>parallèles</li><li class="bon">non coplanaires</li><li>on ne peut pas savoir</li></ul>
+      <div class="explication">Pas de point commun et pas parallèles : non coplanaires.</div>
+    </div>
+    <div class="question">
+      <p>$\vec u\begin{pmatrix}1\\-2\\3\end{pmatrix}$ et $\vec v\begin{pmatrix}-3\\6\\-9\end{pmatrix}$ sont :</p>
+      <ul class="choix"><li class="bon">colinéaires</li><li>non colinéaires</li><li>orthogonaux</li></ul>
+      <div class="explication">$\vec v=-3\vec u$ : le coefficient $-3$ marche pour les trois coordonnées.</div>
+    </div>
+    <div class="question">
+      <p>Une droite $d$ est parallèle à un plan $\mathcal P$ si…</p>
+      <ul class="choix"><li>elle est parallèle à une droite qui coupe $\mathcal P$</li><li class="bon">son vecteur directeur est combinaison de deux vecteurs directeurs de $\mathcal P$</li><li>elle ne coupe pas les axes</li><li>elle est dans $\mathcal P$, uniquement</li></ul>
+      <div class="explication">$\vec w=a\vec u+b\vec v$ : la direction de $d$ est une direction du plan. La droite est alors dans le plan ou ne le touche jamais.</div>
+    </div>
+    <div class="question">
+      <p>Combien de représentations paramétriques une droite a-t-elle ?</p>
+      <ul class="choix"><li>une seule</li><li>deux</li><li>trois, une par axe</li><li class="bon">une infinité</li></ul>
+      <div class="explication">On peut choisir n'importe quel point de la droite et n'importe quel vecteur directeur : chaque choix donne une autre écriture, toutes justes.</div>
+    </div>
+    <div class="question">
+      <p>Deux plans de l'espace qui ne sont pas parallèles se coupent selon…</p>
+      <ul class="choix"><li>un point</li><li class="bon">une droite</li><li>deux droites</li><li>rien du tout</li></ul>
+      <div class="explication">Pense à deux pages d'un livre ouvert : elles se coupent le long de la reliure, une droite.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux : ★ appliquer une méthode, ★★ enchaîner deux méthodes, ★★★ chercher. Rédige ta réponse avant d'ouvrir la correction.</p>
+
+  <h3>Niveau 1 · Appliquer</h3>
+
+  <article class="exercice" data-niveau="1" data-titre="Chasles dans le cube">
+    <p>$ABCDEFGH$ est un cube (face $ABCD$ en bas, $E$ au-dessus de $A$). Simplifier :</p>
+    <p>a) $\overrightarrow{AB}+\overrightarrow{FG}$ &nbsp; b) $\overrightarrow{EH}+\overrightarrow{GC}$ &nbsp; c) $\overrightarrow{AB}+\overrightarrow{AD}+\overrightarrow{AE}$ &nbsp; d) $\overrightarrow{HG}-\overrightarrow{HD}$</p>
+    <details class="correction">
+      <p>a) $\overrightarrow{FG}=\overrightarrow{BC}$, donc $\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}$.</p>
+      <p>b) $\overrightarrow{GC}=\overrightarrow{HD}$ (arêtes verticales), donc $\overrightarrow{EH}+\overrightarrow{HD}=\overrightarrow{ED}$.</p>
+      <p>c) $\overrightarrow{AD}=\overrightarrow{BC}$ et $\overrightarrow{AE}=\overrightarrow{CG}$ : $\overrightarrow{AB}+\overrightarrow{BC}+\overrightarrow{CG}=\overrightarrow{AG}$.</p>
+      <p>d) $-\overrightarrow{HD}=\overrightarrow{DH}$, donc $\overrightarrow{DH}+\overrightarrow{HG}=\overrightarrow{DG}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Coordonnées et parallélogramme">
+    <p>On donne $A(2\,;-1\,;3)$, $B(-1\,;4\,;0)$ et $C(0\,;2\,;1)$.</p>
+    <ol><li>Calculer les coordonnées de $\overrightarrow{AB}$ et du milieu $I$ de $[AB]$.</li><li>Calculer les coordonnées du point $D$ tel que $ABCD$ soit un parallélogramme.</li></ol>
+    <details class="correction">
+      <ol>
+        <li>$\overrightarrow{AB}\begin{pmatrix}-1-2\\4-(-1)\\0-3\end{pmatrix}=\begin{pmatrix}-3\\5\\-3\end{pmatrix}$ et $I\left(\frac{2-1}{2}\,;\frac{-1+4}{2}\,;\frac{3+0}{2}\right)=I\left(\frac12\,;\frac32\,;\frac32\right)$.</li>
+        <li>$ABCD$ est un parallélogramme si $\overrightarrow{AB}=\overrightarrow{DC}$, c'est-à-dire $C-D=\overrightarrow{AB}$. Donc $x_D=0-(-3)=3$, $y_D=2-5=-3$, $z_D=1-(-3)=4$ : $D(3\,;-3\,;4)$. Contrôle : $\overrightarrow{DC}\begin{pmatrix}-3\\5\\-3\end{pmatrix}$ ✓.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Alignés ou pas ?">
+    <p>$A(1\,;-2\,;0)$, $B(3\,;1\,;-1)$, $C(7\,;7\,;-3)$ et $D(5\,;4\,;-1)$.</p>
+    <ol><li>Les points $A$, $B$, $C$ sont-ils alignés ?</li><li>Les points $A$, $B$, $D$ sont-ils alignés ?</li></ol>
+    <details class="correction">
+      <ol>
+        <li>$\overrightarrow{AB}\begin{pmatrix}2\\3\\-1\end{pmatrix}$, $\overrightarrow{AC}\begin{pmatrix}6\\9\\-3\end{pmatrix}$. Avec $k=3$ : $3\times2=6$ ✓, $3\times3=9$ ✓, $3\times(-1)=-3$ ✓. $\overrightarrow{AC}=3\overrightarrow{AB}$ : $A$, $B$, $C$ sont alignés.</li>
+        <li>$\overrightarrow{AD}\begin{pmatrix}4\\6\\-1\end{pmatrix}$. La première coordonnée impose $k=2$, mais $2\times(-1)=-2\neq-1$. Pas colinéaires : $A$, $B$, $D$ ne sont pas alignés.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Une droite, de bout en bout">
+    <p>$A(1\,;0\,;-2)$ et $B(3\,;-1\,;0)$.</p>
+    <ol><li>Donner une représentation paramétrique de $(AB)$.</li><li>Donner les coordonnées du point de paramètre $t=-1$.</li><li>Le point $C(7\,;-3\,;4)$ est-il sur $(AB)$ ?</li><li>Où la droite $(AB)$ coupe-t-elle le plan d'équation $x=0$ ?</li></ol>
+    <details class="correction">
+      <ol>
+        <li>$\overrightarrow{AB}\begin{pmatrix}2\\-1\\2\end{pmatrix}$, donc $(AB):\left\{\begin{array}{l}x=1+2t\\y=-t\\z=-2+2t\end{array}\right.\ t\in\R$.</li>
+        <li>$t=-1$ : $(1-2\,;1\,;-2-2)=(-1\,;1\,;-4)$.</li>
+        <li>$7=1+2t$ donne $t=3$ ; alors $y=-3$ ✓ et $z=-2+6=4$ ✓. Oui, $C$ est le point de paramètre $3$.</li>
+        <li>$x=0$ donne $1+2t=0$, $t=-\frac12$. Le point est $\left(0\,;\frac12\,;-3\right)$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Lire une représentation">
+    <p>$d:\left\{\begin{array}{l}x=3-t\\y=2t\\z=1+4t\end{array}\right.\ t\in\R$.</p>
+    <ol><li>Donner un point et un vecteur directeur de $d$.</li><li>Le point $E(1\,;4\,;9)$ est-il sur $d$ ?</li><li>Donner une autre représentation paramétrique de $d$.</li></ol>
+    <details class="correction">
+      <ol>
+        <li>Avec $t=0$ : le point $(3\,;0\,;1)$. Les coefficients de $t$ donnent $\vec u\begin{pmatrix}-1\\2\\4\end{pmatrix}$.</li>
+        <li>$1=3-t$ donne $t=2$ ; alors $y=4$ ✓ et $z=9$ ✓. Oui.</li>
+        <li>Par exemple, avec le point $E$ et le vecteur $-\vec u\begin{pmatrix}1\\-2\\-4\end{pmatrix}$ : $x=1+s$, $y=4-2s$, $z=9-4s$, $s\in\R$. Toute autre réponse avec un point de $d$ et un vecteur colinéaire à $\vec u$ est juste.</li>
+      </ol>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Enchaîner</h3>
+
+  <article class="exercice" data-niveau="2" data-titre="Coplanaires, ou base ?">
+    <p>$\vec u\begin{pmatrix}1\\-1\\2\end{pmatrix}$, $\vec v\begin{pmatrix}2\\0\\1\end{pmatrix}$, $\vec w\begin{pmatrix}-1\\-3\\4\end{pmatrix}$ et $\vec w'\begin{pmatrix}0\\1\\1\end{pmatrix}$.</p>
+    <ol><li>Montrer que $\vec u$, $\vec v$, $\vec w$ sont coplanaires.</li><li>Montrer que $(\vec u,\vec v,\vec w')$ est une base de l'espace.</li></ol>
+    <details class="correction">
+      <ol>
+        <li>$\vec u$ et $\vec v$ ne sont pas colinéaires : si $\vec v=k\vec u$, la deuxième coordonnée donne $k=0$, et $\vec v$ serait nul. $\vec w=a\vec u+b\vec v$ donne $\begin{cases}-1=a+2b\\-3=-a\\4=2a+b\end{cases}$. La deuxième : $a=3$. La première : $2b=-4$, $b=-2$. La troisième : $6-2=4$ ✓. Donc $\vec w=3\vec u-2\vec v$ : coplanaires.</li>
+        <li>$\vec w'=a\vec u+b\vec v$ donne $\begin{cases}0=a+2b\\1=-a\\1=2a+b\end{cases}$. $a=-1$, puis $b=\frac12$, et $2a+b=-\frac32\neq1$ ✗. Pas de solution : les trois vecteurs ne sont pas coplanaires, c'est une base.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Quatre points dans un même plan ?">
+    <p>$A(1\,;1\,;0)$, $B(2\,;0\,;1)$, $C(0\,;2\,;2)$, $D(1\,;1\,;3)$ et $E(2\,;2\,;1)$.</p>
+    <ol><li>Montrer que $A$, $B$, $C$ définissent un plan.</li><li>Le point $D$ est-il dans le plan $(ABC)$ ? Et le point $E$ ?</li></ol>
+    <details class="correction">
+      <ol>
+        <li>$\overrightarrow{AB}\begin{pmatrix}1\\-1\\1\end{pmatrix}$ et $\overrightarrow{AC}\begin{pmatrix}-1\\1\\2\end{pmatrix}$ : $k=-1$ marche pour les deux premières coordonnées mais pas pour la troisième ($-1\neq2$). Pas colinéaires : $A$, $B$, $C$ ne sont pas alignés, ils définissent un plan.</li>
+        <li>$\overrightarrow{AD}\begin{pmatrix}0\\0\\3\end{pmatrix}=\overrightarrow{AB}+\overrightarrow{AC}$ (vérifie coordonnée par coordonnée) : $D\in(ABC)$.<br>$\overrightarrow{AE}\begin{pmatrix}1\\1\\1\end{pmatrix}=a\overrightarrow{AB}+b\overrightarrow{AC}$ donne $a-b=1$ et $-a+b=1$. En additionnant : $0=2$, impossible. $E\notin(ABC)$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Trois droites, trois positions">
+    <p>$d:\left\{\begin{array}{l}x=1+2t\\y=-1+t\\z=3-t\end{array}\right.$ Étudier la position de $d$ avec chacune des droites suivantes ($s$ réel).</p>
+    <p>$d_1:\ x=-2s,\ y=1-s,\ z=2+s$ &nbsp;&nbsp; $d_2:\ x=2+s,\ y=-1+s,\ z=1+s$ &nbsp;&nbsp; $d_3:\ x=2+s,\ y=-1+s,\ z=3+s$</p>
+    <details class="correction">
+      <p>Vecteur directeur de $d$ : $\vec u\begin{pmatrix}2\\1\\-1\end{pmatrix}$.</p>
+      <p><strong>$d_1$</strong> : vecteur $\begin{pmatrix}-2\\-1\\1\end{pmatrix}=-\vec u$, donc $d_1\parallel d$. Le point $(0\,;1\,;2)$ de $d_1$ est-il sur $d$ ? $0=1+2t$ donne $t=-\frac12$, puis $y=-\frac32\neq1$. Non : parallèles <strong>strictement</strong>.</p>
+      <p><strong>$d_2$</strong> : vecteur $\begin{pmatrix}1\\1\\1\end{pmatrix}$, pas colinéaire à $\vec u$. Système : $1+2t=2+s$, $-1+t=-1+s$, $3-t=1+s$. La deuxième donne $t=s$, la première $t=1$. Troisième : $3-1=2$ et $1+1=2$ ✓. <strong>Sécantes</strong> en $(3\,;0\,;2)$.</p>
+      <p><strong>$d_3$</strong> : même vecteur que $d_2$. Les deux premières équations donnent encore $t=s=1$, mais la troisième devient $2=4$ ✗. Pas de point commun, pas parallèles : <strong>non coplanaires</strong>.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Corrige l'IA">
+    <p>Une IA a rédigé cette réponse pour la droite $d$ et la droite $d_3$ de l'exercice précédent. Elle est sûre d'elle. Trouve l'erreur.</p>
+    <blockquote class="copie-ia">« On cherche un point commun : $1+2t=2+s$ et $-1+t=-1+s$. La deuxième équation donne $t=s$, et la première donne alors $t=1$. Les droites sont donc sécantes, au point de paramètre $t=1$, c'est-à-dire $(3\,;0\,;2)$. »</blockquote>
+    <details class="correction">
+      <p>L'IA n'a utilisé que <strong>deux équations sur trois</strong>. Avec $t=s=1$, la troisième donne $z=3-1=2$ pour $d$ et $z=3+1=4$ pour $d_3$ : $2\neq4$. Le point $(3\,;0\,;2)$ est sur $d$, pas sur $d_3$.</p>
+      <p>Bonne conclusion : les droites ne sont ni sécantes, ni parallèles, elles sont non coplanaires. La solution avait l'air propre : c'est justement pour ça qu'il faut la relire.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Une droite, un plan">
+    <p>Le plan $\mathcal P$ passe par $A(0\,;1\,;2)$ et est dirigé par $\vec u\begin{pmatrix}1\\0\\-1\end{pmatrix}$ et $\vec v\begin{pmatrix}0\\2\\1\end{pmatrix}$.</p>
+    <ol><li>La droite $d$ passe par $(1\,;0\,;0)$ et est dirigée par $\vec w\begin{pmatrix}1\\4\\1\end{pmatrix}$. Montrer que $d$ est parallèle à $\mathcal P$. Est-elle contenue dans $\mathcal P$ ?</li><li>La droite $d'$ a pour représentation $x=2t$, $y=1$, $z=3+t$. Montrer que $d'$ coupe $\mathcal P$ et donner le point d'intersection.</li></ol>
+    <details class="correction">
+      <ol>
+        <li>$\vec w=a\vec u+b\vec v$ : $1=a$, $4=2b$, $1=-a+b$. Donc $a=1$, $b=2$, et $-1+2=1$ ✓ : $\vec w=\vec u+2\vec v$, $d\parallel\mathcal P$.<br>Le point $(1\,;0\,;0)$ est-il dans $\mathcal P$ ? Il faudrait $\overrightarrow{AM}\begin{pmatrix}1\\-1\\-2\end{pmatrix}=a\vec u+b\vec v$ : $a=1$, $2b=-1$ donc $b=-\frac12$, puis $-a+b=-\frac32\neq-2$ ✗. Non : $d$ est strictement parallèle à $\mathcal P$.</li>
+        <li>Un point de $\mathcal P$ s'écrit $(a\,;1+2b\,;2-a+b)$. On égalise avec $(2t\,;1\,;3+t)$ : $a=2t$, $1+2b=1$, $2-a+b=3+t$. Donc $b=0$, puis $2-2t=3+t$, $t=-\frac13$. Une solution unique : $d'$ coupe $\mathcal P$ au point $\left(-\frac23\,;1\,;\frac83\right)$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Chercher</h3>
+
+  <article class="exercice" data-niveau="3" data-titre="Le cube en coordonnées">
+    <p>$ABCDEFGH$ est un cube. On se place dans le repère $(A\,;\overrightarrow{AB},\overrightarrow{AD},\overrightarrow{AE})$. $I$ est le milieu de $[EF]$ et $J$ le milieu de $[CG]$.</p>
+    <ol><li>Donner les coordonnées de tous les sommets, puis de $I$ et $J$.</li><li>Donner une représentation paramétrique de $(IJ)$ et de $(AG)$.</li><li>Les droites $(IJ)$ et $(AG)$ sont-elles sécantes ?</li></ol>
+    <details class="correction">
+      <ol>
+        <li>$A(0\,;0\,;0)$, $B(1\,;0\,;0)$, $C(1\,;1\,;0)$, $D(0\,;1\,;0)$, $E(0\,;0\,;1)$, $F(1\,;0\,;1)$, $G(1\,;1\,;1)$, $H(0\,;1\,;1)$. Puis $I\left(\frac12\,;0\,;1\right)$ et $J\left(1\,;1\,;\frac12\right)$.</li>
+        <li>$\overrightarrow{IJ}\begin{pmatrix}\frac12\\1\\-\frac12\end{pmatrix}$ : $(IJ):\ x=\frac12+\frac12t,\ y=t,\ z=1-\frac12t$. Et $(AG):\ x=s,\ y=s,\ z=s$.</li>
+        <li>Les vecteurs directeurs ne sont pas colinéaires. Système : $\frac12+\frac12t=s$, $t=s$, $1-\frac12t=s$. Avec $t=s$, la première donne $t=1$, puis la troisième : $\frac12\neq1$ ✗. Les droites ne sont pas sécantes : elles sont non coplanaires. Sur une figure, elles semblent pourtant se croiser.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Le tétraèdre et ses milieux">
+    <p>$ABCD$ est un tétraèdre. $I$, $J$, $K$, $L$ sont les milieux de $[AB]$, $[CD]$, $[AC]$ et $[BD]$. Montrer que les droites $(IJ)$ et $(KL)$ sont sécantes.</p>
+    <p class="discret">Indication : $(\overrightarrow{AB},\overrightarrow{AC},\overrightarrow{AD})$ est une base, car un tétraèdre n'est pas aplati.</p>
+    <details class="correction">
+      <p>Dans le repère $(A\,;\overrightarrow{AB},\overrightarrow{AC},\overrightarrow{AD})$ : $A(0\,;0\,;0)$, $B(1\,;0\,;0)$, $C(0\,;1\,;0)$, $D(0\,;0\,;1)$.</p>
+      <p>Donc $I\left(\frac12\,;0\,;0\right)$, $J\left(0\,;\frac12\,;\frac12\right)$, $K\left(0\,;\frac12\,;0\right)$, $L\left(\frac12\,;0\,;\frac12\right)$.</p>
+      <p>Le milieu de $[IJ]$ a pour coordonnées $\left(\frac14\,;\frac14\,;\frac14\right)$, et le milieu de $[KL]$ aussi. Les droites $(IJ)$ et $(KL)$ ont donc ce point en commun.</p>
+      <p>Elles ne sont pas confondues : $\overrightarrow{IJ}\begin{pmatrix}-\frac12\\\frac12\\\frac12\end{pmatrix}$ et $\overrightarrow{KL}\begin{pmatrix}\frac12\\-\frac12\\\frac12\end{pmatrix}$ ne sont pas colinéaires (même $k=-1$ impossible sur la troisième coordonnée). Elles sont donc sécantes.</p>
+      <p>Choisir un repère adapté à la figure transforme un problème de géométrie en calcul simple.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="L'hexagone caché dans le cube">
+    <p>Dans le repère de l'exercice « Le cube en coordonnées », on note $M_1$, $M_2$, $M_3$, $M_4$, $M_5$, $M_6$ les milieux des arêtes $[AB]$, $[BF]$, $[FG]$, $[GH]$, $[HD]$ et $[DA]$. Montrer que ces six points sont coplanaires.</p>
+    <details class="correction">
+      <p>$M_1\left(\frac12\,;0\,;0\right)$, $M_2\left(1\,;0\,;\frac12\right)$, $M_3\left(1\,;\frac12\,;1\right)$, $M_4\left(\frac12\,;1\,;1\right)$, $M_5\left(0\,;1\,;\frac12\right)$, $M_6\left(0\,;\frac12\,;0\right)$.</p>
+      <p>On prend $\vec u=\overrightarrow{M_1M_2}\begin{pmatrix}\frac12\\0\\\frac12\end{pmatrix}$ et $\vec v=\overrightarrow{M_1M_6}\begin{pmatrix}-\frac12\\\frac12\\0\end{pmatrix}$, non colinéaires. Puis :</p>
+      <ul>
+        <li>$\overrightarrow{M_1M_3}\begin{pmatrix}\frac12\\\frac12\\1\end{pmatrix}=2\vec u+\vec v$ ;</li>
+        <li>$\overrightarrow{M_1M_4}\begin{pmatrix}0\\1\\1\end{pmatrix}=2\vec u+2\vec v$ ;</li>
+        <li>$\overrightarrow{M_1M_5}\begin{pmatrix}-\frac12\\1\\\frac12\end{pmatrix}=\vec u+2\vec v$.</li>
+      </ul>
+      <p>Chaque vecteur se vérifie coordonnée par coordonnée. Les six points sont dans le plan passant par $M_1$ dirigé par $\vec u$ et $\vec v$ : en coupant le cube selon ce plan, on obtient un hexagone (régulier, ce qu'on démontrera avec les distances).</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Deux drones dans un entrepôt">
+    <p>Dans un entrepôt, on repère les positions en mètres. Deux drones volent en ligne droite. À l'instant $t$ (en secondes), le drone 1 est en $(2t\,;1+t\,;9+t)$. Le drone 2, lancé plus tard, est à l'instant $s$ de son propre chronomètre en $(1+s\,;14-2s\,;17-s)$.</p>
+    <ol><li>Montrer que les trajectoires des deux drones se coupent, et donner le point commun.</li><li>Les deux chronomètres sont démarrés en même temps. Les drones risquent-ils de se percuter ?</li><li>Un troisième drone suit la trajectoire $(4+s\,;-s\,;10+2s)$. Sa trajectoire croise-t-elle celle du drone 1 ?</li></ol>
+    <details class="correction">
+      <ol>
+        <li>Les vecteurs directeurs $\begin{pmatrix}2\\1\\1\end{pmatrix}$ et $\begin{pmatrix}1\\-2\\-1\end{pmatrix}$ ne sont pas colinéaires. Système : $2t=1+s$, $1+t=14-2s$, $9+t=17-s$. La première donne $s=2t-1$ ; la deuxième devient $1+t=16-4t$, donc $t=3$ et $s=5$. Troisième : $9+3=12$ et $17-5=12$ ✓. Les trajectoires se coupent en $P(6\,;4\,;12)$.</li>
+        <li>Le drone 1 passe en $P$ à $t=3$ s, le drone 2 à $s=5$ s. Ils n'y sont pas en même temps : pas de collision, mais ils passent au même endroit à 2 secondes d'écart. Se couper pour les <strong>trajectoires</strong> ne veut pas dire se rencontrer pour les <strong>drones</strong>.</li>
+        <li>Vecteur directeur $\begin{pmatrix}1\\-1\\2\end{pmatrix}$, pas colinéaire à $\begin{pmatrix}2\\1\\1\end{pmatrix}$. Système : $2t=4+s$, $1+t=-s$, $9+t=10+2s$. Les deux premières donnent $t=1$, $s=-2$ ; la troisième : $10\neq6$ ✗. Les trajectoires sont non coplanaires : elles ne se croisent jamais.</li>
+      </ol>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Comment savoir si je dois chercher $k$ ou chercher $a$ et $b$ ?</summary>
+      <div><p>Deux vecteurs : on cherche un seul nombre $k$ (colinéarité). Trois vecteurs : on cherche deux nombres $a$ et $b$ (coplanarité). Une droite, c'est une direction ; un plan, c'en est deux.</p></div></details>
+    <details><summary>Pourquoi tester la troisième équation, si les deux premières marchent ?</summary>
+      <div><p>Parce qu'avec deux inconnues, deux équations ont presque toujours une solution. La troisième dit si cette solution est vraiment commune. C'est elle qui sépare « sécantes » de « non coplanaires ».</p></div></details>
+    <details><summary>Ma représentation paramétrique n'est pas celle du corrigé. Est-elle fausse ?</summary>
+      <div><p>Pas forcément. Vérifie deux choses : ton point est-il sur la droite du corrigé ? Ton vecteur est-il colinéaire au sien ? Si oui, ta réponse est juste.</p></div></details>
+    <details><summary>Un repère de l'espace doit-il être orthonormé ?</summary>
+      <div><p>Non. Tout ce chapitre marche dans n'importe quel repère, par exemple $(A\,;\overrightarrow{AB},\overrightarrow{AC},\overrightarrow{AD})$ dans un tétraèdre. L'orthonormé deviendra nécessaire au chapitre suivant, pour calculer des longueurs et des angles.</p></div></details>
+    <details><summary>Comment voir des droites non coplanaires dans la vraie vie ?</summary>
+      <div><p>Dans une salle : une arête du plafond le long d'un mur, et une arête du sol le long du mur d'à côté. Elles ne se touchent pas et ne sont pas parallèles. Le labo « Deux droites dans l'espace » en montre d'autres.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<!--
+  MODÈLE DE CHAPITRE (valable pour toutes les matières)
+
+  1. Copie ce fichier dans le dossier de sa matière et de son niveau, et renomme-le.
+     · Chapitre AVEC figures dessinées : nomme-le  <chapitre>.source.html , écris les
+       dessins dans  <chapitre>.figures.py  à côté, place des {{figure:nom}} dans le
+       texte, puis fabrique la page :  python3 outils/figures.py <chemin>.source.html
+     · Chapitre SANS figure dessinée : nomme-le directement  <chapitre>.html
+       (exemples : maths/seconde/fonctions.html, qui n'utilise que des graphes interactifs)
+  2. Change le <title>, data-matiere et data-chapitre (les mêmes "id" que dans
+     assets/js/chapitres.js), et le nombre de ../ des deux chemins vers assets/.
+  3. Déclare le chapitre dans les trois manifestes :
+     · assets/js/chapitres.js   la ligne du chapitre, avec  fichier: "..."
+     · assets/js/portes.js      LABOS (titres des labos), GENERATEURS (chapitre → fichier),
+                                THEMES de la matière
+     · assets/js/notions.js     les notions et leurs liens, si la matière en a
+  4. Remplis les cinq sections ci-dessous, dans cet ordre : les onglets se fabriquent
+     tout seuls à partir des <h2>. Supprime une section dont tu n'as pas besoin.
+
+  Tous les blocs disponibles sont montrés dans guide.html (mode d'emploi technique).
+  Le sens de chaque couleur, côté élève, est dans lire-le-cours.html.
+-->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>TITRE DU CHAPITRE · Seconde</title>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body data-matiere="ID-DE-LA-MATIERE" data-chapitre="ID-DU-CHAPITRE" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Matière · Seconde</span>
+  <h1>Titre du chapitre</h1>
+  <p class="chapeau">Deux ou trois phrases qui disent de quoi parle le chapitre, en partant du concret.</p>
+  <ul class="objectifs">
+    <li>Objectif 1</li><li>Objectif 2</li><li>Objectif 3</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <!-- L'ouverture : une situation réelle qui pose les questions du chapitre, et les
+       métiers qui s'en servent. C'est la première chose que l'élève lit. -->
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Une scène concrète, située.</strong> Les questions qu'elle pose sont celles auxquelles le chapitre répond.</p>
+    <p class="discret">Ils s'en servent : les métiers concernés. Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- Chaque partie du cours : un <h3> avec un id "c-…" (le sommaire « Aller à » se
+       construit tout seul à partir d'eux, dès qu'il y en a trois). -->
+  <h3 id="c-notion">1. Titre de la première partie</h3>
+
+  <!-- BLEU : le vocabulaire, les notations, les unités. À savoir par cœur. -->
+  <div class="bloc definition" data-titre="Nom de la notion">
+    <p>Texte de la définition. Formule dans le texte : $f(x) = x^2$.</p>
+  </div>
+
+  <!-- VIOLET : ce qui est toujours vrai et utilisable sans le redémontrer. -->
+  <div class="bloc propriete" data-titre="Nom de la propriété">
+    <p>Énoncé de la propriété.</p>
+    $$ (a+b)^2 = a^2 + 2ab + b^2 $$
+  </div>
+
+  <!-- Figure dessinée (fichier .source.html seulement) : le {{figure:nom}} est remplacé
+       par le dessin rendu par la fonction nom() de <chapitre>.figures.py.
+  <figure class="figure-svg">{{figure:nom_de_la_figure}}<figcaption>Ce qu'il faut voir sur la figure.</figcaption></figure>
+  -->
+  <figure class="graphe" data-f="x^2" data-nom="f" data-fenetre="-4 4 -2 10">
+    <figcaption>Un graphe interactif, lui, ne demande aucune figure Python.</figcaption>
+  </figure>
+
+  <h3 id="c-methode">2. Titre de la deuxième partie</h3>
+
+  <!-- TURQUOISE : comment on fait. Ces blocs sont REPLIÉS à l'ouverture du cours ;
+       un clic les déplie. Ajouter data-ouvert pour en garder un ouvert. -->
+  <div class="bloc methode" data-titre="Nom de la méthode">
+    <ol class="etapes">
+      <li><span>Première étape, à la première personne : « Je repère… ».</span></li>
+      <li><span>Deuxième étape.</span></li>
+      <li><span>Je conclus par une phrase.</span></li>
+    </ol>
+    <!-- Le déroulé : un exercice résolu dont l'élève dévoile les étapes une par une,
+         après avoir cherché seul. C'est l'étape « comparer » de la barre de parcours. -->
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> L'énoncé à chercher avant de dévoiler.</p>
+      <ol class="pas">
+        <li><strong>Première étape.</strong> Le calcul, rédigé.</li>
+        <li><strong>Deuxième étape.</strong> La suite.</li>
+        <li><strong>Conclusion.</strong> La réponse, et ce qu'elle veut dire.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- JAUNE : le cours en action sur un cas concret. -->
+  <div class="bloc exemple" data-titre="Un cas concret">
+    <p>Un exemple rédigé, de préférence tiré du métier visé.</p>
+  </div>
+
+  <!-- BEIGE : pour aller plus loin, à comprendre mais pas à apprendre par cœur. -->
+  <div class="bloc remarque" data-titre="Pour aller plus loin">
+    <p>Un lien avec un autre chapitre, une curiosité, un cas particulier.</p>
+  </div>
+
+  <!-- ROUGE : les erreurs que tout le monde fait. À regrouper en fin de cours : c'est la
+       partie que l'élève relit avant un contrôle. -->
+  <h3 id="c-pieges">3. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs qui coûtent des points">
+    <ul>
+      <li><strong>L'erreur, nommée.</strong> Pourquoi elle est fausse, et ce qu'il faut écrire.</li>
+      <li><strong>Une autre.</strong> Idem.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">4. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <!-- data-youtube="identifiant" · data-src="videos/fichier.mp4" · vide = « à venir » -->
+    <div class="video" data-titre="Titre de la vidéo"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Une phrase qui dit ce qu'on va manipuler, et dans quel ordre.</p>
+
+  <!-- Chaque labo a besoin d'un outil déclaré dans assets/js/labos/NOM.js
+       (window.LABOS.NOM = {outil1, outil2}) et d'une ligne dans LABOS, dans portes.js.
+       Décommenter après avoir remplacé NOM, sinon le fichier n'existe pas.
+  <div class="labo" data-labo="NOM" data-outil="outil1"></div>
+  -->
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Une phrase sur ce que le jeu et le quiz vérifient. Le contrôle blanc s'ajoute seul en bas.</p>
+
+  <!-- Jeu aléatoire : nécessite assets/js/generateurs/NOM.js.
+       Décommenter après avoir remplacé NOM, sinon le fichier n'existe pas.
+  <div class="jeu" data-generateurs="NOM" data-questions="10" data-titre="Le défi du chapitre"></div>
+  -->
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Question à choix ?</p>
+      <ul class="choix">
+        <li class="bon">Bonne réponse</li><li>Mauvaise réponse</li><li>Mauvaise réponse</li>
+      </ul>
+      <div class="explication">Pourquoi c'est la bonne réponse — et pourquoi les autres sont fausses.</div>
+    </div>
+    <div class="question" data-reponse="12" data-tolerance="0,5">
+      <p>Question à réponse numérique ?</p>
+      <div class="explication">Le calcul détaillé.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre. Rédige d'abord, puis ouvre la correction.</p>
+
+  <h3>Niveau 1 · Reconnaître et appliquer</h3>
+
+  <!-- data-niveau : 1, 2 ou 3 étoiles. Les numéros s'ajoutent tout seuls. -->
+  <article class="exercice" data-niveau="1" data-titre="Titre court">
+    <p>Énoncé.</p>
+    <details class="correction">
+      <p>Correction rédigée, avec le calcul.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Analyser une situation</h3>
+
+  <article class="exercice" data-niveau="2" data-titre="Titre court">
+    <p>1. Première question.<br>2. Deuxième question.</p>
+    <details class="correction">
+      <p>1. Réponse.</p>
+      <p>2. Réponse.</p>
+    </details>
+  </article>
+
+  <!-- UN PAR CHAPITRE, obligatoire : une réponse d'IA fluide, assurée et fausse dès la
+       première ligne, que l'élève doit démonter. C'est une signature du projet. -->
+  <article class="exercice" data-niveau="2" data-titre="Corrige l'IA">
+    <p>Un élève a demandé à une IA de… Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« Le raisonnement faux, écrit avec aplomb, qui enchaîne les “donc”. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 :</strong> …</p>
+      <p><strong>Erreur 2 :</strong> …</p>
+      <p>Une réponse peut être fluide et fausse dès la première ligne. Le réflexe : vérifier les unités, et comparer l'ordre de grandeur au cours.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Synthèse</h3>
+
+  <article class="exercice" data-niveau="3" data-titre="Titre court">
+    <p>Une situation complète, à démêler en plusieurs questions.</p>
+    <details class="correction">
+      <p>La correction, question par question.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Une question que les élèves posent vraiment ?</summary>
+      <div><p>La réponse, courte et franche.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

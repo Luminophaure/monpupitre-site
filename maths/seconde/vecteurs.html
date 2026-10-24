@@ -1,0 +1,489 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de vecteurs.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/seconde/vecteurs.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Vecteurs · Seconde</title>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body data-matiere="maths" data-chapitre="vecteurs" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Seconde · Géométrie</span>
+  <h1>Vecteurs : translation, somme et produit</h1>
+  <p class="chapeau">Un vecteur, c'est un <strong>déplacement</strong> : on glisse tout d'un même mouvement, sans tourner. On apprend à les reconnaître, à les ajouter bout à bout et à les allonger.</p>
+  <ul class="objectifs">
+    <li>Reconnaître des vecteurs égaux</li><li>Construire l'image d'un point</li><li>Ajouter deux vecteurs</li><li>Simplifier avec Chasles</li><li>Multiplier par un nombre</li><li>Prouver un parallélogramme</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Un nageur veut traverser une rivière tout droit.</strong> Il nage face à l'autre rive, mais le courant l'entraîne vers l'aval. Son vrai trajet est la <strong>somme</strong> de deux déplacements : celui de ses bras et celui de l'eau. Les sauveteurs, les pilotes d'avion (le vent fait dériver l'appareil) et les skippers font ce calcul en permanence.</p>
+    <p class="discret">Ils s'en servent aussi : les animateurs de jeux vidéo (déplacer un personnage, c'est lui appliquer une translation à chaque image), les physiciens (une force est un vecteur). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-translation">1. Translation et vecteur</h3>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Translation">
+      <p>Soit $A$ et $B$ deux points. La <strong>translation qui transforme $A$ en $B$</strong> fait glisser chaque point du plan dans la même direction, le même sens et sur la même longueur que pour aller de $A$ à $B$.</p>
+      <p>L'image d'une figure est une figure <strong>superposable</strong> : même forme, même taille, même orientation.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 452 272" role="img" aria-label="Le triangle ABC et son image A'B'C' par la translation de vecteur u : chaque point avance de 6 carreaux vers la droite et 2 vers le haut."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="262"/><line x1="46" y1="10" x2="46" y2="262"/><line x1="82" y1="10" x2="82" y2="262"/><line x1="118" y1="10" x2="118" y2="262"/><line x1="154" y1="10" x2="154" y2="262"/><line x1="190" y1="10" x2="190" y2="262"/><line x1="226" y1="10" x2="226" y2="262"/><line x1="262" y1="10" x2="262" y2="262"/><line x1="298" y1="10" x2="298" y2="262"/><line x1="334" y1="10" x2="334" y2="262"/><line x1="370" y1="10" x2="370" y2="262"/><line x1="406" y1="10" x2="406" y2="262"/><line x1="442" y1="10" x2="442" y2="262"/><line x1="10" y1="262" x2="442" y2="262"/><line x1="10" y1="226" x2="442" y2="226"/><line x1="10" y1="190" x2="442" y2="190"/><line x1="10" y1="154" x2="442" y2="154"/><line x1="10" y1="118" x2="442" y2="118"/><line x1="10" y1="82" x2="442" y2="82"/><line x1="10" y1="46" x2="442" y2="46"/><line x1="10" y1="10" x2="442" y2="10"/></g><polygon class="forme" points="46,226 154,226 82,118"/><polygon class="forme forme-image" points="262,154 370,154 298,46"/><g class="trace t-u pointille"><line x1="46" y1="226" x2="254.6" y2="156.5"/><polygon points="262.0,154.0 251.5,163.7 247.8,152.6"/></g><g class="trace t-u pointille"><line x1="154" y1="226" x2="362.6" y2="156.5"/><polygon points="370.0,154.0 359.5,163.7 355.8,152.6"/></g><g class="trace t-u pointille"><line x1="82" y1="118" x2="290.6" y2="48.5"/><polygon points="298.0,46.0 287.5,55.7 283.8,44.6"/></g><circle class="pt " cx="46" cy="226" r="4.5"/><text class="lettre" x="30.0" y="242.0">A</text><circle class="pt " cx="154" cy="226" r="4.5"/><text class="lettre" x="158.0" y="246.0">B</text><circle class="pt " cx="82" cy="118" r="4.5"/><text class="lettre" x="66.0" y="118.0">C</text><circle class="pt " cx="262" cy="154" r="4.5"/><text class="lettre" x="252.0" y="178.0">A'</text><circle class="pt " cx="370" cy="154" r="4.5"/><text class="lettre" x="376.0" y="174.0">B'</text><circle class="pt " cx="298" cy="46" r="4.5"/><text class="lettre" x="290.0" y="42.0">C'</text><g class="trace t-u"><line x1="334" y1="226" x2="434.6" y2="192.5"/><polygon points="442.0,190.0 431.5,199.7 427.8,188.6"/><text x="393.1" y="233.2" class="nom-vec">u</text></g></svg><figcaption>Le triangle $A'B'C'$ est l'image de $ABC$ par la translation de vecteur $\vec u$ : chaque point fait le même trajet.</figcaption></figure>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Vecteur">
+      <p>Cette translation est associée au <strong>vecteur</strong> $\overrightarrow{AB}$. Il est défini par trois choses :</p>
+      <ul>
+        <li>sa <strong>direction</strong> : celle de la droite $(AB)$ ;</li>
+        <li>son <strong>sens</strong> : de $A$ vers $B$ ;</li>
+        <li>sa <strong>norme</strong> (sa longueur) : la distance $AB$, notée $\|\overrightarrow{AB}\|$.</li>
+      </ul>
+      <p>On le dessine par une flèche. Quand on ne précise pas les points, on le nomme avec une lettre : $\vec u$.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 344 200" role="img" aria-label="Le vecteur AB, de A vers B : sa direction est celle de la droite (AB), son sens va de A vers B, sa longueur est AB."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="190"/><line x1="46" y1="10" x2="46" y2="190"/><line x1="82" y1="10" x2="82" y2="190"/><line x1="118" y1="10" x2="118" y2="190"/><line x1="154" y1="10" x2="154" y2="190"/><line x1="190" y1="10" x2="190" y2="190"/><line x1="226" y1="10" x2="226" y2="190"/><line x1="262" y1="10" x2="262" y2="190"/><line x1="298" y1="10" x2="298" y2="190"/><line x1="334" y1="10" x2="334" y2="190"/><line x1="10" y1="190" x2="334" y2="190"/><line x1="10" y1="154" x2="334" y2="154"/><line x1="10" y1="118" x2="334" y2="118"/><line x1="10" y1="82" x2="334" y2="82"/><line x1="10" y1="46" x2="334" y2="46"/><line x1="10" y1="10" x2="334" y2="10"/></g><g class="trace t-n pointille"><line x1="10" y1="172.0" x2="334" y2="10"/></g><g class="trace t-u"><line x1="46" y1="154" x2="255.0" y2="49.5"/><polygon points="262.0,46.0 253.0,57.0 247.8,46.6"/></g><circle class="pt " cx="46" cy="154" r="4.5"/><text class="lettre" x="38.0" y="178.0">A</text><circle class="pt " cx="262" cy="46" r="4.5"/><text class="lettre" x="268.0" y="46.0">B</text></svg><figcaption>Le vecteur $\overrightarrow{AB}$ : direction de la droite en pointillés, sens de $A$ vers $B$, longueur $AB$.</figcaption></figure>
+  </div>
+
+  <div class="bloc remarque">
+    <p>Le <strong>vecteur nul</strong>, noté $\vec 0$, correspond à ne pas bouger : $\overrightarrow{AA}=\overrightarrow{BB}=\vec 0$. Sa norme vaut $0$.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-egaux">2. Vecteurs égaux</h3>
+
+  <div class="colonnes">
+    <div class="pile">
+      <div class="bloc definition" data-titre="Vecteurs égaux">
+        <p>Deux vecteurs sont <strong>égaux</strong> s'ils ont la même direction, le même sens et la même norme. Ils représentent le même déplacement, même s'ils ne partent pas du même point.</p>
+      </div>
+      <div class="bloc propriete" data-titre="Vecteurs égaux et parallélogramme">
+        <p class="formule">$\overrightarrow{AB}=\overrightarrow{CD}\iff ABDC$ est un parallélogramme (éventuellement aplati).</p>
+        <p>Attention à l'ordre des lettres : on lit $A$, $B$, puis $D$, puis $C$.</p>
+      </div>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 380 236" role="img" aria-label="AB et CD sont égaux : ABDC est un parallélogramme."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="226"/><line x1="46" y1="10" x2="46" y2="226"/><line x1="82" y1="10" x2="82" y2="226"/><line x1="118" y1="10" x2="118" y2="226"/><line x1="154" y1="10" x2="154" y2="226"/><line x1="190" y1="10" x2="190" y2="226"/><line x1="226" y1="10" x2="226" y2="226"/><line x1="262" y1="10" x2="262" y2="226"/><line x1="298" y1="10" x2="298" y2="226"/><line x1="334" y1="10" x2="334" y2="226"/><line x1="370" y1="10" x2="370" y2="226"/><line x1="10" y1="226" x2="370" y2="226"/><line x1="10" y1="190" x2="370" y2="190"/><line x1="10" y1="154" x2="370" y2="154"/><line x1="10" y1="118" x2="370" y2="118"/><line x1="10" y1="82" x2="370" y2="82"/><line x1="10" y1="46" x2="370" y2="46"/><line x1="10" y1="10" x2="370" y2="10"/></g><polygon class="forme" points="46,190 190,154 262,46 118,82"/><g class="trace t-u"><line x1="46" y1="190" x2="182.4" y2="155.9"/><polygon points="190.0,154.0 178.8,162.8 176.0,151.5"/></g><g class="trace t-u"><line x1="118" y1="82" x2="254.4" y2="47.9"/><polygon points="262.0,46.0 250.8,54.8 248.0,43.5"/></g><g class="trace t-n pointille"><line x1="46" y1="190" x2="118" y2="82"/></g><g class="trace t-n pointille"><line x1="190" y1="154" x2="262" y2="46"/></g><circle class="pt " cx="46" cy="190" r="4.5"/><text class="lettre" x="30.0" y="206.0">A</text><circle class="pt " cx="190" cy="154" r="4.5"/><text class="lettre" x="196.0" y="174.0">B</text><circle class="pt " cx="118" cy="82" r="4.5"/><text class="lettre" x="102.0" y="84.0">C</text><circle class="pt " cx="262" cy="46" r="4.5"/><text class="lettre" x="268.0" y="46.0">D</text></svg><figcaption>$\overrightarrow{AB}=\overrightarrow{CD}$ : le quadrilatère $ABDC$ est un parallélogramme.</figcaption></figure>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Image par une translation">
+      <p>$D$ est l'image de $C$ par la translation de vecteur $\overrightarrow{AB}$ si et seulement si $\overrightarrow{CD}=\overrightarrow{AB}$.</p>
+    </div>
+    <div class="bloc propriete" data-titre="Milieu d'un segment">
+      <p class="formule">$I$ est le milieu de $[AB]\iff\overrightarrow{AI}=\overrightarrow{IB}$.</p>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Repérer des vecteurs égaux sur une figure">
+    <ol class="etapes">
+      <li><span>Pour chaque flèche candidate, vérifie les trois critères : même direction (côtés parallèles), même sens, même longueur.</span></li>
+      <li><span>Le sens se lit sur l'ordre des lettres : $\overrightarrow{AB}$ part de $A$.</span></li>
+    </ol>
+    <figure class="figure-svg"><svg viewBox="0 0 416 200" role="img" aria-label="Un réseau de quatre parallélogrammes. Ligne du bas : A, B, C. Ligne du milieu : D, E, F. Ligne du haut : G, H, I. Chaque ligne est décalée d'un cran vers la droite."><g class="trace t-n"><line x1="46.0" y1="168.4" x2="334.0" y2="168.4"/></g><g class="trace t-n"><line x1="89.2" y1="96.4" x2="377.2" y2="96.4"/></g><g class="trace t-n"><line x1="132.4" y1="24.4" x2="420.4" y2="24.4"/></g><g class="trace t-n"><line x1="46.0" y1="168.4" x2="132.4" y2="24.4"/></g><g class="trace t-n"><line x1="190.0" y1="168.4" x2="276.4" y2="24.4"/></g><g class="trace t-n"><line x1="334.0" y1="168.4" x2="420.4" y2="24.4"/></g><circle class="pt " cx="46.0" cy="168.4" r="4.5"/><text class="lettre" x="28.0" y="190.4">A</text><circle class="pt " cx="190.0" cy="168.4" r="4.5"/><text class="lettre" x="196.0" y="190.4">B</text><circle class="pt " cx="334.0" cy="168.4" r="4.5"/><text class="lettre" x="340.0" y="190.4">C</text><circle class="pt " cx="89.2" cy="96.4" r="4.5"/><text class="lettre" x="71.2" y="96.4">D</text><circle class="pt " cx="233.2" cy="96.4" r="4.5"/><text class="lettre" x="239.2" y="96.4">E</text><circle class="pt " cx="377.2" cy="96.4" r="4.5"/><text class="lettre" x="383.2" y="96.4">F</text><circle class="pt " cx="132.4" cy="24.4" r="4.5"/><text class="lettre" x="114.4" y="24.4">G</text><circle class="pt " cx="276.4" cy="24.4" r="4.5"/><text class="lettre" x="282.4" y="24.4">H</text><circle class="pt " cx="420.4" cy="24.4" r="4.5"/><text class="lettre" x="426.4" y="24.4">I</text></svg><figcaption>Un réseau de parallélogrammes : les côtés horizontaux sont tous parallèles et de même longueur, les côtés obliques aussi.</figcaption></figure>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Sur le réseau ci-dessus, citer tous les vecteurs égaux à $\overrightarrow{AB}$, puis un vecteur égal à $\overrightarrow{AE}$.</p>
+      <ol class="pas">
+        <li><strong>La direction.</strong> $\overrightarrow{AB}$ est horizontal : on cherche parmi les côtés horizontaux, $[BC]$, $[DE]$, $[EF]$, $[GH]$, $[HI]$.</li>
+        <li><strong>Le sens.</strong> $\overrightarrow{AB}$ va vers la droite. $\overrightarrow{BC}$ va aussi vers la droite, mais $\overrightarrow{CB}$ irait vers la gauche : on garde ceux écrits de gauche à droite.</li>
+        <li><strong>La longueur.</strong> Tous les côtés horizontaux du réseau ont la même longueur.</li>
+        <li><strong>Réponse.</strong> $\overrightarrow{AB}=\overrightarrow{BC}=\overrightarrow{DE}=\overrightarrow{EF}=\overrightarrow{GH}=\overrightarrow{HI}$.</li>
+        <li><strong>Pour $\overrightarrow{AE}$.</strong> $ABED$ est un parallélogramme, et $\overrightarrow{AE}$ en est une diagonale. Le même trajet en partant de $B$ mène à $F$ : $\overrightarrow{AE}=\overrightarrow{BF}$ (on trouve aussi $\overrightarrow{DH}$ et $\overrightarrow{EI}$).</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Construire l'image d'un point sur un quadrillage">
+    <ol class="etapes">
+      <li><span>Compte le trajet du vecteur : combien de carreaux vers la droite ou la gauche, combien vers le haut ou le bas.</span></li>
+      <li><span>Refais exactement le même trajet en partant du point à transformer.</span></li>
+    </ol>
+    <div class="colonnes">
+      <div class="deroule">
+        <p class="consigne"><strong>Exercice.</strong> Placer le point $D$ image de $C$ par la translation de vecteur $\overrightarrow{AB}$.</p>
+        <ol class="pas">
+          <li><strong>Le trajet de A à B.</strong> 3 carreaux vers la droite, puis 1 carreau vers le haut.</li>
+          <li><strong>Le même trajet depuis C.</strong> 3 carreaux à droite, 1 vers le haut : on arrive en $D$.</li>
+          <li><strong>Le contrôle.</strong> $ABDC$ doit être un parallélogramme : ses côtés $[AC]$ et $[BD]$ sont bien parallèles et de même longueur.</li>
+        </ol>
+      </div>
+      <figure class="figure-svg"><svg viewBox="0 0 272 236" role="img" aria-label="Sur le quadrillage : A, B et C. Pour aller de A à B on avance de 3 carreaux à droite et 1 vers le haut. On fait le même trajet depuis C pour placer D."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="226"/><line x1="46" y1="10" x2="46" y2="226"/><line x1="82" y1="10" x2="82" y2="226"/><line x1="118" y1="10" x2="118" y2="226"/><line x1="154" y1="10" x2="154" y2="226"/><line x1="190" y1="10" x2="190" y2="226"/><line x1="226" y1="10" x2="226" y2="226"/><line x1="262" y1="10" x2="262" y2="226"/><line x1="10" y1="226" x2="262" y2="226"/><line x1="10" y1="190" x2="262" y2="190"/><line x1="10" y1="154" x2="262" y2="154"/><line x1="10" y1="118" x2="262" y2="118"/><line x1="10" y1="82" x2="262" y2="82"/><line x1="10" y1="46" x2="262" y2="46"/><line x1="10" y1="10" x2="262" y2="10"/></g><g class="trace t-u"><line x1="46" y1="190" x2="146.6" y2="156.5"/><polygon points="154.0,154.0 143.5,163.7 139.8,152.6"/></g><g class="trace t-v"><line x1="82" y1="82" x2="182.6" y2="48.5"/><polygon points="190.0,46.0 179.5,55.7 175.8,44.6"/></g><g class="trace t-n pointille"><line x1="46" y1="190" x2="154" y2="190"/></g><g class="trace t-n pointille"><line x1="154" y1="190" x2="154" y2="154"/></g><g class="trace t-n pointille"><line x1="82" y1="82" x2="190" y2="82"/></g><g class="trace t-n pointille"><line x1="190" y1="82" x2="190" y2="46"/></g><circle class="pt " cx="46" cy="190" r="4.5"/><text class="lettre" x="30.0" y="206.0">A</text><circle class="pt " cx="154" cy="154" r="4.5"/><text class="lettre" x="160.0" y="172.0">B</text><circle class="pt " cx="82" cy="82" r="4.5"/><text class="lettre" x="66.0" y="86.0">C</text><circle class="pt pt-v" cx="190" cy="46" r="4.5"/><text class="lettre" x="196.0" y="46.0">D</text></svg><figcaption>Le même trajet, deux fois : $\overrightarrow{CD}=\overrightarrow{AB}$.</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Prouver qu'un quadrilatère est un parallélogramme">
+    <ol class="etapes">
+      <li><span>Trouve deux vecteurs égaux grâce aux données (un parallélogramme connu, un milieu…).</span></li>
+      <li><span>Enchaîne les égalités jusqu'à obtenir $\overrightarrow{XY}=\overrightarrow{ZT}$, puis conclus avec la propriété du parallélogramme, en respectant l'ordre des lettres.</span></li>
+    </ol>
+    <figure class="figure-svg"><svg viewBox="0 0 452 200" role="img" aria-label="Le parallélogramme ABCD. Le point E est sur la droite (AB), après B, avec B milieu de [AE]."><polygon class="forme" points="46,154 190,154 262,46 118,46"/><polygon class="forme forme-image" points="190,154 334,154 262,46"/><g class="trace t-n"><line x1="46" y1="154" x2="190" y2="154"/></g><g class="trace t-n"><line x1="190" y1="154" x2="334" y2="154"/></g><g class="trace t-n"><line x1="118" y1="46" x2="262" y2="46"/></g><g class="trace t-n pointille"><line x1="334" y1="154" x2="262" y2="46"/></g><g class="trace t-n"><line x1="46" y1="154" x2="118" y2="46"/></g><g class="trace t-n"><line x1="190" y1="154" x2="262" y2="46"/></g><circle class="pt " cx="46" cy="154" r="4.5"/><text class="lettre" x="40.0" y="178.0">A</text><circle class="pt " cx="190" cy="154" r="4.5"/><text class="lettre" x="184.0" y="178.0">B</text><circle class="pt " cx="262" cy="46" r="4.5"/><text class="lettre" x="256.0" y="46.0">C</text><circle class="pt " cx="118" cy="46" r="4.5"/><text class="lettre" x="112.0" y="46.0">D</text><circle class="pt " cx="334" cy="154" r="4.5"/><text class="lettre" x="328.0" y="178.0">E</text></svg></figure>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> $ABCD$ est un parallélogramme et $B$ est le milieu de $[AE]$. Montrer que $BECD$ est un parallélogramme.</p>
+      <ol class="pas">
+        <li><strong>Ce que donne le milieu.</strong> $B$ est le milieu de $[AE]$, donc $\overrightarrow{AB}=\overrightarrow{BE}$.</li>
+        <li><strong>Ce que donne le parallélogramme.</strong> $ABCD$ est un parallélogramme, donc $\overrightarrow{AB}=\overrightarrow{DC}$.</li>
+        <li><strong>On enchaîne.</strong> $\overrightarrow{BE}=\overrightarrow{AB}=\overrightarrow{DC}$, donc $\overrightarrow{BE}=\overrightarrow{DC}$.</li>
+        <li><strong>On conclut.</strong> $\overrightarrow{BE}=\overrightarrow{DC}$ signifie que $BECD$ est un parallélogramme (on lit $B$, $E$, puis $C$, puis $D$).</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-somme">3. Somme de deux vecteurs</h3>
+
+  <div class="bloc definition" data-titre="Somme">
+    <p>Enchaîner la translation de vecteur $\vec u$ puis celle de vecteur $\vec v$ revient à faire une seule translation, de vecteur $\vec u+\vec v$. Pour la dessiner, on met les flèches <strong>bout à bout</strong>.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc theoreme" data-titre="Relation de Chasles">
+      <p class="formule">$\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}$</p>
+      <p>Aller de $A$ à $B$, puis de $B$ à $C$, c'est aller de $A$ à $C$. Le point du milieu est le même : la fin du premier vecteur, le début du second.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 344 236" role="img" aria-label="Somme bout à bout : on place v au bout de u ; u plus v va du début de u à la fin de v."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="226"/><line x1="46" y1="10" x2="46" y2="226"/><line x1="82" y1="10" x2="82" y2="226"/><line x1="118" y1="10" x2="118" y2="226"/><line x1="154" y1="10" x2="154" y2="226"/><line x1="190" y1="10" x2="190" y2="226"/><line x1="226" y1="10" x2="226" y2="226"/><line x1="262" y1="10" x2="262" y2="226"/><line x1="298" y1="10" x2="298" y2="226"/><line x1="334" y1="10" x2="334" y2="226"/><line x1="10" y1="226" x2="334" y2="226"/><line x1="10" y1="190" x2="334" y2="190"/><line x1="10" y1="154" x2="334" y2="154"/><line x1="10" y1="118" x2="334" y2="118"/><line x1="10" y1="82" x2="334" y2="82"/><line x1="10" y1="46" x2="334" y2="46"/><line x1="10" y1="10" x2="334" y2="10"/></g><g class="trace t-u"><line x1="46" y1="190" x2="182.4" y2="155.9"/><polygon points="190.0,154.0 178.8,162.8 176.0,151.5"/><text x="121.9" y="199.5" class="nom-vec">u</text></g><g class="trace t-v"><line x1="190" y1="154" x2="257.7" y2="52.5"/><polygon points="262.0,46.0 259.7,60.1 249.9,53.6"/><text x="243.3" y="114.9" class="nom-vec">v</text></g><g class="trace t-w"><line x1="46" y1="190" x2="255.5" y2="50.3"/><polygon points="262.0,46.0 254.4,58.1 247.9,48.3"/><text x="118.1" y="128.5" class="nom-vec">u + v</text></g><circle class="pt " cx="46" cy="190" r="4.5"/><text class="lettre" x="30.0" y="206.0">A</text><circle class="pt " cx="190" cy="154" r="4.5"/><text class="lettre" x="196.0" y="174.0">B</text><circle class="pt " cx="262" cy="46" r="4.5"/><text class="lettre" x="268.0" y="46.0">C</text></svg></figure>
+    </div>
+    <div class="bloc propriete" data-titre="Règle du parallélogramme">
+      <p class="formule">$\overrightarrow{AB}+\overrightarrow{AD}=\overrightarrow{AC}$ quand $ABCD$ est un parallélogramme.</p>
+      <p>Quand les deux flèches partent du même point, la somme est la diagonale du parallélogramme construit sur elles.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 344 200" role="img" aria-label="Règle du parallélogramme : u et v partent du même point A ; u plus v est la diagonale du parallélogramme construit sur u et v."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="190"/><line x1="46" y1="10" x2="46" y2="190"/><line x1="82" y1="10" x2="82" y2="190"/><line x1="118" y1="10" x2="118" y2="190"/><line x1="154" y1="10" x2="154" y2="190"/><line x1="190" y1="10" x2="190" y2="190"/><line x1="226" y1="10" x2="226" y2="190"/><line x1="262" y1="10" x2="262" y2="190"/><line x1="298" y1="10" x2="298" y2="190"/><line x1="334" y1="10" x2="334" y2="190"/><line x1="10" y1="190" x2="334" y2="190"/><line x1="10" y1="154" x2="334" y2="154"/><line x1="10" y1="118" x2="334" y2="118"/><line x1="10" y1="82" x2="334" y2="82"/><line x1="10" y1="46" x2="334" y2="46"/><line x1="10" y1="10" x2="334" y2="10"/></g><polygon class="forme" points="46,154 190,118 262,10 118,46"/><g class="trace t-n pointille"><line x1="190" y1="118" x2="262" y2="10"/></g><g class="trace t-n pointille"><line x1="118" y1="46" x2="262" y2="10"/></g><g class="trace t-u"><line x1="46" y1="154" x2="182.4" y2="119.9"/><polygon points="190.0,118.0 178.8,126.8 176.0,115.5"/><text x="121.9" y="163.5" class="nom-vec">u</text></g><g class="trace t-v"><line x1="46" y1="154" x2="113.7" y2="52.5"/><polygon points="118.0,46.0 115.7,60.1 105.9,53.6"/><text x="89.3" y="114.9" class="nom-vec">v</text></g><g class="trace t-w"><line x1="46" y1="154" x2="255.5" y2="14.3"/><polygon points="262.0,10.0 254.4,22.1 247.9,12.3"/><text x="192.8" y="78.0" class="nom-vec">u + v</text></g><circle class="pt " cx="46" cy="154" r="4.5"/><text class="lettre" x="30.0" y="170.0">A</text></svg></figure>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Vecteur opposé">
+      <p>L'<strong>opposé</strong> de $\vec u$, noté $-\vec u$, a la même direction et la même norme, mais le sens contraire. $\vec u+(-\vec u)=\vec 0$ et $-\overrightarrow{AB}=\overrightarrow{BA}$.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 344 164" role="img" aria-label="Le vecteur AB et son opposé BA : même direction, même longueur, sens contraire."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="154"/><line x1="46" y1="10" x2="46" y2="154"/><line x1="82" y1="10" x2="82" y2="154"/><line x1="118" y1="10" x2="118" y2="154"/><line x1="154" y1="10" x2="154" y2="154"/><line x1="190" y1="10" x2="190" y2="154"/><line x1="226" y1="10" x2="226" y2="154"/><line x1="262" y1="10" x2="262" y2="154"/><line x1="298" y1="10" x2="298" y2="154"/><line x1="334" y1="10" x2="334" y2="154"/><line x1="10" y1="154" x2="334" y2="154"/><line x1="10" y1="118" x2="334" y2="118"/><line x1="10" y1="82" x2="334" y2="82"/><line x1="10" y1="46" x2="334" y2="46"/><line x1="10" y1="10" x2="334" y2="10"/></g><g class="trace t-u"><line x1="46" y1="118" x2="218.8" y2="48.9"/><polygon points="226.0,46.0 216.1,56.3 211.8,45.4"/></g><g class="trace t-v"><line x1="298" y1="46" x2="125.2" y2="115.1"/><polygon points="118.0,118.0 127.9,107.7 132.2,118.6"/></g><circle class="pt " cx="46" cy="118" r="4.5"/><text class="lettre" x="32.0" y="134.0">A</text><circle class="pt " cx="226" cy="46" r="4.5"/><text class="lettre" x="230.0" y="46.0">B</text><circle class="pt " cx="118" cy="118" r="4.5"/><text class="lettre" x="112.0" y="142.0">B</text><circle class="pt " cx="298" cy="46" r="4.5"/><text class="lettre" x="304.0" y="46.0">A</text></svg></figure>
+    </div>
+    <div class="bloc definition" data-titre="Différence">
+      <p>Soustraire un vecteur, c'est ajouter son opposé :</p>
+      <p class="formule">$\vec u-\vec v=\vec u+(-\vec v)$</p>
+      <p>Par exemple, $\overrightarrow{AB}-\overrightarrow{CB}=\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}$.</p>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Simplifier une somme avec Chasles">
+    <ol class="etapes">
+      <li><span>Transforme les soustractions : $-\overrightarrow{XY}=\overrightarrow{YX}$.</span></li>
+      <li><span>Change l'ordre des termes pour que la fin de l'un soit le début du suivant (une somme de vecteurs se calcule dans n'importe quel ordre).</span></li>
+      <li><span>Applique Chasles de proche en proche.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Simplifier $\vec w=\overrightarrow{MA}-\overrightarrow{MB}+\overrightarrow{AB}$.</p>
+      <ol class="pas">
+        <li><strong>Plus de soustraction.</strong> $-\overrightarrow{MB}=\overrightarrow{BM}$, donc $\vec w=\overrightarrow{MA}+\overrightarrow{BM}+\overrightarrow{AB}$.</li>
+        <li><strong>On range bout à bout.</strong> $\vec w=\overrightarrow{BM}+\overrightarrow{MA}+\overrightarrow{AB}$ : $B\to M\to A\to B$.</li>
+        <li><strong>Chasles.</strong> $\overrightarrow{BM}+\overrightarrow{MA}=\overrightarrow{BA}$, puis $\overrightarrow{BA}+\overrightarrow{AB}=\overrightarrow{BB}$.</li>
+        <li><strong>Conclusion.</strong> $\vec w=\vec 0$ : on part de $B$ et on revient en $B$. Le point $M$ n'avait aucune importance.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-produit">4. Produit d'un vecteur par un nombre réel</h3>
+
+  <div class="bloc definition" data-titre="Produit par un réel">
+    <p>Soit $\vec u$ un vecteur non nul et $k$ un réel non nul. Le vecteur $k\vec u$ a :</p>
+    <ul>
+      <li>la <strong>même direction</strong> que $\vec u$ ;</li>
+      <li>le <strong>même sens</strong> si $k&gt;0$, le <strong>sens contraire</strong> si $k&lt;0$ ;</li>
+      <li>une norme multipliée par la distance à zéro de $k$ : $\|k\vec u\|=|k|\times\|\vec u\|$.</li>
+    </ul>
+    <p>Si $k=0$ ou $\vec u=\vec 0$, alors $k\vec u=\vec 0$.</p>
+  </div>
+  <figure class="figure-svg"><svg viewBox="0 0 488 200" role="img" aria-label="Le vecteur u, puis 2u deux fois plus long dans le même sens, moins u de même longueur en sens contraire, et un demi u deux fois plus court."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="190"/><line x1="46" y1="10" x2="46" y2="190"/><line x1="82" y1="10" x2="82" y2="190"/><line x1="118" y1="10" x2="118" y2="190"/><line x1="154" y1="10" x2="154" y2="190"/><line x1="190" y1="10" x2="190" y2="190"/><line x1="226" y1="10" x2="226" y2="190"/><line x1="262" y1="10" x2="262" y2="190"/><line x1="298" y1="10" x2="298" y2="190"/><line x1="334" y1="10" x2="334" y2="190"/><line x1="370" y1="10" x2="370" y2="190"/><line x1="406" y1="10" x2="406" y2="190"/><line x1="442" y1="10" x2="442" y2="190"/><line x1="478" y1="10" x2="478" y2="190"/><line x1="10" y1="190" x2="478" y2="190"/><line x1="10" y1="154" x2="478" y2="154"/><line x1="10" y1="118" x2="478" y2="118"/><line x1="10" y1="82" x2="478" y2="82"/><line x1="10" y1="46" x2="478" y2="46"/><line x1="10" y1="10" x2="478" y2="10"/></g><g class="trace t-u"><line x1="28.0" y1="154" x2="93.0" y2="121.5"/><polygon points="100.0,118.0 91.0,129.0 85.8,118.6"/><text x="71.2" y="160.3" class="nom-vec">u</text></g><g class="trace t-w"><line x1="136.0" y1="154" x2="273.0" y2="85.5"/><polygon points="280.0,82.0 271.0,93.0 265.8,82.6"/><text x="215.2" y="142.3" class="nom-vec">2u</text></g><g class="trace t-v"><line x1="388.0" y1="82" x2="323.0" y2="114.5"/><polygon points="316.0,118.0 325.0,107.0 330.2,117.4"/><text x="348.8" y="107.7" class="nom-vec">−u</text></g><g class="trace t-n"><line x1="406" y1="154" x2="435.0" y2="139.5"/><polygon points="442.0,136.0 433.0,147.0 427.8,136.6"/><text x="423.2" y="171.3" class="nom-vec">½u</text></g></svg><figcaption>$2\vec u$ est deux fois plus long, $-\vec u$ va en sens contraire, $\frac12\vec u$ est deux fois plus court.</figcaption></figure>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Règles de calcul">
+      <p>Pour tous vecteurs $\vec u$, $\vec v$ et réels $k$, $k'$ :</p>
+      <ul>
+        <li>$k(\vec u+\vec v)=k\vec u+k\vec v$ ;</li>
+        <li>$(k+k')\vec u=k\vec u+k'\vec u$ ;</li>
+        <li>$k(k'\vec u)=(kk')\vec u$.</li>
+      </ul>
+      <p>On calcule comme avec des nombres.</p>
+    </div>
+    <div class="bloc propriete" data-titre="Milieu, version produit">
+      <p class="formule">$I$ milieu de $[AB]\iff\overrightarrow{AB}=2\overrightarrow{AI}\iff\overrightarrow{AI}=\frac12\overrightarrow{AB}$</p>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Construire une combinaison comme 2u − v">
+    <ol class="etapes">
+      <li><span>Écris la combinaison comme une suite de déplacements : $2\vec u-\vec v=\vec u+\vec u+(-\vec v)$.</span></li>
+      <li><span>Trace-les bout à bout, puis relie le départ à l'arrivée.</span></li>
+    </ol>
+    <div class="colonnes">
+      <figure class="figure-svg"><svg viewBox="0 0 236 164" role="img" aria-label="Les vecteurs u (2 carreaux à droite, 1 vers le haut) et v (1 carreau à droite, 2 vers le bas)."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="154"/><line x1="46" y1="10" x2="46" y2="154"/><line x1="82" y1="10" x2="82" y2="154"/><line x1="118" y1="10" x2="118" y2="154"/><line x1="154" y1="10" x2="154" y2="154"/><line x1="190" y1="10" x2="190" y2="154"/><line x1="226" y1="10" x2="226" y2="154"/><line x1="10" y1="154" x2="226" y2="154"/><line x1="10" y1="118" x2="226" y2="118"/><line x1="10" y1="82" x2="226" y2="82"/><line x1="10" y1="46" x2="226" y2="46"/><line x1="10" y1="10" x2="226" y2="10"/></g><g class="trace t-u"><line x1="28.0" y1="100.0" x2="93.0" y2="67.5"/><polygon points="100.0,64.0 91.0,75.0 85.8,64.6"/><text x="71.2" y="106.3" class="nom-vec">u</text></g><g class="trace t-v"><line x1="154" y1="28.0" x2="186.5" y2="93.0"/><polygon points="190.0,100.0 179.0,91.0 189.4,85.8"/><text x="161.7" y="77.2" class="nom-vec">v</text></g></svg><figcaption>Les données.</figcaption></figure>
+      <div class="deroule">
+        <p class="consigne"><strong>Exercice.</strong> Construire $2\vec u-\vec v$.</p>
+        <ol class="pas">
+          <li><strong>Les déplacements.</strong> $\vec u$ : 2 à droite, 1 en haut. $-\vec v$ : le trajet de $\vec v$ à l'envers, donc 1 à gauche, 2 en haut.</li>
+          <li><strong>Bout à bout.</strong> On trace $\vec u$, encore $\vec u$, puis $-\vec v$.</li>
+          <li><strong>Le résultat.</strong> La flèche qui va du départ à l'arrivée est $2\vec u-\vec v$ : 3 carreaux à droite, 4 vers le haut.</li>
+        </ol>
+        <figure class="figure-svg"><svg viewBox="0 0 272 236" role="img" aria-label="Construction de 2u − v : on met bout à bout u, encore u, puis l'opposé de v. Le vecteur cherché va du départ à l'arrivée."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="226"/><line x1="46" y1="10" x2="46" y2="226"/><line x1="82" y1="10" x2="82" y2="226"/><line x1="118" y1="10" x2="118" y2="226"/><line x1="154" y1="10" x2="154" y2="226"/><line x1="190" y1="10" x2="190" y2="226"/><line x1="226" y1="10" x2="226" y2="226"/><line x1="262" y1="10" x2="262" y2="226"/><line x1="10" y1="226" x2="262" y2="226"/><line x1="10" y1="190" x2="262" y2="190"/><line x1="10" y1="154" x2="262" y2="154"/><line x1="10" y1="118" x2="262" y2="118"/><line x1="10" y1="82" x2="262" y2="82"/><line x1="10" y1="46" x2="262" y2="46"/><line x1="10" y1="10" x2="262" y2="10"/></g><g class="trace t-u"><line x1="46" y1="190" x2="111.0" y2="157.5"/><polygon points="118.0,154.0 109.0,165.0 103.8,154.6"/><text x="89.2" y="198.3" class="nom-vec">u</text></g><g class="trace t-u"><line x1="118" y1="154" x2="183.0" y2="121.5"/><polygon points="190.0,118.0 181.0,129.0 175.8,118.6"/><text x="161.2" y="162.3" class="nom-vec">u</text></g><g class="trace t-v"><line x1="190" y1="118" x2="157.5" y2="53.0"/><polygon points="154.0,46.0 165.0,55.0 154.6,60.2"/><text x="200.3" y="82.8" class="nom-vec">−v</text></g><g class="trace t-w"><line x1="46" y1="190" x2="149.3" y2="52.2"/><polygon points="154.0,46.0 150.9,59.9 141.5,52.9"/><text x="54.8" y="129.6" class="nom-vec">2u − v</text></g><circle class="pt " cx="46" cy="190" r="4.5"/></svg></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Démontrer une égalité de vecteurs">
+    <ol class="etapes">
+      <li><span>Pars d'un membre et décompose-le avec Chasles, en passant par un point bien choisi.</span></li>
+      <li><span>Remplace avec les données (milieux, parallélogrammes), puis regroupe avec les règles de calcul.</span></li>
+    </ol>
+    <div class="colonnes">
+      <div class="deroule">
+        <p class="consigne"><strong>Exercice.</strong> $ABC$ est un triangle, $I$ le milieu de $[AB]$ et $J$ celui de $[AC]$. Montrer que $\overrightarrow{IJ}=\frac12\overrightarrow{BC}$.</p>
+        <ol class="pas">
+          <li><strong>On passe par A.</strong> $\overrightarrow{IJ}=\overrightarrow{IA}+\overrightarrow{AJ}$.</li>
+          <li><strong>Les milieux.</strong> $\overrightarrow{IA}=\frac12\overrightarrow{BA}$ et $\overrightarrow{AJ}=\frac12\overrightarrow{AC}$.</li>
+          <li><strong>On regroupe.</strong> $\overrightarrow{IJ}=\frac12\overrightarrow{BA}+\frac12\overrightarrow{AC}=\frac12\left(\overrightarrow{BA}+\overrightarrow{AC}\right)=\frac12\overrightarrow{BC}$ par Chasles.</li>
+          <li><strong>Ce que ça dit.</strong> Le segment qui joint les milieux de deux côtés est parallèle au troisième côté et deux fois plus court : c'est le théorème des milieux, retrouvé en trois lignes.</li>
+        </ol>
+      </div>
+      <figure class="figure-svg"><svg viewBox="0 0 380 236" role="img" aria-label="Le triangle ABC, I milieu de [AB], J milieu de [AC]. Le vecteur IJ est égal à la moitié du vecteur BC."><polygon class="forme" points="118,28.0 46,208.0 334,172.0"/><g class="trace t-v"><line x1="46" y1="208.0" x2="326.3" y2="173.0"/><polygon points="334.0,172.0 321.8,179.4 320.4,167.8"/></g><g class="trace t-u"><line x1="82.0" y1="118.0" x2="218.3" y2="101.0"/><polygon points="226.0,100.0 213.8,107.4 212.4,95.8"/></g><circle class="pt " cx="118" cy="28.0" r="4.5"/><text class="lettre" x="114.0" y="28.0">A</text><circle class="pt " cx="46" cy="208.0" r="4.5"/><text class="lettre" x="30.0" y="224.0">B</text><circle class="pt " cx="334" cy="172.0" r="4.5"/><text class="lettre" x="340.0" y="188.0">C</text><circle class="pt " cx="82.0" cy="118.0" r="4.5"/><text class="lettre" x="64.0" y="124.0">I</text><circle class="pt " cx="226.0" cy="100.0" r="4.5"/><text class="lettre" x="232.0" y="102.0">J</text></svg></figure>
+    </div>
+  </div>
+
+  <h3 id="c-pieges">Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Additionner sans relier les points">
+    <p class="faux">$\overrightarrow{AB}+\overrightarrow{CD}=\overrightarrow{AD}$</p>
+    <p>Chasles ne marche que si la fin du premier est le début du second : $\overrightarrow{AB}+\overrightarrow{BD}=\overrightarrow{AD}$.</p>
+  </div>
+  <div class="bloc piege" data-titre="Additionner les longueurs">
+    <p class="faux">$\|\vec u+\vec v\|=\|\vec u\|+\|\vec v\|$</p>
+    <p>Faux en général : aller tout droit est plus court que faire un détour. L'égalité n'a lieu que si $\vec u$ et $\vec v$ ont même direction et même sens.</p>
+  </div>
+  <div class="bloc piege" data-titre="L'ordre des lettres du parallélogramme">
+    <p>$\overrightarrow{AB}=\overrightarrow{DC}$ donne le parallélogramme $ABCD$, mais $\overrightarrow{AB}=\overrightarrow{CD}$ donne $ABDC$. On lit les deux premières lettres, puis les deux autres <strong>à l'envers</strong>.</p>
+  </div>
+  <div class="bloc piege" data-titre="Vecteur, segment, longueur">
+    <p>$\overrightarrow{AB}$ est un vecteur, $[AB]$ un segment, $AB$ un nombre. Écrire $\overrightarrow{AB}=5$ n'a pas de sens : on écrit $\|\overrightarrow{AB}\|=5$ ou $AB=5$.</p>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Ici, les vecteurs se déplacent : attrape une flèche par son milieu pour la faire glisser, ou par sa pointe pour la changer. Elles s'accrochent au quadrillage.</p>
+
+  <div class="labo" data-labo="vecteurs" data-outil="egalite"></div>
+  <div class="labo" data-labo="vecteurs" data-outil="somme"></div>
+  <div class="labo" data-labo="vecteurs" data-outil="chemin"></div>
+  <div class="labo" data-labo="vecteurs" data-outil="produit"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, souvent avec une figure. Le quiz vérifie les réflexes du cours.</p>
+
+  <div class="jeu" data-generateurs="vecteurs" data-questions="10" data-titre="Le défi des vecteurs"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>$\overrightarrow{AB}=\overrightarrow{DC}$. Quel quadrilatère est un parallélogramme ?</p>
+      <ul class="choix"><li class="bon">$ABCD$</li><li>$ABDC$</li><li>$ACBD$</li><li>aucun</li></ul>
+      <div class="explication">On lit $A$, $B$, puis les deux autres lettres à l'envers : $C$, $D$. Donc $ABCD$.</div>
+    </div>
+    <div class="question">
+      <p>$\overrightarrow{AB}+\overrightarrow{BC}=$</p>
+      <ul class="choix"><li class="bon">$\overrightarrow{AC}$</li><li>$\overrightarrow{CA}$</li><li>$\overrightarrow{BB}$</li><li>$\overrightarrow{AB}$</li></ul>
+      <div class="explication">Relation de Chasles : la fin du premier, $B$, est le début du second.</div>
+    </div>
+    <div class="question">
+      <p>Deux vecteurs de même longueur et de même direction sont-ils forcément égaux ?</p>
+      <ul class="choix"><li>oui</li><li class="bon">non, il faut aussi le même sens</li><li>non, il faut aussi le même point de départ</li></ul>
+      <div class="explication">$\overrightarrow{AB}$ et $\overrightarrow{BA}$ ont même direction et même longueur, mais ils sont opposés. Le point de départ, lui, n'a pas d'importance.</div>
+    </div>
+    <div class="question">
+      <p>$I$ est le milieu de $[AB]$. Quelle égalité est fausse ?</p>
+      <ul class="choix"><li>$\overrightarrow{AI}=\overrightarrow{IB}$</li><li>$\overrightarrow{AB}=2\overrightarrow{AI}$</li><li class="bon">$\overrightarrow{AI}=\overrightarrow{BI}$</li><li>$\overrightarrow{IA}+\overrightarrow{IB}=\vec 0$</li></ul>
+      <div class="explication">$\overrightarrow{AI}$ et $\overrightarrow{BI}$ sont opposés : l'un va vers la droite, l'autre vers la gauche.</div>
+    </div>
+    <div class="question">
+      <p>$-\overrightarrow{CD}=$</p>
+      <ul class="choix"><li class="bon">$\overrightarrow{DC}$</li><li>$\overrightarrow{CD}$</li><li>$\vec 0$</li><li>$\overrightarrow{-C-D}$</li></ul>
+      <div class="explication">L'opposé change seulement le sens : on échange les deux lettres.</div>
+    </div>
+    <div class="question" data-reponse="12">
+      <p>$\|\vec u\|=4$. Que vaut $\|-3\vec u\|$ ?</p>
+      <div class="explication">$\|-3\vec u\|=|-3|\times4=3\times4=12$. Une norme n'est jamais négative.</div>
+    </div>
+    <div class="question">
+      <p>$\overrightarrow{AB}-\overrightarrow{AC}=$</p>
+      <ul class="choix"><li class="bon">$\overrightarrow{CB}$</li><li>$\overrightarrow{BC}$</li><li>$\overrightarrow{BB}$</li><li>$\overrightarrow{CC}$</li></ul>
+      <div class="explication">$-\overrightarrow{AC}=\overrightarrow{CA}$, donc $\overrightarrow{CA}+\overrightarrow{AB}=\overrightarrow{CB}$.</div>
+    </div>
+    <div class="question">
+      <p>Le vecteur $-2\vec u$ a…</p>
+      <ul class="choix"><li>le même sens que $\vec u$ et une norme double</li><li class="bon">le sens contraire de $\vec u$ et une norme double</li><li>une autre direction que $\vec u$</li><li>une norme négative</li></ul>
+      <div class="explication">$k=-2$ est négatif : le sens s'inverse ; $|-2|=2$ : la longueur double. La direction ne change jamais.</div>
+    </div>
+    <div class="question">
+      <p>$ABCD$ est un parallélogramme. $\overrightarrow{AB}+\overrightarrow{AD}=$</p>
+      <ul class="choix"><li class="bon">$\overrightarrow{AC}$</li><li>$\overrightarrow{BD}$</li><li>$\overrightarrow{DB}$</li><li>$\overrightarrow{CA}$</li></ul>
+      <div class="explication">Règle du parallélogramme : les deux vecteurs partent de $A$, la somme est la diagonale issue de $A$. Ou par Chasles : $\overrightarrow{AD}=\overrightarrow{BC}$.</div>
+    </div>
+    <div class="question">
+      <p>Par une translation, l'image d'un carré est…</p>
+      <ul class="choix"><li class="bon">un carré de même taille</li><li>un carré plus grand</li><li>un losange</li><li>un carré tourné</li></ul>
+      <div class="explication">Une translation fait seulement glisser : même forme, même taille, même orientation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux : ★ appliquer une méthode, ★★ enchaîner, ★★★ démontrer. Fais tes constructions sur papier quadrillé avant d'ouvrir la correction.</p>
+
+  <h3>Niveau 1 · Appliquer</h3>
+
+  <article class="exercice" data-niveau="1" data-titre="L'hexagone">
+    <p>$ABCDEF$ est un hexagone régulier de centre $O$ : les six triangles comme $OAB$ sont équilatéraux et identiques.</p>
+    <figure class="figure-svg petite"><svg viewBox="0 0 308 272" role="img" aria-label="Un hexagone régulier ABCDEF de centre O. A est à gauche, puis B, C, D, E, F dans le sens des aiguilles d'une montre."><polygon class="forme" points="46.0,136.0 100.0,42.5 208.0,42.5 262.0,136.0 208.0,229.5 100.0,229.5"/><g class="trace t-n pointille"><line x1="154" y1="136.0" x2="46.0" y2="136.0"/></g><g class="trace t-n pointille"><line x1="154" y1="136.0" x2="100.0" y2="42.5"/></g><g class="trace t-n pointille"><line x1="154" y1="136.0" x2="208.0" y2="42.5"/></g><g class="trace t-n pointille"><line x1="154" y1="136.0" x2="262.0" y2="136.0"/></g><g class="trace t-n pointille"><line x1="154" y1="136.0" x2="208.0" y2="229.5"/></g><g class="trace t-n pointille"><line x1="154" y1="136.0" x2="100.0" y2="229.5"/></g><circle class="pt " cx="46.0" cy="136.0" r="4.5"/><text class="lettre" x="28.0" y="146.0">A</text><circle class="pt " cx="100.0" cy="42.5" r="4.5"/><text class="lettre" x="90.0" y="40.5">B</text><circle class="pt " cx="208.0" cy="42.5" r="4.5"/><text class="lettre" x="210.0" y="40.5">C</text><circle class="pt " cx="262.0" cy="136.0" r="4.5"/><text class="lettre" x="270.0" y="146.0">D</text><circle class="pt " cx="208.0" cy="229.5" r="4.5"/><text class="lettre" x="210.0" y="255.5">E</text><circle class="pt " cx="100.0" cy="229.5" r="4.5"/><text class="lettre" x="88.0" y="255.5">F</text><circle class="pt " cx="154" cy="136.0" r="4.5"/><text class="lettre" x="160.0" y="134.0">O</text></svg></figure>
+    <ol><li>Citer trois vecteurs égaux à $\overrightarrow{AB}$.</li><li>Citer deux vecteurs égaux à $\overrightarrow{OD}$.</li><li>Citer un vecteur opposé à $\overrightarrow{OC}$.</li></ol>
+    <details class="correction">
+      <ol>
+        <li>$\overrightarrow{AB}=\overrightarrow{FO}=\overrightarrow{OC}=\overrightarrow{ED}$ : les côtés parallèles à $[AB]$, de même longueur, parcourus dans le même sens.</li>
+        <li>$\overrightarrow{OD}=\overrightarrow{AO}=\overrightarrow{BC}=\overrightarrow{FE}$ (deux suffisent).</li>
+        <li>$\overrightarrow{CO}$, ou aussi $\overrightarrow{BA}$, $\overrightarrow{OF}$, $\overrightarrow{DE}$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Chasles en série">
+    <p>Simplifier : a) $\overrightarrow{AM}+\overrightarrow{MB}$ &nbsp; b) $\overrightarrow{CA}+\overrightarrow{BC}$ &nbsp; c) $\overrightarrow{EF}-\overrightarrow{GF}$ &nbsp; d) $\overrightarrow{AB}+\overrightarrow{BC}+\overrightarrow{CA}$</p>
+    <details class="correction">
+      <p>a) $\overrightarrow{AB}$. b) On range : $\overrightarrow{BC}+\overrightarrow{CA}=\overrightarrow{BA}$. c) $-\overrightarrow{GF}=\overrightarrow{FG}$, donc $\overrightarrow{EF}+\overrightarrow{FG}=\overrightarrow{EG}$. d) $\overrightarrow{AC}+\overrightarrow{CA}=\overrightarrow{AA}=\vec 0$ : on revient au départ.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Construire sur quadrillage">
+    <p>Sur un quadrillage, $\vec u$ fait 3 carreaux à droite et 1 vers le haut, $\vec v$ fait 1 carreau à droite et 2 vers le haut. Placer deux points $A$ et $B$, puis construire :</p>
+    <ol><li>le point $M$ tel que $\overrightarrow{AM}=\vec u+\vec v$ ;</li><li>le point $P$ tel que $\overrightarrow{BP}=2\vec u-\vec v$.</li></ol>
+    <details class="correction">
+      <figure class="figure-svg"><svg viewBox="0 0 452 236" role="img" aria-label="Correction : à partir de A, le vecteur u, puis les points M, N et P construits."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="226"/><line x1="46" y1="10" x2="46" y2="226"/><line x1="82" y1="10" x2="82" y2="226"/><line x1="118" y1="10" x2="118" y2="226"/><line x1="154" y1="10" x2="154" y2="226"/><line x1="190" y1="10" x2="190" y2="226"/><line x1="226" y1="10" x2="226" y2="226"/><line x1="262" y1="10" x2="262" y2="226"/><line x1="298" y1="10" x2="298" y2="226"/><line x1="334" y1="10" x2="334" y2="226"/><line x1="370" y1="10" x2="370" y2="226"/><line x1="406" y1="10" x2="406" y2="226"/><line x1="442" y1="10" x2="442" y2="226"/><line x1="10" y1="226" x2="442" y2="226"/><line x1="10" y1="190" x2="442" y2="190"/><line x1="10" y1="154" x2="442" y2="154"/><line x1="10" y1="118" x2="442" y2="118"/><line x1="10" y1="82" x2="442" y2="82"/><line x1="10" y1="46" x2="442" y2="46"/><line x1="10" y1="10" x2="442" y2="10"/></g><g class="trace t-u"><line x1="46" y1="190" x2="146.6" y2="156.5"/><polygon points="154.0,154.0 143.5,163.7 139.8,152.6"/><text x="105.1" y="199.2" class="nom-vec">u</text></g><g class="trace t-v"><line x1="154" y1="154" x2="186.5" y2="89.0"/><polygon points="190.0,82.0 189.4,96.2 179.0,91.0"/><text x="190.3" y="131.2" class="nom-vec">v</text></g><circle class="pt " cx="46" cy="190" r="4.5"/><text class="lettre" x="30.0" y="206.0">A</text><circle class="pt " cx="190" cy="82" r="4.5"/><text class="lettre" x="196.0" y="82.0">M</text><g class="trace t-u"><line x1="262" y1="190" x2="362.6" y2="156.5"/><polygon points="370.0,154.0 359.5,163.7 355.8,152.6"/></g><g class="trace t-u"><line x1="370" y1="154" x2="470.6" y2="120.5"/><polygon points="478.0,118.0 467.5,127.7 463.8,116.6"/></g><g class="trace t-v"><line x1="478" y1="118" x2="445.5" y2="183.0"/><polygon points="442.0,190.0 442.6,175.8 453.0,181.0"/></g><circle class="pt " cx="262" cy="190" r="4.5"/><text class="lettre" x="246.0" y="206.0">B</text><circle class="pt " cx="442" cy="190" r="4.5"/><text class="lettre" x="448.0" y="210.0">P</text></svg></figure>
+      <ol>
+        <li>Depuis $A$ : $\vec u$ puis $\vec v$, soit $3+1=4$ carreaux à droite et $1+2=3$ vers le haut.</li>
+        <li>Depuis $B$ : $\vec u$, $\vec u$, puis $-\vec v$ (1 à gauche, 2 en bas). Au total : $6-1=5$ carreaux à droite, $2-2=0$ vers le haut. $P$ est sur la même ligne que $B$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Faire glisser un drapeau">
+    <p>Sur un quadrillage, dessiner un drapeau (un mât de 4 carreaux et un triangle). Placer $A$ au pied du mât et $B$ 6 carreaux à droite et 1 au-dessus. Construire l'image du drapeau par la translation qui transforme $A$ en $B$.</p>
+    <details class="correction">
+      <figure class="figure-svg"><svg viewBox="0 0 452 272" role="img" aria-label="Correction : le drapeau et son image par la translation qui envoie A sur B, 6 carreaux à droite et 1 vers le haut."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="262"/><line x1="46" y1="10" x2="46" y2="262"/><line x1="82" y1="10" x2="82" y2="262"/><line x1="118" y1="10" x2="118" y2="262"/><line x1="154" y1="10" x2="154" y2="262"/><line x1="190" y1="10" x2="190" y2="262"/><line x1="226" y1="10" x2="226" y2="262"/><line x1="262" y1="10" x2="262" y2="262"/><line x1="298" y1="10" x2="298" y2="262"/><line x1="334" y1="10" x2="334" y2="262"/><line x1="370" y1="10" x2="370" y2="262"/><line x1="406" y1="10" x2="406" y2="262"/><line x1="442" y1="10" x2="442" y2="262"/><line x1="10" y1="262" x2="442" y2="262"/><line x1="10" y1="226" x2="442" y2="226"/><line x1="10" y1="190" x2="442" y2="190"/><line x1="10" y1="154" x2="442" y2="154"/><line x1="10" y1="118" x2="442" y2="118"/><line x1="10" y1="82" x2="442" y2="82"/><line x1="10" y1="46" x2="442" y2="46"/><line x1="10" y1="10" x2="442" y2="10"/></g><polygon class="forme" points="46,226 46,82 154,118 46,154"/><polygon class="forme forme-image" points="262,190 262,46 370,82 262,118"/><g class="trace t-u pointille"><line x1="46" y1="226" x2="254.3" y2="191.3"/><polygon points="262.0,190.0 250.1,197.9 248.2,186.4"/></g><circle class="pt " cx="46" cy="226" r="4.5"/><text class="lettre" x="30.0" y="242.0">A</text><circle class="pt " cx="262" cy="190" r="4.5"/><text class="lettre" x="268.0" y="210.0">B</text></svg></figure>
+      <p>Chaque sommet du drapeau fait le même trajet que de $A$ à $B$ : 6 carreaux à droite, 1 vers le haut. L'image est le même drapeau, simplement déplacé, pas tourné.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Enchaîner</h3>
+
+  <article class="exercice" data-niveau="2" data-titre="Le parallélogramme et son centre">
+    <p>$ABCD$ est un parallélogramme de centre $O$ (ses diagonales se coupent en leur milieu $O$).</p>
+    <ol><li>Compléter : $\overrightarrow{AB}=\overrightarrow{D\ldots}$ ; $\overrightarrow{AO}=\overrightarrow{O\ldots}$ ; $\overrightarrow{BO}=\overrightarrow{O\ldots}$.</li><li>Simplifier $\overrightarrow{AB}+\overrightarrow{AD}$ et $\overrightarrow{OA}+\overrightarrow{OC}$.</li></ol>
+    <details class="correction">
+      <ol>
+        <li>$\overrightarrow{AB}=\overrightarrow{DC}$ ; $O$ est le milieu de $[AC]$ donc $\overrightarrow{AO}=\overrightarrow{OC}$ ; $O$ est le milieu de $[BD]$ donc $\overrightarrow{BO}=\overrightarrow{OD}$.</li>
+        <li>Règle du parallélogramme : $\overrightarrow{AB}+\overrightarrow{AD}=\overrightarrow{AC}$. Et $\overrightarrow{OA}=-\overrightarrow{OC}$, donc $\overrightarrow{OA}+\overrightarrow{OC}=\vec 0$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Un point défini par une somme">
+    <p>$ABC$ est un triangle. On place le point $M$ tel que $\overrightarrow{AM}=\overrightarrow{AB}+\overrightarrow{AC}$.</p>
+    <ol><li>Faire une figure.</li><li>Montrer que $ABMC$ est un parallélogramme.</li></ol>
+    <details class="correction">
+      <ol>
+        <li>Depuis $A$, on fait le trajet de $\overrightarrow{AB}$ puis celui de $\overrightarrow{AC}$ : $M$ est le quatrième sommet du parallélogramme construit sur $[AB]$ et $[AC]$.</li>
+        <li>Par Chasles, $\overrightarrow{AM}=\overrightarrow{AB}+\overrightarrow{BM}$. Avec l'énoncé : $\overrightarrow{AB}+\overrightarrow{BM}=\overrightarrow{AB}+\overrightarrow{AC}$, donc $\overrightarrow{BM}=\overrightarrow{AC}$. Le quadrilatère $BMCA$ est donc un parallélogramme : ce sont les sommets de $ABMC$, dans le même ordre en partant de $A$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Corrige l'IA">
+    <p>Une IA a rédigé cette réponse pour simplifier $\overrightarrow{AB}+\overrightarrow{CD}+\overrightarrow{BC}$. Elle est sûre d'elle. Trouve l'erreur.</p>
+    <blockquote class="copie-ia">« Par la relation de Chasles, $\overrightarrow{AB}+\overrightarrow{CD}=\overrightarrow{AD}$. Il reste $\overrightarrow{AD}+\overrightarrow{BC}$, qu'on ne peut pas simplifier. »</blockquote>
+    <details class="correction">
+      <p>Chasles ne s'applique pas à $\overrightarrow{AB}+\overrightarrow{CD}$ : $B$ et $C$ sont différents. Il fallait d'abord ranger les termes bout à bout : $\overrightarrow{AB}+\overrightarrow{BC}+\overrightarrow{CD}=\overrightarrow{AC}+\overrightarrow{CD}=\overrightarrow{AD}$.</p>
+      <p>Le bon résultat est $\overrightarrow{AD}$ seul. La réponse de l'IA garde un $\overrightarrow{BC}$ en trop, parce qu'elle a appliqué une règle là où elle ne s'appliquait pas. Une rédaction propre et assurée n'est pas une preuve.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Calculer avec des vecteurs">
+    <p>Simplifier : a) $2(\vec u+\vec v)-\vec u$ &nbsp; b) $3\vec u-2(\vec u-\vec v)+\vec v$ &nbsp; c) $\frac12(4\vec u-2\vec v)+\vec v$</p>
+    <details class="correction">
+      <p>a) $2\vec u+2\vec v-\vec u=\vec u+2\vec v$. b) $3\vec u-2\vec u+2\vec v+\vec v=\vec u+3\vec v$. c) $2\vec u-\vec v+\vec v=2\vec u$.</p>
+      <p>On développe et on regroupe, exactement comme $3x-2(x-y)+y$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Démontrer</h3>
+
+  <article class="exercice" data-niveau="3" data-titre="Un point défini par une relation">
+    <p>$A$ et $B$ sont deux points. Le point $M$ vérifie $\overrightarrow{MA}+\overrightarrow{MB}=\vec 0$. Montrer que $M$ est le milieu de $[AB]$.</p>
+    <details class="correction">
+      <p>$\overrightarrow{MA}+\overrightarrow{MB}=\vec 0$ donne $\overrightarrow{MB}=-\overrightarrow{MA}=\overrightarrow{AM}$.</p>
+      <p>Donc $\overrightarrow{AM}=\overrightarrow{MB}$ : c'est exactement la caractérisation du milieu. $M$ est le milieu de $[AB]$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Deux parallélogrammes qui partagent un côté">
+    <p>$ABCD$ et $ABEF$ sont deux parallélogrammes (non aplatis, pas dans le même sens). Montrer que $DCEF$ est un parallélogramme.</p>
+    <details class="correction">
+      <p>$ABCD$ est un parallélogramme : $\overrightarrow{AB}=\overrightarrow{DC}$. $ABEF$ est un parallélogramme : $\overrightarrow{AB}=\overrightarrow{FE}$.</p>
+      <p>Donc $\overrightarrow{DC}=\overrightarrow{FE}$, ce qui signifie que $DCEF$ est un parallélogramme (lettres $D$, $C$, puis $E$, $F$).</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Le nageur et la rivière">
+    <p>Un nageur traverse une rivière. En une minute, ses bras le font avancer de $\vec n$ (30 m vers l'autre rive, perpendiculairement au bord) et le courant l'emporte de $\vec c$ (40 m le long du bord).</p>
+    <ol><li>Quel vecteur représente son déplacement réel en une minute ?</li><li>Quelle distance parcourt-il réellement ? Est-ce $30+40=70$ m ?</li><li>Au bout de 3 minutes, quel est son déplacement ?</li></ol>
+    <details class="correction">
+      <ol>
+        <li>Les deux déplacements s'enchaînent : $\vec d=\vec n+\vec c$.</li>
+        <li>$\vec n$ et $\vec c$ sont perpendiculaires : bout à bout, ils forment un triangle rectangle. Par Pythagore, $\|\vec d\|=\sqrt{30^2+40^2}=\sqrt{2500}=50$ m. Pas $70$ m : on n'additionne pas les longueurs.</li>
+        <li>$3\vec d=3\vec n+3\vec c$ : 90 m vers l'autre rive et 120 m vers l'aval, soit $3\times50=150$ m en ligne droite.</li>
+      </ol>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Quelle différence entre $[AB]$, $AB$ et $\overrightarrow{AB}$ ?</summary>
+      <div><figure class="figure-svg petite"><svg viewBox="0 0 380 92" role="img" aria-label="À gauche le segment [AB], un simple trait. À droite le vecteur AB, une flèche de A vers B."><g class="trace t-n"><line x1="28.0" y1="46" x2="154" y2="46"/></g><circle class="pt " cx="28.0" cy="46" r="4.5"/><text class="lettre" x="22.0" y="72.0">A</text><circle class="pt " cx="154" cy="46" r="4.5"/><text class="lettre" x="148.0" y="72.0">B</text><g class="trace t-u"><line x1="226" y1="46" x2="344.2" y2="46.0"/><polygon points="352.0,46.0 339.0,51.9 339.0,40.1"/></g><circle class="pt " cx="226" cy="46" r="4.5"/><text class="lettre" x="220.0" y="72.0">A</text><text class="lettre" x="348.4" y="73.0">B</text></svg></figure>
+        <p>$[AB]$ est un segment, un trait sans sens. $AB$ est sa longueur, un nombre. $\overrightarrow{AB}$ est un vecteur : un déplacement, avec un sens, de $A$ vers $B$.</p></div></details>
+    <details><summary>Un vecteur a-t-il une position ?</summary>
+      <div><p>Non. Toutes les flèches égales représentent le même vecteur, où qu'on les dessine. C'est pour ça qu'on peut déplacer $\vec v$ au bout de $\vec u$ pour faire une somme.</p></div></details>
+    <details><summary>Pourquoi Chasles exige-t-il la même lettre au milieu ?</summary>
+      <div><figure class="figure-svg petite"><svg viewBox="0 0 308 128" role="img" aria-label="Deux chemins de A à C : directement, ou en passant par B. Le déplacement total est le même."><g class="trace t-u"><line x1="28.0" y1="100.0" x2="129.6" y2="28.9"/><polygon points="136.0,24.4 128.7,36.6 122.0,27.1"/></g><g class="trace t-v"><line x1="136.0" y1="24.4" x2="272.9" y2="86.0"/><polygon points="280.0,89.2 265.7,89.2 270.5,78.5"/></g><g class="trace t-w"><line x1="28.0" y1="100.0" x2="272.2" y2="89.5"/><polygon points="280.0,89.2 267.3,95.6 266.8,83.9"/></g><circle class="pt " cx="28.0" cy="100.0" r="4.5"/><text class="lettre" x="12.0" y="112.0">A</text><circle class="pt " cx="136.0" cy="24.4" r="4.5"/><text class="lettre" x="132.0" y="24.4">B</text><circle class="pt " cx="280.0" cy="89.2" r="4.5"/><text class="lettre" x="286.0" y="99.2">C</text></svg></figure>
+        <p>Parce que le second trajet doit commencer là où le premier s'arrête. Aller de $A$ à $B$ puis de $B$ à $C$, c'est aller de $A$ à $C$. Si le second trajet part d'ailleurs, il faut d'abord le remplacer par une flèche égale qui part du bon point.</p></div></details>
+    <details><summary>La norme d'une somme est-elle la somme des normes ?</summary>
+      <div><figure class="figure-svg petite"><svg viewBox="0 0 272 164" role="img" aria-label="u et v bout à bout forment un triangle : le chemin direct u plus v est plus court que le détour par u puis v."><g class="trace t-u"><line x1="28.0" y1="136.0" x2="164.2" y2="136.0"/><polygon points="172.0,136.0 159.0,141.8 159.0,130.2"/><text x="100.0" y="162.0" class="nom-vec">u</text></g><g class="trace t-v"><line x1="172.0" y1="136.0" x2="205.5" y2="35.4"/><polygon points="208.0,28.0 209.4,42.2 198.3,38.5"/><text x="209.2" y="93.1" class="nom-vec">v</text></g><g class="trace t-w"><line x1="28.0" y1="136.0" x2="201.3" y2="32.0"/><polygon points="208.0,28.0 199.9,39.7 193.8,29.7"/><text x="77.2" y="95.1" class="nom-vec">u + v</text></g></svg></figure>
+        <p>Presque jamais. Le chemin direct $\vec u+\vec v$ est plus court que le détour par $\vec u$ puis $\vec v$ (inégalité triangulaire). L'égalité n'a lieu que si les deux vecteurs vont dans la même direction et le même sens.</p></div></details>
+    <details><summary>Le vecteur nul a-t-il une direction ?</summary>
+      <div><p>Non : il ne bouge pas, il n'a ni direction ni sens, et sa norme vaut $0$. Par convention, $k\vec 0=\vec 0$ et $\vec u+\vec 0=\vec u$.</p></div></details>
+    <details><summary>Les coordonnées des vecteurs, c'est pour quand ?</summary>
+      <div><p>Dans la deuxième partie du chapitre, avec un repère. On y verra aussi la colinéarité. Tout ce qui est ici reste vrai : les coordonnées permettent seulement de faire les mêmes constructions par le calcul.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

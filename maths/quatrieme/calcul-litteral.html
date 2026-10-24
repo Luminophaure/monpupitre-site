@@ -1,0 +1,519 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de calcul-litteral.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/quatrieme/calcul-litteral.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Calcul littéral · Quatrième</title>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body data-matiere="maths" data-chapitre="calcul-litteral-4" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Quatrième · Nombres et calculs</span>
+  <h1>Calcul littéral</h1>
+  <p class="chapeau">Une lettre, c'est un nombre qu'on ne connaît pas encore, ou qui peut changer. Avec des lettres, on écrit une seule formule qui marche dans tous les cas : le prix de n'importe quel nombre de places de cinéma, le nombre d'allumettes à n'importe quelle étape d'un motif. C'est ce qu'on appelle <strong>modéliser</strong>.</p>
+  <ul class="objectifs">
+    <li>Écrire une expression pour modéliser</li><li>Respecter les conventions d'écriture</li><li>Calculer la valeur d'une expression</li><li>Réduire</li><li>Développer et factoriser</li><li>Prouver avec des lettres</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Dans un tableur, chaque formule est une expression littérale.</strong> Quand tu tapes <code>=3*A2+1</code>, la case A2 joue le rôle de la lettre : le tableur fait le calcul pour toutes les lignes d'un coup. Les applis de transport, de banque ou de jeux vidéo calculent tout ainsi : un prix, un score, une distance, avec une formule où l'on remplace les lettres par les bonnes valeurs.</p>
+    <p class="discret">Ils s'en servent : les comptables et les commerciaux (devis, tarifs), les développeurs (chaque ligne de code manipule des variables), les ingénieurs et les techniciens (formules de dimensionnement). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-modeliser">1. Des lettres pour modéliser</h3>
+
+  <div class="bloc definition" data-titre="Expression littérale">
+    <p>Une <strong>expression littérale</strong> est un calcul qui contient une ou plusieurs lettres. Chaque lettre représente un nombre.</p>
+    <p>Exemples : le périmètre d'un rectangle de longueur $L$ et de largeur $\ell$ est $2L+2\ell$ ; le prix de $n$ places à 9 € est $9n$.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Un motif d'allumettes">
+      <p>À chaque étape, on ajoute un carré. Il faut 4 allumettes, puis 7, puis 10… On ajoute <strong>3 allumettes</strong> à chaque étape.</p>
+      <p>À l'étape $n$, il faut $3n+1$ allumettes : une allumette au début, puis 3 par carré. À l'étape 100, il en faut $3\times100+1=301$, sans rien dessiner.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 860 181" role="img" aria-label="Un motif d'allumettes : un carré à l'étape 1, deux carrés à l'étape 2, trois carrés à l'étape 3."><g class="allumette"><line x1="31.0" y1="102.0" x2="31.0" y2="43.0"/><circle class="tete" cx="31.0" cy="45.0" r="4.2"/></g><g class="allumette"><line x1="101.0" y1="102.0" x2="101.0" y2="43.0"/><circle class="tete" cx="101.0" cy="45.0" r="4.2"/></g><g class="allumette"><line x1="37.0" y1="38.0" x2="96.0" y2="38.0"/><circle class="tete" cx="94.0" cy="38.0" r="4.2"/></g><g class="allumette"><line x1="37.0" y1="108.0" x2="96.0" y2="108.0"/><circle class="tete" cx="94.0" cy="108.0" r="4.2"/></g><text class="petit" x="31.0" y="146.5">étape 1</text><g class="allumette"><line x1="220.0" y1="102.0" x2="220.0" y2="43.0"/><circle class="tete" cx="220.0" cy="45.0" r="4.2"/></g><g class="allumette"><line x1="290.0" y1="102.0" x2="290.0" y2="43.0"/><circle class="tete" cx="290.0" cy="45.0" r="4.2"/></g><g class="allumette"><line x1="360.0" y1="102.0" x2="360.0" y2="43.0"/><circle class="tete" cx="360.0" cy="45.0" r="4.2"/></g><g class="allumette"><line x1="226.0" y1="38.0" x2="285.0" y2="38.0"/><circle class="tete" cx="283.0" cy="38.0" r="4.2"/></g><g class="allumette"><line x1="226.0" y1="108.0" x2="285.0" y2="108.0"/><circle class="tete" cx="283.0" cy="108.0" r="4.2"/></g><g class="allumette"><line x1="296.0" y1="38.0" x2="355.0" y2="38.0"/><circle class="tete" cx="353.0" cy="38.0" r="4.2"/></g><g class="allumette"><line x1="296.0" y1="108.0" x2="355.0" y2="108.0"/><circle class="tete" cx="353.0" cy="108.0" r="4.2"/></g><text class="petit" x="220.0" y="146.5">étape 2</text><g class="allumette"><line x1="465.0" y1="102.0" x2="465.0" y2="43.0"/><circle class="tete" cx="465.0" cy="45.0" r="4.2"/></g><g class="allumette"><line x1="535.0" y1="102.0" x2="535.0" y2="43.0"/><circle class="tete" cx="535.0" cy="45.0" r="4.2"/></g><g class="allumette"><line x1="605.0" y1="102.0" x2="605.0" y2="43.0"/><circle class="tete" cx="605.0" cy="45.0" r="4.2"/></g><g class="allumette"><line x1="675.0" y1="102.0" x2="675.0" y2="43.0"/><circle class="tete" cx="675.0" cy="45.0" r="4.2"/></g><g class="allumette"><line x1="471.0" y1="38.0" x2="530.0" y2="38.0"/><circle class="tete" cx="528.0" cy="38.0" r="4.2"/></g><g class="allumette"><line x1="471.0" y1="108.0" x2="530.0" y2="108.0"/><circle class="tete" cx="528.0" cy="108.0" r="4.2"/></g><g class="allumette"><line x1="541.0" y1="38.0" x2="600.0" y2="38.0"/><circle class="tete" cx="598.0" cy="38.0" r="4.2"/></g><g class="allumette"><line x1="541.0" y1="108.0" x2="600.0" y2="108.0"/><circle class="tete" cx="598.0" cy="108.0" r="4.2"/></g><g class="allumette"><line x1="611.0" y1="38.0" x2="670.0" y2="38.0"/><circle class="tete" cx="668.0" cy="38.0" r="4.2"/></g><g class="allumette"><line x1="611.0" y1="108.0" x2="670.0" y2="108.0"/><circle class="tete" cx="668.0" cy="108.0" r="4.2"/></g><text class="petit" x="465.0" y="146.5">étape 3</text></svg><figcaption>Étapes 1, 2 et 3 : 4, 7 et 10 allumettes.</figcaption></figure>
+  </div>
+
+  <div class="bloc methode" data-titre="Écrire une expression à partir d'une situation">
+    <ol class="etapes">
+      <li><span>Fais deux ou trois cas avec des nombres, en écrivant le calcul sans le faire.</span></li>
+      <li><span>Repère ce qui change d'un cas à l'autre : c'est là que tu mets la lettre.</span></li>
+      <li><span>Vérifie ta formule sur un cas que tu connais.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un club de théâtre fait payer 15 € d'inscription, puis 4 € par spectacle vu. Écrire le prix payé pour $n$ spectacles.</p>
+      <ol class="pas">
+        <li><strong>Des cas avec des nombres.</strong> Pour 1 spectacle : $15+4\times1$. Pour 2 : $15+4\times2$. Pour 5 : $15+4\times5$.</li>
+        <li><strong>Ce qui change.</strong> Seul le nombre de spectacles change : on le remplace par $n$. Le prix est $15+4\times n$, qu'on écrit $15+4n$.</li>
+        <li><strong>Vérifier.</strong> Pour $n=5$ : $15+4\times5=35$ €. Et pour $n=0$ : $15$ €, on paie juste l'inscription. Cohérent.</li>
+        <li><strong>Aller plus loin.</strong> Le labo « Quel tarif choisir ? » de l'onglet Explorer te fait comparer deux tarifs de ce genre.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-conventions">2. Les conventions d'écriture</h3>
+
+  <div class="bloc propriete" data-titre="Supprimer le signe ×">
+    <p>On peut supprimer le signe $\times$ devant une lettre ou une parenthèse, en écrivant le nombre en premier :</p>
+    <div class="defile"><table class="simple">
+      <thead><tr><th>On écrit…</th><th>au lieu de…</th></tr></thead>
+      <tbody>
+        <tr><td>$3a$</td><td>$3\times a$ ou $a\times 3$</td></tr>
+        <tr><td>$ab$</td><td>$a\times b$</td></tr>
+        <tr><td>$5(x+2)$</td><td>$5\times(x+2)$</td></tr>
+        <tr><td>$x$</td><td>$1\times x$ (on n'écrit jamais $1x$)</td></tr>
+        <tr><td>$x^2$ (« $x$ au carré »)</td><td>$x\times x$</td></tr>
+        <tr><td>$x^3$ (« $x$ au cube »)</td><td>$x\times x\times x$</td></tr>
+      </tbody>
+    </table></div>
+    <p>On ne supprime jamais le $\times$ entre deux nombres : $3\times5$ n'est pas $35$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Trois écritures à ne pas confondre">
+    <ul>
+      <li>$2x=x+x$ (le double de $x$) ;</li>
+      <li>$x^2=x\times x$ (le carré de $x$) ;</li>
+      <li>$x+2$ ($x$ augmenté de 2).</li>
+    </ul>
+    <p>Pour $x=5$ : $2x=10$, $x^2=25$ et $x+2=7$. Ce sont trois nombres différents.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-valeur">3. Calculer la valeur d'une expression</h3>
+
+  <div class="bloc propriete" data-titre="Substituer">
+    <p>Pour calculer une expression pour une valeur donnée, on <strong>remplace la lettre par ce nombre</strong>, partout. On rétablit les signes $\times$ supprimés et on met les nombres négatifs entre parenthèses. Puis on respecte les priorités : puissances, puis multiplications, puis additions.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer une expression pour une valeur">
+    <ol class="etapes">
+      <li><span>Recopie l'expression en remplaçant chaque lettre par le nombre, entre parenthèses.</span></li>
+      <li><span>Rétablis les signes $\times$.</span></li>
+      <li><span>Calcule en respectant les priorités.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Calculer $A=3x^2-5x+1$ pour $x=-2$.</p>
+      <ol class="pas">
+        <li><strong>Remplacer.</strong> $A=3\times(-2)^2-5\times(-2)+1$.</li>
+        <li><strong>Les puissances d'abord.</strong> $(-2)^2=(-2)\times(-2)=4$, donc $A=3\times4-5\times(-2)+1$.</li>
+        <li><strong>Les multiplications.</strong> $3\times4=12$ et $-5\times(-2)=+10$, donc $A=12+10+1$.</li>
+        <li><strong>Conclure.</strong> $A=23$. Sans parenthèses, on aurait écrit $-2^2$, qui vaut $-4$ : les parenthèses autour des nombres négatifs évitent l'erreur.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-reduire">4. Réduire une expression</h3>
+
+  <div class="bloc definition" data-titre="Réduire">
+    <p><strong>Réduire</strong> une expression, c'est l'écrire avec le moins de termes possible, en regroupant les termes « de la même famille » : les termes en $x^2$ ensemble, les termes en $x$ ensemble, les nombres ensemble.</p>
+    <p>$3x+5x=8x$ (3 fois $x$ plus 5 fois $x$, c'est 8 fois $x$), mais $3x+5$ ne se réduit pas, et $x^2+x$ non plus.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Réduire une somme">
+    <ol class="etapes">
+      <li><span>Souligne d'une même couleur les termes de la même famille, avec le signe qui est devant.</span></li>
+      <li><span>Additionne les coefficients de chaque famille.</span></li>
+      <li><span>Écris le résultat en rangeant : $x^2$, puis $x$, puis le nombre.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Réduire $E=4x+3-x+2x^2-7+5x$.</p>
+      <ol class="pas">
+        <li><strong>Les familles.</strong> En $x^2$ : $2x^2$. En $x$ : $4x$, $-x$ et $+5x$. Les nombres : $+3$ et $-7$.</li>
+        <li><strong>Additionner.</strong> $4x-x+5x=(4-1+5)x=8x$ et $3-7=-4$.</li>
+        <li><strong>Conclure.</strong> $E=2x^2+8x-4$.</li>
+        <li><strong>Vérifier.</strong> Pour $x=1$ : l'expression de départ donne $4+3-1+2-7+5=6$, et $2+8-4=6$. Les deux écritures concordent.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-developper">5. Développer : la distributivité</h3>
+
+  <div class="colonnes">
+    <div class="bloc theoreme" data-titre="Distributivité simple">
+      <p>Pour tous nombres $k$, $a$ et $b$ :</p>
+      <p class="formule">$k(a+b)=ka+kb$ &nbsp; et &nbsp; $k(a-b)=ka-kb$</p>
+      <p><strong>Développer</strong>, c'est transformer un produit en somme. Le facteur $k$ multiplie <strong>chaque</strong> terme de la parenthèse.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 380 188" role="img" aria-label="Un rectangle de hauteur 3 et de longueur x + 2, découpé en un rectangle d'aire 3x et un rectangle d'aire 6."><rect class="forme" x="50" y="42.0" width="160" height="120.0"/><text class="lettre" x="120.4" y="106.8">3x</text><rect class="forme-image" x="210" y="42.0" width="80" height="120.0"/><text class="lettre" x="245.2" y="106.8">6</text><text class="moyen" x="126.0" y="30.0">x</text><text class="moyen" x="246.0" y="30.0">2</text><text class="moyen" x="29.6" y="106.8">3</text></svg><figcaption>L'aire du grand rectangle, $3(x+2)$, est la somme des aires des deux morceaux : $3x+6$.</figcaption></figure>
+  </div>
+
+  <div class="bloc propriete" data-titre="Supprimer des parenthèses">
+    <ul>
+      <li>Précédée d'un signe $+$, on supprime la parenthèse sans rien changer : $a+(b-c)=a+b-c$.</li>
+      <li>Précédée d'un signe $-$, on supprime la parenthèse en <strong>changeant le signe de chaque terme</strong> : $a-(b-c)=a-b+c$. C'est comme multiplier par $-1$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc methode" data-titre="Développer et réduire">
+    <ol class="etapes">
+      <li><span>Pour chaque parenthèse, multiplie chaque terme par le facteur devant, avec son signe.</span></li>
+      <li><span>Réduis le résultat.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Développer et réduire $B=3(2x-5)-(x-4)$.</p>
+      <ol class="pas">
+        <li><strong>La première parenthèse.</strong> $3(2x-5)=3\times2x-3\times5=6x-15$.</li>
+        <li><strong>La seconde.</strong> Un signe $-$ devant : on change tous les signes, $-(x-4)=-x+4$.</li>
+        <li><strong>Réduire.</strong> $B=6x-15-x+4=5x-11$.</li>
+        <li><strong>Vérifier avec $x=1$.</strong> Au départ : $3\times(-3)-(-3)=-9+3=-6$. À l'arrivée : $5-11=-6$. C'est bon.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-factoriser">6. Factoriser</h3>
+
+  <div class="bloc definition" data-titre="Factoriser">
+    <p><strong>Factoriser</strong>, c'est transformer une somme en produit. C'est la distributivité lue de droite à gauche : on repère un <strong>facteur commun</strong> $k$ et on écrit</p>
+    <p class="formule">$ka+kb=k(a+b)$</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Factoriser avec un facteur commun">
+    <ol class="etapes">
+      <li><span>Écris chaque terme comme un produit, et cherche le facteur qu'ils ont en commun.</span></li>
+      <li><span>Mets ce facteur devant une parenthèse, et ce qui reste à l'intérieur.</span></li>
+      <li><span>Vérifie en redéveloppant.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Factoriser $C=6x+15$ puis $D=5x^2-2x$.</p>
+      <ol class="pas">
+        <li><strong>Les produits.</strong> $6x=3\times2x$ et $15=3\times5$ : le facteur commun est $3$.</li>
+        <li><strong>Factoriser $C$.</strong> $C=3(2x+5)$. Vérification : $3\times2x+3\times5=6x+15$.</li>
+        <li><strong>Pour $D$.</strong> $5x^2=x\times5x$ et $2x=x\times2$ : le facteur commun est $x$.</li>
+        <li><strong>Factoriser $D$.</strong> $D=x(5x-2)$. Vérification : $x\times5x-x\times2=5x^2-2x$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-double">7. La double distributivité</h3>
+
+  <div class="colonnes">
+    <div class="bloc theoreme" data-titre="Double distributivité">
+      <p>Pour tous nombres $a$, $b$, $c$ et $d$ :</p>
+      <p class="formule">$(a+b)(c+d)=ac+ad+bc+bd$</p>
+      <p>Chaque terme de la première parenthèse multiplie chaque terme de la seconde : on obtient <strong>4 produits</strong>.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 332 275" role="img" aria-label="Un rectangle de côtés x + 3 et x + 2 découpé en quatre morceaux : x², 3x, 2x et 6."><rect class="forme" x="50.8" y="47.4" width="136.0" height="136.0"/><text class="lettre" x="110.6" y="119.5">x²</text><rect class="forme-image" x="186.8" y="47.4" width="102.0" height="136.0"/><text class="lettre" x="229.6" y="119.5">3x</text><rect class="forme-3" x="50.8" y="183.4" width="136.0" height="68.0"/><text class="lettre" x="110.6" y="221.5">2x</text><rect class="forme-4" x="186.8" y="183.4" width="102.0" height="68.0"/><text class="lettre" x="233.7" y="221.5">6</text><text class="moyen" x="115.4" y="37.2">x</text><text class="moyen" x="234.4" y="37.2">3</text><text class="moyen" x="33.5" y="119.5">x</text><text class="moyen" x="33.5" y="221.5">2</text></svg><figcaption>$(x+3)(x+2)=x^2+3x+2x+6=x^2+5x+6$ : les quatre morceaux du rectangle.</figcaption></figure>
+  </div>
+
+  <div class="bloc methode" data-titre="Développer un produit de deux parenthèses">
+    <ol class="etapes">
+      <li><span>Écris les 4 produits, avec leurs signes (trace des flèches si ça t'aide).</span></li>
+      <li><span>Calcule chaque produit, puis réduis.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Développer et réduire $F=(x+3)(2x-5)$.</p>
+      <ol class="pas">
+        <li><strong>Les 4 produits.</strong> $F=x\times2x+x\times(-5)+3\times2x+3\times(-5)$.</li>
+        <li><strong>Les calculer.</strong> $F=2x^2-5x+6x-15$.</li>
+        <li><strong>Réduire.</strong> $F=2x^2+x-15$.</li>
+        <li><strong>Vérifier avec $x=1$.</strong> $(1+3)(2-5)=4\times(-3)=-12$ et $2+1-15=-12$. C'est bon.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-prouver">8. Prouver avec le calcul littéral</h3>
+
+  <div class="bloc propriete" data-titre="Tester ou prouver ?">
+    <ul>
+      <li>Une égalité vraie pour quelques nombres n'est <strong>pas forcément vraie pour tous</strong> : $x^2=2x$ est vraie pour $x=2$, mais fausse pour $x=3$.</li>
+      <li>Pour montrer qu'une égalité est fausse, <strong>un seul contre-exemple suffit</strong>.</li>
+      <li>Pour montrer qu'elle est toujours vraie, on fait le calcul <strong>avec des lettres</strong> : il vaut alors pour tous les nombres.</li>
+    </ul>
+  </div>
+
+  <div class="bloc methode" data-titre="Prouver une propriété avec des lettres">
+    <ol class="etapes">
+      <li><span>Teste sur des exemples pour comprendre et faire une conjecture.</span></li>
+      <li><span>Nomme le nombre quelconque par une lettre et écris le calcul.</span></li>
+      <li><span>Développe, réduis ou factorise jusqu'à voir la propriété.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Montrer que la somme de trois nombres entiers qui se suivent est toujours un multiple de 3.</p>
+      <ol class="pas">
+        <li><strong>Tester.</strong> $4+5+6=15=3\times5$ ; $10+11+12=33=3\times11$. Ça semble marcher… mais ce n'est pas une preuve.</li>
+        <li><strong>Avec une lettre.</strong> Trois entiers qui se suivent s'écrivent $n$, $n+1$ et $n+2$. Leur somme est $n+(n+1)+(n+2)$.</li>
+        <li><strong>Réduire, puis factoriser.</strong> $n+n+1+n+2=3n+3=3(n+1)$.</li>
+        <li><strong>Conclure.</strong> La somme vaut $3\times(n+1)$ : c'est un multiple de 3, quel que soit $n$. On remarque même que $n+1$ est le nombre du milieu.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 id="c-pieges">Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Ce qu'il faut éviter">
+    <ul>
+      <li><strong>$3(x+2)=3x+2$.</strong> Faux : le 3 multiplie aussi le 2. $3(x+2)=3x+6$.</li>
+      <li><strong>$3x+2=5x$.</strong> Faux : on n'additionne pas des $x$ avec des nombres. $3x+2$ ne se réduit pas.</li>
+      <li><strong>$x\times x=2x$.</strong> Faux : $x\times x=x^2$, alors que $2x=x+x$.</li>
+      <li><strong>$5-(x-3)=5-x-3$.</strong> Faux : le signe $-$ change aussi le $-3$. $5-(x-3)=5-x+3=8-x$.</li>
+      <li><strong>$(x+3)^2=x^2+9$.</strong> Faux : $(x+3)^2=(x+3)(x+3)=x^2+6x+9$. Il y a 4 produits, pas 2.</li>
+      <li><strong>« Ça marche pour 3 exemples, donc c'est vrai. »</strong> Faux : des exemples ne prouvent rien. Il faut un calcul avec des lettres.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Cinq laboratoires pour <strong>modéliser</strong> : passer d'une situation (un motif, un programme, deux tarifs, une figure) à une expression avec des lettres, puis s'en servir. Commence par les motifs.</p>
+  <div class="labo" data-labo="litteral" data-outil="motifs"></div>
+  <div class="labo" data-labo="litteral" data-outil="programme"></div>
+  <div class="labo" data-labo="litteral" data-outil="forfaits"></div>
+  <div class="labo" data-labo="litteral" data-outil="rectangles"></div>
+  <div class="labo" data-labo="litteral" data-outil="egalites"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, dans toutes les catégories du chapitre. Les mauvaises réponses proposées sont les erreurs les plus fréquentes : lis bien l'explication quand tu te trompes. Le quiz vérifie les réflexes du cours.</p>
+
+  <div class="jeu" data-generateurs="litteral" data-questions="10" data-titre="Le défi des lettres"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Comment écrit-on $4\times x\times x$ ?</p>
+      <ul class="choix"><li class="bon">$4x^2$</li><li>$8x$</li><li>$16x^2$</li><li>$4x+x$</li></ul>
+      <div class="explication">$x\times x=x^2$, donc $4\times x\times x=4x^2$. Seul $x$ est au carré.</div>
+    </div>
+    <div class="question" data-reponse="13">
+      <p>Calcule $5x-7$ pour $x=4$.</p>
+      <div class="explication">$5\times4-7=20-7=13$.</div>
+    </div>
+    <div class="question" data-reponse="12">
+      <p>Calcule $x^2+3$ pour $x=-3$.</p>
+      <div class="explication">$(-3)^2+3=9+3=12$. Le carré d'un nombre négatif est positif.</div>
+    </div>
+    <div class="question">
+      <p>Réduis $7x-2+3x+5$.</p>
+      <ul class="choix"><li class="bon">$10x+3$</li><li>$13x$</li><li>$4x+3$</li><li>$10x-7$</li></ul>
+      <div class="explication">$7x+3x=10x$ et $-2+5=3$ : $10x+3$.</div>
+    </div>
+    <div class="question">
+      <p>Développe $4(2x-3)$.</p>
+      <ul class="choix"><li class="bon">$8x-12$</li><li>$8x-3$</li><li>$6x-3$</li><li>$8x+12$</li></ul>
+      <div class="explication">$4\times2x=8x$ et $4\times(-3)=-12$.</div>
+    </div>
+    <div class="question">
+      <p>Que vaut $10-(x+4)$ ?</p>
+      <ul class="choix"><li class="bon">$6-x$</li><li>$14-x$</li><li>$6+x$</li><li>$14+x$</li></ul>
+      <div class="explication">Le signe $-$ change tous les signes : $10-x-4=6-x$.</div>
+    </div>
+    <div class="question">
+      <p>Factorise $7x+21$.</p>
+      <ul class="choix"><li class="bon">$7(x+3)$</li><li>$7(x+21)$</li><li>$7x(1+3)$</li><li>$21(x+7)$</li></ul>
+      <div class="explication">$21=7\times3$ : le facteur commun est 7. Vérification : $7(x+3)=7x+21$.</div>
+    </div>
+    <div class="question">
+      <p>Développe et réduis $(x+1)(x+4)$.</p>
+      <ul class="choix"><li class="bon">$x^2+5x+4$</li><li>$x^2+4$</li><li>$2x+5$</li><li>$x^2+4x+4$</li></ul>
+      <div class="explication">$x^2+4x+x+4=x^2+5x+4$ : quatre produits.</div>
+    </div>
+    <div class="question">
+      <p>Un motif compte 6, 10, 14, 18 carreaux aux étapes 1, 2, 3, 4. À l'étape $n$, il y en a…</p>
+      <ul class="choix"><li class="bon">$4n+2$</li><li>$6n$</li><li>$n+4$</li><li>$2n+4$</li></ul>
+      <div class="explication">On ajoute 4 carreaux à chaque étape : $4n$, plus 2. Vérification : étape 1, $4+2=6$.</div>
+    </div>
+    <div class="question">
+      <p>L'égalité $x+5=5x$ est vraie pour $x=\frac54$. Est-elle vraie pour tout nombre $x$ ?</p>
+      <ul class="choix"><li class="bon">Non, $x=0$ est un contre-exemple</li><li>Oui, puisqu'on a trouvé un nombre qui marche</li><li>On ne peut pas savoir</li></ul>
+      <div class="explication">Pour $x=0$ : $0+5=5$ mais $5\times0=0$. Un contre-exemple suffit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Ici, pas de correction à ouvrir : tu écris ton calcul ligne par ligne, et le vérificateur te dit si chaque ligne est juste. Si tu bloques, demande un indice, mais essaie d'abord seul : la réussite sans aide compte le plus.</p>
+  <div class="tuteurs">
+    <div class="tuteur" data-tuteur="expression" data-id="reduire-1" data-depart="4x+7-x+5-2x" data-consigne="Réduis l'expression"></div>
+    <div class="tuteur" data-tuteur="expression" data-id="developper-1" data-depart="3(x+5)-2(x-4)" data-consigne="Développe puis réduis"></div>
+    <div class="tuteur" data-tuteur="expression" data-id="double-1" data-depart="(x+2)(x+3)" data-consigne="Développe puis réduis"></div>
+    <div class="tuteur" data-tuteur="factoriser" data-id="factoriser-1" data-depart="6x+9" data-consigne="Factorise"></div>
+  </div>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ appliquer les règles, ★★ modéliser et transformer, ★★★ double distributivité et preuves. Écris ta réponse avant d'ouvrir la correction.</p>
+
+  <h3>Niveau 1 · Les règles de base</h3>
+
+  <article class="exercice" data-niveau="1" data-titre="Conventions d'écriture">
+    <p>1. Écrire plus simplement : a) $3\times a$ &nbsp; b) $a\times4$ &nbsp; c) $x\times x$ &nbsp; d) $2\times x\times x$ &nbsp; e) $1\times y$ &nbsp; f) $5\times(x+1)$.</p>
+    <p>2. Rétablir les signes $\times$ : g) $7ab$ &nbsp; h) $4x^2$ &nbsp; i) $2(3x-1)$.</p>
+    <details class="correction">
+      <p>1. a) $3a$ &nbsp; b) $4a$ &nbsp; c) $x^2$ &nbsp; d) $2x^2$ &nbsp; e) $y$ &nbsp; f) $5(x+1)$.</p>
+      <p>2. g) $7\times a\times b$ &nbsp; h) $4\times x\times x$ &nbsp; i) $2\times(3\times x-1)$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Calculer des valeurs">
+    <p>On pose $A=4x-7$, $B=x^2+3x$ et $C=2(x-1)^2$. Calculer $A$, $B$ et $C$ pour $x=3$, puis pour $x=-2$.</p>
+    <details class="correction">
+      <p>Pour $x=3$ : $A=4\times3-7=5$ ; $B=3^2+3\times3=9+9=18$ ; $C=2\times(3-1)^2=2\times4=8$.</p>
+      <p>Pour $x=-2$ : $A=4\times(-2)-7=-8-7=-15$ ; $B=(-2)^2+3\times(-2)=4-6=-2$ ; $C=2\times(-2-1)^2=2\times(-3)^2=2\times9=18$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Réduire">
+    <p>Réduire : a) $5x+3x$ &nbsp; b) $7a-a$ &nbsp; c) $2x+3+4x-1$ &nbsp; d) $x^2+3x-x^2+x$ &nbsp; e) $3y\times4$.</p>
+    <details class="correction">
+      <p>a) $8x$ &nbsp; b) $7a-1a=6a$ &nbsp; c) $6x+2$ &nbsp; d) $x^2-x^2=0$, il reste $4x$ &nbsp; e) $3\times4\times y=12y$ (ici, c'est un produit : on multiplie les nombres).</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Développer">
+    <p>Développer : a) $4(x+3)$ &nbsp; b) $-2(3x-5)$ &nbsp; c) $x(x+7)$ &nbsp; d) $-(2x-9)$.</p>
+    <details class="correction">
+      <p>a) $4x+12$.</p>
+      <p>b) $-2\times3x+(-2)\times(-5)=-6x+10$. Moins par moins donne plus.</p>
+      <p>c) $x\times x+x\times7=x^2+7x$.</p>
+      <p>d) On change tous les signes : $-2x+9$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Modéliser et transformer</h3>
+
+  <article class="exercice" data-niveau="2" data-titre="Le jardin">
+    <p>Un jardin rectangulaire mesure 3 m de large et $x+4$ mètres de long.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 400 187" role="img" aria-label="Un jardin rectangulaire de largeur 3 m et de longueur x + 4 mètres."><rect class="forme-image" x="48" y="48.0" width="266" height="114.0"/><text class="moyen" x="154.4" y="36.6">x + 4</text><text class="moyen" x="21.4" y="110.7">3</text><text class="petit" x="146.8" y="112.6">jardin</text></svg></figure>
+    <p>1. Écrire son aire, puis la développer.<br>2. Écrire son périmètre et le réduire.<br>3. Calculer l'aire et le périmètre pour $x=4$.</p>
+    <details class="correction">
+      <figure class="figure-svg"><svg viewBox="0 0 400 179" role="img" aria-label="Le jardin découpé en un rectangle de côtés x et 3, d'aire 3x, et un rectangle de côtés 4 et 3, d'aire 12."><rect class="forme" x="48" y="40.4" width="133.0" height="114.0"/><text class="lettre" x="105.4" y="102.0">3x</text><rect class="forme-image" x="181.0" y="40.4" width="152.0" height="114.0"/><text class="lettre" x="247.9" y="102.0">12</text><text class="moyen" x="110.7" y="29.0">x</text><text class="moyen" x="253.2" y="29.0">4</text><text class="moyen" x="28.6" y="102.0">3</text></svg></figure>
+      <p>1. Aire $=3(x+4)=3x+12$ (en m²). Sur la figure : un rectangle d'aire $3x$ et un rectangle d'aire $3\times4=12$.</p>
+      <p>2. Périmètre $=2(x+4)+2\times3=2x+8+6=2x+14$ (en m).</p>
+      <p>3. Pour $x=4$ : aire $=3\times4+12=24$ m² ; périmètre $=2\times4+14=22$ m. Contrôle : le jardin mesure $8$ m sur $3$ m, $8\times3=24$ et $8+3+8+3=22$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Les hexagones d'allumettes">
+    <figure class="figure-svg"><svg viewBox="0 0 980 196" role="img" aria-label="Un motif d'hexagones en allumettes : un hexagone à l'étape 1, deux à l'étape 2, trois à l'étape 3."><g class="allumette"><line x1="26.0" y1="100.8" x2="26.0" y2="62.2"/><circle class="tete" cx="26.0" cy="64.2" r="4.2"/></g><g class="allumette"><line x1="31.2" y1="54.2" x2="64.7" y2="34.9"/><circle class="tete" cx="62.9" cy="35.9" r="4.2"/></g><g class="allumette"><line x1="74.2" y1="35.4" x2="107.6" y2="54.7"/><circle class="tete" cx="105.8" cy="53.7" r="4.2"/></g><g class="allumette"><line x1="111.9" y1="63.2" x2="111.9" y2="101.8"/><circle class="tete" cx="111.9" cy="99.8" r="4.2"/></g><g class="allumette"><line x1="106.7" y1="109.8" x2="73.3" y2="129.1"/><circle class="tete" cx="75.1" cy="128.1" r="4.2"/></g><g class="allumette"><line x1="63.8" y1="128.6" x2="30.3" y2="109.3"/><circle class="tete" cx="32.1" cy="110.3" r="4.2"/></g><text class="petit" x="26.0" y="162.0">étape 1</text><g class="allumette"><line x1="183.9" y1="100.8" x2="183.9" y2="62.2"/><circle class="tete" cx="183.9" cy="64.2" r="4.2"/></g><g class="allumette"><line x1="189.1" y1="54.2" x2="222.6" y2="34.9"/><circle class="tete" cx="220.8" cy="35.9" r="4.2"/></g><g class="allumette"><line x1="232.1" y1="35.4" x2="265.5" y2="54.7"/><circle class="tete" cx="263.7" cy="53.7" r="4.2"/></g><g class="allumette"><line x1="269.8" y1="63.2" x2="269.8" y2="101.8"/><circle class="tete" cx="269.8" cy="99.8" r="4.2"/></g><g class="allumette"><line x1="264.6" y1="109.8" x2="231.2" y2="129.1"/><circle class="tete" cx="233.0" cy="128.1" r="4.2"/></g><g class="allumette"><line x1="221.7" y1="128.6" x2="188.2" y2="109.3"/><circle class="tete" cx="190.0" cy="110.3" r="4.2"/></g><g class="allumette"><line x1="275.0" y1="54.2" x2="308.5" y2="34.9"/><circle class="tete" cx="306.7" cy="35.9" r="4.2"/></g><g class="allumette"><line x1="318.0" y1="35.4" x2="351.4" y2="54.7"/><circle class="tete" cx="349.6" cy="53.7" r="4.2"/></g><g class="allumette"><line x1="355.7" y1="63.2" x2="355.7" y2="101.8"/><circle class="tete" cx="355.7" cy="99.8" r="4.2"/></g><g class="allumette"><line x1="350.5" y1="109.8" x2="317.1" y2="129.1"/><circle class="tete" cx="318.9" cy="128.1" r="4.2"/></g><g class="allumette"><line x1="307.6" y1="128.6" x2="274.1" y2="109.3"/><circle class="tete" cx="275.9" cy="110.3" r="4.2"/></g><text class="petit" x="183.9" y="162.0">étape 2</text><g class="allumette"><line x1="427.7" y1="100.8" x2="427.7" y2="62.2"/><circle class="tete" cx="427.7" cy="64.2" r="4.2"/></g><g class="allumette"><line x1="432.9" y1="54.2" x2="466.4" y2="34.9"/><circle class="tete" cx="464.6" cy="35.9" r="4.2"/></g><g class="allumette"><line x1="475.9" y1="35.4" x2="509.3" y2="54.7"/><circle class="tete" cx="507.5" cy="53.7" r="4.2"/></g><g class="allumette"><line x1="513.6" y1="63.2" x2="513.6" y2="101.8"/><circle class="tete" cx="513.6" cy="99.8" r="4.2"/></g><g class="allumette"><line x1="508.4" y1="109.8" x2="475.0" y2="129.1"/><circle class="tete" cx="476.8" cy="128.1" r="4.2"/></g><g class="allumette"><line x1="465.5" y1="128.6" x2="432.0" y2="109.3"/><circle class="tete" cx="433.8" cy="110.3" r="4.2"/></g><g class="allumette"><line x1="518.8" y1="54.2" x2="552.3" y2="34.9"/><circle class="tete" cx="550.5" cy="35.9" r="4.2"/></g><g class="allumette"><line x1="561.8" y1="35.4" x2="595.2" y2="54.7"/><circle class="tete" cx="593.4" cy="53.7" r="4.2"/></g><g class="allumette"><line x1="599.5" y1="63.2" x2="599.5" y2="101.8"/><circle class="tete" cx="599.5" cy="99.8" r="4.2"/></g><g class="allumette"><line x1="594.3" y1="109.8" x2="560.9" y2="129.1"/><circle class="tete" cx="562.7" cy="128.1" r="4.2"/></g><g class="allumette"><line x1="551.4" y1="128.6" x2="517.9" y2="109.3"/><circle class="tete" cx="519.7" cy="110.3" r="4.2"/></g><g class="allumette"><line x1="604.7" y1="54.2" x2="638.2" y2="34.9"/><circle class="tete" cx="636.4" cy="35.9" r="4.2"/></g><g class="allumette"><line x1="647.7" y1="35.4" x2="681.2" y2="54.7"/><circle class="tete" cx="679.4" cy="53.7" r="4.2"/></g><g class="allumette"><line x1="685.5" y1="63.2" x2="685.5" y2="101.8"/><circle class="tete" cx="685.5" cy="99.8" r="4.2"/></g><g class="allumette"><line x1="680.3" y1="109.8" x2="646.8" y2="129.1"/><circle class="tete" cx="648.6" cy="128.1" r="4.2"/></g><g class="allumette"><line x1="637.3" y1="128.6" x2="603.8" y2="109.3"/><circle class="tete" cx="605.6" cy="110.3" r="4.2"/></g><text class="petit" x="427.7" y="162.0">étape 3</text></svg></figure>
+    <p>1. Combien faut-il d'allumettes à l'étape 4 ?<br>2. Exprimer le nombre d'allumettes à l'étape $n$.<br>3. Combien en faut-il à l'étape 50 ?<br>4. Peut-on construire une étape avec exactement 2 026 allumettes ?</p>
+    <details class="correction">
+      <p>1. On compte 6, 11, 16 : on ajoute 5 allumettes par hexagone. À l'étape 4 : $16+5=21$.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 830 218" role="img" aria-label="Quatre hexagones : la première allumette verticale en gris, puis des groupes de cinq allumettes alternativement bleus et roses."><g class="allumette t-n"><line x1="46.0" y1="112.9" x2="46.0" y2="68.1"/><circle class="tete" cx="46.0" cy="70.1" r="4.2"/></g><g class="allumette t-u"><line x1="51.2" y1="60.1" x2="90.0" y2="37.7"/><circle class="tete" cx="88.2" cy="38.7" r="4.2"/></g><g class="allumette t-u"><line x1="99.5" y1="38.2" x2="138.3" y2="60.6"/><circle class="tete" cx="136.5" cy="59.6" r="4.2"/></g><g class="allumette t-u"><line x1="142.6" y1="69.1" x2="142.6" y2="113.9"/><circle class="tete" cx="142.6" cy="111.9" r="4.2"/></g><g class="allumette t-u"><line x1="137.4" y1="121.9" x2="98.6" y2="144.3"/><circle class="tete" cx="100.4" cy="143.3" r="4.2"/></g><g class="allumette t-u"><line x1="89.1" y1="143.8" x2="50.3" y2="121.4"/><circle class="tete" cx="52.1" cy="122.4" r="4.2"/></g><g class="allumette t-v"><line x1="147.8" y1="60.1" x2="186.7" y2="37.7"/><circle class="tete" cx="184.9" cy="38.7" r="4.2"/></g><g class="allumette t-v"><line x1="196.2" y1="38.2" x2="235.0" y2="60.6"/><circle class="tete" cx="233.2" cy="59.6" r="4.2"/></g><g class="allumette t-v"><line x1="239.3" y1="69.1" x2="239.3" y2="113.9"/><circle class="tete" cx="239.3" cy="111.9" r="4.2"/></g><g class="allumette t-v"><line x1="234.1" y1="121.9" x2="195.3" y2="144.3"/><circle class="tete" cx="197.1" cy="143.3" r="4.2"/></g><g class="allumette t-v"><line x1="185.8" y1="143.8" x2="146.9" y2="121.4"/><circle class="tete" cx="148.7" cy="122.4" r="4.2"/></g><g class="allumette t-u"><line x1="244.5" y1="60.1" x2="283.3" y2="37.7"/><circle class="tete" cx="281.5" cy="38.7" r="4.2"/></g><g class="allumette t-u"><line x1="292.8" y1="38.2" x2="331.6" y2="60.6"/><circle class="tete" cx="329.8" cy="59.6" r="4.2"/></g><g class="allumette t-u"><line x1="335.9" y1="69.1" x2="335.9" y2="113.9"/><circle class="tete" cx="335.9" cy="111.9" r="4.2"/></g><g class="allumette t-u"><line x1="330.7" y1="121.9" x2="291.9" y2="144.3"/><circle class="tete" cx="293.7" cy="143.3" r="4.2"/></g><g class="allumette t-u"><line x1="282.4" y1="143.8" x2="243.6" y2="121.4"/><circle class="tete" cx="245.4" cy="122.4" r="4.2"/></g><g class="allumette t-v"><line x1="341.1" y1="60.1" x2="380.0" y2="37.7"/><circle class="tete" cx="378.2" cy="38.7" r="4.2"/></g><g class="allumette t-v"><line x1="389.5" y1="38.2" x2="428.3" y2="60.6"/><circle class="tete" cx="426.5" cy="59.6" r="4.2"/></g><g class="allumette t-v"><line x1="432.6" y1="69.1" x2="432.6" y2="113.9"/><circle class="tete" cx="432.6" cy="111.9" r="4.2"/></g><g class="allumette t-v"><line x1="427.4" y1="121.9" x2="388.6" y2="144.3"/><circle class="tete" cx="390.4" cy="143.3" r="4.2"/></g><g class="allumette t-v"><line x1="379.1" y1="143.8" x2="340.2" y2="121.4"/><circle class="tete" cx="342.0" cy="122.4" r="4.2"/></g><text class="petit" x="28.0" y="181.0">1 allumette, puis 5 par hexagone : 1 + 5n</text></svg></figure>
+      <p>2. Une allumette verticale au début (en gris), puis 5 par hexagone : $1+5n$, soit $5n+1$. Vérification : étape 1, $5+1=6$.</p>
+      <p>3. $5\times50+1=251$ allumettes.</p>
+      <p>4. Il faudrait $5n+1=2\,026$, donc $5n=2\,025$ et $n=405$. Oui : c'est l'étape 405.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Le programme mystère">
+    <p>Choisir un nombre ; lui ajouter 4 ; multiplier le résultat par 3 ; soustraire le triple du nombre de départ.</p>
+    <p>1. Tester le programme avec 2, puis avec $-5$.<br>2. Quelle conjecture peut-on faire ?<br>3. La prouver en appelant $x$ le nombre de départ.</p>
+    <details class="correction">
+      <p>1. Avec 2 : $2+4=6$ ; $6\times3=18$ ; $18-3\times2=12$. Avec $-5$ : $-5+4=-1$ ; $-1\times3=-3$ ; $-3-3\times(-5)=-3+15=12$.</p>
+      <p>2. On obtient toujours 12.</p>
+      <p>3. Avec $x$ : $3(x+4)-3x=3x+12-3x=12$. Le résultat vaut 12 pour <strong>tous</strong> les nombres de départ : c'est prouvé.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Factoriser">
+    <p>Factoriser : a) $5x+20$ &nbsp; b) $12x-18$ &nbsp; c) $x^2+3x$ &nbsp; d) $7x+7$ &nbsp; e) $4x^2-10x$.</p>
+    <details class="correction">
+      <p>a) $5\times x+5\times4=5(x+4)$.</p>
+      <p>b) $6\times2x-6\times3=6(2x-3)$. Avec 2 ou 3 comme facteur, c'est juste mais incomplet : on prend le plus grand facteur commun.</p>
+      <p>c) $x\times x+x\times3=x(x+3)$.</p>
+      <p>d) $7\times x+7\times1=7(x+1)$. Le 1 ne disparaît pas !</p>
+      <p>e) $2x\times2x-2x\times5=2x(2x-5)$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Corrige l'IA">
+    <p>Une IA a rédigé cette réponse. Elle est sûre d'elle. Trouve les erreurs, puis corrige.</p>
+    <blockquote class="copie-ia">« On développe et on réduit $3(x+5)-2(x-4)$. On obtient $3x+5-2x-8$, donc le résultat est $x-3$. »</blockquote>
+    <details class="correction">
+      <p>Deux erreurs. D'abord, le 3 n'a multiplié que $x$ : $3(x+5)=3x+15$, pas $3x+5$. Ensuite, $-2\times(-4)=+8$, pas $-8$.</p>
+      <p>Correction : $3x+15-2x+8=x+23$. Vérification avec $x=0$ : $3\times5-2\times(-4)=15+8=23$.</p>
+      <p>Une réponse au ton assuré n'est pas forcément juste : vérifie toujours avec une valeur.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Double distributivité et preuves</h3>
+
+  <article class="exercice" data-niveau="3" data-titre="Double distributivité">
+    <p>Développer et réduire : a) $(x+2)(x+5)$ &nbsp; b) $(2x-1)(x+3)$ &nbsp; c) $(x-4)(x-4)$.</p>
+    <details class="correction">
+      <figure class="figure-svg"><svg viewBox="0 0 356 224" role="img" aria-label="Un rectangle de côtés x + 5 et x + 2 découpé en quatre morceaux : x², 5x, 2x et 10."><rect class="forme" x="46.0" y="22.0" width="120.0" height="120.0"/><text class="lettre" x="98.8" y="85.6">x²</text><rect class="forme-image" x="166.0" y="22.0" width="150.0" height="120.0"/><text class="lettre" x="233.8" y="85.6">5x</text><rect class="forme-3" x="46.0" y="142.0" width="120.0" height="60.0"/><text class="lettre" x="98.8" y="175.6">2x</text><rect class="forme-4" x="166.0" y="142.0" width="150.0" height="60.0"/><text class="lettre" x="233.8" y="175.6">10</text><text class="moyen" x="103.0" y="13.0">x</text><text class="moyen" x="238.0" y="13.0">5</text><text class="moyen" x="30.7" y="85.6">x</text><text class="moyen" x="30.7" y="175.6">2</text></svg></figure>
+      <p>a) $x^2+5x+2x+10=x^2+7x+10$ (les quatre morceaux du rectangle).</p>
+      <p>b) $2x\times x+2x\times3-1\times x-1\times3=2x^2+6x-x-3=2x^2+5x-3$.</p>
+      <p>c) $x^2-4x-4x+16=x^2-8x+16$. Attention : $(-4)\times(-4)=+16$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Vrai ou faux ? Prouver">
+    <p>1. Léa affirme : « Si je multiplie deux entiers qui se suivent et que j'ajoute le plus grand, j'obtiens toujours un carré. » Tester, puis prouver.</p>
+    <p>2. Tom affirme : « Pour tout entier $n$, le nombre $n^2+n+41$ est premier. » Il l'a vérifié de $n=0$ à $n=10$. A-t-il raison ?</p>
+    <details class="correction">
+      <p>1. Tests : $3\times4+4=16=4^2$ ; $7\times8+8=64=8^2$. Avec des lettres : les entiers sont $n$ et $n+1$, et le calcul donne $n(n+1)+(n+1)$. On factorise par $(n+1)$ : $(n+1)(n+1)=(n+1)^2$. C'est toujours le carré du plus grand. Léa a raison.</p>
+      <p>2. Non. Pour $n=40$ : $40^2+40+41=1\,600+40+41=1\,681=41\times41$. Ce nombre n'est pas premier : c'est un contre-exemple. Onze exemples, et même quarante, ne prouvaient rien.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Synthèse : la salle de sport">
+    <p>Une salle de sport propose trois formules pour l'année :</p>
+    <ul><li>A : 9 € la séance ;</li><li>B : 60 € d'abonnement, puis 4 € la séance ;</li><li>C : 420 €, séances illimitées.</li></ul>
+    <p>1. Exprimer le prix de chaque formule en fonction du nombre $n$ de séances.<br>2. Calculer les trois prix pour $n=10$ et pour $n=20$.<br>3. Vérifier que A et B coûtent le même prix pour 12 séances.<br>4. À partir de combien de séances la formule C est-elle la plus avantageuse ?</p>
+    <details class="correction">
+      <p>1. $A=9n$ ; $B=60+4n$ ; $C=420$ (le prix ne dépend pas de $n$).</p>
+      <p>2. Pour $n=10$ : A $=90$ €, B $=100$ €, C $=420$ €. Pour $n=20$ : A $=180$ €, B $=140$ €, C $=420$ €.</p>
+      <p>3. $9\times12=108$ et $60+4\times12=60+48=108$ : même prix. En dessous de 12 séances, A est moins chère ; au-dessus, B l'est.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 581 404" role="img" aria-label="Prix des trois formules en fonction du nombre de séances : 9n (bleu), 60 + 4n (rose), 420 (vert). A et B se croisent à 12 séances, B et C à 90 séances."><g class="quadrillage"><line x1="65.2" y1="295.2" x2="548.2" y2="295.2"/></g><text class="petit" x="14.6" y="300.2">100</text><g class="quadrillage"><line x1="65.2" y1="233.2" x2="548.2" y2="233.2"/></g><text class="petit" x="14.6" y="238.2">200</text><g class="quadrillage"><line x1="65.2" y1="171.2" x2="548.2" y2="171.2"/></g><text class="petit" x="14.6" y="176.2">300</text><g class="quadrillage"><line x1="65.2" y1="109.2" x2="548.2" y2="109.2"/></g><text class="petit" x="14.6" y="114.2">400</text><g class="quadrillage"><line x1="65.2" y1="47.2" x2="548.2" y2="47.2"/></g><text class="petit" x="14.6" y="52.2">500</text><g class="trace t-n"><line x1="65.2" y1="357.2" x2="549.6" y2="357.2"/><polygon points="557.4,357.2 544.4,363.1 544.4,351.3"/></g><g class="trace t-n"><line x1="65.2" y1="357.2" x2="65.2" y2="27.1"/><polygon points="65.2,19.3 71.0,32.3 59.4,32.3"/></g><text class="petit" x="56.0" y="382.0">0</text><text class="petit" x="148.0" y="382.0">20</text><text class="petit" x="240.0" y="382.0">40</text><text class="petit" x="332.0" y="382.0">60</text><text class="petit" x="424.0" y="382.0">80</text><text class="petit" x="516.0" y="382.0">100</text><g class="trace t-u"><path d="M65.2,357.2 L66.3,355.9 L67.4,354.5 L68.5,353.2 L69.6,351.8 L70.8,350.5 L71.9,349.1 L73.0,347.8 L74.1,346.4 L75.2,345.1 L76.3,343.7 L77.4,342.4 L78.5,341.0 L79.7,339.7 L80.8,338.3 L81.9,337.0 L83.0,335.6 L84.1,334.3 L85.2,332.9 L86.3,331.6 L87.4,330.2 L88.5,328.9 L89.7,327.5 L90.8,326.2 L91.9,324.8 L93.0,323.5 L94.1,322.1 L95.2,320.8 L96.3,319.4 L97.4,318.1 L98.5,316.7 L99.7,315.4 L100.8,314.0 L101.9,312.7 L103.0,311.4 L104.1,310.0 L105.2,308.7 L106.3,307.3 L107.4,306.0 L108.6,304.6 L109.7,303.3 L110.8,301.9 L111.9,300.6 L113.0,299.2 L114.1,297.9 L115.2,296.5 L116.3,295.2 L117.4,293.8 L118.6,292.5 L119.7,291.1 L120.8,289.8 L121.9,288.4 L123.0,287.1 L124.1,285.7 L125.2,284.4 L126.3,283.0 L127.5,281.7 L128.6,280.3 L129.7,279.0 L130.8,277.6 L131.9,276.3 L133.0,274.9 L134.1,273.6 L135.2,272.2 L136.3,270.9 L137.5,269.5 L138.6,268.2 L139.7,266.9 L140.8,265.5 L141.9,264.2 L143.0,262.8 L144.1,261.5 L145.2,260.1 L146.4,258.8 L147.5,257.4 L148.6,256.1 L149.7,254.7 L150.8,253.4 L151.9,252.0 L153.0,250.7 L154.1,249.3 L155.2,248.0 L156.4,246.6 L157.5,245.3 L158.6,243.9 L159.7,242.6 L160.8,241.2 L161.9,239.9 L163.0,238.5 L164.1,237.2 L165.2,235.8 L166.4,234.5 L167.5,233.1 L168.6,231.8 L169.7,230.4 L170.8,229.1 L171.9,227.7 L173.0,226.4 L174.1,225.0 L175.3,223.7 L176.4,222.3 L177.5,221.0 L178.6,219.7 L179.7,218.3 L180.8,217.0 L181.9,215.6 L183.0,214.3 L184.1,212.9 L185.3,211.6 L186.4,210.2 L187.5,208.9 L188.6,207.5 L189.7,206.2 L190.8,204.8 L191.9,203.5 L193.0,202.1 L194.2,200.8 L195.3,199.4 L196.4,198.1 L197.5,196.7 L198.6,195.4 L199.7,194.0 L200.8,192.7 L201.9,191.3 L203.0,190.0 L204.2,188.6 L205.3,187.3 L206.4,185.9 L207.5,184.6 L208.6,183.2 L209.7,181.9 L210.8,180.5 L211.9,179.2 L213.1,177.8 L214.2,176.5 L215.3,175.2 L216.4,173.8 L217.5,172.5 L218.6,171.1 L219.7,169.8 L220.8,168.4 L221.9,167.1 L223.1,165.7 L224.2,164.4 L225.3,163.0 L226.4,161.7 L227.5,160.3 L228.6,159.0 L229.7,157.6 L230.8,156.3 L231.9,154.9 L233.1,153.6 L234.2,152.2 L235.3,150.9 L236.4,149.5 L237.5,148.2 L238.6,146.8 L239.7,145.5 L240.8,144.1 L242.0,142.8 L243.1,141.4 L244.2,140.1 L245.3,138.7 L246.4,137.4 L247.5,136.0 L248.6,134.7 L249.7,133.3 L250.8,132.0 L252.0,130.7 L253.1,129.3 L254.2,128.0 L255.3,126.6 L256.4,125.3 L257.5,123.9 L258.6,122.6 L259.7,121.2 L260.9,119.9 L262.0,118.5 L263.1,117.2 L264.2,115.8 L265.3,114.5 L266.4,113.1 L267.5,111.8 L268.6,110.4 L269.7,109.1 L270.9,107.7 L272.0,106.4 L273.1,105.0 L274.2,103.7 L275.3,102.3 L276.4,101.0 L277.5,99.6 L278.6,98.3 L279.8,96.9 L280.9,95.6 L282.0,94.2 L283.1,92.9 L284.2,91.5 L285.3,90.2 L286.4,88.8 L287.5,87.5 L288.6,86.2 L289.8,84.8 L290.9,83.5 L292.0,82.1 L293.1,80.8 L294.2,79.4 L295.3,78.1 L296.4,76.7 L297.5,75.4 L298.6,74.0 L299.8,72.7 L300.9,71.3 L302.0,70.0 L303.1,68.6 L304.2,67.3 L305.3,65.9 L306.4,64.6 L307.5,63.2 L308.7,61.9 L309.8,60.5 L310.9,59.2 L312.0,57.8 L313.1,56.5 L314.2,55.1 L315.3,53.8 L316.4,52.4 L317.5,51.1 L318.7,49.7 L319.8,48.4 L320.9,47.0 L322.0,45.7 L323.1,44.3 L324.2,43.0 L325.3,41.7 L326.4,40.3 L327.6,39.0 L328.7,37.6 L329.8,36.3 L330.9,34.9 L332.0,33.6"/></g><g class="trace t-v"><path d="M65.2,320.0 L67.2,318.9 L69.2,317.8 L71.2,316.7 L73.2,315.7 L75.3,314.6 L77.3,313.5 L79.3,312.4 L81.3,311.3 L83.3,310.2 L85.3,309.1 L87.3,308.1 L89.3,307.0 L91.4,305.9 L93.4,304.8 L95.4,303.7 L97.4,302.6 L99.4,301.6 L101.4,300.5 L103.4,299.4 L105.4,298.3 L107.5,297.2 L109.5,296.1 L111.5,295.0 L113.5,294.0 L115.5,292.9 L117.5,291.8 L119.5,290.7 L121.5,289.6 L123.6,288.5 L125.6,287.4 L127.6,286.4 L129.6,285.3 L131.6,284.2 L133.6,283.1 L135.6,282.0 L137.6,280.9 L139.7,279.9 L141.7,278.8 L143.7,277.7 L145.7,276.6 L147.7,275.5 L149.7,274.4 L151.7,273.3 L153.8,272.3 L155.8,271.2 L157.8,270.1 L159.8,269.0 L161.8,267.9 L163.8,266.8 L165.8,265.8 L167.8,264.7 L169.8,263.6 L171.9,262.5 L173.9,261.4 L175.9,260.3 L177.9,259.2 L179.9,258.2 L181.9,257.1 L183.9,256.0 L185.9,254.9 L188.0,253.8 L190.0,252.7 L192.0,251.6 L194.0,250.6 L196.0,249.5 L198.0,248.4 L200.0,247.3 L202.0,246.2 L204.1,245.1 L206.1,244.1 L208.1,243.0 L210.1,241.9 L212.1,240.8 L214.1,239.7 L216.1,238.6 L218.1,237.5 L220.2,236.5 L222.2,235.4 L224.2,234.3 L226.2,233.2 L228.2,232.1 L230.2,231.0 L232.2,229.9 L234.2,228.9 L236.3,227.8 L238.3,226.7 L240.3,225.6 L242.3,224.5 L244.3,223.4 L246.3,222.3 L248.3,221.3 L250.3,220.2 L252.4,219.1 L254.4,218.0 L256.4,216.9 L258.4,215.8 L260.4,214.8 L262.4,213.7 L264.4,212.6 L266.4,211.5 L268.5,210.4 L270.5,209.3 L272.5,208.2 L274.5,207.2 L276.5,206.1 L278.5,205.0 L280.5,203.9 L282.5,202.8 L284.6,201.7 L286.6,200.7 L288.6,199.6 L290.6,198.5 L292.6,197.4 L294.6,196.3 L296.6,195.2 L298.6,194.1 L300.7,193.1 L302.7,192.0 L304.7,190.9 L306.7,189.8 L308.7,188.7 L310.7,187.6 L312.7,186.5 L314.8,185.5 L316.8,184.4 L318.8,183.3 L320.8,182.2 L322.8,181.1 L324.8,180.0 L326.8,178.9 L328.8,177.9 L330.8,176.8 L332.9,175.7 L334.9,174.6 L336.9,173.5 L338.9,172.4 L340.9,171.4 L342.9,170.3 L344.9,169.2 L346.9,168.1 L349.0,167.0 L351.0,165.9 L353.0,164.8 L355.0,163.8 L357.0,162.7 L359.0,161.6 L361.0,160.5 L363.0,159.4 L365.1,158.3 L367.1,157.2 L369.1,156.2 L371.1,155.1 L373.1,154.0 L375.1,152.9 L377.1,151.8 L379.1,150.7 L381.2,149.7 L383.2,148.6 L385.2,147.5 L387.2,146.4 L389.2,145.3 L391.2,144.2 L393.2,143.1 L395.2,142.1 L397.3,141.0 L399.3,139.9 L401.3,138.8 L403.3,137.7 L405.3,136.6 L407.3,135.6 L409.3,134.5 L411.3,133.4 L413.4,132.3 L415.4,131.2 L417.4,130.1 L419.4,129.0 L421.4,128.0 L423.4,126.9 L425.4,125.8 L427.4,124.7 L429.5,123.6 L431.5,122.5 L433.5,121.4 L435.5,120.4 L437.5,119.3 L439.5,118.2 L441.5,117.1 L443.5,116.0 L445.6,114.9 L447.6,113.8 L449.6,112.8 L451.6,111.7 L453.6,110.6 L455.6,109.5 L457.6,108.4 L459.6,107.3 L461.7,106.3 L463.7,105.2 L465.7,104.1 L467.7,103.0 L469.7,101.9 L471.7,100.8 L473.7,99.7 L475.7,98.7 L477.8,97.6 L479.8,96.5 L481.8,95.4 L483.8,94.3 L485.8,93.2 L487.8,92.2 L489.8,91.1 L491.8,90.0 L493.9,88.9 L495.9,87.8 L497.9,86.7 L499.9,85.6 L501.9,84.6 L503.9,83.5 L505.9,82.4 L507.9,81.3 L510.0,80.2 L512.0,79.1 L514.0,78.0 L516.0,77.0 L518.0,75.9 L520.0,74.8 L522.0,73.7 L524.0,72.6 L526.1,71.5 L528.1,70.5 L530.1,69.4 L532.1,68.3 L534.1,67.2 L536.1,66.1 L538.1,65.0 L540.1,63.9 L542.2,62.9 L544.2,61.8 L546.2,60.7 L548.2,59.6"/></g><g class="trace t-w"><path d="M65.2,96.8 L67.2,96.8 L69.2,96.8 L71.2,96.8 L73.2,96.8 L75.3,96.8 L77.3,96.8 L79.3,96.8 L81.3,96.8 L83.3,96.8 L85.3,96.8 L87.3,96.8 L89.3,96.8 L91.4,96.8 L93.4,96.8 L95.4,96.8 L97.4,96.8 L99.4,96.8 L101.4,96.8 L103.4,96.8 L105.4,96.8 L107.5,96.8 L109.5,96.8 L111.5,96.8 L113.5,96.8 L115.5,96.8 L117.5,96.8 L119.5,96.8 L121.5,96.8 L123.6,96.8 L125.6,96.8 L127.6,96.8 L129.6,96.8 L131.6,96.8 L133.6,96.8 L135.6,96.8 L137.6,96.8 L139.7,96.8 L141.7,96.8 L143.7,96.8 L145.7,96.8 L147.7,96.8 L149.7,96.8 L151.7,96.8 L153.8,96.8 L155.8,96.8 L157.8,96.8 L159.8,96.8 L161.8,96.8 L163.8,96.8 L165.8,96.8 L167.8,96.8 L169.8,96.8 L171.9,96.8 L173.9,96.8 L175.9,96.8 L177.9,96.8 L179.9,96.8 L181.9,96.8 L183.9,96.8 L185.9,96.8 L188.0,96.8 L190.0,96.8 L192.0,96.8 L194.0,96.8 L196.0,96.8 L198.0,96.8 L200.0,96.8 L202.0,96.8 L204.1,96.8 L206.1,96.8 L208.1,96.8 L210.1,96.8 L212.1,96.8 L214.1,96.8 L216.1,96.8 L218.1,96.8 L220.2,96.8 L222.2,96.8 L224.2,96.8 L226.2,96.8 L228.2,96.8 L230.2,96.8 L232.2,96.8 L234.2,96.8 L236.3,96.8 L238.3,96.8 L240.3,96.8 L242.3,96.8 L244.3,96.8 L246.3,96.8 L248.3,96.8 L250.3,96.8 L252.4,96.8 L254.4,96.8 L256.4,96.8 L258.4,96.8 L260.4,96.8 L262.4,96.8 L264.4,96.8 L266.4,96.8 L268.5,96.8 L270.5,96.8 L272.5,96.8 L274.5,96.8 L276.5,96.8 L278.5,96.8 L280.5,96.8 L282.5,96.8 L284.6,96.8 L286.6,96.8 L288.6,96.8 L290.6,96.8 L292.6,96.8 L294.6,96.8 L296.6,96.8 L298.6,96.8 L300.7,96.8 L302.7,96.8 L304.7,96.8 L306.7,96.8 L308.7,96.8 L310.7,96.8 L312.7,96.8 L314.8,96.8 L316.8,96.8 L318.8,96.8 L320.8,96.8 L322.8,96.8 L324.8,96.8 L326.8,96.8 L328.8,96.8 L330.8,96.8 L332.9,96.8 L334.9,96.8 L336.9,96.8 L338.9,96.8 L340.9,96.8 L342.9,96.8 L344.9,96.8 L346.9,96.8 L349.0,96.8 L351.0,96.8 L353.0,96.8 L355.0,96.8 L357.0,96.8 L359.0,96.8 L361.0,96.8 L363.0,96.8 L365.1,96.8 L367.1,96.8 L369.1,96.8 L371.1,96.8 L373.1,96.8 L375.1,96.8 L377.1,96.8 L379.1,96.8 L381.2,96.8 L383.2,96.8 L385.2,96.8 L387.2,96.8 L389.2,96.8 L391.2,96.8 L393.2,96.8 L395.2,96.8 L397.3,96.8 L399.3,96.8 L401.3,96.8 L403.3,96.8 L405.3,96.8 L407.3,96.8 L409.3,96.8 L411.3,96.8 L413.4,96.8 L415.4,96.8 L417.4,96.8 L419.4,96.8 L421.4,96.8 L423.4,96.8 L425.4,96.8 L427.4,96.8 L429.5,96.8 L431.5,96.8 L433.5,96.8 L435.5,96.8 L437.5,96.8 L439.5,96.8 L441.5,96.8 L443.5,96.8 L445.6,96.8 L447.6,96.8 L449.6,96.8 L451.6,96.8 L453.6,96.8 L455.6,96.8 L457.6,96.8 L459.6,96.8 L461.7,96.8 L463.7,96.8 L465.7,96.8 L467.7,96.8 L469.7,96.8 L471.7,96.8 L473.7,96.8 L475.7,96.8 L477.8,96.8 L479.8,96.8 L481.8,96.8 L483.8,96.8 L485.8,96.8 L487.8,96.8 L489.8,96.8 L491.8,96.8 L493.9,96.8 L495.9,96.8 L497.9,96.8 L499.9,96.8 L501.9,96.8 L503.9,96.8 L505.9,96.8 L507.9,96.8 L510.0,96.8 L512.0,96.8 L514.0,96.8 L516.0,96.8 L518.0,96.8 L520.0,96.8 L522.0,96.8 L524.0,96.8 L526.1,96.8 L528.1,96.8 L530.1,96.8 L532.1,96.8 L534.1,96.8 L536.1,96.8 L538.1,96.8 L540.1,96.8 L542.2,96.8 L544.2,96.8 L546.2,96.8 L548.2,96.8"/></g><text class="moyen" x="267.6" y="34.8">A : 9n</text><text class="moyen" x="387.2" y="171.2">B : 60 + 4n</text><text class="moyen" x="424.0" y="84.4">C : 420</text><circle class="pt " cx="120.4" cy="290.2" r="4.5"/><circle class="pt " cx="479.2" cy="96.8" r="4.5"/><g class="trace t-n pointille"><line x1="120.4" y1="357.2" x2="120.4" y2="290.2"/></g><g class="trace t-n pointille"><line x1="479.2" y1="357.2" x2="479.2" y2="96.8"/></g><text class="petit" x="451.6" y="344.8">séances n</text><text class="petit" x="74.4" y="17.4">prix (€)</text></svg></figure>
+      <p>4. Il faut comparer B et C. Pour $n=90$ : $60+4\times90=420$, comme C. Pour $n=91$ : B coûte $424$ €, plus que C. La formule C devient la plus avantageuse <strong>à partir de 91 séances</strong>, soit près de deux séances par semaine.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>À quoi ça sert de mettre des lettres ?</summary>
+      <div><p>À écrire <strong>une seule fois</strong> un calcul qui marche pour tous les nombres. Au lieu de refaire le calcul du prix pour 3, 4, 10 séances, tu écris $60+4n$ et tu remplaces $n$. Et surtout, les lettres permettent de <strong>prouver</strong> : un calcul fait avec $n$ est vrai pour tous les $n$ à la fois.</p></div></details>
+    <details><summary>Pourquoi $x\times x$ fait $x^2$ et pas $2x$ ?</summary>
+      <div><figure class="figure-svg"><svg viewBox="0 0 410 175" role="img" aria-label="À gauche un carré de côté x, d'aire x au carré ; à droite deux segments de longueur x bout à bout, qui mesurent 2x."><rect class="forme" x="22.0" y="28.0" width="120.0" height="120.0"/><text class="lettre" x="70.0" y="92.5">x²</text><text class="moyen" x="76.0" y="163.0">x</text><text class="moyen" x="148.0" y="91.0">x</text><g class="trace t-u"><line x1="190" y1="88.0" x2="280" y2="88.0"/></g><g class="trace t-v"><line x1="280" y1="88.0" x2="370" y2="88.0"/></g><g class="trace t-n"><line x1="190" y1="95.5" x2="190" y2="80.5"/></g><g class="trace t-n"><line x1="280" y1="95.5" x2="280" y2="80.5"/></g><g class="trace t-n"><line x1="370" y1="95.5" x2="370" y2="80.5"/></g><text class="moyen" x="229.0" y="76.0">x</text><text class="moyen" x="319.0" y="76.0">x</text><text class="lettre" x="226.0" y="118.0">x + x = 2x</text><text class="petit" x="28.0" y="20.5">x × x = x²</text></svg></figure><p>$x\times x$, c'est l'aire d'un carré de côté $x$ : on la note $x^2$. $2x$, c'est $x+x$, deux longueurs mises bout à bout. Pour $x=10$ : $x^2=100$, alors que $2x=20$.</p></div></details>
+    <details><summary>Peut-on réduire $3x+2$ ?</summary>
+      <div><p>Non. $3x$ et $2$ ne sont pas de la même famille : c'est comme additionner 3 pommes et 2 euros. $3x+2$ est déjà réduit.</p></div></details>
+    <details><summary>Développer ou factoriser : comment savoir ?</summary>
+      <div><p>C'est la consigne qui le dit, et ce sont deux chemins inverses. <strong>Développer</strong> transforme un produit en somme : $3(x+2)\to3x+6$. <strong>Factoriser</strong> transforme une somme en produit : $3x+6\to3(x+2)$. Pour vérifier une factorisation, on redéveloppe.</p></div></details>
+    <details><summary>Que fait le signe − devant une parenthèse ?</summary>
+      <div><p>Il change le signe de <strong>chaque</strong> terme de la parenthèse : $-(x-3)=-x+3$. C'est comme multiplier la parenthèse par $-1$.</p></div></details>
+    <details><summary>Si une égalité marche pour plein de nombres, elle est vraie ?</summary>
+      <div><p>Pas forcément. $n^2+n+41$ est premier pour $n=0, 1, 2\ldots$ jusqu'à $39$, et pourtant pas pour $n=40$. Seul un calcul avec des lettres prouve qu'une égalité est toujours vraie. Le labo « Vrai pour tous les nombres ? » te fait chercher des contre-exemples.</p></div></details>
+    <details><summary>Comment vérifier un développement sans la correction ?</summary>
+      <div><p>Choisis une valeur simple, par exemple $x=1$ ou $x=2$, et calcule l'expression de départ et ton résultat. S'ils sont différents, il y a une erreur. S'ils sont égaux, c'est un bon signe (mais pas une preuve absolue).</p></div></details>
+  </div>
+
+  <h3>Vidéos</h3>
+  <div class="videos">
+    <div class="video" data-titre="Modéliser un motif avec une lettre"></div>
+    <div class="video" data-titre="Développer avec la distributivité"></div>
+    <div class="video" data-titre="Prouver avec le calcul littéral"></div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

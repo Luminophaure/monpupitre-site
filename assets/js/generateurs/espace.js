@@ -1,0 +1,188 @@
+/* =====================================================================
+   GÉNÉRATEURS — chapitre « Vecteurs, droites et plans de l'espace »
+   Même format que generateurs/limites.js :
+     { enonce, type:'nombre'|'qcm', reponse, choix, explication }
+   ===================================================================== */
+(function(){
+"use strict";
+const hasard=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const prendre=a=>a[Math.floor(Math.random()*a.length)];
+const melanger=a=>{ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const nz=(a,b)=>{ let v=0; while(v===0) v=hasard(a,b); return v; };
+/* QCM : bonne réponse + leurres, sans doublon, 4 choix au plus */
+function qcm(bonne,reserve,n){ const autres=melanger([...new Set(reserve)].filter(r=>r!==bonne)).slice(0,(n||4)-1); const choix=melanger([bonne,...autres]); return {type:'qcm',choix,reponse:choix.indexOf(bonne)}; }
+function qcmOrdre(bonne,liste){ return {type:'qcm',choix:liste,reponse:liste.indexOf(bonne)}; }
+
+/* ---------- vecteurs ---------- */
+const add=(a,b)=>a.map((x,i)=>x+b[i]), sub=(a,b)=>a.map((x,i)=>x-b[i]), mul=(k,a)=>a.map(x=>k*x);
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const det=(a,b,c)=>dot(a,cross(b,c));
+const nul=a=>a.every(x=>Math.abs(x)<1e-9);
+const colin=(a,b)=>nul(cross(a,b));
+const egal=(a,b)=>nul(sub(a,b));
+const vec=()=>{ let v; do v=[hasard(-3,3),hasard(-3,3),hasard(-3,3)]; while(v.filter(x=>x!==0).length<2); return v; };
+const pt=()=>[hasard(-4,4),hasard(-4,4),hasard(-4,4)];
+
+/* ---------- écriture LaTeX ---------- */
+function n(v){ if(Math.abs(v-Math.round(v))<1e-9) return String(Math.round(v));
+  for(let q=2;q<=6;q++){ const p=v*q; if(Math.abs(p-Math.round(p))<1e-9){ const P=Math.round(p); return (P<0?'-':'')+'\\frac{'+Math.abs(P)+'}{'+q+'}'; } } return String(v); }
+const col=v=>'\\begin{pmatrix}'+v.map(n).join('\\\\')+'\\end{pmatrix}';
+const co=v=>'('+v.map(n).join('\\,;')+')';
+const M$=s=>'$'+s+'$';
+/* a + b t, écrit proprement : 3-2t, t, -1+t, 4 */
+function lin(a,b,t){ const sa=a===0?'':n(a); if(b===0) return sa||'0';
+  const sb= b===1?t : b===-1?'-'+t : n(b)+t; if(!sa) return sb; return sa+(b>0?'+':'')+sb; }
+function systeme(A,u,t){ return '\\left\\{\\begin{array}{l}'+['x','y','z'].map((l,i)=>l+'='+lin(A[i],u[i],t)).join('\\\\')+'\\end{array}\\right.'; }
+
+/* ----- 1. Le cube et Chasles ----- */
+const CUBE={A:[0,0,0],B:[1,0,0],C:[1,1,0],D:[0,1,0],E:[0,0,1],F:[1,0,1],G:[1,1,1],H:[0,1,1]};
+const LET=Object.keys(CUBE);
+const ov=s=>'\\overrightarrow{'+s+'}';
+function sommet(p){ return LET.find(k=>egal(CUBE[k],p)); }
+function chasles(){
+  for(let essai=0;essai<200;essai++){
+    const X=prendre(LET), Y=prendre(LET.filter(k=>k!==X));
+    const Z=prendre(LET), W=prendre(LET.filter(k=>k!==Z));
+    if(Z===Y) continue; // trop direct
+    const r=add(sub(CUBE[Y],CUBE[X]),sub(CUBE[W],CUBE[Z])); const Q=sommet(add(CUBE[X],r));
+    if(!Q||Q===X) continue;
+    const bonne=M$(ov(X+Q));
+    const leurres=LET.filter(k=>k!==X&&k!==Q).map(k=>M$(ov(X+k)));
+    leurres.push(M$(ov(Z+Y)));
+    const res=qcm(bonne,leurres.filter(l=>{ const m=l.match(/\{(\w)(\w)\}/); return !egal(sub(CUBE[m[2]],CUBE[m[1]]),r); }));
+    const eq=LET.flatMap(a=>LET.map(b=>a+b)).find(s=>s[0]===Y&&egal(sub(CUBE[s[1]],CUBE[s[0]]),sub(CUBE[W],CUBE[Z])));
+    return Object.assign(res,{enonce:'Dans le cube $ABCDEFGH$ (face $ABCD$ en bas, $E$ au-dessus de $A$), simplifier $'+ov(X+Y)+'+'+ov(Z+W)+'$.',
+      explication: eq ? '$'+ov(Z+W)+'='+ov(eq)+'$, donc $'+ov(X+Y)+'+'+ov(eq)+'='+ov(X+Q)+'$ par la relation de Chasles.' : 'On remplace $'+ov(Z+W)+'$ par un vecteur égal qui part de $'+Y+'$, puis on applique Chasles : $'+ov(X+Q)+'$.'});
+  }
+  return Object.assign(qcm('$'+ov('AG')+'$',['$'+ov('AC')+'$','$'+ov('AF')+'$','$'+ov('AH')+'$']),{enonce:'Dans le cube $ABCDEFGH$, simplifier $'+ov('AB')+'+'+ov('AD')+'+'+ov('AE')+'$.',explication:'$'+ov('AB')+'+'+ov('BC')+'+'+ov('CG')+'='+ov('AG')+'$.'});
+}
+
+/* ----- 2. Coordonnées d'un vecteur ----- */
+function coordVecteur(){
+  let A,B; do{ A=pt(); B=pt(); } while(egal(A,B));
+  const v=sub(B,A), faux1=sub(A,B), faux2=add(A,B), faux3=v.slice(); const k=v.findIndex(x=>x!==0); faux3[k]=-faux3[k];
+  const bonne=M$(ov('AB')+col(v));
+  return Object.assign(qcm(bonne,[faux1,faux2,faux3].filter(f=>!egal(f,v)).map(f=>M$(ov('AB')+col(f)))),{
+    enonce:'On donne $A'+co(A)+'$ et $B'+co(B)+'$. Coordonnées de $'+ov('AB')+'$ ?',
+    explication:'« Arrivée moins départ » : $x_B-x_A='+n(B[0])+'-'+(A[0]<0?'('+A[0]+')':A[0])+'='+v[0]+'$, et de même pour $y$ et $z$.'});
+}
+
+/* ----- 3. Milieu ----- */
+function milieu(){
+  let A,B; do{ A=pt(); B=pt(); } while(egal(A,B));
+  const I=mul(0.5,add(A,B)), f1=mul(0.5,sub(B,A)), f2=add(A,B), f3=sub(B,A);
+  return Object.assign(qcm(M$('I'+co(I)),[f1,f2,f3].filter(f=>!egal(f,I)).map(f=>M$('I'+co(f)))),{
+    enonce:'$I$ est le milieu de $[AB]$, avec $A'+co(A)+'$ et $B'+co(B)+'$. Coordonnées de $I$ ?',
+    explication:'On fait la moyenne coordonnée par coordonnée : $x_I=\\frac{'+n(A[0])+(B[0]<0?'':'+')+n(B[0])+'}{2}='+n(I[0])+'$, et de même pour $y$ et $z$.'});
+}
+
+/* ----- 4. Colinéarité ----- */
+function colinearite(){
+  const u=vec(); const k=prendre([-3,-2,2,3,-1]); const v=mul(k,u); let bon=true;
+  if(Math.random()<0.45){ const i=v.findIndex(x=>x!==0); v[(i+1+hasard(0,1))%3]+=prendre([-1,1]); bon=colin(u,v); }
+  const cf=k=>k===1?'':k===-1?'-':n(k);
+  const C_OUI='colinéaires : $\\vec v='+cf(k)+'\\vec u$', C_NON='non colinéaires', C_K='colinéaires : $\\vec v='+cf(-k)+'\\vec u$';
+  const choix=melanger([C_OUI,C_NON,C_K]);
+  const i=u.findIndex(x=>x!==0); const kk=v[i]/u[i];
+  return {type:'qcm',choix,reponse:choix.indexOf(bon?C_OUI:C_NON),
+    enonce:'$\\vec u'+col(u)+'$ et $\\vec v'+col(v)+'$ sont…',
+    explication: bon ? 'Le même coefficient $'+n(k)+'$ marche pour les trois coordonnées : $\\vec v='+n(k)+'\\vec u$.' : 'Une coordonnée donne $k='+n(kk)+'$, mais ce coefficient ne marche pas pour toutes : pas de $k$ commun, donc non colinéaires.'};
+}
+
+/* ----- 5. Alignement ----- */
+function alignement(){
+  const A=pt(), u=vec(), k=prendre([2,3,-1,-2]); let C=add(A,mul(k,u)); const B=add(A,u); let bon=true;
+  if(Math.random()<0.5){ C=C.slice(); C[hasard(0,2)]+=prendre([-1,1]); bon=colin(u,sub(C,A)); }
+  return Object.assign(qcmOrdre(bon?'oui':'non',['oui','non']),{
+    enonce:'Les points $A'+co(A)+'$, $B'+co(B)+'$ et $C'+co(C)+'$ sont-ils alignés ?',
+    explication:'$'+ov('AB')+col(u)+'$ et $'+ov('AC')+col(sub(C,A))+'$. '+(bon?'On a $'+ov('AC')+'='+n(k)+ov('AB')+'$ : alignés.':'Aucun coefficient commun ne relie les trois coordonnées : pas alignés.')});
+}
+
+/* ----- 6. Lire une représentation paramétrique ----- */
+function lireParam(){
+  const A=pt(), u=vec();
+  if(Math.random()<0.5){
+    const f1=A, f2=u.map((x,i)=>i===0?x:x), f3=add(A,u); const g=u.slice(); const i=u.findIndex(x=>x!==0); g[i]=-g[i];
+    const bonne=M$(col(u));
+    return Object.assign(qcm(bonne,[f1,f3,g].filter(f=>!colin(f,u)).map(f=>M$(col(f)))),{
+      enonce:'Un vecteur directeur de la droite $'+systeme(A,u,'t')+'\\ (t\\in\\R)$ est :',
+      explication:'Le vecteur directeur est formé des <strong>coefficients de $t$</strong> : $'+col(u)+'$. Les nombres seuls donnent un point, $'+co(A)+'$.'});
+  }
+  const t=prendre([-2,-1,2,3]); const P=add(A,mul(t,u)); const f1=add(A,mul(-t,u)), f2=add(u,mul(t,A)), f3=P.slice(); f3[hasard(0,2)]+=1;
+  const surD=p=>colin(sub(p,A),u);
+  return Object.assign(qcm(M$(co(P)),[f1,f2,f3].filter(f=>!surD(f)).map(f=>M$(co(f)))),{
+    enonce:'Quel point est sur la droite $'+systeme(A,u,'t')+'\\ (t\\in\\R)$ ?',
+    explication:'Avec $t='+t+'$ : $'+co(P)+'$. On remplace $t$ dans les trois lignes.'});
+}
+
+/* ----- 7. Un point est-il sur la droite ? ----- */
+function appartient(){
+  const A=pt(), u=vec(); const t=prendre([-2,-1,2,3]); let P=add(A,mul(t,u)); let bon=true;
+  if(Math.random()<0.5){ P=P.slice(); const i=[0,1,2].filter(j=>u[j]!==0).pop(); P[i]+=prendre([-1,1]); bon=colin(sub(P,A),u); }
+  if(bon) return {enonce:'Le point $M'+co(P)+'$ est sur la droite $'+systeme(A,u,'t')+'$. Quelle est la valeur du paramètre $t$ en $M$ ?',type:'nombre',reponse:String(t),
+    explication:'Une ligne où le coefficient de $t$ n\'est pas nul donne $t='+t+'$, et on vérifie les deux autres.'};
+  const i=u.findIndex(x=>x!==0), tt=(P[i]-A[i])/u[i];
+  return Object.assign(qcm('non',['non','oui, pour $t='+n(tt)+'$','oui, pour $t='+n(tt+1)+'$']),{
+    enonce:'Le point $M'+co(P)+'$ est-il sur la droite $'+systeme(A,u,'t')+'$ ?',
+    explication:'La ligne en $'+'xyz'[i]+'$ donne $t='+n(tt)+'$, mais cette valeur ne marche pas pour une autre ligne. Un seul désaccord suffit : $M$ n\'est pas sur la droite.'});
+}
+
+/* ----- 8. Représentation de (AB) ----- */
+function paramAB(){
+  let A,B; do{ A=pt(); B=pt(); } while(egal(A,B)||sub(B,A).filter(x=>x!==0).length<2);
+  const u=sub(B,A); const memeDroite=(P,v)=>colin(v,u)&&colin(sub(P,A),u);
+  const g=u.slice(); const i=u.findIndex(x=>x!==0); g[i]=-g[i];
+  const cands=[[A,add(A,B)],[A,B],[A,g],[B,mul(-1,add(A,B))]].filter(([P,v])=>!nul(v)&&!memeDroite(P,v));
+  const bonne=Math.random()<0.5?[A,u]:[B,mul(-1,u)];
+  return Object.assign(qcm(M$(systeme(bonne[0],bonne[1],'t')),cands.map(([P,v])=>M$(systeme(P,v,'t')))),{
+    enonce:'$A'+co(A)+'$ et $B'+co(B)+'$. Quelle est une représentation paramétrique de $(AB)$ ?',
+    explication:'Il faut un point de la droite et un vecteur colinéaire à $'+ov('AB')+col(u)+'$. Ici : le point $'+(bonne[0]===A?'A':'B')+'$ et le vecteur $'+col(bonne[1])+'$.'});
+}
+
+/* ----- 9. Position relative de deux droites ----- */
+const CAS=['sécantes','strictement parallèles','confondues','non coplanaires'];
+function position(){
+  const A=pt(), u=vec(); const cas=prendre([0,0,1,2,3,3]); let v,B;
+  if(cas===1||cas===2){ v=mul(prendre([-1,2,-2]),u); if(cas===2) B=add(A,mul(prendre([1,-1,2]),u)); else { let w; do w=vec(); while(colin(w,u)); B=add(A,w); } }
+  else { do v=vec(); while(colin(u,v)); const t0=hasard(-2,2), s0=hasard(-2,2); B=sub(add(A,mul(t0,u)),mul(s0,v));
+    if(cas===3){ let e; do e=[hasard(-2,2),hasard(-2,2),hasard(-2,2)]; while(Math.abs(det(u,v,e))<1e-9); B=add(B,e); } }
+  // contrôle
+  const vrai = colin(u,v) ? (colin(sub(B,A),u)?2:1) : (Math.abs(det(u,v,sub(B,A)))<1e-9?0:3);
+  const expl=[ 'Les vecteurs directeurs ne sont pas colinéaires, et le système en $t$ et $s$ a une solution (les trois équations sont vérifiées) : sécantes.',
+    'Vecteurs directeurs colinéaires, mais un point de l\'une n\'est pas sur l\'autre : strictement parallèles.',
+    'Vecteurs directeurs colinéaires, et un point commun : confondues.',
+    'Vecteurs directeurs non colinéaires, et le système n\'a pas de solution (la troisième équation coince) : non coplanaires.'][vrai];
+  return Object.assign(qcmOrdre(CAS[vrai],CAS.slice()),{
+    enonce:'Position relative de $d:'+systeme(A,u,'t')+'$ et $d\':'+systeme(B,v,'s')+'$ ?',explication:expl});
+}
+
+/* ----- 10. Coplanaires ou base ? ----- */
+function coplanarite(){
+  let u,v; do{ u=vec(); v=vec(); } while(colin(u,v));
+  const a=nz(-2,2), b=nz(-2,2); let w=add(mul(a,u),mul(b,v));
+  const veutBase=Math.random()<0.5;
+  if(veutBase){ do{ w=add(mul(a,u),mul(b,v)); w[hasard(0,2)]+=prendre([-1,1,2]); } while(Math.abs(det(u,v,w))<1e-9); }
+  const cop=Math.abs(det(u,v,w))<1e-9;
+  return Object.assign(qcmOrdre(cop?'coplanaires':'une base de l\'espace',['coplanaires','une base de l\'espace']),{
+    enonce:'$\\vec u'+col(u)+'$, $\\vec v'+col(v)+'$ et $\\vec w'+col(w)+'$ sont…',
+    explication: cop ? '$\\vec w='+n(a)+'\\vec u'+(b>0?'+':'')+n(b)+'\\vec v$ (vérifie les trois coordonnées) : coplanaires.' : 'En cherchant $\\vec w=a\\vec u+b\\vec v$, deux équations donnent $a$ et $b$, mais la troisième n\'est pas vérifiée : pas coplanaires, donc une base.'});
+}
+
+/* ----- 11. Combinaison linéaire ----- */
+function combinaison(){
+  const u=vec(), v=vec(), a=prendre([2,3,-1,-2]), b=prendre([2,-3,-1,3]); const w=add(mul(a,u),mul(b,v));
+  const f1=add(mul(a,u),mul(-b,v)), f2=add(u,v).map((x,i)=>x*(a+b)), f3=w.slice(); f3[hasard(0,2)]+=prendre([-2,2]);
+  const ecr=(a===1?'':a===-1?'-':a)+'\\vec u'+(b>0?'+':'-')+(Math.abs(b)===1?'':Math.abs(b))+'\\vec v';
+  return Object.assign(qcm(M$(col(w)),[f1,f2,f3].filter(f=>!egal(f,w)).map(f=>M$(col(f)))),{
+    enonce:'$\\vec u'+col(u)+'$ et $\\vec v'+col(v)+'$. Coordonnées de $'+ecr+'$ ?',
+    explication:'Coordonnée par coordonnée : $'+n(a)+'\\times'+(u[0]<0?'('+u[0]+')':u[0])+(b<0?'-':'+')+Math.abs(b)+'\\times'+(v[0]<0?'('+v[0]+')':v[0])+'='+w[0]+'$, et de même pour $y$ et $z$.'});
+}
+
+window.GENERATEURS=window.GENERATEURS||{};
+window.GENERATEURS['espace']={
+  types:{'chasles':chasles,'coord-vecteur':coordVecteur,'milieu':milieu,'combinaison':combinaison,'colinearite':colinearite,'alignement':alignement,'coplanarite':coplanarite,'lire-param':lireParam,'appartient':appartient,'param-ab':paramAB,'position':position},
+  categories:{'chasles':'Le cube et Chasles','coord-vecteur':'Coordonnées','milieu':'Coordonnées','combinaison':'Coordonnées','colinearite':'Colinéarité et alignement','alignement':'Colinéarité et alignement','coplanarite':'Coplanarité et bases','lire-param':'Représentations paramétriques','appartient':'Représentations paramétriques','param-ab':'Représentations paramétriques','position':'Positions relatives'},
+  ordre:['chasles','coord-vecteur','milieu','combinaison','colinearite','alignement','coplanarite','coplanarite','lire-param','appartient','param-ab','position','position'],
+};
+})();

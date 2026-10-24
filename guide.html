@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Mode d'emploi · Monpupitre</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/site.js" defer></script>
+</head>
+<body data-titre-page="Mode d'emploi">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Pour l'enseignant</span>
+  <h1>Mode d'emploi</h1>
+  <p class="chapeau">Chaque bloc ci-dessous est montré <strong>tel que les élèves le voient</strong>, avec le code à copier juste en dessous. Tu colles le code dans ta page de chapitre et tu changes le texte.</p>
+</header>
+
+<section id="ajouter">
+  <h2>Ajouter un chapitre ou une matière</h2>
+  <p>Le site est rangé par matière, puis par niveau : <code>maths/seconde/</code>, <code>svt/premiere/</code>, <code>snt/seconde/</code>… Tout ce qui s'affiche (accueil, pages de matière, fil d'Ariane, chapitre précédent et suivant) vient d'un seul fichier : <code>assets/js/chapitres.js</code>.</p>
+  <h3>Un chapitre</h3>
+  <ol class="etapes">
+    <li><span>Copie <code>modele/niveau/chapitre-vierge.html</code> dans le dossier de la matière et du niveau, et renomme-le, par exemple <code>svt/seconde/cellule.html</code>.</span></li>
+    <li><span>Dans la page, change le <code>&lt;title&gt;</code>, puis <code>data-matiere="svt"</code> et <code>data-chapitre="cellule"</code>.</span></li>
+    <li><span>Dans <code>assets/js/chapitres.js</code>, ajoute <code>fichier: "svt/seconde/cellule.html"</code> sur la ligne du chapitre (même <code>id</code>). Il passe de « à venir » à « ouvrir ».</span></li>
+    <li><span>Remplis les sections avec les blocs de cette page. Chaque <code>&lt;section&gt;</code> avec un <code>&lt;h2&gt;</code> apparaît dans le sommaire.</span></li>
+    <li><span>Publie : dépose les fichiers sur GitHub (voir <code>LISEZMOI.md</code>). Le site est à jour en une minute environ.</span></li>
+  </ol>
+  <h3>Une matière</h3>
+  <ol class="etapes">
+    <li><span>Dans <code>assets/js/chapitres.js</code>, copie le bloc d'une matière existante, change son <code>id</code>, son <code>nom</code>, sa <code>couleur</code> et ses niveaux. Une matière déjà listée en « bientôt » s'ouvre en passant <code>ouverte: false</code> à <code>true</code>.</span></li>
+    <li><span>Crée son dossier, puis un sous-dossier par niveau (<code>francais/seconde/</code>…).</span></li>
+    <li><span>Ajoute ses chapitres comme ci-dessus. Sa page (<code>matiere.html?m=francais</code>) et sa carte sur l'accueil apparaissent toutes seules.</span></li>
+  </ol>
+</section>
+
+<section id="formules">
+  <h2>Écrire des formules</h2>
+  <p>Les formules s'écrivent en notation LaTeX, entre <code>$ … $</code> dans le texte, ou entre <code>$$ … $$</code> pour une formule centrée.</p>
+  <div class="demo">
+<p>Dans le texte : $f(x) = x^2 - 2x - 3$ et $\sqrt{9} = 3$.</p>
+<p>Code couleur du site : $f(\ant{4}) = \img{5}$ (antécédent en bleu, image en rose).</p>
+$$ \frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd} \qquad x \in [-2\,;\,4] \qquad x \in \R $$
+<p>Hors formule : <span class="vx">x</span> et <span class="vy">f(x)</span>.</p>
+  </div>
+  <div class="defile">
+    <table class="simple pas-de-maths">
+      <thead><tr><th>Pour obtenir</th><th>J'écris</th><th>Pour obtenir</th><th>J'écris</th></tr></thead>
+      <tbody>
+        <tr><td>x au carré</td><td><code>x^2</code></td><td>fraction</td><td><code>\frac{a}{b}</code></td></tr>
+        <tr><td>racine</td><td><code>\sqrt{x}</code></td><td>multiplié</td><td><code>\times</code></td></tr>
+        <tr><td>inférieur ou égal</td><td><code>\leq</code></td><td>différent</td><td><code>\neq</code></td></tr>
+        <tr><td>équivaut à</td><td><code>\iff</code></td><td>appartient à</td><td><code>\in</code></td></tr>
+        <tr><td>ensemble des réels</td><td><code>\R</code></td><td>intervalle</td><td><code>[-2\,;\,4]</code></td></tr>
+        <tr><td>courbe de f</td><td><code>\mathcal{C}_f</code></td><td>flèche « associe »</td><td><code>\longmapsto</code></td></tr>
+        <tr><td>antécédent en bleu</td><td><code>\ant{4}</code></td><td>image en rose</td><td><code>\img{5}</code></td></tr>
+        <tr><td>virgule décimale</td><td><code>3{,}5</code></td><td>indice</td><td><code>x_A</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="discret">Écris <code>{,}</code> pour une virgule décimale ($3{,}5$), sinon KaTeX ajoute un espace. Pour écrire un vrai symbole dollar dans le texte, ajoute <code>class="pas-de-maths"</code> à l'élément qui le contient.</p>
+</section>
+
+<section id="blocs">
+  <h2>Blocs de cours</h2>
+  <p>Sept types : <code>definition</code>, <code>propriete</code>, <code>theoreme</code>, <code>methode</code>, <code>piege</code>, <code>exemple</code>, <code>remarque</code>. L'étiquette s'écrit toute seule ; <code>data-titre</code> la complète. Les blocs <code>methode</code> sont <strong>repliés</strong> à l'ouverture du cours (seul le titre reste visible, un clic déplie) ; <code>data-ouvert</code> sur le bloc le garde ouvert. Le réglage « Déplier les méthodes d'office » de la page Personnalisation les ouvre tous. Le sens de chaque couleur est expliqué aux élèves dans <a href="lire-le-cours.html">Comment lire un cours</a>, lié sous le titre de chaque cours.</p>
+  <div class="demo">
+<div class="bloc definition" data-titre="Fonction">
+  <p>Une fonction associe à chaque nombre $x$ un unique nombre $f(x)$.</p>
+</div>
+  </div>
+  <div class="demo">
+<div class="bloc propriete">
+  <p>Pour tous réels $a$ et $b$ :</p>
+  $$ (a+b)^2 = a^2 + 2ab + b^2 $$
+</div>
+  </div>
+  <div class="demo">
+<div class="bloc piege" data-titre="Les parenthèses">
+  <p class="faux">$-2^2 = 4$</p>
+  <p class="juste">$(-2)^2 = 4$ mais $-2^2 = -4$</p>
+</div>
+  </div>
+  <div class="demo">
+<div class="bloc exemple">
+  <p>$f(4) = 4^2 - 2\times 4 - 3 = 5$.</p>
+</div>
+<div class="bloc remarque">
+  <p>Une lecture graphique donne une valeur approchée.</p>
+</div>
+  </div>
+</section>
+
+<section id="methodologie">
+  <h2>Méthodes pas à pas</h2>
+  <p>Les étapes sont numérotées automatiquement.</p>
+  <div class="demo">
+<div class="bloc methode" data-titre="Calculer une image">
+  <ol class="etapes">
+    <li><span>Je remplace x par le nombre, entre parenthèses.</span></li>
+    <li><span>Je calcule en respectant les priorités.</span></li>
+    <li><span>Je conclus par une phrase.</span></li>
+  </ol>
+</div>
+  </div>
+</section>
+
+<section id="graphes">
+  <h2>Graphes</h2>
+  <p>Écris la formule dans <code>data-f</code>. Le cadre se règle avec <code>data-fenetre="xmin xmax ymin ymax"</code>. Formules acceptées : <code>+ - * / ^ ( )</code>, <code>2x</code>, <code>x(x-1)</code>, <code>sqrt( )</code>, <code>abs( )</code>, <code>exp( )</code>, <code>ln( )</code>, <code>sin( )</code>, <code>cos( )</code>, <code>pi</code>.</p>
+  <div class="demo">
+<figure class="graphe" data-f="x^2 - 2x - 3" data-nom="f" data-fenetre="-3 5 -5 7" data-image="4">
+  <figcaption>data-image="4" montre la lecture de l'image de 4.</figcaption>
+</figure>
+  </div>
+  <div class="demo">
+<figure class="graphe" data-f="x^2 - 2x - 3" data-nom="f" data-fenetre="-3 5 -5 7" data-antecedents="0" data-points="A(1;-4)">
+  <figcaption>data-antecedents="0" trace y = 0 et marque les antécédents. data-points place des points.</figcaption>
+</figure>
+  </div>
+  <div class="demo">
+<figure class="graphe" data-f="x^2 | 2x + 3" data-nom="f | g" data-fenetre="-4 5 -2 12">
+  <figcaption>Plusieurs courbes : séparer par une barre verticale.</figcaption>
+</figure>
+  </div>
+  <div class="demo">
+<figure class="graphe panoramique" data-noeuds="-4,3 -3,1 -2,-1 -1,-2 0,-1 1,1 2,3 3,2 4,0 5,-1" data-nom="g" data-fenetre="-5 6 -3 4">
+  <figcaption>Courbe « de sujet d'exercice » tracée par des points (data-noeuds). Format large : class="graphe panoramique".</figcaption>
+</figure>
+  </div>
+  <div class="demo">
+<figure class="graphe" data-f="-x^2 + 4" data-nom="f" data-fenetre="-4 4 -6 6" data-interactif="les-deux" data-tableau="-3 3">
+  <figcaption>Version interactive : data-interactif="image", "antecedents" ou "les-deux". data-tableau fixe la plage du tableau de valeurs.</figcaption>
+</figure>
+  </div>
+</section>
+
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Numéro et étoiles s'ajoutent tout seuls. Dès qu'il y a plusieurs niveaux, des filtres de difficulté apparaissent, ainsi qu'un bouton pour ouvrir toutes les corrections.</p>
+  <div class="demo">
+<article class="exercice" data-niveau="2" data-titre="Antécédents par le calcul">
+  <p>Soit $g(x) = -2x + 7$. Trouve l'antécédent de $3$.</p>
+  <details class="correction">
+    <p>$-2x + 7 = 3 \iff -2x = -4 \iff x = 2$.</p>
+  </details>
+</article>
+  </div>
+</section>
+
+<section id="quiz">
+  <h2>Quiz</h2>
+  <p>Questions à choix (la bonne a <code>class="bon"</code>, l'ordre est mélangé sauf <code>data-melanger="non"</code>) ou à réponse tapée (<code>data-reponse</code>). Plusieurs réponses acceptées : <code>data-reponse="0,5|1/2"</code>.</p>
+  <div class="demo">
+<div class="quiz" data-titre="Quiz de cours">
+  <div class="question">
+    <p>Pour lire les antécédents de $3$, je trace…</p>
+    <ul class="choix">
+      <li class="bon">la droite horizontale $y = 3$</li>
+      <li>la droite verticale $x = 3$</li>
+    </ul>
+    <div class="explication">On cherche les points d'ordonnée 3.</div>
+  </div>
+  <div class="question" data-reponse="0,5|1/2">
+    <p>Résous $2x = 1$.</p>
+    <div class="explication">$x = \frac12 = 0{,}5$.</div>
+  </div>
+</div>
+  </div>
+</section>
+
+<section id="jeux">
+  <h2>Jeux à questions aléatoires</h2>
+  <p>Un jeu pioche dans un <strong>générateur</strong> : un petit fichier <code>assets/js/generateurs/NOM.js</code> qui fabrique des questions nouvelles à chaque fois, avec leur correction. Celui du chapitre fonctions sert de modèle. Pour un nouveau chapitre, demande-moi le générateur en me décrivant les types de questions voulus : c'est la seule partie qui demande du code.</p>
+  <div class="demo">
+<div class="jeu" data-generateurs="fonctions" data-questions="5" data-types="calcul-image vocabulaire" data-titre="Mini-jeu"></div>
+  </div>
+  <p class="discret">Types disponibles pour <code>fonctions</code> : calcul-image, lecture-image, compter-antecedents, tableau, point-courbe, vocabulaire, antecedent-calcul. Sans <code>data-types</code>, tous sont mélangés.</p>
+</section>
+
+<section id="laboratoires">
+  <h2>Laboratoires</h2>
+  <p>Un laboratoire est un outil interactif propre à un chapitre (microscope à limites, gendarmes, plus tard circuits électriques ou microscope de SVT). Il s'insère en une ligne : <code>data-labo</code> donne le fichier <code>assets/js/labos/NOM.js</code>, <code>data-outil</code> l'outil à afficher. Les laboratoires sont la partie à me demander : tu décris ce que l'élève doit manipuler et observer, je te livre le fichier.</p>
+  <div class="demo">
+<div class="labo" data-labo="limites" data-outil="gendarmes"></div>
+  </div>
+  <p class="discret">Outils disponibles dans <code>limites</code> : microscope, geometrique, infini, machine, dominant, gendarmes.</p>
+</section>
+
+<section id="tuteur">
+  <h2>Exercice guidé avec le tuteur</h2>
+  <p>L'élève écrit son calcul ligne par ligne. Le <strong>vérificateur</strong> (calcul formel dans le navigateur, sans serveur) dit si chaque ligne est équivalente à la précédente, reconnaît les erreurs typiques (signe oublié, distributivité incomplète, termes non semblables, <code>x·x</code> confondu avec <code>2x</code>, produits croisés manquants, un seul membre divisé) et donne une valeur numérique en dernier recours. L'aide est graduée : le tuteur attend, puis pose une question, puis donne un indice, puis montre une étape sur un exemple voisin. Il ne donne jamais la réponse. Le niveau d'aide utilisé nourrit l'indicateur d'autonomie de l'élève.</p>
+  <div class="demo">
+<div class="tuteur" data-tuteur="expression" data-id="demo-1" data-depart="2(x+3)-x+1" data-consigne="Développe puis réduis"></div>
+  </div>
+  <p><code>data-tuteur</code> vaut <code>expression</code> (réduire, développer), <code>factoriser</code>, ou <code>equation</code> (premier degré, la ligne de départ contient un <code>=</code>). <code>data-lettre</code> change la lettre (<code>x</code> par défaut). <code>data-id</code> sert à l'historique de l'élève. L'interrupteur « Tuteur avec IA » du bandeau change la formulation des aides ; sans IA, ce sont les indices secs du vérificateur.</p>
+  <div class="demo">
+<div class="tuteur" data-tuteur="equation" data-id="demo-2" data-depart="4x-7=9" data-consigne="Résous"></div>
+  </div>
+</section>
+
+<section id="parcours-guide">
+  <h2>Barre de parcours, « Je n'ai pas compris », contrôle blanc</h2>
+  <p>Rien à écrire : sur toute page de chapitre en mise en page « classeur », le site ajoute tout seul la <strong>barre de parcours</strong> (comprendre, explorer, calculer, comparer, s'entraîner, contrôle blanc), cochée au fil du travail et gardée dans le navigateur de l'élève ; un bouton anonyme <strong>« Je n'ai pas compris »</strong> sous chaque <code>&lt;h3 id="…"&gt;</code> du cours ; et, après le jeu du chapitre, une carte <strong>contrôle blanc</strong> (12 questions, 15 minutes, aucune correction avant la fin, musique coupée). Pour un jeu en conditions réelles ailleurs : <code>&lt;div class="jeu" data-generateurs="fonctions" data-questions="12" data-mode="controle" data-minutes="15"&gt;</code>.</p>
+</section>
+
+<section id="bureau-guide">
+  <h2>Le bureau, les portes, les espaces</h2>
+  <p>La coque commune (bandeau, colonne du classeur, coin musique) est construite par <code>assets/js/bureau.js</code> à partir du catalogue : un nouveau chapitre apparaît de lui-même dans la colonne. Les pages du bureau se déclarent par <code>&lt;body data-page="…"&gt;</code> : <code>index</code> (le bureau de l'élève), <code>matiere</code> (les sept portes d'entrée), <code>apprendre</code>, <code>plusloin</code>, <code>aide</code>, <code>compte</code>, <code>personnalisation</code> (dans <code>assets/js/portes.js</code>) ; <code>parent</code> et <code>prof</code> (dans <code>assets/js/espaces.js</code>, avec <code>data-espace</code>). La carte des notions se trace à la main dans <code>assets/js/notions.js</code> ; les thèmes et le manifeste des labos sont en tête de <code>portes.js</code>. Tout ce que le prototype mémorise reste dans le navigateur (clés <code>mp:</code>) : le menu « Mon compte » permet de l'exporter ou de l'effacer.</p>
+</section>
+
+<section id="faq-guide">
+  <h2>FAQ de chapitre</h2>
+  <div class="demo">
+<div class="faq">
+  <details><summary>Quelle est la différence entre f et f(x) ?</summary>
+    <div><p>$f$ est la fonction, $f(x)$ est un nombre.</p></div></details>
+  <details><summary>Le tableau suffit-il pour trouver tous les antécédents ?</summary>
+    <div><p>Non, il ne montre que quelques valeurs.</p></div></details>
+</div>
+  </div>
+</section>
+
+<section id="videos">
+  <h2>Vidéos</h2>
+  <p>YouTube : <code>data-youtube="lien ou identifiant"</code> (la vidéo ne se charge qu'au clic, sans cookie). Fichier à toi : <code>data-src="../videos/nom.mp4"</code>. Sans rien : un emplacement « à venir ».</p>
+  <div class="demo">
+<div class="videos">
+  <div class="video" data-titre="Image et antécédent : la méthode">Durée : 6 min</div>
+</div>
+  </div>
+</section>
+
+<section id="autres">
+  <h2>Autres éléments utiles</h2>
+  <div class="demo">
+<div class="defile"><table class="valeurs">
+  <tr><th>x</th><td>−1</td><td>0</td><td class="marque-x">1</td></tr>
+  <tr><th>f(x)</th><td>0</td><td>−3</td><td class="marque-y">−4</td></tr>
+</table></div>
+  </div>
+  <div class="demo">
+<div class="colonnes">
+  <div class="carte bleue"><strong>Colonne bleue</strong><p>Texte.</p></div>
+  <div class="carte rose"><strong>Colonne rose</strong><p>Texte.</p></div>
+</div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

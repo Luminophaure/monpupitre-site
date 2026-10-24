@@ -1,0 +1,437 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de solutions-ph.figures.py.
+     Fabriquer la page : python3 outils/figures.py physique-chimie/premiere-st2s/solutions-ph.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Solutions, concentrations et pH · Première ST2S</title>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body data-matiere="physique-chimie" data-chapitre="solutions-ph" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Première ST2S · Prévenir et sécuriser</span>
+  <h1>Solutions, concentrations et pH</h1>
+  <p class="chapeau">Une poche de sérum physiologique, un sirop pour enfant, un détartrant, une eau de Javel : tous sont des <strong>solutions</strong>, et l'étiquette de chacun dit <em>combien</em> de quoi il y a dans <em>combien</em> d'eau. Ce chapitre apprend à lire et calculer une concentration, à préparer une solution sans se tromper, à comprendre ce que mesure le pH, et à manipuler les produits chimiques de la maison et du laboratoire en sécurité.</p>
+  <ul class="objectifs">
+    <li>Calculer une concentration en masse et en quantité de matière</li><li>Préparer une solution par dissolution ou par dilution</li><li>Relier pH et concentration en ions H₃O⁺</li><li>Reconnaître un acide, une base, un couple</li><li>Lire une étiquette et respecter les règles de sécurité</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>« Sérum physiologique, NaCl 0,9 % ». « Glucose 5 % ». « Paracétamol 2,4 %, 1 dose-kilo = 15 mg/kg ».</strong> Dans un service, l'infirmière lit ces étiquettes dix fois par jour, et chaque chiffre est une concentration : une masse de soluté dans un volume de solution. Se tromper d'un facteur dix en diluant un médicament est l'un des accidents les plus redoutés à l'hôpital, et il commence toujours par une conversion ratée, mL contre L, mg contre g. Le même chapitre explique pourquoi le pH du sang doit rester entre 7,35 et 7,45, et pourquoi l'agent d'entretien ne mélange jamais l'eau de Javel et le détartrant.</p>
+    <p class="discret">Ils s'en servent : les infirmiers et aides-soignants (dilutions, préparations), les préparateurs en pharmacie, les techniciens de laboratoire d'analyses médicales, les diététiciens, les agents de stérilisation et d'entretien (dilution des désinfectants, sécurité), les techniciens de traitement de l'eau. Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-solution">1. Soluté, solvant, solution</h3>
+
+  <div class="bloc definition" data-titre="Solution aqueuse">
+    <p>Une <strong>solution</strong> est un mélange <strong>homogène</strong> obtenu en dissolvant une espèce chimique, le <strong>soluté</strong>, dans un liquide, le <strong>solvant</strong>. Quand le solvant est l'eau, la solution est <strong>aqueuse</strong>. Le soluté peut être un solide (sel, sucre, médicament en poudre), un liquide (alcool, acide) ou un gaz (dioxyde de carbone dans l'eau gazeuse).</p>
+    <p>Une fois dissous, le soluté ne se voit plus : ses molécules ou ses ions sont dispersés partout dans l'eau, en proportion identique dans chaque goutte. Si l'on ajoute trop de soluté, il ne se dissout plus et se dépose : la solution est <strong>saturée</strong>.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 580 210" role="img" aria-label="Un solide, le soluté, versé dans de l'eau, le solvant, donne une solution homogène."><path class="verre" d="M60,140 Q90,162 120,140" /><circle class="grain" cx="90" cy="136" r="3.2"/><circle class="grain" cx="98" cy="132" r="3.2"/><circle class="grain" cx="82" cy="133" r="3.2"/><circle class="grain" cx="94" cy="128" r="3.2"/><circle class="grain" cx="86" cy="129" r="3.2"/><circle class="grain" cx="102" cy="135" r="3.2"/><circle class="grain" cx="78" cy="135" r="3.2"/><circle class="grain" cx="90" cy="125" r="3.2"/><text class="note" x="90" y="180" text-anchor="middle">soluté</text><text class="petit" x="90" y="196" text-anchor="middle">(sel, sucre…)</text><text class="moyen" x="160" y="120" text-anchor="middle">+</text><rect class="liquide sol-0" x="193" y="92.0" width="64" height="46.0" rx="4"/><path class="verre" d="M190,60 L190,134 Q190,140 196,140 L254,140 Q260,140 260,134 L260,60"/><line class="verre" x1="198" y1="100" x2="206" y2="100"/><text class="note" x="225" y="158" text-anchor="middle">solvant</text><text class="petit" x="225" y="174" text-anchor="middle">(eau)</text><g class="trace t-n"><line x1="290" y1="100" x2="342.2" y2="100.0"/><polygon points="350.0,100.0 337.0,105.8 337.0,94.2"/></g><text class="petit" x="320" y="90" text-anchor="middle">dissolution</text><rect class="liquide sol-1" x="373" y="92.0" width="64" height="46.0" rx="4"/><path class="verre" d="M370,60 L370,134 Q370,140 376,140 L434,140 Q440,140 440,134 L440,60"/><line class="verre" x1="378" y1="100" x2="386" y2="100"/><text class="note" x="405" y="158" text-anchor="middle">solution</text><text class="petit" x="405" y="174" text-anchor="middle">homogène</text><text class="note" x="470" y="80">soluté dissous :</text><text class="note" x="470" y="98">on ne le voit plus,</text><text class="note" x="470" y="116">il est partout</text></svg><figcaption>Soluté + solvant → solution. Le volume de la solution est celui du mélange final, pas celui de l'eau versée.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Des solutions de tous les jours">
+    <ul>
+      <li><strong>Sérum physiologique</strong> : chlorure de sodium NaCl dissous dans l'eau, 9,0 g par litre. Même concentration en sel que le plasma sanguin.</li>
+      <li><strong>Soluté de glucose à 5 %</strong> : 5 g de glucose pour 100 mL, soit 50 g/L, perfusé pour apporter de l'énergie.</li>
+      <li><strong>Eau de Javel</strong> : hypochlorite de sodium dans l'eau, diluée avant usage.</li>
+      <li><strong>Vinaigre</strong> : acide éthanoïque dans l'eau, environ 8 % en masse.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-concentrations">2. Deux façons de dire « combien » : les concentrations</h3>
+
+  <div class="bloc definition" data-titre="Concentration en masse">
+    <p>La <strong>concentration en masse</strong> $C_m$ d'un soluté est la masse de soluté dissoute par litre de solution : $$C_m=\frac{m}{V}$$ avec $m$ en grammes, $V$ en litres, $C_m$ en <strong>g/L</strong>. Le sérum physiologique, c'est 9,0 g de NaCl dans 1,0 L : $C_m=9{,}0$ g/L.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Quantité de matière et masse molaire">
+    <p>Les chimistes comptent les molécules par paquets : la <strong>quantité de matière</strong> $n$, en <strong>moles</strong> (mol). La <strong>masse molaire</strong> $M$ d'une espèce, en g/mol, est la masse d'une mole. Elle se calcule en additionnant les masses molaires des atomes de la formule : $$n=\frac{m}{M}\qquad\text{soit}\qquad m=n\times M.$$</p>
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Atome</th><th>H</th><th>C</th><th>N</th><th>O</th><th>Na</th><th>Cl</th><th>K</th><th>S</th></tr></thead>
+      <tbody><tr><td>M (g/mol)</td><td>1,0</td><td>12,0</td><td>14,0</td><td>16,0</td><td>23,0</td><td>35,5</td><td>39,1</td><td>32,1</td></tr></tbody>
+    </table></div>
+    <p class="discret">Exemples : $M(\text{NaCl})=23{,}0+35{,}5=58{,}5$ g/mol ; $M(\text{C}_6\text{H}_{12}\text{O}_6)=6\times12{,}0+12\times1{,}0+6\times16{,}0=180{,}0$ g/mol ; $M(\text{H}_2\text{O})=2\times1{,}0+16{,}0=18{,}0$ g/mol.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Concentration en quantité de matière">
+    <p>La <strong>concentration en quantité de matière</strong> $C$ (on dit aussi concentration molaire) est la quantité de soluté par litre de solution : $$C=\frac{n}{V}$$ avec $n$ en mol, $V$ en L, $C$ en <strong>mol/L</strong>. Les deux concentrations sont liées par la masse molaire : $$C_m=C\times M.$$</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Passer de l'étiquette à la concentration molaire">
+    <ol class="etapes">
+      <li><span>Je lis la masse de soluté et le volume de solution ; je convertis le volume en litres (1 mL $=0{,}001$ L, donc 250 mL $=0{,}250$ L).</span></li>
+      <li><span>Je calcule $C_m=m/V$ en g/L.</span></li>
+      <li><span>Je calcule la masse molaire $M$ du soluté à partir de sa formule.</span></li>
+      <li><span>J'en déduis $C=C_m/M$ en mol/L (ou $n=m/M$ puis $C=n/V$ : même résultat).</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Une poche de 500 mL de sérum physiologique contient 4,5 g de chlorure de sodium NaCl. Calculer $C_m$, puis $C$.</p>
+      <ol class="pas">
+        <li><strong>Le volume en litres.</strong> $V=500$ mL $=0{,}500$ L.</li>
+        <li><strong>Concentration en masse.</strong> $C_m=\dfrac{m}{V}=\dfrac{4{,}5}{0{,}500}=9{,}0$ g/L.</li>
+        <li><strong>Masse molaire.</strong> $M(\text{NaCl})=23{,}0+35{,}5=58{,}5$ g/mol.</li>
+        <li><strong>Concentration molaire.</strong> $C=\dfrac{C_m}{M}=\dfrac{9{,}0}{58{,}5}\approx0{,}15$ mol/L. (Vérification : $n=4{,}5/58{,}5=0{,}077$ mol, et $0{,}077/0{,}500=0{,}15$ mol/L.)</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Le pourcentage des étiquettes">
+    <p>« NaCl 0,9 % » signifie 0,9 g pour 100 mL, soit 9 g/L. « Glucose 5 % » : 5 g pour 100 mL, soit 50 g/L. Pour passer d'un pourcentage (g pour 100 mL) à des g/L, on multiplie par 10.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-preparer">3. Préparer une solution : dissolution ou dilution</h3>
+
+  <div class="bloc methode" data-titre="Par dissolution : à partir du soluté solide">
+    <p>On veut un volume $V$ de solution de concentration $C_m$ : il faut peser $m=C_m\times V$ de soluté.</p>
+    <ol class="etapes">
+      <li><span>Je pèse la masse $m$ de soluté sur une balance, dans une coupelle.</span></li>
+      <li><span>Je verse le solide dans une <strong>fiole jaugée</strong> de volume $V$, avec un entonnoir, et je rince la coupelle et l'entonnoir dans la fiole.</span></li>
+      <li><span>J'ajoute de l'eau distillée jusqu'aux deux tiers, je bouche et j'agite jusqu'à dissolution complète.</span></li>
+      <li><span>Je complète avec de l'eau jusqu'au <strong>trait de jauge</strong> (le bas du ménisque sur le trait), je bouche et je retourne plusieurs fois pour homogénéiser.</span></li>
+    </ol>
+    <figure class="figure-svg"><svg viewBox="0 0 700 230" role="img" aria-label="Préparer une solution par dissolution en quatre étapes : peser le soluté, le verser dans la fiole jaugée avec un entonnoir, ajouter de l'eau et dissoudre, compléter jusqu'au trait de jauge puis homogénéiser."><rect class="fond-carte" x="30" y="128" width="80" height="22" rx="5"/><rect class="fond-sombre" x="36" y="132" width="56" height="14" rx="2"/><text class="petit" x="40" y="143" style="fill:var(--inverse-ink)">4,50 g</text><path class="verre" d="M50,106 Q70,122 90,106"/><circle class="grain" cx="70" cy="106" r="2.6"/><circle class="grain" cx="76" cy="103" r="2.6"/><circle class="grain" cx="64" cy="103" r="2.6"/><circle class="grain" cx="73" cy="100" r="2.6"/><circle class="grain" cx="67" cy="101" r="2.6"/><text class="note" x="70" y="174" text-anchor="middle">1. peser m</text><text class="petit" x="70" y="190" text-anchor="middle">balance, coupelle</text><path class="verre" d="M223.0,50.0 L223.0,102.0 A30.0,30.0 0 1 0 237.0,102.0 L237.0,50.0" /><line class="verre" x1="223.0" y1="50.0" x2="237.0" y2="50.0"/><line class="trait-jauge" x1="219.0" y1="64.0" x2="241.0" y2="64.0"/><path class="verre" d="M212,22 L248,22 L233,38 L233,50 L227,50 L227,38 Z"/><circle class="grain" cx="230" cy="30" r="2.4"/><circle class="grain" cx="234" cy="26" r="2.4"/><circle class="grain" cx="226" cy="27" r="2.4"/><text class="note" x="230" y="174" text-anchor="middle">2. verser</text><text class="petit" x="230" y="190" text-anchor="middle">fiole + entonnoir</text><clipPath id="fiole390"><circle cx="390" cy="120.0" r="30.0"/><rect x="383.0" y="50.0" width="14.0" height="70.0"/></clipPath><rect class="liquide sol-1" clip-path="url(#fiole390)" x="360.0" y="108.3" width="60.0" height="41.7"/><path class="verre" d="M383.0,50.0 L383.0,102.0 A30.0,30.0 0 1 0 397.0,102.0 L397.0,50.0" /><line class="verre" x1="383.0" y1="50.0" x2="397.0" y2="50.0"/><line class="trait-jauge" x1="379.0" y1="64.0" x2="401.0" y2="64.0"/><path class="verre" d="M412,30 L412,70 L432,70 L432,35 Q420,25 412,30" /><path style="fill:none;stroke:var(--sol-0);stroke-width:3" d="M412,32 Q405,50 398,54"/><text class="note" x="390" y="174" text-anchor="middle">3. eau, agiter</text><text class="petit" x="390" y="190" text-anchor="middle">eau aux 2/3, dissoudre</text><clipPath id="fiole550"><circle cx="550" cy="120.0" r="30.0"/><rect x="543.0" y="50.0" width="14.0" height="70.0"/></clipPath><rect class="liquide sol-1" clip-path="url(#fiole550)" x="520.0" y="64.0" width="60.0" height="86.0"/><path class="verre" d="M543.0,50.0 L543.0,102.0 A30.0,30.0 0 1 0 557.0,102.0 L557.0,50.0" /><line class="verre" x1="543.0" y1="50.0" x2="557.0" y2="50.0"/><line class="trait-jauge" x1="539.0" y1="64.0" x2="561.0" y2="64.0"/><rect class="fond-grid" x="543" y="42" width="14" height="10" rx="2"/><g class="trace t-v"><line x1="590" y1="64" x2="571.0" y2="64.0"/><polygon points="564.0,64.0 575.7,58.7 575.7,69.3"/></g><text class="note" x="550" y="174" text-anchor="middle">4. compléter au trait</text><text class="petit" x="550" y="190" text-anchor="middle">boucher, retourner</text><text class="petit" x="632" y="38" text-anchor="middle">V exact :</text><text class="petit" x="632" y="52" text-anchor="middle">le trait</text><text class="petit" x="632" y="66" text-anchor="middle">de jauge</text></svg><figcaption>Préparer par dissolution. Le volume exact est celui de la fiole jaugée, remplie jusqu'au trait.</figcaption></figure>
+  </div>
+
+  <div class="bloc definition" data-titre="Dilution et facteur de dilution">
+    <p><strong>Diluer</strong> une solution, c'est y ajouter du solvant : la quantité de soluté ne change pas, le volume augmente, la concentration diminue. La solution de départ est la <strong>solution mère</strong>, celle obtenue la <strong>solution fille</strong>. Le <strong>facteur de dilution</strong> $F$ est le nombre de fois que la concentration est divisée : $$F=\frac{C_{mère}}{C_{fille}}=\frac{V_{fille}}{V_{mère}}.$$</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="La relation de la dilution">
+    <p>Comme la quantité de soluté est conservée, $n_{mère\ prélevée}=n_{fille}$, c'est-à-dire : $$C_{mère}\times V_{mère}=C_{fille}\times V_{fille},$$ où $V_{mère}$ est le volume prélevé de solution mère et $V_{fille}$ le volume total de solution fille. La relation vaut aussi avec les concentrations en masse.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Par dilution : à partir d'une solution mère">
+    <ol class="etapes">
+      <li><span>Je calcule le volume de solution mère à prélever : $V_{mère}=\dfrac{C_{fille}\times V_{fille}}{C_{mère}}$ (ou $V_{fille}/F$).</span></li>
+      <li><span>Je prélève $V_{mère}$ avec une <strong>pipette jaugée</strong> (et une propipette, jamais la bouche), dans un bécher de solution mère.</span></li>
+      <li><span>Je verse dans une <strong>fiole jaugée</strong> de volume $V_{fille}$, puis je complète avec de l'eau distillée jusqu'au trait de jauge.</span></li>
+      <li><span>Je bouche et je retourne plusieurs fois pour homogénéiser.</span></li>
+    </ol>
+    <figure class="figure-svg"><svg viewBox="0 0 700 230" role="img" aria-label="Préparer une solution par dilution : prélever un volume de solution mère à la pipette jaugée, le verser dans une fiole jaugée, compléter avec de l'eau jusqu'au trait de jauge."><rect class="liquide sol-2" x="43" y="110.5" width="74" height="47.5" rx="4"/><path class="verre" d="M40,70 L40,154 Q40,160 46,160 L114,160 Q120,160 120,154 L120,70"/><line class="verre" x1="48" y1="115" x2="56" y2="115"/><text class="note" x="80" y="178" text-anchor="middle">solution mère</text><text class="petit" x="80" y="196" text-anchor="middle">C<tspan dy="3">mère</tspan></text><rect class="liquide sol-2" x="197.0" y="32.0" width="6" height="86.0"/><ellipse class="liquide sol-2" cx="200.0" cy="70.0" rx="8" ry="21"/><path class="verre" d="M196.0,10.0 L204.0,10.0 L204.0,116.0 L201.0,130.0 L199.0,130.0 L196.0,116.0 Z"/><ellipse class="verre" cx="200.0" cy="70.0" rx="9" ry="22"/><line class="trait-jauge" x1="192.0" y1="32.0" x2="208.0" y2="32.0"/><text class="note" x="200" y="180" text-anchor="middle">pipette jaugée</text><text class="petit" x="200" y="196" text-anchor="middle">V<tspan dy="3">mère</tspan><tspan dy="-3"> prélevé</tspan></text><g class="trace t-n"><line x1="235" y1="70" x2="277.2" y2="70.0"/><polygon points="285.0,70.0 272.0,75.8 272.0,64.2"/></g><clipPath id="fiole340"><circle cx="340" cy="127.0" r="33.0"/><rect x="333.0" y="50.0" width="14.0" height="77.0"/></clipPath><rect class="liquide sol-2" clip-path="url(#fiole340)" x="307.0" y="127.9" width="66.0" height="32.1"/><path class="verre" d="M333.0,50.0 L333.0,107.2 A33.0,33.0 0 1 0 347.0,107.2 L347.0,50.0" /><line class="verre" x1="333.0" y1="50.0" x2="347.0" y2="50.0"/><line class="trait-jauge" x1="329.0" y1="64.0" x2="351.0" y2="64.0"/><text class="note" x="340" y="180" text-anchor="middle">fiole jaugée</text><text class="petit" x="340" y="196" text-anchor="middle">V<tspan dy="3">fille</tspan></text><g class="trace t-n"><line x1="378" y1="70" x2="420.2" y2="70.0"/><polygon points="428.0,70.0 415.0,75.8 415.0,64.2"/></g><text class="petit" x="403" y="62" text-anchor="middle">+ eau</text><clipPath id="fiole480"><circle cx="480" cy="127.0" r="33.0"/><rect x="473.0" y="50.0" width="14.0" height="77.0"/></clipPath><rect class="liquide sol-1" clip-path="url(#fiole480)" x="447.0" y="64.0" width="66.0" height="96.0"/><path class="verre" d="M473.0,50.0 L473.0,107.2 A33.0,33.0 0 1 0 487.0,107.2 L487.0,50.0" /><line class="verre" x1="473.0" y1="50.0" x2="487.0" y2="50.0"/><line class="trait-jauge" x1="469.0" y1="64.0" x2="491.0" y2="64.0"/><text class="note" x="480" y="180" text-anchor="middle">solution fille</text><text class="petit" x="480" y="196" text-anchor="middle">C<tspan dy="3">fille</tspan><tspan dy="-3"> = C</tspan><tspan dy="3">mère</tspan><tspan dy="-3"> ÷ F</tspan></text><text class="note" x="556" y="40">même quantité</text><text class="note" x="556" y="58">de soluté,</text><text class="note" x="556" y="76">plus d'eau :</text><text class="note" x="556" y="94">moins concentré</text></svg><figcaption>Préparer par dilution. Pipette jaugée pour le volume prélevé, fiole jaugée pour le volume final.</figcaption></figure>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> On dispose d'une solution mère de glucose à $C_{mère}=0{,}50$ mol/L. Préparer 100 mL de solution fille à $C_{fille}=0{,}050$ mol/L.</p>
+      <ol class="pas">
+        <li><strong>Le facteur de dilution.</strong> $F=\dfrac{0{,}50}{0{,}050}=10$ : on dilue dix fois.</li>
+        <li><strong>Le volume à prélever.</strong> $V_{mère}=\dfrac{V_{fille}}{F}=\dfrac{100}{10}=10$ mL. Vérification : $C_{mère}V_{mère}=0{,}50\times0{,}010=0{,}0050$ mol et $C_{fille}V_{fille}=0{,}050\times0{,}100=0{,}0050$ mol.</li>
+        <li><strong>Le matériel.</strong> Pipette jaugée de 10 mL, fiole jaugée de 100 mL.</li>
+        <li><strong>Le geste.</strong> Prélever 10 mL de solution mère, verser dans la fiole, compléter à l'eau jusqu'au trait, homogénéiser.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-ph">4. Le pH : une mesure de l'acidité</h3>
+
+  <div class="bloc definition" data-titre="pH et ions oxonium">
+    <p>Une solution aqueuse contient toujours des ions <strong>oxonium</strong> $\text{H}_3\text{O}^+$ (on dit aussi hydronium). Le <strong>pH</strong> mesure leur concentration : $$[\text{H}_3\text{O}^+]=10^{-\text{pH}}\ \text{mol/L}.$$ Plus il y a d'ions $\text{H}_3\text{O}^+$, plus la solution est acide et plus le pH est <strong>bas</strong>. À 25 °C, une solution est <strong>acide</strong> si pH $<7$, <strong>neutre</strong> si pH $=7$, <strong>basique</strong> si pH $>7$.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 680 250" role="img" aria-label="L'échelle de pH de 0 à 14 : acide en dessous de 7, neutre à 7, basique au-dessus, avec des produits courants placés : suc gastrique 1,5, citron 2,4, vinaigre 3, café 5, lait 6,5, eau pure 7, sang 7,4, savon 9,5, eau de Javel 12,5, déboucheur 14."><defs><linearGradient id="ph-grad" x1="0" x2="1"><stop offset="0" stop-color="#D7263D"/><stop offset=".25" stop-color="#F28C28"/><stop offset=".45" stop-color="#F2C230"/><stop offset=".5" stop-color="#2E9E4E"/><stop offset=".65" stop-color="#2B5BD7"/><stop offset="1" stop-color="#5B2A86"/></linearGradient></defs><rect x="44" y="96" width="572" height="40" rx="8" style="fill:url(#ph-grad)"/><line class="axe-trait" x1="44.0" y1="128" x2="44.0" y2="136" style="stroke:#fff"/><text class="note" x="48.0" y="121" text-anchor="start" style="fill:#fff">0</text><line class="axe-trait" x1="84.9" y1="128" x2="84.9" y2="136" style="stroke:#fff"/><text class="note" x="84.9" y="121" text-anchor="middle" style="fill:#fff">1</text><line class="axe-trait" x1="125.7" y1="128" x2="125.7" y2="136" style="stroke:#fff"/><text class="note" x="125.7" y="121" text-anchor="middle" style="fill:#fff">2</text><line class="axe-trait" x1="166.6" y1="128" x2="166.6" y2="136" style="stroke:#fff"/><text class="note" x="166.6" y="121" text-anchor="middle" style="fill:#fff">3</text><line class="axe-trait" x1="207.4" y1="128" x2="207.4" y2="136" style="stroke:#fff"/><text class="note" x="207.4" y="121" text-anchor="middle" style="fill:#fff">4</text><line class="axe-trait" x1="248.3" y1="128" x2="248.3" y2="136" style="stroke:#fff"/><text class="note" x="248.3" y="121" text-anchor="middle" style="fill:#fff">5</text><line class="axe-trait" x1="289.1" y1="128" x2="289.1" y2="136" style="stroke:#fff"/><text class="note" x="289.1" y="121" text-anchor="middle" style="fill:#fff">6</text><line class="axe-trait" x1="330.0" y1="128" x2="330.0" y2="136" style="stroke:#fff"/><text class="note" x="330.0" y="121" text-anchor="middle" style="fill:#fff">7</text><line class="axe-trait" x1="370.9" y1="128" x2="370.9" y2="136" style="stroke:#fff"/><text class="note" x="370.9" y="121" text-anchor="middle" style="fill:#fff">8</text><line class="axe-trait" x1="411.7" y1="128" x2="411.7" y2="136" style="stroke:#fff"/><text class="note" x="411.7" y="121" text-anchor="middle" style="fill:#fff">9</text><line class="axe-trait" x1="452.6" y1="128" x2="452.6" y2="136" style="stroke:#fff"/><text class="note" x="452.6" y="121" text-anchor="middle" style="fill:#fff">10</text><line class="axe-trait" x1="493.4" y1="128" x2="493.4" y2="136" style="stroke:#fff"/><text class="note" x="493.4" y="121" text-anchor="middle" style="fill:#fff">11</text><line class="axe-trait" x1="534.3" y1="128" x2="534.3" y2="136" style="stroke:#fff"/><text class="note" x="534.3" y="121" text-anchor="middle" style="fill:#fff">12</text><line class="axe-trait" x1="575.1" y1="128" x2="575.1" y2="136" style="stroke:#fff"/><text class="note" x="575.1" y="121" text-anchor="middle" style="fill:#fff">13</text><line class="axe-trait" x1="616.0" y1="128" x2="616.0" y2="136" style="stroke:#fff"/><text class="note" x="612.0" y="121" text-anchor="end" style="fill:#fff">14</text><text class="note" x="166.6" y="50" text-anchor="middle">← acide</text><text class="note" x="330.0" y="50" text-anchor="middle">neutre</text><text class="note" x="493.4" y="50" text-anchor="middle">basique →</text><text class="petit" x="330.0" y="66" text-anchor="middle">[H₃O⁺] = 10⁻ᵖᴴ mol/L : de 1 mol/L à gauche à 10⁻¹⁴ mol/L à droite</text><line class="axe-trait" x1="105.3" y1="138" x2="105.3" y2="148" style="stroke:var(--muted)"/><text class="petit" x="105.3" y="158" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">suc gastrique</text><line class="axe-trait" x1="142.1" y1="138" x2="142.1" y2="166" style="stroke:var(--muted)"/><text class="petit" x="142.1" y="176" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">citron</text><line class="axe-trait" x1="166.6" y1="138" x2="166.6" y2="184" style="stroke:var(--muted)"/><text class="petit" x="166.6" y="194" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">vinaigre</text><line class="axe-trait" x1="248.3" y1="138" x2="248.3" y2="148" style="stroke:var(--muted)"/><text class="petit" x="248.3" y="158" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">café</text><line class="axe-trait" x1="309.6" y1="138" x2="309.6" y2="166" style="stroke:var(--muted)"/><text class="petit" x="309.6" y="176" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">lait</text><line class="axe-trait" x1="330.0" y1="138" x2="330.0" y2="184" style="stroke:var(--muted)"/><text class="petit" x="330.0" y="194" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">eau pure</text><line class="axe-trait" x1="346.3" y1="138" x2="346.3" y2="148" style="stroke:var(--muted)"/><text class="petit" x="346.3" y="158" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">sang</text><line class="axe-trait" x1="379.0" y1="138" x2="379.0" y2="166" style="stroke:var(--muted)"/><text class="petit" x="379.0" y="176" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">eau de mer</text><line class="axe-trait" x1="432.1" y1="138" x2="432.1" y2="184" style="stroke:var(--muted)"/><text class="petit" x="432.1" y="194" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">savon</text><line class="axe-trait" x1="554.7" y1="138" x2="554.7" y2="148" style="stroke:var(--muted)"/><text class="petit" x="554.7" y="158" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">eau de Javel</text><line class="axe-trait" x1="616.0" y1="138" x2="616.0" y2="166" style="stroke:var(--muted)"/><text class="petit" x="616.0" y="176" text-anchor="middle" style="paint-order:stroke;stroke:var(--card);stroke-width:5;stroke-linejoin:round">déboucheur</text><text class="petit" x="330.0" y="222" text-anchor="middle">une unité de pH = un facteur 10 sur [H₃O⁺]</text></svg><figcaption>L'échelle de pH et quelques produits. Le sang est à 7,4, légèrement basique, et l'organisme le maintient entre 7,35 et 7,45.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Une unité de pH, un facteur 10">
+    <p>Le pH est une échelle <strong>logarithmique</strong> : quand le pH baisse d'une unité, la concentration en $\text{H}_3\text{O}^+$ est multipliée par 10. Un jus de citron à pH 2,4 contient $10^{-2{,}4}\approx4\times10^{-3}$ mol/L d'ions oxonium ; le café à pH 5, $10^{-5}$ mol/L : près de 400 fois moins. Entre pH 1 et pH 7, il y a un facteur un million.</p>
+    <p>Conséquence pratique : diluer dix fois une solution d'acide fort fait monter son pH d'<strong>une unité</strong> (et pas de dix).</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Mesurer le pH">
+    <ul>
+      <li><strong>Papier pH</strong> : une bandelette imprégnée d'indicateurs colorés change de couleur ; on compare à l'échelle. Précision : environ une demi-unité.</li>
+      <li><strong>pH-mètre</strong> : une sonde plongée dans la solution ; précision au dixième. Il faut l'étalonner avec des solutions de pH connu.</li>
+      <li><strong>Indicateur coloré</strong> : quelques gouttes de bleu de bromothymol : jaune en milieu acide (pH $<6$), bleu en milieu basique (pH $>7{,}6$), vert entre les deux.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-acides-bases">5. Acides et bases : un échange de proton</h3>
+
+  <div class="bloc definition" data-titre="Acide et base selon Brönsted">
+    <p>Un <strong>acide</strong> est une espèce chimique capable de <strong>céder</strong> un proton $\text{H}^+$. Une <strong>base</strong> est une espèce capable de <strong>capter</strong> un proton. Quand un acide AH cède son proton, il devient la base $\text{A}^-$ : AH et $\text{A}^-$ forment un <strong>couple acide/base</strong>, noté $\text{AH}/\text{A}^-$.</p>
+  </div>
+
+  <figure class="figure-svg petite"><svg viewBox="0 0 580 170" role="img" aria-label="Un acide cède un proton H plus et devient sa base conjuguée ; schéma du couple acide/base avec la double flèche."><rect class="fond-carte" x="40" y="40" width="150" height="48" rx="10"/><text class="moyen" x="115" y="70" text-anchor="middle">AH</text><text class="note" x="115" y="112" text-anchor="middle">acide</text><rect class="fond-carte" x="370" y="40" width="150" height="48" rx="10"/><text class="moyen" x="445" y="70" text-anchor="middle">A⁻  +  H⁺</text><text class="note" x="445" y="112" text-anchor="middle">base conjuguée + proton</text><g class="trace t-chaud"><line x1="200" y1="60" x2="352.2" y2="60.0"/><polygon points="360.0,60.0 347.0,65.8 347.0,54.1"/></g><g class="trace t-froid"><line x1="360" y1="76" x2="207.8" y2="76.0"/><polygon points="200.0,76.0 213.0,70.2 213.0,81.8"/></g><text class="petit" x="280" y="50" text-anchor="middle" style="fill:var(--chaud)">cède un proton</text><text class="petit" x="280" y="94" text-anchor="middle" style="fill:var(--froid)">capte un proton</text><text class="petit" x="280" y="136" text-anchor="middle">couple acide / base noté AH / A⁻</text></svg><figcaption>Le couple acide/base : l'acide et sa base conjuguée ne diffèrent que d'un proton.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Des couples à connaître">
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Couple</th><th>Acide</th><th>Base</th><th>Où ?</th></tr></thead>
+      <tbody>
+        <tr><td>$\text{H}_3\text{O}^+/\text{H}_2\text{O}$</td><td>ion oxonium</td><td>eau</td><td>toute solution aqueuse</td></tr>
+        <tr><td>$\text{H}_2\text{O}/\text{HO}^-$</td><td>eau</td><td>ion hydroxyde</td><td>toute solution aqueuse</td></tr>
+        <tr><td>$\text{CH}_3\text{COOH}/\text{CH}_3\text{COO}^-$</td><td>acide éthanoïque</td><td>ion éthanoate</td><td>vinaigre</td></tr>
+        <tr><td>$\text{NH}_4^+/\text{NH}_3$</td><td>ion ammonium</td><td>ammoniac</td><td>produits d'entretien, urine</td></tr>
+        <tr><td>$\text{H}_2\text{CO}_3/\text{HCO}_3^-$</td><td>acide carbonique</td><td>ion hydrogénocarbonate</td><td>le sang : c'est lui qui stabilise le pH</td></tr>
+      </tbody>
+    </table></div>
+    <p class="discret">L'eau est l'acide d'un couple et la base d'un autre : on dit qu'elle est <strong>amphotère</strong>. Dans l'eau pure, quelques molécules échangent un proton entre elles : $2\,\text{H}_2\text{O}\rightarrow\text{H}_3\text{O}^++\text{HO}^-$. C'est l'<strong>autoprotolyse</strong> de l'eau ; elle est très limitée, d'où un pH de 7 et une eau neutre.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Réaction acide-base et neutralisation">
+    <p>Une <strong>réaction acide-base</strong> est un transfert de proton de l'acide d'un couple vers la base d'un autre. Quand on mélange un acide et une base, leurs effets se compensent : c'est une <strong>neutralisation</strong>. Exemple : acide chlorhydrique + soude donnent de l'eau et du chlorure de sodium, $$\text{H}_3\text{O}^++\text{HO}^-\rightarrow2\,\text{H}_2\text{O}.$$ Un comprimé antiacide (hydroxyde de magnésium, une base) neutralise l'excès d'acide chlorhydrique de l'estomac.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Noms et formules des produits courants">
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Nom</th><th>Formule</th><th>Nature</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td>Acide chlorhydrique</td><td>$\text{HCl}$, en solution $\text{H}_3\text{O}^++\text{Cl}^-$</td><td>acide fort</td><td>détartrant, suc gastrique</td></tr>
+        <tr><td>Acide éthanoïque (acétique)</td><td>$\text{CH}_3\text{COOH}$</td><td>acide faible</td><td>vinaigre, détartrage doux</td></tr>
+        <tr><td>Acide sulfurique</td><td>$\text{H}_2\text{SO}_4$</td><td>acide fort</td><td>batteries, industrie</td></tr>
+        <tr><td>Hydroxyde de sodium (soude)</td><td>$\text{NaOH}$, en solution $\text{Na}^++\text{HO}^-$</td><td>base forte</td><td>déboucheur, savon</td></tr>
+        <tr><td>Ammoniac</td><td>$\text{NH}_3$</td><td>base faible</td><td>nettoyants (ammoniaque)</td></tr>
+        <tr><td>Hydrogénocarbonate de sodium</td><td>$\text{NaHCO}_3$</td><td>base faible</td><td>bicarbonate, antiacide</td></tr>
+      </tbody>
+    </table></div>
+    <p class="discret">Un acide <strong>fort</strong> cède tous ses protons à l'eau : $\text{HCl}+\text{H}_2\text{O}\rightarrow\text{H}_3\text{O}^++\text{Cl}^-$. Un acide faible n'en cède qu'une partie. À concentration égale, l'acide fort a le pH le plus bas.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-securite">6. Manipuler en sécurité</h3>
+
+  <div class="bloc definition" data-titre="Lire une étiquette">
+    <p>L'étiquette d'un produit chimique porte des <strong>pictogrammes de danger</strong> (losanges rouges), une mention d'avertissement (« Danger » ou « Attention »), des phrases qui décrivent le risque et les précautions. Les lire avant d'ouvrir le flacon est la première règle de sécurité.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 800 190" role="img" aria-label="Les neuf pictogrammes de danger, dessinés de façon simplifiée : corrosif, toxique, irritant ou nocif, inflammable, comburant, danger pour la santé, dangereux pour le milieu aquatique, gaz sous pression, explosif."><polygon class="picto-cadre" points="50,30 80,60 50,90 20,60"/><g class="picto-symbole" transform="translate(50,60) scale(1.000)"><path d="M-16,-14 l-6,14 h12 z M4,-14 l-6,14 h12 z"/><path class="trait" d="M-10,0 q0,8 -4,12 M10,0 q0,8 4,12"/><rect x="-18" y="12" width="14" height="6"/><path d="M4,14 q6,-6 12,0 l2,6 h-16 z"/></g><text class="petit" x="50.0" y="112" text-anchor="middle">corrosif</text><polygon class="picto-cadre" points="135,30 165,60 135,90 105,60"/><g class="picto-symbole" transform="translate(135,60) scale(1.000)"><circle cx="0" cy="-5" r="9"/><circle cx="-3.5" cy="-7" r="2.2" style="fill:#fff"/><circle cx="3.5" cy="-7" r="2.2" style="fill:#fff"/><rect x="-4" y="2" width="8" height="5"/><path class="trait" d="M-12,8 l24,10 M12,8 l-24,10"/></g><text class="petit" x="135.0" y="112" text-anchor="middle">toxique,</text><text class="petit" x="135.0" y="128" text-anchor="middle">mortel</text><polygon class="picto-cadre" points="220,30 250,60 220,90 190,60"/><g class="picto-symbole" transform="translate(220,60) scale(1.000)"><rect x="-3" y="-18" width="6" height="22" rx="2"/><circle cx="0" cy="12" r="3.5"/></g><text class="petit" x="220.0" y="112" text-anchor="middle">irritant,</text><text class="petit" x="220.0" y="128" text-anchor="middle">nocif</text><polygon class="picto-cadre" points="305,30 335,60 305,90 275,60"/><g class="picto-symbole" transform="translate(305,60) scale(1.000)"><path d="M0,-18 q10,10 4,20 q8,-4 6,-12 q10,14 -4,24 h-12 q-12,-10 -2,-22 q-2,8 4,10 q-6,-12 4,-20 z"/><rect x="-12" y="14" width="24" height="3"/></g><text class="petit" x="305.0" y="112" text-anchor="middle">inflammable</text><polygon class="picto-cadre" points="390,30 420,60 390,90 360,60"/><g class="picto-symbole" transform="translate(390,60) scale(1.000)"><circle cx="0" cy="8" r="9" style="fill:none;stroke:currentColor;stroke-width:4"/><path d="M0,-20 q8,8 3,16 q7,-3 5,-10 q8,12 -3,20 h-10 q-10,-8 -1,-18 q-2,6 3,8 q-5,-10 3,-16 z"/></g><text class="petit" x="390.0" y="112" text-anchor="middle">comburant</text><polygon class="picto-cadre" points="475,30 505,60 475,90 445,60"/><g class="picto-symbole" transform="translate(475,60) scale(1.000)"><circle cx="0" cy="-13" r="5"/><path d="M-9,-6 h18 l-3,14 h-12 z"/><path d="M0,10 l3,8 h8 l-6,5 l2,8 l-7,-5 l-7,5 l2,-8 l-6,-5 h8 z"/></g><text class="petit" x="475.0" y="112" text-anchor="middle">danger pour</text><text class="petit" x="475.0" y="128" text-anchor="middle">la santé</text><polygon class="picto-cadre" points="560,30 590,60 560,90 530,60"/><g class="picto-symbole" transform="translate(560,60) scale(1.000)"><path d="M-14,-18 l8,12 h-5 l7,10 h-20 l7,-10 h-5 z"/><rect x="-15" y="4" width="3" height="8"/><path d="M4,8 q6,-8 14,0 q-6,8 -14,0 z M-2,8 l6,-4 v8 z"/><circle cx="12" cy="7" r="1.2" style="fill:#fff"/><path class="trait" d="M-20,18 h40"/></g><text class="petit" x="560.0" y="112" text-anchor="middle">milieu</text><text class="petit" x="560.0" y="128" text-anchor="middle">aquatique</text><polygon class="picto-cadre" points="645,30 675,60 645,90 615,60"/><g class="picto-symbole" transform="translate(645,60) scale(1.000)"><rect x="-8" y="-14" width="16" height="32" rx="6"/><rect x="-3" y="-20" width="6" height="6"/></g><text class="petit" x="645.0" y="112" text-anchor="middle">gaz sous</text><text class="petit" x="645.0" y="128" text-anchor="middle">pression</text><polygon class="picto-cadre" points="730,30 760,60 730,90 700,60"/><g class="picto-symbole" transform="translate(730,60) scale(1.000)"><path d="M0,-20 l4,10 l10,-6 l-4,10 l10,4 l-10,4 l4,10 l-10,-6 l-4,10 l-4,-10 l-10,6 l4,-10 l-10,-4 l10,-4 l-4,-10 l10,6 z"/></g><text class="petit" x="730.0" y="112" text-anchor="middle">explosif</text><text class="petit" x="390" y="160" text-anchor="middle">Dessins simplifiés : sur une vraie étiquette, le losange est rouge sur fond blanc et le symbole noir.</text></svg><figcaption>Les neuf pictogrammes. Les plus fréquents à la maison et au laboratoire : corrosif (acides, soude, Javel concentrée), irritant ou nocif, inflammable (alcool), danger pour la santé.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Les règles au laboratoire et à la maison">
+    <ul>
+      <li><strong>Se protéger</strong> : blouse fermée, lunettes, gants adaptés, cheveux attachés. Travailler sous hotte pour les produits volatils.</li>
+      <li><strong>L'acide dans l'eau</strong>, jamais l'inverse : diluer un acide concentré dégage beaucoup de chaleur ; verser l'eau dans l'acide le fait bouillir et projeter.</li>
+      <li><strong>Ne jamais mélanger</strong> l'eau de Javel avec un acide (détartrant, vinaigre) : dégagement de <strong>dichlore</strong>, gaz toxique. Ni avec l'ammoniaque : <strong>chloramines</strong>, toxiques aussi.</li>
+      <li><strong>Jamais de pipetage à la bouche</strong>, jamais de retour d'un produit dans son flacon, flacons bouchés et étiquetés, produits rangés hors de portée des enfants et dans leur emballage d'origine.</li>
+      <li><strong>En cas de projection</strong> sur la peau ou dans les yeux : rincer abondamment à l'eau pendant au moins 15 minutes, retirer les vêtements touchés, prévenir ; pour les yeux, consulter.</li>
+      <li><strong>En cas d'ingestion</strong> : ne pas faire vomir (un produit corrosif brûlerait une deuxième fois), appeler le centre antipoison ou le 15 avec l'étiquette en main.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-pieges">7. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs qui coûtent des points (ou plus)">
+    <ul>
+      <li><strong>Les millilitres.</strong> $C_m=m/V$ avec $V$ en litres : 250 mL, c'est 0,250 L. Oublier la conversion multiplie le résultat par 1 000.</li>
+      <li><strong>Confondre $C_m$ et $C$.</strong> L'une est en g/L, l'autre en mol/L ; le pont entre les deux est la masse molaire : $C_m=C\times M$.</li>
+      <li><strong>Diluer n'est pas dissoudre.</strong> Dissoudre : du solide dans l'eau. Diluer : de l'eau dans une solution déjà faite. Le facteur de dilution est un rapport de volumes, pas une différence.</li>
+      <li><strong>« pH 2 est deux fois plus acide que pH 4 ».</strong> Non : cent fois (deux unités, deux facteurs 10).</li>
+      <li><strong>Diluer un acide dix fois ne divise pas le pH par dix</strong> : il monte d'une unité.</li>
+      <li><strong>Un acide ne « contient » pas des bases.</strong> La base conjuguée d'un acide est ce qu'il devient après avoir cédé son proton.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">8. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Dissolution et dilution : les gestes au labo"></div>
+    <div class="video" data-titre="Le pH, une échelle logarithmique"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Quatre laboratoires, dans l'ordre du cours : préparer une solution par dissolution, la diluer sans se tromper, parcourir l'échelle de pH, et lire des étiquettes de produits pour savoir ce qu'on peut mélanger.</p>
+  <div class="labo" data-labo="solutions" data-outil="dissolution"></div>
+  <div class="labo" data-labo="solutions" data-outil="dilution"></div>
+  <div class="labo" data-labo="solutions" data-outil="ph"></div>
+  <div class="labo" data-labo="solutions" data-outil="securite"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie : masses molaires, concentrations, dilutions, pH, couples, pictogrammes. Le quiz vérifie les réflexes du cours. En bas, le contrôle blanc.</p>
+
+  <div class="jeu" data-generateurs="solutions" data-questions="10" data-titre="Le défi de la paillasse"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question" data-reponse="58,5" data-tolerance="0,2">
+      <p>Calculer la masse molaire du chlorure de sodium NaCl, en g/mol.</p>
+      <div class="explication">$M=23{,}0+35{,}5=58{,}5$ g/mol.</div>
+    </div>
+    <div class="question" data-reponse="9" data-tolerance="0,2">
+      <p>On dissout 2,25 g de NaCl dans 250 mL de solution. Concentration en masse, en g/L ?</p>
+      <div class="explication">$C_m=\dfrac{2{,}25}{0{,}250}=9{,}0$ g/L : du sérum physiologique.</div>
+    </div>
+    <div class="question">
+      <p>La concentration en quantité de matière s'exprime en…</p>
+      <ul class="choix"><li class="bon">mol/L</li><li>g/L</li><li>g/mol</li><li>mol</li></ul>
+      <div class="explication">$C=n/V$ : des moles par litre. $C_m$ est en g/L, $M$ en g/mol.</div>
+    </div>
+    <div class="question" data-reponse="0,05" data-tolerance="0,003">
+      <p>Une solution de glucose ($M=180$ g/mol) a une concentration en masse de 9,0 g/L. Sa concentration molaire, en mol/L ?</p>
+      <div class="explication">$C=\dfrac{C_m}{M}=\dfrac{9{,}0}{180}=0{,}050$ mol/L.</div>
+    </div>
+    <div class="question" data-reponse="20" data-tolerance="0,5">
+      <p>On veut 100 mL de solution fille 5 fois moins concentrée que la mère. Quel volume de solution mère prélever, en mL ?</p>
+      <div class="explication">$V_{mère}=\dfrac{V_{fille}}{F}=\dfrac{100}{5}=20$ mL, à la pipette jaugée, puis compléter à 100 mL dans la fiole jaugée.</div>
+    </div>
+    <div class="question">
+      <p>Pour préparer une solution par dilution, le volume prélevé se mesure avec…</p>
+      <ul class="choix"><li class="bon">une pipette jaugée</li><li>un bécher</li><li>une balance</li><li>un entonnoir</li></ul>
+      <div class="explication">La pipette jaugée mesure un volume précis. Le bécher sert à contenir, pas à mesurer ; la balance mesure une masse.</div>
+    </div>
+    <div class="question">
+      <p>Une solution de pH 3 est…</p>
+      <ul class="choix"><li class="bon">acide, avec $[\text{H}_3\text{O}^+]=10^{-3}$ mol/L</li><li>basique, avec $[\text{H}_3\text{O}^+]=10^{-3}$ mol/L</li><li>acide, avec $[\text{H}_3\text{O}^+]=3$ mol/L</li><li>neutre</li></ul>
+      <div class="explication">pH $<7$ : acide. $[\text{H}_3\text{O}^+]=10^{-\text{pH}}=10^{-3}=0{,}001$ mol/L.</div>
+    </div>
+    <div class="question">
+      <p>Entre une solution de pH 2 et une solution de pH 5, la concentration en ions oxonium est…</p>
+      <ul class="choix"><li class="bon">1 000 fois plus grande à pH 2</li><li>3 fois plus grande à pH 2</li><li>1 000 fois plus grande à pH 5</li><li>la même</li></ul>
+      <div class="explication">Trois unités de pH, trois facteurs 10 : $10^{-2}/10^{-5}=1\,000$. Le pH bas est le plus acide.</div>
+    </div>
+    <div class="question">
+      <p>La base conjuguée de l'acide éthanoïque $\text{CH}_3\text{COOH}$ est…</p>
+      <ul class="choix"><li class="bon">l'ion éthanoate $\text{CH}_3\text{COO}^-$</li><li>$\text{CH}_3\text{COOH}_2^+$</li><li>l'eau</li><li>$\text{HO}^-$</li></ul>
+      <div class="explication">L'acide cède un proton : $\text{CH}_3\text{COOH}\rightarrow\text{CH}_3\text{COO}^-+\text{H}^+$. La base conjuguée a un H de moins et une charge négative de plus.</div>
+    </div>
+    <div class="question">
+      <p>Quel mélange de produits ménagers dégage un gaz toxique ?</p>
+      <ul class="choix"><li class="bon">eau de Javel + détartrant acide</li><li>vinaigre + bicarbonate</li><li>savon + eau chaude</li><li>alcool + eau</li></ul>
+      <div class="explication">Javel + acide : dichlore, gaz toxique. Vinaigre + bicarbonate mousse (CO₂), sans danger. C'est l'accident domestique classique du nettoyage des toilettes.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre : ★ calculer et lire, ★★ préparer et interpréter, ★★★ raisonner sur une situation professionnelle. Rédige d'abord, puis ouvre la correction.</p>
+
+  <h3>Niveau 1 · Calculer et lire</h3>
+
+  <article class="exercice" data-niveau="1" data-titre="Masses molaires">
+    <p>Calculer la masse molaire de : l'eau $\text{H}_2\text{O}$ ; le glucose $\text{C}_6\text{H}_{12}\text{O}_6$ ; l'acide éthanoïque $\text{CH}_3\text{COOH}$ ; l'hydroxyde de sodium $\text{NaOH}$ ; l'hydrogénocarbonate de sodium $\text{NaHCO}_3$.</p>
+    <details class="correction">
+      <p>$M(\text{H}_2\text{O})=2\times1{,}0+16{,}0=18{,}0$ g/mol.</p>
+      <p>$M(\text{C}_6\text{H}_{12}\text{O}_6)=6\times12{,}0+12\times1{,}0+6\times16{,}0=180{,}0$ g/mol.</p>
+      <p>$M(\text{CH}_3\text{COOH})=2\times12{,}0+4\times1{,}0+2\times16{,}0=60{,}0$ g/mol (2 C, 4 H, 2 O).</p>
+      <p>$M(\text{NaOH})=23{,}0+16{,}0+1{,}0=40{,}0$ g/mol. $M(\text{NaHCO}_3)=23{,}0+1{,}0+12{,}0+3\times16{,}0=84{,}0$ g/mol.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="Le soluté de glucose">
+    <p>Une poche de perfusion de 250 mL porte la mention « glucose 5 % », c'est-à-dire 5,0 g de glucose pour 100 mL de solution. $M(\text{glucose})=180$ g/mol.</p>
+    <p>1. Calculer la masse de glucose dans la poche.<br>2. Calculer la concentration en masse, en g/L.<br>3. Calculer la quantité de matière de glucose dans la poche, puis la concentration en quantité de matière.</p>
+    <details class="correction">
+      <p>1. 5,0 g pour 100 mL, donc pour 250 mL : $m=5{,}0\times2{,}5=12{,}5$ g.</p>
+      <p>2. $C_m=\dfrac{12{,}5}{0{,}250}=50$ g/L (ou directement : 5 g pour 100 mL = 50 g pour 1 L).</p>
+      <p>3. $n=\dfrac{m}{M}=\dfrac{12{,}5}{180}=0{,}069$ mol. $C=\dfrac{n}{V}=\dfrac{0{,}069}{0{,}250}=0{,}28$ mol/L. Vérification : $C_m/M=50/180=0{,}28$ mol/L.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="1" data-titre="L'étiquette du détartrant">
+    <figure class="figure-svg"><svg viewBox="0 0 540 234" role="img" aria-label="Étiquette d'un détartrant : acide chlorhydrique 10 %, pictogramme corrosif, mentions : provoque des brûlures de la peau et des lésions oculaires graves, porter des gants et des lunettes, ne pas mélanger avec de l'eau de Javel."><rect class="fond-carte" x="20" y="16" width="480" height="184" rx="12"/><text class="moyen" x="40" y="48">DÉTARTRANT WC</text><text class="note" x="40" y="70">acide chlorhydrique 10 %</text><polygon class="picto-cadre" points="440,34 468,62 440,90 412,62"/><g class="picto-symbole" transform="translate(440,62) scale(0.933)"><path d="M-16,-14 l-6,14 h12 z M4,-14 l-6,14 h12 z"/><path class="trait" d="M-10,0 q0,8 -4,12 M10,0 q0,8 4,12"/><rect x="-18" y="12" width="14" height="6"/><path d="M4,14 q6,-6 12,0 l2,6 h-16 z"/></g><text class="petit" x="40" y="98">DANGER · Provoque des brûlures de la peau</text><text class="petit" x="40" y="115">et des lésions oculaires graves.</text><text class="petit" x="40" y="132">Porter des gants et des lunettes de protection.</text><text class="petit" x="40" y="149">En cas de contact avec les yeux : rincer à l'eau</text><text class="petit" x="40" y="166">plusieurs minutes, consulter un médecin.</text><text class="petit" x="40" y="190" style="fill:var(--ko)">Ne pas mélanger avec de l'eau de Javel : gaz toxique.</text></svg></figure>
+    <p>1. Nommer le pictogramme et dire ce qu'il signifie.<br>2. Quel est le soluté de ce produit ? Est-ce un acide ou une base ?<br>3. Citer deux protections à porter et un produit avec lequel il ne faut pas le mélanger. Pourquoi ?</p>
+    <details class="correction">
+      <p>1. Le pictogramme « corrosif » : le produit détruit les tissus vivants (peau, yeux) et attaque certains matériaux.</p>
+      <p>2. L'acide chlorhydrique, HCl, un acide fort : en solution, $\text{H}_3\text{O}^++\text{Cl}^-$. Son pH est très bas.</p>
+      <p>3. Gants et lunettes de protection. Ne pas le mélanger avec de l'eau de Javel : la réaction dégage du dichlore, un gaz toxique pour les voies respiratoires.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Préparer et interpréter</h3>
+
+  <article class="exercice" data-niveau="2" data-titre="Préparer du sérum physiologique">
+    <p>Au laboratoire, on veut préparer 500 mL de sérum physiologique, solution de chlorure de sodium à 9,0 g/L, à partir de NaCl solide.</p>
+    <p>1. Calculer la masse de NaCl à peser.<br>2. Décrire le protocole, avec le matériel.<br>3. On réalise ensuite une dilution au dixième de 50 mL de cette solution. Quelle est la concentration obtenue, et quel matériel utilise-t-on ?<br>4. Pourquoi ce sérum « physiologique » ne pique-t-il pas les yeux, alors que l'eau du robinet, oui ?</p>
+    <details class="correction">
+      <p>1. $m=C_m\times V=9{,}0\times0{,}500=4{,}5$ g.</p>
+      <p>2. Peser 4,5 g de NaCl dans une coupelle ; les verser avec un entonnoir dans une fiole jaugée de 500 mL, rincer coupelle et entonnoir ; ajouter de l'eau distillée aux deux tiers, boucher, agiter jusqu'à dissolution ; compléter au trait de jauge, boucher, retourner pour homogénéiser.</p>
+      <p>3. Dilution au dixième : $F=10$, $C_{fille}=9{,}0/10=0{,}90$ g/L. Volume fille 50 mL, donc $V_{mère}=50/10=5{,}0$ mL : pipette jaugée de 5 mL et fiole jaugée de 50 mL.</p>
+      <p>4. Parce que sa concentration en sel est la même que celle des larmes et du plasma : les cellules de l'œil ne subissent pas d'échange d'eau. L'eau pure, trop peu concentrée, fait gonfler les cellules, d'où le picotement.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="La dose-kilo de paracétamol">
+    <p>Un sirop de paracétamol pour enfant est dosé à 2,4 % : 2,4 g de paracétamol pour 100 mL. La dose est de 15 mg par kilogramme de masse corporelle, quatre fois par jour au maximum.</p>
+    <p>1. Calculer la concentration en masse du sirop, en g/L puis en mg/mL.<br>2. Quel volume de sirop donner à un enfant de 12 kg ?<br>3. Un parent, par erreur, donne 15 mL. Quelle masse de paracétamol l'enfant a-t-il reçue ? Combien de fois la dose ?</p>
+    <details class="correction">
+      <p>1. 2,4 g pour 100 mL $=24$ g/L. Et $24$ g/L $=24\,000$ mg pour 1 000 mL $=24$ mg/mL.</p>
+      <p>2. Dose : $15\times12=180$ mg. Volume : $\dfrac{180}{24}=7{,}5$ mL. (La pipette fournie est graduée en kilogrammes pour éviter ce calcul : on tire jusqu'à « 12 kg ».)</p>
+      <p>3. $15\times24=360$ mg, soit le double de la dose. Une prise ne met pas l'enfant en danger, mais répétée, c'est le surdosage : d'où l'importance de la pipette graduée et de ne jamais utiliser une cuillère.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Le pH des solutions">
+    <p>1. Calculer $[\text{H}_3\text{O}^+]$ dans un café à pH 5, dans le sang à pH 7,4, dans un suc gastrique à pH 1,5.<br>2. Une solution a $[\text{H}_3\text{O}^+]=10^{-9}$ mol/L. Donner son pH et sa nature.<br>3. On dilue 100 fois une solution d'acide chlorhydrique de pH 2. Quel est le nouveau pH ?<br>4. Le sang d'un patient en détresse respiratoire est à pH 7,2. Dans quel sens a varié sa concentration en ions oxonium, et de quel facteur environ ?</p>
+    <details class="correction">
+      <p>1. $10^{-5}$ mol/L ; $10^{-7{,}4}\approx4\times10^{-8}$ mol/L ; $10^{-1{,}5}\approx3\times10^{-2}$ mol/L.</p>
+      <p>2. pH $=9$ : basique.</p>
+      <p>3. Diluer 100 fois un acide fort divise $[\text{H}_3\text{O}^+]$ par 100, soit deux facteurs 10 : le pH passe de 2 à 4.</p>
+      <p>4. Le pH a baissé de 7,4 à 7,2 : la concentration en oxonium a augmenté, d'un facteur $10^{0{,}2}\approx1{,}6$. C'est une acidose ; le dioxyde de carbone qui s'accumule (acide carbonique) en est la cause.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="2" data-titre="Corrige l'IA">
+    <p>Un élève a demandé à une IA comment diluer un désinfectant. Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« Pour obtenir 500 mL de solution à 0,20 mol/L à partir d'une solution mère à 2,0 mol/L, le facteur de dilution est $F=2{,}0-0{,}20=1{,}8$. Il faut donc prélever $500/1{,}8\approx278$ mL de solution mère dans un bécher gradué et ajouter 500 mL d'eau. La solution obtenue, dix fois moins concentrée, aura un pH dix fois plus grand. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 :</strong> le facteur de dilution est un <em>rapport</em>, pas une différence : $F=\dfrac{2{,}0}{0{,}20}=10$.</p>
+      <p><strong>Erreur 2 :</strong> le volume à prélever est $V_{mère}=\dfrac{V_{fille}}{F}=\dfrac{500}{10}=50$ mL, à la <strong>pipette jaugée</strong> (un bécher gradué n'est pas assez précis).</p>
+      <p><strong>Erreur 3 :</strong> on n'ajoute pas « 500 mL d'eau » : on complète <em>jusqu'à</em> 500 mL dans une fiole jaugée. Le volume final doit être 500 mL, eau comprise.</p>
+      <p><strong>Erreur 4 :</strong> diviser une concentration par 10 ne multiplie pas le pH par 10 : pour un acide fort, le pH monte d'une unité ; pour une base ou un désinfectant, cela dépend, mais jamais « dix fois ».</p>
+      <p>Le raisonnement était fluide et le ton assuré. Les quatre erreurs sont celles du cours : le facteur est un rapport, la pipette et la fiole, compléter au trait, l'échelle logarithmique.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Raisonner sur une situation</h3>
+
+  <article class="exercice" data-niveau="3" data-titre="La dilution de l'eau de Javel en EHPAD">
+    <p>Le protocole de désinfection des sols d'un EHPAD demande une solution d'eau de Javel à 0,5 % de chlore actif. Le produit livré est un berlingot de 250 mL d'eau de Javel concentrée à 9,6 % de chlore actif. L'agent dispose d'un seau gradué de 10 L et d'un doseur de 250 mL. L'étiquette du berlingot porte les pictogrammes « corrosif » et « dangereux pour le milieu aquatique ».</p>
+    <p>1. Calculer le facteur de dilution nécessaire, puis le volume de solution diluée qu'on peut préparer avec un berlingot.<br>2. Décrire la préparation, dans l'ordre des gestes, en précisant les protections.<br>3. Le même jour, les toilettes ont été détartrées avec un produit acide. Que risque l'agent s'il désinfecte ensuite à la Javel sans rincer ? Que faire ?<br>4. Pourquoi l'étiquette interdit-elle de jeter le reste de berlingot dans l'évier ?</p>
+    <details class="correction">
+      <p>1. $F=\dfrac{9{,}6}{0{,}5}\approx19$. Avec 250 mL de concentré : $V_{fille}=250\times19\approx4{,}8$ L, soit un peu moins de 5 L de solution à 0,5 %.</p>
+      <p>2. Gants et lunettes, pièce aérée. Verser d'abord de l'eau froide dans le seau (environ 4 L), puis le berlingot (le concentré dans l'eau, pas l'inverse, pour éviter les projections), compléter à 4,8 L environ, mélanger. Eau froide : l'eau chaude dégrade l'hypochlorite et libère du chlore.</p>
+      <p>3. L'eau de Javel au contact d'un acide dégage du dichlore, gaz toxique : toux, brûlure des voies respiratoires, et dans un local fermé comme des toilettes, c'est grave. Il faut rincer abondamment à l'eau entre les deux produits, aérer, et ne jamais les mélanger dans le même seau.</p>
+      <p>4. Le pictogramme « dangereux pour le milieu aquatique » : l'hypochlorite concentré tue les organismes des rivières et perturbe la station d'épuration. Les restes se diluent fortement ou se rapportent en déchetterie, selon la fiche du produit.</p>
+    </details>
+  </article>
+
+  <article class="exercice" data-niveau="3" data-titre="Une préparation à l'officine">
+    <p>Une ordonnance demande 100 mL d'une solution de chlorure de potassium KCl à 0,10 mol/L. Le préparateur dispose de KCl solide et d'une solution mère à 1,0 mol/L. $M(\text{K})=39{,}1$ g/mol, $M(\text{Cl})=35{,}5$ g/mol.</p>
+    <p>1. Proposer les deux protocoles possibles (dissolution et dilution), avec les calculs.<br>2. Lequel est le plus rapide ? Lequel est le plus précis si la balance n'affiche que le dixième de gramme ?<br>3. Le patient doit recevoir 2,0 mmol de potassium par prise. Quel volume de solution cela représente-t-il ?<br>4. Sur l'étiquette du flacon de solution mère figure le pictogramme « irritant ». Quelles précautions ?</p>
+    <details class="correction">
+      <p>1. <em>Dissolution</em> : $M(\text{KCl})=39{,}1+35{,}5=74{,}6$ g/mol ; $n=C\times V=0{,}10\times0{,}100=0{,}010$ mol ; $m=n\times M=0{,}010\times74{,}6=0{,}75$ g à peser, fiole jaugée de 100 mL. <em>Dilution</em> : $F=1{,}0/0{,}10=10$ ; $V_{mère}=100/10=10$ mL, pipette jaugée de 10 mL et fiole de 100 mL.</p>
+      <p>2. La dilution est plus rapide (pas de pesée ni de dissolution). Avec une balance au dixième de gramme, peser 0,75 g donne une incertitude de ±0,05 g, soit 7 % : la dilution à la pipette jaugée (précision bien meilleure que 1 %) est plus précise.</p>
+      <p>3. $V=\dfrac{n}{C}=\dfrac{2{,}0\times10^{-3}}{0{,}10}=0{,}020$ L $=20$ mL.</p>
+      <p>4. Gants et lunettes ; éviter le contact avec la peau et les yeux ; en cas de projection, rincer à l'eau. « Irritant » n'est pas « corrosif », mais ce n'est pas anodin.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi deux concentrations, en g/L et en mol/L ?</summary>
+      <div><p>Les étiquettes et les balances parlent en grammes : la concentration en masse sert à préparer. Les réactions chimiques, elles, se font molécule contre molécule : pour savoir combien de base neutralise un acide, il faut compter en moles. La masse molaire fait le pont : $C_m=C\times M$.</p></div></details>
+    <details><summary>Pourquoi la fiole jaugée et pas une bouteille graduée ?</summary>
+      <div><p>Parce que le trait de jauge est gravé pour un volume exact à 0,1 % près, alors que les graduations d'un bécher ou d'une bouteille sont à 5 ou 10 % près. Une concentration n'est jamais plus précise que le volume qui a servi à la préparer.</p></div></details>
+    <details><summary>Le pH peut-il être négatif, ou dépasser 14 ?</summary>
+      <div><p>Oui, pour des solutions très concentrées : un acide à 10 mol/L aurait un pH de −1. Mais ces cas sont rares et dangereux ; l'échelle 0–14 couvre tout ce qu'on rencontre dans la vie courante et au laboratoire.</p></div></details>
+    <details><summary>Pourquoi le sang doit-il rester à pH 7,4 ?</summary>
+      <div><p>Les protéines (enzymes, hémoglobine) ne fonctionnent qu'à ce pH. En dessous de 7,35, c'est l'acidose, au-dessus de 7,45 l'alcalose, toutes deux dangereuses. Le couple acide carbonique / hydrogénocarbonate, la respiration (qui évacue le CO₂) et les reins maintiennent ce pH en permanence.</p></div></details>
+    <details><summary>Pourquoi verser l'acide dans l'eau, et pas l'inverse ?</summary>
+      <div><p>La dilution d'un acide concentré dégage beaucoup de chaleur. En versant un peu d'acide dans beaucoup d'eau, la chaleur se répartit dans l'eau. En versant de l'eau dans l'acide, les premières gouttes reçoivent toute la chaleur, bouillent instantanément et projettent de l'acide. Moyen mnémotechnique : « l'acide dans l'eau ».</p></div></details>
+    <details><summary>Vinaigre et bicarbonate, ça mousse : est-ce dangereux ?</summary>
+      <div><p>Non. L'acide éthanoïque réagit avec l'hydrogénocarbonate pour donner du dioxyde de carbone (la mousse), de l'eau et de l'éthanoate de sodium. Aucun gaz toxique. Mais mélanger les deux pour nettoyer est inutile : ils se neutralisent, et il ne reste ni l'acide ni la base qui faisaient l'effet.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

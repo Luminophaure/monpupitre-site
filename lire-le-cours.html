@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Comment lire un cours · Monpupitre</title>
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/site.js" defer></script>
+</head>
+<body data-page="lire" data-titre-page="Lire le cours">
+<section class="accueil-tete gutter">
+  <div class="in">
+    <span class="surtitre">Guide</span>
+    <h1>Comment lire un cours sur Monpupitre</h1>
+    <p>Tous les chapitres sont construits de la même façon, avec les mêmes couleurs. Cinq minutes ici, et tu sauras d'un coup d'œil ce qu'il faut apprendre, ce qu'il faut comprendre, et ce que tu peux laisser de côté pour plus tard.</p>
+  </div>
+</section>
+<main class="reglages-page gutter guide-lecture" aria-label="Comment lire un cours">
+
+  <section class="pile" id="onglets">
+    <h2>Un chapitre, cinq onglets, six étapes</h2>
+    <p>Chaque chapitre s'ouvre sur cinq onglets, toujours dans le même ordre. Tu peux les parcourir comme tu veux, mais l'ordre proposé est celui qui marche le mieux.</p>
+    <div class="colonnes">
+      <div class="carte"><span class="surtitre">1</span><h3>Cours</h3><p>Ce qu'il faut savoir, en blocs de couleur. C'est la page de ce guide.</p></div>
+      <div class="carte"><span class="surtitre">2</span><h3>Explorer</h3><p>Des laboratoires où tu manipules : tu règles, tu mesures, tu vois ce qui change. On ne retient bien que ce qu'on a touché.</p></div>
+      <div class="carte"><span class="surtitre">3</span><h3>S'entraîner</h3><p>Un jeu à questions toujours nouvelles, un quiz de réflexes, et en bas un contrôle blanc en conditions réelles.</p></div>
+      <div class="carte"><span class="surtitre">4</span><h3>Exercices corrigés</h3><p>Trois niveaux d'étoiles. Tu rédiges d'abord, tu ouvres la correction ensuite. Un exercice « Corrige l'IA » par chapitre.</p></div>
+      <div class="carte"><span class="surtitre">5</span><h3>Questions fréquentes</h3><p>Les questions que les élèves posent vraiment, avec des réponses courtes.</p></div>
+    </div>
+    <p>Au-dessus des onglets, la <strong>barre de parcours</strong> se coche toute seule au fil de ton travail : Comprendre, Explorer, Calculer, Comparer, S'entraîner, Contrôle blanc. Elle ne juge rien : elle te montre où tu en es, et ce qui reste à faire. Clique sur une étape pour y aller directement.</p>
+  </section>
+
+  <section class="pile" id="couleurs">
+    <h2>Le code couleur des blocs</h2>
+    <p>Dans l'onglet Cours, tout ce qui compte est dans un bloc coloré. La couleur dit <em>ce que tu dois en faire</em>. Voici les six, avec un vrai exemple de chaque.</p>
+
+    <div class="legende">
+      <div class="bloc definition" data-titre="Tension électrique">
+        <p>La <strong>tension</strong> entre deux points d'un circuit, notée $U$, se mesure en <strong>volts</strong> (V) avec un voltmètre branché entre ces deux points.</p>
+      </div>
+      <div class="lecture"><strong>Définition · bleu</strong><p>Le vocabulaire, les notations, les unités. <strong>À savoir par cœur</strong> : c'est ce qu'un professeur attend que tu connaisses sans hésiter, et ce qu'on te demande en premier dans un contrôle. Recopie-les sur ta fiche.</p></div>
+    </div>
+
+    <div class="legende">
+      <div class="bloc propriete" data-titre="Loi de Wien">
+        <p>La longueur d'onde du maximum d'émission d'un corps est inversement proportionnelle à sa température : $\lambda_{max}\times T=2{,}90\times10^{-3}$ m·K.</p>
+      </div>
+      <div class="lecture"><strong>Propriété, théorème · violet</strong><p>Ce qui est <strong>toujours vrai</strong> et que tu as le droit d'utiliser sans le redémontrer. À connaître aussi, et surtout à savoir <em>quand</em> s'en servir : c'est la différence entre réciter et comprendre.</p></div>
+    </div>
+
+    <div class="legende">
+      <div class="bloc methode" data-titre="Exploiter graphiquement la loi de Wien">
+        <ol class="etapes">
+          <li><span>Je convertis la température en kelvins : $T=\theta+273$.</span></li>
+          <li><span>Je repère $T$ sur l'axe horizontal, je monte jusqu'à la courbe, je lis $\lambda_{max}$ à gauche.</span></li>
+          <li><span>Je situe $\lambda_{max}$ dans le spectre.</span></li>
+        </ol>
+      </div>
+      <div class="lecture"><strong>Méthode · turquoise, repliée</strong><p><strong>Comment on fait</strong>, étape par étape. Les méthodes sont <strong>repliées</strong> quand tu ouvres le cours, pour ne pas t'encombrer à la première lecture : clique dessus pour la déplier quand tu arrives à l'exercice qui en a besoin. (Essaie sur celle-ci.) Beaucoup contiennent un <em>déroulé</em> : un exercice résolu dont tu dévoiles les étapes une par une, après avoir cherché seul.</p></div>
+    </div>
+
+    <div class="legende">
+      <div class="bloc piege" data-titre="Oublier les kelvins">
+        <p>Dans la loi de Wien, $T$ est en kelvins. Avec 37 au lieu de 310, on trouve 78 µm : faux d'un facteur 8.</p>
+      </div>
+      <div class="lecture"><strong>Attention, piège · rouge</strong><p>Les erreurs que <strong>tout le monde</strong> fait, et qui coûtent des points. Chaque chapitre finit par la liste de ses pièges : c'est la partie à relire la veille d'un contrôle.</p></div>
+    </div>
+
+    <div class="legende">
+      <div class="bloc exemple" data-titre="Le sérum physiologique">
+        <p>9,0 g de chlorure de sodium dans 1,0 L : $C_m=9{,}0$ g/L. Et avec $M=58{,}5$ g/mol, $C=9{,}0/58{,}5\approx0{,}15$ mol/L.</p>
+      </div>
+      <div class="lecture"><strong>Exemple · jaune</strong><p>Le cours <strong>en action</strong> sur un cas concret, souvent tiré de la vraie vie. Le bon réflexe : cache la fin de l'exemple, essaie de le refaire, puis compare.</p></div>
+    </div>
+
+    <div class="legende">
+      <div class="bloc remarque" data-titre="Ailleurs dans le monde">
+        <p>Aux États-Unis, le secteur est à 120 V et 60 Hz : c'est pour cela qu'un appareil acheté là-bas ne se branche pas directement en France.</p>
+      </div>
+      <div class="lecture"><strong>Remarque · beige</strong><p>Pour <strong>aller un peu plus loin</strong>, faire un lien avec un autre chapitre ou satisfaire une curiosité. Utile pour comprendre, mais pas à apprendre par cœur : si tu manques de temps, c'est ce que tu peux sauter.</p></div>
+    </div>
+
+    <h3>Et autour des blocs</h3>
+    <div class="colonnes">
+      <div class="carte"><h3>« Dans la vraie vie »</h3><p>La carte sombre en haut du cours : une situation réelle, souvent prise dans un métier, qui pose les questions auxquelles le chapitre répond. Lis-la en premier, tu sauras à quoi tout cela sert.</p></div>
+      <div class="carte"><h3>Les figures</h3><p>Chaque figure a une légende qui dit ce qu'il faut y voir. Les figures du cours sont celles des exercices : apprends à les lire ici, tu les retrouveras là.</p></div>
+      <div class="carte"><h3>Les formules</h3><p>Les formules importantes sont dans les blocs bleus et violets. Celle qui est seule au milieu d'une ligne est celle à retenir.</p></div>
+      <div class="carte"><h3>Les vidéos</h3><p>En fin de cours, pour revoir autrement. Elles ne remplacent pas la lecture : elles la complètent.</p></div>
+    </div>
+  </section>
+
+  <section class="pile" id="ordre">
+    <h2>Dans quel ordre aborder un chapitre</h2>
+    <div class="bloc methode" data-titre="Une façon de faire qui marche" data-ouvert>
+      <ol class="etapes">
+        <li><span><strong>Lis la carte « Dans la vraie vie » et la liste des objectifs</strong> en haut de la page. Deux minutes : tu sais à quoi sert le chapitre et ce qu'on attend de toi.</span></li>
+        <li><span><strong>Lis le cours une première fois en entier</strong>, sans ouvrir les méthodes repliées et sans t'arrêter sur ce que tu ne comprends pas. Tu cherches la carte, pas le détail.</span></li>
+        <li><span><strong>Reviens sur les blocs bleus et violets</strong> et fais ta fiche : définitions, formules, propriétés. Une page, pas plus.</span></li>
+        <li><span><strong>Va manipuler dans Explorer.</strong> Un labo par notion. Quand tu as vu une courbe bouger sous tes doigts, la formule a un sens.</span></li>
+        <li><span><strong>Passe aux exercices, niveau ★ d'abord.</strong> Quand tu bloques : déplie la méthode concernée, relis l'exemple, puis seulement utilise « Je n'ai pas compris » ou le tuteur. Rédige avant d'ouvrir la correction.</span></li>
+        <li><span><strong>Termine par le jeu, puis le contrôle blanc.</strong> Et la veille d'une évaluation, relis les pièges.</span></li>
+      </ol>
+    </div>
+    <p class="discret">Ce n'est pas une règle. Certains préfèrent commencer par Explorer, d'autres par les exercices pour voir ce qu'ils savent déjà. L'important est de ne pas lire le cours comme un roman, d'un trait, sans rien faire avec.</p>
+  </section>
+
+  <section class="pile" id="boutons">
+    <h2>Les boutons que tu croiseras</h2>
+    <div class="faq">
+      <details><summary>« Voir la méthode » / « Replier »</summary><div>Ouvre ou referme un bloc Méthode. Si tu préfères les voir toujours ouverts, coche « Déplier les méthodes d'office » dans la page Personnalisation.</div></details>
+      <details><summary>« Voir l'étape 1 », « Étape suivante »</summary><div>Dans un déroulé, les étapes de la solution sont cachées. Cherche d'abord seul, puis dévoile-les une à une, et compare avec ce que tu as écrit. « Tout afficher » existe, mais il te prive de l'essentiel.</div></details>
+      <details><summary>« Aller à : … » et « Comment lire ce cours ? »</summary><div>Sous le titre du cours, des raccourcis vers chaque partie, et le lien vers ce guide.</div></details>
+      <details><summary>« Je n'ai pas compris »</summary><div>Sous chaque partie du cours. Tu dis ce qui coince ; le site te propose une autre explication, un labo ou un exemple, et garde une trace pour que tu y reviennes. Ce n'est jamais une mauvaise nouvelle : c'est une information utile.</div></details>
+      <details><summary>« Signaler une erreur dans cette partie »</summary><div>Une coquille, une erreur de calcul, une phrase pas claire : le signalement part au professeur qui s'occupe de la matière. Tu rends service à tous les autres.</div></details>
+      <details><summary>Le tuteur pas à pas</summary><div>Dans certains exercices, tu écris chaque étape de ton calcul ; le vérificateur dit si elle est juste. Si tu bloques, le tuteur pose une question, puis donne un indice, puis un exemple voisin. Il ne donne jamais la réponse. Tes parents peuvent couper la partie IA ; le vérificateur reste.</div></details>
+      <details><summary>« Partie suivante → »</summary><div>En bas de chaque onglet, pour enchaîner sans remonter. Et à la fin, les liens vers le chapitre précédent et le suivant.</div></details>
+    </div>
+  </section>
+
+  <section class="pile" id="adultes">
+    <h2>Pour les parents et les professeurs</h2>
+    <p>Le code couleur est le même dans toutes les matières et tous les niveaux : un élève qui l'a compris en sixième le retrouve en terminale. Quand vous travaillez avec un élève, la question la plus utile est « qu'est-ce qui est en bleu et en violet dans ce chapitre ? » : c'est ce qu'il doit savoir. Les méthodes repliées se déplient d'office dans la page <a href="personnalisation.html#lecture">Personnalisation</a>, et l'<a href="aide.html">aide</a> détaille les espaces parent et professeur.</p>
+  </section>
+</main>
+</body>
+</html>

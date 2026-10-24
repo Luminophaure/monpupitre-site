@@ -1,0 +1,37 @@
+/* =====================================================================
+   LE TUTEUR PAS À PAS — l'exercice guidé (assets/js/tuteur.js).
+   Une carte posée sur la feuille : la consigne, le brouillon ligne par
+   ligne, le champ de saisie, le retour du vérificateur, l'aide graduée.
+   ===================================================================== */
+.tuteurs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--e-4)}
+.tuteur{display:grid;gap:var(--e-3);background:var(--card);border-radius:var(--r-l);box-shadow:inset 0 6px 0 var(--mc),var(--ombre);padding:var(--e-5) var(--e-5) var(--e-5);min-width:0}
+.tuteur-tete{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tuteur .mode-ia{margin-left:auto;font:700 var(--t-xs) var(--f-mono);letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pilule)}
+.tuteur .mode-ia.on{background:var(--ok-soft);color:var(--ok)}
+.tuteur .mode-ia.off{background:var(--grid);color:var(--muted)}
+.tuteur .consigne{font-size:1.08rem;font-weight:700}
+.tuteur .lignes{list-style:none;margin:0;padding:12px 14px;display:grid;gap:6px;background:var(--grid);border-radius:var(--r-m);min-height:52px;background-image:repeating-linear-gradient(transparent 0 31px,var(--line) 31px 32px)}
+.tuteur .lignes li{display:grid;grid-template-columns:3.6em 1fr auto;gap:10px;align-items:center;margin:0;line-height:32px}
+.tuteur .lignes .num{font:600 var(--t-xs) var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.tuteur .lignes .formule{font-size:1.1rem;overflow-x:auto}
+.tuteur .lignes li.ko .formule{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--ko);text-decoration-thickness:2px}
+.tuteur .verdict-ligne{font-weight:800}
+.tuteur .lignes li.ok .verdict-ligne{color:var(--ok)}
+.tuteur .lignes li.ko .verdict-ligne{color:var(--ko)}
+.saisie-tuteur{display:grid;gap:6px}
+.saisie-tuteur label{font:700 var(--t-s) var(--f-body);color:var(--muted)}
+.saisie-tuteur .ligne{flex-wrap:nowrap}
+.saisie-tuteur input{flex:1;min-width:0;width:100%;height:48px;padding:0 14px;border:2px solid var(--line);border-radius:var(--r-m);background:var(--feuille);color:var(--ink);font:500 1.1rem var(--f-mono)}
+.saisie-tuteur input:focus{border-color:var(--mc);outline:0}
+.tuteur .clavier{display:flex;flex-wrap:wrap;gap:6px}
+.tuteur .clavier .puce{min-height:36px;min-width:40px;padding:0 10px;font-family:var(--f-mono)}
+.retour-tuteur:empty{display:none}
+.retour-tuteur .retour{margin:0}
+.aide-tuteur{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-top:var(--e-2);border-top:2px dashed var(--line)}
+.aide-tuteur .niveau-aide{margin-left:auto}
+@media (max-width:600px){
+  .saisie-tuteur .ligne{flex-wrap:wrap}
+  .saisie-tuteur .btn{width:100%}
+  .tuteur{padding:var(--e-4)}
+  .tuteur .lignes li{grid-template-columns:3em 1fr auto;gap:6px}
+}
