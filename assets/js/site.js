@@ -15,7 +15,19 @@ const RACINE=scriptCourant ? scriptCourant.src.replace(/assets\/js\/site\.js.*$/
 const KATEX=RACINE+'assets/vendor/katex/';   // KaTeX est livré avec le site : formules lisibles même hors ligne
 
 /* ---------- thème (avant tout, pour éviter un flash) ---------- */
+/* Le thème : CLAIR PAR DÉFAUT. Le sombre ne s'active plus tout seul avec la préférence
+   du système — c'est un choix de l'élève, fait avec le bouton ◐, et retenu d'une visite à
+   l'autre. La couleur de la barre du navigateur (sur téléphone) suit le thème affiché. */
 try{ const t=localStorage.getItem('theme'); if(t) document.documentElement.setAttribute('data-theme',t); }catch(e){}
+function couleurNavigateur(){
+  const sombre=document.documentElement.dataset.theme==='dark';
+  const metas=[...document.querySelectorAll('meta[name="theme-color"]')];
+  metas.slice(1).forEach(m=>m.remove());
+  const m=metas[0]||document.head.appendChild(Object.assign(document.createElement('meta'),{name:'theme-color'}));
+  m.removeAttribute('media'); m.setAttribute('content', sombre?'#3A2416':'#F2BE78');
+}
+new MutationObserver(couleurNavigateur).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+if(document.head) couleurNavigateur(); else addEventListener('DOMContentLoaded',couleurNavigateur);
 
 function charger(src){ if(window.MODULES_INCLUS&&window.MODULES_INCLUS[src.replace(RACINE,'')]) return Promise.resolve(); return new Promise((ok,ko)=>{ const s=document.createElement('script'); s.src=src; s.onload=ok; s.onerror=()=>ko(new Error('Impossible de charger '+src)); document.head.appendChild(s); }); }
 function feuille(href){ if(window.MODULES_INCLUS&&window.MODULES_INCLUS[href.replace(RACINE,'')]) return; const l=document.createElement('link'); l.rel='stylesheet'; l.href=href; document.head.appendChild(l); }
