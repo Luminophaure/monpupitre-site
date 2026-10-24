@@ -416,3 +416,44 @@ details.mat[open] > summary::after{transform:rotate(90deg);color:var(--sur-accen
 .guide-lecture .lecture strong:first-child{font-family:var(--f-display);font-size:1.05rem}
 .guide-lecture .lecture p{color:var(--muted)}
 .guide-lecture .colonnes .carte h3{margin-top:2px}
+
+/* ---------- Le carnet des professeurs ----------
+   Une rubrique par professeur (carnet.html, espace parent), un résumé sur le bureau
+   (.carte-carnet), et la liste des envois côté professeur. La couleur de la matière
+   passe par data-couleur, comme partout ailleurs. */
+.rubrique-prof{background:var(--card);border-radius:var(--r-l);padding:var(--e-4);margin-bottom:var(--e-4);box-shadow:var(--ombre)}
+.rubrique-tete{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.rubrique-tete>div{display:grid;flex:1;min-width:0}
+.rubrique-tete .pastille,.profs-liste .pastille{width:14px;height:14px;border-radius:50%;background:var(--mc,var(--muted));flex:none}
+.carnet-liste{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.carnet-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:var(--r-m);background:var(--grid)}
+.carnet-item .ico{flex:none;width:28px;text-align:center;font-size:1.1rem;line-height:1.5}
+.carnet-item .corps{display:grid;gap:3px;flex:1;min-width:0}
+.carnet-item .etiq{font:600 var(--t-xs) var(--f-mono);color:var(--muted);letter-spacing:.03em;text-transform:uppercase}
+.carnet-item .corps>a,.carnet-item .corps>span:not(.etiq):not(.meta):not(.mot){font-weight:700}
+.carnet-item .mot{font-family:var(--f-hand);font-size:1.05em;color:var(--ink)}
+.carnet-item .meta{font-size:var(--t-s)}
+.carnet-item .quand{color:var(--ink)}
+.carnet-item.type-echeance{background:var(--jaune-soft,var(--grid));border-left:4px solid var(--jaune)}
+.carnet-item.fait{opacity:.62}
+.carnet-item.fait .corps>a,.carnet-item.fait .corps>span:not(.etiq){text-decoration:line-through}
+.case-fait{display:flex;align-items:center;gap:6px;font-size:var(--t-s);font-weight:600;color:var(--muted);flex:none;align-self:center;cursor:pointer}
+.carnet-liste.compacte .carnet-item{padding:8px 10px}
+.carte-carnet.vide p{margin:6px 0}
+.btn.petit{min-height:34px;padding:0 12px;font-size:var(--t-xs)}
+.vide-carnet h2{margin-top:0}
+.transparence-liste{list-style:none;margin:10px 0;padding:0;display:grid;gap:6px}
+.transparence-liste li{display:flex;gap:8px;align-items:flex-start}
+.transparence-liste .oui{color:var(--ok);font-weight:700}
+.transparence-liste .non{color:var(--ko);font-weight:700}
+.profs-liste{list-style:none;margin:10px 0;padding:0;display:grid;gap:8px}
+.profs-liste li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r-m);background:var(--grid)}
+.profs-liste li>div{display:grid;flex:1;min-width:0}
+.invitation{padding:14px 16px;border-radius:var(--r-l);border:2px solid var(--mc,var(--line));background:var(--grid);margin:8px 0 14px}
+.invitation .surtitre{margin-bottom:4px}
+.lien-classe input[readonly]{flex:1;min-width:0;height:42px;border:2px solid var(--line);border-radius:var(--r-m);padding:0 10px;font:600 var(--t-xs) var(--f-mono);background:var(--feuille);color:var(--ink)}
+.chapitres-coches{border:2px solid var(--line);border-radius:var(--r-m);padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px 14px;margin:0}
+.chapitres-coches legend{font-weight:700;padding:0 6px}
+.chapitres-coches label{display:flex;align-items:center;gap:6px;font-size:var(--t-s)}
+[data-envoi] [data-si][hidden]{display:none!important}
+.prochaines{margin-bottom:var(--e-4)}

@@ -43,7 +43,7 @@
   --curve:#2A140B;
 
   /* --- action principale : le bouton jaune --- */
-  --jaune:#FFD166; --jaune-ombre:#C99A2E; --jaune-ink:#2A140B;
+  --jaune:#FFD166; --jaune-ombre:#C99A2E; --jaune-ink:#2A140B; --jaune-soft:#FFF4D1;   /* fond des échéances du carnet */
   /* couleurs physiques (identiques de jour comme de nuit) : écran éclairé par un laser, lumières colorées */
   --allumette:#C98B4B; --tete-allumette:#D7372B;   /* allumettes des motifs (même bois de jour comme de nuit) */
   --fil-phase:#C0392B; --fil-neutre:#2B5BD7; --fil-terre:#2E8B57; --fil-terre2:#F2C230;   /* fils électriques : phase, neutre, terre (vert-jaune) */
@@ -95,7 +95,7 @@
   --d-gamma:#4A3A6E; --d-x:#2E3F63; --d-uv:#234A52; --d-ir:#5A3A22; --d-micro:#4E3B22; --d-radio:#45402A;
   --chaud:#FF8A5C; --froid:#8DAEFF;
   --sol-0:#2C4A66; --sol-1:#3E6FA8; --sol-2:#8DAEFF; --verre:#D2B597; --picto:#FF6B6B;
-  --jaune:#FFD166; --jaune-ombre:#9A7420; --jaune-ink:#2A140B; --sur-accent:#10162B;
+  --jaune:#FFD166; --jaune-ombre:#9A7420; --jaune-ink:#2A140B; --sur-accent:#10162B; --jaune-soft:#3D3214;
   --c-maths:#8DAEFF; --c-svt:#6FD38E; --c-pc:#C3A2FF; --c-snt:#5FD0D8; --c-lettres:#FF86BC;
   --c-histoire:#FF9A85; --c-langues:#FFD166; --c-ses:#A3D65C; --c-philo:#B3AEFF; --c-neutre:#D2B597;
   --onglet:#2A3558; --onglet-ink:#C9D7FF;

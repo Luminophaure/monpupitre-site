@@ -28,7 +28,12 @@ const aujourdhui=()=>{ const d=new Date(); return d.getFullYear()+'-'+String(d.g
 const semaineDe=d=>{ const x=new Date(d); const j=(x.getDay()+6)%7; x.setDate(x.getDate()-j); x.setHours(0,0,0,0); return x.getTime(); };
 
 /* la famille de démonstration : une élève, ses parents, sa professeure */
-const ELEVE={prenom:'Léa',pseudo:'lea.m',niveau:'seconde',niveauNom:'Seconde',classe:'2de 4',prof:'Mme Roux',code:'4K7P'};
+/* L'élève n'appartient à aucune classe par défaut : il travaille seul, lié ou non à un
+   compte parent. Ses professeurs s'ajoutent par un lien (voir carnet.js) et vivent dans
+   « classes-rejointes », pas ici. PROF est la persona de démonstration de l'espace
+   professeur, c'est tout. */
+const ELEVE={prenom:'Léa',pseudo:'lea.m',niveau:'seconde',niveauNom:'Seconde'};
+const PROF={nom:'Mme Roux',matiere:'maths',matiereNom:'mathématiques'};
 
 const ETAPES=[['comprendre','Comprendre','cours','Lire le cours'],['explorer','Explorer','explorer','Manipuler un labo'],['calculer','Calculer','exercices','Faire un exercice guidé'],['comparer','Comparer','methodes','Suivre une méthode pas à pas'],['entrainer','S\'entraîner','entrainement','Réussir le jeu'],['controle','Contrôle blanc','controle','Un sujet en conditions réelles']];
 
@@ -45,7 +50,7 @@ const SUCCES={
 };
 
 const Pupitre={
-  lire,ecrire,supprimer,on,emettre,echap,ELEVE,ETAPES,SUCCES,
+  lire,ecrire,supprimer,on,emettre,echap,ELEVE,PROF,ETAPES,SUCCES,
   role(){ return lire('role','eleve'); },
   setRole(r){ ecrire('role',r); },
   /* --- l'interrupteur du tuteur --- */
@@ -95,7 +100,6 @@ const Pupitre={
   portes(){ return lire('portes',[]); },
   porte(id){ const p=lire('portes',[]); if(!p.includes(id)){ p.push(id); ecrire('portes',p); if(p.length>=3) Pupitre.succes.debloquer('porte-nouvelle'); } },
   /* --- page de classe publiée par la professeure (démo) --- */
-  messagesClasse(){ return lire('classe-messages',[{date:'lundi',texte:'DS vendredi : chapitres « Notion de fonction » et « Vecteurs ». Revois en priorité la lecture d\'image et d\'antécédent sur une courbe.',auteur:'Mme Roux'}]); },
   /* --- temps d'écran, pour le rappel de pause --- */
   activite(){ const a=lire('activite',{depuis:0,minutes:0,dernier:0}); const t=Date.now(); if(t-a.dernier>5*60e3){ a.depuis=t; a.minutes=0; } else a.minutes+= (t-a.dernier)/60e3; a.dernier=t; ecrire('activite',a); return a; },
   pauseFaite(){ ecrire('activite',{depuis:Date.now(),minutes:0,dernier:Date.now()}); },
@@ -127,6 +131,18 @@ const Pupitre={
       ecrire('plan:maths',[{t:'Relire la fiche « image et antécédent » (cours, partie 2)',d:'10 min',u:'maths/seconde/fonctions.html#cours',fait:true},{t:'Refaire deux exercices guidés d\'antécédent avec le tuteur',d:'20 min',u:'maths/seconde/fonctions.html#exercices',fait:true},{t:'Manipuler le labo « Reconstituer une somme »',d:'10 min',u:'maths/seconde/vecteurs.html#explorer',fait:false},{t:'Contrôle blanc en conditions réelles',d:'30 min',u:'#fabrique',fait:false}]);
       ecrire('avatar',{peau:'#E0AC7E',cheveux:'#8B5A2B',coupe:'long',haut:'#C4186A',acc:'aucun'});
       ecrire('activite',{depuis:t-28*60e3,minutes:28,dernier:t});
+      // la démo lie Léa à la classe de Mme Roux et remplit son carnet : une échéance, deux
+      // conseils, un point de cours, un message préfait. Les cibles sont de vrais ancrages.
+      const vendredi=(()=>{ const d=new Date(t); d.setDate(d.getDate()+((5-d.getDay()+7)%7||7)); return cle(d.getTime()); })();
+      const j=n=>cle(t-n*J);
+      ecrire('classes-rejointes',[{code:'4K7P',prof:'Mme Roux',matiere:'maths',classe:'2de 4',niveau:'Seconde',depuis:j(21)}]);
+      ecrire('carnet:4K7P',[
+        {id:'d1',type:'echeance',date:j(4),nature:'controle',echeance:vendredi,chapitres:['fonctions','vecteurs']},
+        {id:'d2',type:'exercice',date:j(3),chapitre:'fonctions',exercice:{id:'ex-lecture-graphique',titre:'Lecture graphique'},message:'sans-indice'},
+        {id:'d3',type:'cours',date:j(3),chapitre:'fonctions',section:{id:'c-vocabulaire',titre:'Le vocabulaire : ce qui entre, ce qui sort'}},
+        {id:'d4',type:'exercice',date:j(1),chapitre:'vecteurs',exercice:{id:'ex-chasles-en-serie',titre:'Chasles en série'}},
+        {id:'d5',type:'message',date:j(0),message:'progres'}]);
+      ecrire('carnet-fait',['d3']);
       ecrire('demo',true);
     },
     effacer(){ Pupitre.toutEffacer(); }
@@ -178,7 +194,7 @@ function bandeau(role,info){
       (eleve?'<a class="action" href="'+lien('personnalisation.html')+'"><span class="ico" aria-hidden="true">🎨</span><span>Personnalisation</span></a>':'')+
       '<a class="action aide" href="'+lien('aide.html')+'" aria-label="Aide et tutoriels"><span class="ico" aria-hidden="true">?</span><span class="sr">Aide</span></a>'+
       '<button class="action btn-theme" type="button" aria-label="Changer de thème clair ou sombre"><span class="ico" aria-hidden="true">◐</span></button>'+
-      '<details class="compte"><summary aria-label="Mon compte">'+avatarSVG(30)+'<span class="prenom">'+echap(role==='eleve'?ELEVE.prenom:role==='parent'?'Parents de Léa':ELEVE.prof)+'</span><span class="chev" aria-hidden="true">▾</span></summary>'+menuCompte(role)+'</details>'+
+      '<details class="compte"><summary aria-label="Mon compte">'+avatarSVG(30)+'<span class="prenom">'+echap(role==='eleve'?ELEVE.prenom:role==='parent'?'Parents de Léa':PROF.nom)+'</span><span class="chev" aria-hidden="true">▾</span></summary>'+menuCompte(role)+'</details>'+
     '</nav></div>';
   b.querySelector('.btn-theme').addEventListener('click',theme.basculer);
   const ia=b.querySelector('.ia');
@@ -210,12 +226,12 @@ const LOGO='<svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><
 function menuCompte(role){
   const aff=Pupitre.affichage();
   const l=[];
-  if(role==='eleve'){ l.push(['compte.html','Mon compte'],['personnalisation.html','Personnalisation'],['compte.html#parents','Ce que voient mes parents']); }
+  if(role==='eleve'){ l.push(['compte.html','Mon compte'],['carnet.html','Carnet des professeurs'],['personnalisation.html','Personnalisation'],['compte.html#parents','Ce que voient mes parents']); }
   if(role==='parent'){ l.push(['compte.html','Mon compte'],['parent.html#transparence','Ce que je vois de mon enfant']); }
   if(role==='prof'){ l.push(['compte.html','Mon compte'],['prof.html#transparence','Ce que voient mes élèves de moi']); }
   l.push(['lire-le-cours.html','Comment lire un cours'],['aide.html','Aide et tutoriels'],['compte.html#donnees','Exporter mes données']);
   return '<div class="menu" role="menu">'+
-    '<div class="menu-tete">'+avatarSVG(44)+'<div><strong>'+echap(role==='eleve'?ELEVE.prenom+' · '+ELEVE.classe:role==='parent'?'Parents de Léa et Tom':ELEVE.prof+' · mathématiques')+'</strong><span class="discret">'+echap(role==='eleve'?'pseudonyme : '+ELEVE.pseudo:role==='parent'?'compte parent':'compte enseignant vérifié')+'</span></div></div>'+
+    '<div class="menu-tete">'+avatarSVG(44)+'<div><strong>'+echap(role==='eleve'?ELEVE.prenom+' · '+ELEVE.niveauNom:role==='parent'?'Parents de Léa et Tom':PROF.nom+' · '+PROF.matiereNom)+'</strong><span class="discret">'+echap(role==='eleve'?'pseudonyme : '+ELEVE.pseudo:role==='parent'?'compte parent':'compte enseignant vérifié')+'</span></div></div>'+
     '<div class="menu-aff"><span class="discret">Affichage</span><div class="bascule"><button type="button" data-affichage="essentiel" aria-pressed="'+(aff==='essentiel')+'">Essentiel</button><button type="button" data-affichage="complet" aria-pressed="'+(aff==='complet')+'">Complet</button></div></div>'+
     l.map(x=>'<a role="menuitem" href="'+lien(x[0])+'">'+x[1]+'</a>').join('')+'<a role="menuitem" href="#" data-theme-menu>Thème clair / sombre</a>'+
     '<a role="menuitem" class="deconnexion" href="'+lien(((window.SITE||{}).accueil)||'index.html')+'" data-role="eleve">Se déconnecter</a>'+

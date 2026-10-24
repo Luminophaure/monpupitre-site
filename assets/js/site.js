@@ -301,6 +301,10 @@ function deplier(el){ if(!el) return; for(let b=el.closest('.bloc.plie');b;b=b.p
 function exercices(r){
   const tous=[...r.querySelectorAll('article.exercice')];
   tous.forEach((ex,i)=>{ if(ex.querySelector(':scope > header')) return;
+    /* un id stable par exercice, tiré de son titre : c'est ce qu'un professeur met
+       dans un lien du carnet (chapitre.html#ex-lire-le-graphique-de-wien). Il survit
+       à une renumérotation, pas à un changement de titre — c'est le compromis voulu. */
+    if(!ex.id) ex.id='ex-'+(ex.dataset.titre||'exercice-'+(i+1)).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
     const niv=parseInt(ex.dataset.niveau||'0',10);
     const h=document.createElement('header');
     h.innerHTML='<span class="num-ex">Exercice '+(i+1)+'</span>'+(niv?'<span class="etoiles" title="Difficulté '+niv+' sur 3" aria-label="Difficulté '+niv+' sur 3">'+'★'.repeat(niv)+'<span class="etoiles-vides">'+'★'.repeat(Math.max(0,3-niv))+'</span></span>':'')+(ex.dataset.titre?'<span class="titre-ex">'+echap(ex.dataset.titre)+'</span>':'');
@@ -395,10 +399,13 @@ async function demarrer(){
   else if(body.dataset.matiere){ const m=trouverMatiere(body.dataset.matiere); if(m) body.dataset.couleur=m.couleur||'neutre'; }
   window.Site={deplier,racine:RACINE,chapitre:(body.dataset.matiere?body.dataset.matiere+'/':'')+(id||''),chapitreId:id||'',info,maths,blocs,echap,charger,trouverMatiere,trouverChapitre,matieres,lienMatiere};   // blocs : étiquettes des blocs ajoutés par un labo
   if(window.Bureau&&!window.AUTONOME) Bureau.coque(info,{racine:RACINE}); else barre(info);
+  /* les exercices reçoivent leur id AVANT que les onglets lisent le #hash : sinon un lien
+     du carnet vers un exercice (chapitre.html#ex-…) ne trouve rien et retombe sur le cours */
+  blocs(body); exercices(body);
   const main=document.querySelector('main.chapitre'); if(main){ if(body.dataset.miseEnPage==='classeur') classeur(main,info); else gabarit(main,info); if(info&&info.courant){ pasCompris(main,info); signalements(main,info); } }
   const acc=document.querySelector('#liste-matieres'); if(acc) accueil(acc);
   if(info&&info.courant&&window.Pupitre&&!window.AUTONOME) Pupitre.memoriserPage(info.courant.titre,info.matiere.nom+' · '+info.courant.niveau);
-  blocs(body); exercices(body); videos(body); deroules(body);
+  videos(body); deroules(body);
   // formules
   feuille(KATEX+'katex.min.css');
   charger(KATEX+'katex.min.js').then(()=>charger(KATEX+'auto-render.min.js')).then(()=>{ katexPret=true; maths(body); enAttente.splice(0).forEach(maths); }).catch(e=>console.warn('Formules indisponibles (hors ligne ?)',e));
@@ -428,7 +435,10 @@ async function demarrer(){
     // le tuteur pas à pas : <div class="tuteur" data-tuteur="expression" data-depart="3x+5-x+2">
     if(body.querySelector('.tuteur')){ await charger(RACINE+'assets/js/tuteur.js'); Tuteur.init(body); }
     // pages du bureau (accueil, portes d'entrée, espaces parent et professeur, réglages)
-    const pageBureau=body.dataset.page; if(pageBureau&&!window.AUTONOME){ await charger(RACINE+'assets/js/'+(pageBureau==='parent'||pageBureau==='prof'?'espaces':'portes')+'.js'); if(window.Pages&&Pages[pageBureau]) await Pages[pageBureau](body); }
+    const pageBureau=body.dataset.page; if(pageBureau&&!window.AUTONOME){
+      // le carnet des professeurs est lu par le bureau, la page carnet, « Mon compte », et les espaces parent et professeur
+      try{ await charger(RACINE+'assets/js/carnet.js'); }catch(e){ console.warn(e); }
+      await charger(RACINE+'assets/js/'+(pageBureau==='parent'||pageBureau==='prof'?'espaces':'portes')+'.js'); if(window.Pages&&Pages[pageBureau]) await Pages[pageBureau](body); }
   }catch(e){ console.error(e); }
   if(location.hash&&body.dataset.miseEnPage!=='classeur'){ const t=document.getElementById(location.hash.slice(1)); if(t) setTimeout(()=>t.scrollIntoView(),50); }
 }
