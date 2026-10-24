@@ -3,6 +3,7 @@
    Chaque page n'inclut que ce fichier :
      <link rel="stylesheet" href="../../assets/css/site.css">
    Il assemble, dans cet ordre :
+     polices.css       les @font-face locaux (rien n'est demandé à l'extérieur)
      variables.css     les jetons (couleurs clair/sombre, polices, espaces)
      base.css          le socle et les classes utilitaires
      composants.css    les briques réutilisables (boutons, cartes, blocs…)
@@ -11,7 +12,7 @@
      tuteur.css        le tuteur pas à pas
    Pour changer une couleur : variables.css. Pour un composant : composants.css.
    ===================================================================== */
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;600&display=swap");
+@import url("polices.css");
 @import url("variables.css");
 @import url("base.css");
 @import url("composants.css");

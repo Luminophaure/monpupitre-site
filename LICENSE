@@ -53,10 +53,10 @@ mêmes conditions. Lis le paragraphe qui correspond à ce que tu veux reprendre.
    prime sur tout ce qui précède. Leurs mentions de licence sont conservées dans
    le dépôt et ne doivent jamais être retirées :
 
-     assets/vendor/katex/   KaTeX, licence MIT (voir le fichier LICENSE du dossier)
-
-   Les polices de caractères, lorsqu'elles seront embarquées plutôt qu'appelées à
-   distance, viendront avec leur licence SIL Open Font License.
+     assets/vendor/katex/    KaTeX, licence MIT (voir le fichier LICENSE du dossier)
+     assets/vendor/polices/  Bricolage Grotesque, Atkinson Hyperlegible, Caveat et
+                             IBM Plex Mono, toutes sous SIL Open Font License 1.1
+                             (voir les fichiers LICENCE-<famille>.txt du dossier)
 
    Les programmes officiels de l'Éducation nationale cités dans le projet sont des
    documents publics ; les liens vers l'Onisep renvoient à leurs auteurs.
