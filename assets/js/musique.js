@@ -5,9 +5,19 @@
    fichier audio, aucune question de droits, rien n'est téléchargé.
      lofi    : accords feutrés, rythme lent, craquements de vinyle
      piano   : notes douces, lentes, avec de la réverbération
+     nappes  : accords très longs, ni rythme ni mélodie
      pluie   : averse continue et gouttes
+     vagues  : ressac lent, vagues qui cassent de loin en loin
+     feu     : souffle grave et crépitements par rafales
+     rose    : bruit rose (−3 dB/octave)
      brun    : bruit brun, grave et régulier
      silence : rien, seulement le minuteur
+   AUCUNE NE TOURNE EN ROND : les deux ambiances musicales changent de grille
+   d'accords toutes les huit mesures et transposent par moments ; les ambiances
+   de bruit respirent sous des oscillateurs lents de périodes incommensurables.
+   C'est la répétition, pas le manque de choix, qui finit par déranger.
+   `tests/musique_test.py` mesure les deux : le niveau sonore de chacune, et le
+   renouvellement réel des notes sur deux minutes.
    Règles (cahier des charges) : coupée par défaut, ne démarre jamais
    seule, se coupe pendant une vidéo et pendant un contrôle blanc ;
    réglages gardés sur l'appareil seulement ; utilisable au clavier.
@@ -16,7 +26,16 @@
 (function(){
 "use strict";
 const P=window.Pupitre; if(!P) return;
-const AMBIANCES=[['lofi','Lo-fi','accords feutrés, rythme lent'],['piano','Piano calme','notes douces, lentes'],['pluie','Pluie','averse et gouttes'],['brun','Bruit brun','grave et régulier'],['silence','Silence','seulement le minuteur']];
+/* Les ambiances, rangées en deux familles : celles qui ont des notes, et celles qui n'en
+   ont pas. Un élève que la mélodie distrait descend d'un cran dans la liste ; un élève que
+   le souffle endort remonte. Ajouter une ambiance = une ligne ici + une fonction qui rend
+   un objet {stop()} + une ligne dans demarrer(). */
+const GROUPES=[
+  ['Avec des notes',[['lofi','Lo-fi','accords feutrés, rythme lent'],['piano','Piano calme','notes douces, lentes'],['nappes','Nappes','accords longs, sans rythme']]],
+  ['Sans notes',[['pluie','Pluie','averse et gouttes'],['vagues','Vagues','ressac lent'],['feu','Feu de bois','crépitements'],['rose','Bruit rose','souffle équilibré'],['brun','Bruit brun','grave et régulier']]],
+  ['',[['silence','Silence','seulement le minuteur']]]
+];
+const AMBIANCES=GROUPES.reduce(function(a,g){ return a.concat(g[1]); },[]);
 const etat=Object.assign({ambiance:'lofi',volume:.5,joue:false,minuteur:{actif:false,travail:25,pause:5,debut:0,phase:'travail'}},P.lire('musique',{}));
 const sauver=()=>P.ecrire('musique',etat);
 
@@ -24,7 +43,15 @@ const sauver=()=>P.ecrire('musique',etat);
 let ctx=null, master=null, courant=null, raisonPause=null;
 function contexte(){ if(ctx) return ctx; const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return null; ctx=new AC(); master=ctx.createGain(); master.gain.value=etat.volume*.6; master.connect(ctx.destination); return ctx; }
 function bruit(secondes,type){ const n=Math.floor(ctx.sampleRate*secondes), b=ctx.createBuffer(1,n,ctx.sampleRate), d=b.getChannelData(0); let last=0;
-  for(let i=0;i<n;i++){ const w=Math.random()*2-1; if(type==='brun'){ last=(last+.02*w)/1.02; d[i]=last*3.5; } else d[i]=w; } return b; }
+  // bruit rose : filtre de Paul Kellet, −3 dB par octave. Entre le blanc (sifflant) et le
+  // brun (sourd), c'est celui que les études sur l'attention citent le plus souvent.
+  let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+  for(let i=0;i<n;i++){ const w=Math.random()*2-1;
+    if(type==='brun'){ last=(last+.02*w)/1.02; d[i]=last*3.5; }
+    else if(type==='rose'){ b0=.99886*b0+w*.0555179; b1=.99332*b1+w*.0750759; b2=.96900*b2+w*.1538520;
+      b3=.86650*b3+w*.3104856; b4=.55000*b4+w*.5329522; b5=-.7616*b5-w*.0168980;
+      d[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.11; b6=w*.115926; }
+    else d[i]=w; } return b; }
 function reverb(duree){ const n=Math.floor(ctx.sampleRate*duree), b=ctx.createBuffer(2,n,ctx.sampleRate);
   for(let c=0;c<2;c++){ const d=b.getChannelData(c); for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/n,2.2); }
   const cv=ctx.createConvolver(); cv.buffer=b; return cv; }
@@ -34,7 +61,11 @@ const freq=m=>440*Math.pow(2,(m-69)/12);
 function note(midi,t,duree,opts){ opts=opts||{}; const o1=ctx.createOscillator(), o2=ctx.createOscillator(), g=ctx.createGain(), f=ctx.createBiquadFilter();
   o1.type=opts.type||'sine'; o2.type='triangle'; o1.frequency.value=freq(midi); o2.frequency.value=freq(midi)*(opts.detune||2.003);
   f.type='lowpass'; f.frequency.value=opts.filtre||1800; const v=opts.vol||.18;
-  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(v,t+(opts.attaque||.02)); g.gain.exponentialRampToValueAtTime(v*.35,t+Math.min(duree*.5,1.2)); g.gain.exponentialRampToValueAtTime(.0005,t+duree);
+  /* L'attaque peut être longue (les nappes montent en plusieurs secondes) : le point de
+     décroissance doit rester APRÈS elle, sinon les rampes sont désordonnées dans le temps
+     et l'enveloppe part en vrille. */
+  const tA=t+(opts.attaque||.02), tD=Math.min(Math.max(tA+.05,t+Math.min(duree*.5,1.2)),t+duree*.92);
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(v,tA); g.gain.exponentialRampToValueAtTime(v*.35,tD); g.gain.exponentialRampToValueAtTime(.0005,t+duree);
   const o2g=ctx.createGain(); o2g.gain.value=opts.harm||.25;
   o1.connect(f); o2.connect(o2g); o2g.connect(f); f.connect(g); g.connect(opts.sortie||master);
   o1.start(t); o2.start(t); o1.stop(t+duree+.05); o2.stop(t+duree+.05); }
@@ -50,24 +81,61 @@ let bruitBlanc=null;
 function musicien(style){
   const rev=reverb(style==='piano'?2.8:1.6); const revG=ctx.createGain(); revG.gain.value=style==='piano'?.5:.3; rev.connect(revG); revG.connect(master);
   const sec=ctx.createGain(); sec.gain.value=1; sec.connect(master); sec.connect(rev);
-  const bpm= style==='piano'?58:72, temps=60/bpm;
-  // accords (notes MIDI) : piano en do majeur, lofi en ii–V–I–vi avec septièmes
-  const grille= style==='piano' ? [[48,55,60,64,67],[45,52,57,60,64],[41,48,53,57,60],[43,50,55,59,62]] : [[38,50,53,57,60],[43,50,53,55,59],[36,48,52,55,59],[45,48,52,55,60]];
+  /* ------------------------------------------------------------------
+     NE PAS TOURNER EN ROND. Une seule grille de quatre accords rejouée
+     indéfiniment s'entend au bout de trois minutes, et c'est exactement ce
+     qui finit par déranger. On change donc de grille toutes les huit
+     mesures, on transpose de temps en temps, et la densité varie : une
+     section sans mélodie, une autre plus fournie. Tout reste diatonique à
+     do majeur avant transposition, donc la gamme de la mélodie suit sans
+     qu'on ait à la redéclarer.
+     Les variations sont LENTES et discrètes : une musique de fond qui
+     surprend ne fait plus son travail.
+     ------------------------------------------------------------------ */
+  const GRILLES= style==='piano' ? [
+      [[48,55,60,64,67],[45,52,57,60,64],[41,48,53,57,60],[43,50,55,59,62]],   // I–vi–IV–V
+      [[48,55,60,64,67],[43,50,55,59,62],[45,52,57,60,64],[41,48,53,57,60]],   // I–V–vi–IV
+      [[45,52,57,60,64],[41,48,53,57,60],[48,55,60,64,67],[43,50,55,59,62]],   // vi–IV–I–V
+      [[48,55,60,64,67],[52,59,64,67,71],[41,48,53,57,60],[50,57,62,65,69]] ]  // I–iii–IV–ii
+    : [
+      [[38,50,53,57,60],[43,50,53,55,59],[36,48,52,55,59],[45,48,52,55,60]],   // ii–V–I–vi
+      [[36,48,52,55,59],[45,48,52,55,60],[38,50,53,57,60],[43,50,53,55,59]],   // I–vi–ii–V
+      [[40,52,55,59,62],[45,48,52,55,60],[38,50,53,57,60],[43,50,53,55,59]],   // iii–vi–ii–V
+      [[41,53,57,60,64],[40,52,55,59,62],[45,48,52,55,60],[43,50,53,55,59]] ]; // IV–iii–vi–V
+  const TRANSPO=[-5,-4,-2,0,2,3];             // un pas de côté, du même pas que la section
+  const LONGUEURS=[6,8,8,12];                 // la section elle-même n'a pas de durée fixe
+  let bpm= style==='piano'?58:72, temps=60/bpm;
   const gamme= style==='piano' ? [60,62,64,67,69,72,74,76,79] : [60,62,64,65,67,69,71,72,74,76];
-  let mesure=0, temps_i=0, prochain=ctx.currentTime+.1, derniere=67, nappe=null;
+  let grille=GRILLES[Math.floor(Math.random()*GRILLES.length)], transpo=0, densite=1, batterie=true;
+  let mesure=0, temps_i=0, prochain=ctx.currentTime+.1, derniere=67, nappe=null, finSection=8;
+
+  function nouvelleSection(){
+    // on ne retombe ni sur la grille ni sur la tonalité qu'on vient de quitter
+    let g; do { g=GRILLES[Math.floor(Math.random()*GRILLES.length)]; } while(GRILLES.length>1&&g===grille);
+    grille=g;
+    if(Math.random()<.7){ let v; do { v=TRANSPO[Math.floor(Math.random()*TRANSPO.length)]; } while(v===transpo); transpo=v; }
+    densite= [0,.55,1,1,1.35][Math.floor(Math.random()*5)];   // parfois aucune mélodie du tout
+    if(style==='lofi') batterie= Math.random()<.78;            // des passages sans batterie
+    bpm= (style==='piano'?58:72) + (Math.random()*6-3); temps=60/bpm;
+    finSection= mesure + LONGUEURS[Math.floor(Math.random()*LONGUEURS.length)];
+  }
+
   function pas(){
-    const acc=grille[mesure%grille.length], t=prochain;
+    if(mesure&&temps_i===0&&mesure>=finSection) nouvelleSection();
+    const acc=grille[(mesure>>0)%grille.length].map(m=>m+transpo), t=prochain;
     if(temps_i===0){ // nouvel accord : basse + nappe
       note(acc[0],t,temps*3.6,{type:'sine',vol:style==='piano'?.14:.2,filtre:500,harm:.1,sortie:sec});
       if(style==='lofi'){ acc.slice(1).forEach((m,i)=>note(m,t+.02*i,temps*3.8,{type:'sine',vol:.07,filtre:1100,harm:.5,detune:2.002,attaque:.08,sortie:sec})); }
       else if(Math.random()<.7){ acc.slice(1,4).forEach((m,i)=>note(m,t+.03*i,temps*3.5,{vol:.07,filtre:1500,attaque:.05,sortie:sec})); }
     }
-    // mélodie clairsemée : marche aléatoire sur la gamme
-    const p= style==='piano'?.55:.35;
+    // mélodie clairsemée : marche aléatoire sur la gamme, plus ou moins fournie selon la section
+    const p= (style==='piano'?.55:.35)*densite;
     if(Math.random()<p){ const i=gamme.indexOf(derniere); let j=(i<0?3:i)+(Math.random()<.5?-1:1)*(Math.random()<.7?1:2); j=Math.max(0,Math.min(gamme.length-1,j)); derniere=gamme[j];
-      note(derniere,t+(style==='lofi'&&temps_i%2?temps*.08:0),temps*(Math.random()<.3?2:1.1),{vol:style==='piano'?.16:.11,filtre:style==='piano'?2400:1600,sortie:sec}); }
-    if(style==='lofi'){ // batterie feutrée, charleston en croches avec swing
-      if(temps_i===0||temps_i===2) percussion('kick',t,master); if(temps_i===1||temps_i===3) percussion('caisse',t,master);
+      note(derniere+transpo,t+(style==='lofi'&&temps_i%2?temps*.08:0),temps*(Math.random()<.3?2:1.1),{vol:style==='piano'?.16:.11,filtre:style==='piano'?2400:1600,sortie:sec}); }
+    if(style==='lofi'&&batterie){ // batterie feutrée, charleston en croches avec swing
+      if(temps_i===0||(temps_i===2&&Math.random()<.85)) percussion('kick',t,master);
+      if(temps_i===1||temps_i===3) percussion('caisse',t,master);
+      if(temps_i===3&&Math.random()<.12) percussion('caisse',t+temps*.5,master);   // petite relance
       percussion('hat',t,master); percussion(Math.random()<.15?'hatO':'hat',t+temps*.56,master);
     }
     temps_i=(temps_i+1)%4; if(temps_i===0) mesure++; prochain+=temps;
@@ -88,9 +156,81 @@ function pluie(){
 }
 function brun(){ const s=ctx.createBufferSource(); s.buffer=bruit(8,'brun'); s.loop=true; const f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=380; const g=ctx.createGain(); g.gain.value=.5; s.connect(f); f.connect(g); g.connect(master); s.start(); return {stop(){ try{ s.stop(); }catch(e){} }}; }
 
+/* Bruit rose : entre le blanc, sifflant, et le brun, sourd. C'est le souffle le plus
+   souvent cité pour l'attention. Le filtre dérive très lentement pour que la boucle du
+   tampon ne s'entende pas comme une texture qui revient. */
+function rose(){ const s=ctx.createBufferSource(); s.buffer=bruit(12,'rose'); s.loop=true;
+  const f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=2600; f.Q.value=.3;
+  const g=ctx.createGain(); g.gain.value=.58;
+  const lfo=ctx.createOscillator(), lg=ctx.createGain(); lfo.frequency.value=.013; lg.gain.value=700; lfo.connect(lg); lg.connect(f.frequency);
+  s.connect(f); f.connect(g); g.connect(master); s.start(); lfo.start();
+  return {stop(){ [s,lfo].forEach(x=>{ try{ x.stop(); }catch(e){} }); }}; }
+
+/* Vagues : trois oscillations lentes de périodes volontairement incommensurables, pour
+   que le ressac ne revienne jamais au même point, plus le souffle d'une vague qui casse
+   de loin en loin. */
+function vagues(){
+  const s=ctx.createBufferSource(); s.buffer=bruitBlanc; s.loop=true;
+  const f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=700; f.Q.value=.4;
+  const g=ctx.createGain(); g.gain.value=.22;
+  const fond=ctx.createBufferSource(); fond.buffer=bruit(8,'brun'); fond.loop=true;
+  const ff=ctx.createBiquadFilter(); ff.type='lowpass'; ff.frequency.value=160; const fg=ctx.createGain(); fg.gain.value=.38;
+  s.connect(f); f.connect(g); g.connect(master); fond.connect(ff); ff.connect(fg); fg.connect(master);
+  const lfos=[[.055,.075,520],[.031,.05,300],[.0173,.03,170]].map(function(c){
+    const o=ctx.createOscillator(), a=ctx.createGain(), b=ctx.createGain();
+    o.frequency.value=c[0]; a.gain.value=c[1]; b.gain.value=c[2];
+    o.connect(a); a.connect(g.gain); o.connect(b); b.connect(f.frequency); o.start(); return o; });
+  s.start(); fond.start();
+  const casse=setInterval(function(){ if(Math.random()>.35) return;   // une vague qui se brise
+    const t=ctx.currentTime, v=ctx.createBufferSource(); v.buffer=bruitBlanc;
+    const vf=ctx.createBiquadFilter(); vf.type='bandpass'; vf.frequency.value=900+Math.random()*1400; vf.Q.value=.5;
+    const vg=ctx.createGain(); const d=2.5+Math.random()*2.5;
+    vg.gain.setValueAtTime(.0005,t); vg.gain.linearRampToValueAtTime(.09+Math.random()*.05,t+d*.35); vg.gain.exponentialRampToValueAtTime(.0005,t+d);
+    v.connect(vf); vf.connect(vg); vg.connect(master); v.start(t); v.stop(t+d+.1); },4000);
+  return {stop(){ clearInterval(casse); [s,fond].concat(lfos).forEach(x=>{ try{ x.stop(); }catch(e){} }); }}; }
+
+/* Feu de bois : un souffle grave, et des crépitements qui arrivent par petites rafales
+   plutôt qu'à intervalle régulier — c'est l'irrégularité qui fait le feu. */
+function feu(){
+  const s=ctx.createBufferSource(); s.buffer=bruit(10,'brun'); s.loop=true;
+  const f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=240; const g=ctx.createGain(); g.gain.value=.5;
+  const lfo=ctx.createOscillator(), lg=ctx.createGain(); lfo.frequency.value=.09; lg.gain.value=.08; lfo.connect(lg); lg.connect(g.gain);
+  s.connect(f); f.connect(g); g.connect(master); s.start(); lfo.start();
+  let rafale=0;
+  const crepite=setInterval(function(){
+    if(rafale<=0){ if(Math.random()<.3) rafale=1+Math.floor(Math.random()*5); else return; }
+    rafale--;
+    const t=ctx.currentTime+Math.random()*.08, c=ctx.createBufferSource(); c.buffer=bruitBlanc;
+    const cf=ctx.createBiquadFilter(); cf.type='bandpass'; cf.frequency.value=1200+Math.random()*4500; cf.Q.value=1.2+Math.random()*2;
+    const cg=ctx.createGain(); const d=.02+Math.random()*.06;
+    cg.gain.setValueAtTime(.07+Math.random()*.16,t); cg.gain.exponentialRampToValueAtTime(.0005,t+d);
+    c.connect(cf); cf.connect(cg); cg.connect(master); c.start(t); c.stop(t+d+.05); },110);
+  return {stop(){ clearInterval(crepite); [s,lfo].forEach(x=>{ try{ x.stop(); }catch(e){} }); }}; }
+
+/* Nappes : des accords très longs qui se fondent les uns dans les autres. Ni rythme ni
+   mélodie — pour qui est distrait par l'un comme par l'autre. La suite d'accords ne se
+   répète pas : on avance d'un ou deux crans au hasard dans une boucle de six. */
+function nappes(){
+  const rev=reverb(4.5), revG=ctx.createGain(); revG.gain.value=.85; rev.connect(revG); revG.connect(master);
+  const sec=ctx.createGain(); sec.gain.value=.85; sec.connect(master); sec.connect(rev);
+  const ACCORDS=[[48,55,62,64],[45,52,59,64],[41,48,55,60],[43,50,57,62],[50,57,64,69],[40,47,55,59]];
+  let i=Math.floor(Math.random()*ACCORDS.length), transpo=0, timer=null, vivant=true;
+  function poser(){
+    const t=ctx.currentTime+.05, duree=15+Math.random()*8, acc=ACCORDS[i];
+    acc.forEach(function(m,k){ note(m+transpo,t+k*.7,duree,{type:'sine',vol:.085,filtre:800+Math.random()*600,harm:.45,detune:2.004,attaque:3.5+Math.random()*2,sortie:sec}); });
+    if(Math.random()<.5) note(acc[acc.length-1]+12+transpo,t+2,duree*.7,{vol:.03,filtre:2800,attaque:4,sortie:sec});
+    i=(i+1+Math.floor(Math.random()*2))%ACCORDS.length;
+    if(Math.random()<.25) transpo=[0,0,0,-2,2,3,-5][Math.floor(Math.random()*7)];
+    return duree;
+  }
+  (function boucle(){ if(!vivant) return; const d=poser(); timer=setTimeout(boucle,d*620); })();
+  return {stop(){ vivant=false; clearTimeout(timer); setTimeout(function(){ try{ sec.disconnect(); revG.disconnect(); }catch(e){} },8000); }}; }
+
 function demarrer(){ if(!contexte()) return false; if(!bruitBlanc) bruitBlanc=bruit(4,'blanc'); arreterMoteur();
   if(etat.ambiance==='silence') return true;
-  courant= etat.ambiance==='pluie'?pluie() : etat.ambiance==='brun'?brun() : musicien(etat.ambiance); return true; }
+  const MOTEURS={pluie:pluie,vagues:vagues,feu:feu,rose:rose,brun:brun,nappes:nappes};
+  const f=MOTEURS[etat.ambiance];
+  courant= f ? f() : musicien(etat.ambiance); return true; }
 function arreterMoteur(){ if(courant){ courant.stop(); courant=null; } }
 
 /* ---------- lecture, pause, règles ---------- */
@@ -133,10 +273,12 @@ function peindre(){
   bouton.setAttribute('aria-label','Musique de concentration : '+e.textContent);
   if(panneau.hidden) return;
   panneau.innerHTML='<h3>Musique de concentration</h3>'+
-    '<div class="ambiances" role="group" aria-label="Ambiance">'+AMBIANCES.map(a=>'<button type="button" class="puce" data-ambiance="'+a[0]+'" aria-pressed="'+(etat.ambiance===a[0])+'" title="'+a[2]+'">'+a[1]+'</button>').join('')+'</div>'+
+    GROUPES.map(g=>'<div class="groupe-amb" role="group" aria-label="'+(g[0]||'Ambiance')+'">'+
+        (g[0]?'<span class="etiq-amb">'+g[0]+'</span>':'')+
+        '<div class="ambiances">'+g[1].map(a=>'<button type="button" class="puce" data-ambiance="'+a[0]+'" aria-pressed="'+(etat.ambiance===a[0])+'" title="'+a[2]+'">'+a[1]+'</button>').join('')+'</div></div>').join('')+
     '<div class="ligne"><button type="button" class="btn" data-lecture>'+(etat.joue?'⏸ Couper':'▶ Écouter')+'</button><label><span class="sr">Volume</span><span aria-hidden="true">🔈</span><input type="range" min="0" max="1" step="0.05" value="'+etat.volume+'" data-volume aria-label="Volume"></label></div>'+
     '<div class="ligne"><label class="interrupteur"><input type="checkbox" data-minuteur'+(M().actif?' checked':'')+'><span class="piste" aria-hidden="true"></span>Minuteur 25 / 5</label><span class="minuteur-aff" aria-live="off"></span></div>'+
-    '<p class="discret">Ambiances générées par ton navigateur, sans paroles. Coupée par défaut, elle ne démarre jamais seule et se tait pendant une vidéo ou un contrôle blanc. Ton réglage reste sur cet appareil.</p>';
+    '<p class="discret">Ambiances générées par ton navigateur, sans paroles : elles ne se répètent jamais à l\'identique. Coupée par défaut, la musique ne démarre jamais seule et se tait pendant une vidéo ou un contrôle blanc. Ton réglage reste sur cet appareil.</p>';
   peindreMinuteur();
 }
 function nomAmbiance(){ const a=AMBIANCES.find(x=>x[0]===etat.ambiance); return a?a[1]:''; }

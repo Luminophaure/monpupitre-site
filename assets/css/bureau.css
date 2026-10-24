@@ -150,6 +150,9 @@ details.mat[open] > summary::after{transform:rotate(90deg);color:var(--sur-accen
 .pastille-musique .bouton-coin.joue .etat{color:var(--jaune-ink)}
 #panneau-musique{position:absolute;right:0;bottom:calc(100% + 10px);width:min(300px,calc(100vw - 28px));background:var(--card);border-radius:var(--r-l);box-shadow:var(--ombre-forte);padding:var(--e-4);display:grid;gap:10px;font-size:var(--t-s)}
 #panneau-musique h3{font-size:var(--t-m)}
+#panneau-musique{max-height:min(74vh,560px);overflow:auto;overscroll-behavior:contain}
+#panneau-musique .groupe-amb{display:grid;gap:5px}
+#panneau-musique .etiq-amb{font-size:var(--t-xs);font-weight:700;color:var(--muted);letter-spacing:.03em}
 #panneau-musique .ambiances{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 #panneau-musique .ambiances button{min-height:40px;padding:0 10px;font-size:var(--t-xs)}
 #panneau-musique .ligne{justify-content:space-between}
