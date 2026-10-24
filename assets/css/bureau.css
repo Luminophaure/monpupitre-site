@@ -141,6 +141,51 @@ details.mat[open] > summary::after{transform:rotate(90deg);color:var(--sur-accen
   body[data-coque] .scene,body[data-coque] .accueil-tete{padding-block:36px 140px}
 }
 
+/* ---------- Le bureau dessiné : la scène derrière tout, les objets dans les marges ----------
+   Construit par bureau.js (fondBureau) à partir de assets/js/fond-bureau.js, quand « Le décor
+   illustré » n'est pas masqué dans Personnalisation ; sinon le fond reste le bois uni d'avant.
+   Les variables sont posées par bureau.js à chaque redimensionnement :
+     --fb-s        l'échelle de la scène (viewBox 1280×900 → écran, en « slice »)
+     --fb-ox       le décalage horizontal du viewBox dans l'écran (négatif sur un téléphone)
+     --fb-jonction la jonction mur / plateau, en pixels d'écran
+     --fb-haut     ce qu'il faut pousser le contenu pour qu'il commence sous la fenêtre
+     --fb-marge    la marge libre de chaque côté du contenu, --fb-k l'échelle des objets
+   Les objets ne s'affichent que si la marge suffit (body[data-fb-objets]) ; sinon les
+   pastilles du coin bas droit continuent de rendre le service. */
+body[data-fond="bureau"]{--largeur-bureau:1280px}
+.fond-bureau{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fond-bureau .fb-scene{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(100vw,142vh);height:100vh;overflow:visible;display:block}
+.fb-fenetre{position:absolute;left:calc(var(--fb-ox,0px) + 313px * var(--fb-s,1));top:calc(34px * var(--fb-s,1));width:calc(547px * var(--fb-s,1));height:calc(228px * var(--fb-s,1));background:var(--scene) no-repeat center bottom/100% 100%}
+.fb-lumiere{position:absolute;right:0;top:calc(var(--fb-jonction,268px) - 120px * var(--fb-k,1));width:calc(720px * var(--fb-k,1));pointer-events:none}
+.fb-objet{position:absolute;pointer-events:auto;border:0;background:none;padding:0;margin:0;cursor:pointer;display:block;line-height:0;color:inherit;font:inherit}
+.fb-objet[data-objet="pot"],.fb-objet[data-objet="plante"]{cursor:default}
+.fb-objet .fb-dessin,.fb-lumiere .fb-dessin{width:100%;height:auto;display:block;overflow:visible}
+.fb-objet:focus-visible{outline-offset:8px;border-radius:40px}
+.fb-objet[data-objet="lampe"]{right:0;top:calc(var(--fb-jonction,268px) - 120px * var(--fb-k,1));width:calc(300px * var(--fb-k,1))}
+.fb-objet[data-objet="tasse"]{right:calc(var(--fb-marge,300px) * .3);top:50vh;width:calc(160px * var(--fb-k,1))}
+.fb-objet[data-objet="casque"]{right:calc(var(--fb-marge,300px) * .1);bottom:120px;width:calc(240px * var(--fb-k,1))}
+.fb-objet[data-objet="pot"]{left:calc(var(--fb-marge,300px) * .4);top:calc(var(--fb-jonction,268px) - 20px * var(--fb-k,1));width:calc(120px * var(--fb-k,1))}
+.fb-objet[data-objet="livres"]{left:calc(var(--fb-marge,300px) * .1);top:50vh;width:calc(200px * var(--fb-k,1))}
+.fb-objet[data-objet="plante"]{left:calc(var(--fb-marge,300px) * .05);bottom:24px;width:calc(280px * var(--fb-k,1))}
+body:not([data-fb-objets]) :is(.fb-objet,.fb-lumiere){display:none}
+.fb-objet:hover .fb-dessin{transform:translateY(-2px);transition:transform .15s}
+/* quand les objets servent, les pastilles du coin s'effacent (le panneau musique reste ancré là) */
+body[data-fb-objets] .coin .bouton-coin{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}
+/* le contenu commence sous la fenêtre, et le bureau se tient au-dessus de la scène */
+body[data-fond="bureau"] .bureau{position:relative;z-index:1;padding-top:var(--fb-haut,var(--e-5))}
+body[data-fond="bureau"] .pied{position:relative;z-index:1}
+/* le sous-main en cuir sous la feuille (la colonne du classeur reste posée sur le bois) */
+body[data-fond="bureau"] .zone{position:relative}
+body[data-fond="bureau"] .zone::before{content:"";position:absolute;left:-14px;right:-14px;top:-18px;bottom:-60px;z-index:-1;background:linear-gradient(180deg,var(--fb-sousmain),var(--fb-sousmain-b));clip-path:polygon(1.5% 0,98.5% 0,100% 100%,0 100%);border-radius:14px 14px 0 0;box-shadow:inset 0 0 0 2px rgba(0,0,0,.12)}
+@media (max-width:999px){ body[data-fond="bureau"] .zone::before{left:-10px;right:-10px} }
+/* la fenêtre en arche n'est plus dans la zone : elle est au mur. L'en-tête devient la
+   première page du classeur, en crème. */
+body[data-fond="bureau"] .zone > :is(.scene,.accueil-tete){background:var(--feuille);min-height:0;padding-block:40px 56px;box-shadow:var(--ombre)}
+body[data-fond="bureau"] .zone > :is(.scene,.accueil-tete)::after{display:none}
+@media (max-width:600px){ body[data-fond="bureau"] .zone > .scene{padding-block:32px 40px} body[data-fond="bureau"] .zone > .accueil-tete{padding-block:32px 130px} }   /* l'avatar est posé en bas à droite de l'accueil */
+/* sur un petit écran, pas de grain ni de tremblé : deux filtres plein écran coûtent cher à un téléphone modeste */
+@media (max-width:700px){ .fb-scene [filter]{filter:none} .fb-scene [filter="url(#fb-grain)"]{display:none} }
+
 /* ---------- Coin bas droit : musique et pause ---------- */
 .coin{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:35;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .bouton-coin{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px 0 10px;border:0;border-radius:var(--r-pilule);background:var(--feuille);color:var(--ink);font:700 var(--t-xs) var(--f-body);box-shadow:var(--ombre-forte);cursor:pointer}

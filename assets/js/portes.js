@@ -203,7 +203,7 @@ function PlusLoin(body){ const m=body.querySelector('#ressources'); if(!m) retur
 function Aide(body){ if(location.hash==='#parler'){ const t=document.getElementById('parler'); if(t) setTimeout(()=>t.scrollIntoView({block:'start'}),100); } }
 
 /* ---------- 6. Mon compte ---------- */
-const MASQUABLES=[['decor','Le décor illustré'],['avatar','L\'avatar'],['succes','Les succès'],['musique','Le lecteur de musique'],['pause','Le rappel de pause'],['stats','Les statistiques (autonomie)'],['carnet','Le carnet des professeurs sur le bureau'],['porte-theme','Porte « Par thème »'],['porte-examen','Porte « Préparer l\'examen »'],['porte-carte','Porte « Carte des notions »'],['porte-labos','Porte « Labos et jeux »']];
+const MASQUABLES=[['decor','Le bureau dessiné (le décor illustré)'],['avatar','L\'avatar'],['succes','Les succès'],['musique','Le lecteur de musique'],['pause','Le rappel de pause'],['stats','Les statistiques (autonomie)'],['carnet','Le carnet des professeurs sur le bureau'],['porte-theme','Porte « Par thème »'],['porte-examen','Porte « Préparer l\'examen »'],['porte-carte','Porte « Carte des notions »'],['porte-labos','Porte « Labos et jeux »']];
 /* « Mes professeurs » : la liste des classes rejointes, et l'invitation portée par un lien
    compte.html?rejoindre=CODE&p=…&m=… (voir carnet.js). Sans serveur, c'est le lien qui dit
    qui est le professeur ; l'élève confirme, et rien ne se passe sans ce clic. */

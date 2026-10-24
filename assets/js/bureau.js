@@ -352,7 +352,59 @@ function coque(info,opts){
   if(ci) rappelDePause(ci);
   if(ci&&ci.querySelector('#pastille-musique')) chargerMusique();
   decorSuivant(decor);
+  fondBureau();
   return {role,zone,colonne:col};
+}
+
+/* -- le bureau dessiné : la scène derrière la page, les objets-commandes dans les marges --
+   Tout le dessin est dans assets/js/fond-bureau.js (fabriqué par outils/fond_bureau.py) ;
+   ici on le pose, on le mesure, et on branche les objets sur ce qui existe déjà :
+   la lampe bascule le thème, le casque ouvre le panneau musique de la pastille, la tasse
+   suit la pastille de pause, la pile de cahiers mène aux portes de la matière ouverte.
+   « Le décor illustré » décoché dans Personnalisation = pas de scène, le bois uni d'avant. */
+function fondBureau(){
+  if(Pupitre.masque('decor')){ document.body.classList.add('sans-decor'); return; }   // le bois uni d'avant, fenêtre en arche dans la zone
+  document.body.dataset.fond='bureau';
+  const s=document.createElement('script'); s.src=RACINE+'assets/js/fond-bureau.js'; s.defer=true;
+  s.onload=monterFond; document.head.appendChild(s);
+}
+function monterFond(){
+  const F=window.FOND_BUREAU; if(!F) return;
+  const body=document.body;
+  const f=document.createElement('div'); f.className='fond-bureau'; f.setAttribute('aria-hidden','true');
+  f.innerHTML=F.scene+'<div class="fb-fenetre"></div><div class="fb-lumiere">'+F.objets.lumiere+'</div>';
+  const objets=[['lampe','button','Thème clair ou sombre (la lampe)'],['tasse','button','Rappel de pause (la tasse)'],['casque','button','Musique de concentration (le casque)'],
+                ['pot','div',''],['livres','a','Les portes d\'entrée de ma matière (la pile de cahiers)'],['plante','div','']];
+  objets.forEach(([nom,tag,label])=>{ const el=document.createElement(tag); el.className='fb-objet'; el.dataset.objet=nom;
+    if(label){ el.setAttribute('aria-label',label); el.title=label; }
+    if(tag==='a') el.href=lien('matiere.html?m='+encodeURIComponent(lire('matiere-ouverte','maths')));
+    if(tag==='button') el.type='button';
+    el.innerHTML=F.objets[nom]; f.appendChild(el); });
+  body.insertBefore(f,body.firstChild);
+  f.querySelector('[data-objet="lampe"]').addEventListener('click',theme.basculer);
+  f.querySelector('[data-objet="casque"]').addEventListener('click',e=>{ e.stopPropagation();   // sinon le clic « hors panneau » le referme aussitôt
+    const b=document.querySelector('#pastille-musique button'); if(b) b.click(); else location.href=lien('personnalisation.html#musique'); });
+  const tasse=f.querySelector('[data-objet="tasse"]');
+  tasse.addEventListener('click',()=>{ const b=document.querySelector('#pastille-pause button'); if(b) b.click(); else location.href=lien('personnalisation.html#pause'); });
+  function etatTasse(){ const e=document.querySelector('#pastille-pause .etat'); if(e&&e.textContent){ tasse.title='Rappel de pause · '+e.textContent; tasse.setAttribute('aria-label',tasse.title); } }
+  etatTasse(); setInterval(etatTasse,30e3);
+  const js=Pupitre.joursSemaine().filter(j=>j.actif).length;
+  f.querySelector('[data-objet="plante"]').title=js+' jour'+(js>1?'s':'')+' actif'+(js>1?'s':'')+' cette semaine';
+  mesurerFond(); addEventListener('resize',mesurerFond);
+}
+function mesurerFond(){
+  const F=window.FOND_BUREAU; if(!F) return;
+  const vw=innerWidth, vh=innerHeight, r=document.documentElement.style;
+  const boite=Math.min(vw,vh*1.42);                      // la scène ne grossit pas avec un écran large
+  const s=Math.max(boite/F.largeur,vh/F.hauteur);        // « slice » : le plus grand des deux rapports
+  const ox=(vw-F.largeur*s)/2, jonction=F.jonction*s;
+  const bandeau=document.querySelector('.bandeau'); const hb=bandeau?bandeau.offsetHeight:58;
+  const haut=Math.max(24,Math.round(jonction-hb-12));
+  const bur=document.querySelector('.bureau'); const marge=bur?Math.max(0,(vw-bur.offsetWidth)/2+16):0;
+  const k=Math.min(1,Math.max(.6,marge/320));
+  r.setProperty('--fb-s',s.toFixed(4)); r.setProperty('--fb-ox',ox.toFixed(1)+'px'); r.setProperty('--fb-jonction',jonction.toFixed(1)+'px');
+  r.setProperty('--fb-haut',haut+'px'); r.setProperty('--fb-marge',Math.round(marge)+'px'); r.setProperty('--fb-k',k.toFixed(3));
+  if(marge>=220) document.body.dataset.fbObjets='1'; else delete document.body.dataset.fbObjets;
 }
 function decorHeure(){ const h=new Date().getHours(); return h<6?'ville':h<10?'montagne':h<18?'fenetre':h<21?'plage':'ville'; }
 function decorSuivant(d){ if(d!=='heure') return; setInterval(()=>{ document.body.dataset.decor=decorHeure(); },60e3); }

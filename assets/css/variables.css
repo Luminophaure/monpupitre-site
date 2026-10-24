@@ -24,6 +24,22 @@
   --scene:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 300' preserveAspectRatio='xMaxYMax meet'%3E %3Cdefs%3E%3CclipPath id='a'%3E%3Cpath d='M240 300 V150 a190 190 0 0 1 380 0 V300 z'/%3E%3C/clipPath%3E%3C/defs%3E %3Cpath d='M220 300 V150 a210 210 0 0 1 420 0 V300 z' fill='%23E8A963'/%3E %3Cg clip-path='url(%23a)'%3E%3Crect x='240' y='-40' width='380' height='340' fill='%237EC4EA'/%3E%3Crect x='240' y='180' width='380' height='120' fill='%23CDE7F0'/%3E %3Ccircle cx='320' cy='120' r='34' fill='%23FFF1C9'/%3E %3Crect x='240' y='200' width='66' height='110' rx='10' fill='%23F7DDB0'/%3E%3Crect x='300' y='160' width='70' height='150' rx='12' fill='%23FBE8C4'/%3E%3Crect x='364' y='190' width='80' height='120' rx='10' fill='%23F2CF98'/%3E%3Crect x='436' y='140' width='70' height='170' rx='14' fill='%23FBE8C4'/%3E%3Crect x='500' y='210' width='120' height='100' rx='10' fill='%23F7DDB0'/%3E %3Crect x='424' y='0' width='12' height='300' fill='%23E8A963'/%3E%3C/g%3E %3Cpolygon points='250,40 420,40 0,300 -300,300' fill='%23FFF3D1' opacity='0.3'/%3E %3Crect x='160' y='270' width='560' height='18' rx='9' fill='%23D88F4C'/%3E %3Crect x='190' y='242' width='96' height='14' rx='4' fill='%232B5BD7'/%3E%3Crect x='198' y='228' width='84' height='14' rx='4' fill='%23C4186A'/%3E%3Crect x='194' y='256' width='104' height='14' rx='4' fill='%23FFD166'/%3E %3Crect x='530' y='232' width='64' height='40' rx='12' fill='%236C7BFF'/%3E%3Ccircle cx='546' cy='218' r='16' fill='%23FFB547'/%3E%3Ccircle cx='570' cy='212' r='20' fill='%23FF8F3A'/%3E %3Cellipse cx='672' cy='230' rx='30' ry='80' fill='%233E8E5B' transform='rotate(-14 672 230)'/%3E%3Cellipse cx='702' cy='256' rx='24' ry='62' fill='%234FA36B' transform='rotate(18 702 256)'/%3E %3C/svg%3E");
   --scene-fenetre:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 300' preserveAspectRatio='xMaxYMax meet'%3E %3Cdefs%3E%3CclipPath id='a'%3E%3Cpath d='M240 300 V150 a190 190 0 0 1 380 0 V300 z'/%3E%3C/clipPath%3E%3C/defs%3E %3Cpath d='M220 300 V150 a210 210 0 0 1 420 0 V300 z' fill='%23E8A963'/%3E %3Cg clip-path='url(%23a)'%3E%3Crect x='240' y='-40' width='380' height='340' fill='%237EC4EA'/%3E%3Crect x='240' y='180' width='380' height='120' fill='%23CDE7F0'/%3E %3Ccircle cx='320' cy='120' r='34' fill='%23FFF1C9'/%3E %3Crect x='240' y='200' width='66' height='110' rx='10' fill='%23F7DDB0'/%3E%3Crect x='300' y='160' width='70' height='150' rx='12' fill='%23FBE8C4'/%3E%3Crect x='364' y='190' width='80' height='120' rx='10' fill='%23F2CF98'/%3E%3Crect x='436' y='140' width='70' height='170' rx='14' fill='%23FBE8C4'/%3E%3Crect x='500' y='210' width='120' height='100' rx='10' fill='%23F7DDB0'/%3E %3Crect x='424' y='0' width='12' height='300' fill='%23E8A963'/%3E%3C/g%3E %3Cpolygon points='250,40 420,40 0,300 -300,300' fill='%23FFF3D1' opacity='0.3'/%3E %3Crect x='160' y='270' width='560' height='18' rx='9' fill='%23D88F4C'/%3E %3Crect x='190' y='242' width='96' height='14' rx='4' fill='%232B5BD7'/%3E%3Crect x='198' y='228' width='84' height='14' rx='4' fill='%23C4186A'/%3E%3Crect x='194' y='256' width='104' height='14' rx='4' fill='%23FFD166'/%3E %3Crect x='530' y='232' width='64' height='40' rx='12' fill='%236C7BFF'/%3E%3Ccircle cx='546' cy='218' r='16' fill='%23FFB547'/%3E%3Ccircle cx='570' cy='212' r='20' fill='%23FF8F3A'/%3E %3Cellipse cx='672' cy='230' rx='30' ry='80' fill='%233E8E5B' transform='rotate(-14 672 230)'/%3E%3Cellipse cx='702' cy='256' rx='24' ry='62' fill='%234FA36B' transform='rotate(18 702 256)'/%3E %3C/svg%3E");
 
+  /* --- le bureau dessiné (assets/js/fond-bureau.js, fabriqué par outils/fond_bureau.py) ---
+     Le mur, le plateau, les objets : tout passe par ces jetons, en clair ici et en sombre
+     plus bas, pour que la nuit tombe sur le bureau avec le thème. */
+  --fb-mur-h:#F0E4CE; --fb-mur-b:#E2CFAE; --fb-mur-bas:#D9C4A0; --fb-moulure:#C9B28C; --fb-halo:#FFF6DF; --fb-halo-op:.7;
+  --fb-plateau-h:#CB975F; --fb-plateau-b:#A97845; --fb-chant:#DDAE74; --fb-fil:#7E5329;
+  --fb-sousmain:#E3D4B6; --fb-sousmain-b:#D6C4A2; --fb-couture:#B9A27C;   /* clair le jour : des titres se posent dessus */
+  --fb-etagere:#8E5A2E; --fb-etagere-ombre:#6B4220;
+  --fb-livre-1:#3B5BA5; --fb-livre-2:#B8386A; --fb-livre-3:#E8B94A; --fb-livre-4:#EADFC6; --fb-livre-5:#2E6B4A; --fb-livre-6:#D8884A;
+  --fb-lampe-pied:#2E2A28; --fb-lampe-pied-h:#5A5450; --fb-abatjour:#2F4A3A; --fb-abatjour-h:#4C6E5B; --fb-ampoule:#E6DCC4; --fb-ampoule-reflet:.25;
+  --fb-pool:#FFD98A; --fb-pool-op:.10; --fb-cone-op:0; --fb-rai-op:.16;
+  --fb-ombre:#4A2238; --fb-ombre-op:.26; --fb-grain-op:.3; --fb-gradage-mode:soft-light; --fb-vignette-op:.22;
+  --fb-tasse:#F4E7D0; --fb-tasse-o:#D9C3A0; --fb-cafe:#4A2E1C; --fb-cafe-h:#6A4530;
+  --fb-pot:#E9D6B5; --fb-pot-o:#C9AE86; --fb-terre:#4B3220; --fb-terrecuite:#C8703E; --fb-terrecuite-o:#A4552B;
+  --fb-feuille-1:#2F7A4C; --fb-feuille-2:#3F9A5E; --fb-feuille-3:#5BB474;
+  --fb-casque:#1D1A18; --fb-casque-h:#3A3532; --fb-coussin:#3B5BA5;
+
   /* --- surfaces et texte --- */
   --feuille:#FFF8EC;     /* la page du classeur */
   --card:#FFFFFF;        /* une carte posée sur la feuille */
@@ -103,6 +119,17 @@
   --b-meth:#5FD0D8; --b-meth-bg:#13302F; --b-piege:#FF8F86; --b-piege-bg:#3D1D19;
   --b-ex:#F2C063; --b-ex-bg:#3A2A10; --b-rq:#D2B597; --b-rq-bg:#2E2117;
   --ombre:0 10px 24px rgba(0,0,0,.35); --ombre-forte:0 30px 60px rgba(0,0,0,.55);
+  --fb-mur-h:#33200F; --fb-mur-b:#1F1208; --fb-mur-bas:#1A0E06; --fb-moulure:#3A2416; --fb-halo:#4A2C18; --fb-halo-op:.35;
+  --fb-plateau-h:#3A2416; --fb-plateau-b:#24150B; --fb-chant:#4A2C18; --fb-fil:#120A05;
+  --fb-sousmain:#1C3526; --fb-sousmain-b:#12261A; --fb-couture:#2E5A40;
+  --fb-etagere:#4A2C18; --fb-etagere-ombre:#2B1A10;
+  --fb-lampe-pied:#1A1715; --fb-lampe-pied-h:#3A3532; --fb-abatjour:#243A2E; --fb-abatjour-h:#36544A; --fb-ampoule:#FFF4C4; --fb-ampoule-reflet:.8;
+  --fb-pool:#FFD166; --fb-pool-op:.55; --fb-cone-op:.28; --fb-rai-op:0;
+  --fb-ombre:#120A1A; --fb-ombre-op:.5; --fb-grain-op:.16; --fb-gradage-mode:screen; --fb-vignette-op:.5;
+  --fb-tasse:#C9B596; --fb-tasse-o:#A48E6C; --fb-cafe:#2A1A0E; --fb-cafe-h:#4A3020;
+  --fb-pot:#C9B596; --fb-pot-o:#A48E6C; --fb-terre:#2A1A0E; --fb-terrecuite:#8A4A28; --fb-terrecuite-o:#6A361C;
+  --fb-feuille-1:#235B3A; --fb-feuille-2:#2F7A4C; --fb-feuille-3:#3F9A5E;
+  --fb-casque:#15120F; --fb-casque-h:#2A2522; --fb-coussin:#8DAEFF;
   color-scheme:dark;
 }
 
