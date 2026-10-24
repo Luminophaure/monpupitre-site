@@ -30,15 +30,19 @@
   --fb-mur-h:#F0E4CE; --fb-mur-b:#E2CFAE; --fb-mur-bas:#D9C4A0; --fb-moulure:#C9B28C; --fb-halo:#FFF6DF; --fb-halo-op:.7;
   --fb-plateau-h:#CB975F; --fb-plateau-b:#A97845; --fb-chant:#DDAE74; --fb-fil:#7E5329;
   --fb-sousmain:#E3D4B6; --fb-sousmain-b:#D6C4A2; --fb-couture:#B9A27C;   /* clair le jour : des titres se posent dessus */
-  --fb-etagere:#8E5A2E; --fb-etagere-ombre:#6B4220;
-  --fb-livre-1:#3B5BA5; --fb-livre-2:#B8386A; --fb-livre-3:#E8B94A; --fb-livre-4:#EADFC6; --fb-livre-5:#2E6B4A; --fb-livre-6:#D8884A;
-  --fb-lampe-pied:#2E2A28; --fb-lampe-pied-h:#5A5450; --fb-abatjour:#2F4A3A; --fb-abatjour-h:#4C6E5B; --fb-ampoule:#E6DCC4; --fb-ampoule-reflet:.25;
+  /* Les jetons que l'élève peut changer dans Personnalisation passent par un choix
+     (--fb-…-jour / --fb-…-nuit, ou --fb-…-choix), posé sur :root par bureau.js ; sans
+     choix, la valeur de repli est celle du site. Même mécanique dans le bloc sombre. */
+  --fb-etagere:var(--fb-etagere-jour,#8E5A2E); --fb-etagere-ombre:var(--fb-etagere-ombre-jour,#6B4220);
+  --fb-livre-1:var(--fb-livre-1-choix,#3B5BA5); --fb-livre-2:var(--fb-livre-2-choix,#B8386A); --fb-livre-3:var(--fb-livre-3-choix,#E8B94A); --fb-livre-4:var(--fb-livre-4-choix,#EADFC6); --fb-livre-5:var(--fb-livre-5-choix,#2E6B4A); --fb-livre-6:var(--fb-livre-6-choix,#D8884A);
+  --fb-crayon-1:var(--fb-crayon-1-choix,#E8B94A); --fb-crayon-2:var(--fb-crayon-2-choix,#3B5BA5); --fb-crayon-3:var(--fb-crayon-3-choix,#B8386A); --fb-crayon-4:var(--fb-crayon-4-choix,#EADFC6);
+  --fb-lampe-pied:#2E2A28; --fb-lampe-pied-h:#5A5450; --fb-abatjour:var(--fb-abatjour-jour,#2F4A3A); --fb-abatjour-h:var(--fb-abatjour-h-jour,#4C6E5B); --fb-ampoule:#E6DCC4; --fb-ampoule-reflet:.25;
   --fb-pool:#FFD98A; --fb-pool-op:.10; --fb-cone-op:0; --fb-rai-op:.16;
   --fb-ombre:#4A2238; --fb-ombre-op:.26; --fb-grain-op:.3; --fb-gradage-mode:soft-light; --fb-vignette-op:.22;
-  --fb-tasse:#F4E7D0; --fb-tasse-o:#D9C3A0; --fb-cafe:#4A2E1C; --fb-cafe-h:#6A4530;
-  --fb-pot:#E9D6B5; --fb-pot-o:#C9AE86; --fb-terre:#4B3220; --fb-terrecuite:#C8703E; --fb-terrecuite-o:#A4552B;
+  --fb-tasse:var(--fb-tasse-jour,#F4E7D0); --fb-tasse-o:var(--fb-tasse-o-jour,#D9C3A0); --fb-cafe:#4A2E1C; --fb-cafe-h:#6A4530;
+  --fb-pot:var(--fb-pot-jour,#E9D6B5); --fb-pot-o:var(--fb-pot-o-jour,#C9AE86); --fb-terre:#4B3220; --fb-terrecuite:#C8703E; --fb-terrecuite-o:#A4552B;
   --fb-feuille-1:#2F7A4C; --fb-feuille-2:#3F9A5E; --fb-feuille-3:#5BB474;
-  --fb-casque:#1D1A18; --fb-casque-h:#3A3532; --fb-coussin:#3B5BA5;
+  --fb-casque:#1D1A18; --fb-casque-h:#3A3532; --fb-coussin:var(--fb-coussin-jour,#3B5BA5);
 
   /* --- surfaces et texte --- */
   --feuille:#FFF8EC;     /* la page du classeur */
@@ -122,14 +126,14 @@
   --fb-mur-h:#33200F; --fb-mur-b:#1F1208; --fb-mur-bas:#1A0E06; --fb-moulure:#3A2416; --fb-halo:#4A2C18; --fb-halo-op:.35;
   --fb-plateau-h:#3A2416; --fb-plateau-b:#24150B; --fb-chant:#4A2C18; --fb-fil:#120A05;
   --fb-sousmain:#1C3526; --fb-sousmain-b:#12261A; --fb-couture:#2E5A40;
-  --fb-etagere:#4A2C18; --fb-etagere-ombre:#2B1A10;
-  --fb-lampe-pied:#1A1715; --fb-lampe-pied-h:#3A3532; --fb-abatjour:#243A2E; --fb-abatjour-h:#36544A; --fb-ampoule:#FFF4C4; --fb-ampoule-reflet:.8;
+  --fb-etagere:var(--fb-etagere-nuit,#4A2C18); --fb-etagere-ombre:var(--fb-etagere-ombre-nuit,#2B1A10);
+  --fb-lampe-pied:#1A1715; --fb-lampe-pied-h:#3A3532; --fb-abatjour:var(--fb-abatjour-nuit,#243A2E); --fb-abatjour-h:var(--fb-abatjour-h-nuit,#36544A); --fb-ampoule:#FFF4C4; --fb-ampoule-reflet:.8;
   --fb-pool:#FFD166; --fb-pool-op:.55; --fb-cone-op:.28; --fb-rai-op:0;
   --fb-ombre:#120A1A; --fb-ombre-op:.5; --fb-grain-op:.16; --fb-gradage-mode:screen; --fb-vignette-op:.5;
-  --fb-tasse:#C9B596; --fb-tasse-o:#A48E6C; --fb-cafe:#2A1A0E; --fb-cafe-h:#4A3020;
-  --fb-pot:#C9B596; --fb-pot-o:#A48E6C; --fb-terre:#2A1A0E; --fb-terrecuite:#8A4A28; --fb-terrecuite-o:#6A361C;
+  --fb-tasse:var(--fb-tasse-nuit,#C9B596); --fb-tasse-o:var(--fb-tasse-o-nuit,#A48E6C); --fb-cafe:#2A1A0E; --fb-cafe-h:#4A3020;
+  --fb-pot:var(--fb-pot-nuit,#C9B596); --fb-pot-o:var(--fb-pot-o-nuit,#A48E6C); --fb-terre:#2A1A0E; --fb-terrecuite:#8A4A28; --fb-terrecuite-o:#6A361C;
   --fb-feuille-1:#235B3A; --fb-feuille-2:#2F7A4C; --fb-feuille-3:#3F9A5E;
-  --fb-casque:#15120F; --fb-casque-h:#2A2522; --fb-coussin:#8DAEFF;
+  --fb-casque:#15120F; --fb-casque-h:#2A2522; --fb-coussin:var(--fb-coussin-nuit,#8DAEFF);
   color-scheme:dark;
 }
 

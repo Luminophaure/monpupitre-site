@@ -259,6 +259,7 @@ function Personnalisation(body){ const p=P(), m=body.querySelector('#perso'); if
   const jours=p.lire('jours',[]).length, chapitresFinis=tousLesChapitres().filter(c=>p.pourcentage(c.id)>=100).length, labosPC=p.lire('parcours:diffraction-interferences',{}).explorer;
   const objets=[['🪴','La plante','pousse avec les semaines actives',jours>=3,'3 jours actifs'],['📚','Un livre par chapitre terminé','sur l\'étagère',chapitresFinis>=1,'un parcours à 100 %'],['🔬','Le microscope','après le premier labo de sciences',!!labosPC,'un labo de physique-chimie'],['💡','La lampe','après un mois de révisions espacées',false,'phase 4'],['🏅','La vitrine des succès','tes succès, visibles par toi seul',p.succes.liste().length>0,'un premier succès']];
   m.innerHTML='<section class="carte" id="decor"><span class="surtitre">Le décor</span><h2>Ton bureau, dans la lumière que tu veux</h2><p class="discret">Le décor ne change jamais le contenu. Ses versions de nuit servent de mode sombre naturel.</p><div class="decors">'+DECORS.map(d=>'<button type="button" class="decor-choix" data-decor="'+d[0]+'" aria-pressed="'+(decor===d[0])+'"><span class="apercu" data-decor="'+(d[0]==='heure'?B().decorHeure():d[0])+'" aria-hidden="true"></span><strong>'+echap(d[1])+'</strong><span class="discret">'+echap(d[2])+'</span></button>').join('')+'</div></section>'+
+    '<section class="carte" id="bureau"><span class="surtitre">Mon bureau</span><h2>Le bureau dessiné, à ta façon</h2><p class="discret">La vue, la lampe, le pot à crayons, la tasse, la plante, le casque, les étagères. Rien de tout cela ne change le contenu. Sur un grand écran, les objets servent : la lampe allume le thème sombre, le casque ouvre la musique, la tasse suit le rappel de pause.</p><div class="bureau-atelier" id="bureau-atelier"><p class="discret">Chargement du bureau…</p></div></section>'+
     '<section class="carte" id="avatar"><span class="surtitre">L\'avatar</span><h2>Te représenter, jamais une photo</h2><div class="avatar-atelier"><div class="grand" id="avatar-grand">'+B().avatarSVG(140)+'</div><div class="options">'+
       '<div><span class="discret">Peau</span><div class="pastilles" data-cle="peau">'+AVATAR.peau.map(c=>'<button type="button" style="background:'+c+'" data-v="'+c+'" aria-pressed="'+(av.peau===c)+'" aria-label="peau '+c+'"></button>').join('')+'</div></div>'+
       '<div><span class="discret">Cheveux</span><div class="pastilles" data-cle="cheveux">'+AVATAR.cheveux.map(c=>'<button type="button" style="background:'+c+'" data-v="'+c+'" aria-pressed="'+(av.cheveux===c)+'" aria-label="cheveux '+c+'"></button>').join('')+'</div></div>'+
@@ -269,15 +270,56 @@ function Personnalisation(body){ const p=P(), m=body.querySelector('#perso'); if
     '<section class="carte" id="musique"><span class="surtitre">L\'ambiance</span><h2>Musique de concentration</h2><p class="discret">Coupée par défaut, sans paroles, générée par ton navigateur. Le réglage reste sur cet appareil.</p><div class="bascule" data-cle="ambiance">'+[['lofi','Lo-fi'],['piano','Piano calme'],['pluie','Pluie'],['brun','Bruit brun'],['silence','Silence + minuteur']].map(a=>'<button type="button" data-v="'+a[0]+'" aria-pressed="'+(mus.ambiance===a[0])+'">'+a[1]+'</button>').join('')+'</div><label class="ligne" style="margin-top:8px"><span>Volume</span><input type="range" min="0" max="1" step="0.05" value="'+mus.volume+'" data-volume style="flex:1"></label></section>'+
     '<section class="carte" id="lecture"><span class="surtitre">La lecture du cours</span><h2>Les méthodes, repliées ou dépliées</h2><div class="reglages-liste"><div class="reglage"><div><strong>Déplier les méthodes d\'office</strong><small>Dans le cours, les blocs « Méthode » sont repliés pour alléger la lecture : on les ouvre quand on en a besoin. Coche pour les voir toujours ouverts.</small></div><label class="interrupteur"><input type="checkbox" data-methodes '+(p.lire('methodes','pliees')==='depliees'?'checked':'')+'><span class="piste" aria-hidden="true"></span><span class="sr">Déplier les méthodes d\'office</span></label></div><div class="reglage"><div><strong>Le code couleur des blocs</strong><small>Définition, propriété, méthode, piège, exemple, remarque : à quoi sert chaque couleur, et dans quel ordre aborder un chapitre.</small></div><a class="btn fantome" href="'+lien('lire-le-cours.html')+'">Lire le guide</a></div></div></section>'+
     '<section class="carte" id="pause"><span class="surtitre">Le rappel de pause</span><h2>S\'arrêter, pas rester connecté</h2><div class="reglages-liste"><div class="reglage"><div><strong>Rappel après 45 minutes</strong><small>Une carte propose cinq minutes loin de l\'écran. Elle ne bloque rien.</small></div><label class="interrupteur"><input type="checkbox" data-pause '+(pause.actif?'checked':'')+'><span class="piste" aria-hidden="true"></span><span class="sr">Rappel de pause</span></label></div><div class="reglage"><div><strong>Minuteur 25 / 5</strong><small>Des cycles de travail et de pause, depuis le lecteur de musique. Il remplace alors le rappel des 45 minutes.</small></div><span class="discret">dans le lecteur 🎧</span></div></div></section>';
+  atelierBureau(m.querySelector('#bureau-atelier'));
   function majAvatar(){ p.ecrire('avatar',av); m.querySelector('#avatar-grand').innerHTML=B().avatarSVG(140); document.querySelectorAll('.compte summary .avatar').forEach(a=>a.outerHTML=B().avatarSVG(30)); }
   m.addEventListener('click',e=>{
     const d=e.target.closest('[data-decor].decor-choix'); if(d){ p.ecrire('decor',d.dataset.decor); document.body.dataset.decor= d.dataset.decor==='heure'?B().decorHeure():d.dataset.decor; m.querySelectorAll('.decor-choix').forEach(x=>x.setAttribute('aria-pressed',x===d)); return; }
-    const b=e.target.closest('[data-v]'); if(!b) return; const g=b.closest('[data-cle]'); const cle=g.dataset.cle; g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    const bb=e.target.closest('[data-bureau] [data-v]'); if(bb){ const g=bb.closest('[data-bureau]'); g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===bb)); const maj={}; maj[g.dataset.bureau]=bb.dataset.v; B().bureau.rafraichir(maj); apercuBureau(m.querySelector('#apercu-bureau')); return; }
+    const b=e.target.closest('[data-v]'); if(!b) return; const g=b.closest('[data-cle]'); if(!g) return; const cle=g.dataset.cle; g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===b));
     if(cle==='ambiance'){ mus.ambiance=b.dataset.v; p.ecrire('musique',Object.assign(p.lire('musique',{}),{ambiance:mus.ambiance})); return; }
     av[cle]=b.dataset.v; majAvatar(); });
   m.addEventListener('input',e=>{ if(e.target.matches('[data-volume]')){ p.ecrire('musique',Object.assign(p.lire('musique',{}),{volume:+e.target.value})); } });
   m.addEventListener('change',e=>{ if(e.target.matches('[data-pause]')) p.ecrire('pause',{actif:e.target.checked,minutes:45}); if(e.target.matches('[data-methodes]')) p.ecrire('methodes',e.target.checked?'depliees':'pliees'); });
   if(location.hash){ const t=document.getElementById(location.hash.slice(1)); if(t) setTimeout(()=>t.scrollIntoView({block:'start'}),100); } }
+
+/* l'atelier du bureau : les choix, et un aperçu qui se redessine à chaque clic. Les listes
+   (vues, styles, palettes) viennent de fond-bureau.js, chargé ici s'il ne l'est pas encore
+   (le décor peut être masqué : on propose quand même les réglages, ils serviront). */
+function atelierBureau(el){ if(!el) return;
+  function construire(){ const F=window.FOND_BUREAU, r=B().bureau.reglages(), PAL=F.palettes;
+    const bascule=(cle,liste)=>'<div class="bascule" data-bureau="'+cle+'">'+liste.map(x=>'<button type="button" data-v="'+x[0]+'" aria-pressed="'+(r[cle]===x[0])+'">'+echap(x[1])+'</button>').join('')+'</div>';
+    const teintes=(cle,pal,champ)=>'<div class="pastilles" data-bureau="'+cle+'">'+Object.entries(pal).map(([k,d])=>'<button type="button" style="background:'+(d[champ]||d.base)[0]+'" data-v="'+k+'" aria-pressed="'+(r[cle]===k)+'" aria-label="'+echap(d.nom)+'" title="'+echap(d.nom)+'"></button>').join('')+'</div>';
+    const palettes=(cle,pal)=>'<div class="pastilles" data-bureau="'+cle+'">'+Object.entries(pal).map(([k,d])=>{ const n=d.tons.length, deg=d.tons.map((c,i)=>c+' '+(100*i/n).toFixed(0)+'% '+(100*(i+1)/n).toFixed(0)+'%').join(','); return '<button type="button" style="background:linear-gradient(90deg,'+deg+')" data-v="'+k+'" aria-pressed="'+(r[cle]===k)+'" aria-label="'+echap(d.nom)+'" title="'+echap(d.nom)+'"></button>'; }).join('')+'</div>';
+    el.innerHTML='<div class="apercu-bureau" id="apercu-bureau" aria-hidden="true"></div><div class="options">'+
+      '<div><span class="discret">La vue</span>'+bascule('vue',Object.entries(F.vues).map(([k,d])=>[k,d.nom]))+'</div>'+
+      '<div><span class="discret">La lampe</span>'+bascule('lampe',F.styles.lampe)+teintes('lampeCouleur',PAL.lampe)+'</div>'+
+      '<div><span class="discret">Le pot à crayons</span>'+bascule('pot',F.styles.pot)+teintes('potCouleur',PAL.pot)+'</div>'+
+      '<div><span class="discret">Les crayons</span>'+palettes('crayons',PAL.crayons)+'</div>'+
+      '<div><span class="discret">La tasse</span>'+teintes('tasse',PAL.tasse)+'</div>'+
+      '<div><span class="discret">La plante</span>'+bascule('plante',F.styles.plante)+'</div>'+
+      '<div><span class="discret">Le casque</span>'+teintes('casque',PAL.casque)+'</div>'+
+      '<div><span class="discret">Les étagères</span>'+bascule('etagere',F.styles.etagere)+teintes('bois',PAL.bois)+'</div>'+
+      '<div><span class="discret">Les livres des étagères</span>'+palettes('livres',PAL.livres)+'</div>'+
+      '<div><button type="button" class="btn fantome petit" data-bureau-defaut>Revenir au bureau d\'origine</button></div></div>'+
+      (P().masque('decor')?'<p class="discret pleine-largeur">Le bureau dessiné est masqué (voir « Affichage » plus bas) : ces choix s\'appliqueront quand tu le réafficheras.</p>':'');
+    apercuBureau(el.querySelector('#apercu-bureau'));
+    el.querySelector('[data-bureau-defaut]').addEventListener('click',()=>{ P().ecrire('bureau',{}); B().bureau.rafraichir(); construire(); }); }
+  if(window.FOND_BUREAU) construire();
+  else { const s=document.createElement('script'); s.src=lien('assets/js/fond-bureau.js'); s.onload=construire; document.head.appendChild(s); } }
+/* l'aperçu : la scène de la vue choisie, une feuille pour figurer le classeur, et les objets
+   aux places qu'ils ont sur un grand écran. Les couleurs suivent les jetons, donc le thème. */
+function apercuBureau(el){ const F=window.FOND_BUREAU; if(!el||!F) return;
+  const r=B().bureau.reglages(), G=F.vues[r.vue]||F.vues.douce, J=G.jonction, fk=G.fk;
+  const pc=(x,tot)=>(100*x/tot).toFixed(2)+'%';
+  const dessin=nom=>{ const o=F.objets[nom]; return typeof o==='string'?o:(o[r[nom]]||Object.values(o)[0]); };
+  const obj=(nom,style)=>'<div class="ap-obj" data-objet="'+nom+'" style="'+style+'">'+dessin(nom)+'</div>';
+  el.innerHTML=(F.scenes[r.vue]||F.scenes.douce)+
+    '<div class="fb-fenetre" style="left:'+pc(640-430*fk,1280)+';top:'+pc(J-6-300*fk,800)+';width:'+pc(720*fk,1280)+';height:'+pc(300*fk,800)+'"></div>'+
+    '<div class="ap-sousmain" style="top:'+pc(J-4,800)+'"></div><div class="ap-feuille" style="top:'+pc(J+10,800)+'"><i></i><i></i><i></i></div>'+
+    obj('lampe','right:1%;top:'+pc(J-150,800)+';width:22%')+obj('pot','left:7%;top:'+pc(J-120,800)+';width:9%')+
+    obj('livres','left:3%;top:52%;width:15%')+obj('plante','left:1%;bottom:-4%;width:21%')+
+    obj('tasse','right:10%;top:58%;width:12%')+obj('casque','right:3%;bottom:0;width:17%');
+  el.dataset.fbEtagere=r.etagere; }
 
 window.Pages={index:Index,matiere:Matiere,apprendre:Apprendre,plusloin:PlusLoin,aide:Aide,compte:Compte,carnet:CarnetPage,personnalisation:Personnalisation};
 })();

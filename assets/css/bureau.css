@@ -155,7 +155,8 @@ details.mat[open] > summary::after{transform:rotate(90deg);color:var(--sur-accen
 body[data-fond="bureau"]{--largeur-bureau:1280px}
 .fond-bureau{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .fond-bureau .fb-scene{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(100vw,142vh);height:100vh;overflow:visible;display:block}
-.fb-fenetre{position:absolute;left:calc(var(--fb-ox,0px) + 313px * var(--fb-s,1));top:calc(34px * var(--fb-s,1));width:calc(547px * var(--fb-s,1));height:calc(228px * var(--fb-s,1));background:var(--scene) no-repeat center bottom/100% 100%}
+.fb-fenetre{position:absolute;left:var(--fb-fen-l,313px);top:var(--fb-fen-t,34px);width:var(--fb-fen-w,547px);height:var(--fb-fen-h,228px);background:var(--scene) no-repeat center bottom/100% 100%}
+.fb-equerres{display:none}body[data-fb-etagere="equerres"] .fb-equerres{display:block}
 .fb-lumiere{position:absolute;right:0;top:calc(var(--fb-jonction,268px) - 120px * var(--fb-k,1));width:calc(720px * var(--fb-k,1));pointer-events:none}
 .fb-objet{position:absolute;pointer-events:auto;border:0;background:none;padding:0;margin:0;cursor:pointer;display:block;line-height:0;color:inherit;font:inherit}
 .fb-objet[data-objet="pot"],.fb-objet[data-objet="plante"]{cursor:default}
@@ -168,9 +169,14 @@ body[data-fond="bureau"]{--largeur-bureau:1280px}
 .fb-objet[data-objet="livres"]{left:calc(var(--fb-marge,300px) * .1);top:50vh;width:calc(200px * var(--fb-k,1))}
 .fb-objet[data-objet="plante"]{left:calc(var(--fb-marge,300px) * .05);bottom:24px;width:calc(280px * var(--fb-k,1))}
 body:not([data-fb-objets]) :is(.fb-objet,.fb-lumiere){display:none}
+/* pas la place dans les marges, mais un écran assez large : la lampe et le pot seuls, debout
+   au bord du plateau de part et d'autre de la fenêtre (le contenu passe devant en défilant) */
+body[data-fb-objets="haut"] :is(.fb-objet:not([data-objet="lampe"]):not([data-objet="pot"]),.fb-lumiere){display:none}
+body[data-fb-objets="haut"] .fb-objet[data-objet="lampe"]{right:6px;top:calc(var(--fb-jonction,268px) - 96px);width:170px}
+body[data-fb-objets="haut"] .fb-objet[data-objet="pot"]{left:10px;top:calc(var(--fb-jonction,268px) - 112px);width:70px}
 .fb-objet:hover .fb-dessin{transform:translateY(-2px);transition:transform .15s}
 /* quand les objets servent, les pastilles du coin s'effacent (le panneau musique reste ancré là) */
-body[data-fb-objets] .coin .bouton-coin{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}
+body[data-fb-objets="marges"] .coin .bouton-coin{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}
 /* le contenu commence sous la fenêtre, et le bureau se tient au-dessus de la scène */
 body[data-fond="bureau"] .bureau{position:relative;z-index:1;padding-top:var(--fb-haut,var(--e-5))}
 body[data-fond="bureau"] .pied{position:relative;z-index:1}
@@ -185,6 +191,21 @@ body[data-fond="bureau"] .zone > :is(.scene,.accueil-tete)::after{display:none}
 @media (max-width:600px){ body[data-fond="bureau"] .zone > .scene{padding-block:32px 40px} body[data-fond="bureau"] .zone > .accueil-tete{padding-block:32px 130px} }   /* l'avatar est posé en bas à droite de l'accueil */
 /* sur un petit écran, pas de grain ni de tremblé : deux filtres plein écran coûtent cher à un téléphone modeste */
 @media (max-width:700px){ .fb-scene [filter]{filter:none} .fb-scene [filter="url(#fb-grain)"]{display:none} }
+
+/* l'atelier du bureau, dans Personnalisation : les choix et un aperçu vivant */
+.bureau-atelier{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--e-4);align-items:start}
+@media (max-width:760px){ .bureau-atelier{grid-template-columns:minmax(0,1fr)} }
+.bureau-atelier .options{display:grid;gap:10px}
+.bureau-atelier .options > div{display:grid;gap:6px}
+.apercu-bureau{position:relative;aspect-ratio:16/10;border-radius:var(--r-l);overflow:hidden;background:var(--fb-plateau-b);box-shadow:var(--ombre)}
+.apercu-bureau .fb-scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.apercu-bureau .fb-fenetre{position:absolute;background:var(--scene) no-repeat center bottom/100% 100%}
+.apercu-bureau .ap-sousmain{position:absolute;left:22%;right:22%;bottom:-6%;background:linear-gradient(180deg,var(--fb-sousmain),var(--fb-sousmain-b));clip-path:polygon(1.5% 0,98.5% 0,100% 100%,0 100%);border-radius:8px 8px 0 0}
+.apercu-bureau .ap-feuille{position:absolute;left:26%;right:26%;bottom:-2%;background:var(--feuille);border-radius:8px 8px 0 0;box-shadow:-4px 8px 16px rgba(0,0,0,.25)}
+.apercu-bureau .ap-feuille i{position:absolute;left:-8px;width:8px;height:8px;border-radius:50%;border:2px solid #8f8f8f;background:#e4e4e4}
+.apercu-bureau .ap-feuille i:nth-child(1){top:12%}.apercu-bureau .ap-feuille i:nth-child(2){top:45%}.apercu-bureau .ap-feuille i:nth-child(3){top:78%}
+.apercu-bureau .ap-obj{position:absolute;line-height:0}
+.apercu-bureau .ap-obj .fb-dessin{width:100%;height:auto;display:block;overflow:visible}
 
 /* ---------- Coin bas droit : musique et pause ---------- */
 .coin{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:35;display:flex;flex-direction:column;align-items:flex-end;gap:8px}

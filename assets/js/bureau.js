@@ -357,30 +357,53 @@ function coque(info,opts){
 }
 
 /* -- le bureau dessiné : la scène derrière la page, les objets-commandes dans les marges --
-   Tout le dessin est dans assets/js/fond-bureau.js (fabriqué par outils/fond_bureau.py) ;
-   ici on le pose, on le mesure, et on branche les objets sur ce qui existe déjà :
-   la lampe bascule le thème, le casque ouvre le panneau musique de la pastille, la tasse
-   suit la pastille de pause, la pile de cahiers mène aux portes de la matière ouverte.
-   « Le décor illustré » décoché dans Personnalisation = pas de scène, le bois uni d'avant. */
+   Tout le dessin est dans assets/js/fond-bureau.js (fabriqué par outils/fond_bureau.py) :
+   deux vues, les objets et leurs styles, les palettes. Ici on lit les réglages de l'élève
+   (clé mp:bureau), on pose la scène, on la mesure, et on branche les objets sur ce qui
+   existe déjà : la lampe bascule le thème, le casque ouvre le panneau musique de la
+   pastille, la tasse suit la pastille de pause, la pile de cahiers mène aux portes de la
+   matière ouverte. « Le décor illustré » décoché dans Personnalisation = pas de scène. */
+const BUREAU_DEFAUT={vue:'marquee',lampe:'articulee',lampeCouleur:'vert',pot:'ceramique',potCouleur:'creme',crayons:'site',tasse:'creme',plante:'rosette',casque:'bleu',etagere:'simple',bois:'chene',livres:'site'};
+const FOND_GEOMETRIE={jonction:268,largeur:1280,hauteur:900};   // de quoi mesurer avant que fond-bureau.js soit là
+function reglagesBureau(){ return Object.assign({},BUREAU_DEFAUT,lire('bureau',{})||{}); }
+function enregistrerBureau(maj){ const r=Object.assign(reglagesBureau(),maj); ecrire('bureau',r); return r; }
+
 function fondBureau(){
   if(Pupitre.masque('decor')){ document.body.classList.add('sans-decor'); return; }   // le bois uni d'avant, fenêtre en arche dans la zone
   document.body.dataset.fond='bureau';
   mesurerFond();   // tout de suite, avant que la page ne défile vers son #hash : le contenu est déjà poussé sous la fenêtre
   const s=document.createElement('script'); s.src=RACINE+'assets/js/fond-bureau.js'; s.defer=true;
-  s.onload=monterFond; document.head.appendChild(s);
+  s.onload=()=>{ appliquerBureau(); monterFond(); }; document.head.appendChild(s);
+}
+/* les couleurs choisies, posées sur :root en jour / nuit : variables.css les reprend
+   dans --fb-abatjour, --fb-pot… selon le thème, sans que rien ne bouge ici au changement */
+function appliquerBureau(){
+  const F=window.FOND_BUREAU; if(!F) return;
+  const r=reglagesBureau(), st=document.documentElement.style, P=F.palettes;
+  const pose=(nom,paire)=>{ st.setProperty('--fb-'+nom+'-jour',paire[0]); st.setProperty('--fb-'+nom+'-nuit',paire[1]||paire[0]); };
+  const L=P.lampe[r.lampeCouleur]||P.lampe.vert; pose('abatjour',L.base); pose('abatjour-h',L.haut);
+  const Po=P.pot[r.potCouleur]||P.pot.creme; pose('pot',Po.base); pose('pot-o',Po.bord);
+  const T=P.tasse[r.tasse]||P.tasse.creme; pose('tasse',T.base); pose('tasse-o',T.bord);
+  const C=P.casque[r.casque]||P.casque.bleu; pose('coussin',C.base);
+  const B=P.bois[r.bois]||P.bois.chene; pose('etagere',B.base); pose('etagere-ombre',B.ombre);
+  (P.livres[r.livres]||P.livres.site).tons.forEach((c,i)=>st.setProperty('--fb-livre-'+(i+1)+'-choix',c));
+  (P.crayons[r.crayons]||P.crayons.site).tons.forEach((c,i)=>st.setProperty('--fb-crayon-'+(i+1)+'-choix',c));
+  document.body.dataset.fbEtagere=r.etagere; document.body.dataset.fbVue=r.vue;
 }
 function monterFond(){
   const F=window.FOND_BUREAU; if(!F) return;
-  const body=document.body;
+  const body=document.body, r=reglagesBureau();
+  const ancien=document.querySelector('.fond-bureau'); if(ancien) ancien.remove();
   const f=document.createElement('div'); f.className='fond-bureau'; f.setAttribute('aria-hidden','true');
-  f.innerHTML=F.scene+'<div class="fb-fenetre"></div><div class="fb-lumiere">'+F.objets.lumiere+'</div>';
+  f.innerHTML=(F.scenes[r.vue]||F.scenes.douce)+'<div class="fb-fenetre"></div><div class="fb-lumiere">'+F.objets.lumiere+'</div>';
+  const dessin=(nom)=>{ const o=F.objets[nom]; return typeof o==='string' ? o : (o[r[nom]]||Object.values(o)[0]); };
   const objets=[['lampe','button','Thème clair ou sombre (la lampe)'],['tasse','button','Rappel de pause (la tasse)'],['casque','button','Musique de concentration (le casque)'],
                 ['pot','div',''],['livres','a','Les portes d\'entrée de ma matière (la pile de cahiers)'],['plante','div','']];
   objets.forEach(([nom,tag,label])=>{ const el=document.createElement(tag); el.className='fb-objet'; el.dataset.objet=nom;
     if(label){ el.setAttribute('aria-label',label); el.title=label; }
     if(tag==='a') el.href=lien('matiere.html?m='+encodeURIComponent(lire('matiere-ouverte','maths')));
     if(tag==='button') el.type='button';
-    el.innerHTML=F.objets[nom]; f.appendChild(el); });
+    el.innerHTML=dessin(nom); f.appendChild(el); });
   body.insertBefore(f,body.firstChild);
   f.querySelector('[data-objet="lampe"]').addEventListener('click',theme.basculer);
   f.querySelector('[data-objet="casque"]').addEventListener('click',e=>{ e.stopPropagation();   // sinon le clic « hors panneau » le referme aussitôt
@@ -388,26 +411,34 @@ function monterFond(){
   const tasse=f.querySelector('[data-objet="tasse"]');
   tasse.addEventListener('click',()=>{ const b=document.querySelector('#pastille-pause button'); if(b) b.click(); else location.href=lien('personnalisation.html#pause'); });
   function etatTasse(){ const e=document.querySelector('#pastille-pause .etat'); if(e&&e.textContent){ tasse.title='Rappel de pause · '+e.textContent; tasse.setAttribute('aria-label',tasse.title); } }
-  etatTasse(); setInterval(etatTasse,30e3);
+  etatTasse(); clearInterval(window._mpTasse); window._mpTasse=setInterval(etatTasse,30e3);
   const js=Pupitre.joursSemaine().filter(j=>j.actif).length;
   f.querySelector('[data-objet="plante"]').title=js+' jour'+(js>1?'s':'')+' actif'+(js>1?'s':'')+' cette semaine';
-  mesurerFond(); addEventListener('resize',mesurerFond);
+  mesurerFond(); if(!window._mpFondEcoute){ window._mpFondEcoute=true; addEventListener('resize',mesurerFond); }
 }
-const FOND_GEOMETRIE={jonction:268,largeur:1280,hauteur:900};   // la même que dans outils/fond_bureau.py
 function mesurerFond(){
-  const F=window.FOND_BUREAU||FOND_GEOMETRIE;
-  const vw=innerWidth, vh=innerHeight, r=document.documentElement.style;
+  const F=window.FOND_BUREAU, r=reglagesBureau();
+  const G=(F&&F.vues[r.vue])||FOND_GEOMETRIE, largeur=(F||FOND_GEOMETRIE).largeur, hauteur=(F||FOND_GEOMETRIE).hauteur;
+  const vw=innerWidth, vh=innerHeight, st=document.documentElement.style;
   const boite=Math.min(vw,vh*1.42);                      // la scène ne grossit pas avec un écran large
-  const s=Math.max(boite/F.largeur,vh/F.hauteur);        // « slice » : le plus grand des deux rapports
-  const ox=(vw-F.largeur*s)/2, jonction=F.jonction*s;
+  const s=Math.max(boite/largeur,vh/hauteur);            // « slice » : le plus grand des deux rapports
+  const ox=(vw-largeur*s)/2, jonction=G.jonction*s, fk=G.fk||.76;
   const bandeau=document.querySelector('.bandeau'); const hb=bandeau?bandeau.offsetHeight:58;
   const haut=Math.max(24,Math.round(jonction-hb-12));
   const bur=document.querySelector('.bureau'); const marge=bur?Math.max(0,(vw-bur.offsetWidth)/2+16):0;
   const k=Math.min(1,Math.max(.6,marge/320));
-  r.setProperty('--fb-s',s.toFixed(4)); r.setProperty('--fb-ox',ox.toFixed(1)+'px'); r.setProperty('--fb-jonction',jonction.toFixed(1)+'px');
-  r.setProperty('--fb-haut',haut+'px'); r.setProperty('--fb-marge',Math.round(marge)+'px'); r.setProperty('--fb-k',k.toFixed(3));
-  if(marge>=220) document.body.dataset.fbObjets='1'; else delete document.body.dataset.fbObjets;
+  st.setProperty('--fb-s',s.toFixed(4)); st.setProperty('--fb-ox',ox.toFixed(1)+'px'); st.setProperty('--fb-jonction',jonction.toFixed(1)+'px');
+  st.setProperty('--fb-haut',haut+'px'); st.setProperty('--fb-marge',Math.round(marge)+'px'); st.setProperty('--fb-k',k.toFixed(3));
+  // la fenêtre : le décor en arche (720×300, l'arche centrée en x=430) à l'échelle fk de la vue
+  st.setProperty('--fb-fen-l',(ox+(640-430*fk)*s).toFixed(1)+'px'); st.setProperty('--fb-fen-t',((G.jonction-6-300*fk)*s).toFixed(1)+'px');
+  st.setProperty('--fb-fen-w',(720*fk*s).toFixed(1)+'px'); st.setProperty('--fb-fen-h',(300*fk*s).toFixed(1)+'px');
+  // les objets : dans les marges s'il y a la place ; sinon, sur un écran assez large, la lampe
+  // et le pot seuls, debout au bord du plateau de part et d'autre de la fenêtre
+  if(marge>=220) document.body.dataset.fbObjets='marges'; else if(vw>=1100) document.body.dataset.fbObjets='haut'; else delete document.body.dataset.fbObjets;
 }
+/* pour Personnalisation : relire les réglages et redessiner sur place */
+function rafraichirBureau(maj){ if(maj) enregistrerBureau(maj); if(!window.FOND_BUREAU||document.body.dataset.fond!=='bureau') return; appliquerBureau(); monterFond(); }
+
 function decorHeure(){ const h=new Date().getHours(); return h<6?'ville':h<10?'montagne':h<18?'fenetre':h<21?'plage':'ville'; }
 function decorSuivant(d){ if(d!=='heure') return; setInterval(()=>{ document.body.dataset.decor=decorHeure(); },60e3); }
 
@@ -434,5 +465,6 @@ function rappelDePause(ci){
 }
 function chargerMusique(){ const s=document.createElement('script'); s.src=RACINE+'assets/js/musique.js'; s.defer=true; document.head.appendChild(s); }
 
-window.Bureau={coque,toast,avatarSVG,theme,lien:p=>lien(p),decorHeure,demoAction};
+window.Bureau={coque,toast,avatarSVG,theme,lien:p=>lien(p),decorHeure,demoAction,
+  bureau:{reglages:reglagesBureau,enregistrer:enregistrerBureau,rafraichir:rafraichirBureau,DEFAUT:BUREAU_DEFAUT}};
 })();
