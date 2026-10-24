@@ -78,7 +78,7 @@ function barre(info){
   const l=S.licence, c='© '+(S.annee||new Date().getFullYear())+(S.auteur?' '+echap(S.auteur):'');
   const mention='<span>'+c+(l?' · Contenu sous '+(window.AUTONOME?echap(l.nom)
       :'<a rel="license noopener" target="_blank" href="'+l.url+'">'+echap(l.nom)+'</a>'):'')+'</span>';
-  p.innerHTML='<div class="in"><span>'+echap(S.nom)+'</span>'+mention+(window.AUTONOME?'':'<span><a href="'+RACINE+'index.html">Accueil</a> · <a href="'+RACINE+'guide.html">Mode d\'emploi</a></span>')+'</div>';
+  p.innerHTML='<div class="in"><span>'+echap(S.nom)+'</span>'+mention+(window.AUTONOME?'':'<span><a href="'+RACINE+'index.html">Accueil</a> · <a href="'+RACINE+'confidentialite.html">Données et confidentialité</a> · <a href="'+RACINE+'guide.html">Mode d\'emploi</a></span>')+'</div>';
   document.body.appendChild(p);
 }
 

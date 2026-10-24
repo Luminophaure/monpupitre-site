@@ -335,7 +335,7 @@ function coque(info,opts){
   const p=document.createElement('footer'); p.className='pied gutter';
   p.innerHTML='<div class="in"><span>'+echap(SITE.nom)+' · '+echap(SITE.accroche||'')+'</span>'+
     mentionLicence()+
-    '<span><a href="'+lien(((window.SITE||{}).accueil)||'index.html')+'">Accueil</a> · <a href="'+lien('aide.html')+'">Aide</a> · <a href="'+lien('guide.html')+'">Mode d\'emploi</a></span></div>';
+    '<span><a href="'+lien(((window.SITE||{}).accueil)||'index.html')+'">Accueil</a> · <a href="'+lien('aide.html')+'">Aide</a> · <a href="'+lien('confidentialite.html')+'">Données et confidentialité</a> · <a href="'+lien('guide.html')+'">Mode d\'emploi</a></span></div>';
   body.appendChild(p);
   // tiroir sur mobile
   const btn=document.querySelector('.ouvrir-classeur');

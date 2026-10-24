@@ -457,3 +457,20 @@ details.mat[open] > summary::after{transform:rotate(90deg);color:var(--sur-accen
 .chapitres-coches label{display:flex;align-items:center;gap:6px;font-size:var(--t-s)}
 [data-envoi] [data-si][hidden]{display:none!important}
 .prochaines{margin-bottom:var(--e-4)}
+
+/* ---------- Données et confidentialité (confidentialite.html) ----------
+   Une page à lire : des cartes, deux tableaux, et des marques « à compléter » visibles
+   tant que la version avec comptes n'est pas ouverte. */
+.page-rgpd .pile{margin-bottom:var(--e-5)}
+.page-rgpd .carte+.carte,.page-rgpd .defile+.carte{margin-top:var(--e-4)}
+.page-rgpd .carte ul{margin:8px 0 4px;padding-left:1.2em}
+.page-rgpd .carte li{margin:4px 0}
+.bandeau-version{border:2px dashed var(--jaune-ombre);background:var(--jaune-soft)}
+mark.a-completer{background:var(--jaune);color:var(--jaune-ink);padding:1px 6px;border-radius:4px;font-weight:600}
+.pour-eleve{border-left:5px solid var(--mc,var(--jaune))}
+.tableau-donnees{width:100%;min-width:760px;border-collapse:collapse;font-size:var(--t-s);background:var(--card);border-radius:var(--r-l);overflow:hidden}
+.tableau-donnees th,.tableau-donnees td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tableau-donnees thead th{font-family:var(--f-display);background:var(--grid);font-size:var(--t-xs);letter-spacing:.03em;text-transform:uppercase}
+.tableau-donnees tbody tr:last-child td{border-bottom:0}
+.tableau-donnees td:first-child{font-weight:700;color:var(--ink)}
+.page-rgpd .defile{border-radius:var(--r-l);box-shadow:var(--ombre)}
