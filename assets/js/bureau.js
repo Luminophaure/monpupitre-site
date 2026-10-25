@@ -240,8 +240,9 @@ function menuCompte(role){
 }
 
 /* -- la colonne de gauche : les intercalaires du classeur --
-   L'élève se repère d'abord par sa classe, puis par sa filière, puis par matière : la
-   colonne range donc classe → filière → matière → chapitre (décision du 25 octobre).
+   L'élève se repère d'abord par son cycle (collège, lycée), sa classe, sa filière, puis
+   par matière : la colonne range donc cycle → classe → filière → matière → chapitre
+   (décisions du 25 octobre). Le cycle n'est qu'un titre repliable, sans décalage.
    Toutes les Premières sont dans le même intercalaire « Première », qui contient
    « Générale » et « ST2S » ; une classe sans filière nommée (collège, Seconde) montre ses
    matières directement. Classes et filières viennent de window.CLASSES (catalogue).
@@ -271,7 +272,7 @@ function classesDuClasseur(matieres){
     const mats=matieres.filter(m=>parMat.has(m.id)).map(m=>parMat.get(m.id));
     return {id:f.id,nom:f.nom||'',niveauIds:Object.keys(f.niveaux),matieres:mats};
   };
-  const classes=(window.CLASSES||[]).map(c=>({id:c.id,nom:c.nom,filieres:c.filieres.map(filiere).filter(f=>f.matieres.length)}));
+  const classes=(window.CLASSES||[]).map(c=>({id:c.id,nom:c.nom,cycle:c.cycle||'',filieres:c.filieres.map(filiere).filter(f=>f.matieres.length)}));
   // les niveaux que les classes n'ont pas prévus : chacun devient une classe à lui seul
   parNiveau.forEach((liste,nid)=>{ if(ranges.has(nid)) return;
     classes.push({id:nid,nom:liste[0].niveau.nom,filieres:[filiere({id:nid,nom:'',niveaux:{[nid]:''}})]}); });
@@ -305,16 +306,24 @@ function colonneEleve(info){
   };
 
   let h='<span class="surtitre col-titre">Mon classeur</span><nav class="intercalaires" aria-label="Classes, filières, matières et chapitres">';
-  classes.forEach(cl=>{
+  const classe=cl=>{
     const ouvertC= cl.filieres.some(f=>f===filEleve||f===filChemin) || classes.length===1;
-    h+='<details class="niv"'+(ouvertC?' open':'')+'><summary><span class="onglet-niv">'+echap(cl.nom)+'</span>'+compte(cl.filieres.flatMap(f=>f.matieres))+'</summary><div class="matieres-col">';
+    let c='<details class="niv"'+(ouvertC?' open':'')+'><summary><span class="onglet-niv">'+echap(cl.nom)+'</span>'+compte(cl.filieres.flatMap(f=>f.matieres))+'</summary><div class="matieres-col">';
     cl.filieres.forEach(f=>{
-      if(!f.nom){ h+=f.matieres.map(matiere(f)).join(''); return; }
+      if(!f.nom){ c+=f.matieres.map(matiere(f)).join(''); return; }
       const ouvertF= f===filEleve || f===filChemin || cl.filieres.length===1;
-      h+='<details class="filiere"'+(ouvertF?' open':'')+'><summary><span class="onglet-filiere">'+echap(f.nom)+'</span>'+compte(f.matieres)+'</summary><div class="matieres-col">'+f.matieres.map(matiere(f)).join('')+'</div></details>';
+      c+='<details class="filiere"'+(ouvertF?' open':'')+'><summary><span class="onglet-filiere">'+echap(f.nom)+'</span>'+compte(f.matieres)+'</summary><div class="matieres-col">'+f.matieres.map(matiere(f)).join('')+'</div></details>';
     });
-    h+='</div></details>';
+    return c+'</div></details>';
+  };
+  // les cycles (Collège, Lycée) : de simples titres repliables, sans décalage, pour ne
+  // pas voler de largeur aux chapitres. Celui de l'élève est ouvert, l'autre fermé.
+  const cycles=(window.CYCLES||[]).map(cy=>({cy,classes:classes.filter(c=>c.cycle===cy.id)})).filter(x=>x.classes.length);
+  cycles.forEach(({cy,classes:cs})=>{
+    const ouvert= cs.some(cl=>cl.filieres.some(f=>f===filEleve||f===filChemin)) || cycles.length===1;
+    h+='<details class="cycle"'+(ouvert?' open':'')+'><summary><span>'+echap(cy.nom)+'</span>'+compte(cs.flatMap(cl=>cl.filieres.flatMap(f=>f.matieres)))+'</summary><div class="classes-cycle">'+cs.map(classe).join('')+'</div></details>';
   });
+  h+=classes.filter(c=>!cycles.some(x=>x.cy.id===c.cycle)).map(classe).join('');
   if(bientot.length) h+='<p class="bientot-col"><span class="discret">Bientôt :</span> '+bientot.map(m=>'<span data-couleur="'+echap(m.couleur)+'"><i class="pastille"></i>'+echap(m.nom)+'</span>').join('')+'</p>';
   h+='</nav><nav class="rubriques" aria-label="Rubriques"><a href="'+lien('matiere.html?m='+(mat?mat.id:'maths')+'#carte')+'"><span class="ico" aria-hidden="true">🗺</span>Carte des notions</a><a href="'+lien('apprendre.html')+'"><span class="ico" aria-hidden="true">💡</span>Apprendre à apprendre</a><a href="'+lien('aller-plus-loin.html')+'"><span class="ico" aria-hidden="true">🔭</span>Aller plus loin</a></nav>';
   return h;

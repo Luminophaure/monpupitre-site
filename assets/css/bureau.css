@@ -72,6 +72,16 @@ body[data-coque] main.chapitre{padding-bottom:40px}
 .col-in{display:grid;gap:var(--e-3)}
 .col-titre{padding-left:6px}
 .intercalaires{display:grid;gap:6px}
+/* le cycle (Collège, Lycée) : un titre repliable, sans boîte ni décalage, pour ne pas
+   prendre de largeur aux chapitres */
+details.cycle > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:8px 6px 4px;font:600 var(--t-xs) var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+details.cycle > summary::-webkit-details-marker{display:none}
+details.cycle > summary small{margin-left:auto;letter-spacing:0;text-transform:none;font:400 var(--t-xs) var(--f-mono)}
+details.cycle > summary::after{content:"▸";flex:none;font-size:.9em;transition:transform .15s}
+details.cycle[open] > summary{color:var(--ink)}
+details.cycle[open] > summary::after{transform:rotate(90deg)}
+details.cycle > summary:hover{color:var(--ink)}
+.classes-cycle{display:grid;gap:6px;padding-top:2px}
 /* le niveau : l'intercalaire extérieur, sobre — l'élève s'y place d'abord */
 .intercalaires details.niv > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;border-radius:var(--r-m) 4px 4px var(--r-m);background:var(--grid);color:var(--ink);box-shadow:inset 6px 0 0 var(--muted);padding:9px 12px 9px 16px;font:800 var(--t-m) var(--f-display);letter-spacing:-.01em}
 .intercalaires details.niv > summary::-webkit-details-marker{display:none}

@@ -38,27 +38,30 @@ window.SITE = {
    directement. Un niveau du catalogue absent d'ici se range à la fin, comme une classe à
    lui seul : rien ne casse si on l'oublie, mais il se retrouve au mauvais endroit. */
 window.CLASSES = [
-  { id: "sixieme", nom: "Sixième", filieres: [
+  { id: "sixieme", cycle: "college", nom: "Sixième", filieres: [
     { id: "sixieme", nom: "", niveaux: { sixieme: "" } } ] },
-  { id: "cinquieme", nom: "Cinquième", filieres: [
+  { id: "cinquieme", cycle: "college", nom: "Cinquième", filieres: [
     { id: "cinquieme", nom: "", niveaux: { cinquieme: "" } } ] },
-  { id: "quatrieme", nom: "Quatrième", filieres: [
+  { id: "quatrieme", cycle: "college", nom: "Quatrième", filieres: [
     { id: "quatrieme", nom: "", niveaux: { quatrieme: "" } } ] },
-  { id: "troisieme", nom: "Troisième", filieres: [
+  { id: "troisieme", cycle: "college", nom: "Troisième", filieres: [
     { id: "troisieme", nom: "", niveaux: { troisieme: "" } } ] },
-  { id: "seconde", nom: "Seconde", filieres: [
+  { id: "seconde", cycle: "lycee", nom: "Seconde", filieres: [
     { id: "seconde", nom: "", niveaux: { seconde: "" } } ] },
-  { id: "premiere", nom: "Première", filieres: [
+  { id: "premiere", cycle: "lycee", nom: "Première", filieres: [
     { id: "premiere-generale", nom: "Générale", niveaux: { premiere: "Spécialité" } },
     { id: "premiere-st2s", nom: "ST2S", niveaux: { "premiere-techno": "Tronc commun", "premiere-st2s": "Spécialité" } },
     { id: "premiere-sti2d", nom: "STI2D", niveaux: { "premiere-techno": "Tronc commun", "premiere-sti2d": "Spécialité physique-chimie et maths" } },
     { id: "premiere-stl", nom: "STL", niveaux: { "premiere-techno": "Tronc commun", "premiere-stl": "Spécialité physique-chimie et maths" } } ] },
-  { id: "terminale", nom: "Terminale", filieres: [
+  { id: "terminale", cycle: "lycee", nom: "Terminale", filieres: [
     { id: "terminale-generale", nom: "Générale", niveaux: { terminale: "Spécialité", "terminale-comp": "Maths complémentaires" } },
     { id: "terminale-st2s", nom: "ST2S", niveaux: { "terminale-techno": "Tronc commun", "terminale-st2s": "Spécialité CBPH (partie chimie)" } },
     { id: "terminale-sti2d", nom: "STI2D", niveaux: { "terminale-techno": "Tronc commun", "terminale-sti2d": "Spécialité physique-chimie et maths" } },
     { id: "terminale-stl", nom: "STL", niveaux: { "terminale-techno": "Tronc commun", "terminale-stl": "Spécialité physique-chimie et maths", "terminale-stl-spcl": "Spécialité SPCL" } } ] }
 ];
+/* les deux cycles qui regroupent les classes dans la colonne (une classe sans cycle se
+   range après eux, à part) */
+window.CYCLES = [ { id: "college", nom: "Collège" }, { id: "lycee", nom: "Lycée" } ];
 /* l'ordre des niveaux, déduit des classes (gardé pour ce qui le lit encore) */
 window.NIVEAUX = [...new Set(window.CLASSES.flatMap(c => c.filieres.flatMap(f => Object.keys(f.niveaux))))];
 
