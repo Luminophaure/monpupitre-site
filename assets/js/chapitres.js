@@ -29,12 +29,28 @@ window.SITE = {
              url: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" },
 };
 
-/* L'ORDRE DES NIVEAUX dans la colonne de gauche.
-   La colonne range les chapitres par niveau, puis par matière : il faut donc un ordre
-   des niveaux valable pour toutes les matières. Un niveau absent de cette liste se range
-   à la fin, dans l'ordre où il apparaît dans le catalogue — rien ne casse si on oublie
-   de l'ajouter, mais il se retrouve au mauvais endroit. */
-window.NIVEAUX = ["quatrieme", "seconde", "premiere", "premiere-st2s", "terminale", "terminale-comp"];
+/* LES CLASSES ET LEURS FILIÈRES, pour la colonne de gauche.
+   La colonne range par classe (Quatrième, Seconde, Première, Terminale), puis par filière
+   (Générale, ST2S…), puis par matière. Chaque filière dit quels « niveaux » du catalogue
+   elle réunit, et sous quel nom les distinguer quand une même matière en a plusieurs
+   dans la filière (en Terminale générale, les maths de spécialité et les maths
+   complémentaires). Une classe sans filière nommée (collège, Seconde) montre ses matières
+   directement. Un niveau du catalogue absent d'ici se range à la fin, comme une classe à
+   lui seul : rien ne casse si on l'oublie, mais il se retrouve au mauvais endroit. */
+window.CLASSES = [
+  { id: "quatrieme", nom: "Quatrième", filieres: [
+    { id: "quatrieme", nom: "", niveaux: { quatrieme: "" } } ] },
+  { id: "seconde", nom: "Seconde", filieres: [
+    { id: "seconde", nom: "", niveaux: { seconde: "" } } ] },
+  { id: "premiere", nom: "Première", filieres: [
+    { id: "premiere-generale", nom: "Générale", niveaux: { premiere: "Spécialité" } },
+    { id: "premiere-st2s", nom: "ST2S", niveaux: { "premiere-st2s": "" } } ] },
+  { id: "terminale", nom: "Terminale", filieres: [
+    { id: "terminale-generale", nom: "Générale", niveaux: { terminale: "Spécialité", "terminale-comp": "Maths complémentaires" } },
+    { id: "terminale-st2s", nom: "ST2S", niveaux: { "terminale-st2s": "" } } ] }
+];
+/* l'ordre des niveaux, déduit des classes (gardé pour ce qui le lit encore) */
+window.NIVEAUX = window.CLASSES.flatMap(c => c.filieres.flatMap(f => Object.keys(f.niveaux)));
 
 window.MATIERES = [
   { id: "maths", nom: "Mathématiques", couleur: "maths", ouverte: true,

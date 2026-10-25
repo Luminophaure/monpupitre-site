@@ -240,51 +240,74 @@ function menuCompte(role){
 }
 
 /* -- la colonne de gauche : les intercalaires du classeur --
-   L'élève se repère d'abord par son niveau, puis par matière : la colonne range donc
-   niveau → matière → chapitre. L'ordre des niveaux vient de window.NIVEAUX (catalogue).
-   Par défaut tout est replié, sauf le niveau de l'élève (celui de son compte) ; les
-   matières, même dans ce niveau, restent fermées. Seule exception : sur une page de
-   chapitre, le chemin qui y mène (son niveau et sa matière) est déplié, pour que l'élève
-   voie où il est. Rien de ce qu'on ouvre ou ferme n'est rejoué à la page suivante
-   (décision du 25 octobre). 'matiere-ouverte' se mémorise encore, mais ne sert plus
-   qu'à savoir quelle matière l'élève regarde (la pile de cahiers, la porte « matière »). */
+   L'élève se repère d'abord par sa classe, puis par sa filière, puis par matière : la
+   colonne range donc classe → filière → matière → chapitre (décision du 25 octobre).
+   Toutes les Premières sont dans le même intercalaire « Première », qui contient
+   « Générale » et « ST2S » ; une classe sans filière nommée (collège, Seconde) montre ses
+   matières directement. Classes et filières viennent de window.CLASSES (catalogue).
+   Par défaut tout est replié, sauf la classe et la filière de l'élève (celles de son
+   compte) ; les matières, même là, restent fermées. Une filière seule dans sa classe est
+   dépliée d'office : un intercalaire à un seul choix ne ferait qu'ajouter un clic.
+   Seule exception : sur une page de chapitre, le chemin qui y mène est déplié, pour que
+   l'élève voie où il est. Rien de ce qu'on ouvre ou ferme n'est rejoué à la page
+   suivante. 'matiere-ouverte' se mémorise encore, mais ne sert plus qu'à savoir quelle
+   matière l'élève regarde (la pile de cahiers, la porte « matière »). */
 
-/* les niveaux de toutes les matières suivies, fusionnés et ordonnés */
-function niveauxDuClasseur(matieres){
-  const ordre=window.NIVEAUX||[], vus=new Map();
+/* les classes, leurs filières et leurs matières, pour les matières suivies */
+function classesDuClasseur(matieres){
+  const parNiveau=new Map();     // id de niveau → [{matiere, niveau}]
   matieres.forEach(m=>(m.niveaux||[]).forEach(n=>{
-    if(!vus.has(n.id)) vus.set(n.id,{id:n.id,nom:n.nom,matieres:[]});
-    vus.get(n.id).matieres.push({matiere:m,niveau:n});
+    if(!parNiveau.has(n.id)) parNiveau.set(n.id,[]);
+    parNiveau.get(n.id).push({matiere:m,niveau:n});
   }));
-  const liste=[...vus.values()];
-  // ceux que le catalogue classe d'abord, puis les oubliés dans leur ordre d'apparition
-  const rang=n=>{ const i=ordre.indexOf(n.id); return i<0 ? ordre.length+liste.indexOf(n) : i; };
-  return liste.sort((a,b)=>rang(a)-rang(b));
+  const ranges=new Set();
+  const filiere=(f)=>{
+    const parMat=new Map();
+    Object.keys(f.niveaux).forEach(nid=>{ ranges.add(nid);
+      (parNiveau.get(nid)||[]).forEach(({matiere,niveau})=>{
+        if(!parMat.has(matiere.id)) parMat.set(matiere.id,{matiere,niveaux:[]});
+        parMat.get(matiere.id).niveaux.push({niveau,option:f.niveaux[nid]||niveau.nom});
+      }); });
+    const mats=matieres.filter(m=>parMat.has(m.id)).map(m=>parMat.get(m.id));
+    return {id:f.id,nom:f.nom||'',niveauIds:Object.keys(f.niveaux),matieres:mats};
+  };
+  const classes=(window.CLASSES||[]).map(c=>({id:c.id,nom:c.nom,filieres:c.filieres.map(filiere).filter(f=>f.matieres.length)}));
+  // les niveaux que les classes n'ont pas prévus : chacun devient une classe à lui seul
+  parNiveau.forEach((liste,nid)=>{ if(ranges.has(nid)) return;
+    classes.push({id:nid,nom:liste[0].niveau.nom,filieres:[filiere({id:nid,nom:'',niveaux:{[nid]:''}})]}); });
+  classes.forEach(c=>c.niveauIds=c.filieres.flatMap(f=>f.niveauIds));
+  return classes.filter(c=>c.filieres.length);
 }
 
 function colonneEleve(info){
   const courant=info&&info.courant, mat=info&&info.matiere;
   const suivies=lire('matieres-suivies',null);
   const ouvertes=MATIERES.filter(m=>m.ouverte&&(!suivies||suivies.includes(m.id))), bientot=MATIERES.filter(m=>!m.ouverte);
-  const niveaux=niveauxDuClasseur(ouvertes).filter(n=>n.matieres.length);
+  const classes=classesDuClasseur(ouvertes);
   const niveauChapitre= courant ? courant.niveauId : null;
-
-  let h='<span class="surtitre col-titre">Mon classeur</span><nav class="intercalaires" aria-label="Niveaux, matières et chapitres">';
-  niveaux.forEach(niv=>{
-    const ouvertN= niv.id===ELEVE.niveau || niv.id===niveauChapitre || (niveaux.length===1);
-    const faits=niv.matieres.reduce((t,x)=>t+x.niveau.chapitres.filter(c=>c.fichier).length,0);
-    const total=niv.matieres.reduce((t,x)=>t+x.niveau.chapitres.length,0);
+  const ici=ids=>ids.includes(ELEVE.niveau)||ids.includes(niveauChapitre);
+  const compte=mats=>{ let f=0,t=0; mats.forEach(x=>x.niveaux.forEach(({niveau:n})=>{ f+=n.chapitres.filter(c=>c.fichier).length; t+=n.chapitres.length; })); return '<small>'+f+' / '+t+'</small>'; };
+  const chapitres=n=>'<div class="chaps">'+n.chapitres.map((c,i)=>{ const pc=c.fichier?Pupitre.pourcentage(c.id):0; const cls='chap'+(c.fichier?'':' a-venir')+(courant&&courant.id===c.id?' courant':'');
+      return c.fichier?'<a class="'+cls+'" href="'+lien(c.fichier)+'"'+(courant&&courant.id===c.id?' aria-current="page"':'')+'><span class="n">'+(i+1)+'</span><span class="t">'+echap(c.titre)+'</span>'+(pc?'<span class="pc" title="Parcours : '+pc+' %"><i style="--p:'+pc+'%"></i></span>':'')+'</a>'
+                      :'<span class="'+cls+'" title="À venir"><span class="n">'+(i+1)+'</span><span class="t">'+echap(c.titre)+'</span><span class="sr">(à venir)</span></span>'; }).join('')+'</div>';
+  const matiere=({matiere:m,niveaux})=>{
     // une matière n'est dépliée que si elle mène au chapitre affiché
-    const matOuverte= niv.id===niveauChapitre && mat ? mat.id : null;
-    h+='<details class="niv"'+(ouvertN?' open':'')+'><summary><span class="onglet-niv">'+echap(niv.nom)+'</span><small>'+faits+' / '+total+'</small></summary><div class="matieres-col">';
-    niv.matieres.forEach(({matiere:m,niveau:n})=>{
-      const p=n.chapitres.filter(c=>c.fichier).length;
-      const ouverteM= m.id===matOuverte;
-      h+='<details class="mat" data-couleur="'+echap(m.couleur||'neutre')+'" data-matiere-id="'+echap(m.id)+'"'+(ouverteM?' open':'')+'><summary><span class="onglet-mat">'+echap(m.nom)+'</span><small>'+p+' / '+n.chapitres.length+'</small></summary><div class="chaps">'+
-        n.chapitres.map((c,i)=>{ const pc=c.fichier?Pupitre.pourcentage(c.id):0; const cls='chap'+(c.fichier?'':' a-venir')+(courant&&courant.id===c.id?' courant':'');
-          return c.fichier?'<a class="'+cls+'" href="'+lien(c.fichier)+'"'+(courant&&courant.id===c.id?' aria-current="page"':'')+'><span class="n">'+(i+1)+'</span><span class="t">'+echap(c.titre)+'</span>'+(pc?'<span class="pc" title="Parcours : '+pc+' %"><i style="--p:'+pc+'%"></i></span>':'')+'</a>'
-                          :'<span class="'+cls+'" title="À venir"><span class="n">'+(i+1)+'</span><span class="t">'+echap(c.titre)+'</span><span class="sr">(à venir)</span></span>'; }).join('')+
-        '</div><a class="portes-lien" href="'+lien('matiere.html?m='+encodeURIComponent(m.id))+'">Les portes d\'entrée de '+echap(m.nom.toLowerCase()==='svt'||m.nom.toLowerCase()==='snt'?m.nom:m.nom.toLowerCase())+' →</a></details>';
+    const ouverteM= mat&&m.id===mat.id&&niveaux.some(x=>x.niveau.id===niveauChapitre);
+    const corps= niveaux.length===1 ? chapitres(niveaux[0].niveau)
+      : niveaux.map(({niveau,option})=>'<p class="sous-niv">'+echap(option)+'</p>'+chapitres(niveau)).join('');
+    const nomP=m.nom.toLowerCase()==='svt'||m.nom.toLowerCase()==='snt'?m.nom:m.nom.toLowerCase();
+    return '<details class="mat" data-couleur="'+echap(m.couleur||'neutre')+'" data-matiere-id="'+echap(m.id)+'"'+(ouverteM?' open':'')+'><summary><span class="onglet-mat">'+echap(m.nom)+'</span>'+compte([{niveaux}])+'</summary>'+corps+
+      '<a class="portes-lien" href="'+lien('matiere.html?m='+encodeURIComponent(m.id))+'">Les portes d\'entrée de '+echap(nomP)+' →</a></details>';
+  };
+
+  let h='<span class="surtitre col-titre">Mon classeur</span><nav class="intercalaires" aria-label="Classes, filières, matières et chapitres">';
+  classes.forEach(cl=>{
+    const ouvertC= ici(cl.niveauIds) || classes.length===1;
+    h+='<details class="niv"'+(ouvertC?' open':'')+'><summary><span class="onglet-niv">'+echap(cl.nom)+'</span>'+compte(cl.filieres.flatMap(f=>f.matieres))+'</summary><div class="matieres-col">';
+    cl.filieres.forEach(f=>{
+      if(!f.nom){ h+=f.matieres.map(matiere).join(''); return; }
+      const ouvertF= ici(f.niveauIds) || cl.filieres.length===1;
+      h+='<details class="filiere"'+(ouvertF?' open':'')+'><summary><span class="onglet-filiere">'+echap(f.nom)+'</span>'+compte(f.matieres)+'</summary><div class="matieres-col">'+f.matieres.map(matiere).join('')+'</div></details>';
     });
     h+='</div></details>';
   });

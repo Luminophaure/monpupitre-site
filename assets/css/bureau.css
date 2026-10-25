@@ -83,6 +83,18 @@ body[data-coque] main.chapitre{padding-bottom:40px}
 .intercalaires details.niv[open] > summary small{color:var(--inverse-muted)}
 .intercalaires details.niv[open] > summary::after{transform:rotate(90deg);color:var(--feuille)}
 .matieres-col{display:grid;gap:4px;padding:8px 0 4px 6px}
+/* la filière (Générale, ST2S) : entre la classe et la matière, un intercalaire léger */
+details.filiere > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:6px 10px 6px 12px;border-radius:var(--r-s);color:var(--ink);box-shadow:inset 0 -2px 0 var(--line);font:800 var(--t-xs) var(--f-display);letter-spacing:.06em;text-transform:uppercase}
+details.filiere > summary::-webkit-details-marker{display:none}
+details.filiere > summary small{margin-left:auto;font:400 var(--t-xs) var(--f-mono);letter-spacing:0;text-transform:none;color:var(--muted);white-space:nowrap}
+.intercalaires .onglet-filiere{min-width:0}
+details.filiere > summary::after{content:"▸";flex:none;font-size:.85em;color:var(--muted);transition:transform .15s}
+details.filiere[open] > summary{box-shadow:inset 0 -2px 0 var(--ink)}
+details.filiere[open] > summary::after{transform:rotate(90deg);color:var(--ink)}
+details.filiere > summary:hover,details.mat > summary:hover{filter:brightness(.97)}
+details.filiere > .matieres-col{padding:6px 0 4px 8px}
+/* dans une matière qui a deux programmes dans la filière (spécialité, complémentaires) */
+.sous-niv{margin:8px 0 2px 12px;font:700 var(--t-xs) var(--f-body);color:var(--muted)}
 
 /* la matière : à l'intérieur du niveau, et c'est elle qui porte sa couleur */
 details.mat > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:7px 10px 7px 12px;border-radius:var(--r-s);background:var(--card);box-shadow:inset 4px 0 0 var(--mc);font:700 var(--t-s) var(--f-display);color:var(--ink)}
