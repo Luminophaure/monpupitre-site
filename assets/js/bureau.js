@@ -414,7 +414,7 @@ function monterFond(){
   const objets=[['lampe','button','Thème clair ou sombre (la lampe)'],['tasse','button','Rappel de pause (la tasse)'],['casque','button','Musique de concentration (le casque)'],
                 ['pot','div',''],['livres','a','Les portes d\'entrée de ma matière (la pile de cahiers)'],['plante','div','']];
   objets.forEach(([nom,tag,label])=>{ const el=document.createElement(tag); el.className='fb-objet'; el.dataset.objet=nom;
-    if(label){ el.setAttribute('aria-label',label); el.title=label; }
+    if(label){ el.setAttribute('aria-label',label); if(!BULLES[nom]) el.title=label; }
     if(tag==='a') el.href=lien('matiere.html?m='+encodeURIComponent(lire('matiere-ouverte','maths')));
     if(tag==='button') el.type='button';
     el.innerHTML=dessin(nom); f.appendChild(el); });
@@ -424,11 +424,51 @@ function monterFond(){
     const b=document.querySelector('#pastille-musique button'); if(b) b.click(); else location.href=lien('personnalisation.html#musique'); });
   const tasse=f.querySelector('[data-objet="tasse"]');
   tasse.addEventListener('click',()=>{ const b=document.querySelector('#pastille-pause button'); if(b) b.click(); else location.href=lien('personnalisation.html#pause'); });
-  function etatTasse(){ const e=document.querySelector('#pastille-pause .etat'); if(e&&e.textContent){ tasse.title='Rappel de pause · '+e.textContent; tasse.setAttribute('aria-label',tasse.title); } }
+  function etatTasse(){ const e=document.querySelector('#pastille-pause .etat'); if(e&&e.textContent) tasse.setAttribute('aria-label','Rappel de pause · '+e.textContent); }
   etatTasse(); clearInterval(window._mpTasse); window._mpTasse=setInterval(etatTasse,30e3);
   const js=Pupitre.joursSemaine().filter(j=>j.actif).length;
   f.querySelector('[data-objet="plante"]').title=js+' jour'+(js>1?'s':'')+' actif'+(js>1?'s':'')+' cette semaine';
+  Object.keys(BULLES).forEach(nom=>{ const el=f.querySelector('[data-objet="'+nom+'"]'); if(el) brancherBulle(el,nom); });
   mesurerFond(); if(!window._mpFondEcoute){ window._mpFondEcoute=true; addEventListener('resize',mesurerFond); }
+}
+
+/* -- les info-bulles des objets-commandes : au survol (ou au clavier), ce que fait l'objet,
+   puis son état du moment, relu à chaque affichage. Une seule bulle pour toute la page,
+   posée du côté de l'écran où il y a la place. -- */
+const BULLES={
+  lampe:()=>document.documentElement.dataset.theme==='dark'
+    ? ['La lampe · le thème','Éteins-la pour revenir au thème clair.','']
+    : ['La lampe · le thème','Allume-la pour passer au thème sombre, plus doux le soir.',''],
+  casque:()=>{ const e=document.querySelector('#pastille-musique .etat');
+    return ['Le casque · la musique','Ouvre la musique de concentration : neuf ambiances et le minuteur 25 / 5.',e&&e.textContent?e.textContent:'']; },
+  tasse:()=>{ const e=document.querySelector('#pastille-pause .etat');
+    return ['La tasse · la pause','Règle le rappel qui te propose une pause pendant que tu travailles.',e&&e.textContent?e.textContent:'']; },
+  livres:()=>{ const id=lire('matiere-ouverte','maths'), m=(window.MATIERES||[]).find(x=>x.id===id);
+    return ['Les cahiers · les portes d\'entrée','Mène aux portes d\'entrée'+(m?' de '+m.nom.toLowerCase():' de ta matière')+' : par chapitre, par thème, préparer un contrôle…','']; }
+};
+let bulleEl=null, bulleMinuteur=0;
+function brancherBulle(el,nom){
+  const montrer=()=>{ clearTimeout(bulleMinuteur); bulleMinuteur=setTimeout(()=>afficherBulle(el,nom),200); };
+  const cacher=()=>{ clearTimeout(bulleMinuteur); if(bulleEl) bulleEl.classList.remove('visible'); };
+  el.addEventListener('pointerenter',montrer); el.addEventListener('focus',montrer);
+  el.addEventListener('pointerleave',cacher); el.addEventListener('blur',cacher);
+  // après un clic, l'état a changé (lampe allumée, panneau ouvert) : la bulle se relit
+  el.addEventListener('click',()=>{ cacher(); if(nom==='lampe'&&el.matches(':hover')) montrer(); });
+}
+function afficherBulle(el,nom){
+  if(!bulleEl){ bulleEl=document.createElement('div'); bulleEl.className='fb-bulle'; bulleEl.id='fb-bulle'; bulleEl.setAttribute('role','tooltip'); document.body.appendChild(bulleEl); }
+  const [titre,texte,etat]=BULLES[nom]();
+  bulleEl.innerHTML='<strong>'+echap(titre)+'</strong>'+echap(texte)+(etat?'<span class="etat">'+echap(etat)+'</span>':'');
+  el.setAttribute('aria-describedby','fb-bulle');
+  const r=el.getBoundingClientRect(), b=bulleEl.getBoundingClientRect(), vw=innerWidth, vh=innerHeight;
+  // l'objet est dans une marge : la bulle part vers le centre de l'écran
+  const aGauche= r.left+r.width/2 > vw/2;
+  const x= aGauche ? Math.max(8,r.left-b.width-14) : Math.min(vw-b.width-8,r.right+14);
+  const centre=r.top+r.height/2, y=Math.min(vh-b.height-8,Math.max(8,centre-b.height/2));
+  bulleEl.dataset.cote= aGauche?'gauche':'droite';
+  bulleEl.style.left=Math.round(x)+'px'; bulleEl.style.top=Math.round(y)+'px';
+  bulleEl.style.setProperty('--fleche',Math.round(Math.min(b.height-16,Math.max(10,centre-y-6)))+'px');
+  bulleEl.classList.add('visible');
 }
 function mesurerFond(){
   const F=window.FOND_BUREAU, r=reglagesBureau();

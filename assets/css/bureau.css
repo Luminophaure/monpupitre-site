@@ -178,6 +178,15 @@ body[data-fb-objets="haut"] :is(.fb-objet:not([data-objet="lampe"]):not([data-ob
 body[data-fb-objets="haut"] .fb-objet[data-objet="lampe"]{right:6px;top:calc(var(--fb-jonction,268px) - 96px);width:170px}
 body[data-fb-objets="haut"] .fb-objet[data-objet="pot"]{left:10px;top:calc(var(--fb-jonction,268px) - 112px);width:70px}
 .fb-objet:hover .fb-dessin{transform:translateY(-2px);transition:transform .15s}
+/* l'info-bulle des objets-commandes (bureau.js, afficherBulle) */
+.fb-bulle{position:fixed;left:0;top:0;z-index:70;width:max-content;max-width:min(270px,calc(100vw - 16px));background:var(--inverse);color:var(--inverse-ink);padding:10px 14px;border-radius:var(--r-m);box-shadow:var(--ombre-forte);font-size:var(--t-s);line-height:1.4;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s}
+.fb-bulle.visible{opacity:1;transform:none}
+.fb-bulle strong{display:block;margin-bottom:2px}
+.fb-bulle .etat{display:block;margin-top:6px;color:var(--inverse-muted)}
+.fb-bulle::before{content:"";position:absolute;top:var(--fleche,14px);width:12px;height:12px;background:var(--inverse);transform:rotate(45deg)}
+.fb-bulle[data-cote="gauche"]::before{right:-5px}
+.fb-bulle[data-cote="droite"]::before{left:-5px}
+@media (prefers-reduced-motion:reduce){ .fb-bulle{transition:none;transform:none} }
 /* quand les objets servent, les pastilles du coin s'effacent (le panneau musique reste ancré là) */
 body[data-fb-objets="marges"] .coin .bouton-coin{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}
 /* le contenu commence sous la fenêtre, et le bureau se tient au-dessus de la scène */
@@ -471,7 +480,7 @@ body[data-fond="bureau"] .zone > :is(.scene,.accueil-tete)::after{display:none}
 .reglages-page > section.pile{background:var(--feuille);border-radius:var(--r-xl);padding:var(--e-5) clamp(16px,3vw,32px);box-shadow:var(--ombre-forte)}
 
 /* ---------- Impression : pas de coque ---------- */
-@media print{ .bandeau,.classeur-col,.coin,.toast,.carte-pause,.parcours,.pas-compris,footer.pied{display:none!important} .bureau{display:block;padding:0} }
+@media print{ .bandeau,.classeur-col,.coin,.toast,.fb-bulle,.carte-pause,.parcours,.pas-compris,footer.pied{display:none!important} .bureau{display:block;padding:0} }
 
 /* la note du prototype, en bas du bureau */
 .note-proto{max-width:var(--lecture);padding:10px 14px;border-radius:var(--r-m);background:rgba(255,255,255,.35);color:var(--inverse-ink)}
