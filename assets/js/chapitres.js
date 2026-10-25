@@ -19,7 +19,7 @@
 window.SITE = {
   nom: "Monpupitre",
   accroche: "Le site qui ne fait pas tes devoirs à ta place.",
-  sousTitre: "Cours, méthodes, exercices corrigés, laboratoires et jeux, de la quatrième à la terminale.",
+  sousTitre: "Cours, méthodes, exercices corrigés, laboratoires et jeux, de la sixième à la terminale.",
   auteur: "Vincent Grimal",   // affiché en bas de page, à côté du copyright
   /* La mention de licence du pied de page. Le fichier LICENSE, à la racine, fait foi :
      le contenu pédagogique est en CC BY-NC-SA 4.0, le code reste tous droits réservés.
@@ -38,24 +38,64 @@ window.SITE = {
    directement. Un niveau du catalogue absent d'ici se range à la fin, comme une classe à
    lui seul : rien ne casse si on l'oublie, mais il se retrouve au mauvais endroit. */
 window.CLASSES = [
+  { id: "sixieme", nom: "Sixième", filieres: [
+    { id: "sixieme", nom: "", niveaux: { sixieme: "" } } ] },
+  { id: "cinquieme", nom: "Cinquième", filieres: [
+    { id: "cinquieme", nom: "", niveaux: { cinquieme: "" } } ] },
   { id: "quatrieme", nom: "Quatrième", filieres: [
     { id: "quatrieme", nom: "", niveaux: { quatrieme: "" } } ] },
+  { id: "troisieme", nom: "Troisième", filieres: [
+    { id: "troisieme", nom: "", niveaux: { troisieme: "" } } ] },
   { id: "seconde", nom: "Seconde", filieres: [
     { id: "seconde", nom: "", niveaux: { seconde: "" } } ] },
   { id: "premiere", nom: "Première", filieres: [
     { id: "premiere-generale", nom: "Générale", niveaux: { premiere: "Spécialité" } },
-    { id: "premiere-st2s", nom: "ST2S", niveaux: { "premiere-st2s": "" } } ] },
+    { id: "premiere-st2s", nom: "ST2S", niveaux: { "premiere-techno": "Tronc commun", "premiere-st2s": "Spécialité" } },
+    { id: "premiere-sti2d", nom: "STI2D", niveaux: { "premiere-techno": "Tronc commun", "premiere-sti2d": "Spécialité physique-chimie et maths" } },
+    { id: "premiere-stl", nom: "STL", niveaux: { "premiere-techno": "Tronc commun", "premiere-stl": "Spécialité physique-chimie et maths" } } ] },
   { id: "terminale", nom: "Terminale", filieres: [
     { id: "terminale-generale", nom: "Générale", niveaux: { terminale: "Spécialité", "terminale-comp": "Maths complémentaires" } },
-    { id: "terminale-st2s", nom: "ST2S", niveaux: { "terminale-st2s": "" } } ] }
+    { id: "terminale-st2s", nom: "ST2S", niveaux: { "terminale-techno": "Tronc commun", "terminale-st2s": "Spécialité CBPH (partie chimie)" } },
+    { id: "terminale-sti2d", nom: "STI2D", niveaux: { "terminale-techno": "Tronc commun", "terminale-sti2d": "Spécialité physique-chimie et maths" } },
+    { id: "terminale-stl", nom: "STL", niveaux: { "terminale-techno": "Tronc commun", "terminale-stl": "Spécialité physique-chimie et maths", "terminale-stl-spcl": "Spécialité SPCL" } } ] }
 ];
 /* l'ordre des niveaux, déduit des classes (gardé pour ce qui le lit encore) */
-window.NIVEAUX = window.CLASSES.flatMap(c => c.filieres.flatMap(f => Object.keys(f.niveaux)));
+window.NIVEAUX = [...new Set(window.CLASSES.flatMap(c => c.filieres.flatMap(f => Object.keys(f.niveaux))))];
 
 window.MATIERES = [
   { id: "maths", nom: "Mathématiques", couleur: "maths", ouverte: true,
     accroche: "Fonctions, calcul, géométrie, probabilités : comprendre et s'entraîner pas à pas.",
     niveaux: [
+      /* programme du cycle 3 de 2025, en 6e depuis la rentrée 2025 */
+      { id: "sixieme", nom: "Sixième", chapitres: [
+        { id: "decimaux-6", titre: "Nombres entiers et décimaux" },
+        { id: "calcul-decimaux-6", titre: "Calculer avec les décimaux" },
+        { id: "division-6", titre: "Division euclidienne et divisibilité" },
+        { id: "angles-6", titre: "Angles et bissectrice" },
+        { id: "fractions-6", titre: "Fractions" },
+        { id: "symetrie-6", titre: "Symétrie axiale et médiatrice" },
+        { id: "problemes-6", titre: "Problèmes : schémas en barres et motifs" },
+        { id: "cercle-triangles-6", titre: "Cercle et triangles" },
+        { id: "proportionnalite-6", titre: "Proportionnalité et pourcentages" },
+        { id: "mesures-6", titre: "Périmètres, aires et durées" },
+        { id: "solides-6", titre: "Solides et volumes" },
+        { id: "donnees-6", titre: "Données et probabilités" },
+      ]},
+      /* nouveau programme du cycle 4 (BO n° 10 du 5 mars 2026), en 5e depuis la rentrée 2026 */
+      { id: "cinquieme", nom: "Cinquième", chapitres: [
+        { id: "relatifs-5", titre: "Nombres relatifs" },
+        { id: "calculs-5", titre: "Priorités, multiples et diviseurs" },
+        { id: "angles-5", titre: "Angles et parallélisme" },
+        { id: "fractions-5", titre: "Fractions" },
+        { id: "triangles-5", titre: "Triangles" },
+        { id: "calcul-litteral-5", titre: "Calcul littéral et premières équations" },
+        { id: "parallelogrammes-5", titre: "Symétrie centrale et parallélogrammes" },
+        { id: "proportionnalite-5", titre: "Proportionnalité et pourcentages" },
+        { id: "puissances-5", titre: "Carrés et cubes" },
+        { id: "fonctions-5", titre: "Premières fonctions : tableaux et graphiques" },
+        { id: "espace-5", titre: "Prismes, cylindres et volumes" },
+        { id: "stats-probas-5", titre: "Statistiques et probabilités" },
+      ]},
       { id: "quatrieme", nom: "Quatrième", chapitres: [
         { id: "relatifs-4",    titre: "Nombres relatifs : les quatre opérations" },
         { id: "fractions-4",   titre: "Fractions" },
@@ -67,6 +107,21 @@ window.MATIERES = [
         { id: "transformations-4", titre: "Transformations et triangles semblables" },
         { id: "solides-4",     titre: "Pyramides et cônes" },
         { id: "stats-4",       titre: "Statistiques et probabilités" },
+      ]},
+      /* programme de cycle 4 de 2015 et repères annuels de 2019, en 3e jusqu'en 2028 */
+      { id: "troisieme", nom: "Troisième", chapitres: [
+        { id: "arithmetique-3", titre: "Nombres premiers et arithmétique" },
+        { id: "puissances-3", titre: "Puissances et racines carrées" },
+        { id: "calcul-litteral-3", titre: "Calcul littéral : développer et factoriser" },
+        { id: "thales-3", titre: "Théorème de Thalès" },
+        { id: "equations-3", titre: "Équations et équations produits" },
+        { id: "fonctions-3", titre: "Notion de fonction" },
+        { id: "statistiques-3", titre: "Statistiques : médiane et étendue" },
+        { id: "fonctions-affines-3", titre: "Fonctions linéaires et affines" },
+        { id: "trigo-3", titre: "Trigonométrie" },
+        { id: "homotheties-3", titre: "Homothéties et transformations" },
+        { id: "probabilites-3", titre: "Probabilités" },
+        { id: "espace-3", titre: "Sphère, boule et sections de solides" },
       ]},
       { id: "seconde", nom: "Seconde", chapitres: [
         { id: "nombres",       titre: "Nombres et intervalles" },
@@ -96,6 +151,39 @@ window.MATIERES = [
         { id: "proba-cond",    titre: "Probabilités conditionnelles" },
         { id: "var-alea",      titre: "Variables aléatoires" },
       ]},
+      /* tronc commun des séries technologiques (ST2S, STI2D, STL…), nouveau programme, BO n° 14 du 2 avril 2026 */
+      { id: "premiere-techno", nom: "Première technologique", chapitres: [
+        { id: "logique-1t", titre: "Ensembles, intervalles et logique" },
+        { id: "suites-1t", titre: "Suites arithmétiques et géométriques" },
+        { id: "fonctions-1t", titre: "Fonctions : représentations et taux de variation" },
+        { id: "second-degre-1t", titre: "Fonctions polynômes du second degré" },
+        { id: "degre3-1t", titre: "Fonctions polynômes de degré 3" },
+        { id: "derivation-1t", titre: "Nombre dérivé et tangente" },
+        { id: "variations-1t", titre: "Fonction dérivée et variations" },
+        { id: "stat-2var-1t", titre: "Statistiques à deux variables" },
+        { id: "proba-cond-1t", titre: "Probabilités conditionnelles et indépendance" },
+        { id: "epreuves-1t", titre: "Épreuves répétées et arbres" },
+        { id: "var-alea-1t", titre: "Variables aléatoires et loi de Bernoulli" },
+        { id: "python-1t", titre: "Python : listes et données" },
+      ]},
+      /* partie maths de la spécialité « physique-chimie et mathématiques », BO spécial n° 1 du 22 janvier 2019 */
+      { id: "premiere-sti2d", nom: "Première STI2D", chapitres: [
+        { id: "trigo-1pcm-sti2d", titre: "Cercle trigonométrique et radians" },
+        { id: "sinus-1pcm-sti2d", titre: "Fonctions sinus et cosinus, signaux sinusoïdaux" },
+        { id: "produit-scal-1pcm-sti2d", titre: "Produit scalaire" },
+        { id: "complexes-1pcm-sti2d", titre: "Nombres complexes : forme algébrique" },
+        { id: "complexes-trigo-1pcm-sti2d", titre: "Module, argument et forme trigonométrique" },
+        { id: "derivees-1pcm-sti2d", titre: "Dérivées : règles de calcul" },
+        { id: "primitives-1pcm-sti2d", titre: "Primitives et méthode d'Euler" },
+      ]},
+      /* partie maths de la spécialité « physique-chimie et mathématiques » (sans les nombres complexes), BO spécial n° 1 du 22 janvier 2019 */
+      { id: "premiere-stl", nom: "Première STL", chapitres: [
+        { id: "trigo-1pcm-stl", titre: "Cercle trigonométrique et radians" },
+        { id: "sinus-1pcm-stl", titre: "Fonctions sinus et cosinus, signaux sinusoïdaux" },
+        { id: "produit-scal-1pcm-stl", titre: "Produit scalaire" },
+        { id: "derivees-1pcm-stl", titre: "Dérivées : règles de calcul" },
+        { id: "primitives-1pcm-stl", titre: "Primitives et méthode d'Euler" },
+      ]},
       { id: "terminale", nom: "Terminale spécialité", chapitres: [
         { id: "denombrement",  titre: "Combinatoire et dénombrement" },
         { id: "suites-t",      titre: "Suites et récurrence" },
@@ -120,11 +208,85 @@ window.MATIERES = [
         { id: "densite",       titre: "Lois à densité" },
         { id: "stat-2var",     titre: "Statistiques à deux variables" },
       ]},
+      /* tronc commun des séries technologiques, programme de 2019 (BO spécial n° 8 du 25 juillet 2019), valable jusqu'en 2027 */
+      { id: "terminale-techno", nom: "Terminale technologique", chapitres: [
+        { id: "evolutions-tt", titre: "Évolutions, indices et taux moyens" },
+        { id: "suites-tt", titre: "Suites : terme général et sommes" },
+        { id: "expo-tt", titre: "Fonctions exponentielles de base a" },
+        { id: "log-tt", titre: "Fonction logarithme décimal" },
+        { id: "inverse-tt", titre: "Fonction inverse" },
+        { id: "stat-2var-tt", titre: "Statistiques à deux variables et ajustement" },
+        { id: "proba-cond-tt", titre: "Probabilités conditionnelles et indépendance" },
+        { id: "var-alea-tt", titre: "Variables aléatoires discrètes" },
+        { id: "binomiale-tt", titre: "Loi binomiale" },
+        { id: "python-tt", titre: "Algorithmique : listes et simulations" },
+      ]},
+      /* partie maths de la spécialité « physique-chimie et mathématiques », BO spécial n° 8 du 25 juillet 2019 */
+      { id: "terminale-sti2d", nom: "Terminale STI2D", chapitres: [
+        { id: "exp-tpcm-sti2d", titre: "Fonction exponentielle" },
+        { id: "ln-tpcm-sti2d", titre: "Fonction logarithme népérien" },
+        { id: "composition-tpcm-sti2d", titre: "Composition de fonctions et primitives" },
+        { id: "integration-tpcm-sti2d", titre: "Intégration et valeur moyenne" },
+        { id: "eqdiff-tpcm-sti2d", titre: "Équations différentielles" },
+        { id: "complexes-tpcm-sti2d", titre: "Forme exponentielle et signaux sinusoïdaux" },
+      ]},
+      /* partie maths de la spécialité « physique-chimie et mathématiques » (sans les nombres complexes) */
+      { id: "terminale-stl", nom: "Terminale STL", chapitres: [
+        { id: "exp-tpcm-stl", titre: "Fonction exponentielle" },
+        { id: "ln-tpcm-stl", titre: "Fonction logarithme népérien" },
+        { id: "composition-tpcm-stl", titre: "Composition de fonctions et primitives" },
+        { id: "integration-tpcm-stl", titre: "Intégration et valeur moyenne" },
+        { id: "eqdiff-tpcm-stl", titre: "Équations différentielles" },
+      ]},
     ]},
 
   { id: "svt", nom: "SVT", nomLong: "Sciences de la vie et de la Terre", couleur: "svt", ouverte: true,
     accroche: "Documents à annoter, microscope virtuel et TP simulés.",
     niveaux: [
+      /* partie « vivant, Terre, santé » de Sciences et technologie (cycle 3, programme 2023) */
+      { id: "sixieme", nom: "Sixième", chapitres: [
+        { id: "cellules-6", titre: "Le vivant est fait de cellules" },
+        { id: "classification-6", titre: "Classer les êtres vivants" },
+        { id: "biodiversite-6", titre: "Biodiversité d'hier et d'aujourd'hui" },
+        { id: "ecosystemes-6", titre: "Les écosystèmes au fil des saisons" },
+        { id: "chaines-alimentaires-6", titre: "Végétaux, chaînes alimentaires et décomposeurs" },
+        { id: "pollinisation-6", titre: "De la fleur au fruit : la pollinisation" },
+        { id: "alimentation-6", titre: "Alimentation : besoins et conservation des aliments" },
+        { id: "puberte-6", titre: "Puberté et reproduction humaine" },
+        { id: "terre-climat-6", titre: "Une planète habitable, un climat qui change" },
+      ]},
+      /* cycle 4, programme 2020 ; pas de répartition officielle par année */
+      { id: "cinquieme", nom: "Cinquième", chapitres: [
+        { id: "meteo-climat-5", titre: "Météo et climat" },
+        { id: "ressources-5", titre: "Les ressources naturelles et leur exploitation" },
+        { id: "respiration-5", titre: "Respirer dans tous les milieux" },
+        { id: "vegetaux-5", titre: "Ce dont une plante a besoin" },
+        { id: "circulation-5", titre: "Nourrir et oxygéner les cellules" },
+        { id: "reproduction-5", titre: "Se reproduire et peupler les milieux" },
+        { id: "effort-5", titre: "Le corps pendant l'effort" },
+        { id: "alimentation-5", titre: "S'alimenter : besoins et microbiote" },
+      ]},
+      { id: "quatrieme", nom: "Quatrième", chapitres: [
+        { id: "seismes-4", titre: "Les séismes" },
+        { id: "volcans-4", titre: "Les volcans" },
+        { id: "tectonique-4", titre: "La tectonique des plaques" },
+        { id: "risques-4", titre: "Risques naturels et prévention" },
+        { id: "photosynthese-4", titre: "La photosynthèse et les sèves" },
+        { id: "reproduction-sexuee-4", titre: "Reproduction sexuée et chromosomes" },
+        { id: "puberte-4", titre: "Puberté, reproduction et sexualité humaines" },
+        { id: "systeme-nerveux-4", titre: "Le système nerveux et les drogues" },
+        { id: "digestion-4", titre: "La digestion" },
+      ]},
+      { id: "troisieme", nom: "Troisième", chapitres: [
+        { id: "histoire-terre-3", titre: "L'histoire de la Terre et les ères géologiques" },
+        { id: "climat-3", titre: "Changement climatique et activités humaines" },
+        { id: "genetique-3", titre: "ADN, gènes et allèles" },
+        { id: "heredite-3", titre: "Hérédité : la transmission des chromosomes" },
+        { id: "parente-3", titre: "Parentés entre les êtres vivants" },
+        { id: "evolution-3", titre: "L'évolution des espèces" },
+        { id: "microbes-3", titre: "Le monde microbien et l'hygiène" },
+        { id: "immunite-3", titre: "Se défendre contre les microbes : l'immunité" },
+      ]},
       { id: "seconde", nom: "Seconde", chapitres: [
         { id: "cellule",       titre: "La cellule, unité du vivant" },
         { id: "metabolisme",   titre: "Le métabolisme des cellules" },
@@ -155,6 +317,52 @@ window.MATIERES = [
   { id: "physique-chimie", nom: "Physique-chimie", couleur: "pc", ouverte: true,
     accroche: "Mini-laboratoires interactifs pour mesurer, observer et modéliser.",
     niveaux: [
+      /* partie « matière, mouvement, énergie, information » de Sciences et technologie (cycle 3, programme 2023) */
+      { id: "sixieme", nom: "Sixième", chapitres: [
+        { id: "materiaux-6", titre: "Décrire et trier les matériaux" },
+        { id: "etats-6", titre: "Les changements d'état" },
+        { id: "masse-volume-6", titre: "Masse et volume" },
+        { id: "melanges-6", titre: "Mélanges et transformations chimiques" },
+        { id: "mouvement-6", titre: "Mouvement et vitesse" },
+        { id: "jour-saisons-6", titre: "Jour, nuit et saisons" },
+        { id: "energie-6", titre: "Les formes d'énergie et leurs ressources" },
+        { id: "circuits-6", titre: "Circuits électriques et sécurité" },
+        { id: "signaux-6", titre: "Des signaux pour transmettre une information" },
+      ]},
+      /* cycle 4, programme 2020, réparti comme l'outil de planification de l'inspection (2020) */
+      { id: "cinquieme", nom: "Cinquième", chapitres: [
+        { id: "melanges-5", titre: "Mélanges, corps purs et solubilité" },
+        { id: "etats-5", titre: "Les états de la matière et ses changements d'état" },
+        { id: "transfo-chimique-5", titre: "Premières transformations chimiques" },
+        { id: "systeme-solaire-5", titre: "Le système solaire" },
+        { id: "mouvement-5", titre: "Décrire un mouvement : trajectoire et vitesse" },
+        { id: "actions-5", titre: "Actions de contact et à distance" },
+        { id: "energie-5", titre: "Transferts et conversions d'énergie" },
+        { id: "circuits-5", titre: "Circuits en série et en dérivation" },
+        { id: "lumiere-5", titre: "La lumière : sources et propagation" },
+      ]},
+      { id: "quatrieme", nom: "Quatrième", chapitres: [
+        { id: "masse-volumique-4", titre: "La masse volumique" },
+        { id: "air-4", titre: "L'air qui nous entoure" },
+        { id: "atomes-molecules-4", titre: "Atomes, molécules et tableau périodique" },
+        { id: "combustions-4", titre: "Combustions et équations de réaction" },
+        { id: "vitesse-4", titre: "Vitesse et relativité du mouvement" },
+        { id: "poids-4", titre: "Le poids, une action de la Terre" },
+        { id: "lois-electricite-4", titre: "Les lois de l'électricité" },
+        { id: "energie-puissance-4", titre: "Énergie, puissance et durée" },
+        { id: "propagation-4", titre: "Vitesse de la lumière et du son" },
+      ]},
+      { id: "troisieme", nom: "Troisième", chapitres: [
+        { id: "atomes-ions-3", titre: "Atomes et ions" },
+        { id: "ph-3", titre: "Acides, bases et pH" },
+        { id: "univers-3", titre: "Galaxies et évolution de l'Univers" },
+        { id: "forces-3", titre: "Modéliser une action par une force" },
+        { id: "gravitation-3", titre: "La gravitation universelle" },
+        { id: "energie-cinetique-3", titre: "Énergie cinétique et sécurité routière" },
+        { id: "loi-ohm-3", titre: "La loi d'Ohm" },
+        { id: "puissance-electrique-3", titre: "Puissance et énergie électriques" },
+        { id: "frequences-3", titre: "Sons inaudibles et rayonnements invisibles" },
+      ]},
       { id: "seconde", nom: "Seconde", chapitres: [
         { id: "corps-purs",    titre: "Corps purs et mélanges" },
         { id: "matiere-micro", titre: "La matière à l'échelle microscopique" },
@@ -189,6 +397,35 @@ window.MATIERES = [
         { id: "glucides",          titre: "Les glucides dans l'organisme" },
         { id: "eau-sols",          titre: "Eau potable, sols et engrais" },
       ]},
+      /* partie physique-chimie de la spécialité « physique-chimie et mathématiques », BO spécial n° 1 du 22 janvier 2019 */
+      { id: "premiere-sti2d", nom: "Première STI2D", chapitres: [
+        { id: "mesure-1pcm-sti2d", titre: "Mesure et incertitudes" },
+        { id: "energie-enjeux-1pcm-sti2d", titre: "L'énergie et ses enjeux : puissance et rendement" },
+        { id: "energie-elec-1pcm-sti2d", titre: "Énergie électrique : circuits et puissance" },
+        { id: "energie-interne-1pcm-sti2d", titre: "Énergie interne et transferts thermiques" },
+        { id: "energie-meca-1pcm-sti2d", titre: "Énergie mécanique : travail et énergie cinétique" },
+        { id: "lumiere-1pcm-sti2d", titre: "Énergie lumineuse et photovoltaïque" },
+        { id: "materiaux-1pcm-sti2d", titre: "Matériaux et organisation de la matière" },
+        { id: "combustions-1pcm-sti2d", titre: "Énergie chimique : les combustions" },
+        { id: "oxydo-1pcm-sti2d", titre: "Oxydoréduction, corrosion et piles" },
+        { id: "ondes-1pcm-sti2d", titre: "Notion d'onde" },
+        { id: "sons-1pcm-sti2d", titre: "Ondes sonores" },
+        { id: "em-1pcm-sti2d", titre: "Ondes électromagnétiques" },
+      ]},
+      /* idem, programme propre à la série STL */
+      { id: "premiere-stl", nom: "Première STL", chapitres: [
+        { id: "mesure-1pcm-stl", titre: "Mesure et incertitudes" },
+        { id: "lewis-1pcm-stl", titre: "Structure des molécules : Lewis, géométrie, polarité" },
+        { id: "organique-1pcm-stl", titre: "Molécules organiques et isomérie" },
+        { id: "solutions-1pcm-stl", titre: "Solvants, solutés et concentrations" },
+        { id: "acide-base-1pcm-stl", titre: "Réactions acide-base et pH" },
+        { id: "cinetique-1pcm-stl", titre: "Cinétique chimique" },
+        { id: "mouvement-1pcm-stl", titre: "Décrire un mouvement" },
+        { id: "newton-1pcm-stl", titre: "Forces et lois de Newton" },
+        { id: "energie-1pcm-stl", titre: "Travail, énergie cinétique et puissance" },
+        { id: "ondes-meca-1pcm-stl", titre: "Ondes mécaniques, sons et ultrasons" },
+        { id: "em-1pcm-stl", titre: "Ondes électromagnétiques et photons" },
+      ]},
       { id: "terminale", nom: "Terminale spécialité", chapitres: [
         { id: "acide-base",    titre: "Transformations acide-base et dosages" },
         { id: "cinetique",     titre: "Cinétique et sens d'évolution" },
@@ -199,6 +436,62 @@ window.MATIERES = [
         { id: "son-doppler",   titre: "Intensité sonore et effet Doppler" },
         { id: "photons",       titre: "Lunette astronomique et effet photoélectrique" },
         { id: "electrique",    titre: "Dynamique d'un système électrique" },
+      ]},
+      /* partie chimie de la spécialité « chimie, biologie et physiopathologie humaines », BO spécial n° 8 du 25 juillet 2019 */
+      { id: "terminale-st2s", nom: "Terminale ST2S (chimie)", chapitres: [
+        { id: "securite-routiere-cbph", titre: "Sécurité routière : airbag et alcootest" },
+        { id: "aliments-cbph", titre: "Sécurité des aliments : oxydation et conservation" },
+        { id: "environnement-cbph", titre: "Polluants de l'air et de l'eau" },
+        { id: "imagerie-cbph", titre: "Imagerie médicale et radioactivité" },
+        { id: "analyse-cbph", titre: "Analyser les milieux : dosages et spectrophotométrie" },
+        { id: "biomolecules-cbph", titre: "Acides aminés, protéines et chiralité" },
+        { id: "lipides-cbph", titre: "Lipides, vitamines et additifs" },
+        { id: "medicament-cbph", titre: "De la molécule au médicament" },
+        { id: "cosmetiques-cbph", titre: "Cosmétiques et chimie verte" },
+      ]},
+      /* partie physique-chimie de la spécialité « physique-chimie et mathématiques », BO spécial n° 8 du 25 juillet 2019 */
+      { id: "terminale-sti2d", nom: "Terminale STI2D", chapitres: [
+        { id: "rendement-tpcm-sti2d", titre: "Puissance, rendement et réversibilité" },
+        { id: "sinusoidal-tpcm-sti2d", titre: "Régime sinusoïdal et puissances électriques" },
+        { id: "reseau-tpcm-sti2d", titre: "Transport de l'électricité et sécurité" },
+        { id: "thermique-tpcm-sti2d", titre: "Flux thermique et changements d'état" },
+        { id: "dynamique-tpcm-sti2d", titre: "Dynamique : forces, frottements et rotation" },
+        { id: "fluides-tpcm-sti2d", titre: "Statique des fluides et pression" },
+        { id: "photon-tpcm-sti2d", titre: "Photons, photovoltaïque et photothermique" },
+        { id: "nucleaire-tpcm-sti2d", titre: "Radioactivité, fission et fusion" },
+        { id: "piles-tpcm-sti2d", titre: "Combustions, piles et accumulateurs" },
+        { id: "acide-base-tpcm-sti2d", titre: "Acides, bases et pH" },
+        { id: "spectres-tpcm-sti2d", titre: "Spectres, sons et niveau sonore" },
+        { id: "transmission-tpcm-sti2d", titre: "Transmettre l'information par ondes" },
+      ]},
+      /* idem, programme propre à la série STL */
+      { id: "terminale-stl", nom: "Terminale STL", chapitres: [
+        { id: "stereo-tpcm-stl", titre: "Stéréochimie : chiralité et isomérie Z/E" },
+        { id: "acide-base-tpcm-stl", titre: "Réactions acide-base en solution" },
+        { id: "oxydo-tpcm-stl", titre: "Oxydoréduction" },
+        { id: "cinetique-tpcm-stl", titre: "Cinétique chimique" },
+        { id: "radioactivite-tpcm-stl", titre: "Radioactivité" },
+        { id: "acceleration-tpcm-stl", titre: "Mouvements et accélération" },
+        { id: "champ-tpcm-stl", titre: "Force et champ électrostatiques" },
+        { id: "newton-tpcm-stl", titre: "Lois de Newton et chute avec frottement" },
+        { id: "energie-meca-tpcm-stl", titre: "Chaînes énergétiques et énergie mécanique" },
+        { id: "energie-chim-tpcm-stl", titre: "Énergie chimique et énergie électrique" },
+        { id: "energie-ondes-tpcm-stl", titre: "Énergie et ondes" },
+      ]},
+      /* spécialité « sciences physiques et chimiques en laboratoire », BO spécial n° 8 du 25 juillet 2019 */
+      { id: "terminale-stl-spcl", nom: "Terminale STL · SPCL", chapitres: [
+        { id: "solubilite-spcl", titre: "Solubilité et précipitation" },
+        { id: "acide-base-spcl", titre: "Acides, bases et titrages" },
+        { id: "conductimetrie-spcl", titre: "Conductimétrie et titrages" },
+        { id: "redox-spcl", titre: "Potentiels d'électrode et relation de Nernst" },
+        { id: "synthese-spcl", titre: "Synthèses : rendement, électrolyse, chimie verte" },
+        { id: "analyse-spcl", titre: "Purifier et analyser : UV, IR, RMN" },
+        { id: "mecanismes-spcl", titre: "Mécanismes réactionnels et stéréochimie" },
+        { id: "oscillateurs-spcl", titre: "Oscillateurs, résonance et ondes" },
+        { id: "mesurer-spcl", titre: "Des ondes pour mesurer" },
+        { id: "observer-spcl", titre: "Des ondes pour observer" },
+        { id: "transmettre-spcl", titre: "Transmettre, stocker et afficher" },
+        { id: "systemes-spcl", titre: "Systèmes et procédés" },
       ]},
     ]},
 
