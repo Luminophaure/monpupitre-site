@@ -242,9 +242,12 @@ function menuCompte(role){
 /* -- la colonne de gauche : les intercalaires du classeur --
    L'élève se repère d'abord par son niveau, puis par matière : la colonne range donc
    niveau → matière → chapitre. L'ordre des niveaux vient de window.NIVEAUX (catalogue).
-   Le niveau ouvert est celui du chapitre affiché, sinon celui de l'élève ; ouvrir un
-   autre niveau est une visite passagère, rien n'est mémorisé (le niveau de l'élève se
-   change dans « Mon compte »). La matière ouverte, elle, se retient d'une page à l'autre. */
+   Par défaut tout est replié, sauf le niveau de l'élève (celui de son compte) ; les
+   matières, même dans ce niveau, restent fermées. Seule exception : sur une page de
+   chapitre, le chemin qui y mène (son niveau et sa matière) est déplié, pour que l'élève
+   voie où il est. Rien de ce qu'on ouvre ou ferme n'est rejoué à la page suivante
+   (décision du 25 octobre). 'matiere-ouverte' se mémorise encore, mais ne sert plus
+   qu'à savoir quelle matière l'élève regarde (la pile de cahiers, la porte « matière »). */
 
 /* les niveaux de toutes les matières suivies, fusionnés et ordonnés */
 function niveauxDuClasseur(matieres){
@@ -264,18 +267,15 @@ function colonneEleve(info){
   const suivies=lire('matieres-suivies',null);
   const ouvertes=MATIERES.filter(m=>m.ouverte&&(!suivies||suivies.includes(m.id))), bientot=MATIERES.filter(m=>!m.ouverte);
   const niveaux=niveauxDuClasseur(ouvertes).filter(n=>n.matieres.length);
-  const niveauOuvert= courant ? courant.niveauId : ELEVE.niveau;
-  const matMemo=lire('matiere-ouverte','maths');
+  const niveauChapitre= courant ? courant.niveauId : null;
 
   let h='<span class="surtitre col-titre">Mon classeur</span><nav class="intercalaires" aria-label="Niveaux, matières et chapitres">';
   niveaux.forEach(niv=>{
-    const ouvertN= niv.id===niveauOuvert || (niveaux.length===1);
+    const ouvertN= niv.id===ELEVE.niveau || niv.id===niveauChapitre || (niveaux.length===1);
     const faits=niv.matieres.reduce((t,x)=>t+x.niveau.chapitres.filter(c=>c.fichier).length,0);
     const total=niv.matieres.reduce((t,x)=>t+x.niveau.chapitres.length,0);
-    // dans ce niveau : la matière du chapitre affiché, sinon celle qu'on avait ouverte,
-    // sinon la première — pour qu'un niveau ouvert ne soit jamais vide.
-    const dedans=niv.matieres.map(x=>x.matiere.id);
-    const matOuverte= mat&&dedans.includes(mat.id) ? mat.id : (dedans.includes(matMemo)?matMemo:dedans[0]);
+    // une matière n'est dépliée que si elle mène au chapitre affiché
+    const matOuverte= niv.id===niveauChapitre && mat ? mat.id : null;
     h+='<details class="niv"'+(ouvertN?' open':'')+'><summary><span class="onglet-niv">'+echap(niv.nom)+'</span><small>'+faits+' / '+total+'</small></summary><div class="matieres-col">';
     niv.matieres.forEach(({matiere:m,niveau:n})=>{
       const p=n.chapitres.filter(c=>c.fichier).length;
@@ -302,7 +302,7 @@ function colonne(role,info){
   const a=document.createElement('aside'); a.className='classeur-col'; a.id='classeur-col'; a.setAttribute('aria-label','Classeur');
   a.innerHTML='<div class="col-in">'+(role==='eleve'?colonneEleve(info):colonnePersonnes(role))+
     (role==='eleve'?'<a class="parler" href="'+lien('aide.html#parler')+'"><span aria-hidden="true">💬</span> J\'ai besoin de parler à quelqu\'un</a>':'<a class="parler" href="'+lien('aide.html#parler')+'"><span aria-hidden="true">💬</span> Numéros d\'aide pour un jeune en difficulté</a>')+'</div>';
-  a.addEventListener('toggle',e=>{ const d=e.target;   // la matière ouverte se retient ; le niveau, non
+  a.addEventListener('toggle',e=>{ const d=e.target;   // retient la matière regardée, sans la rouvrir ensuite
     if(d.classList&&d.classList.contains('mat')&&d.open&&d.dataset.matiereId) ecrire('matiere-ouverte',d.dataset.matiereId); },true);
   return a;
 }
