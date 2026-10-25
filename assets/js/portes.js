@@ -185,8 +185,75 @@ const FICHES=[
   {id:'ia',titre:'Bien utiliser l\'IA pour apprendre',format:'fiche + exercice « Corrige l\'IA »',duree:'8 min',resume:'L\'IA aide à chercher, jamais à répondre à ta place.',corps:'<p>Une IA généraliste donne la réponse en trois secondes. Si tu la recopies, tu as un devoir juste et rien dans la tête : le jour du contrôle, il n\'y a pas d\'IA. Elle se trompe aussi, avec beaucoup d\'assurance.</p><p><strong>Ce qui aide :</strong> lui demander une question plutôt qu\'une réponse (« pose-moi une question pour vérifier que j\'ai compris »), un exemple <em>voisin</em>, une reformulation d\'un énoncé obscur, ou de relire ton raisonnement pour trouver l\'erreur, pas la corriger.</p><p><strong>Ce qui nuit :</strong> coller l\'énoncé et recopier ; croire un calcul sans le vérifier ; l\'utiliser à la place du cours.</p><p>Sur ce site, le tuteur applique cette règle : il questionne, il indique, il ne répond jamais. Et l\'exercice « Corrige l\'IA », dans chaque chapitre, t\'entraîne à repérer ses erreurs.</p>',application:'Prends une solution d\'exercice produite par une IA et trouve au moins une étape à vérifier. Était-elle juste ?'},
   {id:'neuromythes',titre:'Les neuromythes : ce qui ne marche pas',format:'fiche',duree:'5 min',resume:'Relire en surlignant, « être visuel », travailler en musique à paroles : des croyances à oublier.',corps:'<ul><li><strong>« Je suis visuel / auditif. »</strong> Les études ne trouvent aucun bénéfice à adapter l\'enseignement à un « style ». Ce qui compte : varier les formats et se tester.</li><li><strong>« Relire et surligner suffit. »</strong> La relecture donne une impression de familiarité, pas de la mémoire. Se tester (cacher, réciter, refaire) marche bien mieux.</li><li><strong>« On n\'utilise que 10 % de son cerveau. »</strong> Faux, tout simplement.</li><li><strong>« La musique aide toujours à se concentrer. »</strong> Les paroles se mélangent à la lecture. Un fond sans paroles aide certains, pas tous : d\'où le lecteur optionnel du site.</li><li><strong>« Une bonne nuit avant le contrôle, ça se rattrape. »</strong> Le sommeil consolide ce que tu as appris : les nuits <em>de la semaine</em> comptent.</li></ul>',application:'Parmi ces cinq idées, laquelle avais-tu ? Qu\'est-ce que tu changes dès cette semaine ?'},
 ];
+/* Les sources des fiches. Une entrée = une étude ou un texte officiel, avec ce qu'il
+   montre, dit en une phrase pour un élève. Les références partagées sont écrites une
+   fois dans REFS et citées par leur clé ; `note` porte ce qu'on ne cite PAS, et
+   pourquoi. Tout a été vérifié (titre, revue, année, DOI) le 25 octobre 2026 ; une
+   relecture par une personne formée en sciences cognitives reste à faire. */
+const REFS={
+  cepeda2006:{ref:'Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T. & Rohrer, D. (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. <i>Psychological Bulletin</i>, 132(3), 354–380.',url:'https://doi.org/10.1037/0033-2909.132.3.354'},
+  cepeda2008:{ref:'Cepeda, N. J., Vul, E., Rohrer, D., Wixted, J. T. & Pashler, H. (2008). Spacing effects in learning: A temporal ridgeline of optimal retention. <i>Psychological Science</i>, 19(11), 1095–1102.',url:'https://doi.org/10.1111/j.1467-9280.2008.02209.x'},
+  roediger2006:{ref:'Roediger, H. L. & Karpicke, J. D. (2006). Test-enhanced learning: Taking memory tests improves long-term retention. <i>Psychological Science</i>, 17(3), 249–255.',url:'https://doi.org/10.1111/j.1467-9280.2006.01693.x'},
+  kornell2009:{ref:'Kornell, N., Hays, M. J. & Bjork, R. A. (2009). Unsuccessful retrieval attempts enhance subsequent learning. <i>Journal of Experimental Psychology: Learning, Memory, and Cognition</i>, 35(4), 989–998.',url:'https://doi.org/10.1037/a0015729'},
+  metcalfe2017:{ref:'Metcalfe, J. (2017). Learning from errors. <i>Annual Review of Psychology</i>, 68, 465–489.',url:'https://doi.org/10.1146/annurev-psych-010416-044022'},
+  hattie2007:{ref:'Hattie, J. & Timperley, H. (2007). The power of feedback. <i>Review of Educational Research</i>, 77(1), 81–112.',url:'https://doi.org/10.3102/003465430298487'},
+  gollwitzer1999:{ref:'Gollwitzer, P. M. (1999). Implementation intentions: Strong effects of simple plans. <i>American Psychologist</i>, 54(7), 493–503.',url:'https://doi.org/10.1037/0003-066X.54.7.493'},
+  gollwitzer2006:{ref:'Gollwitzer, P. M. & Sheeran, P. (2006). Implementation intentions and goal achievement: A meta-analysis of effects and processes. <i>Advances in Experimental Social Psychology</i>, 38, 69–119.',url:'https://doi.org/10.1016/S0065-2601(06)38002-1'},
+  paruthi2016:{ref:'Paruthi, S. et al. (2016). Recommended amount of sleep for pediatric populations: A consensus statement of the American Academy of Sleep Medicine. <i>Journal of Clinical Sleep Medicine</i>, 12(6), 785–786.',url:'https://doi.org/10.5664/jcsm.5866'},
+  fiorella2015:{ref:'Fiorella, L. & Mayer, R. E. (2015). <i>Learning as a Generative Activity: Eight Learning Strategies that Promote Understanding</i>. Cambridge University Press.',url:''},
+  dunlosky2013:{ref:'Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J. & Willingham, D. T. (2013). Improving students\' learning with effective learning techniques: Promising directions from cognitive and educational psychology. <i>Psychological Science in the Public Interest</i>, 14(1), 4–58.',url:'https://doi.org/10.1177/1529100612453266'},
+  bastani2025:{ref:'Bastani, H., Bastani, O., Sungu, A., Ge, H., Kabakcı, Ö. & Mariman, R. (2025). Generative AI without guardrails can harm learning: Evidence from high school mathematics. <i>Proceedings of the National Academy of Sciences</i>, 122(26), e2422633122.',url:'https://doi.org/10.1073/pnas.2422633122'},
+  ji2023:{ref:'Ji, Z. et al. (2023). Survey of hallucination in natural language generation. <i>ACM Computing Surveys</i>, 55(12), article 248.',url:'https://doi.org/10.1145/3571730'},
+  cadreia2025:{ref:'Ministère de l\'Éducation nationale (2025). <i>Cadre d\'usage de l\'intelligence artificielle en éducation</i>.',url:'https://www.education.gouv.fr/publication-du-cadre-d-usage-de-l-intelligence-artificielle-en-education-462936'},
+  pashler2008:{ref:'Pashler, H., McDaniel, M., Rohrer, D. & Bjork, R. (2008). Learning styles: Concepts and evidence. <i>Psychological Science in the Public Interest</i>, 9(3), 105–119.',url:'https://doi.org/10.1111/j.1539-6053.2009.01038.x'},
+  karpicke2009:{ref:'Karpicke, J. D., Butler, A. C. & Roediger, H. L. (2009). Metacognitive strategies in student learning: Do students practise retrieval when they study on their own? <i>Memory</i>, 17(4), 471–479.',url:'https://doi.org/10.1080/09658210802647009'},
+  dekker2012:{ref:'Dekker, S., Lee, N. C., Howard-Jones, P. & Jolles, J. (2012). Neuromyths in education: Prevalence and predictors of misconceptions among teachers. <i>Frontiers in Psychology</i>, 3, 429.',url:'https://doi.org/10.3389/fpsyg.2012.00429'},
+  vasilev2018:{ref:'Vasilev, M. R., Kirkby, J. A. & Angele, B. (2018). Auditory distraction during reading: A Bayesian meta-analysis of a continuing controversy. <i>Perspectives on Psychological Science</i>, 13(5), 567–597.',url:'https://doi.org/10.1177/1745691617747398'},
+  rasch2013:{ref:'Rasch, B. & Born, J. (2013). About sleep\'s role in memory. <i>Physiological Reviews</i>, 93(2), 681–766.',url:'https://doi.org/10.1152/physrev.00032.2012'},
+  gillen2013:{ref:'Gillen-O\'Neel, C., Huynh, V. W. & Fuligni, A. J. (2013). To study or to sleep? The academic costs of extra studying at the expense of sleep. <i>Child Development</i>, 84(1), 133–142.',url:'https://doi.org/10.1111/j.1467-8624.2012.01834.x'},
+  dehaene2018:{ref:'Dehaene, S. (2018). <i>Apprendre ! Les talents du cerveau, le défi des machines</i>. Odile Jacob.',url:''},
+};
+const SOURCES_FICHES={
+  'revision-espacee':{liste:[
+    ['cepeda2006','317 expériences passées en revue : à temps de travail égal, espacer les révisions fait retenir plus longtemps que les grouper.'],
+    ['roediger2006','Se tester (écrire de mémoire, puis vérifier) fait retenir une semaine plus tard bien mieux que relire — alors que relire paraît plus efficace sur le moment.'],
+    ['cepeda2008','L\'écart idéal entre deux révisions dépend de la date du contrôle : plus il est loin, plus on espace. Les dates J+1, J+3, J+7, J+21 sont un repère commode, pas une loi.']]},
+  'relire-copie':{liste:[
+    ['metcalfe2017','Faire une erreur puis la corriger soi-même, avec un retour, apprend plus qu\'éviter l\'erreur ; les erreurs commises avec assurance sont même celles qu\'on corrige le mieux.'],
+    ['kornell2009','Chercher la réponse soi-même, même sans la trouver, prépare à mieux retenir la correction qui vient ensuite.'],
+    ['hattie2007','Un retour utile dit où est l\'écart et comment le réduire ; la note seule n\'apprend presque rien.']],
+    note:'« Une erreur trouvée par toi vaut dix corrections lues » est une façon de parler : les études disent « mieux », pas « dix fois mieux ».'},
+  'planifier':{liste:[
+    ['gollwitzer1999','Décider à l\'avance quand, où et quoi (« lundi 18 h : exercices guidés ») augmente nettement les chances de passer à l\'acte, comparé à une simple intention.'],
+    ['gollwitzer2006','94 études réunies : l\'effet est net et se retrouve dans tous les domaines, les études comprises.'],
+    ['cepeda2006','Plusieurs séances courtes et espacées font retenir plus longtemps qu\'une seule longue soirée.'],
+    ['paruthi2016','De 13 à 18 ans : 8 à 10 heures de sommeil par nuit, selon le consensus des médecins du sommeil.']],
+    note:'Les 25 minutes viennent de la technique Pomodoro (Francesco Cirillo, années 1980) : une habitude pratique qui convient à beaucoup, pas un résultat d\'étude.'},
+  'notes':{liste:[
+    ['fiorella2015','Reformuler, schématiser, s\'expliquer la notion à soi-même : ce qui aide, c\'est de produire quelque chose avec le cours, pas de le recopier.'],
+    ['dunlosky2013','Résumer un cours n\'aide que si on a appris à le faire ; se tester et espacer sont les deux techniques les mieux établies.']],
+    note:'Nous ne citons pas l\'étude souvent reprise selon laquelle écrire à la main vaudrait mieux que taper (Mueller & Oppenheimer, 2014) : refaite à plus grande échelle (Morehead, Dunlosky & Rawson, 2019), elle n\'a pas été confirmée.'},
+  'ia':{liste:[
+    ['bastani2025','Près de 1 000 lycéens : avec une IA qui donne les réponses, les exercices d\'entraînement sont bien mieux réussis (+48 %), mais le contrôle passé sans IA est moins bien réussi (−17 %) qu\'en ayant travaillé sans aide. Avec une IA réglée pour n\'indiquer que des pistes, jamais la réponse, cette perte disparaît. C\'est la règle du tuteur de ce site.'],
+    ['ji2023','Les modèles de langage produisent des affirmations fausses mais fluides et assurées ; le phénomène est connu, mesuré, et pas résolu.'],
+    ['cadreia2025','Utiliser l\'IA pour un devoir sans autorisation ni travail personnel est une fraude ; l\'usage autonome est admis à partir de la 4ᵉ.']]},
+  'neuromythes':{liste:[
+    ['pashler2008','Aucune étude rigoureuse ne montre qu\'enseigner selon le « style » d\'un élève (visuel, auditif…) le fait mieux apprendre.'],
+    ['dunlosky2013','Relire et surligner : utilité faible. Se tester et espacer ses révisions : utilité élevée.'],
+    ['karpicke2009','La plupart des étudiants relisent plutôt que de se tester, parce que la relecture donne une impression de maîtrise.'],
+    ['dekker2012','Le « 10 % du cerveau » et les styles d\'apprentissage sont parmi les idées fausses les plus répandues, y compris chez les enseignants.'],
+    ['vasilev2018','65 études : la parole et la musique avec paroles gênent le plus la lecture ; le bruit et la musique sans paroles gênent un peu, chez les enfants comme chez les adultes.'],
+    ['rasch2013','Pendant le sommeil, le cerveau rejoue et consolide ce qui a été appris dans la journée.'],
+    ['gillen2013','535 lycéens suivis pendant trois ans : un soir de révision pris sur le sommeil est suivi, le lendemain, de plus de difficultés en classe et aux contrôles.']]},
+};
+function lienRef(k){ const r=REFS[k]; return '<cite>'+r.ref+'</cite>'+(r.url?' <a href="'+r.url+'" rel="noopener" target="_blank">'+echap(r.url.replace(/^https?:\/\/(doi\.org\/)?/,''))+'</a>':''); }
+function sourcesHTML(id){ const s=SOURCES_FICHES[id]; if(!s) return '';
+  return '<details class="sources"><summary>D\'où ça vient</summary><ul>'+s.liste.map(x=>'<li><span class="dit">'+x[1]+'</span>'+lienRef(x[0])+'</li>').join('')+'</ul>'+(s.note?'<p class="note">'+s.note+'</p>':'')+'</details>'; }
+function biblioHTML(){ const cles=['dehaene2018','dunlosky2013',...new Set(Object.values(SOURCES_FICHES).flatMap(s=>s.liste.map(x=>x[0])))];
+  const uniques=[...new Set(cles)].sort((a,b)=>REFS[a].ref.localeCompare(REFS[b].ref,'fr'));
+  return '<section class="biblio" id="sources"><h2>Les sources</h2><p>Ces fiches s\'appuient sur les quatre piliers de l\'apprentissage décrits par Stanislas Dehaene et sur les synthèses qui comparent les méthodes de travail entre elles. Chaque fiche dit d\'où elle vient (« D\'où ça vient ») et, quand une idée répandue n\'est pas confirmée, elle le dit aussi.</p><ol>'+uniques.map(k=>'<li>'+lienRef(k)+'</li>').join('')+'</ol><p class="discret">Références vérifiées le 25 octobre 2026. Les fiches n\'ont pas encore été relues par une personne formée en sciences cognitives : c\'est prévu avant qu\'elles quittent le prototype.</p></section>'; }
 function Apprendre(body){ const m=body.querySelector('#fiches'); if(!m) return;
-  m.innerHTML=FICHES.map(f=>'<article class="fiche-metho" id="'+f.id+'"><span class="meta"><span>'+echap(f.format)+'</span><span>'+echap(f.duree)+'</span></span><h2>'+echap(f.titre)+'</h2><p><strong>'+echap(f.resume)+'</strong></p>'+f.corps+'<details><summary>Exercice d\'application</summary><p>'+echap(f.application)+'</p></details></article>').join('');
+  m.innerHTML=FICHES.map(f=>'<article class="fiche-metho" id="'+f.id+'"><span class="meta"><span>'+echap(f.format)+'</span><span>'+echap(f.duree)+'</span></span><h2>'+echap(f.titre)+'</h2><p><strong>'+echap(f.resume)+'</strong></p>'+f.corps+'<details><summary>Exercice d\'application</summary><p>'+echap(f.application)+'</p></details>'+sourcesHTML(f.id)+'</article>').join('')+biblioHTML();
   if(location.hash){ const t=document.getElementById(location.hash.slice(1)); if(t) setTimeout(()=>t.scrollIntoView({block:'start'}),100); } }
 
 /* ---------- 4. Aller plus loin ---------- */

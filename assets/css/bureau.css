@@ -330,6 +330,17 @@ body[data-fond="bureau"] .zone > :is(.scene,.accueil-tete)::after{display:none}
 .fiche-metho{display:grid;gap:8px;padding:var(--e-4) var(--e-5);border-radius:var(--r-l);background:var(--card);box-shadow:var(--ombre)}
 .fiche-metho .meta{display:flex;gap:10px;flex-wrap:wrap;font:600 var(--t-xs) var(--f-mono);color:var(--muted)}
 .fiche-metho details summary{cursor:pointer;font-weight:700;color:var(--mc)}
+.fiche-metho .sources{font-size:var(--t-s)}
+.fiche-metho .sources summary{font-weight:600;color:var(--muted)}
+.fiche-metho .sources ul{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.fiche-metho .sources li{display:grid;gap:2px;padding-left:12px;border-left:3px solid var(--line)}
+.fiche-metho .sources .dit{color:var(--ink)}
+.fiche-metho .sources cite,.biblio cite{font-style:normal;color:var(--muted)}
+.fiche-metho .sources a,.biblio a{color:var(--mc);word-break:break-all}
+.fiche-metho .sources .note{margin:10px 0 0;padding:8px 12px;border-radius:var(--r-m);background:var(--b-rq-bg);color:var(--ink);font-size:var(--t-s)}
+.biblio{padding:var(--e-4) var(--e-5);border-radius:var(--r-l);background:var(--card);box-shadow:var(--ombre);font-size:var(--t-s)}
+.biblio h2{margin-top:0}
+.biblio ol{margin:0;padding-left:1.4em;display:grid;gap:8px}
 .labos-liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:var(--e-3)}
 .labos-liste a{display:grid;gap:3px;padding:12px 14px;border-radius:var(--r-m);background:var(--card);box-shadow:var(--ombre);color:var(--ink);text-decoration:none}
 .labos-liste a small{color:var(--muted)}
