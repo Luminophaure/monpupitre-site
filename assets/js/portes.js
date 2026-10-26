@@ -325,19 +325,24 @@ function CarnetPage(body){ const p=P(), m=body.querySelector('#carnet'); if(!m||
    suit la vue la plus proche (DECOR_DESSINE), sans choix à part. */
 const DECOR_DESSINE={ville:'fenetre',plage:'plage',montagne:'montagne',foret:'fenetre',jardin:'fenetre'};
 function decorLofi(el){ if(!el) return; const BB=B().bureau;
-  BB.chargerPack(()=>{ const PK=window.PACK_BUREAU, BP=BB.peint, r=BP.reglages(), S=BP.scene(PK,r), V=S.vignettes||{}, N=S.noms||{};
+  BB.chargerPack(()=>{ const PK=window.PACK_BUREAU, BP=BB.peint, r=BP.reglages(), S=BP.scene(PK,r), PL=S.planches||{}, N=S.noms||{};
     const sombre=document.documentElement.dataset.theme==='dark', moment=BP.moment(r);
-    const img=(s,cls)=>'<img src="'+lien(BP.IMG+s)+'" alt="" loading="lazy"'+(cls?' class="'+cls+'"':'')+'>';
+    // une vignette = une case d'une planche (une image par scène et par moment) : découpée par
+    // background-position, la planche mise à l'échelle pour qu'une case remplisse le cadre
+    const vign=(planches,cle,m,x)=>{ const p=(planches||{})[m], c=p&&p.cases[cle]; if(!c) return '';
+      const pos=p.h>c[1]?100*c[0]/(p.h-c[1]):0;
+      return '<span class="vign" style="background-image:url(\''+lien(BP.IMG+p.src)+'\');background-size:auto '+(100*p.h/c[1]).toFixed(2)+'%;background-position:'+(x==null?50:x)+'% '+pos.toFixed(3)+'%"></span>'; };
+    const V=Object.fromEntries(Object.keys((PL[moment]||{}).cases||{}).filter(k=>k!=='apercu').map(k=>[k,1]));
     const carte=(attr,v,presse,images,titre,sous)=>'<button type="button" class="decor-choix" data-'+attr+'="'+v+'" aria-pressed="'+presse+'"><span class="apercu-lofi" aria-hidden="true">'+images+'</span><strong>'+echap(titre)+'</strong>'+(sous?'<span class="discret">'+echap(sous)+'</span>':'')+'</button>';
     const propre=S.propre.cle, vues=[propre].concat(Object.keys(S.vues||{})).filter(k=>V[k]);
-    const pays=(S.vues||{})[r.paysage]?r.paysage:propre, W=V[pays];
+    const pays=(S.vues||{})[r.paysage]?r.paysage:propre;
     // les ambiances : le bureau de base, puis chacune, dans la lumière du moment
-    const ambiances=[['base','Lofi',PK.apercus,'']].concat(Object.entries(PK.ambiances||{}).map(([k,a])=>[k,a.nom,a.apercus,'']));
+    const ambiances=[['base','Lofi',PK.planches,'']].concat(Object.entries(PK.ambiances||{}).map(([k,a])=>[k,a.nom,a.planches,'']));
     const lum=[['heure','Selon l\'heure','matin, midi, puis soir'],['matin','Matin',''],['midi','Midi',''],['soir','Soir',''],['nuit','La nuit','le thème sombre, la lampe allumée']];
-    el.innerHTML=(ambiances.length>1?'<div><span class="discret">L\'ambiance</span><div class="decors">'+ambiances.filter(a=>a[2]).map(([k,t,ap,sous])=>carte('ambiance',k,S.cle===k,img(ap[moment]),t,sous)).join('')+'</div></div>':'')+
-      '<div><span class="discret">Par la fenêtre</span><div class="decors">'+vues.map(k=>carte('paysage',k,pays===k,img(V[k][moment]),N[k]||k,'')).join('')+'</div></div>'+
+    el.innerHTML=(ambiances.length>1?'<div><span class="discret">L\'ambiance</span><div class="decors">'+ambiances.filter(a=>a[2]).map(([k,t,pl,sous])=>carte('ambiance',k,S.cle===k,vign(pl,'apercu',moment),t,sous)).join('')+'</div></div>':'')+
+      '<div><span class="discret">Par la fenêtre</span><div class="decors">'+vues.map(k=>carte('paysage',k,pays===k,vign(PL,k,moment),N[k]||k,'')).join('')+'</div></div>'+
       '<div><span class="discret">La lumière</span><div class="decors">'+lum.map(([k,t,sous])=>{ const presse= k==='nuit'?sombre:(!sombre&&(r.lumiere||'heure')===k);
-        const images= k==='heure'?'<span class="tranches">'+['matin','midi','soir'].map(m=>img(W[m])).join('')+'</span>':img(W[k]);
+        const images= k==='heure'?'<span class="tranches">'+[['matin',0],['midi',50],['soir',100]].map(([m,x])=>vign(PL,pays,m,x)).join('')+'</span>':vign(PL,pays,k);
         return carte('lumiere',k,presse,images,t,sous); }).join('')+'</div></div>'+
       (BB.reglages().vue!=='peint'?'<p class="discret">Ton bureau est en décor dessiné : sa fenêtre en arche suit la vue la plus proche. Le bureau lofi se choisit dans « Mon bureau », juste en dessous.</p>':'')+
       (P().masque('decor')?'<p class="discret">Le décor du bureau est masqué (dans « Mon compte », rubrique Affichage) : ces choix s\'appliqueront quand tu le réafficheras.</p>':'');

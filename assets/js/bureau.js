@@ -541,7 +541,7 @@ function teintePeinte(moment,cote){ return moment==='midi'?'':'filter:url(#fb-te
    places ; ses propres décors, vues, teintes, objets et étagères) */
 function scenePeinte(P,r){ const A=r.ambiance&&r.ambiance!=='base'&&P.ambiances&&P.ambiances[r.ambiance];
   if(A) return Object.assign({cle:r.ambiance},A);
-  return {cle:'base',nom:'Lofi',decors:P.decors,vues:P.vues,vignettes:P.vignettes,apercus:P.apercus,teintes:P.teintes,bords:P.bords,
+  return {cle:'base',nom:'Lofi',decors:P.decors,vues:P.vues,planches:P.planches,teintes:P.teintes,bords:P.bords,
     propre:{cle:'ville',nom:(P.noms||{}).ville||'La ville'},noms:P.noms||{}}; }
 /* la pièce d'un objet : celle de l'ambiance, sinon le style et la couleur choisis */
 function pieceScene(P,S,cat,style,couleur){ return S.objets?S.objets[cat]||null:piecePeinte(P,cat,style,couleur); }
