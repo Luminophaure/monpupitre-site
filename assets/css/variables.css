@@ -29,6 +29,7 @@
      plus bas, pour que la nuit tombe sur le bureau avec le thème. */
   --fb-mur-h:#F0E4CE; --fb-mur-b:#E2CFAE; --fb-mur-bas:#D9C4A0; --fb-moulure:#C9B28C; --fb-halo:#FFF6DF; --fb-halo-op:.7;
   --fb-plateau-h:#CB975F; --fb-plateau-b:#A97845; --fb-chant:#DDAE74; --fb-fil:#7E5329;
+  --fbp-ombre:rgba(48,20,6,.5); --fbp-lueur-1:rgba(255,196,110,.55); --fbp-lueur-2:rgba(255,160,70,.22); --fbp-lueur-3:rgba(255,140,60,.08); --fbp-mur-0:#D8B48A; --fbp-plateau-0:#C46A2A;   /* le bureau lofi : ombre de contact, lueur de la lampe, aplats d'attente */
   --fb-sousmain:var(--fb-sousmain-jour,#E3D4B6); --fb-sousmain-b:var(--fb-sousmain-b-jour,#D6C4A2); --fb-couture:#B9A27C;   /* clair le jour : des titres se posent dessus */
   /* Les jetons que l'élève peut changer dans Personnalisation passent par un choix
      (--fb-…-jour / --fb-…-nuit, ou --fb-…-choix), posé sur :root par bureau.js ; sans
@@ -125,6 +126,7 @@
   --ombre:0 10px 24px rgba(0,0,0,.35); --ombre-forte:0 30px 60px rgba(0,0,0,.55);
   --fb-mur-h:#33200F; --fb-mur-b:#1F1208; --fb-mur-bas:#1A0E06; --fb-moulure:#3A2416; --fb-halo:#4A2C18; --fb-halo-op:.35;
   --fb-plateau-h:#3A2416; --fb-plateau-b:#24150B; --fb-chant:#4A2C18; --fb-fil:#120A05;
+  --fbp-ombre:rgba(10,4,16,.55); --fbp-lueur-1:rgba(255,196,110,.55); --fbp-lueur-2:rgba(255,160,70,.22); --fbp-lueur-3:rgba(255,140,60,.08); --fbp-mur-0:#3A2E3A; --fbp-plateau-0:#4A2416;
   --fb-sousmain:var(--fb-sousmain-nuit,#1C3526); --fb-sousmain-b:var(--fb-sousmain-b-nuit,#12261A); --fb-couture:#2E5A40;
   --fb-etagere:var(--fb-etagere-nuit,#4A2C18); --fb-etagere-ombre:var(--fb-etagere-ombre-nuit,#2B1A10);
   --fb-lampe-pied:#1A1715; --fb-lampe-pied-h:#3A3532; --fb-abatjour:var(--fb-abatjour-nuit,#243A2E); --fb-abatjour-h:var(--fb-abatjour-h-nuit,#36544A); --fb-ampoule:#FFF4C4; --fb-ampoule-reflet:.8;
