@@ -418,8 +418,8 @@ function enregistrerBureau(maj){ ecrire('bureau',Object.assign(reglagesEnregistr
    mp:bureau.peint. Les valeurs doivent exister dans pack-bureau.js ; une valeur inconnue (un
    réglage du bureau peint d'essai, par exemple) retombe sur la première. */
 const PEINT_DEFAUT={lumiere:'heure',paysage:'ville',lampe:'articulee',lampeCouleur:'vert-sapin',casque:'arceau',casqueCouleur:'bleu-nuit',
-  tasse:'mug',tasseCouleur:'creme',plante:'pothos',livres:'classique',pot:'ceramique',potCouleur:'creme',compagnon:'aucun',
-  etagereG:'livres-classique',etagereD:'globe'};   // des livres à gauche et le globe à droite : choix du professeur (26 octobre)
+  tasse:'mug',tasseCouleur:'creme',plante:'pothos',livres:'classique',pot:'ceramique',potCouleur:'creme',compagnon:'chaton',
+  etagereG:'livres-classique',etagereD:'globe'};   // choix du professeur (26 octobre) : le chaton sur le rebord, des livres à gauche et le globe à droite
 function reglagesPeint(){ return Object.assign({},PEINT_DEFAUT,reglagesBureau().peint||{}); }
 
 /* charger un script une seule fois, et rappeler tous ceux qui l'attendaient */
@@ -517,8 +517,9 @@ function brancherObjets(f){
    comme ceux du bureau dessiné, avec leur ombre de contact. Les objets sont peints au midi ;
    matin, soir et nuit leur viennent d'un filtre de teinte (feColorMatrix) ajusté sur le décor
    — la nuit, plus froide à gauche, plus chaude à droite près de la lampe. La lampe a sa
-   version allumée, et sa lueur. La nuit vient du thème sombre ; le jour suit l'heure ou le
-   réglage « lumière ». */
+   version allumée, et sa lueur ; un chat, sa version endormie. Le compagnon choisi est assis
+   sur l'appui de la fenêtre, dans le cadre. La nuit vient du thème sombre ; le jour suit
+   l'heure ou le réglage « lumière ». */
 function momentPeint(r){
   if(document.documentElement.dataset.theme==='dark') return 'nuit';
   if(r.lumiere&&r.lumiere!=='heure') return r.lumiere;
@@ -561,6 +562,10 @@ function monterPeint(){
   [['etagereD',0,'d'],['etagereG',decale,'g']].forEach(([cle,dx,cote])=>{ const e=P.etageres[r[cle]]; if(!e) return;
     const bx=e.boite, miroir=cote==='g'?';transform:scaleX(-1)':'';
     cadre+=img(e.images.midi,'fb-deco','left:'+pc(bx[0]+dx,W)+';top:'+pc(bx[1],H)+';width:'+pc(bx[2],W)+';'+teintePeinte(moment,cote)+miroir); });
+  // le compagnon, sur l'appui de la fenêtre ; un chat dort la nuit, et respire lentement
+  const C=(P.compagnons||{})[r.compagnon]; if(C){ const v=vuePiece(C,nuit), bx=v.boite, ct=v.contact||[bx[2]*.2,bx[2]*.8], l=ct[1]-ct[0];
+    cadre+='<i class="fb-ombre fb-ombre-c" style="left:'+pc(bx[0]+ct[0]-l*.12,W)+';width:'+pc(l*1.24,W)+';top:'+pc(bx[1]+v.appui[1],H)+'"></i>';
+    cadre+=img(v.src,'fb-compagnon'+(v.allumee?' fb-dort':''),'left:'+pc(bx[0],W)+';top:'+pc(bx[1],H)+';width:'+pc(bx[2],W)+';'+(v.allumee?'':teintePeinte(moment,'g'))); }
   f.innerHTML=filtresPeint(P)+cadre+'</div>';
   // les objets-commandes et les objets décoratifs, posés dans les marges par placerPeint
   const objets=[['lampe','button','Thème clair ou sombre (la lampe)',r.lampe,r.lampeCouleur],['tasse','button','Rappel de pause (la tasse)',r.tasse,r.tasseCouleur],

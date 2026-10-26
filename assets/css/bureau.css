@@ -244,6 +244,12 @@ body[data-fb-large] .fb-peint .fb-decor{-webkit-mask-image:linear-gradient(90deg
 .fb-peint .fb-objet .fb-dessin{position:relative;width:100%;height:auto;display:block;user-select:none;-webkit-user-drag:none}
 /* l'ombre de contact : une ellipse floue sous ce qui touche le plateau */
 .fb-peint .fb-ombre{position:absolute;aspect-ratio:7/1;transform:translateY(-55%);border-radius:50%;background:radial-gradient(closest-side,var(--fbp-ombre),transparent);pointer-events:none;z-index:-1}
+/* le compagnon : son ombre sur l'appui de la fenêtre (dans le cadre) ; endormi, il respire
+   lentement — rien sous « réduire les animations » */
+.fb-peint .fb-cadre .fb-ombre-c{z-index:auto}
+.fb-peint .fb-dort{transform-origin:50% 100%;animation:fb-souffle 4.2s ease-in-out infinite}
+@keyframes fb-souffle{50%{transform:scale(1.012,1.022)}}
+@media (prefers-reduced-motion:reduce){ .fb-peint .fb-dort{animation:none} }
 /* la lueur de la lampe allumée : un halo ambré posé sur l'ampoule */
 .fb-peint .fb-lueur{position:absolute;pointer-events:none;border-radius:50%;mix-blend-mode:screen;background:radial-gradient(closest-side,var(--fbp-lueur-1),var(--fbp-lueur-2) 38%,var(--fbp-lueur-3) 62%,transparent)}
 body:not([data-fb-objets]) .fb-peint .fb-lueur{display:none}

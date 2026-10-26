@@ -406,7 +406,7 @@ function atelierBureau(el){ if(!el) return;
       '<div><span class="discret">La vue par la fenêtre</span>'+bascule('paysage',paysages)+'</div>'+
       objet('lampe','lampe','lampeCouleur','La lampe')+objet('casque','casque','casqueCouleur','Le casque')+objet('tasse','tasse','tasseCouleur','La tasse')+
       objet('pot','pot','potCouleur','Le pot à crayons')+objet('livres','livres','','Les livres')+objet('plante','plante','','La plante')+
-      (compagnons?'<div><span class="discret">Le compagnon, sur le rebord de la fenêtre</span>'+vignettes('compagnon',compagnons)+'</div>':'')+
+      (compagnons?'<div><span class="discret">Le compagnon, sur le rebord de la fenêtre (la nuit, les chats dorment)</span>'+vignettes('compagnon',compagnons)+'</div>':'')+
       '<div><span class="discret">L\'étagère de gauche</span>'+vignettes('etagereG',decos)+'</div>'+
       '<div><span class="discret">L\'étagère de droite</span>'+vignettes('etagereD',decos)+'</div>'+
       '<div><button type="button" class="btn fantome petit" data-bureau-defaut>Revenir au bureau d\'origine</button></div></div>'+
@@ -427,6 +427,8 @@ function apercuPeint(el){ const PK=window.PACK_BUREAU, BP=B().bureau.peint, r=BP
   const E=PK.geometrie.etageres, decale=((E.gauche.x1+E.gauche.x2)-(E.droite.x1+E.droite.x2))/2;
   [['etagereD',0,'d'],['etagereG',decale,'g']].forEach(([cle,dx,cote])=>{ const e=PK.etageres[r[cle]]; if(!e) return; const b=e.boite;
     h+=img(e.images.midi,'','left:'+pc(b[0]+dx,W)+';top:'+pc(b[1],H)+';width:'+pc(b[2],W)+';'+BP.teinte(moment,cote)+(cote==='g'?';transform:scaleX(-1)':'')); });
+  const C=(PK.compagnons||{})[r.compagnon]; if(C){ const v=BP.vue(C,nuit), b=v.boite;
+    h+=img(v.src,v.allumee?'fb-dort':'','left:'+pc(b[0],W)+';top:'+pc(b[1],H)+';width:'+pc(b[2],W)+';'+(v.allumee?'':BP.teinte(moment,'g'))); }
   [['lampe',r.lampe,r.lampeCouleur],['tasse',r.tasse,r.tasseCouleur],['casque',r.casque,r.casqueCouleur],['pot',r.pot,r.potCouleur],['livres',r.livres,''],['plante',r.plante,'']]
     .forEach(([cat,st,c])=>{ const e=BP.piece(PK,cat,st,c); if(!e) return; const v=BP.vue(e,nuit), b=v.boite, cont=v.contact||[b[2]*.2,b[2]*.8], l=cont[1]-cont[0];
       h+='<i class="ap-ombre" style="left:'+pc(b[0]+cont[0]-l*.12,W)+';width:'+pc(l*1.24,W)+';top:'+pc(b[1]+v.appui[1],H)+'"></i>';
