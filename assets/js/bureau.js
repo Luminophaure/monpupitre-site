@@ -401,8 +401,17 @@ function coque(info,opts){
    matière ouverte. « Le décor illustré » décoché dans Personnalisation = pas de scène. */
 const BUREAU_DEFAUT={vue:'peint',lampe:'articulee',lampeCouleur:'vert',pot:'ceramique',potCouleur:'creme',crayons:'site',tasse:'creme',plante:'rosette',casque:'bleu',etagere:'simple',bois:'chene',livres:'site'};
 const FOND_GEOMETRIE={jonction:268,largeur:1280,hauteur:900};   // de quoi mesurer avant que fond-bureau.js soit là
-function reglagesBureau(){ const r=Object.assign({},BUREAU_DEFAUT,lire('bureau',{})||{}); if(window._mpVueForcee&&r.vue==='peint') r.vue=window._mpVueForcee; return r; }
-function enregistrerBureau(maj){ const r=Object.assign(reglagesBureau(),maj); ecrire('bureau',r); return r; }
+/* Chaque enregistrement recopie la vue avec le reste. Un réglage d'avant le 26 octobre porte
+   donc « marquee » (le défaut d'alors) ou « douce » : sans ce tri, un navigateur qui a déjà
+   réglé son bureau ne verrait jamais le bureau peint. Une vue dessinée n'est gardée que si
+   elle a été choisie depuis (v:2, posé à chaque enregistrement) ; une ambiance, toujours
+   choisie exprès, reste. Ce qu'on enregistre ne passe jamais par la vue forcée de secours. */
+const BUREAU_VERSION=2;
+function reglagesEnregistres(){ const brut=lire('bureau',{})||{}, r=Object.assign({},BUREAU_DEFAUT,brut);
+  if((brut.v||0)<BUREAU_VERSION&&(r.vue==='marquee'||r.vue==='douce')) r.vue=BUREAU_DEFAUT.vue;
+  return r; }
+function reglagesBureau(){ const r=reglagesEnregistres(); if(window._mpVueForcee&&r.vue==='peint') r.vue=window._mpVueForcee; return r; }
+function enregistrerBureau(maj){ ecrire('bureau',Object.assign(reglagesEnregistres(),maj,{v:BUREAU_VERSION})); return reglagesBureau(); }
 
 /* le bureau peint (vue « peint ») : ses réglages vivent sous mp:bureau.peint. Les valeurs
    doivent exister dans pack-bureau.js ; une valeur inconnue retombe sur la première. */
