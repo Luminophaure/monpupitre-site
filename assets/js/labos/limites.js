@@ -7,6 +7,7 @@
    ===================================================================== */
 (function(){
 "use strict";
+const reussi=el=>{ if(window.Labo&&Labo.reussi) Labo.reussi(el); };   // un défi réussi (labos/commun.js)
 const G=window.Graphe;
 const maths=el=>{ if(window.Site&&Site.maths) Site.maths(el); };
 const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -109,11 +110,11 @@ function microscope(el){
     if(st.mode==='fin'){
       if(!isFinite(st.l)){ v.className='verdict info'; v.innerHTML='<strong>Propose une limite ℓ.</strong><span>Observe les termes et écris ta conjecture.</span>'; return; }
       const e=nb(EPS[st.e]);
-      if(R.ok){ v.className='verdict ok'; v.innerHTML='<strong>Dès le rang N = '+R.N+', tous les termes restent dans la bande.</strong><span>Vérifié jusqu\'à n = '+NVERIF+' : $|u_n-\\ell| &lt; '+e.replace(',','{,}')+'$. Rétrécis encore ε : si un rang N existe à chaque fois, ta conjecture tient.</span>'+(R.N>st.n?'<span>Ce rang est hors de l\'écran : affiche plus de termes.</span>':''); }
+      if(R.ok){ reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Dès le rang N = '+R.N+', tous les termes restent dans la bande.</strong><span>Vérifié jusqu\'à n = '+NVERIF+' : $|u_n-\\ell| &lt; '+e.replace(',','{,}')+'$. Rétrécis encore ε : si un rang N existe à chaque fois, ta conjecture tient.</span>'+(R.N>st.n?'<span>Ce rang est hors de l\'écran : affiche plus de termes.</span>':''); }
       else { v.className='verdict ko'; v.innerHTML='<strong>Avec ℓ = '+nb(st.l)+', les termes ressortent toujours de la bande.</strong><span>Même au-delà du rang '+(NVERIF-50)+', certains termes sont à plus de '+e+' de ℓ. Ce ℓ n\'est pas la limite'+(SUITES[st.i].f==='(-1)^n'?' : ici, aucun nombre ne convient, la suite n\'a pas de limite.':', ou alors ε est trop petit pour que l\'ordinateur le voie.')+'</span>'; }
     } else {
       const A=nb(SEUILS[st.a]);
-      if(R.ok){ v.className='verdict ok'; v.innerHTML='<strong>Dès le rang N = '+R.N+', tous les termes dépassent A = '+A+'.</strong><span>Augmente A : si un rang N existe pour chaque seuil, la suite tend vers $+\\infty$.</span>'+(R.N>st.n?'<span>Ce rang est hors de l\'écran : affiche plus de termes.</span>':''); }
+      if(R.ok){ reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Dès le rang N = '+R.N+', tous les termes dépassent A = '+A+'.</strong><span>Augmente A : si un rang N existe pour chaque seuil, la suite tend vers $+\\infty$.</span>'+(R.N>st.n?'<span>Ce rang est hors de l\'écran : affiche plus de termes.</span>':''); }
       else { v.className='verdict ko'; v.innerHTML='<strong>Les termes ne dépassent pas durablement A = '+A+'.</strong><span>Si c\'est le cas pour un seul seuil, la suite ne tend pas vers $+\\infty$.</span>'; }
     }
     maths(v);
@@ -291,7 +292,7 @@ function machine(el){
     else if(r.t==='zero'){ ecran.textContent='±∞'; ex.innerHTML='<p>On divise par une suite qui tend vers 0 : le quotient part vers l\'infini, mais <strong>le signe dépend du signe de $v_n$</strong> ($0^+$ ou $0^-$). Ce n\'est pas une forme indéterminée : il suffit d\'étudier le signe.</p>'; }
     else { ecran.textContent=ecrire(r); ex.innerHTML='<p>$\\lim u_n = '+A.nom.replace('∞','\\infty').replace('−','-')+'$ et $\\lim v_n = '+B.nom.replace('∞','\\infty').replace('−','-')+'$, donc $\\lim ('+O.nom.replace('×','\\times').replace('÷','\\div').replace('−','-')+') = '+ecrire(r).replace('∞','\\infty').replace('−','-').replace(',','{,}')+'$.</p>'; }
     const n=st.trouvees.size, sc=q('.score');
-    sc.className='verdict score '+(n===4?'ok':'info');
+    sc.className='verdict score '+(n===4?'ok':'info'); if(n===4) reussi(sc);
     sc.innerHTML='<strong>Formes indéterminées trouvées : '+n+' / 4</strong><span>'+(n===4?'Bravo, tu les as toutes ! Retiens-les : ∞ − ∞, 0 × ∞, ∞ / ∞ et 0 / 0.':['∞ − ∞','0 × ∞','∞ / ∞','0 / 0'].map(k=>st.trouvees.has(k)?'<strong>'+k+'</strong>':'?').join(' · '))+'</span>';
     const exs=q('.exemples');
     if(r.t==='FI'){ exs.innerHTML='<p class="discret exemples-titre">Pourquoi « indéterminée » ? Mêmes limites au départ, résultats différents :</p><div class="exemples-fi">'+EXEMPLES[r.k].map(([a,b,res])=>{ const op=r.k.includes('−')?'-':r.k.includes('×')?'\\times':'\\div'; return '<div><span>$u_n='+a+'$, $v_n='+b+'$</span><span>$u_n '+op+' v_n \\to '+res+'$</span></div>'; }).join('')+'</div>'; }

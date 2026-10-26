@@ -10,6 +10,7 @@
    ===================================================================== */
 (function(){
 "use strict";
+const reussi=el=>{ if(window.Labo&&Labo.reussi) Labo.reussi(el); };   // un défi réussi (labos/commun.js)
 const maths=el=>{ if(window.Site&&Site.maths) Site.maths(el); };
 const css=n=>getComputedStyle(document.body).getPropertyValue(n).trim();
 const hasard=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
@@ -120,7 +121,7 @@ function egalite(el){
     P.points=[{p:AB.a,nom:'A'},{p:AB.b,nom:'B',dx:6},{p:CD.a,nom:'C'},{p:CD.b,nom:'D',dx:6}];
     const v_=q('.verdict');
     if(eg){ v_.className='verdict ok'; v_.innerHTML='<strong>$\\overrightarrow{AB}=\\overrightarrow{CD}$</strong><span>Le quadrilatère $ABDC$ (en couleur) est un parallélogramme'+(egal(AB.a,CD.a)?', ici aplati : les deux flèches sont superposées':'')+'. $D$ est l\'image de $C$ par la translation de vecteur $\\overrightarrow{AB}$.</span>';
-      if(st.defi){ st.defi=false; st.reussis++; q('.score').textContent=st.reussis+' défi'+(st.reussis>1?'s':'')+' réussi'+(st.reussis>1?'s':''); CD.deplacable='tout'; AB.deplacable='tout'; v_.innerHTML+='<span>Défi réussi !</span>'; } }
+      if(st.defi){ st.defi=false; st.reussis++; reussi(v_); q('.score').textContent=st.reussis+' défi'+(st.reussis>1?'s':'')+' réussi'+(st.reussis>1?'s':''); CD.deplacable='tout'; AB.deplacable='tout'; v_.innerHTML+='<span>Défi réussi !</span>'; } }
     else if(op){ v_.className='verdict info'; v_.innerHTML='<strong>Vecteurs opposés</strong><span>$\\overrightarrow{CD}=-\\overrightarrow{AB}$ : même direction, même longueur, mais sens contraire.</span>'; }
     else { v_.className='verdict info'; v_.innerHTML='<span>'+(st.defi?'Déplace seulement la pointe $D$ : quel trajet faut-il faire depuis $C$ ?':'Pas encore égaux : il manque '+[!dir&&'la direction',dir&&!sens&&'le sens',!lg&&'la longueur'].filter(Boolean).join(', ')+'.')+'</span>'; }
     maths(v_);
@@ -200,7 +201,7 @@ function chemin(el){
     const brut=st.pas.map(([n,s])=>(s<0?'-':'+')+'\\vec '+n).join('').replace(/^\+/,'')||'\\vec 0';
     q('.expression').innerHTML='<p>Chemin : $'+brut+'$</p><p>En regroupant : $'+ecrire()+'$</p>';
     const v=q('.verdict');
-    if(egal(fin,st.B)&&st.pas.length){ v.className='verdict ok'; v.innerHTML='<strong>Arrivé en B !</strong><span>$\\overrightarrow{AB}='+ecrire()+'$, en '+st.pas.length+' vecteur'+(st.pas.length>1?'s':'')+'.'+(st.pas.length>st.min?' On peut le faire en '+st.min+'. Tu trouves comment ?':' C\'est le chemin le plus court possible.')+'</span>'; }
+    if(egal(fin,st.B)&&st.pas.length){ reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Arrivé en B !</strong><span>$\\overrightarrow{AB}='+ecrire()+'$, en '+st.pas.length+' vecteur'+(st.pas.length>1?'s':'')+'.'+(st.pas.length>st.min?' On peut le faire en '+st.min+'. Tu trouves comment ?':' C\'est le chemin le plus court possible.')+'</span>'; }
     else { v.className='verdict info'; v.innerHTML='<span>'+(st.pas.length?'Tu es en route : il reste à aller jusqu\'à $B$.':'Choisis le premier vecteur du chemin.')+'</span>'; }
     maths(q('.expression')); maths(v); P.dessiner();
   }

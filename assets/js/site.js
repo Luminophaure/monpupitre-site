@@ -194,6 +194,9 @@ function barreParcours(main,info){
   // explorer : un labo manipulé ; tous les labos → succès
   const labos=[...main.querySelectorAll('.labo')]; const touches=new Set();
   labos.forEach((l,i)=>['input','click','pointerdown'].forEach(ev=>l.addEventListener(ev,()=>{ P.etape(ch,'explorer'); touches.add(i); if(touches.size===labos.length&&labos.length>1) P.succes.debloquer('tous-les-labos'); },{passive:true})));
+  // un défi de labo réussi (Labo.reussi) : un jour de travail, et la première fois dans une
+  // matière, son instrument sur l'appui de la fenêtre. Une fois par labo et par visite.
+  labos.forEach(l=>l.addEventListener('labo-reussi',()=>{ if(l._reussi||!P.laboReussi) return; l._reussi=true; P.laboReussi(ch); }));
   // comparer : une méthode déroulée jusqu'au bout
   main.addEventListener('click',e=>{ const d=e.target.closest('.deroule'); if(!d) return; setTimeout(()=>{ const lis=[...d.querySelectorAll('ol.pas > li')]; if(lis.length&&lis.every(li=>!li.classList.contains('cache'))) P.etape(ch,'comparer'); },50); });
   // calculer (chapitre sans exercice guidé) : deux corrections ouvertes

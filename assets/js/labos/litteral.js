@@ -13,7 +13,7 @@
    ===================================================================== */
 (function(){
 "use strict";
-const {maths,css,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette}=window.Labo;
+const {maths,css,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette,reussi}=window.Labo;
 const G=window.Graphe;
 
 /* nombre écrit simplement : 6 ; 2,5 ; −3 */
@@ -133,7 +133,7 @@ function motifs(el){
     const ns=[]; for(let n=M.min;n<M.min+8;n++) ns.push(n);
     t.hidden=false; t.innerHTML='<thead><tr><th>étape n</th>'+ns.map(n=>'<th>'+n+'</th>').join('')+'</tr></thead><tbody><tr><th>motif</th>'+ns.map(n=>'<td>'+M.f(n)+'</td>').join('')+'</tr><tr><th>formule</th>'+ns.map(n=>{ const y=f(n); return '<td class="'+(egaux(y,M.f(n))?'juste':'faux')+'">'+nbs(y)+'</td>'; }).join('')+'</tr></tbody>';
     const faux=ns.concat([20,50,100]).find(n=>!egaux(f(n),M.f(n)));
-    if(faux==null){ v.className='verdict ok'; v.innerHTML='<strong>Ta formule marche à toutes les étapes testées.</strong><span>À l\'étape 100, il faudra $'+nbs(f(100))+'$ '+M.unite+'. Regarde maintenant « d\'autres façons de voir » : d\'autres formules, toutes égales à la tienne.</span>'; }
+    if(faux==null){ reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Ta formule marche à toutes les étapes testées.</strong><span>À l\'étape 100, il faudra $'+nbs(f(100))+'$ '+M.unite+'. Regarde maintenant « d\'autres façons de voir » : d\'autres formules, toutes égales à la tienne.</span>'; }
     else { v.className='verdict ko'; const ok=ns.filter(n=>egaux(f(n),M.f(n)));
       v.innerHTML='<strong>Ta formule ne marche pas à l\'étape '+faux+'</strong><span>Elle donne '+nbs(f(faux))+' au lieu de '+M.f(faux)+'.'+(ok.length?' Elle marche pour n = '+ok.join(', ')+' : un exemple qui marche ne suffit pas.':'')+' Indice : de combien augmente le nombre d\'éléments d\'une étape à la suivante ?</span>'; }
     maths(v);
@@ -259,7 +259,7 @@ function forfaits(el){
     let egal=null; for(let n=0;n<=S.max;n++) if(egaux(P.val(S.A.p,n),P.val(S.B.p,n))) egal=n;
     g.querySelector('.valeurs-tarifs').innerHTML='<thead><tr><th>n</th>'+Array.from({length:S.max+1},(_,n)=>'<th>'+n+'</th>').join('')+'</tr></thead><tbody><tr><th>A</th>'+Array.from({length:S.max+1},(_,n)=>'<td>'+nbs(P.val(S.A.p,n))+'</td>').join('')+'</tr><tr><th>B</th>'+Array.from({length:S.max+1},(_,n)=>'<td>'+nbs(P.val(S.B.p,n))+'</td>').join('')+'</tr></tbody>';
     const moinsA=P.val(S.A.p,0)<P.val(S.B.p,0);
-    const v=q('.verdict'); v.className='verdict ok'; v.innerHTML='<strong>Les deux tarifs coûtent pareil pour n = '+egal+'.</strong><span>En dessous, le tarif '+(moinsA?'A':'B')+' est le moins cher ; au-dessus, c\'est le tarif '+(moinsA?'B':'A')+'. Un abonnement devient intéressant quand on s\'en sert souvent.</span>';
+    const v=q('.verdict'); reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Les deux tarifs coûtent pareil pour n = '+egal+'.</strong><span>En dessous, le tarif '+(moinsA?'A':'B')+' est le moins cher ; au-dessus, c\'est le tarif '+(moinsA?'B':'A')+'. Un abonnement devient intéressant quand on s\'en sert souvent.</span>';
     T.redessiner();
   }
   function verifier(montrer){

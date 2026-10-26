@@ -10,7 +10,7 @@
    ===================================================================== */
 (function(){
 "use strict";
-const {maths,css,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette}=window.Labo;
+const {maths,css,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette,reussi}=window.Labo;
 const G=window.Graphe;
 const fmt=G.fmt;
 const egaux=(a,b,eps)=>Math.abs(a-b)<(eps||1e-9);
@@ -82,7 +82,7 @@ function machine(el){
     if(!st.trouves.includes(st.x)) st.trouves.push(st.x);
     const xs=[]; for(let x=f.min;x<=f.max;x+=.5) if(egaux(f.f(x),st.defi,1e-9)) xs.push(x);
     const reste=xs.filter(x=>!st.trouves.includes(x));
-    v.className='verdict ok'; v.innerHTML='<strong>'+f.nom+'('+fmt(st.x)+') = '+fmt(st.defi)+'.</strong><span>'+fmt(st.x)+' est un antécédent de '+fmt(st.defi)+'. '+(reste.length?'Il en existe '+(reste.length>1?reste.length+' autres':'un autre')+' : à toi de le trouver.':(xs.length>1?'Tu as trouvé les '+xs.length+' antécédents : une image est unique, mais un nombre peut avoir plusieurs antécédents.':'Et c\'est le seul.'))+'</span>'; }
+    reussi(v); v.className='verdict ok'; v.innerHTML='<strong>'+f.nom+'('+fmt(st.x)+') = '+fmt(st.defi)+'.</strong><span>'+fmt(st.x)+' est un antécédent de '+fmt(st.defi)+'. '+(reste.length?'Il en existe '+(reste.length>1?reste.length+' autres':'un autre')+' : à toi de le trouver.':(xs.length>1?'Tu as trouvé les '+xs.length+' antécédents : une image est unique, mais un nombre peut avoir plusieurs antécédents.':'Et c\'est le seul.'))+'</span>'; }
   puces(q('.choix-f'),FONCTIONS.map(f=>'$'+f.nom+'(x)='+f.tex+'$'),0,i=>{ st.i=i; const f=F(); const r=d.querySelector('[data-r=x]'); r.min=f.min; r.max=f.max; st.x=Math.max(f.min,Math.min(f.max,st.x)); L.regler('x',st.x); nouveauDefi(); maj(); });
   maths(q('.choix-f'));
   q('.nouveau').addEventListener('click',()=>{ nouveauDefi(); maj(); });
@@ -127,7 +127,7 @@ function courbe(el){
     let ok, attendu;
     if(st.type==='img'){ attendu=[valeurNoeuds(c.noeuds,st.x)]; ok= vals.length===1&&egaux(vals[0],attendu[0],.3); }
     else { attendu=G.racinesNoeuds(c.noeuds,st.k); const tri=a=>a.slice().sort((p,r)=>p-r); const A=tri(attendu), V=tri(vals); ok= A.length===V.length&&A.every((a,i)=>egaux(a,V[i],.35)); }
-    if(ok){ st.fait=true; if(st.aide) st.avec++; else st.sans++; releves(); v.className='verdict ok'; v.innerHTML='<strong>Juste.</strong><span>'+(st.type==='img'?c.nom+'('+fmt(st.x)+') = '+fmt(attendu[0])+'. Le point ('+fmt(st.x)+' ; '+fmt(attendu[0])+') est sur la courbe.':fmt(st.k)+' a '+(attendu.length===1?'un seul antécédent':attendu.length+' antécédents')+' : '+attendu.map(fmt).join(' ; ')+'. Une image est unique, les antécédents non.')+'</span>'; G.dessiner(cv,opts()); }
+    if(ok){ st.fait=true; if(st.aide) st.avec++; else st.sans++; releves(); reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Juste.</strong><span>'+(st.type==='img'?c.nom+'('+fmt(st.x)+') = '+fmt(attendu[0])+'. Le point ('+fmt(st.x)+' ; '+fmt(attendu[0])+') est sur la courbe.':fmt(st.k)+' a '+(attendu.length===1?'un seul antécédent':attendu.length+' antécédents')+' : '+attendu.map(fmt).join(' ; ')+'. Une image est unique, les antécédents non.')+'</span>'; G.dessiner(cv,opts()); }
     else { v.className='verdict ko'; v.innerHTML='<strong>Pas tout à fait.</strong><span>'+(st.type==='img'?'Une image est un seul nombre, lu sur l\'axe vertical.':vals.length<attendu.length?'Il en manque : la droite horizontale coupe la courbe en '+attendu.length+' points.':vals.length>attendu.length?'Il y en a trop : compte seulement les points où la courbe est à la hauteur '+fmt(st.k)+'.':'Vérifie les abscisses : on les lit sur l\'axe horizontal.')+' Tu peux afficher le tracé pour vérifier.</span>'; } });
   q('.aide').addEventListener('click',()=>{ st.aide=true; q('.aide').textContent='Tracé affiché'; q('.aide').disabled=true; G.dessiner(cv,opts()); });
   q('.autre').addEventListener('click',()=>{ if(Math.random()<.3) st.c=(st.c+1)%COURBES.length; question(); });

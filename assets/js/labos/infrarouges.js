@@ -7,7 +7,7 @@
    ===================================================================== */
 (function(){
 "use strict";
-const {maths,css,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette}=window.Labo;
+const {maths,css,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette,reussi}=window.Labo;
 const WIEN=2.90e-3, HC_K=0.014388;
 const mil=v=>String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 /* une longueur d'onde en mètres → « 9,4 µm », « 550 nm », « 12 cm »… */
@@ -61,7 +61,7 @@ function spectre(el){
   function defi(){ const choix=[[5.5e-7,'une lumière verte, 550 nm'],[9.4e-6,'le rayonnement du corps humain, 9,4 µm'],[1.2e-1,'un four à micro-ondes, 12 cm'],[3,'une radio FM, 3 m'],[1e-10,'des rayons X, 0,1 nm'],[9.4e-7,'une télécommande, 940 nm'],[1e-5,'un radiateur, 10 µm'],[3e-7,'des UV, 300 nm'],[1e-3,'1 mm, la frontière infrarouge / micro-ondes'],[4e-7,'le violet, 400 nm'],[1e-12,'des rayons γ, 1 pm'],[2e-2,'un radar, 2 cm']];
     let c; do{ c=choix[hasard(0,choix.length-1)]; }while(st.defi&&c[0]===st.defi[0]); st.defi=c; q('.enonce-defi').innerHTML='Amène le curseur sur <strong>'+c[1]+'</strong>.'; const v=q('.verdict'); v.className='verdict info'; v.innerHTML='<span>Repère d\'abord la graduation la plus proche, puis affine : entre deux graduations, il y a un facteur 1 000.</span>'; }
   q('.valider').addEventListener('click',()=>{ const v=q('.verdict'); const cible=Math.log10(st.defi[0]); const ecart=st.log-cible; const l=Math.pow(10,st.log);
-    if(Math.abs(ecart)<=0.12){ st.ok++; v.className='verdict ok'; v.innerHTML='<strong>Juste : '+lambdaTxt(l)+', dans le domaine « '+domaine(st.defi[0])[0]+' ».</strong><span>'+(st.ok>=3?'Trois défis réussis : tu sais lire une échelle logarithmique.':'Autre défi ?')+'</span>'; }
+    if(Math.abs(ecart)<=0.12){ st.ok++; reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Juste : '+lambdaTxt(l)+', dans le domaine « '+domaine(st.defi[0])[0]+' ».</strong><span>'+(st.ok>=3?'Trois défis réussis : tu sais lire une échelle logarithmique.':'Autre défi ?')+'</span>'; }
     else if(Math.abs(ecart)<=0.5){ v.className='verdict ko'; v.innerHTML='<span>Presque : tu es à '+lambdaTxt(l)+', la cible est à '+lambdaTxt(st.defi[0])+'. Sur cette échelle, un petit déplacement change beaucoup la valeur : affine avec les flèches.</span>'; }
     else if(Math.abs(Math.abs(ecart)-3)<=0.4){ v.className='verdict ko'; v.innerHTML='<span>Tu es à '+lambdaTxt(l)+' : un facteur 1 000 de trop'+(ecart>0?' (trop grand)':' (trop petit)')+'. C\'est l\'erreur classique nm / µm / mm : une graduation entière.</span>'; }
     else { v.className='verdict ko'; v.innerHTML='<span>Non : '+lambdaTxt(l)+' est dans le domaine « '+domaine(l)[0]+' ». La cible, '+lambdaTxt(st.defi[0])+', est '+(ecart>0?'à gauche':'à droite')+'.</span>'; } });
@@ -124,7 +124,7 @@ function wien(el){
   function defi(){ const choix=[[9.35,'le corps humain (λmax = 9,35 µm)'],[6.1,'une plaque à 200 °C (λmax = 6,1 µm)'],[2.9,'une braise à 1 000 K (λmax = 2,9 µm)'],[1.07,'un filament à 2 700 K (λmax = 1,07 µm)'],[7.8,'un radiateur à 100 °C (λmax = 7,8 µm)'],[0.5,'le Soleil (λmax = 0,50 µm)'],[10.6,'un glaçon à 0 °C (λmax = 10,6 µm)'],[4.0,'un four à 450 °C (λmax = 4,0 µm)']];
     let c; do{ c=choix[hasard(0,choix.length-1)]; }while(st.defi&&c[0]===st.defi[0]); st.defi=c; q('.enonce-defi').innerHTML='Règle la température pour retrouver <strong>'+c[1]+'</strong>.'; }
   q('.valider').addEventListener('click',()=>{ const v=q('.verdict'); const Tc=WIEN/(st.defi[0]*1e-6); const r=st.T/Tc;
-    if(Math.abs(r-1)<=0.04){ v.className='verdict ok'; v.innerHTML='<strong>Juste : '+mil(st.T)+' K, soit '+mil(st.T-273)+' °C.</strong><span>Par le calcul : $T=\\dfrac{2{,}90\\times10^{-3}}{'+nb(st.defi[0],2).replace(',','{,}')+'\\times10^{-6}}\\approx'+mil(Tc)+'$ K.</span>'; maths(v); }
+    if(Math.abs(r-1)<=0.04){ reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Juste : '+mil(st.T)+' K, soit '+mil(st.T-273)+' °C.</strong><span>Par le calcul : $T=\\dfrac{2{,}90\\times10^{-3}}{'+nb(st.defi[0],2).replace(',','{,}')+'\\times10^{-6}}\\approx'+mil(Tc)+'$ K.</span>'; maths(v); }
     else if(Math.abs(st.T-(Tc-273))<=0.04*Tc){ v.className='verdict ko'; v.innerHTML='<span>Tu as réglé '+mil(st.T)+' K : c\'est la valeur en °C, pas en kelvins. Ajoute 273.</span>'; }
     else { v.className='verdict ko'; v.innerHTML='<span>À '+mil(st.T)+' K, le maximum est à '+nb(lmax(st.T)*1e6,2)+' µm. Il faut '+(r<1?'chauffer : λmax diminue quand T augmente.':'refroidir : λmax augmente quand T baisse.')+'</span>'; } });
   q('.autre').addEventListener('click',defi);

@@ -15,7 +15,7 @@
    ===================================================================== */
 (function(){
 "use strict";
-const {maths,css,reduit,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette}=window.Labo;  // labos/commun.js
+const {maths,css,reduit,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette,reussi}=window.Labo;  // labos/commun.js
 
 /* couleur (approchée) d'une lumière monochromatique, λ en nm → [r,g,b] entre 0 et 1 */
 function rgbLambda(l){
@@ -287,7 +287,7 @@ function mesure(el){
     const v=q('.verdict'), n=st.serie.length;
     if(n<3){ v.className='verdict info'; v.innerHTML='<span>'+(n?n+' mesure'+(n>1?'s':'')+' notée'+(n>1?'s':'')+'. ':'')+'Il faut au moins 3 fentes différentes pour exploiter le graphique.</span>'; return; }
     const k=pente(), lam=k/(2*st.D*1000)*1e6, ecart=Math.abs(lam-st.lam)/st.lam*100;
-    v.className='verdict ok'; v.innerHTML='<strong>Les points sont alignés avec l\'origine : $L$ est proportionnelle à $\\frac1a$.</strong>'+
+    reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Les points sont alignés avec l\'origine : $L$ est proportionnelle à $\\frac1a$.</strong>'+
       '<span>Pente : $k = '+nb(k,2).replace(',','{,}')+'\\ \\text{mm}^2$. Comme $L=\\dfrac{2\\lambda D}{a}$, la pente vaut $k=2\\lambda D$, donc $\\lambda=\\dfrac{k}{2D}='+nb(lam,0)+'\\ \\text{nm}$.</span>'+
       '<span>Valeur réelle du laser : '+st.lam+' nm (écart '+nb(ecart,1)+' %).</span>';
     maths(v);
@@ -402,7 +402,7 @@ function cuve(el){
     else if(dest){ v.className='verdict ko'; v.innerHTML='<strong>Interférences destructives en M.</strong><span>'+(st.opp?'Les sources sont en opposition : pour $\\delta = k\\lambda$, une crête arrive avec un creux.':'$\\delta\\approx('+Math.floor(f)+'+\\frac12)\\lambda$ : une crête de $S_1$ arrive avec un creux de $S_2$, l\'eau reste presque immobile.')+'</span>'; }
     else { v.className='verdict info'; v.innerHTML='<span>Ni constructif, ni destructif. Déplace M jusqu\'à ce que $|\\delta|/\\lambda$ soit entier ou demi-entier.</span>'; }
     if(st.defi!=null){ const ok=Math.abs(f-st.defi)<0.07&&Math.min(d1,d2)>1.5;
-      if(ok){ st.reussis++; st.defi=null; q('.score').textContent=st.reussis+' défi'+(st.reussis>1?'s':'')+' réussi'+(st.reussis>1?'s':''); v.innerHTML+='<span><strong>Défi réussi !</strong> Remarque : tous les points qui ont le même δ forment une courbe (une hyperbole).</span>'; }
+      if(ok){ st.reussis++; st.defi=null; reussi(v); q('.score').textContent=st.reussis+' défi'+(st.reussis>1?'s':'')+' réussi'+(st.reussis>1?'s':''); v.innerHTML+='<span><strong>Défi réussi !</strong> Remarque : tous les points qui ont le même δ forment une courbe (une hyperbole).</span>'; }
       else v.innerHTML+='<span>Défi : trouve un point où $|\\delta| = '+cible(st.defi)+'$.</span>'; }
     maths(v);
   }
@@ -480,7 +480,7 @@ function young(el){
     if(!isFinite(l)){ v.className='verdict ko'; v.innerHTML='<span>Écris une valeur en nanomètres, par exemple 600.</span>'; return; }
     const e=Math.abs(l-vrai)/vrai;
     if(e<=0.04){ st.reussis++; q('.score').textContent=st.reussis+' laser'+(st.reussis>1?'s':'')+' identifié'+(st.reussis>1?'s':'');
-      v.className='verdict ok'; v.innerHTML='<strong>Bravo : λ = '+vrai+' nm.</strong><span>Ta valeur ('+nb(l,0)+' nm) est à '+nb(e*100,1)+' % près. Interfrange exact : '+nb(larg(vrai),2)+' mm.</span>';
+      reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Bravo : λ = '+vrai+' nm.</strong><span>Ta valeur ('+nb(l,0)+' nm) est à '+nb(e*100,1)+' % près. Interfrange exact : '+nb(larg(vrai),2)+' mm.</span>';
       st.defi=null; q('.zone-defi').hidden=true; q('.defi').hidden=false; ['b','D'].forEach(k=>d.querySelector('[data-r="'+k+'"]').disabled=false); q('.blanche').disabled=false; ctrl.affiche('lam'); teinte(); E.redessiner(); releves(); d.querySelector('[data-r="lam"]').disabled=false; }
     else { v.className='verdict ko'; v.innerHTML='<strong>Pas encore : écart de '+nb(e*100,0)+' %.</strong><span>'+(l>2000||l<100?'Vérifie les unités : $i$ et $b$ en mètres, ou bien $i$ et $b$ en mm et $D$ en mm.':'Place les curseurs au centre de deux franges brillantes éloignées, compte les interfranges entre elles, divise. Puis $\\lambda=\\dfrac{i\\,b}{D}$.')+'</span>'; }
     maths(v); });

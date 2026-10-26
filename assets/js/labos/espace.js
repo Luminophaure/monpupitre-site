@@ -8,6 +8,7 @@
    ===================================================================== */
 (function(){
 "use strict";
+const reussi=el=>{ if(window.Labo&&Labo.reussi) Labo.reussi(el); };   // un défi réussi (labos/commun.js)
 const maths=el=>{ if(window.Site&&Site.maths) Site.maths(el); };
 const css=n=>getComputedStyle(document.body).getPropertyValue(n).trim();
 const id=()=>'e'+Math.random().toString(36).slice(2,8);
@@ -165,7 +166,7 @@ function droites(el){
       '<strong>Confondues.</strong> Même direction et un point commun : c\'est la même droite.',
       '<strong>Non coplanaires.</strong> Pas la même direction, et pourtant aucun point commun : l\'écart le plus court entre elles mesure environ '+nb(r.ecart||0,1)+' (en pointillés). En vue radar, elles semblent pourtant se croiser.'][r.cas];
     if(st.prono==null){ v.className='verdict info'; v.innerHTML='<span>Choisis ton pronostic pour voir le verdict. Tourne la scène pour t\'aider.</span>'; }
-    else { const bon=st.prono===r.cas; v.className='verdict '+(bon?'ok':'ko'); v.innerHTML=(bon?'<span>Bien vu !</span>':'<span>Pas tout à fait.</span>')+'<span>'+texte+'</span>'; }
+    else { const bon=st.prono===r.cas; if(bon) reussi(v); v.className='verdict '+(bon?'ok':'ko'); v.innerHTML=(bon?'<span>Bien vu !</span>':'<span>Pas tout à fait.</span>')+'<span>'+texte+'</span>'; }
     S.dessiner();
   }
   q('#'+u+'h').addEventListener('input',e=>{ st.h=+e.target.value; st.prono=null; pr.querySelectorAll('.puce').forEach(x=>x.setAttribute('aria-pressed','false')); maj(); });

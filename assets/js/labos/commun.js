@@ -64,5 +64,11 @@ function etiquette(c,t,x,y,coul,o){ o=o||{}; c.save(); c.font=(o.italique?'itali
   c.textAlign=o.align||'left'; c.textBaseline='middle'; c.lineJoin='round'; c.lineWidth=4; c.strokeStyle=o.halo||css('--feuille'); c.strokeText(t,x,y); c.fillStyle=coul; c.fillText(t,x,y); c.restore(); }
 
 
-window.Labo={maths,css,reduit,id,nb,hasard,lire,POLICE,carcasse,reglette,lier,puces,Toile,etiquette};
+/* un défi de labo réussi : le verdict « juste » d'une cible à atteindre (pas une simple
+   observation, même affichée en vert). Le labo l'annonce ; site.js en fait une étape de
+   travail, et le premier de chaque matière pose son instrument sur l'appui de la fenêtre.
+   Plusieurs appels pour le même défi ne comptent qu'une fois par jour. */
+function reussi(el){ const l=el&&el.closest&&el.closest('.labo'); if(l) l.dispatchEvent(new CustomEvent('labo-reussi',{bubbles:true})); }
+
+window.Labo={maths,css,reduit,id,nb,hasard,lire,POLICE,carcasse,reglette,lier,puces,Toile,etiquette,reussi};
 })();

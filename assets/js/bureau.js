@@ -44,13 +44,32 @@ const SUCCES={
   'tous-les-labos':{nom:'Explorateur',fam:'Exploration',txt:'Tous les labos d\'un chapitre manipulés.'},
   'porte-nouvelle':{nom:'Nouvelle porte',fam:'Exploration',txt:'Une porte d\'entrée jamais utilisée.'},
   'cours-lu':{nom:'Cours lu',fam:'Cours',txt:'Un cours lu jusqu\'au bout, puis son quiz réussi.'},
-  'semaine-active':{nom:'Semaine régulière',fam:'Méthode',txt:'Quatre jours actifs dans la même semaine.'},
+  'semaine-active':{nom:'Semaine régulière',fam:'Méthode',txt:'Quatre jours de travail dans la même semaine.'},
   'corrige-ia':{nom:'Œil critique',fam:'Esprit critique',txt:'Une erreur trouvée dans « Corrige l\'IA ».'},
   'controle-blanc':{nom:'En conditions réelles',fam:'Méthode',txt:'Un contrôle blanc mené jusqu\'au bout.'},
 };
 
+/* le bureau personnel : ce qui se gagne (cahier des charges, « Avatar, succès et bureau
+   personnel » ; choix du professeur, 26 octobre). Une trace calme du travail accompli : chaque
+   objet est inscrit à part, avec sa date (mp:bureau-gagne), et n'en repart jamais — les jours
+   actifs ne sont gardés que 120 jours, une plante calculée dessus finirait par rapetisser. Rien
+   ne récompense le temps passé ni les connexions : la plante compte des semaines de TRAVAIL,
+   c'est-à-dire au moins deux jours où l'élève a répondu à quelque chose (exercice guidé, jeu,
+   quiz, défi de labo, méthode déroulée, contrôle blanc) ; ouvrir le site, lire ou faire
+   défiler ne comptent pas. */
+const GAGNE={
+  seuils:[1,4,12],     // le géranium : une pousse, une jeune plante, en fleurs (semaines de travail cumulées, pas d'affilée)
+  jours:2,             // une semaine de travail : deux jours de travail au moins
+  etapes:['comprendre','explorer','calculer','comparer','entrainer'],   // un chapitre terminé, un livre : les cinq premières étapes (le contrôle blanc reste au choix)
+  travail:['calculer','comparer','entrainer','controle'],               // les étapes qui sont du travail (lire le cours ou toucher un labo n'en sont pas)
+  instruments:{maths:'maths','physique-chimie':'pc',svt:'svt',snt:'snt'}, // le premier défi de labo réussi d'une matière pose son instrument sur l'appui
+  familles:{'Autonomie':'autonomie','Méthode':'methode','Persévérance':'perseverance','Exploration':'exploration','Esprit critique':'esprit-critique','Cours':'cours','Classe':'classe'}   // la médaille de chaque succès
+};
+const cleJour=ms=>{ const d=new Date(ms); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+function chapitreCatalogue(id){ for(const m of (window.MATIERES||[])) for(const n of (m.niveaux||[])) for(const c of (n.chapitres||[])) if(c.id===id) return {matiere:m,niveau:n,chapitre:c}; return null; }
+
 const Pupitre={
-  lire,ecrire,supprimer,on,emettre,echap,ELEVE,PROF,ETAPES,SUCCES,
+  lire,ecrire,supprimer,on,emettre,echap,ELEVE,PROF,ETAPES,SUCCES,GAGNE,chapitreCatalogue,
   role(){ return lire('role','eleve'); },
   setRole(r){ ecrire('role',r); },
   /* --- l'interrupteur du tuteur --- */
@@ -71,10 +90,11 @@ const Pupitre={
   setMasque(id,oui){ const m=new Set(lire('masques',[])); if(oui) m.add(id); else m.delete(id); ecrire('masques',[...m]); },
   /* --- la barre de parcours d'un chapitre --- */
   parcours(ch){ return lire('parcours:'+ch,{}); },
-  etape(ch,nom,fait){ if(!ch) return; const p=lire('parcours:'+ch,{}); if(p[nom]===(fait!==false)) return; p[nom]=fait!==false; ecrire('parcours:'+ch,p); emettre('etape',{chapitre:ch,etape:nom,fait:p[nom]}); Pupitre.jourActif(); },
+  etape(ch,nom,fait){ if(!ch) return; if(fait!==false&&GAGNE.travail.includes(nom)) Pupitre.gagne.travail();
+    const p=lire('parcours:'+ch,{}); if(p[nom]===(fait!==false)) return; p[nom]=fait!==false; ecrire('parcours:'+ch,p); emettre('etape',{chapitre:ch,etape:nom,fait:p[nom]}); Pupitre.jourActif(); Pupitre.gagne.chapitre(ch); },
   pourcentage(ch){ const p=Pupitre.parcours(ch); return Math.round(100*ETAPES.filter(e=>p[e[0]]).length/ETAPES.length); },
   /* --- exercices guidés : niveau d'aide utilisé, pour l'indicateur d'autonomie --- */
-  exercice(e){ const l=lire('exos',[]); l.push(Object.assign({date:Date.now()},e)); ecrire('exos',l.slice(-400)); Pupitre.jourActif();
+  exercice(e){ const l=lire('exos',[]); l.push(Object.assign({date:Date.now()},e)); ecrire('exos',l.slice(-400)); Pupitre.jourActif(); Pupitre.gagne.travail();
     const sans=l.filter(x=>x.ok&&x.aide===0).length; if(sans>=1) Pupitre.succes.debloquer('premiere-ligne'); if(sans>=10) Pupitre.succes.debloquer('dix-sans-indice');
     if(e.ok&&e.aide===1) Pupitre.succes.debloquer('erreur-corrigee'); emettre('exercice',e); },
   autonomie(){ const l=lire('exos',[]); const s0=semaineDe(Date.now()), s1=s0-7*864e5;
@@ -82,8 +102,7 @@ const Pupitre={
     const taux=t=>t.length?Math.round(100*t.filter(x=>x.ok&&x.aide===0).length/t.length):null;
     return {total:c.length,sans:c.filter(x=>x.ok&&x.aide===0).length,taux:taux(c),precedent:taux(p)}; },
   /* --- jours actifs de la semaine (une semaine active, pas une série) --- */
-  jourActif(){ const j=lire('jours',[]); const d=aujourdhui(); if(!j.includes(d)){ j.push(d); ecrire('jours',j.slice(-120)); }
-    if(Pupitre.joursSemaine().filter(j=>j.actif).length>=4) Pupitre.succes.debloquer('semaine-active'); },
+  jourActif(){ const j=lire('jours',[]); const d=aujourdhui(); if(!j.includes(d)){ j.push(d); ecrire('jours',j.slice(-120)); } },
   joursSemaine(){ const j=new Set(lire('jours',[])); const s=new Date(semaineDe(Date.now())); return [0,1,2,3,4,5,6].map(i=>{ const d=new Date(s); d.setDate(s.getDate()+i); const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); return {jour:'LMMJVSD'[i],date:k,actif:j.has(k),futur:d>new Date()}; }); },
   /* --- succès --- */
   succes:{
@@ -91,6 +110,50 @@ const Pupitre={
     debloquer(id){ const l=lire('succes',[]); if(l.some(s=>s.id===id)||!SUCCES[id]) return false; l.push({id,date:Date.now()}); ecrire('succes',l); emettre('succes',Object.assign({id},SUCCES[id])); return true; },
     dernier(){ const l=lire('succes',[]); const d=l[l.length-1]; return d?Object.assign({},d,SUCCES[d.id]):null; }
   },
+  /* --- le bureau personnel (voir GAGNE) : la plante, les livres, les instruments ; les
+     médailles, elles, sont les succès --- */
+  gagne:{
+    etat(){ const e=lire('bureau-gagne',null)||{}; return {semaine:e.semaine||'',jours:e.jours||[],semaines:e.semaines||[],plante:e.plante||null,
+      livres:e.livres||[],instruments:e.instruments||{},vus:e.vus||[],rattrape:!!e.rattrape}; },
+    stade(n){ return GAGNE.seuils.filter(s=>n>=s).length; },   // 0 rien, 1 une pousse, 2 une jeune plante, 3 en fleurs
+    _plante(e){ const st=Pupitre.gagne.stade(e.semaines.length); if(st<=((e.plante&&e.plante.stade)||0)) return null;
+      e.plante={stade:st,date:Date.now()}; return {quoi:'plante',stade:st,semaines:e.semaines.length}; },
+    /* un jour de travail : l'élève a répondu à quelque chose (pas une lecture, pas une connexion) */
+    travail(){ const e=Pupitre.gagne.etat(), s=cleJour(semaineDe(Date.now())), d=aujourdhui(), avant=e.semaine+e.jours.join();
+      if(e.semaine!==s){ e.semaine=s; e.jours=[]; }
+      if(!e.jours.includes(d)) e.jours.push(d);
+      let gain=null; if(e.jours.length>=GAGNE.jours&&!e.semaines.includes(s)){ e.semaines.push(s); gain=Pupitre.gagne._plante(e); }
+      if(avant!==e.semaine+e.jours.join()||gain) ecrire('bureau-gagne',e);
+      if(gain) emettre('gagne',gain);
+      if(e.jours.length>=4) Pupitre.succes.debloquer('semaine-active'); },
+    /* un chapitre terminé : un livre à la couleur de sa matière, sur l'étagère de gauche */
+    chapitre(ch){ const p=lire('parcours:'+ch,{}); if(!GAGNE.etapes.every(k=>p[k])) return;
+      const e=Pupitre.gagne.etat(); if(e.livres.some(l=>l.ch===ch)) return; const c=chapitreCatalogue(ch); if(!c) return;
+      e.livres.push({ch,couleur:c.matiere.couleur||'neutre',date:Date.now()}); ecrire('bureau-gagne',e);
+      emettre('gagne',{quoi:'livre',ch,titre:c.chapitre.titre}); },
+    /* le premier défi de labo réussi d'une matière : son instrument, sur l'appui de la fenêtre */
+    labo(ch){ const c=chapitreCatalogue(ch), k=c&&GAGNE.instruments[c.matiere.id]; if(!k) return;
+      const e=Pupitre.gagne.etat(); if(e.instruments[k]) return;
+      e.instruments[k]={date:Date.now(),ch}; ecrire('bureau-gagne',e);
+      emettre('gagne',{quoi:'instrument',cle:k,matiere:c.matiere.nom,titre:c.chapitre.titre}); },
+    /* ce qu'un navigateur avait déjà fait avant le bureau personnel : les chapitres terminés, et
+       les semaines de travail qu'on peut encore lire dans les exercices guidés datés. Une fois,
+       sans message (les jours actifs, eux, comptent les visites : ils ne servent pas). */
+    rattraper(){ const e=Pupitre.gagne.etat(); if(e.rattrape) return; e.rattrape=true;
+      try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(!k||!k.startsWith('mp:parcours:')) continue;
+        const ch=k.slice(12), p=lire('parcours:'+ch,{}), c=chapitreCatalogue(ch);
+        if(c&&GAGNE.etapes.every(x=>p[x])&&!e.livres.some(l=>l.ch===ch)){ e.livres.push({ch,couleur:c.matiere.couleur||'neutre',date:Date.now()}); e.vus.push('livre:'+ch); } } }catch(err){}
+      const parSemaine={}; lire('exos',[]).forEach(x=>{ if(!x.date) return; const s=cleJour(semaineDe(x.date)); (parSemaine[s]=parSemaine[s]||new Set()).add(cleJour(x.date)); });
+      Object.keys(parSemaine).forEach(s=>{ if(parSemaine[s].size>=GAGNE.jours&&!e.semaines.includes(s)) e.semaines.push(s); });
+      if(Pupitre.gagne._plante(e)) e.vus.push('plante:'+e.plante.stade);
+      ecrire('bureau-gagne',e); },
+    /* ce que l'élève a déjà vu apparaître : le reste arrive en fondu, une fois */
+    voir(cles){ const e=Pupitre.gagne.etat(), n=cles.filter(k=>!e.vus.includes(k)); if(!n.length) return; e.vus=e.vus.concat(n); ecrire('bureau-gagne',e); }
+  },
+  /* un jour de travail sans étape à cocher (un jeu fini, un quiz terminé) */
+  travail(){ Pupitre.gagne.travail(); },
+  /* un défi de labo réussi : du travail, et l'instrument de la matière la première fois */
+  laboReussi(ch){ Pupitre.gagne.travail(); if(ch) Pupitre.gagne.labo(ch); },
   /* --- « Je n'ai pas compris », anonyme --- */
   nonCompris(id){ const l=lire('non-compris',[]); if(!l.includes(id)){ l.push(id); ecrire('non-compris',l); } },
   estNonCompris(id){ return lire('non-compris',[]).includes(id); },
@@ -121,7 +184,8 @@ const Pupitre={
       const exos=[ex(0,c(0),9,{id:'antecedent-1',aide:0,erreurs:0}),ex(0,c(0),9.5,{id:'antecedent-2',aide:0,erreurs:1}),ex(0,c(1),10,{id:'antecedent-3',aide:1,erreurs:1}),ex(0,c(2),11,{id:'antecedent-1',aide:0,erreurs:0}),ex(0,c(2),11.5,{id:'reduire-1',chapitre:'calcul-litteral-4',aide:0,erreurs:0}),ex(0,c(cette.length-1),9,{id:'developper-1',chapitre:'calcul-litteral-4',aide:2,erreurs:2}),
         ex(1,0,17,{id:'antecedent-1',aide:2,erreurs:2}),ex(1,0,17.5,{id:'antecedent-2',aide:1,erreurs:1}),ex(1,1,18,{id:'reduire-1',chapitre:'calcul-litteral-4',aide:0,erreurs:0}),ex(1,1,18.5,{id:'developper-1',chapitre:'calcul-litteral-4',aide:3,erreurs:2}),ex(1,3,17,{id:'double-1',chapitre:'calcul-litteral-4',aide:1,erreurs:1}),ex(1,3,17.5,{id:'factoriser-1',chapitre:'calcul-litteral-4',aide:0,erreurs:0}),ex(1,4,18,{id:'antecedent-3',aide:2,erreurs:1}),ex(1,4,18.5,{id:'reduire-1',chapitre:'calcul-litteral-4',aide:1,erreurs:0})];
       ecrire('exos',exos.sort((a,b)=>a.date-b.date));
-      ecrire('parcours:fonctions',{comprendre:true,explorer:true,calculer:true,comparer:true});
+      ecrire('parcours:fonctions',{comprendre:true,explorer:true,calculer:true,comparer:true,entrainer:true});
+      ecrire('parcours:solutions-ph',{comprendre:true,explorer:true,calculer:true,comparer:true,entrainer:true});
       ecrire('parcours:vecteurs',{comprendre:true,explorer:true});
       ecrire('parcours:calcul-litteral-4',{comprendre:true,explorer:true,calculer:true,comparer:true,entrainer:true,controle:true});
       ecrire('succes',[{id:'premiere-ligne',date:quand(1,0,17)},{id:'tous-les-labos',date:quand(1,1,18)},{id:'erreur-corrigee',date:quand(1,3,17)},{id:'controle-blanc',date:quand(1,4,18)},{id:'semaine-active',date:quand(0,c(cette.length-1),9)}]);
@@ -143,6 +207,12 @@ const Pupitre={
         {id:'d4',type:'exercice',date:j(1),chapitre:'vecteurs',exercice:{id:'ex-chasles-en-serie',titre:'Chasles en série'}},
         {id:'d5',type:'message',date:j(0),message:'progres'}]);
       ecrire('carnet-fait',['d3']);
+      // le bureau personnel : une jeune plante (cinq semaines de travail), trois livres, deux instruments
+      const sem=k=>cle(lundi-7*J*k);
+      ecrire('bureau-gagne',{semaine:cle(lundi),jours:[],semaines:[5,4,3,2,1].map(sem),plante:{stade:2,date:quand(1,3,17)},
+        livres:[{ch:'calcul-litteral-4',couleur:'maths',date:quand(2,2,18)},{ch:'solutions-ph',couleur:'pc',date:quand(1,1,18)},{ch:'fonctions',couleur:'maths',date:quand(0,c(0),10)}],
+        instruments:{maths:{date:quand(2,1,17),ch:'calcul-litteral-4'},pc:{date:quand(1,0,18),ch:'solutions-ph'}},
+        vus:['plante:1','plante:2','livre:calcul-litteral-4','livre:solutions-ph','livre:fonctions','instrument:maths','instrument:pc','vitrine'].concat(['premiere-ligne','tous-les-labos','erreur-corrigee','controle-blanc','semaine-active'].map(x=>'medaille:'+x)),rattrape:true});
       ecrire('demo',true);
     },
     effacer(){ Pupitre.toutEffacer(); }
@@ -383,8 +453,10 @@ function coque(info,opts){
   col.addEventListener('click',e=>{ if(e.target.closest('a[href]')&&matchMedia('(max-width:999px)').matches) ouvrir(false); });
   // activité, rappel de pause, succès
   Pupitre.activite(); ['click','keydown','pointerdown'].forEach(ev=>document.addEventListener(ev,()=>{ clearTimeout(window._mpAct); window._mpAct=setTimeout(()=>Pupitre.activite(),2000); },{passive:true}));
-  if(role==='eleve') Pupitre.jourActif();
-  on('succes',s=>toast('<span class="ico" aria-hidden="true">🏅</span><strong>Succès : '+echap(s.nom)+'</strong><span>'+echap(s.txt)+'</span>'));
+  if(role==='eleve'){ Pupitre.jourActif(); Pupitre.gagne.rattraper(); }
+  on('succes',s=>{ toast('<span class="ico" aria-hidden="true">🏅</span><strong>Succès : '+echap(s.nom)+'</strong><span>'+echap(s.txt)+'</span>'); redessinerGagnes(); });
+  // ce qui se gagne sur le bureau : un mot discret, et le décor se repeint (l'objet arrive en fondu)
+  on('gagne',g=>{ const m=messageGagne(g); if(m) toast('<span class="ico" aria-hidden="true">'+m[0]+'</span><strong>'+echap(m[1])+'</strong><span>'+echap(m[2])+'</span>'); redessinerGagnes(); });
   if(ci) rappelDePause(ci);
   if(ci&&ci.querySelector('#pastille-musique')) chargerMusique();
   decorSuivant(decor);
@@ -568,17 +640,23 @@ function monterPeint(){
   const img=(src,cls,style)=>'<img class="'+cls+'" src="'+RACINE+IMG_BUREAU+src+'" alt="" decoding="async" draggable="false"'+(style?' style="'+style+'"':'')+'>';
   let cadre='<div class="fb-cadre" aria-hidden="true">'+img(S.decors[moment],'fb-decor');
   const vue=(S.vues||{})[r.paysage]; if(vue&&vue[moment]){ const v=P.vues_boite; cadre+=img(vue[moment],'fb-vue','left:'+pc(v[0],W)+';top:'+pc(v[1],H)+';width:'+pc(v[2]-v[0],W)+';height:'+pc(v[3]-v[1],H)); }
+  // le bureau personnel : ce que l'élève a gagné (livres, vitrine, plante, instruments)
+  const Gn=gagnesPeints(P,moment,pc,img);
   // les décorations sont peintes pour l'étagère de droite (la lumière de la fenêtre à leur
-  // gauche) ; sur celle de gauche, elles sont retournées en miroir
+  // gauche) ; sur celle de gauche, elles sont retournées en miroir. Dès le premier livre,
+  // l'étagère de gauche est celle des chapitres ; celle de droite ne cède que si elle déborde.
   const E=P.geometrie.etageres, decale=((E.gauche.x1+E.gauche.x2)-(E.droite.x1+E.droite.x2))/2;
-  [['etagereD',0,'d'],['etagereG',decale,'g']].forEach(([cle,dx,cote])=>{ const e=S.etageres?S.etageres[cote]:P.etageres[r[cle]]; if(!e) return;
+  cadre+=Gn.mur;
+  [['etagereD',0,'d'],['etagereG',decale,'g']].forEach(([cle,dx,cote])=>{ if(Gn.occupe[cote]) return; const e=S.etageres?S.etageres[cote]:P.etageres[r[cle]]; if(!e) return;
     const bx=e.boite, miroir=cote==='g'?';transform:scaleX(-1)':'';
     cadre+=img(e.images.midi,'fb-deco','left:'+pc(bx[0]+dx,W)+';top:'+pc(bx[1],H)+';width:'+pc(bx[2],W)+';'+teintePeinte(moment,cote)+miroir); });
   // le compagnon, sur l'appui de la fenêtre ; un chat dort la nuit, et respire lentement
   const C=(P.compagnons||{})[r.compagnon]; if(C){ const v=vuePiece(C,nuit), bx=v.boite, ct=v.contact||[bx[2]*.2,bx[2]*.8], l=ct[1]-ct[0];
     cadre+='<i class="fb-ombre fb-ombre-c" style="left:'+pc(bx[0]+ct[0]-l*.12,W)+';width:'+pc(l*1.24,W)+';top:'+pc(bx[1]+v.appui[1],H)+'"></i>';
     cadre+=img(v.src,'fb-compagnon'+(v.allumee?' fb-dort':''),'left:'+pc(bx[0],W)+';top:'+pc(bx[1],H)+';width:'+pc(bx[2],W)+';'+(v.allumee?'':teintePeinte(moment,'g'))); }
-  f.innerHTML=filtresPeint(S)+cadre+'</div>';
+  cadre+=Gn.appui;
+  f.innerHTML=filtresPeint(S)+cadre+'</div>'+Gn.touches;
+  f._vitrine=Gn.vitrine||null;   // placerPeint écarte le pot du mode « haut » de la vitrine
   // les objets-commandes et les objets décoratifs, posés dans les marges par placerPeint
   const objets=[['lampe','button','Thème clair ou sombre (la lampe)',r.lampe,r.lampeCouleur],['tasse','button','Rappel de pause (la tasse)',r.tasse,r.tasseCouleur],
     ['casque','button','Musique de concentration (le casque)',r.casque,r.casqueCouleur],['pot','div','',r.pot,r.potCouleur],
@@ -597,6 +675,8 @@ function monterPeint(){
     f.appendChild(el); });
   body.insertBefore(f,body.firstChild);
   brancherObjets(f);
+  f.querySelectorAll('.fb-touche').forEach(t=>{ const b=Gn.bulles[t.dataset.gagne]; if(b) brancherBulle(t,b); });
+  if(Gn.nouveaux.length) Pupitre.gagne.voir(Gn.nouveaux);
   mentionDecor(true); surveillerMoment();
   if(garderFocus){ const n=f.querySelector('[data-objet="'+garderFocus+'"]'); if(n) n.focus(); }
   // la nuit (ou le jour) suivante est prête avant le clic sur la lampe
@@ -604,6 +684,67 @@ function monterPeint(){
     [S.decors[autre]].concat((()=>{ const e=pieceScene(P,S,'lampe',r.lampe,r.lampeCouleur); return e?[e.images[autre==='nuit'?'nuit':'midi']]:[]; })())
       .filter(Boolean).forEach(s=>{ const i=new Image(); i.src=RACINE+IMG_BUREAU+s; }); },2500);
 }
+/* le bureau personnel dans le cadre (voir GAGNE et Pupitre.gagne) : les livres des chapitres
+   terminés debout sur l'étagère de gauche, depuis le côté fenêtre (celui qu'on voit encore sur
+   un portable), puis sur celle de droite si elle déborde ; la vitrine des succès sous l'étagère
+   de gauche, une médaille par succès, plus serrées à mesure qu'elles arrivent ; le géranium et
+   les instruments sur l'appui de la fenêtre, à leur place fixe. Mêmes places et mêmes images
+   dans toutes les ambiances (la disposition y est la même), teintées par leur lumière. Ce qui
+   n'a pas encore été vu arrive en fondu, une fois. Les zones de survol (aria-hidden, hors de
+   la tabulation) mènent à Personnalisation, qui en est la version lisible au clavier. */
+function formatLivre(ch){ let h=0; for(const c of ch) h=(h*31+c.charCodeAt(0))%997; return h%5<3?'a':'b'; }
+function gagnesPeints(P,moment,pc,img){
+  const G=P.gagnes, R={mur:'',appui:'',touches:'',occupe:{},bulles:{},nouveaux:[]};
+  if(!G||Pupitre.masque('bureau-perso')&&Pupitre.masque('succes')) return R;
+  const [W,H]=P.cadre, e=Pupitre.gagne.etat(), vus=new Set(e.vus), E=P.geometrie.etageres, voirG=!Pupitre.masque('bureau-perso');
+  const neuf=k=>{ if(vus.has(k)) return ''; R.nouveaux.push(k); return ' fb-nouveau'; };
+  const boite=(b,cls,st)=>'left:'+pc(b[0],W)+';top:'+pc(b[1],H)+';width:'+pc(b[2],W)+(st||'');
+  const zones=[];   // [clé, x, y, l, h, lien]
+  const date=ms=>{ try{ return new Date(ms).toLocaleDateString('fr-FR',{day:'numeric',month:'long'}); }catch(err){ return ''; } };
+  // les livres
+  if(voirG&&e.livres.length&&G.livres){ let xg=E.gauche.x2-6, xd=E.droite.x1+6, x1=W, x2=0, y1=H; const titres=[];
+    e.livres.forEach(l=>{ const p=(G.livres[l.couleur]||G.livres.neutre||{})[formatLivre(l.ch)]; if(!p) return;
+      const w=p.boite[2], h=p.boite[3]; let cote='g';
+      if(xg-w<E.gauche.x1+4){ cote='d'; if(xd+w>E.droite.x2-4) return; }   // les deux étagères pleines : la liste complète reste dans Personnalisation
+      const sh=cote==='g'?E.gauche:E.droite, x=cote==='g'?xg-w:xd, y=sh.y+2-p.appui[1];
+      if(cote==='g') xg-=w+1; else xd+=w+1;
+      R.occupe[cote]=true; x1=Math.min(x1,x); x2=Math.max(x2,x+w); y1=Math.min(y1,y);
+      const c=chapitreCatalogue(l.ch); if(c) titres.push(c.chapitre.titre);
+      R.mur+=img(p.images.midi,'fb-livre'+neuf('livre:'+l.ch),boite([x,y,w,h],'',';'+teintePeinte(moment,cote)+(cote==='d'?';transform:scaleX(-1)':''))); });
+    if(titres.length){ zones.push(['livres',x1,y1,x2-x1,E.gauche.y+2-y1,'personnalisation.html#objets']);
+      R.bulles.livres=()=>['Tes chapitres terminés',titres.length===1?'« '+titres[0]+' ».':'« '+titres.slice(-2).reverse().join(' », « ')+' »'+(titres.length>2?' et '+(titres.length-2)+' autre'+(titres.length>3?'s':'')+'.':'.'),
+        titres.length+' chapitre'+(titres.length>1?'s':'')+' · un livre chacun']; } }
+  // la vitrine des succès et ses médailles
+  const succes=Pupitre.succes.liste();
+  if(!Pupitre.masque('succes')&&succes.length&&G.vitrine){ const V=G.vitrine, vb=V.boite; R.vitrine=vb;
+    R.mur+=img(V.images.midi,'fb-vitrine'+neuf('vitrine'),boite(vb,'',';'+teintePeinte(moment,'g')));
+    const [ix,iy,iw,ih]=V.interieur, n=succes.length, rangs=n<=5?1:n<=12?2:3, parRang=Math.ceil(n/rangs);
+    const mh=Math.min(ih*.86/rangs-(rangs>1?ih*.04:0),iw/parRang*1.9), pasX=iw/parRang, pasY=ih/rangs;
+    succes.forEach((x,i)=>{ const fam=GAGNE.familles[(SUCCES[x.id]||{}).fam]||'autonomie', m=G.medailles&&(G.medailles[fam]||G.medailles.autonomie); if(!m) return;
+      const k=mh/m.boite[3], mw=m.boite[2]*k, ri=Math.floor(i/parRang), ci=i%parRang, dansRang=ri<rangs-1?parRang:n-parRang*(rangs-1);
+      const cx=vb[0]+ix+(iw-dansRang*pasX)/2+(ci+.5)*pasX, cy=vb[1]+iy+(ri+.5)*pasY;
+      R.mur+=img(m.images.midi,'fb-medaille'+neuf('medaille:'+x.id),boite([cx-mw/2,cy-mh/2,mw,mh],'',';'+teintePeinte(moment,'g'))); });
+    zones.push(['vitrine',vb[0],vb[1],vb[2],vb[3],'personnalisation.html#objets']);
+    const d=Pupitre.succes.dernier();
+    R.bulles.vitrine=()=>['La vitrine · tes succès','Une médaille par succès, visible par toi seul.'+(d?' Le dernier : '+d.nom+'.':''),n+' succès']; }
+  // le géranium, sur l'appui
+  const st=e.plante&&e.plante.stade;
+  if(voirG&&st&&G.plante&&G.plante[st-1]){ const p=G.plante[st-1], b=p.boite;
+    R.appui+=ombreAppui(p,pc,W,H)+img(p.images.midi,'fb-plante'+neuf('plante:'+st),boite(b,'',';'+teintePeinte(moment,'g')));
+    zones.push(['plante',b[0],b[1],b[2],b[3],'personnalisation.html#objets']);
+    const n=e.semaines.length;
+    R.bulles.plante=()=>['Le géranium · ta régularité','Il pousse avec tes semaines de travail : deux jours dans la semaine où tu as répondu à quelque chose. Il ne perd jamais ce qu\'il a pris.',n+' semaine'+(n>1?'s':'')+' de travail']; }
+  // les instruments, sur l'appui, chacun à sa place
+  if(voirG&&G.instruments) Object.keys(G.instruments).forEach(k=>{ const g=e.instruments[k], p=G.instruments[k]; if(!g||!p) return; const b=p.boite, i=INSTRUMENTS[k]||['','',''];
+    R.appui+=ombreAppui(p,pc,W,H)+img(p.images.midi,'fb-instrument'+neuf('instrument:'+k),boite(b,'',';'+teintePeinte(moment,'g')));
+    zones.push(['instrument-'+k,b[0],b[1],b[2],b[3],'personnalisation.html#objets']);
+    const c=chapitreCatalogue(g.ch);
+    R.bulles['instrument-'+k]=()=>[i[1]+' · '+i[2],'Ton premier défi de labo réussi dans cette matière'+(g.date?', le '+date(g.date):'')+'.',c?'« '+c.chapitre.titre+' »':'']; });
+  R.touches='<div class="fb-touches" aria-hidden="true">'+zones.map(z=>'<a class="fb-touche" tabindex="-1" data-gagne="'+z[0]+'" href="'+lien(z[5])+'" style="'+boite([z[1],z[2],z[3],z[4]])+';height:'+pc(z[4],H)+'"></a>').join('')+'</div>';
+  return R; }
+/* l'ombre d'un objet posé sur l'appui de la fenêtre (comme celle du compagnon) */
+function ombreAppui(p,pc,W,H){ const b=p.boite, c=p.contact||[b[2]*.2,b[2]*.8], l=c[1]-c[0];
+  return '<i class="fb-ombre fb-ombre-c" style="left:'+pc(b[0]+c[0]-l*.12,W)+';width:'+pc(l*1.24,W)+';top:'+pc(b[1]+p.appui[1],H)+'"></i>'; }
 /* les objets dans les marges : leur point d'appui (le bas, au centre) à une place relative à
    la marge et à la profondeur du plateau, à l'échelle de la scène, sans jamais déborder sur
    la page. En mode « haut » (portable), la lampe et le pot seuls, au bord du plateau. */
@@ -617,7 +758,10 @@ function placerPeint(s,J,vw,vh,marge){
     let k=Math.min(base,marge*.86/p.w), x, y;
     if(mode==='haut'){ const nom=el.dataset.objet;
       if(nom==='lampe'){ k=Math.min(s,150/p.h); x=vw-p.w*k/2-6; y=J+14; }
-      else if(nom==='pot'){ k=Math.min(s,112/p.h); x=p.w*k/2+10; y=J+12; }
+      else if(nom==='pot'){ k=Math.min(s,112/p.h); x=p.w*k/2+10; y=J+12;
+        // sous la vitrine des succès, le pot descend un peu sur le plateau plutôt que de la cacher
+        const v=f._vitrine; if(v){ const dy=(window.PACK_BUREAU.geometrie.decalage||0), ox=(vw-window.PACK_BUREAU.cadre[0]*s)/2, bas=(v[1]+v[3]-dy)*s, droite=ox+(v[0]+v[2])*s;
+          if(x-p.w*k/2<droite) y=Math.max(y,bas+8+p.h*k); } }
       else return; }
     else { const q=places[el.dataset.objet]; if(!q) return; x=q[0]; y=q[1]; }
     const gx=x-p.ax*k, gy=y-p.ay*k;
@@ -662,7 +806,7 @@ function brancherBulle(el,nom){
 }
 function afficherBulle(el,nom){
   if(!bulleEl){ bulleEl=document.createElement('div'); bulleEl.className='fb-bulle'; bulleEl.id='fb-bulle'; bulleEl.setAttribute('role','tooltip'); document.body.appendChild(bulleEl); }
-  const [titre,texte,etat]=BULLES[nom]();
+  const [titre,texte,etat]=(typeof nom==='function'?nom:BULLES[nom])();
   bulleEl.innerHTML='<strong>'+echap(titre)+'</strong>'+echap(texte)+(etat?'<span class="etat">'+echap(etat)+'</span>':'');
   el.setAttribute('aria-describedby','fb-bulle');
   const r=el.getBoundingClientRect(), b=bulleEl.getBoundingClientRect(), vw=innerWidth, vh=innerHeight;
@@ -709,10 +853,24 @@ function rafraichirBureau(maj){ if(maj) enregistrerBureau(maj); if(document.body
 function decorHeure(){ const h=new Date().getHours(); return h<6?'ville':h<10?'montagne':h<18?'fenetre':h<21?'plage':'ville'; }
 function decorSuivant(d){ if(d!=='heure') return; setInterval(()=>{ document.body.dataset.decor=decorHeure(); },60e3); }
 
+/* -- ce qui se gagne : le mot qui l'accompagne, et le décor repeint (l'objet arrive en fondu) -- */
+const INSTRUMENTS={maths:['📐','Un compas et une équerre','les mathématiques'],pc:['⚗️','Un ballon de chimie','la physique-chimie'],
+  svt:['🔬','Un microscope','les SVT'],snt:['💾','Une carte électronique','la SNT']};
+function messageGagne(g){
+  if(g.quoi==='plante') return ['🪴',['','Une pousse sur l\'appui de ta fenêtre','Ta plante a grandi','Ton géranium est en fleurs'][g.stade]||'Ta plante a grandi',
+    g.semaines+' semaine'+(g.semaines>1?'s':'')+' de travail. Elle ne perd jamais ce qu\'elle a pris.'];
+  if(g.quoi==='livre') return ['📗','Un livre de plus sur ton étagère','« '+g.titre+' » : chapitre terminé.'];
+  if(g.quoi==='instrument'){ const i=INSTRUMENTS[g.cle]; return i?[i[0],i[1]+' sur l\'appui de ta fenêtre','Ton premier défi de labo réussi en '+i[2]+'.']:null; }
+  return null; }
+function redessinerGagnes(){ if(document.body.dataset.fond==='bureau'&&reglagesBureau().vue==='peint'&&window.PACK_BUREAU&&document.querySelector('.fond-bureau.fb-peint')) monterPeint(); }
+
 /* -- petit message en bas de l'écran (succès, pause) -- */
 let toastEl=null;
+const toastFile=[];   // deux messages à la fois (un succès et la plante qui pousse) : le second attend son tour
 function toast(html,duree){ if(!toastEl){ toastEl=document.createElement('div'); toastEl.className='toast'; toastEl.setAttribute('role','status'); document.body.appendChild(toastEl); }
-  toastEl.innerHTML=html; toastEl.classList.add('visible'); clearTimeout(toastEl._t); toastEl._t=setTimeout(()=>toastEl.classList.remove('visible'),duree||6000); }
+  if(toastEl.classList.contains('visible')){ toastFile.push([html,duree]); return; }
+  toastEl.innerHTML=html; toastEl.classList.add('visible'); clearTimeout(toastEl._t);
+  toastEl._t=setTimeout(()=>{ toastEl.classList.remove('visible'); const n=toastFile.shift(); if(n) setTimeout(()=>toast(n[0],n[1]),450); },duree||6000); }
 
 /* -- le rappel de pause : après 45 minutes, une carte, jamais un blocage -- */
 function rappelDePause(ci){

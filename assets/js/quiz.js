@@ -93,7 +93,7 @@ function initQuiz(bloc){
   function lancer(){ score=0; faits=0; bloc.querySelector('.sc').textContent='0'; bloc.querySelector('.fin').innerHTML=''; liste.innerHTML='';
     questions.forEach(q=>{ const d=document.createElement('div'); liste.appendChild(d);
       construireQuestion(d,q,ok=>{ if(ok) score++; faits++; bloc.querySelector('.sc').textContent=score;
-        if(faits===questions.length) { bloc.querySelector('.fin').innerHTML='<div class="retour '+(score===questions.length?'bon':'mauvais')+'"><span class="verdict">Résultat : '+score+' / '+questions.length+'</span><div><button class="btn fantome" type="button">Recommencer</button></div></div>'; bloc.querySelector('.fin button').addEventListener('click',lancer); } }); }); }
+        if(faits===questions.length) { if(window.Pupitre&&Pupitre.travail) Pupitre.travail(); bloc.querySelector('.fin').innerHTML='<div class="retour '+(score===questions.length?'bon':'mauvais')+'"><span class="verdict">Résultat : '+score+' / '+questions.length+'</span><div><button class="btn fantome" type="button">Recommencer</button></div></div>'; bloc.querySelector('.fin button').addEventListener('click',lancer); } }); }); }
   lancer();
 }
 
@@ -142,6 +142,7 @@ function initJeu(bloc){
         '<h4>Question par question</h4><div class="bilan-controle">'+G.res.map((r,i)=>'<div class="q '+(r.ok?'ok':'ko')+'"><span class="categorie">'+(i+1)+' · '+r.cat+'</span><div>'+r.enonce+'</div><div class="discret">Ta réponse : '+(r.saisie!=null?r.saisie:'—')+(r.ok?' ✓':' · attendu : '+r.attendu)+'</div>'+(r.explication&&!r.ok?'<div class="explication">'+r.explication+'</div>':'')+'</div>').join('')+'</div>'+
         '<div><button class="btn" type="button">Refaire un contrôle blanc</button></div></div>';
       site().maths($('.corps')); if(window.Graphe&&Graphe.init) Graphe.init($('.corps')); $('.corps > .question > div > button').addEventListener('click',nouvellePartie); hud(); return; }
+    if(window.Pupitre&&Pupitre.travail) Pupitre.travail();   // un jeu mené au bout est un jour de travail, quel que soit le score
     if(G.record==null||G.score>G.record){ G.record=G.score; ecrireStockage(cle,G.score); }
     if(window.Pupitre&&G.score>=0.7*N){ Pupitre.etape(site().chapitreId,'entrainer'); }
     hud();

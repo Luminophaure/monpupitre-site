@@ -7,7 +7,7 @@
    ===================================================================== */
 (function(){
 "use strict";
-const {maths,css,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette}=window.Labo;
+const {maths,css,id,nb,hasard,lire,carcasse,reglette,lier,puces,Toile,etiquette,reussi}=window.Labo;
 const P=()=>window.Pupitre;
 const mil=v=>String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,'\u202f');   // 1 800 W
 
@@ -79,12 +79,12 @@ function oscillo(el){
     const dt=Math.abs(st.c2-st.c1)*st.ms, Tv=1000/s.f;
     if(dt<0.2){ v.className='verdict ko'; v.innerHTML='<span>Écarte les deux curseurs roses : place-les sur deux points identiques de deux motifs successifs (deux sommets, ou deux passages par zéro en montant).</span>'; return; }
     const k=dt/Tv, kr=Math.round(k);
-    if(Math.abs(k-1)<=0.06){ st.okT=true; v.className='verdict ok'; v.innerHTML='<strong>T = '+nb(dt,1)+' ms. Juste.</strong><span>Donc $f=\\dfrac1T=\\dfrac{1}{'+nb(Tv/1000,4)+'}='+s.f+'$ Hz : '+s.f+' motifs par seconde.'+(st.okU?' Et $U_{eff}=\\dfrac{U_{max}}{\\sqrt2}='+nb(s.Umax/Math.SQRT2,0)+'$ V.':'')+'</span>'; maths(v); }
+    if(Math.abs(k-1)<=0.06){ st.okT=true; reussi(v); v.className='verdict ok'; v.innerHTML='<strong>T = '+nb(dt,1)+' ms. Juste.</strong><span>Donc $f=\\dfrac1T=\\dfrac{1}{'+nb(Tv/1000,4)+'}='+s.f+'$ Hz : '+s.f+' motifs par seconde.'+(st.okU?' Et $U_{eff}=\\dfrac{U_{max}}{\\sqrt2}='+nb(s.Umax/Math.SQRT2,0)+'$ V.':'')+'</span>'; maths(v); }
     else if(kr>=2&&Math.abs(k-kr)<=0.06*kr){ v.className='verdict ko'; v.innerHTML='<span>Tes curseurs couvrent '+kr+' motifs, pas un seul : $T=\\dfrac{'+nb(dt,1)+'}{'+kr+'}='+nb(dt/kr,1)+'$ ms. (Mesurer plusieurs motifs et diviser est d\'ailleurs une bonne méthode.)</span>'; maths(v); }
     else if(Math.abs(k-0.5)<=0.06){ v.className='verdict ko'; v.innerHTML='<span>Ce n\'est qu\'une demi-période : d\'un passage par zéro au suivant, la tension a seulement changé de signe. Le motif complet, c\'est une bosse <em>et</em> un creux.</span>'; }
     else { v.className='verdict ko'; v.innerHTML='<span>Ce n\'est pas une période ('+nb(dt,1)+' ms). Place un curseur sur un sommet et l\'autre sur le sommet suivant.</span>'; } });
   q('.mesU').addEventListener('click',()=>{ const v=q('.verdict'); const s=S(); const niv=st.niv*st.vd;
-    if(Math.abs(niv-s.Umax)<=0.05*s.Umax+0.2){ st.okU=true; v.className='verdict ok'; v.innerHTML='<strong>U<sub>max</sub> = '+nb(niv,1)+' V. Juste.</strong><span>'+(s.continu?'Pour une tension continue, c\'est la valeur tout court : un voltmètre affiche '+nb(s.Umax,1)+' V.':'La valeur efficace vaut $\\dfrac{U_{max}}{\\sqrt2}='+nb(s.Umax/Math.SQRT2,0)+'$ V : c\'est elle qu\'affiche un voltmètre, et qu\'on lit sur les appareils.')+'</span>'; maths(v); }
+    if(Math.abs(niv-s.Umax)<=0.05*s.Umax+0.2){ st.okU=true; reussi(v); v.className='verdict ok'; v.innerHTML='<strong>U<sub>max</sub> = '+nb(niv,1)+' V. Juste.</strong><span>'+(s.continu?'Pour une tension continue, c\'est la valeur tout court : un voltmètre affiche '+nb(s.Umax,1)+' V.':'La valeur efficace vaut $\\dfrac{U_{max}}{\\sqrt2}='+nb(s.Umax/Math.SQRT2,0)+'$ V : c\'est elle qu\'affiche un voltmètre, et qu\'on lit sur les appareils.')+'</span>'; maths(v); }
     else if(Math.abs(niv+s.Umax)<=0.05*s.Umax+0.2){ v.className='verdict ko'; v.innerHTML='<span>Tu es sur le creux : c\'est $U_{min}=-U_{max}$. La valeur maximale est au sommet, au-dessus de l\'axe.</span>'; maths(v); }
     else if(!s.continu&&Math.abs(niv-s.Umax/Math.SQRT2)<=0.05*s.Umax){ v.className='verdict ko'; v.innerHTML='<span>'+nb(niv,0)+' V, c\'est la valeur efficace, pas la valeur maximale. Le sommet de la sinusoïde est plus haut.</span>'; }
     else if(st.vd*4<s.Umax){ v.className='verdict ko'; v.innerHTML='<span>Le sommet sort de l\'écran : augmente la sensibilité (plus de volts par division) pour le voir.</span>'; }
