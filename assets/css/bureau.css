@@ -531,6 +531,7 @@ body:not([data-fb-objets]) .fb-peint .fb-lueur{display:none}
 .decor-choix .tranches img:nth-child(1){object-position:0 50%}.decor-choix .tranches img:nth-child(3){object-position:100% 50%}
 #decor-lofi{display:grid;gap:var(--e-3)}
 #decor-lofi .decors{grid-template-columns:repeat(auto-fill,minmax(min(100%,130px),1fr))}
+#decor-lofi .decor-choix[data-ambiance] .apercu-lofi img{object-position:50% 0}
 #decor-lofi > div > .discret{display:block;margin-bottom:6px}
 .avatar-atelier{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--e-4);align-items:start}
 .avatar-atelier .grand .avatar{width:140px;height:140px;background:var(--grid)}

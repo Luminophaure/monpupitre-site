@@ -325,14 +325,17 @@ function CarnetPage(body){ const p=P(), m=body.querySelector('#carnet'); if(!m||
    suit la vue la plus proche (DECOR_DESSINE), sans choix à part. */
 const DECOR_DESSINE={ville:'fenetre',plage:'plage',montagne:'montagne',foret:'fenetre',jardin:'fenetre'};
 function decorLofi(el){ if(!el) return; const BB=B().bureau;
-  BB.chargerPack(()=>{ const PK=window.PACK_BUREAU, BP=BB.peint, r=BP.reglages(), V=PK.vignettes||{}, N=PK.noms||{};
+  BB.chargerPack(()=>{ const PK=window.PACK_BUREAU, BP=BB.peint, r=BP.reglages(), S=BP.scene(PK,r), V=S.vignettes||{}, N=S.noms||{};
     const sombre=document.documentElement.dataset.theme==='dark', moment=BP.moment(r);
     const img=(s,cls)=>'<img src="'+lien(BP.IMG+s)+'" alt="" loading="lazy"'+(cls?' class="'+cls+'"':'')+'>';
     const carte=(attr,v,presse,images,titre,sous)=>'<button type="button" class="decor-choix" data-'+attr+'="'+v+'" aria-pressed="'+presse+'"><span class="apercu-lofi" aria-hidden="true">'+images+'</span><strong>'+echap(titre)+'</strong>'+(sous?'<span class="discret">'+echap(sous)+'</span>':'')+'</button>';
-    const vues=['ville'].concat(Object.keys(PK.vues||{})).filter(k=>V[k]);
-    const pays=V[r.paysage]?r.paysage:'ville', W=V[pays];
+    const propre=S.propre.cle, vues=[propre].concat(Object.keys(S.vues||{})).filter(k=>V[k]);
+    const pays=(S.vues||{})[r.paysage]?r.paysage:propre, W=V[pays];
+    // les ambiances : le bureau de base, puis chacune, dans la lumière du moment
+    const ambiances=[['base','Lofi',PK.apercus,'']].concat(Object.entries(PK.ambiances||{}).map(([k,a])=>[k,a.nom,a.apercus,'']));
     const lum=[['heure','Selon l\'heure','matin, midi, puis soir'],['matin','Matin',''],['midi','Midi',''],['soir','Soir',''],['nuit','La nuit','le thème sombre, la lampe allumée']];
-    el.innerHTML='<div><span class="discret">Par la fenêtre</span><div class="decors">'+vues.map(k=>carte('paysage',k,pays===k,img(V[k][moment]),N[k]||k,'')).join('')+'</div></div>'+
+    el.innerHTML=(ambiances.length>1?'<div><span class="discret">L\'ambiance</span><div class="decors">'+ambiances.filter(a=>a[2]).map(([k,t,ap,sous])=>carte('ambiance',k,S.cle===k,img(ap[moment]),t,sous)).join('')+'</div></div>':'')+
+      '<div><span class="discret">Par la fenêtre</span><div class="decors">'+vues.map(k=>carte('paysage',k,pays===k,img(V[k][moment]),N[k]||k,'')).join('')+'</div></div>'+
       '<div><span class="discret">La lumière</span><div class="decors">'+lum.map(([k,t,sous])=>{ const presse= k==='nuit'?sombre:(!sombre&&(r.lumiere||'heure')===k);
         const images= k==='heure'?'<span class="tranches">'+['matin','midi','soir'].map(m=>img(W[m])).join('')+'</span>':img(W[k]);
         return carte('lumiere',k,presse,images,t,sous); }).join('')+'</div></div>'+
@@ -340,7 +343,9 @@ function decorLofi(el){ if(!el) return; const BB=B().bureau;
       (P().masque('decor')?'<p class="discret">Le décor du bureau est masqué (dans « Mon compte », rubrique Affichage) : ces choix s\'appliqueront quand tu le réafficheras.</p>':'');
     el.onclick=e=>{ const b=e.target.closest('.decor-choix'); if(!b) return; let cle, v;
       const peint=()=>Object.assign({},BB.reglages().peint||{});
-      if(b.dataset.paysage){ cle='paysage'; v=b.dataset.paysage; BB.rafraichir({peint:Object.assign(peint(),{paysage:v})});
+      if(b.dataset.ambiance){ cle='ambiance'; v=b.dataset.ambiance; BB.rafraichir({peint:Object.assign(peint(),{ambiance:v})});
+        const at=document.getElementById('bureau-atelier'); if(at&&at._construire){ at._construire(); } }
+      else if(b.dataset.paysage){ cle='paysage'; v=b.dataset.paysage; BB.rafraichir({peint:Object.assign(peint(),{paysage:v})});
         const d=DECOR_DESSINE[v]||'fenetre'; P().ecrire('decor',d); document.body.dataset.decor=d; }
       else { cle='lumiere'; v=b.dataset.lumiere; const nuit=document.documentElement.dataset.theme==='dark';
         if(v==='nuit'){ if(!nuit) B().theme.basculer(); }
@@ -425,14 +430,16 @@ function atelierBureau(el){ if(!el) return;
       return '<div><span class="discret">'+titre+'</span>'+v+(couleurs.length>1?teintes(cleCouleur,couleurs):'')+'</div>'; };
     const compagnons=Object.keys(PK.compagnons||{}).length?[['aucun','Aucun',null]].concat(Object.entries(PK.compagnons).map(([k,e])=>[k,nom(k),e.images.midi])):null;
     const decos=[['aucune','Rien',null]].concat(Object.entries(PK.etageres).map(([k,e])=>[k,nom(k),e.images.midi]));
+    const S=BP.scene(PK,r), amb=S.cle!=='base';
     el.innerHTML='<div class="apercu-bureau ap-peint" id="apercu-bureau" aria-hidden="true"></div><div class="options">'+
-      '<div><span class="discret">La vue ou l\'ambiance</span>'+boutonsVues(F,B().bureau.reglages())+'</div>'+
-      '<p class="discret">La vue par la fenêtre et la lumière se choisissent dans <a href="#decor">« Le décor »</a>, juste au-dessus.</p>'+
+      '<div><span class="discret">Le style du décor</span>'+boutonsVues(F,B().bureau.reglages())+'</div>'+
+      '<p class="discret">L\'ambiance, la vue par la fenêtre et la lumière se choisissent dans <a href="#decor">« Le décor »</a>, juste au-dessus.</p>'+
+      (amb?'<p class="discret">Dans l\'ambiance « '+echap(S.nom)+' », la lampe, la tasse, le casque, les livres, le pot, la plante et les étagères sont ceux de l\'ambiance. Pour choisir les tiens, reviens à l\'ambiance « Lofi ».</p>':
       objet('lampe','lampe','lampeCouleur','La lampe')+objet('casque','casque','casqueCouleur','Le casque')+objet('tasse','tasse','tasseCouleur','La tasse')+
-      objet('pot','pot','potCouleur','Le pot à crayons')+objet('livres','livres','','Les livres')+objet('plante','plante','','La plante')+
+      objet('pot','pot','potCouleur','Le pot à crayons')+objet('livres','livres','','Les livres')+objet('plante','plante','','La plante'))+
       (compagnons?'<div><span class="discret">Le compagnon, sur le rebord de la fenêtre (la nuit, les chats dorment)</span>'+vignettes('compagnon',compagnons)+'</div>':'')+
-      '<div><span class="discret">L\'étagère de gauche</span>'+vignettes('etagereG',decos)+'</div>'+
-      '<div><span class="discret">L\'étagère de droite</span>'+vignettes('etagereD',decos)+'</div>'+
+      (amb?'':'<div><span class="discret">L\'étagère de gauche</span>'+vignettes('etagereG',decos)+'</div>'+
+      '<div><span class="discret">L\'étagère de droite</span>'+vignettes('etagereD',decos)+'</div>')+
       '<div><button type="button" class="btn fantome petit" data-bureau-defaut>Revenir au bureau d\'origine</button></div></div>'+
       '<p class="discret pleine-largeur mention-provisoire"><strong>Décor provisoire.</strong> Ce bureau lofi a été généré avec une IA (les modèles d\'image d\'OpenAI) pour le prototype, puis mis à l\'échelle et teinté ; il sera remplacé par une illustration faite à la main avant l\'ouverture du site. Les vues « Douce » et « Marquée » sont le décor dessiné d\'avant.</p>'+
       (P().masque('decor')?'<p class="discret pleine-largeur">Le décor du bureau est masqué (dans « Mon compte », rubrique Affichage) : ces choix s\'appliqueront quand tu le réafficheras.</p>':'');
@@ -443,18 +450,18 @@ function atelierBureau(el){ if(!el) return;
   B().bureau.chargerSvg(()=>B().bureau.chargerPack(construire)); }
 /* l'aperçu du bureau lofi : la scène entière du moment, les décorations sur leurs étagères,
    les objets à la place qu'ils ont sur un écran de 1920 px, une feuille pour le classeur */
-function apercuPeint(el){ const PK=window.PACK_BUREAU, BP=B().bureau.peint, r=BP.reglages(), moment=BP.moment(r), nuit=moment==='nuit', [W,H]=PK.cadre;
+function apercuPeint(el){ const PK=window.PACK_BUREAU, BP=B().bureau.peint, r=BP.reglages(), S=BP.scene(PK,r), moment=BP.moment(r), nuit=moment==='nuit', [W,H]=PK.cadre;
   const pc=(v,t)=>(100*v/t).toFixed(3)+'%';
   const img=(s,cls,style)=>'<img class="'+cls+'" src="'+lien(BP.IMG+s)+'" alt="" style="'+style+'">';
-  let h=BP.filtres(PK)+img(PK.decors[moment],'ap-decor','');
-  const vue=PK.vues[r.paysage]; if(vue&&vue[moment]){ const v=PK.vues_boite; h+=img(vue[moment],'','left:'+pc(v[0],W)+';top:'+pc(v[1],H)+';width:'+pc(v[2]-v[0],W)); }
+  let h=BP.filtres(S)+img(S.decors[moment],'ap-decor','');
+  const vue=(S.vues||{})[r.paysage]; if(vue&&vue[moment]){ const v=PK.vues_boite; h+=img(vue[moment],'','left:'+pc(v[0],W)+';top:'+pc(v[1],H)+';width:'+pc(v[2]-v[0],W)); }
   const E=PK.geometrie.etageres, decale=((E.gauche.x1+E.gauche.x2)-(E.droite.x1+E.droite.x2))/2;
-  [['etagereD',0,'d'],['etagereG',decale,'g']].forEach(([cle,dx,cote])=>{ const e=PK.etageres[r[cle]]; if(!e) return; const b=e.boite;
+  [['etagereD',0,'d'],['etagereG',decale,'g']].forEach(([cle,dx,cote])=>{ const e=S.etageres?S.etageres[cote]:PK.etageres[r[cle]]; if(!e) return; const b=e.boite;
     h+=img(e.images.midi,'','left:'+pc(b[0]+dx,W)+';top:'+pc(b[1],H)+';width:'+pc(b[2],W)+';'+BP.teinte(moment,cote)+(cote==='g'?';transform:scaleX(-1)':'')); });
   const C=(PK.compagnons||{})[r.compagnon]; if(C){ const v=BP.vue(C,nuit), b=v.boite;
     h+=img(v.src,v.allumee?'fb-dort':'','left:'+pc(b[0],W)+';top:'+pc(b[1],H)+';width:'+pc(b[2],W)+';'+(v.allumee?'':BP.teinte(moment,'g'))); }
   [['lampe',r.lampe,r.lampeCouleur],['tasse',r.tasse,r.tasseCouleur],['casque',r.casque,r.casqueCouleur],['pot',r.pot,r.potCouleur],['livres',r.livres,''],['plante',r.plante,'']]
-    .forEach(([cat,st,c])=>{ const e=BP.piece(PK,cat,st,c); if(!e) return; const v=BP.vue(e,nuit), b=v.boite, cont=v.contact||[b[2]*.2,b[2]*.8], l=cont[1]-cont[0];
+    .forEach(([cat,st,c])=>{ const e=BP.pieceScene(PK,S,cat,st,c); if(!e) return; const v=BP.vue(e,nuit), b=v.boite, cont=v.contact||[b[2]*.2,b[2]*.8], l=cont[1]-cont[0];
       h+='<i class="ap-ombre" style="left:'+pc(b[0]+cont[0]-l*.12,W)+';width:'+pc(l*1.24,W)+';top:'+pc(b[1]+v.appui[1],H)+'"></i>';
       h+=img(v.src,'','left:'+pc(b[0],W)+';top:'+pc(b[1],H)+';width:'+pc(b[2],W)+';'+(v.allumee?'':BP.teinte(moment,e.cote)));
       if(v.allumee&&e.lueur){ const rr=Math.max(b[2],b[3])*1.15; h+='<i class="ap-lueur" style="left:'+pc(b[0]+e.lueur[0]-rr,W)+';top:'+pc(b[1]+e.lueur[1]-rr,H)+';width:'+pc(2*rr,W)+';height:'+pc(2*rr,H)+'"></i>'; } });
@@ -463,7 +470,7 @@ function apercuPeint(el){ const PK=window.PACK_BUREAU, BP=B().bureau.peint, r=BP
 /* la rangée des vues : le bureau lofi d'abord, puis les vues dessinées et les ambiances */
 function boutonsVues(F,r){
   return '<div class="bascule" data-bureau="vue"><button type="button" data-v="peint" aria-pressed="'+(r.vue==='peint')+'" title="Le bureau peint, style lofi (décor provisoire)">Lofi</button>'+
-    Object.entries(F.vues).map(([k,d])=>'<button type="button" data-v="'+k+'" aria-pressed="'+(r.vue===k)+'"'+(d.legende?' title="'+echap(d.legende)+'"':'')+'>'+echap(d.nom)+'</button>').join('')+'</div>'; }
+    Object.entries(F.vues).filter(([k,d])=>!d.ambiance||!(window.PACK_BUREAU&&window.PACK_BUREAU.ambiances&&window.PACK_BUREAU.ambiances[k])).map(([k,d])=>'<button type="button" data-v="'+k+'" aria-pressed="'+(r.vue===k)+'"'+(d.legende?' title="'+echap(d.legende)+'"':'')+'>'+echap(d.nom)+'</button>').join('')+'</div>'; }
 /* l'aperçu : la scène de la vue choisie, une feuille pour figurer le classeur, et les objets
    aux places qu'ils ont sur un grand écran. Les couleurs suivent les jetons, donc le thème. */
 function apercuBureau(el){ if(el&&B().bureau.reglages().vue==='peint'){ if(window.PACK_BUREAU) apercuPeint(el); else B().bureau.chargerPack(()=>apercuBureau(el)); return; }
