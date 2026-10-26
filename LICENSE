@@ -57,6 +57,13 @@ mêmes conditions. Lis le paragraphe qui correspond à ce que tu veux reprendre.
      assets/vendor/polices/  Bricolage Grotesque, Atkinson Hyperlegible, Caveat et
                              IBM Plex Mono, toutes sous SIL Open Font License 1.1
                              (voir les fichiers LICENCE-<famille>.txt du dossier)
+     assets/img/bureau/      Images du décor du bureau (décors, objets, vues par la
+                             fenêtre, compagnons, décorations d'étagère) : générées
+                             avec ChatGPT (OpenAI) à la demande de l'auteur, puis
+                             découpées et retouchées, à titre PROVISOIRE pour le
+                             prototype ; aucun droit d'auteur n'y est revendiqué. Elles
+                             seront remplacées par une illustration faite à la main
+                             avant l'ouverture au public.
 
    Les programmes officiels de l'Éducation nationale cités dans le projet sont des
    documents publics ; les liens vers l'Onisep renvoient à leurs auteurs.

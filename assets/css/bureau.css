@@ -226,6 +226,31 @@ body[data-fond="bureau"] .zone > :is(.scene,.accueil-tete)::after{display:none}
 /* sur un petit écran, pas de grain ni de tremblé : deux filtres plein écran coûtent cher à un téléphone modeste */
 @media (max-width:700px){ .fb-scene [filter]{filter:none} .fb-scene [filter="url(#fb-grain)"]{display:none} }
 
+/* ---------- Le bureau peint (vue « peint ») ----------
+   bureau.js (monterPeint, placerPeint) pose un « cadre » 1672 × 941 à l'échelle --fb-s :
+   la scène du moment, la vue dans la vitre, les décorations d'étagère et le compagnon. Hors
+   du cadre (écran plus large que la scène), le mur et le plateau continuent en aplat, aux
+   couleurs relevées sur les bords de la scène (--fbp-mur, --fbp-plateau). Les objets sont
+   posés en pixels d'écran par placerPeint ; matin et soir leur viennent d'un filtre. */
+.fond-bureau.fb-peint{background:linear-gradient(180deg,var(--fbp-mur,#d8b48a) 0 var(--fb-jonction,40vh),var(--fbp-plateau,#c46a2a) var(--fb-jonction,40vh))}
+.fb-peint .fb-filtres{position:absolute;width:0;height:0;overflow:hidden}
+.fb-peint .fb-cadre{position:absolute;top:0;left:var(--fb-ox,0px);width:calc(1672px * var(--fb-s,1));height:calc(941px * var(--fb-s,1))}
+.fb-peint .fb-cadre img{position:absolute;display:block;max-width:none;user-select:none;pointer-events:none;height:auto}
+.fb-peint .fb-decor{left:0;top:0;width:100%;height:100%!important}
+/* écran plus large que la scène : ses bords se fondent dans l'aplat */
+body[data-fb-large] .fb-peint .fb-decor{-webkit-mask-image:linear-gradient(90deg,transparent,#000 2.5%,#000 97.5%,transparent);mask-image:linear-gradient(90deg,transparent,#000 2.5%,#000 97.5%,transparent)}
+.fb-peint .fb-vue{height:auto}
+.fb-peint .fb-objet{right:auto;bottom:auto}
+.fb-peint .fb-objet .fb-dessin{width:100%;height:auto;display:block;user-select:none;-webkit-user-drag:none}
+.fb-peint .fb-halo{position:absolute;pointer-events:none;mix-blend-mode:screen;max-width:none;height:auto}
+.fb-peint[data-moment="matin"] .fb-teinte{filter:url(#fb-teinte-matin)}
+.fb-peint[data-moment="soir"] .fb-teinte{filter:url(#fb-teinte-soir)}
+body:not([data-fb-objets]) .fb-peint .fb-halo{display:none}
+.fb-peint .fb-objet:focus-visible{outline:3px solid var(--focus,#2b5bd7);outline-offset:4px;border-radius:12px}
+/* la mention du décor provisoire, au pied de page */
+.pied .mention-decor{color:var(--muted)}
+.pied .mention-decor a{color:inherit}
+
 /* l'atelier du bureau, dans Personnalisation : les choix et un aperçu vivant */
 .bureau-atelier{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--e-4);align-items:start}
 @media (max-width:760px){ .bureau-atelier{grid-template-columns:minmax(0,1fr)} }
@@ -238,6 +263,20 @@ body[data-fond="bureau"] .zone > :is(.scene,.accueil-tete)::after{display:none}
 .apercu-bureau .ap-feuille{position:absolute;left:26%;right:26%;bottom:-2%;background:var(--feuille);border-radius:8px 8px 0 0;box-shadow:-4px 8px 16px rgba(0,0,0,.25)}
 .apercu-bureau .ap-feuille i{position:absolute;left:-8px;width:8px;height:8px;border-radius:50%;border:2px solid #8f8f8f;background:#e4e4e4}
 .apercu-bureau .ap-feuille i:nth-child(1){top:12%}.apercu-bureau .ap-feuille i:nth-child(2){top:45%}.apercu-bureau .ap-feuille i:nth-child(3){top:78%}
+/* l'aperçu du bureau peint : la scène entière, objets à leur place peinte */
+.apercu-bureau.ap-peint{aspect-ratio:16/9;background:#b5612a}
+.ap-peint > img{position:absolute;display:block;max-width:none;height:auto;pointer-events:none;user-select:none}
+.ap-peint > .ap-decor{left:0;top:0;width:100%;height:100%}
+.ap-peint > .ap-halo{mix-blend-mode:screen}
+.ap-peint > svg{position:absolute;width:0;height:0}
+/* les choix en vignettes (styles d'objets, compagnons, décorations d'étagère) */
+.vignettes{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:6px}
+.vignettes button{display:grid;justify-items:center;align-content:start;gap:2px;padding:6px 4px 5px;border:2px solid transparent;border-radius:var(--r-m);background:var(--grid);color:var(--ink);font:600 var(--t-xs)/1.2 var(--f-body);cursor:pointer;min-height:44px}
+.vignettes button[aria-pressed="true"]{border-color:var(--ink);background:var(--feuille)}
+.vignettes button:hover{background:var(--feuille)}
+.vignettes img{height:54px;width:100%;object-fit:contain;display:block}
+.vignettes .aucun{height:54px;display:grid;place-items:center;font-size:24px;color:var(--muted)}
+.bureau-atelier .mention-provisoire{border-left:3px solid var(--jaune,#e8b94a);padding-left:10px}
 .apercu-bureau .ap-obj{position:absolute;line-height:0}
 .apercu-bureau .ap-obj .fb-dessin{width:100%;height:auto;display:block;overflow:visible}
 

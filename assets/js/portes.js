@@ -267,10 +267,12 @@ function PlusLoin(body){ const m=body.querySelector('#ressources'); if(!m) retur
   m.innerHTML=RESSOURCES.map(r=>'<section class="pile"><h2>'+echap(r[0])+'</h2><div class="colonnes">'+r[1].map(x=>'<a class="carte" href="'+x[3]+'" rel="noopener" target="_blank" style="text-decoration:none;color:inherit"><strong>'+echap(x[0])+'</strong><span class="surtitre">'+echap(x[1])+' · validée</span><span class="discret">'+echap(x[2])+'</span></a>').join('')+'</div></section>').join(''); }
 
 /* ---------- 5. Aide ---------- */
-function Aide(body){ if(location.hash==='#parler'){ const t=document.getElementById('parler'); if(t) setTimeout(()=>t.scrollIntoView({block:'start'}),100); } }
+function Aide(body){ if(location.hash==='#parler'){ const t=document.getElementById('parler'); if(t) setTimeout(()=>t.scrollIntoView({block:'start'}),100); }
+  // une question de la FAQ visée par le lien (le pied de page mène à « Qui a peint le bureau ? ») : ouverte
+  const q=location.hash&&document.getElementById(location.hash.slice(1)); if(q&&q.tagName==='DETAILS'){ q.open=true; setTimeout(()=>q.scrollIntoView({block:'center'}),100); } }
 
 /* ---------- 6. Mon compte ---------- */
-const MASQUABLES=[['decor','Le bureau dessiné (le décor illustré)'],['avatar','L\'avatar'],['succes','Les succès'],['musique','Le lecteur de musique'],['pause','Le rappel de pause'],['stats','Les statistiques (autonomie)'],['carnet','Le carnet des professeurs sur le bureau'],['porte-theme','Porte « Par thème »'],['porte-examen','Porte « Préparer l\'examen »'],['porte-carte','Porte « Carte des notions »'],['porte-labos','Porte « Labos et jeux »']];
+const MASQUABLES=[['decor','Le décor du bureau (peint ou dessiné)'],['avatar','L\'avatar'],['succes','Les succès'],['musique','Le lecteur de musique'],['pause','Le rappel de pause'],['stats','Les statistiques (autonomie)'],['carnet','Le carnet des professeurs sur le bureau'],['porte-theme','Porte « Par thème »'],['porte-examen','Porte « Préparer l\'examen »'],['porte-carte','Porte « Carte des notions »'],['porte-labos','Porte « Labos et jeux »']];
 /* « Mes professeurs » : la liste des classes rejointes, et l'invitation portée par un lien
    compte.html?rejoindre=CODE&p=…&m=… (voir carnet.js). Sans serveur, c'est le lien qui dit
    qui est le professeur ; l'élève confirme, et rien ne se passe sans ce clic. */
@@ -341,8 +343,13 @@ function Personnalisation(body){ const p=P(), m=body.querySelector('#perso'); if
   function majAvatar(){ p.ecrire('avatar',av); m.querySelector('#avatar-grand').innerHTML=B().avatarSVG(140); document.querySelectorAll('.compte summary .avatar').forEach(a=>a.outerHTML=B().avatarSVG(30)); }
   m.addEventListener('click',e=>{
     const d=e.target.closest('[data-decor].decor-choix'); if(d){ p.ecrire('decor',d.dataset.decor); document.body.dataset.decor= d.dataset.decor==='heure'?B().decorHeure():d.dataset.decor; m.querySelectorAll('.decor-choix').forEach(x=>x.setAttribute('aria-pressed',x===d)); return; }
-    const bb=e.target.closest('[data-bureau] [data-v]'); if(bb){ const g=bb.closest('[data-bureau]'); g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===bb)); const maj={}; maj[g.dataset.bureau]=bb.dataset.v; B().bureau.rafraichir(maj);
-      if(g.dataset.bureau==='vue'){ const amb=!!(window.FOND_BUREAU.vues[bb.dataset.v]||{}).ambiance; const oo=m.querySelector('.options-objets'); if(oo) oo.hidden=amb; const no=m.querySelector('.note-ambiance'); if(no) no.hidden=!amb; }
+    const bb=e.target.closest('[data-bureau] [data-v]'); if(bb){ const g=bb.closest('[data-bureau]'), cle=g.dataset.bureau; g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===bb));
+      // les réglages du bureau peint vivent sous mp:bureau.peint (clés « peint.<nom> »)
+      const maj= cle.startsWith('peint.') ? {peint:Object.assign({},B().bureau.reglages().peint||{},{[cle.slice(6)]:bb.dataset.v})} : {[cle]:bb.dataset.v};
+      B().bureau.rafraichir(maj);
+      const at=m.querySelector('#bureau-atelier');
+      // changer de vue ou de style d'objet change les choix proposés (couleurs, options) : on reconstruit
+      if((cle==='vue'||/^peint\.(lampe|casque|tasse|pot)$/.test(cle))&&at&&at._construire){ const y=scrollY; at._construire(); scrollTo(0,y); const n=at.querySelector('[data-bureau="'+cle+'"] [data-v="'+bb.dataset.v+'"]'); if(n) n.focus({preventScroll:true}); return; }
       apercuBureau(m.querySelector('#apercu-bureau')); return; }
     const b=e.target.closest('[data-v]'); if(!b) return; const g=b.closest('[data-cle]'); if(!g) return; const cle=g.dataset.cle; g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===b));
     if(cle==='ambiance'){ mus.ambiance=b.dataset.v; p.ecrire('musique',Object.assign(p.lire('musique',{}),{ambiance:mus.ambiance})); return; }
@@ -356,10 +363,11 @@ function Personnalisation(body){ const p=P(), m=body.querySelector('#perso'); if
    (le décor peut être masqué : on propose quand même les réglages, ils serviront). */
 function atelierBureau(el){ if(!el) return;
   function construire(){ const F=window.FOND_BUREAU, r=B().bureau.reglages(), PAL=F.palettes;
+    if(r.vue==='peint'&&window.PACK_BUREAU) return construirePeint();
     const bascule=(cle,liste)=>'<div class="bascule" data-bureau="'+cle+'">'+liste.map(x=>'<button type="button" data-v="'+x[0]+'" aria-pressed="'+(r[cle]===x[0])+'">'+echap(x[1])+'</button>').join('')+'</div>';
     const teintes=(cle,pal,champ)=>'<div class="pastilles" data-bureau="'+cle+'">'+Object.entries(pal).map(([k,d])=>'<button type="button" style="background:'+(d[champ]||d.base)[0]+'" data-v="'+k+'" aria-pressed="'+(r[cle]===k)+'" aria-label="'+echap(d.nom)+'" title="'+echap(d.nom)+'"></button>').join('')+'</div>';
     const palettes=(cle,pal)=>'<div class="pastilles" data-bureau="'+cle+'">'+Object.entries(pal).map(([k,d])=>{ const n=d.tons.length, deg=d.tons.map((c,i)=>c+' '+(100*i/n).toFixed(0)+'% '+(100*(i+1)/n).toFixed(0)+'%').join(','); return '<button type="button" style="background:linear-gradient(90deg,'+deg+')" data-v="'+k+'" aria-pressed="'+(r[cle]===k)+'" aria-label="'+echap(d.nom)+'" title="'+echap(d.nom)+'"></button>'; }).join('')+'</div>';
-    const vueBtns='<div class="bascule" data-bureau="vue">'+Object.entries(F.vues).map(([k,d])=>'<button type="button" data-v="'+k+'" aria-pressed="'+(r.vue===k)+'"'+(d.legende?' title="'+echap(d.legende)+'"':'')+'>'+echap(d.nom)+'</button>').join('')+'</div>';
+    const vueBtns=boutonsVues(F,r);
     const ambiance=!!(F.vues[r.vue]&&F.vues[r.vue].ambiance);
     el.innerHTML='<div class="apercu-bureau" id="apercu-bureau" aria-hidden="true"></div><div class="options">'+
       '<div><span class="discret">La vue ou l\'ambiance</span>'+vueBtns+'<span class="discret note-ambiance"'+(ambiance?'':' hidden')+'>Dans une ambiance, la fenêtre, le mobilier et les objets sont ceux de l\'ambiance : les choix ci-dessous reviendront avec une vue « Douce » ou « Marquée ».</span></div>'+
@@ -373,14 +381,72 @@ function atelierBureau(el){ if(!el) return;
       '<div><span class="discret">Les étagères</span>'+bascule('etagere',F.styles.etagere)+teintes('bois',PAL.bois)+'</div>'+
       '<div><span class="discret">Les livres des étagères</span>'+palettes('livres',PAL.livres)+'</div></div>'+
       '<div><button type="button" class="btn fantome petit" data-bureau-defaut>Revenir au bureau d\'origine</button></div></div>'+
-      (P().masque('decor')?'<p class="discret pleine-largeur">Le bureau dessiné est masqué (voir « Affichage » plus bas) : ces choix s\'appliqueront quand tu le réafficheras.</p>':'');
+      (P().masque('decor')?'<p class="discret pleine-largeur">Le décor du bureau est masqué (dans « Mon compte », rubrique Affichage) : ces choix s\'appliqueront quand tu le réafficheras.</p>':'');
     apercuBureau(el.querySelector('#apercu-bureau'));
     el.querySelector('[data-bureau-defaut]').addEventListener('click',()=>{ P().ecrire('bureau',{}); B().bureau.rafraichir(); construire(); }); }
-  if(window.FOND_BUREAU) construire();
-  else { const s=document.createElement('script'); s.src=lien('assets/js/fond-bureau.js'); s.onload=construire; document.head.appendChild(s); } }
+  /* le bureau peint : des vignettes pour les styles et les compagnons, des pastilles pour
+     les couleurs. Tout vient de pack-bureau.js ; une valeur absente retombe sur la première. */
+  function construirePeint(){ const F=window.FOND_BUREAU, PK=window.PACK_BUREAU, BP=B().bureau.peint, r=BP.reglages(), N=PK.noms||{};
+    const nom=k=>N[k]||k, src=s=>lien(BP.IMG+s);
+    const bascule=(cle,liste)=>'<div class="bascule" data-bureau="peint.'+cle+'">'+liste.map(([k,t])=>'<button type="button" data-v="'+k+'" aria-pressed="'+(r[cle]===k)+'">'+echap(t)+'</button>').join('')+'</div>';
+    const vignettes=(cle,liste)=>'<div class="vignettes" data-bureau="peint.'+cle+'">'+liste.map(([k,t,image])=>'<button type="button" data-v="'+k+'" aria-pressed="'+(r[cle]===k)+'" title="'+echap(t)+'">'+(image?'<img src="'+src(image)+'" alt="" loading="lazy">':'<span class="aucun" aria-hidden="true">∅</span>')+'<span>'+echap(t)+'</span></button>').join('')+'</div>';
+    const teintes=(cle,ids)=>'<div class="pastilles" data-bureau="peint.'+cle+'">'+ids.map(k=>'<button type="button" style="background:'+((PK.couleurs||{})[k]||'#999')+'" data-v="'+k+'" aria-pressed="'+(r[cle]===k)+'" aria-label="'+echap(nom(k))+'" title="'+echap(nom(k))+'"></button>').join('')+'</div>';
+    // un objet : ses styles en vignettes (dans la couleur choisie si elle existe), puis ses couleurs
+    const objet=(cat,cleStyle,cleCouleur,titre)=>{ const O=PK.objets[cat]||{}; const styles=Object.keys(O); if(!styles.length) return '';
+      const st=O[r[cleStyle]]?r[cleStyle]:styles[0];
+      const v=vignettes(cleStyle,styles.map(s=>{ const e=BP.piece(PK,cat,s,cleCouleur?r[cleCouleur]:''); return [s,nom(s),e&&e.images.midi]; }));
+      const couleurs=cleCouleur?Object.keys(O[st]).filter(k=>k!=='unique'):[];
+      return '<div><span class="discret">'+titre+'</span>'+v+(couleurs.length>1?teintes(cleCouleur,couleurs):'')+'</div>'; };
+    const compagnons=[['aucun','Aucun',null]].concat(Object.entries(PK.compagnons).map(([k,e])=>[k,nom(k),e.images.midi]));
+    const decos=[['aucune','Rien',null]].concat(Object.entries(PK.etageres).map(([k,l])=>[k,nom(k),(l[BP.VARIANTE_ETAGERE[k]||0]||l[0]).images.midi]));
+    const paysages=[['ville',nom('ville')]].concat(Object.keys(PK.vues).filter(k=>k!=='ville').map(k=>[k,nom(k)]));
+    el.innerHTML='<div class="apercu-bureau ap-peint" id="apercu-bureau" aria-hidden="true"></div><div class="options">'+
+      '<div><span class="discret">La vue ou l\'ambiance</span>'+boutonsVues(F,B().bureau.reglages())+'</div>'+
+      '<div><span class="discret">La lumière du jour</span>'+bascule('lumiere',[['heure','Selon l\'heure'],['matin','Matin'],['midi','Midi'],['soir','Soir']])+'<span class="discret">La nuit tombe avec le thème sombre : allume la lampe.</span></div>'+
+      '<div><span class="discret">La vue par la fenêtre</span>'+bascule('paysage',paysages)+'</div>'+
+      objet('lampe','lampe','lampeCouleur','La lampe')+objet('casque','casque','casqueCouleur','Le casque')+objet('tasse','tasse','tasseCouleur','La tasse')+
+      objet('pot','pot','potCouleur','Le pot à crayons')+objet('livres','livres','','Les livres')+objet('plante','plante','','La plante')+
+      '<div><span class="discret">Le compagnon, sur le rebord de la fenêtre</span>'+vignettes('compagnon',compagnons)+'</div>'+
+      '<div><span class="discret">L\'étagère de gauche</span>'+vignettes('etagereG',decos)+'</div>'+
+      '<div><span class="discret">L\'étagère de droite</span>'+vignettes('etagereD',decos)+'</div>'+
+      '<div><button type="button" class="btn fantome petit" data-bureau-defaut>Revenir au bureau d\'origine</button></div></div>'+
+      '<p class="discret pleine-largeur mention-provisoire"><strong>Décor provisoire.</strong> Ce bureau peint a été généré avec une IA (ChatGPT) pour le prototype, puis découpé et retouché ; il sera remplacé par une illustration faite à la main avant l\'ouverture du site. Les vues « Douce » et « Marquée » sont le décor dessiné d\'avant.</p>'+
+      (P().masque('decor')?'<p class="discret pleine-largeur">Le décor du bureau est masqué (dans « Mon compte », rubrique Affichage) : ces choix s\'appliqueront quand tu le réafficheras.</p>':'');
+    apercuBureau(el.querySelector('#apercu-bureau'));
+    el.querySelector('[data-bureau-defaut]').addEventListener('click',()=>{ P().ecrire('bureau',{}); B().bureau.rafraichir(); construire(); }); }
+  el._construire=()=>{ if(B().bureau.reglages().vue==='peint') B().bureau.chargerPack(construire); else B().bureau.chargerSvg(construire); };
+  // les deux fichiers servent : fond-bureau.js pour la liste des vues, pack-bureau.js pour le bureau peint
+  B().bureau.chargerSvg(()=>B().bureau.chargerPack(construire)); }
+/* l'aperçu du bureau peint : la scène entière du moment, chaque objet à la place où il a
+   été peint (sur la page, ils vont dans les marges), une feuille pour le classeur */
+function apercuPeint(el){ const PK=window.PACK_BUREAU, BP=B().bureau.peint, r=BP.reglages(), moment=BP.moment(r), nuit=moment==='nuit', [W,H]=PK.cadre;
+  const pc=(v,t)=>(100*v/t).toFixed(3)+'%';
+  const img=(s,cls,style)=>'<img class="'+cls+'" src="'+lien(BP.IMG+s)+'" alt="" style="'+style+'">';
+  const image=e=>nuit&&e.images.nuit?e.images.nuit:e.images.midi;
+  // l'objet posé par son point d'appui peint, à son échelle
+  const pose=(e,dx)=>{ const bx=nuit&&e.nuit_boite?e.nuit_boite:e.boite, ap=nuit&&e.nuit_appui?e.nuit_appui:e.appui, k=e.echelle||1;
+    return 'left:'+pc(bx[0]+ap[0]-ap[0]*k+(dx||0),W)+';top:'+pc(bx[1]+ap[1]-ap[1]*k,H)+';width:'+pc(bx[2]*k,W); };
+  const teinte=nuit?'':' fb-teinte';
+  let h=BP.filtres(PK)+img(PK.decors[moment],'ap-decor','');
+  const vue=PK.vues[r.paysage]; if(vue&&vue[moment]){ const v=PK.vues_boite; h+=img(vue[moment],'','left:'+pc(v[0],W)+';top:'+pc(v[1],H)+';width:'+pc(v[2]-v[0],W)); }
+  const E=PK.geometrie.etageres, decale=((E.droite.x1+E.droite.x2)-(E.gauche.x1+E.gauche.x2))/2;
+  [['etagereG',0],['etagereD',decale]].forEach(([cle,dx])=>{ const l=PK.etageres[r[cle]]; if(!l) return; const e=l[BP.VARIANTE_ETAGERE[r[cle]]||0]||l[0]; h+=img(image(e),teinte.trim(),pose(e,dx)); });
+  const C=PK.compagnons[r.compagnon]; if(C) h+=img(image(C),teinte.trim(),pose(C));
+  const lampe=BP.piece(PK,'lampe',r.lampe,r.lampeCouleur);
+  if(nuit&&lampe&&lampe.halo){ const b=lampe.halo.boite; h+=img(lampe.halo.image,'ap-halo','left:'+pc(b[0],W)+';top:'+pc(b[1],H)+';width:'+pc(b[2],W)); }
+  [['lampe',r.lampe,r.lampeCouleur],['tasse',r.tasse,r.tasseCouleur],['casque',r.casque,r.casqueCouleur],['pot',r.pot,r.potCouleur],['livres',r.livres,''],['plante',r.plante,'']]
+    .forEach(([cat,st,c])=>{ const e=BP.piece(PK,cat,st,c); if(e) h+=img(image(e),teinte.trim(),pose(e)); });
+  h+='<div class="ap-feuille" style="top:'+pc(PK.geometrie.jonction+30,H)+'"><i></i><i></i><i></i></div>';
+  el.classList.add('ap-peint','fb-peint'); el.dataset.moment=moment; el.innerHTML=h; }
+/* la rangée des vues : le bureau peint d'abord, puis les vues dessinées et les ambiances */
+function boutonsVues(F,r){
+  return '<div class="bascule" data-bureau="vue"><button type="button" data-v="peint" aria-pressed="'+(r.vue==='peint')+'" title="Le bureau peint (décor provisoire)">Peinte</button>'+
+    Object.entries(F.vues).map(([k,d])=>'<button type="button" data-v="'+k+'" aria-pressed="'+(r.vue===k)+'"'+(d.legende?' title="'+echap(d.legende)+'"':'')+'>'+echap(d.nom)+'</button>').join('')+'</div>'; }
 /* l'aperçu : la scène de la vue choisie, une feuille pour figurer le classeur, et les objets
    aux places qu'ils ont sur un grand écran. Les couleurs suivent les jetons, donc le thème. */
-function apercuBureau(el){ const F=window.FOND_BUREAU; if(!el||!F) return;
+function apercuBureau(el){ if(el&&B().bureau.reglages().vue==='peint'){ if(window.PACK_BUREAU) apercuPeint(el); else B().bureau.chargerPack(()=>apercuBureau(el)); return; }
+  const F=window.FOND_BUREAU; if(!el||!F) return;
+  el.classList.remove('ap-peint','fb-peint');
   const r=B().bureau.reglages(), G=F.vues[r.vue]||F.vues.douce, J=G.jonction, fk=G.fk;
   if(G.ambiance&&!window.FOND_AMBIANCES){ B().bureau.chargerAmbiances(()=>apercuBureau(el)); return; }
   const amb= G.ambiance ? window.FOND_AMBIANCES.ambiances[r.vue] : null;
