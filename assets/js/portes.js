@@ -320,15 +320,41 @@ function CarnetPage(body){ const p=P(), m=body.querySelector('#carnet'); if(!m||
 }
 
 /* ---------- 7. Personnalisation ---------- */
-const DECORS=[['fenetre','La fenêtre en arche','le bureau d\'origine, ville et plantes'],['plage','Plage au couchant','sable, mer et soleil bas'],['montagne','Montagne au matin','sommets et brume'],['ville','Ville la nuit','immeubles éclairés'],['heure','Selon l\'heure','montagne le matin, fenêtre la journée, plage le soir, ville la nuit']];
+/* « Le décor » : la vue par la fenêtre et la lumière du bureau lofi, en vignettes peintes.
+   Le bureau dessiné (vues Douce, Marquée, ou décor masqué) garde sa fenêtre en arche : elle
+   suit la vue la plus proche (DECOR_DESSINE), sans choix à part. */
+const DECOR_DESSINE={ville:'fenetre',plage:'plage',montagne:'montagne',foret:'fenetre',jardin:'fenetre'};
+function decorLofi(el){ if(!el) return; const BB=B().bureau;
+  BB.chargerPack(()=>{ const PK=window.PACK_BUREAU, BP=BB.peint, r=BP.reglages(), V=PK.vignettes||{}, N=PK.noms||{};
+    const sombre=document.documentElement.dataset.theme==='dark', moment=BP.moment(r);
+    const img=(s,cls)=>'<img src="'+lien(BP.IMG+s)+'" alt="" loading="lazy"'+(cls?' class="'+cls+'"':'')+'>';
+    const carte=(attr,v,presse,images,titre,sous)=>'<button type="button" class="decor-choix" data-'+attr+'="'+v+'" aria-pressed="'+presse+'"><span class="apercu-lofi" aria-hidden="true">'+images+'</span><strong>'+echap(titre)+'</strong>'+(sous?'<span class="discret">'+echap(sous)+'</span>':'')+'</button>';
+    const vues=['ville'].concat(Object.keys(PK.vues||{})).filter(k=>V[k]);
+    const pays=V[r.paysage]?r.paysage:'ville', W=V[pays];
+    const lum=[['heure','Selon l\'heure','matin, midi, puis soir'],['matin','Matin',''],['midi','Midi',''],['soir','Soir',''],['nuit','La nuit','le thème sombre, la lampe allumée']];
+    el.innerHTML='<div><span class="discret">Par la fenêtre</span><div class="decors">'+vues.map(k=>carte('paysage',k,pays===k,img(V[k][moment]),N[k]||k,'')).join('')+'</div></div>'+
+      '<div><span class="discret">La lumière</span><div class="decors">'+lum.map(([k,t,sous])=>{ const presse= k==='nuit'?sombre:(!sombre&&(r.lumiere||'heure')===k);
+        const images= k==='heure'?'<span class="tranches">'+['matin','midi','soir'].map(m=>img(W[m])).join('')+'</span>':img(W[k]);
+        return carte('lumiere',k,presse,images,t,sous); }).join('')+'</div></div>'+
+      (BB.reglages().vue!=='peint'?'<p class="discret">Ton bureau est en décor dessiné : sa fenêtre en arche suit la vue la plus proche. Le bureau lofi se choisit dans « Mon bureau », juste en dessous.</p>':'')+
+      (P().masque('decor')?'<p class="discret">Le décor du bureau est masqué (dans « Mon compte », rubrique Affichage) : ces choix s\'appliqueront quand tu le réafficheras.</p>':'');
+    el.onclick=e=>{ const b=e.target.closest('.decor-choix'); if(!b) return; let cle, v;
+      const peint=()=>Object.assign({},BB.reglages().peint||{});
+      if(b.dataset.paysage){ cle='paysage'; v=b.dataset.paysage; BB.rafraichir({peint:Object.assign(peint(),{paysage:v})});
+        const d=DECOR_DESSINE[v]||'fenetre'; P().ecrire('decor',d); document.body.dataset.decor=d; }
+      else { cle='lumiere'; v=b.dataset.lumiere; const nuit=document.documentElement.dataset.theme==='dark';
+        if(v==='nuit'){ if(!nuit) B().theme.basculer(); }
+        else { if(nuit) B().theme.basculer(); BB.rafraichir({peint:Object.assign(peint(),{lumiere:v})}); } }
+      decorLofi(el); setTimeout(()=>{ const n=el.querySelector('[data-'+cle+'="'+v+'"]'); if(n) n.focus({preventScroll:true}); },0);
+      const ap=document.getElementById('apercu-bureau'); if(ap) apercuBureau(ap); }; }); }
 const AVATAR={peau:['#F1C9A5','#E0AC7E','#C68642','#8D5524','#5C3A1E','#F7E0CF'],cheveux:['#3B2A1A','#000000','#8B5A2B','#D9A441','#B22222','#6B6B6B','#FFFFFF'],coupe:[['court','Courts'],['long','Longs'],['boucle','Bouclés'],['chignon','Chignon'],['ras','Ras']],haut:['#2B5BD7','#C4186A','#1F8A45','#7B3FD1','#0B7C86','#2A140B','#FFD166'],acc:[['aucun','Aucun'],['lunettes','Lunettes'],['casque','Casque'],['bonnet','Bonnet']]};
 function Personnalisation(body){ const p=P(), m=body.querySelector('#perso'); if(!m) return;
   const decor=p.lire('decor','fenetre'); const av=Object.assign({peau:'#F1C9A5',cheveux:'#3B2A1A',coupe:'court',haut:'#2B5BD7',acc:'aucun'},p.lire('avatar',{}));
   const mus=Object.assign({ambiance:'lofi',volume:.5},p.lire('musique',{})); const pause=p.lire('pause',{actif:true,minutes:45});
   const jours=p.lire('jours',[]).length, chapitresFinis=tousLesChapitres().filter(c=>p.pourcentage(c.id)>=100).length, labosPC=p.lire('parcours:diffraction-interferences',{}).explorer;
   const objets=[['🪴','La plante','pousse avec les semaines actives',jours>=3,'3 jours actifs'],['📚','Un livre par chapitre terminé','sur l\'étagère',chapitresFinis>=1,'un parcours à 100 %'],['🔬','Le microscope','après le premier labo de sciences',!!labosPC,'un labo de physique-chimie'],['💡','La lampe','après un mois de révisions espacées',false,'phase 4'],['🏅','La vitrine des succès','tes succès, visibles par toi seul',p.succes.liste().length>0,'un premier succès']];
-  m.innerHTML='<section class="carte" id="decor"><span class="surtitre">Le décor</span><h2>Ton bureau, dans la lumière que tu veux</h2><p class="discret">Le décor ne change jamais le contenu. Ses versions de nuit servent de mode sombre naturel.</p><div class="decors">'+DECORS.map(d=>'<button type="button" class="decor-choix" data-decor="'+d[0]+'" aria-pressed="'+(decor===d[0])+'"><span class="apercu" data-decor="'+(d[0]==='heure'?B().decorHeure():d[0])+'" aria-hidden="true"></span><strong>'+echap(d[1])+'</strong><span class="discret">'+echap(d[2])+'</span></button>').join('')+'</div></section>'+
-    '<section class="carte" id="bureau"><span class="surtitre">Mon bureau</span><h2>Ton bureau, à ta façon</h2><p class="discret">La lumière, la vue par la fenêtre, la lampe, la tasse, le casque, le pot à crayons, les livres, la plante, les étagères. Rien de tout cela ne change le contenu. Sur un grand écran, les objets servent : la lampe allume le thème sombre, le casque ouvre la musique, la tasse suit le rappel de pause.</p><div class="bureau-atelier" id="bureau-atelier"><p class="discret">Chargement du bureau…</p></div></section>'+
+  m.innerHTML='<section class="carte" id="decor"><span class="surtitre">Le décor</span><h2>Ton bureau, dans la lumière que tu veux</h2><p class="discret">Ce que tu vois par la fenêtre, et la lumière de la pièce. Le décor ne change jamais le contenu. La nuit, c\'est le thème sombre : la lampe s\'allume.</p><div id="decor-lofi"><p class="discret">Chargement du décor…</p></div></section>'+
+    '<section class="carte" id="bureau"><span class="surtitre">Mon bureau</span><h2>Ton bureau, à ta façon</h2><p class="discret">La lampe, la tasse, le casque, le pot à crayons, les livres, la plante, les étagères. Rien de tout cela ne change le contenu. Sur un grand écran, les objets servent : la lampe allume le thème sombre, le casque ouvre la musique, la tasse suit le rappel de pause.</p><div class="bureau-atelier" id="bureau-atelier"><p class="discret">Chargement du bureau…</p></div></section>'+
     '<section class="carte" id="avatar"><span class="surtitre">L\'avatar</span><h2>Te représenter, jamais une photo</h2><div class="avatar-atelier"><div class="grand" id="avatar-grand">'+B().avatarSVG(140)+'</div><div class="options">'+
       '<div><span class="discret">Peau</span><div class="pastilles" data-cle="peau">'+AVATAR.peau.map(c=>'<button type="button" style="background:'+c+'" data-v="'+c+'" aria-pressed="'+(av.peau===c)+'" aria-label="peau '+c+'"></button>').join('')+'</div></div>'+
       '<div><span class="discret">Cheveux</span><div class="pastilles" data-cle="cheveux">'+AVATAR.cheveux.map(c=>'<button type="button" style="background:'+c+'" data-v="'+c+'" aria-pressed="'+(av.cheveux===c)+'" aria-label="cheveux '+c+'"></button>').join('')+'</div></div>'+
@@ -341,8 +367,8 @@ function Personnalisation(body){ const p=P(), m=body.querySelector('#perso'); if
     '<section class="carte" id="pause"><span class="surtitre">Le rappel de pause</span><h2>S\'arrêter, pas rester connecté</h2><div class="reglages-liste"><div class="reglage"><div><strong>Rappel après 45 minutes</strong><small>Une carte propose cinq minutes loin de l\'écran. Elle ne bloque rien.</small></div><label class="interrupteur"><input type="checkbox" data-pause '+(pause.actif?'checked':'')+'><span class="piste" aria-hidden="true"></span><span class="sr">Rappel de pause</span></label></div><div class="reglage"><div><strong>Minuteur 25 / 5</strong><small>Des cycles de travail et de pause, depuis le lecteur de musique. Il remplace alors le rappel des 45 minutes.</small></div><span class="discret">dans le lecteur 🎧</span></div></div></section>';
   atelierBureau(m.querySelector('#bureau-atelier'));
   function majAvatar(){ p.ecrire('avatar',av); m.querySelector('#avatar-grand').innerHTML=B().avatarSVG(140); document.querySelectorAll('.compte summary .avatar').forEach(a=>a.outerHTML=B().avatarSVG(30)); }
+  decorLofi(m.querySelector('#decor-lofi'));
   m.addEventListener('click',e=>{
-    const d=e.target.closest('[data-decor].decor-choix'); if(d){ p.ecrire('decor',d.dataset.decor); document.body.dataset.decor= d.dataset.decor==='heure'?B().decorHeure():d.dataset.decor; m.querySelectorAll('.decor-choix').forEach(x=>x.setAttribute('aria-pressed',x===d)); return; }
     const bb=e.target.closest('[data-bureau] [data-v]'); if(bb){ const g=bb.closest('[data-bureau]'), cle=g.dataset.bureau; g.querySelectorAll('[data-v]').forEach(x=>x.setAttribute('aria-pressed',x===bb));
       // les réglages du bureau peint vivent sous mp:bureau.peint (clés « peint.<nom> »)
       const maj= cle.startsWith('peint.') ? {peint:Object.assign({},B().bureau.reglages().peint||{},{[cle.slice(6)]:bb.dataset.v})} : {[cle]:bb.dataset.v};
@@ -399,11 +425,9 @@ function atelierBureau(el){ if(!el) return;
       return '<div><span class="discret">'+titre+'</span>'+v+(couleurs.length>1?teintes(cleCouleur,couleurs):'')+'</div>'; };
     const compagnons=Object.keys(PK.compagnons||{}).length?[['aucun','Aucun',null]].concat(Object.entries(PK.compagnons).map(([k,e])=>[k,nom(k),e.images.midi])):null;
     const decos=[['aucune','Rien',null]].concat(Object.entries(PK.etageres).map(([k,e])=>[k,nom(k),e.images.midi]));
-    const paysages=[['ville',nom('ville')]].concat(Object.keys(PK.vues).filter(k=>k!=='ville').map(k=>[k,nom(k)]));
     el.innerHTML='<div class="apercu-bureau ap-peint" id="apercu-bureau" aria-hidden="true"></div><div class="options">'+
       '<div><span class="discret">La vue ou l\'ambiance</span>'+boutonsVues(F,B().bureau.reglages())+'</div>'+
-      '<div><span class="discret">La lumière du jour</span>'+bascule('lumiere',[['heure','Selon l\'heure'],['matin','Matin'],['midi','Midi'],['soir','Soir']])+'<span class="discret">La nuit tombe avec le thème sombre : allume la lampe.</span></div>'+
-      '<div><span class="discret">La vue par la fenêtre</span>'+bascule('paysage',paysages)+'</div>'+
+      '<p class="discret">La vue par la fenêtre et la lumière se choisissent dans <a href="#decor">« Le décor »</a>, juste au-dessus.</p>'+
       objet('lampe','lampe','lampeCouleur','La lampe')+objet('casque','casque','casqueCouleur','Le casque')+objet('tasse','tasse','tasseCouleur','La tasse')+
       objet('pot','pot','potCouleur','Le pot à crayons')+objet('livres','livres','','Les livres')+objet('plante','plante','','La plante')+
       (compagnons?'<div><span class="discret">Le compagnon, sur le rebord de la fenêtre (la nuit, les chats dorment)</span>'+vignettes('compagnon',compagnons)+'</div>':'')+

@@ -524,6 +524,14 @@ body:not([data-fb-objets]) .fb-peint .fb-lueur{display:none}
 .decor-choix .apercu{height:90px;border-radius:10px;background:var(--scene) no-repeat right bottom/auto 100%,radial-gradient(circle at 14% 6%,var(--soleil) 0 60px,transparent 61px),var(--ciel)}
 .decor-choix[aria-pressed="true"]{box-shadow:inset 0 0 0 3px var(--mc),var(--ombre)}
 .decor-choix strong{font-size:var(--t-s)}
+/* « Le décor » : la fenêtre du bureau lofi, peinte, à chaque vue et chaque lumière */
+.decor-choix .apercu-lofi{display:block;aspect-ratio:360/143;border-radius:10px;overflow:hidden;background:var(--grid)}
+.decor-choix .apercu-lofi img{display:block;width:100%;height:100%;object-fit:cover}
+.decor-choix .tranches{display:grid;grid-template-columns:repeat(3,1fr);height:100%}
+.decor-choix .tranches img:nth-child(1){object-position:0 50%}.decor-choix .tranches img:nth-child(3){object-position:100% 50%}
+#decor-lofi{display:grid;gap:var(--e-3)}
+#decor-lofi .decors{grid-template-columns:repeat(auto-fill,minmax(min(100%,130px),1fr))}
+#decor-lofi > div > .discret{display:block;margin-bottom:6px}
 .avatar-atelier{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--e-4);align-items:start}
 .avatar-atelier .grand .avatar{width:140px;height:140px;background:var(--grid)}
 .avatar-atelier .options{display:grid;gap:10px}
