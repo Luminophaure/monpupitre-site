@@ -1,0 +1,868 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de suites.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/terminale-techno/suites.source.html
+     Programme : tronc commun de terminale technologique (dont STMG), BO spécial n° 8 du 25 juillet 2019,
+     identique pour les suites à celui du BO n° 14 du 2 avril 2026 (docs/programmes/maths-terminale-technologique.md).
+     Les pièges viennent de la liste proposée au professeur le 27 octobre 2026 : des reconstitutions,
+     à remplacer par les erreurs observées dans ses classes. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Suites : terme général et sommes · Terminale technologique</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=e2e0886de0">
+<script src="../../assets/js/site.js?v=b859b3d0a0" defer></script>
+</head>
+<body data-matiere="maths" data-chapitre="suites-tt" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Terminale technologique · Analyse</span>
+  <h1>Suites : terme général et sommes</h1>
+  <p class="chapeau">Un loyer qui augmente chaque année, un chiffre d'affaires qui progresse de 6 %, une épargne qu'on alimente tous les mois : en gestion, presque tout évolue par étapes. Ce chapitre t'apprend à traduire ces évolutions en suites, à calculer n'importe quel terme sans passer par tous les autres, et à faire le total : ce qu'on paie en tout, ce qu'on a gagné, ce qu'un placement est devenu.</p>
+  <ul class="objectifs">
+    <li>Traduire un pourcentage en coefficient multiplicateur</li><li>Écrire le terme général d'une suite arithmétique ou géométrique</li><li>Reconnaître trois termes consécutifs grâce aux moyennes</li><li>Lire et écrire une somme avec Σ</li><li>Calculer la somme de termes consécutifs</li><li>Calculer la valeur acquise d'une épargne régulière</li><li>Écrire une somme en Python</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Lina verse 1 200 € chaque 1<sup>er</sup> janvier sur un plan d'épargne qui rapporte 3 % par an.</strong> Le jour de son dixième versement, elle aura mis 12 000 € de sa poche. Son plan, lui, contiendra 13 756,66 €. Les 1 756,66 € de différence, ce sont les intérêts, et les intérêts des intérêts. Pour trouver ce nombre, il faut additionner dix termes d'une suite géométrique : le dernier versement, qui n'a encore rien rapporté, l'avant-dernier, qui a rapporté un an… C'est la même mécanique qu'un loyer indexé, un salaire qui progresse, un crédit qu'on rembourse.</p>
+    <p class="discret">Ils s'en servent : les conseillers bancaires et les chargés de clientèle en assurance (épargne, crédits), les comptables et les gestionnaires de paie (amortissements, évolutions de salaires), les contrôleurs de gestion (prévisions de chiffre d'affaires), les acheteurs (comparer des contrats sur plusieurs années). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-pourcentages">1. Évolutions en pourcentage</h3>
+  <p>Tout le chapitre repose sur un réflexe : un pourcentage d'évolution se traduit par une <strong>multiplication</strong>.</p>
+
+  <div class="bloc definition" data-titre="Taux d'évolution et coefficient multiplicateur">
+    <p>Quand une grandeur passe d'une valeur de départ $V_D$ à une valeur d'arrivée $V_A$, son <strong>taux d'évolution</strong> est $\dfrac{V_A-V_D}{V_D}$. On l'écrit souvent en pourcentage : $0{,}03$, c'est 3 %. On dit alors que la grandeur évolue de $t\,\%$.</p>
+    <ul>
+      <li>Augmenter de $t\,\%$, c'est multiplier par $1+\dfrac{t}{100}$.</li>
+      <li>Baisser de $t\,\%$, c'est multiplier par $1-\dfrac{t}{100}$.</li>
+    </ul>
+    <p>Ce nombre est le <strong>coefficient multiplicateur</strong> $CM$. Une hausse donne $CM&gt;1$, une baisse $0&lt;CM&lt;1$.</p>
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Évolution</th><th>+3 %</th><th>+20 %</th><th>+150 %</th><th>−5 %</th><th>−30 %</th></tr></thead>
+      <tbody><tr><td>Coefficient</td><td>$1{,}03$</td><td>$1{,}2$</td><td>$2{,}5$</td><td>$0{,}95$</td><td>$0{,}7$</td></tr></tbody>
+    </table></div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Évolutions successives">
+      <p>Plusieurs évolutions qui se suivent se traduisent par le <strong>produit</strong> de leurs coefficients : $CM_{\text{global}}=CM_1\times CM_2\times\dots$</p>
+      <p>+10 % puis encore +10 % : $1{,}1\times1{,}1=1{,}21$, soit une hausse de 21 %, pas de 20 %.</p>
+    </div>
+    <div class="bloc propriete" data-titre="Évolution réciproque">
+      <p>Pour revenir à la valeur de départ après une évolution de coefficient $CM$, on multiplie par $\dfrac{1}{CM}$.</p>
+      <p>Après une baisse de 20 % ($\times0{,}8$), il faut multiplier par $\dfrac{1}{0{,}8}=1{,}25$ : une hausse de 25 %.</p>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 580 198" role="img" aria-label="Trois étiquettes de prix. 200 euros, multiplié par 0,8 (baisse de 20 %), donne 160 euros. 160 euros multiplié par 1,25 (hausse de 25 %) redonne 200 euros. Mais 160 euros multiplié par 1,2 (hausse de 20 %) ne donne que 192 euros."><rect class="fond-carte" x="19.0" y="44.0" width="86" height="40" rx="10"/><text class="lettre" x="62.0" y="70.0" text-anchor="middle">200 €</text><rect class="fond-carte" x="247.0" y="44.0" width="86" height="40" rx="10"/><text class="lettre" x="290.0" y="70.0" text-anchor="middle">160 €</text><rect class="fond-carte" x="475.0" y="44.0" width="86" height="40" rx="10"/><text class="lettre" x="518.0" y="70.0" text-anchor="middle">200 €</text><rect class="fond-carte" x="475.0" y="140.0" width="86" height="40" rx="10"/><text class="lettre" x="518.0" y="166.0" text-anchor="middle">192 €</text><g class="trace t-u"><line x1="108.0" y1="64.0" x2="236.8" y2="64.0"/><polygon points="244.0,64.0 232.0,69.4 232.0,58.6"/></g><text class="moyen" x="176.0" y="46.0" text-anchor="middle">× 0,8</text><text class="petit" x="176.0" y="92.0" text-anchor="middle">baisse de 20 %</text><g class="trace t-w"><line x1="336.0" y1="64.0" x2="464.8" y2="64.0"/><polygon points="472.0,64.0 460.0,69.4 460.0,58.6"/></g><text class="moyen" x="404.0" y="46.0" text-anchor="middle">× 1,25</text><text class="petit" x="404.0" y="92.0" text-anchor="middle">hausse de 25 %</text><g class="trace t-v"><line x1="330.0" y1="84.0" x2="465.5" y2="148.9"/><polygon points="472.0,152.0 458.8,151.7 463.5,141.9"/></g><text class="moyen" x="368.0" y="150.0" text-anchor="middle">× 1,2</text><text class="petit" x="368.0" y="170.0" text-anchor="middle">hausse de 20 %</text></svg><figcaption>Après une baisse de 20 %, une hausse de 20 % ne suffit pas : on la calcule sur 160 €, pas sur 200 €. Il faut une hausse de 25 %.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Calculer avec un coefficient multiplicateur">
+    <ol class="etapes">
+      <li><span>Je traduis chaque pourcentage en coefficient : $1+\dfrac{t}{100}$ pour une hausse, $1-\dfrac{t}{100}$ pour une baisse.</span></li>
+      <li><span>Pour plusieurs évolutions à la suite, je multiplie les coefficients.</span></li>
+      <li><span>Je reviens au pourcentage : $CM-1$, écrit en %. Un résultat négatif est une baisse.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un ordinateur portable coûte 800 €. Son prix baisse de 15 % pendant les soldes, puis augmente de 10 % à la rentrée. Quel est son prix final ? Quelle est l'évolution globale ?</p>
+      <ol class="pas">
+        <li><strong>Les coefficients.</strong> Baisse de 15 % : $\times0{,}85$. Hausse de 10 % : $\times1{,}1$.</li>
+        <li><strong>Le coefficient global.</strong> $0{,}85\times1{,}1=0{,}935$.</li>
+        <li><strong>Le prix final.</strong> $800\times0{,}935=748$ €.</li>
+        <li><strong>L'évolution globale.</strong> $0{,}935-1=-0{,}065$ : une baisse de 6,5 %, et pas de 5 %.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Les pourcentages ne s'additionnent pas">
+    <p class="faux">Trois hausses de 10 % font une hausse de 30 %.</p>
+    <p class="juste">$1{,}1^3=1{,}331$ : c'est une hausse de 33,1 %.</p>
+    <p>Chaque hausse se calcule sur une valeur qui a déjà augmenté. Et une baisse de 20 % suivie d'une hausse de 20 % fait perdre 4 % : $0{,}8\times1{,}2=0{,}96$.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-arithmetiques">2. Suites arithmétiques : la croissance linéaire</h3>
+  <p>En première, tu as défini une suite par récurrence, terme après terme. Ici, on cherche le <strong>terme général</strong> : une formule qui donne directement n'importe quel terme, sans calculer tous ceux d'avant.</p>
+
+  <div class="bloc definition" data-titre="Suite arithmétique">
+    <p>Une suite $(u_n)$ est <strong>arithmétique</strong> de raison $r$ si, pour tout $n$ : $u_{n+1}=u_n+r$. On ajoute toujours le même nombre.</p>
+    <p>Elle modélise une grandeur qui augmente, ou diminue, d'une <strong>quantité fixe</strong> à chaque période : « 360 € de plus par an », « 2 250 € de moins par an ».</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Terme général d'une suite arithmétique">
+    <p>Si $(u_n)$ est arithmétique de raison $r$, alors pour tout $n$ :</p>
+    $$ u_n=u_0+n\,r \qquad\text{et, si la suite commence à }u_1,\qquad u_n=u_1+(n-1)\,r $$
+    <p>Plus généralement, $u_n=u_p+(n-p)\,r$ : de $u_p$ à $u_n$, on ajoute $r$ exactement $n-p$ fois.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="L'amortissement linéaire d'une machine">
+      <p>Une entreprise achète une machine 18 000 €. En comptabilité, sa valeur baisse de 2 250 € par an : c'est un amortissement linéaire sur 8 ans. Sa valeur nette au bout de $n$ années est une suite arithmétique de raison $-2\,250$ :</p>
+      <p>$v_n=18\,000-2\,250\,n$, donc $v_4=9\,000$ € et $v_8=0$ : au bout de 8 ans, la machine est entièrement amortie.</p>
+      <p>La raison est négative : la suite est <strong>décroissante</strong>. Une raison positive donne une suite croissante, une raison nulle une suite constante.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 477 282" role="img" aria-label="La valeur d'une machine achetée 18 000 euros, qui perd 2 250 euros par an, pour n de 0 à 8 années. Les neuf points sont alignés et descendent de 2 250 à chaque année, jusqu'à 0 au bout de 8 ans."><g class="trace t-n"><line x1="81.4" y1="255.0" x2="447.4" y2="255.0"/><polygon points="455.2,255.0 442.2,260.9 442.2,249.2"/></g><g class="trace t-n"><line x1="81.4" y1="255.0" x2="81.4" y2="20.3"/><polygon points="81.4,12.5 87.2,25.5 75.6,25.5"/></g><g class="trace t-n"><line x1="81.4" y1="257.9" x2="81.4" y2="252.1"/></g><text class="petit" x="81.4" y="275.0" text-anchor="middle">0</text><g class="trace t-n"><line x1="123.4" y1="257.9" x2="123.4" y2="252.1"/></g><text class="petit" x="123.4" y="275.0" text-anchor="middle">1</text><g class="trace t-n"><line x1="165.4" y1="257.9" x2="165.4" y2="252.1"/></g><text class="petit" x="165.4" y="275.0" text-anchor="middle">2</text><g class="trace t-n"><line x1="207.4" y1="257.9" x2="207.4" y2="252.1"/></g><text class="petit" x="207.4" y="275.0" text-anchor="middle">3</text><g class="trace t-n"><line x1="249.4" y1="257.9" x2="249.4" y2="252.1"/></g><text class="petit" x="249.4" y="275.0" text-anchor="middle">4</text><g class="trace t-n"><line x1="291.4" y1="257.9" x2="291.4" y2="252.1"/></g><text class="petit" x="291.4" y="275.0" text-anchor="middle">5</text><g class="trace t-n"><line x1="333.4" y1="257.9" x2="333.4" y2="252.1"/></g><text class="petit" x="333.4" y="275.0" text-anchor="middle">6</text><g class="trace t-n"><line x1="375.4" y1="257.9" x2="375.4" y2="252.1"/></g><text class="petit" x="375.4" y="275.0" text-anchor="middle">7</text><g class="trace t-n"><line x1="417.4" y1="257.9" x2="417.4" y2="252.1"/></g><text class="petit" x="417.4" y="275.0" text-anchor="middle">8</text><g class="trace t-n"><line x1="78.0" y1="198.8" x2="84.8" y2="198.8"/></g><text class="petit" x="73.4" y="203.8" text-anchor="end">4 500</text><g class="trace t-n"><line x1="78.0" y1="142.5" x2="84.8" y2="142.5"/></g><text class="petit" x="73.4" y="147.5" text-anchor="end">9 000</text><g class="trace t-n"><line x1="78.0" y1="86.3" x2="84.8" y2="86.3"/></g><text class="petit" x="73.4" y="91.3" text-anchor="end">13 500</text><g class="trace t-n"><line x1="78.0" y1="30.0" x2="84.8" y2="30.0"/></g><text class="petit" x="73.4" y="35.0" text-anchor="end">18 000</text><text class="petit" x="455.2" y="247.0" text-anchor="end">n (années)</text><text class="petit" x="91.4" y="16.5">valeur (€)</text><circle class="pt pt-u" cx="81.4" cy="30.0" r="4.5"/><circle class="pt pt-u" cx="123.4" cy="58.1" r="4.5"/><circle class="pt pt-u" cx="165.4" cy="86.3" r="4.5"/><circle class="pt pt-u" cx="207.4" cy="114.4" r="4.5"/><circle class="pt pt-u" cx="249.4" cy="142.5" r="4.5"/><circle class="pt pt-u" cx="291.4" cy="170.6" r="4.5"/><circle class="pt pt-u" cx="333.4" cy="198.8" r="4.5"/><circle class="pt pt-u" cx="375.4" cy="226.9" r="4.5"/><circle class="pt pt-u" cx="417.4" cy="255.0" r="4.5"/><g class="trace t-v pointille"><line x1="165.4" y1="86.3" x2="207.4" y2="86.3"/></g><g class="trace t-v"><line x1="207.4" y1="86.3" x2="207.4" y2="114.4"/></g><text class="moyen halo" x="217.4" y="106.3">− 2 250 €</text><text class="petit" x="173.8" y="78.3">1 an</text></svg><figcaption>On retire la même somme chaque année : les points sont alignés. C'est ce qu'on appelle une <strong>croissance linéaire</strong> (ici, une décroissance).</figcaption></figure>
+  </div>
+
+  <div class="bloc methode" data-titre="Écrire le terme général d'une suite arithmétique">
+    <ol class="etapes">
+      <li><span>Je repère la quantité ajoutée ou retirée à chaque période : c'est la raison $r$.</span></li>
+      <li><span>Je repère le premier terme et son indice : $u_0$ ou $u_1$ ?</span></li>
+      <li><span>J'écris $u_n=u_0+n\,r$, ou $u_n=u_1+(n-1)\,r$.</span></li>
+      <li><span>Je réponds à la question : un terme se calcule en remplaçant $n$ ; un seuil se trouve en résolvant une inéquation, puis en prenant le premier entier qui convient.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Le loyer annuel d'un local commercial est de 14 400 € en 2026, et le bail prévoit une hausse de 360 € chaque année. On note $L_n$ le loyer de l'année $2026+n$. Exprimer $L_n$ en fonction de $n$. Quel sera le loyer en 2034 ? À partir de quelle année dépassera-t-il 18 000 € ?</p>
+      <ol class="pas">
+        <li><strong>La suite.</strong> On ajoute 360 € chaque année : $(L_n)$ est arithmétique de raison $360$, avec $L_0=14\,400$.</li>
+        <li><strong>Le terme général.</strong> $L_n=14\,400+360\,n$.</li>
+        <li><strong>En 2034.</strong> $n=2034-2026=8$ : $L_8=14\,400+360\times8=17\,280$ €.</li>
+        <li><strong>Le seuil.</strong> $14\,400+360\,n&gt;18\,000\iff360\,n&gt;3\,600\iff n&gt;10$. Le premier entier qui convient est $n=11$ : le loyer dépasse 18 000 € en 2037. En 2036 ($n=10$), il vaut exactement 18 000 € : il ne le dépasse pas encore.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Premier terme : u₀ ou u₁ ?">
+    <p class="faux">La suite commence à $u_1=500$, de raison $20$ : $u_n=500+20\,n$.</p>
+    <p class="juste">$u_n=500+20\,(n-1)=480+20\,n$.</p>
+    <p>Avec la formule fausse, $u_1$ vaudrait $520$ : tout est décalé d'un rang. Vérifie toujours ta formule sur le premier terme.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-geometriques">3. Suites géométriques : la croissance exponentielle</h3>
+
+  <div class="bloc definition" data-titre="Suite géométrique">
+    <p>Une suite $(u_n)$ est <strong>géométrique</strong> de raison $q$ si, pour tout $n$ : $u_{n+1}=q\times u_n$. On multiplie toujours par le même nombre. Dans ce chapitre, les termes et la raison sont positifs.</p>
+    <p>Elle modélise une grandeur qui évolue du <strong>même pourcentage</strong> à chaque période. La raison est alors le coefficient multiplicateur : +4 % par an donne $q=1{,}04$ ; −15 % par an donne $q=0{,}85$.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Terme général d'une suite géométrique">
+      <p>Si $(u_n)$ est géométrique de raison $q$, alors pour tout $n$ :</p>
+      $$ u_n=u_0\times q^n \qquad\text{ou}\qquad u_n=u_1\times q^{\,n-1} $$
+      <p>Plus généralement, $u_n=u_p\times q^{\,n-p}$ : de $u_p$ à $u_n$, on multiplie par $q$ exactement $n-p$ fois.</p>
+    </div>
+    <div class="bloc propriete" data-titre="Sens de variation, pour un premier terme strictement positif">
+      <ul>
+        <li>si $q&gt;1$, la suite est croissante (une hausse) ;</li>
+        <li>si $0&lt;q&lt;1$, elle est décroissante (une baisse) ;</li>
+        <li>si $q=1$, elle est constante.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Un chiffre d'affaires en hausse de 6 % par an">
+    <p>Une boutique en ligne a réalisé un chiffre d'affaires de 80 000 € en 2025, et il augmente de 6 % par an. On note $C_n$ celui de l'année $2025+n$ : $(C_n)$ est géométrique de raison $1{,}06$, et $C_n=80\,000\times1{,}06^n$. En 2030, $C_5=80\,000\times1{,}06^5\approx107\,058$ €. On calcule directement, sans passer par 2026, 2027, 2028 et 2029.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Modéliser une évolution à taux constant">
+    <ol class="etapes">
+      <li><span>Je traduis le pourcentage en coefficient : c'est la raison $q$.</span></li>
+      <li><span>Je repère le premier terme et son indice.</span></li>
+      <li><span>J'écris $u_n=u_0\times q^n$ (ou $u_1\times q^{\,n-1}$).</span></li>
+      <li><span>Pour un seuil, je calcule les termes à la calculatrice (tableau de valeurs) jusqu'au premier qui le franchit, et je réponds par une durée ou une année.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Une voiture de société achetée 24 000 € perd 15 % de sa valeur chaque année. On note $V_n$ sa valeur au bout de $n$ années. Exprimer $V_n$ en fonction de $n$. Que vaut-elle au bout de 3 ans ? Au bout de combien d'années vaut-elle moins de la moitié de son prix d'achat ?</p>
+      <ol class="pas">
+        <li><strong>La raison.</strong> Perdre 15 %, c'est multiplier par $0{,}85$ : $(V_n)$ est géométrique de raison $0{,}85$, avec $V_0=24\,000$.</li>
+        <li><strong>Le terme général.</strong> $V_n=24\,000\times0{,}85^n$.</li>
+        <li><strong>Au bout de 3 ans.</strong> $V_3=24\,000\times0{,}85^3=24\,000\times0{,}614\,125=14\,739$ €.</li>
+        <li><strong>Le seuil.</strong> La moitié du prix d'achat, c'est 12 000 €. À la calculatrice : $V_4\approx12\,528$ € et $V_5\approx10\,649$ €. La voiture vaut moins de la moitié de son prix au bout de 5 ans.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc remarque" data-titre="Linéaire ou exponentielle ?">
+      <p>Une suite arithmétique ajoute toujours la <strong>même quantité</strong> : sa croissance est linéaire. Une suite géométrique de raison $q&gt;1$ ajoute toujours le <strong>même pourcentage</strong>, mais d'une quantité de plus en plus grande : sa croissance est <strong>exponentielle</strong>.</p>
+      <p>Une croissance exponentielle, même lente au départ, finit toujours par dépasser une croissance linéaire. Sur la figure, l'offre B part 2 000 € plus bas. Elle gagne 1 120 € la première année, à peine plus que les 1 000 € de A, mais ses gains grossissent chaque année (1 165 €, puis 1 211 €…) : elle passe devant au rang 8. Le chapitre « Fonctions exponentielles de base a » prolonge cette idée.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 534 276" role="img" aria-label="Deux offres de salaire annuel, pour n de 0 à 12. L'offre A part de 30 000 euros et gagne 1 000 euros par an : ses points sont alignés. L'offre B part de 28 000 euros et augmente de 4 % par an : ses points se cambrent. B reste sous A jusqu'au rang 7 et la dépasse à partir du rang 8."><g class="trace t-n"><line x1="92.5" y1="242.0" x2="507.1" y2="242.0"/><polygon points="514.9,242.0 501.9,247.8 501.9,236.2"/></g><g class="trace t-n"><line x1="92.5" y1="242.0" x2="92.5" y2="21.8"/><polygon points="92.5,14.0 98.3,27.0 86.7,27.0"/></g><g class="trace t-n"><line x1="92.5" y1="244.7" x2="92.5" y2="239.3"/></g><text class="petit" x="92.5" y="262.0" text-anchor="middle">0</text><g class="trace t-n"><line x1="125.5" y1="244.7" x2="125.5" y2="239.3"/></g><text class="petit" x="125.5" y="262.0" text-anchor="middle">1</text><g class="trace t-n"><line x1="158.5" y1="244.7" x2="158.5" y2="239.3"/></g><text class="petit" x="158.5" y="262.0" text-anchor="middle">2</text><g class="trace t-n"><line x1="191.5" y1="244.7" x2="191.5" y2="239.3"/></g><text class="petit" x="191.5" y="262.0" text-anchor="middle">3</text><g class="trace t-n"><line x1="224.5" y1="244.7" x2="224.5" y2="239.3"/></g><text class="petit" x="224.5" y="262.0" text-anchor="middle">4</text><g class="trace t-n"><line x1="257.5" y1="244.7" x2="257.5" y2="239.3"/></g><text class="petit" x="257.5" y="262.0" text-anchor="middle">5</text><g class="trace t-n"><line x1="290.5" y1="244.7" x2="290.5" y2="239.3"/></g><text class="petit" x="290.5" y="262.0" text-anchor="middle">6</text><g class="trace t-n"><line x1="323.5" y1="244.7" x2="323.5" y2="239.3"/></g><text class="petit" x="323.5" y="262.0" text-anchor="middle">7</text><g class="trace t-n"><line x1="356.5" y1="244.7" x2="356.5" y2="239.3"/></g><text class="petit" x="356.5" y="262.0" text-anchor="middle">8</text><g class="trace t-n"><line x1="389.5" y1="244.7" x2="389.5" y2="239.3"/></g><text class="petit" x="389.5" y="262.0" text-anchor="middle">9</text><g class="trace t-n"><line x1="422.5" y1="244.7" x2="422.5" y2="239.3"/></g><text class="petit" x="422.5" y="262.0" text-anchor="middle">10</text><g class="trace t-n"><line x1="455.5" y1="244.7" x2="455.5" y2="239.3"/></g><text class="petit" x="455.5" y="262.0" text-anchor="middle">11</text><g class="trace t-n"><line x1="488.5" y1="244.7" x2="488.5" y2="239.3"/></g><text class="petit" x="488.5" y="262.0" text-anchor="middle">12</text><g class="trace t-n"><line x1="89.9" y1="242.0" x2="95.1" y2="242.0"/></g><text class="petit" x="84.5" y="247.0" text-anchor="end">24 000</text><g class="trace t-n"><line x1="89.9" y1="202.0" x2="95.1" y2="202.0"/></g><text class="petit" x="84.5" y="207.0" text-anchor="end">28 000</text><g class="trace t-n"><line x1="89.9" y1="162.0" x2="95.1" y2="162.0"/></g><text class="petit" x="84.5" y="167.0" text-anchor="end">32 000</text><g class="trace t-n"><line x1="89.9" y1="122.0" x2="95.1" y2="122.0"/></g><text class="petit" x="84.5" y="127.0" text-anchor="end">36 000</text><g class="trace t-n"><line x1="89.9" y1="82.0" x2="95.1" y2="82.0"/></g><text class="petit" x="84.5" y="87.0" text-anchor="end">40 000</text><g class="trace t-n"><line x1="89.9" y1="42.0" x2="95.1" y2="42.0"/></g><text class="petit" x="84.5" y="47.0" text-anchor="end">44 000</text><text class="petit" x="514.9" y="234.0" text-anchor="end">n</text><text class="petit" x="102.5" y="18.0">salaire annuel (€)</text><g class="trace t-n"><path d="M92.5 244.0 l-6 4 l12 6 l-6 4"/></g><g class="trace t-n pointille"><line x1="356.5" y1="242.0" x2="356.5" y2="22.0"/></g><circle class="pt pt-u" cx="92.5" cy="182.0" r="4.5"/><circle class="pt pt-v" cx="92.5" cy="202.0" r="4.5"/><circle class="pt pt-u" cx="125.5" cy="172.0" r="4.5"/><circle class="pt pt-v" cx="125.5" cy="190.8" r="4.5"/><circle class="pt pt-u" cx="158.5" cy="162.0" r="4.5"/><circle class="pt pt-v" cx="158.5" cy="179.2" r="4.5"/><circle class="pt pt-u" cx="191.5" cy="152.0" r="4.5"/><circle class="pt pt-v" cx="191.5" cy="167.0" r="4.5"/><circle class="pt pt-u" cx="224.5" cy="142.0" r="4.5"/><circle class="pt pt-v" cx="224.5" cy="154.4" r="4.5"/><circle class="pt pt-u" cx="257.5" cy="132.0" r="4.5"/><circle class="pt pt-v" cx="257.5" cy="141.3" r="4.5"/><circle class="pt pt-u" cx="290.5" cy="122.0" r="4.5"/><circle class="pt pt-v" cx="290.5" cy="127.7" r="4.5"/><circle class="pt pt-u" cx="323.5" cy="112.0" r="4.5"/><circle class="pt pt-v" cx="323.5" cy="113.5" r="4.5"/><circle class="pt pt-u" cx="356.5" cy="102.0" r="4.5"/><circle class="pt pt-v" cx="356.5" cy="98.8" r="4.5"/><circle class="pt pt-u" cx="389.5" cy="92.0" r="4.5"/><circle class="pt pt-v" cx="389.5" cy="83.5" r="4.5"/><circle class="pt pt-u" cx="422.5" cy="82.0" r="4.5"/><circle class="pt pt-v" cx="422.5" cy="67.5" r="4.5"/><circle class="pt pt-u" cx="455.5" cy="72.0" r="4.5"/><circle class="pt pt-v" cx="455.5" cy="51.0" r="4.5"/><circle class="pt pt-u" cx="488.5" cy="62.0" r="4.5"/><circle class="pt pt-v" cx="488.5" cy="33.7" r="4.5"/><circle class="pt pt-u" cx="109.0" cy="48.0" r="4.5"/><text class="moyen" x="121.0" y="54.0">A : + 1 000 € par an</text><circle class="pt pt-v" cx="109.0" cy="76.0" r="4.5"/><text class="moyen" x="121.0" y="82.0">B : + 4 % par an</text><text class="petit halo" x="364.5" y="210.0">rang 8 : B passe devant</text></svg><figcaption>A ajoute 1 000 € par an, B augmente de 4 % par an. Attention : l'axe vertical commence à 24 000 €.</figcaption></figure>
+  </div>
+
+  <div class="bloc piege" data-titre="La raison d'un pourcentage, et l'exposant">
+    <p class="faux">+4 % par an : $q=0{,}04$. Une baisse de 15 % : $q=-0{,}15$.</p>
+    <p class="juste">$q=1{,}04$ et $q=0{,}85$ : on garde les 100 % et on ajoute, ou on retire, le pourcentage.</p>
+    <p>Et si le premier terme est $u_1$, la puissance est $n-1$ : $u_1=50$ et $q=1{,}2$ donnent $u_n=50\times1{,}2^{\,n-1}$, pas $50\times1{,}2^n$.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-moyennes">4. Trois termes consécutifs et les moyennes</h3>
+
+  <div class="bloc definition" data-titre="Moyenne arithmétique, moyenne géométrique">
+    <ul>
+      <li>La <strong>moyenne arithmétique</strong> de deux nombres $a$ et $c$ est $\dfrac{a+c}{2}$.</li>
+      <li>La <strong>moyenne géométrique</strong> de deux nombres positifs $a$ et $c$ est $\sqrt{a\times c}$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="Trois termes consécutifs">
+    <ul>
+      <li>Trois nombres $a$, $b$, $c$ sont trois termes consécutifs d'une suite <strong>arithmétique</strong> si et seulement si $b$ est la moyenne arithmétique de $a$ et $c$ : $b=\dfrac{a+c}{2}$, ce qui revient à $b-a=c-b$.</li>
+      <li>Trois nombres strictement positifs $a$, $b$, $c$ sont trois termes consécutifs d'une suite <strong>géométrique</strong> si et seulement si $b$ est la moyenne géométrique de $a$ et $c$ : $b=\sqrt{a\times c}$, ce qui revient à $b^2=a\times c$, ou à $\dfrac{b}{a}=\dfrac{c}{b}$.</li>
+    </ul>
+    <details class="preuve"><summary>Pourquoi ?</summary>
+      <p>Si $b=a+r$ et $c=a+2r$, alors $\dfrac{a+c}{2}=\dfrac{2a+2r}{2}=a+r=b$. Si $b=a\,q$ et $c=a\,q^2$, alors $a\times c=a^2q^2=b^2$. Réciproquement, $b-a=c-b$ dit que l'écart est le même deux fois de suite, et $\dfrac{b}{a}=\dfrac{c}{b}$ que le quotient est le même.</p>
+    </details>
+  </div>
+
+  <div class="bloc methode" data-titre="Prouver que trois nombres sont, ou ne sont pas, consécutifs">
+    <ol class="etapes">
+      <li><span>Pour l'arithmétique : je calcule la moyenne arithmétique des deux nombres extrêmes et je la compare au nombre du milieu.</span></li>
+      <li><span>Pour la géométrique : je compare le carré du nombre du milieu au produit des deux extrêmes.</span></li>
+      <li><span>Égalité : les nombres sont consécutifs, et je donne la raison. Sinon, ils ne le sont pas : une seule inégalité suffit à le prouver.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un magasin a vendu 1 600, puis 1 800, puis 2 025 articles sur trois mois consécutifs. Ces trois nombres sont-ils des termes consécutifs d'une suite arithmétique ? d'une suite géométrique ?</p>
+      <ol class="pas">
+        <li><strong>Arithmétique ?</strong> $\dfrac{1\,600+2\,025}{2}=1\,812{,}5\ne1\,800$ : non.</li>
+        <li><strong>Géométrique ?</strong> $1\,800^2=3\,240\,000$ et $1\,600\times2\,025=3\,240\,000$ : les deux sont égaux, donc oui.</li>
+        <li><strong>La raison.</strong> $q=\dfrac{1\,800}{1\,600}=1{,}125$ : les ventes ont augmenté de 12,5 % chaque mois.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Le loyer de l'année du milieu">
+      <p>Un loyer valait 800 € en 2024 et 882 € en 2026. S'il a augmenté du même pourcentage chaque année, le loyer de 2025 est la moyenne géométrique : $\sqrt{800\times882}=\sqrt{705\,600}=840$ €. Le coefficient : $\dfrac{840}{800}=1{,}05$, soit un taux de +5 % par an.</p>
+      <p>S'il avait augmenté du même montant chaque année, ce serait la moyenne arithmétique : $\dfrac{800+882}{2}=841$ €.</p>
+    </div>
+    <div class="bloc piege" data-titre="Deux moyennes, deux situations">
+      <p>Même pourcentage chaque période : moyenne <strong>géométrique</strong>. Même montant chaque période : moyenne <strong>arithmétique</strong>.</p>
+      <p>Les deux se ressemblent quand les évolutions sont faibles (840 et 841 ici), mais elles ne sont pas égales, et la moyenne géométrique est toujours la plus petite. Choisis-la d'après la situation, pas d'après le résultat qui « tombe juste ».</p>
+    </div>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-sommes">5. Sommes de termes et notation Σ</h3>
+
+  <div class="bloc definition" data-titre="La notation Σ">
+    $$ \sum_{k=p}^{n}u_k=u_p+u_{p+1}+\dots+u_n $$
+    <p>Elle se lit « somme des $u_k$ pour $k$ allant de $p$ à $n$ ». La lettre $\Sigma$ est le sigma majuscule grec, le S de « somme ». L'indice $k$ est <strong>muet</strong> : on pourrait l'appeler $i$ ou $j$ sans rien changer.</p>
+    <p>Cette somme compte $n-p+1$ termes.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Des sommes de toutes sortes">
+      <ul>
+        <li>des carrés : $\displaystyle\sum_{k=1}^{5}k^2=1+4+9+16+25=55$ ;</li>
+        <li>des cubes : $\displaystyle\sum_{k=1}^{4}k^3=1+8+27+64=100$ ;</li>
+        <li>des inverses : $\displaystyle\sum_{k=1}^{4}\frac1k=1+\frac12+\frac13+\frac14=\frac{25}{12}\approx2{,}08$ ;</li>
+        <li>des puissances : $\displaystyle\sum_{k=0}^{3}2^k=1+2+4+8=15$.</li>
+      </ul>
+    </div>
+    <div class="bloc piege" data-titre="L'indice de départ">
+      <p class="faux">$\displaystyle\sum_{k=0}^{4}3\times2^k=6+12+24+48=90$</p>
+      <p class="juste">On commence à $k=0$ : $3+6+12+24+48=93$.</p>
+      <p>De $k=0$ à $k=4$, il y a cinq termes, pas quatre. Écris toujours le premier terme avant de te lancer.</p>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Somme de termes consécutifs d'une suite arithmétique">
+      $$ S=\text{nombre de termes}\times\frac{\text{premier terme}+\text{dernier terme}}{2} $$
+      <p>En particulier, $1+2+3+\dots+n=\dfrac{n(n+1)}{2}$.</p>
+      <p>Le premier et le dernier terme font la même somme que le deuxième et l'avant-dernier, et ainsi de suite : la figure le montre.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 420 284" role="img" aria-label="Six barres de hauteurs 400, 450, 500, 550, 600 et 650, les ventes de six mois. Sur chacune, la même série posée à l'envers : 650, 600, 550, 500, 450 et 400. Chaque colonne mesure alors 1 050."><rect class="forme-3" x="34.0" y="169.6" width="40.0" height="84.0"/><rect class="forme-4" x="34.0" y="33.1" width="40.0" height="136.5"/><text class="petit" x="54.0" y="216.6" text-anchor="middle">400</text><text class="petit" x="54.0" y="106.3" text-anchor="middle">650</text><rect class="forme-3" x="80.0" y="159.1" width="40.0" height="94.5"/><rect class="forme-4" x="80.0" y="33.1" width="40.0" height="126.0"/><text class="petit" x="100.0" y="211.3" text-anchor="middle">450</text><text class="petit" x="100.0" y="101.1" text-anchor="middle">600</text><rect class="forme-3" x="126.0" y="148.6" width="40.0" height="105.0"/><rect class="forme-4" x="126.0" y="33.1" width="40.0" height="115.5"/><text class="petit" x="146.0" y="206.1" text-anchor="middle">500</text><text class="petit" x="146.0" y="95.8" text-anchor="middle">550</text><rect class="forme-3" x="172.0" y="138.1" width="40.0" height="115.5"/><rect class="forme-4" x="172.0" y="33.1" width="40.0" height="105.0"/><text class="petit" x="192.0" y="200.8" text-anchor="middle">550</text><text class="petit" x="192.0" y="90.6" text-anchor="middle">500</text><rect class="forme-3" x="218.0" y="127.6" width="40.0" height="126.0"/><rect class="forme-4" x="218.0" y="33.1" width="40.0" height="94.5"/><text class="petit" x="238.0" y="195.6" text-anchor="middle">600</text><text class="petit" x="238.0" y="85.3" text-anchor="middle">450</text><rect class="forme-3" x="264.0" y="117.1" width="40.0" height="136.5"/><rect class="forme-4" x="264.0" y="33.1" width="40.0" height="84.0"/><text class="petit" x="284.0" y="190.3" text-anchor="middle">650</text><text class="petit" x="284.0" y="80.1" text-anchor="middle">400</text><g class="trace t-n"><line x1="26.0" y1="253.6" x2="318.0" y2="253.6"/></g><g class="trace t-n"><line x1="334.0" y1="143.3" x2="334.0" y2="245.8"/><polygon points="334.0,253.6 328.1,240.6 339.9,240.6"/></g><g class="trace t-n"><line x1="334.0" y1="143.3" x2="334.0" y2="40.9"/><polygon points="334.0,33.1 339.9,46.1 328.1,46.1"/></g><text class="moyen" x="344.0" y="149.3">1 050</text><text class="petit" x="34.0" y="274.1">en bas : les ventes</text></svg><figcaption>Les ventes de six mois consécutifs, de 400 à 650 articles. Posées tête-bêche sur elles-mêmes, elles forment six colonnes de 1 050. La somme vaut donc $6\times\dfrac{400+650}{2}=3\,150$ articles.</figcaption></figure>
+  </div>
+
+  <div class="bloc propriete" data-titre="Somme de termes consécutifs d'une suite géométrique">
+    <p>Pour une suite géométrique de raison $q\ne1$ :</p>
+    $$ S=\text{premier terme}\times\frac{1-q^{\,\text{nombre de termes}}}{1-q} $$
+    <p>En particulier, $1+q+q^2+\dots+q^n=\dfrac{1-q^{n+1}}{1-q}$. Quand $q&gt;1$, on préfère souvent écrire $\dfrac{q^{N}-1}{q-1}$, où $N$ est le nombre de termes, en changeant les signes en haut et en bas : la valeur est la même.</p>
+    <details class="preuve"><summary>Pourquoi ?</summary>
+      <p>On note $S=1+q+\dots+q^n$. Alors $q\,S=q+q^2+\dots+q^{n+1}$. Dans $S-q\,S$, tout se simplifie sauf le premier terme de $S$ et le dernier de $q\,S$ : $S(1-q)=1-q^{n+1}$, d'où la formule.</p>
+    </details>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer une somme de termes consécutifs">
+    <ol class="etapes">
+      <li><span>Je reconnais la suite : arithmétique ou géométrique, et sa raison.</span></li>
+      <li><span>Je repère le premier et le dernier terme, avec leurs indices.</span></li>
+      <li><span>Je compte les termes : indice du dernier − indice du premier + 1.</span></li>
+      <li><span>J'applique la formule. Pour une suite géométrique, l'exposant est le <strong>nombre de termes</strong>.</span></li>
+      <li><span>Je contrôle l'ordre de grandeur : la somme est entre (nombre de termes) × (le plus petit) et (nombre de termes) × (le plus grand).</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> On reprend la boutique en ligne : $C_n=80\,000\times1{,}06^n$, chiffre d'affaires de l'année $2025+n$. Quel est le chiffre d'affaires cumulé de 2025 à 2030 ?</p>
+      <ol class="pas">
+        <li><strong>La suite.</strong> Géométrique, de raison $1{,}06$ et de premier terme $C_0=80\,000$.</li>
+        <li><strong>Premier et dernier terme.</strong> 2025, c'est $C_0$ ; 2030, c'est $C_5$.</li>
+        <li><strong>Le nombre de termes.</strong> $5-0+1=6$ termes.</li>
+        <li><strong>La somme.</strong> $S=80\,000\times\dfrac{1-1{,}06^6}{1-1{,}06}\approx558\,025$ €.</li>
+        <li><strong>Le contrôle.</strong> $6\times80\,000=480\,000$ et $6\times107\,058\approx642\,348$ : le résultat est bien entre les deux.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="L'exposant, c'est le nombre de termes">
+    <p class="faux">De $C_0$ à $C_5$ : $S=80\,000\times\dfrac{1-1{,}06^5}{1-1{,}06}$.</p>
+    <p class="juste">Il y a 6 termes : l'exposant est $6$.</p>
+    <p>L'exposant n'est pas l'indice du dernier terme. Ici, l'oublier fait perdre plus de 107 000 € : toute l'année 2030.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-valeur-acquise">6. Valeur acquise : épargner, emprunter</h3>
+  <p>Placer de l'argent régulièrement, c'est additionner des termes d'une suite géométrique : chaque versement grossit, mais pas pendant la même durée.</p>
+
+  <div class="bloc definition" data-titre="Intérêts composés, valeur acquise">
+    <p>Un placement est à <strong>intérêts composés</strong> au taux $t\,\%$ par période quand, à la fin de chaque période, les intérêts s'ajoutent au capital et rapportent à leur tour : le capital est multiplié par $q=1+\dfrac{t}{100}$.</p>
+    <p>La <strong>valeur acquise</strong> d'un placement à une date donnée, c'est ce qu'il contient à cette date, intérêts compris.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Valeur acquise de versements réguliers">
+      <p>On verse la même somme $V$ au début de chaque période, au taux $t\,\%$ par période. Juste après le $n$-ième versement, le dernier vaut $V$ (il n'a encore rien rapporté), l'avant-dernier $V\times q$, … et le premier $V\times q^{\,n-1}$ :</p>
+      $$ A_n=V+V\,q+\dots+V\,q^{\,n-1}=V\times\frac{q^n-1}{q-1} $$
+      <p>C'est la somme de $n$ termes d'une suite géométrique de premier terme $V$ et de raison $q$.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 620 288" role="img" aria-label="Cinq versements V, un au début de chaque année. Juste après le cinquième, le premier a rapporté pendant 4 ans et vaut V fois q puissance 4 ; le deuxième vaut V fois q au cube ; le troisième V fois q au carré ; le quatrième V fois q ; le cinquième, qui vient d'être versé, vaut V. La valeur acquise est la somme de ces cinq termes."><text class="petit" x="432.0" y="18.0" text-anchor="middle">juste après le 5ᵉ versement</text><g class="trace t-n pointille"><line x1="432.0" y1="26" x2="432.0" y2="214"/></g><text class="petit" x="12.0" y="51.0" text-anchor="start">n° 1</text><g class="trace t-w ep-6"><line x1="64.0" y1="46.0" x2="432.0" y2="46.0"/></g><circle class="pt pt-u" cx="64.0" cy="46.0" r="6"/><text class="moyen" x="448.0" y="52.0" text-anchor="start">V × q⁴</text><text class="petit" x="12.0" y="87.0" text-anchor="start">n° 2</text><g class="trace t-w ep-6"><line x1="156.0" y1="82.0" x2="432.0" y2="82.0"/></g><circle class="pt pt-u" cx="156.0" cy="82.0" r="6"/><text class="moyen" x="448.0" y="88.0" text-anchor="start">V × q³</text><text class="petit" x="12.0" y="123.0" text-anchor="start">n° 3</text><g class="trace t-w ep-6"><line x1="248.0" y1="118.0" x2="432.0" y2="118.0"/></g><circle class="pt pt-u" cx="248.0" cy="118.0" r="6"/><text class="moyen" x="448.0" y="124.0" text-anchor="start">V × q²</text><text class="petit" x="12.0" y="159.0" text-anchor="start">n° 4</text><g class="trace t-w ep-6"><line x1="340.0" y1="154.0" x2="432.0" y2="154.0"/></g><circle class="pt pt-u" cx="340.0" cy="154.0" r="6"/><text class="moyen" x="448.0" y="160.0" text-anchor="start">V × q</text><text class="petit" x="12.0" y="195.0" text-anchor="start">n° 5</text><circle class="pt pt-u" cx="432.0" cy="190.0" r="6"/><text class="moyen" x="448.0" y="196.0" text-anchor="start">V</text><g class="trace t-n"><line x1="40" y1="226" x2="472.0" y2="226"/></g><line class="axe-trait" x1="64.0" y1="221" x2="64.0" y2="231"/><text class="petit" x="64.0" y="248.0" text-anchor="middle">année 1</text><line class="axe-trait" x1="156.0" y1="221" x2="156.0" y2="231"/><text class="petit" x="156.0" y="248.0" text-anchor="middle">année 2</text><line class="axe-trait" x1="248.0" y1="221" x2="248.0" y2="231"/><text class="petit" x="248.0" y="248.0" text-anchor="middle">année 3</text><line class="axe-trait" x1="340.0" y1="221" x2="340.0" y2="231"/><text class="petit" x="340.0" y="248.0" text-anchor="middle">année 4</text><line class="axe-trait" x1="432.0" y1="221" x2="432.0" y2="231"/><text class="petit" x="432.0" y="248.0" text-anchor="middle">année 5</text><text class="petit" x="40.0" y="278.0" text-anchor="start">point : le versement, quand il est fait · trait vert : le temps pendant lequel il rapporte</text></svg><figcaption>Cinq versements, un par an. Juste après le cinquième, le premier a rapporté pendant 4 ans, le dernier pas du tout.</figcaption></figure>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer une valeur acquise">
+    <ol class="etapes">
+      <li><span>Je repère le versement $V$, le taux par période et $q=1+\dfrac{t}{100}$.</span></li>
+      <li><span>Je compte les versements : c'est le nombre de termes.</span></li>
+      <li><span>Je regarde la date demandée. Juste après le dernier versement : $A_n=V\times\dfrac{q^n-1}{q-1}$. Une période plus tard, sans nouveau versement : je multiplie encore par $q$.</span></li>
+      <li><span>Je contrôle : la valeur acquise dépasse un peu le total versé, $n\times V$. Ni beaucoup plus, ni moins.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Lina verse 1 200 € chaque 1<sup>er</sup> janvier sur un plan d'épargne à 3 % par an. Que vaut son plan juste après son dixième versement ? Combien d'intérêts a-t-il produits ? Que vaudra-t-il un an plus tard, si elle ne verse plus rien ?</p>
+      <ol class="pas">
+        <li><strong>Les données.</strong> $V=1\,200$ et $q=1{,}03$.</li>
+        <li><strong>Le nombre de termes.</strong> 10 versements, donc 10 termes : de $1\,200$ (le dernier) à $1\,200\times1{,}03^9$ (le premier).</li>
+        <li><strong>La valeur acquise.</strong> $A_{10}=1\,200\times\dfrac{1{,}03^{10}-1}{0{,}03}\approx13\,756{,}66$ €.</li>
+        <li><strong>Les intérêts.</strong> Elle a versé $10\times1\,200=12\,000$ € : les intérêts valent $1\,756{,}66$ €. Le contrôle est bon, un peu plus que le total versé.</li>
+        <li><strong>Un an plus tard.</strong> $13\,756{,}66\times1{,}03\approx14\,169{,}35$ € : cette fois, le dixième versement a rapporté lui aussi.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Le dernier versement n'a pas encore rapporté">
+    <p class="faux">Juste après le 10<sup>e</sup> versement : $A=1\,200\times1{,}03\times\dfrac{1{,}03^{10}-1}{0{,}03}$.</p>
+    <p class="juste">Le 10<sup>e</sup> versement vient d'être fait : il vaut 1 200 €. $A=1\,200\times\dfrac{1{,}03^{10}-1}{0{,}03}$.</p>
+    <p>Le facteur $1{,}03$ en plus, c'est la valeur un an plus tard. Lis la date que donne l'énoncé : « juste après le dernier versement » ou « un an après ».</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pour aller plus loin : le calcul d'une mensualité de crédit">
+    <p>On emprunte 6 000 € à 0,4 % par mois, à rembourser en 24 mensualités égales $m$, payées à la fin de chaque mois. La banque compare tout à une même date, la fin du 24<sup>e</sup> mois :</p>
+    <ul>
+      <li>les 6 000 € prêtés, placés au même taux, vaudraient $6\,000\times1{,}004^{24}\approx6\,603{,}29$ € ;</li>
+      <li>les 24 mensualités, placées au même taux, vaudraient $m\times\dfrac{1{,}004^{24}-1}{0{,}004}\approx25{,}137\,m$ (la dernière n'a encore rien rapporté).</li>
+    </ul>
+    <p>La mensualité est celle qui rend les deux égales : $m\approx\dfrac{6\,603{,}29}{25{,}137}\approx262{,}69$ €. En tout, on rembourse $24\times262{,}69=6\,304{,}56$ € : le crédit coûte 304,56 € d'intérêts. L'exercice « Le coût d'un crédit » refait ce calcul pas à pas.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-python">7. Des sommes en Python</h3>
+  <p>Une somme se calcule par une boucle : on part de 0 et on ajoute les termes un par un. La notation $\Sigma$ et le programme disent exactement la même chose.</p>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="La somme des carrés">
+<pre class="code">def somme_carres(n):
+    s = 0
+    for k in range(1, n + 1):
+        s = s + k**2
+    return s</pre>
+      <p><code>somme_carres(5)</code> renvoie $\displaystyle\sum_{k=1}^{5}k^2=55$.</p>
+    </div>
+    <div class="bloc definition" data-titre="Ce que dit chaque ligne">
+      <div class="defile"><table class="simple">
+        <thead><tr><th>Dans $\displaystyle\sum_{k=1}^{n}k^2$</th><th>Dans le programme</th><th>Son rôle</th></tr></thead>
+        <tbody>
+          <tr><td>on part de rien</td><td><code>s = 0</code></td><td>l'initialisation</td></tr>
+          <tr><td>$k$ va de $1$…</td><td><code>for k in range(1, …)</code></td><td>le compteur</td></tr>
+          <tr><td>… jusqu'à $n$</td><td><code>n + 1</code> : <code>range</code> s'arrête juste avant</td><td>la sortie de boucle</td></tr>
+          <tr><td>on ajoute $k^2$</td><td><code>s = s + k**2</code></td><td>l'accumulateur</td></tr>
+          <tr><td>le résultat</td><td><code>return s</code></td><td>après la boucle</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Des cubes, des inverses">
+<pre class="code">def somme_inverses(n):
+    s = 0
+    for k in range(1, n + 1):
+        s = s + 1 / k
+    return s</pre>
+      <p><code>somme_inverses(4)</code> renvoie environ 2,083, c'est-à-dire $\dfrac{25}{12}$. Ici, commencer à $k=0$ ferait planter le programme : on ne divise pas par 0. Pour les cubes, on écrit <code>k**3</code> : <code>somme_cubes(4)</code> renvoie 100.</p>
+    </div>
+    <div class="bloc exemple" data-titre="La valeur acquise en Python">
+<pre class="code">def valeur_acquise(V, t, n):
+    q = 1 + t / 100
+    A = 0
+    for k in range(n):     # n versements
+        A = A * q + V      # ça rapporte, puis on verse
+    return A</pre>
+      <p>Chaque tour de boucle est une période : le capital rapporte ($\times q$), puis on verse $V$. <code>valeur_acquise(1200, 3, 10)</code> renvoie environ 13 756,66, la valeur acquise de Lina.</p>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Écrire une fonction qui calcule une somme">
+    <ol class="etapes">
+      <li><span>J'initialise l'accumulateur à 0, <strong>avant</strong> la boucle.</span></li>
+      <li><span>Je fais parcourir au compteur les bonnes valeurs : <code>range(p, n + 1)</code> pour $k$ allant de $p$ à $n$.</span></li>
+      <li><span>Dans la boucle, j'ajoute le terme au total : <code>s = s + …</code></span></li>
+      <li><span>Je renvoie <code>s</code> <strong>après</strong> la boucle : le <code>return</code> est aligné sous le <code>for</code>, pas dedans.</span></li>
+      <li><span>Je teste à la main avec un petit $n$ (2 ou 3), tour par tour.</span></li>
+    </ol>
+  </div>
+
+  <div class="bloc piege" data-titre="Trois erreurs de boucle">
+    <ul>
+      <li><code>s = 0</code> écrit <strong>dans</strong> la boucle : le total repart de 0 à chaque tour, et la fonction renvoie seulement le dernier terme.</li>
+      <li><code>range(n)</code> au lieu de <code>range(1, n + 1)</code> : $k$ va de $0$ à $n-1$. Le dernier terme manque.</li>
+      <li><code>s = k**2</code> au lieu de <code>s = s + k**2</code> : on remplace le total au lieu d'y ajouter.</li>
+    </ul>
+  </div>
+
+  <!-- ===== Les pièges ===== -->
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les dix erreurs que tout le monde fait">
+    <ol>
+      <li><strong>« +3 % » n'est pas $q=0{,}03$.</strong> On garde les 100 % : $q=1{,}03$. Avec $0{,}03$, la grandeur fondrait.</li>
+      <li><strong>Une baisse de 5 % n'est pas $q=-0{,}05$.</strong> C'est $q=0{,}95$. Une raison négative ferait changer de signe à chaque période.</li>
+      <li><strong>Trois hausses de 10 % ne font pas +30 %.</strong> $1{,}1^3=1{,}331$ : +33,1 %. Les pourcentages successifs se multiplient.</li>
+      <li><strong>$n$ termes au lieu de $n+1$.</strong> De $u_0$ à $u_n$, il y a $n+1$ termes. Le « +1 » s'oublie.</li>
+      <li><strong>$u_0\times q^n$ et $u_1\times q^{\,n-1}$.</strong> La puissance compte les multiplications depuis le premier terme : avec $u_1$, c'est $n-1$.</li>
+      <li><strong>L'exposant de la somme géométrique.</strong> C'est le nombre de termes, pas l'indice du dernier terme.</li>
+      <li><strong>Les deux moyennes confondues.</strong> Même pourcentage : moyenne géométrique $\sqrt{a\,c}$. Même montant : moyenne arithmétique $\dfrac{a+c}{2}$.</li>
+      <li><strong>L'indice de départ d'une somme $\Sigma$.</strong> $\displaystyle\sum_{k=0}^{4}$ commence à $k=0$ : cinq termes, et le premier compte.</li>
+      <li><strong>L'accumulateur de Python.</strong> <code>s = 0</code> se place avant la boucle. Oublié, ou remis à 0 à chaque tour, il fausse tout.</li>
+      <li><strong><code>range(n)</code> s'arrête à $n-1$.</strong> Pour $k$ de $1$ à $n$, on écrit <code>range(1, n + 1)</code>.</li>
+    </ol>
+  </div>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Du pourcentage au coefficient multiplicateur"></div>
+    <div class="video" data-titre="Le terme général d'une suite arithmétique ou géométrique"></div>
+    <div class="video" data-titre="La valeur acquise de versements réguliers"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, chacun avec ses défis. Commence par la tirelire : on y voit chaque versement grossir, et pourquoi le dernier ne rapporte encore rien.</p>
+  <div class="labo" data-labo="suites-tt" data-outil="tirelire"></div>
+  <div class="labo" data-labo="suites-tt" data-outil="offres"></div>
+  <div class="labo" data-labo="suites-tt" data-outil="machine"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, dans toutes les catégories du chapitre ; le bilan de fin de partie te dit quoi retravailler. Le quiz vérifie les réflexes du cours. Les nombres sont choisis pour se calculer de tête ; garde quand même ta calculatrice à portée de main.</p>
+
+  <div class="jeu" data-generateurs="suites-tt" data-questions="10" data-titre="Le défi des suites"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Une hausse de 3 %, c'est multiplier par…</p>
+      <ul class="choix"><li class="bon">$1{,}03$</li><li>$0{,}03$</li><li>$1{,}3$</li><li>$3$</li></ul>
+      <div class="explication">On garde les 100 % et on ajoute 3 % : $1+\frac{3}{100}=1{,}03$. Multiplier par $0{,}03$, ce serait ne garder que 3 % de la valeur.</div>
+    </div>
+    <div class="question">
+      <p>Une baisse de 5 %, c'est multiplier par…</p>
+      <ul class="choix"><li class="bon">$0{,}95$</li><li>$-0{,}05$</li><li>$0{,}5$</li><li>$1{,}05$</li></ul>
+      <div class="explication">$1-\frac{5}{100}=0{,}95$ : on garde 95 % de la valeur.</div>
+    </div>
+    <div class="question" data-reponse="33,1">
+      <p>Un prix subit trois hausses successives de 10 %. De combien de pour cent a-t-il augmenté en tout ? (Écris le nombre, sans le signe %.)</p>
+      <div class="explication">$1{,}1^3=1{,}331$ : le prix a augmenté de 33,1 %, pas de 30 %. Chaque hausse porte sur un prix déjà augmenté.</div>
+    </div>
+    <div class="question" data-reponse="25">
+      <p>Après une baisse de 20 %, de combien de pour cent faut-il augmenter pour revenir au prix de départ ?</p>
+      <div class="explication">Le coefficient réciproque de $0{,}8$ est $\frac{1}{0{,}8}=1{,}25$ : il faut une hausse de 25 %.</div>
+    </div>
+    <div class="question">
+      <p>$(u_n)$ est arithmétique, de premier terme $u_1=40$ et de raison $5$. Alors $u_n=$</p>
+      <ul class="choix"><li class="bon">$35+5n$</li><li>$40+5n$</li><li>$45+5n$</li><li>$40\times5^{n-1}$</li></ul>
+      <div class="explication">La suite commence à $u_1$ : $u_n=u_1+(n-1)\times5=40+5n-5=35+5n$. Vérification : $u_1=35+5=40$. Avec $40+5n$, on trouverait $u_1=45$.</div>
+    </div>
+    <div class="question">
+      <p>On place 2 000 € à 3 % par an, à intérêts composés. Au bout de $n$ années, le capital vaut…</p>
+      <ul class="choix"><li class="bon">$2\,000\times1{,}03^n$</li><li>$2\,000+60\,n$</li><li>$2\,000\times0{,}03^n$</li><li>$2\,000\times1{,}03\,n$</li></ul>
+      <div class="explication">Chaque année, le capital est multiplié par $1{,}03$ : c'est une suite géométrique de raison $1{,}03$. $2\,000+60n$, ce serait des intérêts simples : 60 € par an, sans intérêts des intérêts.</div>
+    </div>
+    <div class="question" data-reponse="6">
+      <p>$4$ ; $x$ ; $9$ sont trois termes consécutifs d'une suite géométrique à termes positifs. Que vaut $x$ ?</p>
+      <div class="explication">$x$ est la moyenne géométrique de 4 et 9 : $\sqrt{4\times9}=\sqrt{36}=6$. La raison est $\frac64=1{,}5$, et $6\times1{,}5=9$.</div>
+    </div>
+    <div class="question" data-reponse="10">
+      <p>Combien de termes compte la somme $\displaystyle\sum_{k=3}^{12}u_k$ ?</p>
+      <div class="explication">$12-3+1=10$ termes : de $u_3$ à $u_{12}$.</div>
+    </div>
+    <div class="question" data-reponse="30">
+      <p>Calcule $\displaystyle\sum_{k=1}^{4}k^2$.</p>
+      <div class="explication">$1+4+9+16=30$.</div>
+    </div>
+    <div class="question">
+      <p>On verse 500 € au début de chaque année, à 2 % par an. Juste après le 6<sup>e</sup> versement, la valeur acquise est…</p>
+      <ul class="choix"><li class="bon">$500\times\dfrac{1{,}02^6-1}{0{,}02}$</li><li>$500\times\dfrac{1{,}02^5-1}{0{,}02}$</li><li>$500\times1{,}02\times\dfrac{1{,}02^6-1}{0{,}02}$</li><li>$6\times500\times1{,}02$</li></ul>
+      <div class="explication">Six versements, donc six termes, de $500$ (le dernier, qui n'a encore rien rapporté) à $500\times1{,}02^5$ (le premier). La troisième réponse fait rapporter le dernier versement : c'est la valeur un an plus tard.</div>
+    </div>
+    <div class="question">
+      <p>En Python, la boucle <code>for k in range(1, 5):</code> fait prendre à <code>k</code> les valeurs…</p>
+      <ul class="choix"><li class="bon">1, 2, 3, 4</li><li>1, 2, 3, 4, 5</li><li>0, 1, 2, 3, 4</li><li>0, 1, 2, 3, 4, 5</li></ul>
+      <div class="explication"><code>range(1, 5)</code> commence à 1 et s'arrête juste avant 5. Pour aller jusqu'à 5, il faut <code>range(1, 6)</code>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Ici, pas de correction à ouvrir : tu écris ton calcul ligne par ligne, et le vérificateur te dit si chaque ligne est juste. Écris <code>n^2</code> ou <code>n²</code> pour $n^2$, et une virgule pour les décimaux. Si tu bloques, demande un indice, mais essaie d'abord seul : la réussite sans aide compte le plus.</p>
+  <div class="tuteurs">
+    <div class="tuteur" data-tuteur="expression" data-lettre="n" data-id="stt-terme-general" data-depart="2500-80(n-1)" data-consigne="Un stock compte 2 500 pièces le 1er jour et en perd 80 par jour : $u_n=u_1+(n-1)r$ avec $u_1=2\,500$ et $r=-80$. Écris $u_n$ le plus simplement possible :"></div>
+    <div class="tuteur" data-tuteur="equation" data-lettre="n" data-id="stt-rang" data-depart="14400+360n=18000" data-consigne="Le loyer de la partie 2 vaut $L_n=14\,400+360n$. Pour quel rang $n$ vaut-il exactement 18 000 € ? Résous :"></div>
+    <div class="tuteur" data-tuteur="equation" data-lettre="r" data-id="stt-raison" data-depart="1150+7r=1850" data-consigne="$(u_n)$ est arithmétique, $u_2=1\,150$ et $u_9=1\,850$. Comme $u_9=u_2+7r$, trouve la raison $r$ :"></div>
+    <div class="tuteur" data-tuteur="expression" data-lettre="n" data-id="stt-somme" data-depart="n(4000+150(n-1))/2" data-consigne="Une usine produit 2 000 pièces la 1re semaine, puis 150 de plus chaque semaine. Sur les $n$ premières semaines, elle produit $S_n=\dfrac{n\,(4\,000+150(n-1))}{2}$ pièces. Développe et réduis :"></div>
+  </div>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ traduire et calculer, ★★ sommes et valeurs acquises, ★★★ problèmes. Rédige ta réponse avant d'ouvrir la correction. Quand un exercice demande la calculatrice, l'énoncé le dit.</p>
+
+  <h3>Niveau 1 · Traduire et calculer</h3>
+
+  <article class="exercice" id="ex-du-pourcentage-au-coefficient" data-titre="Du pourcentage au coefficient" data-niveau="1" data-type="application" data-notions="pourcentages" data-duree="8" data-calculatrice="non">
+    <ol>
+      <li>Donner le coefficient multiplicateur de chaque évolution : +4 % ; −12 % ; +0,5 % ; −40 % ; +200 %.</li>
+      <li>Quelle évolution correspond à chaque coefficient : $1{,}15$ ; $0{,}92$ ; $2$ ; $0{,}5$ ?</li>
+      <li>Un prix augmente de 10 % puis baisse de 10 %. Revient-il à sa valeur de départ ?</li>
+      <li>Après une baisse de 50 %, de combien de pour cent faut-il augmenter pour revenir au départ ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$1{,}04$ ; $0{,}88$ ; $1{,}005$ ; $0{,}6$ ; $3$ (augmenter de 200 %, c'est ajouter deux fois la valeur : on la triple).</li>
+        <li>+15 % ; −8 % ; +100 % (doubler) ; −50 % (diviser par deux).</li>
+        <li>Non : $1{,}1\times0{,}9=0{,}99$. Le prix a baissé de 1 %. La baisse de 10 % porte sur un prix plus élevé que la hausse.</li>
+        <li>Le coefficient réciproque de $0{,}5$ est $\frac{1}{0{,}5}=2$ : il faut une hausse de 100 %.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-prime-d-anciennete" data-titre="Une prime d'ancienneté" data-niveau="1" data-type="application" data-notions="suites equation" data-duree="10" data-calculatrice="non">
+    <p>Dans une entreprise, un commercial touche une prime mensuelle d'ancienneté de 120 € la première année ; elle augmente de 15 € chaque année. On note $p_n$ la prime mensuelle de la $n$-ième année : $p_1=120$.</p>
+    <ol>
+      <li>Quelle est la nature de la suite $(p_n)$ ? Exprimer $p_n$ en fonction de $n$.</li>
+      <li>Quelle est la prime mensuelle de la 10<sup>e</sup> année ?</li>
+      <li>À partir de quelle année la prime mensuelle dépasse-t-elle 300 € ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>On ajoute 15 € chaque année : $(p_n)$ est arithmétique de raison $15$. Elle commence à $p_1$ : $p_n=120+15(n-1)=105+15n$. Vérification : $p_1=105+15=120$.</li>
+        <li>$p_{10}=105+150=255$ €.</li>
+        <li>$105+15n&gt;300\iff15n&gt;195\iff n&gt;13$. La 13<sup>e</sup> année, la prime vaut exactement 300 € ; elle dépasse 300 € à partir de la 14<sup>e</sup> année ($p_{14}=315$ €).</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-ajouter-ou-multiplier" data-titre="Ajouter ou multiplier ?" data-niveau="1" data-type="application" data-notions="suites pourcentages" data-duree="8" data-calculatrice="non">
+    <p>Pour chaque situation, dire si elle se modélise par une suite arithmétique ou géométrique, et donner sa raison.</p>
+    <ol>
+      <li>Un salaire de 1 800 € augmente de 2 % par an.</li>
+      <li>Un stock de 5 000 pièces diminue de 120 pièces par semaine.</li>
+      <li>Une machine perd 20 % de sa valeur chaque année.</li>
+      <li>Un abonnement coûte 9,99 € le premier mois, puis 1 € de plus chaque mois.</li>
+      <li>Le nombre d'abonnés d'une application double chaque mois.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Même pourcentage chaque année : géométrique de raison $q=1{,}02$.</li>
+        <li>Même quantité retirée chaque semaine : arithmétique de raison $r=-120$.</li>
+        <li>Même pourcentage : géométrique de raison $q=0{,}8$.</li>
+        <li>Même quantité ajoutée : arithmétique de raison $r=1$. Si $a_1=9{,}99$, alors $a_n=9{,}99+(n-1)=8{,}99+n$.</li>
+        <li>Doubler, c'est multiplier par 2 : géométrique de raison $q=2$, soit une hausse de 100 % par mois.</li>
+      </ol>
+      <p>Le mot qui décide : « de 120 pièces » (une quantité) ou « de 20 % » (une proportion).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-abonnement-en-hausse-de-2-par-an" data-titre="Un abonnement en hausse de 2 % par an" data-niveau="1" data-type="probleme" data-notions="suites pourcentages" data-duree="10" data-calculatrice="oui">
+    <p><em>Calculatrice.</em> Un abonnement à un logiciel de gestion coûte 45 € par mois en 2026. Son prix augmente de 2 % chaque année. On note $a_n$ le prix mensuel en $2026+n$.</p>
+    <ol>
+      <li>Justifier que $(a_n)$ est géométrique ; donner sa raison et son sens de variation.</li>
+      <li>Exprimer $a_n$ en fonction de $n$, puis calculer le prix mensuel en 2031, au centime.</li>
+      <li>En quelle année le prix mensuel dépassera-t-il 50 € ?</li>
+    </ol>
+    <details class="indice"><p>Pour la question 3, fais un tableau de valeurs à la calculatrice : $n$ de 0 à 8.</p></details>
+    <details class="correction">
+      <ol>
+        <li>Augmenter de 2 %, c'est multiplier par $1{,}02$ : $a_{n+1}=1{,}02\,a_n$. La suite est géométrique de raison $1{,}02$ ; comme $a_0&gt;0$ et $1{,}02&gt;1$, elle est croissante.</li>
+        <li>$a_n=45\times1{,}02^n$. En 2031, $n=5$ : $a_5=45\times1{,}02^5\approx49{,}68$ €.</li>
+        <li>$a_5\approx49{,}68$ et $a_6\approx50{,}68$ : le prix dépasse 50 € pour $n=6$, en 2032.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-trois-termes-consecutifs" data-titre="Trois termes consécutifs ?" data-niveau="1" data-type="application" data-notions="suites" data-duree="12" data-calculatrice="non">
+    <ol>
+      <li>Ces trois nombres sont-ils des termes consécutifs d'une suite arithmétique ? géométrique ? Justifier. <br>a) $120$ ; $150$ ; $180$ &nbsp; b) $400$ ; $500$ ; $625$ &nbsp; c) $50$ ; $60$ ; $75$ &nbsp; d) $2\,000$ ; $1\,600$ ; $1\,280$</li>
+      <li>$9$ ; $x$ ; $16$ sont trois termes consécutifs. Que vaut $x$ si la suite est arithmétique ? si elle est géométrique, à termes positifs ?</li>
+      <li>Le chiffre d'affaires d'une entreprise valait 50 000 € en 2024 et 72 000 € en 2026. On suppose qu'il a augmenté du même pourcentage chaque année. Que valait-il en 2025 ? Quel est ce pourcentage ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>a) $\frac{120+180}{2}=150$ : arithmétique, de raison $30$. (Géométrique ? $150^2=22\,500$ et $120\times180=21\,600$ : non.)<br>
+          b) $\frac{400+625}{2}=512{,}5\ne500$ : pas arithmétique. $500^2=250\,000=400\times625$ : géométrique, de raison $\frac{500}{400}=1{,}25$.<br>
+          c) $\frac{50+75}{2}=62{,}5\ne60$ et $60^2=3\,600\ne50\times75=3\,750$ : ni l'un ni l'autre.<br>
+          d) $1\,600^2=2\,560\,000=2\,000\times1\,280$ : géométrique, de raison $0{,}8$ (une baisse de 20 %). Pas arithmétique : $\frac{2\,000+1\,280}{2}=1\,640$.</li>
+        <li>Arithmétique : $x=\frac{9+16}{2}=12{,}5$. Géométrique : $x=\sqrt{9\times16}=\sqrt{144}=12$.</li>
+        <li>Même pourcentage chaque année : le chiffre d'affaires de 2025 est la moyenne géométrique, $\sqrt{50\,000\times72\,000}=\sqrt{3\,600\,000\,000}=60\,000$ €. Le coefficient est $\frac{60\,000}{50\,000}=1{,}2$ : une hausse de 20 % par an.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-lire-et-ecrire-une-somme" data-titre="Lire et écrire une somme Σ" data-niveau="1" data-type="application" data-notions="sommes" data-duree="10" data-calculatrice="non">
+    <ol>
+      <li>Écrire chaque somme sans le symbole $\Sigma$, puis la calculer : $\displaystyle\sum_{k=1}^{6}k$ ; $\displaystyle\sum_{k=0}^{4}2^k$ ; $\displaystyle\sum_{k=1}^{4}k^2$ ; $\displaystyle\sum_{k=1}^{3}\frac1k$.</li>
+      <li>Combien de termes compte $\displaystyle\sum_{k=5}^{20}u_k$ ? Et $\displaystyle\sum_{k=0}^{n}u_k$ ?</li>
+      <li>Écrire avec le symbole $\Sigma$ : $1+8+27+\dots+1\,000$, puis $3+5+7+\dots+21$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$1+2+3+4+5+6=21$ ; $1+2+4+8+16=31$ ; $1+4+9+16=30$ ; $1+\frac12+\frac13=\frac{6+3+2}{6}=\frac{11}{6}$.</li>
+        <li>$20-5+1=16$ termes ; $n-0+1=n+1$ termes.</li>
+        <li>Ce sont les cubes de 1 à 10 : $\displaystyle\sum_{k=1}^{10}k^3$. Puis les impairs de 3 à 21, qui s'écrivent $2k+1$ pour $k$ de 1 à 10 : $\displaystyle\sum_{k=1}^{10}(2k+1)$. (On peut aussi écrire $\displaystyle\sum_{k=0}^{9}(2k+3)$ : plusieurs écritures sont justes.)</li>
+      </ol>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Sommes et valeurs acquises</h3>
+
+  <article class="exercice" id="ex-le-bail-du-local-de-stockage" data-titre="Le bail du local de stockage" data-niveau="2" data-type="probleme" data-notions="sommes suites" data-duree="12" data-calculatrice="oui">
+    <p>Une entreprise loue un local de stockage. Le loyer annuel est de 9 600 € en 2026, et le bail prévoit une hausse de 240 € par an. On note $L_n$ le loyer de l'année $2026+n$.</p>
+    <ol>
+      <li>Exprimer $L_n$ en fonction de $n$. Quel sera le loyer en 2035 ?</li>
+      <li>Combien l'entreprise paiera-t-elle en tout, de 2026 à 2035 ?</li>
+      <li>Un autre propriétaire propose un loyer fixe de 10 800 € par an sur la même période. Quelle offre est la moins chère ?</li>
+    </ol>
+    <details class="indice"><p>De 2026 à 2035, combien d'années ? Ce sera le nombre de termes.</p></details>
+    <details class="correction">
+      <ol>
+        <li>$(L_n)$ est arithmétique de raison $240$ : $L_n=9\,600+240\,n$. En 2035, $n=9$ : $L_9=9\,600+2\,160=11\,760$ €.</li>
+        <li>De $L_0$ à $L_9$, il y a 10 termes : $S=10\times\dfrac{9\,600+11\,760}{2}=10\times10\,680=106\,800$ €.</li>
+        <li>Le loyer fixe coûte $10\times10\,800=108\,000$ €. Le bail indexé revient moins cher, de 1 200 €, même s'il finit plus haut : il commence beaucoup plus bas.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-chiffre-d-affaires-sur-cinq-ans" data-titre="Le chiffre d'affaires sur cinq ans" data-niveau="2" data-type="probleme" data-notions="sommes pourcentages" data-duree="15" data-calculatrice="oui">
+    <p><em>Calculatrice.</em> Une PME réalise un chiffre d'affaires de 250 000 € en 2026. Elle prévoit une hausse de 4 % par an. On note $C_n$ le chiffre d'affaires de l'année $2026+n$.</p>
+    <ol>
+      <li>Exprimer $C_n$ en fonction de $n$, puis calculer $C_4$.</li>
+      <li>Calculer le chiffre d'affaires cumulé de 2026 à 2030.</li>
+      <li>Les actionnaires attendent 1 400 000 € cumulés sur ces cinq années. L'objectif est-il atteint ?</li>
+    </ol>
+    <details class="indice"><p>Le premier terme de la somme est $C_0$, le dernier $C_4$. Combien de termes ?</p></details>
+    <details class="correction">
+      <ol>
+        <li>$C_n=250\,000\times1{,}04^n$. $C_4=250\,000\times1{,}04^4\approx292\,464{,}64$ €.</li>
+        <li>De $C_0$ à $C_4$ : 5 termes. $S=250\,000\times\dfrac{1-1{,}04^5}{1-1{,}04}\approx1\,354\,080{,}64$ €. Contrôle : entre $5\times250\,000=1\,250\,000$ et $5\times292\,464{,}64\approx1\,462\,323$, c'est cohérent.</li>
+        <li>Non : il manque environ 45 919 €. Avec l'exposant 4 au lieu de 5, on aurait trouvé environ 1 061 616 € : l'année 2030 aurait disparu du calcul.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-livret-et-des-versements-reguliers" data-titre="Un livret et des versements réguliers" data-niveau="2" data-type="probleme" data-notions="valeuracquise" data-duree="15" data-calculatrice="oui">
+    <p><em>Calculatrice.</em> Chaque 1<sup>er</sup> janvier, à partir de 2026, Tom verse 600 € sur un livret à intérêts composés au taux de 2,5 % par an.</p>
+    <ol>
+      <li>Que vaut le livret juste après le premier versement ? Juste après le deuxième ?</li>
+      <li>Calculer la valeur acquise juste après le 8<sup>e</sup> versement, le 1<sup>er</sup> janvier 2033. Combien d'intérêts le livret a-t-il produits ?</li>
+      <li>Que vaudra le livret le 1<sup>er</sup> janvier 2034, si Tom ne fait pas de neuvième versement ?</li>
+    </ol>
+    <details class="indice"><p>Juste après le deuxième versement : le premier a rapporté un an, le second rien encore.</p></details>
+    <details class="correction">
+      <ol>
+        <li>Juste après le premier versement : 600 €. Un an plus tard, ces 600 € sont devenus $600\times1{,}025=615$ €, et Tom verse 600 € : $1\,215$ €.</li>
+        <li>8 versements, 8 termes, de $600$ à $600\times1{,}025^7$ : $A_8=600\times\dfrac{1{,}025^8-1}{0{,}025}\approx5\,241{,}67$ €. Tom a versé $8\times600=4\,800$ € : les intérêts valent environ 441,67 €.</li>
+        <li>Un an de plus, sans versement : $5\,241{,}67\times1{,}025\approx5\,372{,}71$ €.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-commande-de-60-000-pieces" data-titre="La commande de 60 000 pièces" data-niveau="2" data-type="probleme" data-notions="sommes equation" data-duree="20" data-calculatrice="oui">
+    <p>Une usine démarre une nouvelle chaîne. Elle produit 2 000 pièces la première semaine, puis 150 de plus chaque semaine. On note $p_n$ la production de la $n$-ième semaine : $p_1=2\,000$.</p>
+    <ol>
+      <li>Exprimer $p_n$ en fonction de $n$.</li>
+      <li>Montrer que la production cumulée des $n$ premières semaines vaut $S_n=75n^2+1\,925n$.</li>
+      <li>Un client commande 60 000 pièces. Au bout de combien de semaines la commande sera-t-elle prête ?</li>
+    </ol>
+    <details class="indice"><p>La production cumulée est une somme de termes consécutifs : premier terme $p_1$, dernier terme $p_n$, $n$ termes.</p></details>
+    <details class="correction">
+      <ol>
+        <li>Arithmétique de raison $150$, qui commence à $p_1$ : $p_n=2\,000+150(n-1)=1\,850+150n$.</li>
+        <li>$S_n=n\times\dfrac{p_1+p_n}{2}$, avec $p_1+p_n=2\,000+1\,850+150n=3\,850+150n$. Donc $S_n=n\times(1\,925+75n)=75n^2+1\,925n$. (Le tuteur, plus haut, fait ce calcul pas à pas.)</li>
+        <li>À la calculatrice : $S_{18}=58\,950$ et $S_{19}=63\,650$. La commande sera prête au bout de 19 semaines. Par le calcul : $75n^2+1\,925n-60\,000=0$ a pour solution positive $n\approx18{,}2$ ; le premier entier qui suffit est 19.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-fonction-mystere" data-titre="La fonction mystère" data-niveau="2" data-type="application" data-notions="sommes" data-duree="12" data-calculatrice="non">
+<pre class="code">def mystere(n):
+    s = 0
+    for k in range(1, n + 1):
+        s = s + k**3
+    return s</pre>
+    <ol>
+      <li>Que renvoie <code>mystere(3)</code> ? Écrire avec $\Sigma$ ce que calcule <code>mystere(n)</code>.</li>
+      <li>Un élève a écrit <code>for k in range(n):</code>. Que renvoie sa fonction pour <code>n = 3</code> ?</li>
+      <li>Un autre a placé <code>s = 0</code> à l'intérieur de la boucle, juste avant <code>s = s + k**3</code>. Que renvoie sa fonction pour <code>n = 3</code> ?</li>
+      <li>Modifier la fonction pour qu'elle calcule $\displaystyle\sum_{k=1}^{n}\frac1k$. Que renvoie-t-elle pour <code>n = 4</code> ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Tour par tour : $s=1$, puis $1+8=9$, puis $9+27=36$. <code>mystere(3)</code> renvoie 36, et <code>mystere(n)</code> calcule $\displaystyle\sum_{k=1}^{n}k^3$.</li>
+        <li>$k$ prend les valeurs 0, 1, 2 : $0+1+8=9$. Le dernier terme, $3^3$, manque.</li>
+        <li>À chaque tour, $s$ repart de 0 : la fonction renvoie seulement le dernier terme, $3^3=27$.</li>
+        <li>On remplace <code>k**3</code> par <code>1 / k</code>. Pour <code>n = 4</code> : $1+\frac12+\frac13+\frac14=\frac{25}{12}\approx2{,}083$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="valeuracquise sommes" data-duree="12" data-calculatrice="oui">
+    <p>Une salariée verse 150 € au début de chaque mois sur un plan d'épargne qui rapporte 0,2 % par mois, à intérêts composés. Elle a demandé à une IA ce que vaut son plan juste après son 12<sup>e</sup> versement. Voici la réponse. Trouve les erreurs, puis rédige la bonne réponse.</p>
+    <blockquote class="copie-ia">« Les versements capitalisés forment une suite géométrique de raison $q=1{,}002$. Le premier versement a rapporté pendant 12 mois et le dernier pendant 1 mois : le premier terme est donc $150\times1{,}002=150{,}30$ €. Les versements vont de $u_1$ à $u_{12}$, soit $12-1=11$ termes. On applique la formule de la somme géométrique : $S=150{,}30\times\dfrac{1{,}002^{11}-1}{0{,}002}\approx1\,669{,}93$ €. Vérification : c'est bien plus que $11\times150=1\,650$ €, le résultat est donc cohérent. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1, le dernier versement.</strong> Juste après le 12<sup>e</sup> versement, celui-ci vient d'être fait : il n'a rien rapporté, il vaut 150 €. Le premier, lui, a rapporté pendant 11 mois, pas 12. Le premier terme de la somme est donc $150$, pas $150{,}30$.</p>
+      <p><strong>Erreur 2, le nombre de termes.</strong> De $u_1$ à $u_{12}$, il y a $12-1+1=12$ termes, pas 11 : un par versement. L'IA a oublié le « +1 ».</p>
+      <p><strong>Erreur 3, la vérification.</strong> Elle compare le résultat à 11 versements, en recopiant sa propre erreur. Le bon contrôle saute aux yeux : la salariée a versé $12\times150=1\,800$ €, et 1 669,93 € est <strong>moins</strong> que ce qu'elle a versé. Un placement qui rapporte ne peut pas valoir moins que l'argent qu'on y a mis.</p>
+      <p><strong>La bonne réponse.</strong> $A_{12}=150\times\dfrac{1{,}002^{12}-1}{0{,}002}\approx1\,819{,}93$ €, dont 19,93 € d'intérêts.</p>
+      <p>Une réponse fluide, détaillée et sûre d'elle peut se tromper deux fois, puis « vérifier » son erreur. Le réflexe : compter les termes un par un, et comparer au total versé.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Problèmes</h3>
+
+  <article class="exercice" id="ex-deux-contrats-de-travail" data-titre="Deux contrats de travail" data-niveau="3" data-type="probleme" data-notions="suites sommes" data-duree="25" data-calculatrice="oui">
+    <p><em>Calculatrice ou tableur.</em> Une entreprise propose deux contrats à une commerciale. Contrat A : 32 000 € la première année, puis 1 200 € de plus chaque année. Contrat B : 28 000 € la première année, puis une hausse de 5 % chaque année. On note $a_n$ et $b_n$ le salaire annuel de la $n$-ième année.</p>
+    <ol>
+      <li>Exprimer $a_n$ et $b_n$ en fonction de $n$.</li>
+      <li>À partir de quelle année le contrat B paie-t-il plus que le contrat A ?</li>
+      <li>Calculer le total perçu avec chaque contrat sur 10 ans, puis sur 20 ans.</li>
+      <li>La commerciale pense rester 12 ans dans l'entreprise. Quel contrat lui conseiller ?</li>
+    </ol>
+    <details class="indice"><p>Les deux suites commencent à $n=1$ : attention à l'exposant de $b_n$.</p></details>
+    <details class="correction">
+      <ol>
+        <li>$(a_n)$ est arithmétique de raison $1\,200$ : $a_n=32\,000+1\,200(n-1)$. $(b_n)$ est géométrique de raison $1{,}05$ : $b_n=28\,000\times1{,}05^{\,n-1}$.</li>
+        <li>Au tableur : $a_9=41\,600$ et $b_9\approx41\,368{,}75$, puis $a_{10}=42\,800$ et $b_{10}\approx43\,437{,}19$. B paie plus à partir de la 10<sup>e</sup> année.</li>
+        <li>Sur 10 ans : $A=10\times\dfrac{32\,000+42\,800}{2}=374\,000$ € ; $B=28\,000\times\dfrac{1{,}05^{10}-1}{0{,}05}\approx352\,180{,}99$ €. Sur 20 ans : $a_{20}=54\,800$, donc $A=20\times\dfrac{32\,000+54\,800}{2}=868\,000$ € ; $B=28\,000\times\dfrac{1{,}05^{20}-1}{0{,}05}\approx925\,846{,}71$ €.</li>
+        <li>Le salaire de B dépasse celui de A dès la 10<sup>e</sup> année, mais le <strong>total</strong> ne le rattrape qu'au bout de 16 ans : les premières années, B a pris du retard. Sur 12 ans, A rapporte plus en tout ($A=12\times\frac{32\,000+45\,200}{2}=463\,200$ € contre $B\approx445\,680$ €). Pour une carrière plus longue, B devient le meilleur choix. C'est la croissance exponentielle : lente au début, elle finit par tout dépasser.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-epargner-pour-un-projet" data-titre="Épargner pour un projet" data-niveau="3" data-type="probleme" data-notions="valeuracquise sommes" data-duree="25" data-calculatrice="oui">
+    <p><em>Calculatrice.</em> Une jeune créatrice d'entreprise veut disposer de 10 000 €, juste après son 6<sup>e</sup> versement annuel, pour acheter son matériel. Son épargne est placée à 2 % par an, à intérêts composés.</p>
+    <ol>
+      <li>Elle pense verser $\frac{10\,000}{6}\approx1\,666{,}67$ € par an. Pourquoi est-ce trop ?</li>
+      <li>On note $V$ le versement annuel. Exprimer la valeur acquise juste après le 6<sup>e</sup> versement en fonction de $V$. En déduire le versement $V$ nécessaire, à l'euro près.</li>
+      <li>Elle ne peut verser que 1 000 € par an. Compléter la fonction suivante pour qu'elle renvoie le nombre de versements nécessaires pour atteindre 10 000 €, puis donner ce nombre.</li>
+    </ol>
+<pre class="code">def nombre_de_versements():
+    A = 0
+    n = 0
+    while ........ :
+        A = ........
+        n = n + 1
+    return n</pre>
+    <details class="indice"><p>Question 2 : la valeur acquise est $V\times\dfrac{1{,}02^6-1}{0{,}02}$ ; calcule d'abord la fraction, puis divise 10 000 par ce nombre.</p></details>
+    <details class="correction">
+      <ol>
+        <li>$\frac{10\,000}{6}$, c'est le versement qu'il faudrait sans aucun intérêt. Avec les intérêts, les premiers versements grossissent : on peut verser moins.</li>
+        <li>$A_6=V\times\dfrac{1{,}02^6-1}{0{,}02}\approx6{,}308\,1\,V$. On veut $6{,}308\,1\,V\ge10\,000$, soit $V\ge\dfrac{10\,000}{6{,}308\,1}\approx1\,585{,}26$. Il faut verser 1 586 € par an : avec 1 585 €, il manquerait 1,63 €.</li>
+        <li><code>while A &lt; 10000:</code> et <code>A = A * 1.02 + 1000</code>. La fonction renvoie 10 : juste après le 9<sup>e</sup> versement, le livret vaut environ 9 754,63 € ; juste après le 10<sup>e</sup>, environ 10 949,72 €.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-cout-d-un-credit" data-titre="Le coût d'un crédit" data-niveau="3" data-type="probleme" data-notions="valeuracquise" data-duree="30" data-calculatrice="oui">
+    <p><em>Calculatrice.</em> Un artisan emprunte 9 000 € pour acheter une camionnette d'occasion. Il remboursera en 36 mensualités égales $m$, payées à la fin de chaque mois. Le taux est de 0,3 % par mois. Pour trouver $m$, la banque compare tout à la même date : la fin du 36<sup>e</sup> mois.</p>
+    <ol>
+      <li>Si la banque avait placé les 9 000 € à 0,3 % par mois pendant 36 mois, que vaudraient-ils ?</li>
+      <li>Chaque mensualité, placée au même taux dès qu'elle est payée, grossit jusqu'à la fin du 36<sup>e</sup> mois. Combien de mois la première rapporte-t-elle ? Et la dernière ? Exprimer la valeur acquise des 36 mensualités en fonction de $m$.</li>
+      <li>La mensualité est celle qui rend ces deux valeurs égales. Calculer $m$ au centime.</li>
+      <li>Quel est le coût du crédit, c'est-à-dire le total des intérêts payés ?</li>
+    </ol>
+    <details class="indice"><p>Question 2 : c'est exactement la valeur acquise de versements réguliers, avec $V=m$, $q=1{,}003$ et 36 versements.</p></details>
+    <details class="correction">
+      <ol>
+        <li>$9\,000\times1{,}003^{36}\approx10\,024{,}81$ €.</li>
+        <li>La première mensualité, payée à la fin du 1<sup>er</sup> mois, rapporte pendant 35 mois ; la dernière, payée à la fin du 36<sup>e</sup>, ne rapporte rien. Leur valeur acquise est $m+m\times1{,}003+\dots+m\times1{,}003^{35}=m\times\dfrac{1{,}003^{36}-1}{0{,}003}\approx37{,}956\,m$.</li>
+        <li>$37{,}956\,m\approx10\,024{,}81$ donne $m\approx264{,}12$ €. Garde les valeurs en mémoire de la calculatrice : avec le coefficient arrondi à $37{,}96$, on trouverait $264{,}09$ €.</li>
+        <li>L'artisan rembourse $36\times264{,}12=9\,508{,}32$ € : le crédit coûte 508,32 € d'intérêts.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-programme-a-reparer" data-titre="Un programme à réparer" data-niveau="3" data-type="raisonnement" data-notions="sommes valeuracquise" data-duree="15" data-calculatrice="non">
+    <p>Un élève a voulu programmer la valeur acquise de $n$ versements $V$ au taux $t\,\%$, juste après le dernier versement. Son programme contient trois erreurs.</p>
+<pre class="code">def valeur_acquise(V, t, n):
+    q = t / 100
+    for k in range(1, n):
+        A = 0
+        A = A * q + V
+    return A</pre>
+    <ol>
+      <li>Trouver les trois erreurs, et dire à quel élément de l'algorithme chacune touche : le coefficient, le compteur, l'accumulateur.</li>
+      <li>Que renvoie sa fonction, quelles que soient les valeurs de $t$ et de $n$ (avec $n\ge2$) ?</li>
+      <li>Écrire la fonction corrigée. Que renvoie-t-elle pour <code>valeur_acquise(1000, 2, 5)</code> ? Écrire ce résultat comme une somme avec $\Sigma$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li><strong>Le coefficient</strong> : <code>q = t / 100</code> prend le taux pour la raison ; il faut <code>q = 1 + t / 100</code>. <strong>Le compteur</strong> : <code>range(1, n)</code> ne fait que $n-1$ tours ; il en faut $n$, un par versement, par exemple <code>range(n)</code>. <strong>L'accumulateur</strong> : <code>A = 0</code> est dans la boucle, il remet le total à zéro à chaque tour ; il doit être écrit avant la boucle.</li>
+        <li>À chaque tour, $A$ repart de 0, donc $A=0\times q+V=V$ : la fonction renvoie toujours $V$, un seul versement.</li>
+        <li>On écrit <code>q = 1 + t / 100</code>, puis <code>A = 0</code> avant la boucle, puis <code>for k in range(n):</code> et, dans la boucle, <code>A = A * q + V</code> ; <code>return A</code> reste après la boucle. Pour <code>(1000, 2, 5)</code>, elle renvoie $1\,000\times\dfrac{1{,}02^5-1}{0{,}02}\approx5\,204{,}04$, c'est-à-dire $\displaystyle\sum_{k=0}^{4}1\,000\times1{,}02^k$.</li>
+      </ol>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Taux d'évolution ou coefficient multiplicateur : lequel utiliser ?</summary>
+      <div><p>Les deux disent la même chose. Le taux se dit (« +3 % »), le coefficient se calcule ($\times1{,}03$). Dès qu'il y a plusieurs évolutions, ou une suite, passe au coefficient : les coefficients se multiplient, les taux ne s'additionnent pas.</p></div></details>
+    <details><summary>Comment savoir si une situation est arithmétique ou géométrique ?</summary>
+      <div><p>Regarde ce qui est constant. « 240 € de plus par an », « 120 pièces de moins par semaine » : une <strong>quantité</strong> fixe, c'est arithmétique. « +4 % par an », « −15 % par an », « double chaque mois » : une <strong>proportion</strong> fixe, c'est géométrique.</p></div></details>
+    <details><summary>$u_0$ ou $u_1$ : comment savoir par où commencer ?</summary>
+      <div><p>C'est l'énoncé qui le dit, souvent à travers la situation : $u_0$ pour l'année de départ (« $u_n$ est la valeur en $2026+n$ »), $u_1$ pour « la première année ». Les formules s'adaptent : $u_n=u_0+nr$ ou $u_n=u_1+(n-1)r$, $u_n=u_0\,q^n$ ou $u_n=u_1\,q^{n-1}$. Vérifie toujours ta formule sur le premier terme.</p></div></details>
+    <details><summary>Pourquoi le dernier versement ne rapporte-t-il rien ?</summary>
+      <div><p>Parce qu'on calcule la valeur acquise <strong>juste après</strong> ce versement : l'argent vient d'arriver, il n'a pas encore eu le temps de produire des intérêts. Si l'énoncé demande la valeur un an plus tard, alors oui, il a rapporté une année : on multiplie tout par $q$. Lis toujours la date.</p></div></details>
+    <details><summary>À quoi sert la notation Σ ?</summary>
+      <div><p>À écrire en une ligne une somme de beaucoup de termes, sans points de suspension ambigus. $\displaystyle\sum_{k=1}^{100}k^2$ dit exactement quels termes on additionne, du premier au dernier. C'est aussi la traduction directe d'une boucle : $k$ est le compteur, les bornes donnent le <code>range</code> (de $k=1$ à $k=n$, c'est <code>range(1, n + 1)</code>), le terme est ce qu'on ajoute à l'accumulateur.</p></div></details>
+    <details><summary>La moyenne géométrique, ça sert vraiment ?</summary>
+      <div><p>Oui, dès qu'on parle de pourcentages. Le loyer « du milieu » d'une évolution à taux constant, le taux moyen d'une croissance sur plusieurs années, les indices des prix : tout cela passe par des produits et des racines, pas par des moyennes ordinaires. Le chapitre « Évolutions, indices et taux moyens » va plus loin.</p></div></details>
+    <details><summary>Linéaire ou exponentielle : laquelle finit par gagner ?</summary>
+      <div><p>L'exponentielle, toujours, dès que la raison dépasse 1 : un même pourcentage d'une quantité qui grandit finit par dépasser n'importe quel ajout fixe. Mais « finir par » peut prendre du temps : dans l'exercice « Deux contrats de travail », il faut 16 ans pour que le total du contrat en pourcentage rattrape l'autre. Il faut calculer, pas deviner.</p></div></details>
+    <details><summary>Faut-il savoir programmer en Python pour les évaluations ?</summary>
+      <div><p>En terminale technologique, les maths sont évaluées en contrôle continu. On te demandera surtout de lire, compléter ou corriger une fonction courte : dire ce qu'elle renvoie, trouver l'initialisation, le compteur, l'accumulateur. Le labo « La machine à sommer » t'y entraîne tour par tour.</p></div></details>
+    <details><summary>Quelles formules faut-il retenir ?</summary>
+      <div><p>Quatre suffisent. Les termes généraux : $u_n=u_0+nr$ et $u_n=u_0\times q^n$. Les sommes : nombre de termes $\times\dfrac{\text{premier}+\text{dernier}}{2}$, et premier terme $\times\dfrac{1-q^{\text{nombre de termes}}}{1-q}$. La valeur acquise n'est qu'une somme géométrique. Dans toutes, l'étape qui fait perdre des points est le compte des termes : dernier indice − premier indice + 1.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

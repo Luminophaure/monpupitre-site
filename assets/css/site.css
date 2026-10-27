@@ -802,6 +802,7 @@ details.indice > .contenu{border-left-color:var(--b-meth)}
 .demo > *,.demo-rendu,.demo-rendu > *{min-width:0}
 .code-bloc{position:relative;min-width:0}
 pre.code{margin:0;font:var(--t-xs)/1.5 var(--f-mono);background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:var(--e-3) var(--e-3-5);overflow-x:auto;white-space:pre}
+pre.code .ligne-active{background:var(--jaune-soft);box-shadow:0 0 0 var(--e-0) var(--jaune-soft);border-radius:var(--r-s)}   /* la ligne que la boucle exécute (labo « La machine à sommer ») */
 .copier{position:absolute;top:var(--e-2);right:var(--e-2);font:600 .75rem var(--f-mono);border:1px solid var(--line);background:var(--feuille);color:var(--muted);border-radius:6px;min-height:34px;padding:0 var(--e-3);cursor:pointer}
 .katex{text-transform:none;letter-spacing:normal}
 .katex svg{max-width:none}   /* les flèches de KaTeX (\\vec) sont des SVG : ne pas les rétrécir */

@@ -52,12 +52,14 @@ window.CLASSES = [
     { id: "premiere-generale", nom: "Générale", niveaux: { premiere: "Spécialité" } },
     { id: "premiere-st2s", nom: "ST2S", niveaux: { "premiere-techno": "Tronc commun", "premiere-st2s": "Spécialité" } },
     { id: "premiere-sti2d", nom: "STI2D", niveaux: { "premiere-techno": "Tronc commun", "premiere-sti2d": "Spécialité physique-chimie et maths" } },
-    { id: "premiere-stl", nom: "STL", niveaux: { "premiere-techno": "Tronc commun", "premiere-stl": "Spécialité physique-chimie et maths" } } ] },
+    { id: "premiere-stl", nom: "STL", niveaux: { "premiere-techno": "Tronc commun", "premiere-stl": "Spécialité physique-chimie et maths" } },
+    { id: "premiere-stmg", nom: "STMG", niveaux: { "premiere-techno": "Tronc commun" } } ] },
   { id: "terminale", cycle: "lycee", nom: "Terminale", filieres: [
     { id: "terminale-generale", nom: "Générale", niveaux: { terminale: "Spécialité", "terminale-comp": "Maths complémentaires" } },
     { id: "terminale-st2s", nom: "ST2S", niveaux: { "terminale-techno": "Tronc commun", "terminale-st2s": "Spécialité CBPH (partie chimie)" } },
     { id: "terminale-sti2d", nom: "STI2D", niveaux: { "terminale-techno": "Tronc commun", "terminale-sti2d": "Spécialité physique-chimie et maths" } },
-    { id: "terminale-stl", nom: "STL", niveaux: { "terminale-techno": "Tronc commun", "terminale-stl": "Spécialité physique-chimie et maths", "terminale-stl-spcl": "Spécialité SPCL" } } ] }
+    { id: "terminale-stl", nom: "STL", niveaux: { "terminale-techno": "Tronc commun", "terminale-stl": "Spécialité physique-chimie et maths", "terminale-stl-spcl": "Spécialité SPCL" } },
+    { id: "terminale-stmg", nom: "STMG", niveaux: { "terminale-techno": "Tronc commun" } } ] }
 ];
 /* les deux cycles qui regroupent les classes dans la colonne (une classe sans cycle se
    range après eux, à part) */
@@ -214,7 +216,7 @@ window.MATIERES = [
       /* tronc commun des séries technologiques, programme de 2019 (BO spécial n° 8 du 25 juillet 2019), valable jusqu'en 2027 */
       { id: "terminale-techno", nom: "Terminale technologique", chapitres: [
         { id: "evolutions-tt", titre: "Évolutions, indices et taux moyens" },
-        { id: "suites-tt", titre: "Suites : terme général et sommes" },
+        { id: "suites-tt", titre: "Suites : terme général et sommes", fichier: "maths/terminale-techno/suites.html" },
         { id: "expo-tt", titre: "Fonctions exponentielles de base a" },
         { id: "log-tt", titre: "Fonction logarithme décimal" },
         { id: "inverse-tt", titre: "Fonction inverse" },
