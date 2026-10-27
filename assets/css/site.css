@@ -349,13 +349,15 @@ a.lien-bloc{text-decoration:none;color:inherit}                         /* une c
 /* les composants qui s'empilent, rangés par écart */
 .curseur,
 .phrases,
-.labo .champ{display:grid;gap:var(--e-1)}
+.labo .champ,
+.formulaire label:not(.case-ligne){display:grid;gap:var(--e-1)}
 .barres,
 .intercalaires,
 .bureau-atelier .options > div,
 .avatar-atelier .options > div,
 .masquables,
-.saisie-tuteur{display:grid;gap:var(--e-1-5)}
+.saisie-tuteur,
+.mail-simule{display:grid;gap:var(--e-1-5)}
 .plan,
 .tendances,
 .conseils,
@@ -369,6 +371,7 @@ a.lien-bloc{text-decoration:none;color:inherit}                         /* une c
 .faq,
 .bureau-atelier .options{display:grid;gap:var(--e-2-5)}
 .demo-rendu,
+.formulaire,
 .accueil-tete > .in,
 .chap-tete,
 .col-in,
@@ -385,7 +388,8 @@ a.lien-bloc{text-decoration:none;color:inherit}                         /* une c
 .outils-ex,
 .saisie,
 .dans-ce-cours,
-.semaine{display:flex;flex-wrap:wrap;gap:var(--e-2);align-items:center}
+.semaine,
+.case-ligne{display:flex;flex-wrap:wrap;gap:var(--e-2);align-items:center}
 .porte-panneau > h2,
 .tuteur-tete{display:flex;flex-wrap:wrap;gap:var(--e-2-5);align-items:center}
 
@@ -460,7 +464,7 @@ a.lien-bloc{text-decoration:none;color:inherit}                         /* une c
 .deroule .tout{background:none;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:0 var(--e-2)}
 /* petits */
 :is(.btn-theme,.dans-ce-cours a){min-height:40px;padding:0 var(--e-4);font-size:var(--t-s)}
-:is(.btn,.puce,.filtre):disabled{opacity:.5;cursor:default}
+:is(.btn,.puce,.filtre):disabled,.btn[aria-disabled="true"]{opacity:.5;cursor:default}
 .puce .katex{font-size:1.02em}
 .puce .katex-display{margin:0}
 
@@ -944,6 +948,8 @@ body > main.chapitre{max-width:900px;margin:var(--e-5) auto 48px}
 .bandeau .action.aide .ico{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--grid);font:800 .95rem var(--f-display)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .badge-role{font:700 var(--t-xs) var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--grid);border-radius:var(--r-pilule);padding:5px var(--e-3)}
+.badge-role.ok{background:var(--ok-soft);color:var(--ok)}
+.carte h2 .badge-role{vertical-align:middle;margin-left:var(--e-1-5)}
 
 /* l'interrupteur du tuteur */
 .ia-zone{position:relative}
@@ -1379,8 +1385,8 @@ body:not([data-fb-objets]) .fb-peint .fb-lueur{display:none}
 .plan li{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:var(--e-2-5);align-items:center;padding:var(--e-2-5) var(--e-3);border-radius:var(--r-m);background:var(--card);box-shadow:var(--ombre)}
 .plan li input{width:20px;height:20px;accent-color:var(--ok)}
 .plan li.fait span{text-decoration:line-through;color:var(--muted)}
-.fabrique fieldset{border:0;padding:0;margin:0;display:grid;gap:var(--e-2)}
-.fabrique legend{font:700 var(--t-s) var(--f-body);padding:0;margin-bottom:var(--e-1)}
+.fabrique fieldset,.formulaire fieldset{border:0;padding:0;margin:0;display:grid;gap:var(--e-2)}
+.fabrique legend,.formulaire legend{font:700 var(--t-s) var(--f-body);padding:0;margin-bottom:var(--e-1)}
 .fabrique label.case{display:inline-flex;align-items:center;gap:var(--e-2);padding:var(--e-2) var(--e-3);border-radius:var(--r-pilule);background:var(--card);box-shadow:var(--ombre);cursor:pointer;font-size:var(--t-s)}
 .fabrique label.case input{accent-color:var(--mc)}
 .fiche-metho{display:grid;gap:var(--e-2);padding:var(--e-4) var(--e-5);border-radius:var(--r-l);background:var(--card);box-shadow:var(--ombre)}
@@ -1623,6 +1629,28 @@ mark.a-completer{background:var(--jaune);color:var(--jaune-ink);padding:1px var(
 .tableau-donnees tbody tr:last-child td{border-bottom:0}
 .tableau-donnees td:first-child{font-weight:700;color:var(--ink)}
 .page-rgpd .defile{border-radius:var(--r-l);box-shadow:var(--ombre)}
+
+/* ---------- Les comptes du prototype : connexion.html, et « Ton compte » dans Mon compte ----------
+   Construit par comptes.js. Les formulaires s'empilent (motifs.css : .formulaire, .coche). */
+.connexion-page{max-width:680px;margin-left:0}   /* aligné sur le titre de la page */
+.bandeau .action.se-connecter{box-shadow:inset 0 0 0 2px var(--line)}
+.compte .menu a.se-connecter{color:var(--blue)}
+.formulaire{max-width:520px}
+.formulaire label:not(.case-ligne){font:700 var(--t-s) var(--f-body)}
+.formulaire label .discret{font-weight:400}
+.formulaire .champ-saisie{font-family:var(--f-body);font-weight:400}
+.case-ligne{font-size:var(--t-s);cursor:pointer;flex-wrap:nowrap}   /* une case à cocher et sa phrase */
+.case-ligne input{width:20px;height:20px;flex:none;accent-color:var(--ok)}
+.formulaire .envoi a{font-weight:700}
+.carte-role .ico{font-size:2rem;line-height:1}
+.carte-role:hover{box-shadow:var(--ombre-forte)}
+.sous-carte > summary{cursor:pointer;font:700 var(--t-s) var(--f-body);color:var(--blue)}
+.sous-carte ul{margin:var(--e-2) 0;padding-left:var(--e-5)}
+.mail-simule{border:2px dashed var(--line);border-radius:var(--r-m);padding:var(--e-3) var(--e-3-5);background:var(--feuille)}
+.mail-simule p{margin:0}
+.mail-simule .entete{font:400 var(--t-xs) var(--f-mono);color:var(--muted)}
+.code-secours{font:700 1.35rem var(--f-mono);letter-spacing:.14em;padding:var(--e-2-5) var(--e-3-5);background:var(--grid);border-radius:var(--r-s);width:max-content;max-width:100%;overflow-wrap:anywhere;user-select:all}
+.code-secours.petit{display:inline-block;font-size:1rem;padding:var(--e-0) var(--e-2)}
 
 /* ---------- tuteur.css ---------- */
 /* =====================================================================

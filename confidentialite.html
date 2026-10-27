@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#F2BE78">
 <title>Données et confidentialité · Monpupitre</title>
 <meta name="description" content="Ce que Monpupitre fait des données des élèves, des parents et des enseignants : ce qui est collecté, pourquoi, combien de temps, qui le voit, et vos droits.">
-<link rel="stylesheet" href="assets/css/site.css?v=b7e88be003">
-<script src="assets/js/site.js?v=7080981307" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=8b4d2040ac">
+<script src="assets/js/site.js?v=4fb86453a0" defer></script>
 </head>
 <body data-page="confidentialite" data-titre-page="Données et confidentialité">
 <section class="accueil-tete gutter">
@@ -22,7 +22,7 @@
   <!-- ===== le statut de cette page : à retirer à l'ouverture des comptes ===== -->
   <section class="carte bandeau-version" id="statut">
     <span class="surtitre">Où en est cette page</span>
-    <p><strong>Cette page est préparée pour la version avec comptes, qui n'existe pas encore.</strong> Aujourd'hui, Monpupitre est un prototype sans serveur : il ne collecte rien, n'a pas de compte, et tout ce qu'il retient reste dans votre navigateur (voir <a href="#aujourdhui">la situation actuelle</a>). Les passages marqués <mark class="a-completer">à compléter</mark> seront renseignés avant la première inscription, après relecture par un juriste.</p>
+    <p><strong>Cette page est préparée pour la version avec comptes, qui n'existe pas encore.</strong> Aujourd'hui, Monpupitre est un prototype sans serveur : il ne collecte rien, ses comptes sont des comptes d'essai qui vivent dans votre navigateur, et tout ce qu'il retient y reste (voir <a href="#aujourdhui">la situation actuelle</a>). Les passages marqués <mark class="a-completer">à compléter</mark> seront renseignés avant la première inscription, après relecture par un juriste.</p>
   </section>
 
   <!-- ===== en deux minutes ===== -->
@@ -217,7 +217,8 @@
   <section class="pile" id="aujourdhui">
     <h2>Aujourd'hui, le prototype</h2>
     <div class="carte">
-      <p>La version que vous consultez n'a <strong>ni serveur, ni base de données, ni compte</strong>. Tout ce que le site retient — progression, réglages, classes rejointes, carnet des professeurs — est enregistré dans le stockage local de votre navigateur, sous des clés qui commencent par <code>mp:</code>. Rien n'est envoyé nulle part : il n'y a pas d'adresse où l'envoyer. Changer d'appareil, c'est repartir de zéro ; vider les données du site, c'est tout effacer.</p>
+      <p>La version que vous consultez n'a <strong>ni serveur, ni base de données</strong>. Tout ce que le site retient — progression, réglages, classes rejointes, carnet des professeurs — est enregistré dans le stockage local de votre navigateur, sous des clés qui commencent par <code>mp:</code>. Rien n'est envoyé nulle part : il n'y a pas d'adresse où l'envoyer. Changer d'appareil, c'est repartir de zéro ; vider les données du site, c'est tout effacer.</p>
+      <p><strong>Les comptes du prototype</strong> (depuis le 27 octobre 2026) se créent et se connectent pour de vrai, mais ils vivent eux aussi dans ce navigateur, sur cet appareil seulement. Un compte y garde : un identifiant (un pseudonyme suffit), le prénom ou surnom choisi, le rôle (élève, parent, professeur), l'année de naissance pour un élève (la règle des 15 ans), une adresse mail pour un parent, un professeur ou un élève de 15 ans et plus qui le souhaite, la matière d'un professeur, et les liens entre parents et enfants. Les mots de passe et les codes de secours ne sont <strong>jamais gardés en clair</strong> : seulement une empreinte (PBKDF2, salée) ; la version en ligne utilisera Argon2. Chaque compte a sa propre mémoire, séparée de celle des autres comptes et de celle d'une visite sans compte. <strong>Aucun mail ne part</strong> : le mail qui partirait (confirmation, invitation d'un parent, mot de passe oublié) s'affiche à l'écran, avec son lien. Supprimer son compte, depuis « Mon compte », efface sa fiche et toute sa mémoire.</p>
       <p>Le tuteur avec IA du prototype est une <strong>simulation étiquetée</strong> : aucun modèle n'est appelé, les questions et les indices sont écrits à l'avance. Le vérificateur de calcul, lui, est réel et tourne dans votre navigateur.</p>
       <p>Les rôles « parent » et « professeur » du prototype sont des démonstrations avec des données fictives, pour montrer ce que chacun verra. Le bouton « Charger une démo » remplit le bureau de deux semaines de travail fictif, effaçables en un clic.</p>
     </div>

@@ -17,10 +17,35 @@
 "use strict";
 const echap=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
-/* ---------- 1. La mémoire locale ---------- */
-function lire(k,def){ try{ const v=localStorage.getItem('mp:'+k); return v===null?def:JSON.parse(v); }catch(e){ return def; } }
-function ecrire(k,v){ try{ localStorage.setItem('mp:'+k,JSON.stringify(v)); }catch(e){} }
-function supprimer(k){ try{ localStorage.removeItem('mp:'+k); }catch(e){} }
+/* ---------- 1. La mémoire locale ----------
+   Sans compte (le visiteur, et la démonstration de Léa), les clés sont « mp:<clé> », comme
+   depuis le début. Connecté à un compte du prototype, chacun a sa propre mémoire :
+   « mp:@<id du compte>:<clé> » — deux élèves sur le même ordinateur ne mélangent rien.
+   Quelques clés sont celles de l'appareil, communes à tous : la liste des comptes, la
+   session, les tentatives de connexion, et ce qui tient lieu de serveur dans le prototype
+   (le carnet publié par un professeur, les mails et les jetons simulés). Voir comptes.js. */
+const COMMUNES=/^(comptes|session|tentatives|boite|jetons)$|^carnet:/;
+let SESSION;   // l'id du compte connecté (null : personne), lu une fois par page
+function brut(k){ try{ const v=localStorage.getItem('mp:'+k); return v===null?null:JSON.parse(v); }catch(e){ return null; } }
+function session(){ if(SESSION===undefined){ const s=brut('session'), c=brut('comptes')||{}; SESSION= s&&s.id&&c[s.id] ? s.id : null; } return SESSION; }
+const espace=()=>session()?'mp:@'+session()+':':'mp:';
+const cleDe=k=>(COMMUNES.test(k)?'mp:':espace())+k;
+function lire(k,def){ try{ const v=localStorage.getItem(cleDe(k)); return v===null?def:JSON.parse(v); }catch(e){ return def; } }
+function ecrire(k,v){ try{ localStorage.setItem(cleDe(k),JSON.stringify(v)); }catch(e){} }
+function supprimer(k){ try{ localStorage.removeItem(cleDe(k)); }catch(e){} }
+/* les clés de la mémoire courante, telles que le navigateur les range (export, effacement) :
+   celles du compte connecté ; sans compte, celles du visiteur (et les records des jeux, « jeu: »),
+   jamais les comptes ni la mémoire des autres */
+function clesCourantes(){ const l=[]; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(!k) continue;
+  if(session()){ if(k.startsWith(espace())) l.push(k); }
+  else if(k.startsWith('jeu:')||(k.startsWith('mp:')&&!k.startsWith('mp:@')&&!/^(comptes|session|tentatives|boite|jetons)$/.test(k.slice(3)))) l.push(k); } }catch(e){} return l; }
+/* qui est là : le compte connecté, ou les personnages de la démonstration (Léa, ses parents, Mme Roux) */
+const compteCourant=()=>{ const id=session(); return id ? (brut('comptes')||{})[id]||null : null; };
+const nomClasse=id=>{ const c=(window.CLASSES||[]).find(x=>x.id===id||x.filieres.some(f=>f.id===id||Object.keys(f.niveaux).includes(id))); return c?c.nom:''; };
+function identiteEleve(){ const c=compteCourant(); if(!c) return ELEVE;
+  return {prenom:c.nom,pseudo:c.identifiant||'',niveau:c.niveau||'',filiere:c.filiere||'',niveauNom:nomClasse(c.filiere||c.niveau)}; }
+function identiteProf(){ const c=compteCourant(); if(!c||c.role!=='prof') return PROF;
+  const m=(window.MATIERES||[]).find(x=>x.id===c.matiere); return {nom:c.nom,matiere:c.matiere||'',matiereNom:m?m.nom.toLowerCase():''}; }
 const auditeurs={};
 function on(ev,fn){ (auditeurs[ev]=auditeurs[ev]||[]).push(fn); }
 function emettre(ev,d){ (auditeurs[ev]||[]).forEach(f=>{ try{ f(d); }catch(e){ console.error(e); } }); }
@@ -69,8 +94,21 @@ const cleJour=ms=>{ const d=new Date(ms); return d.getFullYear()+'-'+String(d.ge
 function chapitreCatalogue(id){ for(const m of (window.MATIERES||[])) for(const n of (m.niveaux||[])) for(const c of (n.chapitres||[])) if(c.id===id) return {matiere:m,niveau:n,chapitre:c}; return null; }
 
 const Pupitre={
-  lire,ecrire,supprimer,on,emettre,echap,ELEVE,PROF,ETAPES,SUCCES,GAGNE,chapitreCatalogue,
-  role(){ return lire('role','eleve'); },
+  lire,ecrire,supprimer,on,emettre,echap,ETAPES,SUCCES,GAGNE,chapitreCatalogue,
+  get ELEVE(){ return identiteEleve(); },
+  get PROF(){ return identiteProf(); },
+  /* --- la session : un compte du prototype ouvert dans ce navigateur (voir comptes.js) --- */
+  session:{
+    id:()=>session(),
+    compte:()=>compteCourant(),
+    ouvrir(id){ localStorage.setItem('mp:session',JSON.stringify({id,depuis:Date.now()})); SESSION=undefined; },
+    fermer(){ try{ localStorage.removeItem('mp:session'); }catch(e){} SESSION=undefined; },
+    /* le préfixe des clés rangées par compte, pour un script qui écrit hors de « mp: » (les
+       records des jeux) : '' sans compte, la mémoire du visiteur restant telle qu'elle était */
+    espace:()=>session()?espace():'',
+    cles:()=>clesCourantes()
+  },
+  role(){ const c=compteCourant(); return c ? c.role : lire('role','eleve'); },
   setRole(r){ ecrire('role',r); },
   /* --- l'interrupteur du tuteur --- */
   ia:{
@@ -143,8 +181,8 @@ const Pupitre={
        les semaines de travail qu'on peut encore lire dans les exercices guidés datés. Une fois,
        sans message (les jours actifs, eux, comptent les visites : ils ne servent pas ici). */
     rattraper(){ const e=Pupitre.gagne.etat(); if(e.rattrape) return; e.rattrape=true;
-      try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(!k||!k.startsWith('mp:parcours:')) continue;
-        const ch=k.slice(12), p=lire('parcours:'+ch,{}), c=chapitreCatalogue(ch);
+      try{ const pre=espace()+'parcours:'; for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(!k||!k.startsWith(pre)) continue;
+        const ch=k.slice(pre.length), p=lire('parcours:'+ch,{}), c=chapitreCatalogue(ch);
         if(c&&GAGNE.etapes.every(x=>p[x])&&!e.livres.some(l=>l.ch===ch)){ e.livres.push({ch,couleur:c.matiere.couleur||'neutre',date:Date.now()}); e.vus.push('livre:'+ch); } } }catch(err){}
       const parSemaine={}; lire('exos',[]).forEach(x=>{ if(!x.date) return; const s=cleJour(semaineDe(x.date)); (parSemaine[s]=parSemaine[s]||new Set()).add(cleJour(x.date)); });
       Object.keys(parSemaine).forEach(s=>{ if(parSemaine[s].size>=GAGNE.jours&&!e.semaines.includes(s)) e.semaines.push(s); });
@@ -169,8 +207,11 @@ const Pupitre={
   /* --- temps d'écran, pour le rappel de pause --- */
   activite(){ const a=lire('activite',{depuis:0,minutes:0,dernier:0}); const t=Date.now(); if(t-a.dernier>5*60e3){ a.depuis=t; a.minutes=0; } else a.minutes+= (t-a.dernier)/60e3; a.dernier=t; ecrire('activite',a); return a; },
   pauseFaite(){ ecrire('activite',{depuis:Date.now(),minutes:0,dernier:Date.now()}); },
-  exporter(){ const o={}; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k.startsWith('mp:')||k.startsWith('jeu:')) o[k]=localStorage.getItem(k); } }catch(e){} return o; },
-  toutEffacer(){ try{ Object.keys(Pupitre.exporter()).forEach(k=>localStorage.removeItem(k)); }catch(e){} },
+  /* tout ce que la mémoire courante garde : celle du compte connecté (avec sa fiche, sans les
+     empreintes du mot de passe et du code de secours), ou celle du visiteur */
+  exporter(){ const o={}; try{ clesCourantes().forEach(k=>{ o[k]=localStorage.getItem(k); });
+    const c=compteCourant(); if(c){ const f=Object.assign({},c); delete f.mdp; delete f.secours; o['compte']=JSON.stringify(f); } }catch(e){} return o; },
+  toutEffacer(){ try{ clesCourantes().forEach(k=>localStorage.removeItem(k)); }catch(e){} },
   /* --- la démonstration : un bureau déjà rempli, pour voir le prototype « en vitesse de croisière » --- */
   demo:{
     active(){ return lire('demo',false); },
@@ -338,7 +379,8 @@ function bandeau(role,info){
       (eleve?'<a class="action" href="'+lien('personnalisation.html')+'"><span class="ico" aria-hidden="true">🎨</span><span>Personnalisation</span></a>':'')+
       '<a class="action aide" href="'+lien('aide.html')+'" aria-label="Aide et tutoriels"><span class="ico" aria-hidden="true">?</span><span class="sr">Aide</span></a>'+
       '<button class="action btn-theme" type="button" aria-label="Changer de thème clair ou sombre"><span class="ico" aria-hidden="true">◐</span></button>'+
-      '<details class="compte"><summary aria-label="Mon compte">'+avatarSVG(30)+'<span class="prenom">'+echap(role==='eleve'?ELEVE.prenom:role==='parent'?'Parents de Léa':PROF.nom)+'</span><span class="chev" aria-hidden="true">▾</span></summary>'+menuCompte(role)+'</details>'+
+      (compteCourant()?'':'<a class="action se-connecter" href="'+lien('connexion.html')+'">Se connecter</a>')+
+      '<details class="compte"><summary aria-label="Mon compte">'+avatarSVG(30)+'<span class="prenom">'+echap(quiEstLa(role).court)+'</span><span class="chev" aria-hidden="true">▾</span></summary>'+menuCompte(role)+'</details>'+
     '</nav></div>';
   b.querySelector('.btn-theme').addEventListener('click',theme.basculer);
   const ia=b.querySelector('.ia');
@@ -359,7 +401,9 @@ function bandeau(role,info){
   const compte=b.querySelector('details.compte');
   document.addEventListener('click',e=>{ if(!compte.contains(e.target)) compte.open=false; });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') compte.open=false; });
-  compte.addEventListener('click',e=>{ if(e.target.closest('[data-theme-menu]')){ e.preventDefault(); theme.basculer(); return; } const r=e.target.closest('a[data-role]'); if(r){ e.preventDefault(); Pupitre.setRole(r.dataset.role); location.href=lien(r.dataset.role==='eleve'?(SITE.accueil||'index.html'):r.dataset.role+'.html'); }
+  compte.addEventListener('click',e=>{ if(e.target.closest('[data-theme-menu]')){ e.preventDefault(); theme.basculer(); return; }
+    if(e.target.closest('a[data-deconnexion]')){ e.preventDefault(); Pupitre.session.fermer(); location.href=lien(SITE.accueil||'index.html'); return; }
+    const r=e.target.closest('a[data-role]'); if(r){ e.preventDefault(); Pupitre.setRole(r.dataset.role); location.href=lien(r.dataset.role==='eleve'?(SITE.accueil||'index.html'):r.dataset.role+'.html'); }
     const a=e.target.closest('button[data-affichage]'); if(a){ e.preventDefault(); Pupitre.setAffichage(a.dataset.affichage); location.reload(); }
     const dm=e.target.closest('[data-demo]'); if(dm){ e.preventDefault(); demoAction(dm.dataset.demo); } });
   return b;
@@ -367,20 +411,33 @@ function bandeau(role,info){
 /* charger ou effacer la démonstration, puis revenir sur le bureau */
 function demoAction(quoi){ if(quoi==='charger'){ Pupitre.demo.charger(); location.href=lien((SITE.accueil)||'index.html'); } else { Pupitre.demo.effacer(); location.href=lien((SITE.accueil)||'index.html'); } }
 const LOGO='<svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><rect x="4" y="12" width="32" height="7" rx="2.5" fill="currentColor"/><path d="M8 19h24l-2 14H10z" fill="currentColor" opacity=".85"/><rect x="13" y="7" width="14" height="4" rx="2" fill="currentColor" opacity=".6"/></svg>';
+/* qui est là : le compte connecté, sinon le personnage de la démonstration pour cet espace */
+function quiEstLa(role){ const c=compteCourant();
+  if(c){ const E=identiteEleve(), P=identiteProf();
+    const statut= c.role==='eleve'&&c.statut==='decouverte' ? ' · mode découverte' : c.role==='prof'&&!c.verifie ? ' · en attente de vérification' : '';
+    return {court:c.nom,
+      titre: c.role==='eleve' ? c.nom+(E.niveauNom?' · '+E.niveauNom:'') : c.role==='prof' ? c.nom+(P.matiereNom?' · '+P.matiereNom:'') : c.nom,
+      sous: {eleve:'identifiant : '+c.identifiant,parent:'compte parent',prof:'compte enseignant'}[c.role]+statut}; }
+  return role==='eleve' ? {court:ELEVE.prenom,titre:ELEVE.prenom+' · '+ELEVE.niveauNom,sous:'pseudonyme : '+ELEVE.pseudo}
+       : role==='parent' ? {court:'Parents de Léa',titre:'Parents de Léa et Tom',sous:'compte parent'}
+       : {court:PROF.nom,titre:PROF.nom+' · '+PROF.matiereNom,sous:'compte enseignant vérifié'}; }
 function menuCompte(role){
-  const aff=Pupitre.affichage();
+  const aff=Pupitre.affichage(), c=compteCourant(), q=quiEstLa(role);
+  const r= c ? c.role : role;   // connecté, le menu suit le compte ; sinon l'espace de la démonstration
   const l=[];
-  if(role==='eleve'){ l.push(['compte.html','Mon compte'],['carnet.html','Carnet des professeurs'],['personnalisation.html','Personnalisation'],['compte.html#parents','Ce que voient mes parents']); }
-  if(role==='parent'){ l.push(['compte.html','Mon compte'],['parent.html#transparence','Ce que je vois de mon enfant']); }
-  if(role==='prof'){ l.push(['compte.html','Mon compte'],['prof.html#transparence','Ce que voient mes élèves de moi']); }
+  if(r==='eleve'){ l.push(['compte.html','Mon compte'],['carnet.html','Carnet des professeurs'],['personnalisation.html','Personnalisation'],['compte.html#parents','Ce que voient mes parents']); }
+  if(r==='parent'){ l.push(['compte.html','Mon compte'],['parent.html','Espace parent'],['parent.html#transparence','Ce que je vois de mon enfant']); }
+  if(r==='prof'){ l.push(['compte.html','Mon compte'],['prof.html','Espace professeur'],['prof.html#transparence','Ce que voient mes élèves de moi']); }
   l.push(['lire-le-cours.html','Comment lire un cours'],['aide.html','Aide et tutoriels'],['compte.html#donnees','Exporter mes données']);
   return '<div class="menu" role="menu">'+
-    '<div class="menu-tete">'+avatarSVG(44)+'<div><strong>'+echap(role==='eleve'?ELEVE.prenom+' · '+ELEVE.niveauNom:role==='parent'?'Parents de Léa et Tom':PROF.nom+' · '+PROF.matiereNom)+'</strong><span class="discret">'+echap(role==='eleve'?'pseudonyme : '+ELEVE.pseudo:role==='parent'?'compte parent':'compte enseignant vérifié')+'</span></div></div>'+
+    '<div class="menu-tete">'+avatarSVG(44)+'<div><strong>'+echap(q.titre)+'</strong><span class="discret">'+echap(q.sous)+'</span></div></div>'+
     '<div class="menu-aff"><span class="discret">Affichage</span><div class="bascule"><button type="button" data-affichage="essentiel" aria-pressed="'+(aff==='essentiel')+'">Essentiel</button><button type="button" data-affichage="complet" aria-pressed="'+(aff==='complet')+'">Complet</button></div></div>'+
+    (c?'':'<a role="menuitem" class="se-connecter" href="'+lien('connexion.html')+'">Se connecter ou créer un compte</a>')+
     l.map(x=>'<a role="menuitem" href="'+lien(x[0])+'">'+x[1]+'</a>').join('')+'<a role="menuitem" href="#" data-theme-menu>Thème clair / sombre</a>'+
-    '<a role="menuitem" class="deconnexion" href="'+lien(((window.SITE||{}).accueil)||'index.html')+'" data-role="eleve">Se déconnecter</a>'+
-    '<div class="menu-demo"><span class="discret">Prototype · voir comme :</span><a href="#" data-role="eleve" aria-current="'+(role==='eleve')+'">Élève</a><a href="#" data-role="parent" aria-current="'+(role==='parent')+'">Parent</a><a href="#" data-role="prof" aria-current="'+(role==='prof')+'">Professeur</a></div>'+
-    '<div class="menu-demo"><span class="discret">Données :</span>'+(Pupitre.demo.active()?'<a href="#" data-demo="effacer">Effacer la démo</a>':'<a href="#" data-demo="charger">Charger une démo</a>')+'</div></div>';
+    (c ? '<a role="menuitem" href="'+lien('connexion.html')+'">Changer de compte</a><a role="menuitem" class="deconnexion" href="#" data-deconnexion>Se déconnecter</a>'
+       : '<div class="menu-demo"><span class="discret">Prototype · voir comme :</span><a href="#" data-role="eleve" aria-current="'+(role==='eleve')+'">Élève</a><a href="#" data-role="parent" aria-current="'+(role==='parent')+'">Parent</a><a href="#" data-role="prof" aria-current="'+(role==='prof')+'">Professeur</a></div>'+
+         '<div class="menu-demo"><span class="discret">Données :</span>'+(Pupitre.demo.active()?'<a href="#" data-demo="effacer">Effacer la démo</a>':'<a href="#" data-demo="charger">Charger une démo</a>')+'</div>')+
+    '</div>';
 }
 
 /* -- la colonne de gauche : les intercalaires du classeur --
@@ -433,7 +490,7 @@ function colonneEleve(info){
   // un même programme peut servir plusieurs filières (les maths du tronc commun techno) :
   // on ne déplie que la filière de l'élève, ou à défaut la première qui mène au chapitre
   const filieres=classes.flatMap(c=>c.filieres);
-  const filEleve=filieres.find(f=>f.id===ELEVE.filiere)||filieres.find(f=>f.niveauIds.includes(ELEVE.niveau));
+  const E=identiteEleve(), filEleve=filieres.find(f=>f.id===E.filiere)||filieres.find(f=>f.niveauIds.includes(E.niveau));
   const filChemin=niveauChapitre ? (filEleve&&filEleve.niveauIds.includes(niveauChapitre) ? filEleve : filieres.find(f=>f.niveauIds.includes(niveauChapitre))) : null;
   const compte=mats=>{ let f=0,t=0; mats.forEach(x=>x.niveaux.forEach(({niveau:n})=>{ f+=n.chapitres.filter(c=>c.fichier).length; t+=n.chapitres.length; })); return '<small>'+f+' / '+t+'</small>'; };
   const chapitres=n=>'<div class="chaps">'+n.chapitres.map((c,i)=>{ const pc=c.fichier?Pupitre.pourcentage(c.id):0; const cls='chap'+(c.fichier?'':' a-venir')+(courant&&courant.id===c.id?' courant':'');
@@ -990,7 +1047,14 @@ function rappelDePause(ci){
 }
 function chargerMusique(){ const s=document.createElement('script'); s.src=urlScript('musique.js'); s.defer=true; document.head.appendChild(s); }
 
-window.Bureau={coque,toast,avatarSVG,avatarReglages,theme,lien:p=>lien(p),decorHeure,demoAction,
+/* une session ouverte ou fermée sans changer de page (l'inscription) : le bandeau suit */
+function rafraichirCompte(){ const b=document.querySelector('.bandeau'), d=b&&b.querySelector('details.compte'); if(!d) return;
+  const role=document.body.dataset.role||'eleve', c=compteCourant(), se=b.querySelector('a.action.se-connecter');
+  d.querySelector('.prenom').textContent=quiEstLa(role).court;
+  const av=d.querySelector('summary svg'); if(av) av.outerHTML=avatarSVG(30);
+  d.querySelector('.menu').outerHTML=menuCompte(role);
+  if(c&&se) se.remove(); }
+window.Bureau={coque,toast,rafraichirCompte,avatarSVG,avatarReglages,theme,lien:p=>lien(p),decorHeure,demoAction,
   bureau:{reglages:reglagesBureau,enregistrer:enregistrerBureau,rafraichir:rafraichirBureau,chargerAmbiances,DEFAUT:BUREAU_DEFAUT,
     chargerPack,chargerSvg,peint:{reglages:reglagesPeint,DEFAUT:PEINT_DEFAUT,moment:momentPeint,piece:piecePeinte,filtres:filtresPeint,teinte:teintePeinte,vue:vuePiece,ombre:ombrePiece,scene:scenePeinte,pieceScene,IMG:IMG_BUREAU}}};
 })();

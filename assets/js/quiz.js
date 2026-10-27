@@ -25,8 +25,11 @@ function bonneSaisie(saisie,attendu,tol){
     if(!isNaN(na)) return !isNaN(ns) && Math.abs(ns-na)<=(tol||1e-9);
     return normaliser(saisie)===normaliser(a); });
 }
-function lireStockage(k){ try{ const v=localStorage.getItem(k); return v===null?null:JSON.parse(v);}catch(e){return null;} }
-function ecrireStockage(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+/* les records des jeux : « jeu:… » pour le visiteur (comme toujours), dans la mémoire du compte
+   quand un compte du prototype est connecté (Pupitre.session.espace(), voir bureau.js) */
+const cleJeu=k=>((window.Pupitre&&Pupitre.session&&Pupitre.session.espace())||'')+k;
+function lireStockage(k){ try{ const v=localStorage.getItem(cleJeu(k)); return v===null?null:JSON.parse(v);}catch(e){return null;} }
+function ecrireStockage(k,v){ try{ localStorage.setItem(cleJeu(k),JSON.stringify(v)); }catch(e){} }
 
 /* ---------- Une question (commun au quiz et au jeu) ---------- */
 function construireQuestion(conteneur,q,surReponse,opts){ opts=opts||{};
