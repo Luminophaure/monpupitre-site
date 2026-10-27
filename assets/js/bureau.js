@@ -91,19 +91,20 @@ const Pupitre={
   /* --- la barre de parcours d'un chapitre --- */
   parcours(ch){ return lire('parcours:'+ch,{}); },
   etape(ch,nom,fait){ if(!ch) return; if(fait!==false&&GAGNE.travail.includes(nom)) Pupitre.gagne.travail();
-    const p=lire('parcours:'+ch,{}); if(p[nom]===(fait!==false)) return; p[nom]=fait!==false; ecrire('parcours:'+ch,p); emettre('etape',{chapitre:ch,etape:nom,fait:p[nom]}); Pupitre.gagne.chapitre(ch); },
+    const p=lire('parcours:'+ch,{}); if(p[nom]===(fait!==false)) return; p[nom]=fait!==false; ecrire('parcours:'+ch,p); emettre('etape',{chapitre:ch,etape:nom,fait:p[nom]}); Pupitre.jourActif(); Pupitre.gagne.chapitre(ch); },
   pourcentage(ch){ const p=Pupitre.parcours(ch); return Math.round(100*ETAPES.filter(e=>p[e[0]]).length/ETAPES.length); },
   /* --- exercices guidés : niveau d'aide utilisé, pour l'indicateur d'autonomie --- */
-  exercice(e){ const l=lire('exos',[]); l.push(Object.assign({date:Date.now()},e)); ecrire('exos',l.slice(-400)); Pupitre.gagne.travail();
+  exercice(e){ const l=lire('exos',[]); l.push(Object.assign({date:Date.now()},e)); ecrire('exos',l.slice(-400)); Pupitre.jourActif(); Pupitre.gagne.travail();
     const sans=l.filter(x=>x.ok&&x.aide===0).length; if(sans>=1) Pupitre.succes.debloquer('premiere-ligne'); if(sans>=10) Pupitre.succes.debloquer('dix-sans-indice');
     if(e.ok&&e.aide===1) Pupitre.succes.debloquer('erreur-corrigee'); emettre('exercice',e); },
   autonomie(){ const l=lire('exos',[]); const s0=semaineDe(Date.now()), s1=s0-7*864e5;
     const f=(a,b)=>l.filter(x=>x.ok!==undefined&&x.date>=a&&x.date<b); const c=f(s0,Infinity), p=f(s1,s0);
     const taux=t=>t.length?Math.round(100*t.filter(x=>x.ok&&x.aide===0).length/t.length):null;
     return {total:c.length,sans:c.filter(x=>x.ok&&x.aide===0).length,taux:taux(c),precedent:taux(p)}; },
-  /* --- les jours de travail de la semaine (une semaine active, pas une série). Depuis le 27
-     octobre, un jour ne s'inscrit que quand l'élève a répondu à quelque chose (gagne.travail) :
-     ouvrir le site ou lire le cours ne comptent plus. mp:jours garde les 120 derniers. --- */
+  /* --- jours actifs de la semaine (une semaine active, pas une série) : les visites, ce qui
+     pousse à revenir sans dire comment travailler (choix du professeur, 27 octobre). Les jours
+     de travail, eux, sont dans le registre du bureau personnel (gagne.travail) : la plante et
+     « Semaine régulière » ne comptent qu'eux. mp:jours garde les 120 derniers. --- */
   jourActif(){ const j=lire('jours',[]); const d=aujourdhui(); if(!j.includes(d)){ j.push(d); ecrire('jours',j.slice(-120)); } },
   joursSemaine(){ const j=new Set(lire('jours',[])); const s=new Date(semaineDe(Date.now())); return [0,1,2,3,4,5,6].map(i=>{ const d=new Date(s); d.setDate(s.getDate()+i); const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); return {jour:'LMMJVSD'[i],date:k,actif:j.has(k),futur:d>new Date()}; }); },
   /* --- succès --- */
@@ -116,7 +117,7 @@ const Pupitre={
      médailles, elles, sont les succès --- */
   gagne:{
     etat(){ const e=lire('bureau-gagne',null)||{}; return {semaine:e.semaine||'',jours:e.jours||[],semaines:e.semaines||[],plante:e.plante||null,
-      livres:e.livres||[],instruments:e.instruments||{},vus:e.vus||[],rattrape:!!e.rattrape,jt:!!e.jt}; },
+      livres:e.livres||[],instruments:e.instruments||{},vus:e.vus||[],rattrape:!!e.rattrape}; },
     stade(n){ return GAGNE.seuils.filter(s=>n>=s).length; },   // 0 rien, 1 une pousse, 2 une jeune plante, 3 en fleurs
     _plante(e){ const st=Pupitre.gagne.stade(e.semaines.length); if(st<=((e.plante&&e.plante.stade)||0)) return null;
       e.plante={stade:st,date:Date.now()}; return {quoi:'plante',stade:st,semaines:e.semaines.length}; },
@@ -140,12 +141,8 @@ const Pupitre={
       emettre('gagne',{quoi:'instrument',cle:k,matiere:c.matiere.nom,titre:c.chapitre.titre}); },
     /* ce qu'un navigateur avait déjà fait avant le bureau personnel : les chapitres terminés, et
        les semaines de travail qu'on peut encore lire dans les exercices guidés datés. Une fois,
-       sans message. Et, une fois aussi, mp:jours refait avec les seuls jours de travail connus :
-       jusqu'au 27 octobre il comptait les visites. */
-    rattraper(){ const e=Pupitre.gagne.etat();
-      if(!e.jt){ const j=new Set(e.jours); lire('exos',[]).forEach(x=>{ if(x.date) j.add(cleJour(x.date)); });
-        ecrire('jours',[...j].sort().slice(-120)); e.jt=true; ecrire('bureau-gagne',e); }
-      if(e.rattrape) return; e.rattrape=true;
+       sans message (les jours actifs, eux, comptent les visites : ils ne servent pas ici). */
+    rattraper(){ const e=Pupitre.gagne.etat(); if(e.rattrape) return; e.rattrape=true;
       try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(!k||!k.startsWith('mp:parcours:')) continue;
         const ch=k.slice(12), p=lire('parcours:'+ch,{}), c=chapitreCatalogue(ch);
         if(c&&GAGNE.etapes.every(x=>p[x])&&!e.livres.some(l=>l.ch===ch)){ e.livres.push({ch,couleur:c.matiere.couleur||'neutre',date:Date.now()}); e.vus.push('livre:'+ch); } } }catch(err){}
@@ -181,7 +178,7 @@ const Pupitre={
       const J=864e5, t=Date.now(), lundi=semaineDe(t), idx=Math.min(6,Math.floor((t-lundi)/J));   // idx : 0 lundi … 6 dimanche
       const cle=ms=>{ const d=new Date(ms); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
       const quand=(sem,i,h)=>Math.min(t-5*60e3,lundi-7*J*sem+i*J+h*36e5);   // sem : 0 cette semaine, 1 la semaine dernière
-      // jours de travail : cette semaine jusqu'à aujourd'hui (un jour sauté quand la semaine est avancée), et quatre jours la semaine dernière
+      // jours actifs : cette semaine jusqu'à aujourd'hui (un jour sauté quand la semaine est avancée), et quatre jours la semaine dernière
       const cette=[]; for(let i=0;i<=idx;i++){ if(i===1&&idx>=3) continue; cette.push(i); }
       ecrire('jours',[...[0,1,3,4].map(i=>cle(lundi-7*J+i*J)),...cette.map(i=>cle(lundi+i*J))]);
       // exercices guidés : cette semaine, surtout sans aide ; la semaine dernière, avec plus d'indices
@@ -199,7 +196,7 @@ const Pupitre={
       ecrire('derniere',{url:'maths/seconde/fonctions.html#exercices',titre:'Notion de fonction',sous:'Mathématiques · Seconde',date:t-2*36e5});
       ecrire('non-compris',['fonctions/c-pieges']);
       ecrire('plan:maths',[{t:'Relire la fiche « image et antécédent » (cours, partie 2)',d:'10 min',u:'maths/seconde/fonctions.html#cours',fait:true},{t:'Refaire deux exercices guidés d\'antécédent avec le tuteur',d:'20 min',u:'maths/seconde/fonctions.html#exercices',fait:true},{t:'Manipuler le labo « Reconstituer une somme »',d:'10 min',u:'maths/seconde/vecteurs.html#explorer',fait:false},{t:'Contrôle blanc en conditions réelles',d:'30 min',u:'#fabrique',fait:false}]);
-      ecrire('avatar',{peau:'#E0AC7E',cheveux:'#8B5A2B',coupe:'long',haut:'#C4186A',acc:'aucun'});
+      ecrire('avatar',{peau:'#E0AC7E',cheveux:'#8B5A2B',coupe:'long',haut:'#B5524A',acc:'aucun'});
       ecrire('activite',{depuis:t-28*60e3,minutes:28,dernier:t});
       // la démo lie Léa à la classe de Mme Roux et remplit son carnet : une échéance, deux
       // conseils, un point de cours, un message préfait. Les cibles sont de vrais ancrages.
@@ -218,7 +215,7 @@ const Pupitre={
       ecrire('bureau-gagne',{semaine:cle(lundi),jours:[],semaines:[5,4,3,2,1].map(sem),plante:{stade:2,date:quand(1,3,17)},
         livres:[{ch:'calcul-litteral-4',couleur:'maths',date:quand(2,2,18)},{ch:'solutions-ph',couleur:'pc',date:quand(1,1,18)},{ch:'fonctions',couleur:'maths',date:quand(0,c(0),10)}],
         instruments:{maths:{date:quand(2,1,17),ch:'calcul-litteral-4'},pc:{date:quand(1,0,18),ch:'solutions-ph'}},
-        jt:true,vus:['plante:1','plante:2','livre:calcul-litteral-4','livre:solutions-ph','livre:fonctions','instrument:maths','instrument:pc','vitrine'].concat(['premiere-ligne','tous-les-labos','erreur-corrigee','controle-blanc','semaine-active'].map(x=>'medaille:'+x)),rattrape:true});
+        vus:['plante:1','plante:2','livre:calcul-litteral-4','livre:solutions-ph','livre:fonctions','instrument:maths','instrument:pc','vitrine'].concat(['premiere-ligne','tous-les-labos','erreur-corrigee','controle-blanc','semaine-active'].map(x=>'medaille:'+x)),rattrape:true});
       ecrire('demo',true);
     },
     effacer(){ Pupitre.toutEffacer(); }
@@ -248,12 +245,72 @@ function mentionLicence(){
   return '<span>'+c+' · Contenu sous '+m+'</span>';
 }
 
-/* le petit avatar : composé d'après les réglages de « Personnalisation » */
-function avatarSVG(taille,role){
-  const a= (role||lire('role','eleve'))==='eleve' ? Object.assign({peau:'#F1C9A5',cheveux:'#3B2A1A',coupe:'court',haut:'#2B5BD7',acc:'aucun'},lire('avatar',{})) : (role||lire('role','eleve'))==='parent' ? {peau:'#E0AC7E',cheveux:'#6B6B6B',coupe:'court',haut:'#6B4A33',acc:'aucun'} : {peau:'#F1C9A5',cheveux:'#8B5A2B',coupe:'chignon',haut:'#24206B',acc:'lunettes'};
-  const coupe={court:'<path d="M14 22c0-9 6-14 18-14s18 5 18 14v4H14z"/>',long:'<path d="M12 24c0-10 7-16 20-16s20 6 20 16v22h-8V30H20v16h-8z"/>',boucle:'<path d="M12 24c0-10 7-16 20-16s20 6 20 16v6c-4-2-6 2-10-1-4 3-8-1-10 0-3 2-6-1-10 1-2-1-6 1-10-1z"/>',chignon:'<path d="M14 22c0-9 6-14 18-14s18 5 18 14v4H14z"/><circle cx="32" cy="8" r="7"/>',ras:'<path d="M16 22c0-7 6-11 16-11s16 4 16 11v2H16z"/>'}[a.coupe]||'';
-  const acc={aucun:'',lunettes:'<g fill="none" stroke="#2A140B" stroke-width="2"><circle cx="24" cy="30" r="6"/><circle cx="40" cy="30" r="6"/><path d="M30 30h4"/></g>',casque:'<path d="M12 30a20 20 0 0 1 40 0" fill="none" stroke="#2A140B" stroke-width="4"/><rect x="9" y="28" width="8" height="12" rx="3" fill="#2A140B"/><rect x="47" y="28" width="8" height="12" rx="3" fill="#2A140B"/>',bonnet:'<path d="M12 26c0-10 8-16 20-16s20 6 20 16H12z" fill="#C4186A"/><rect x="10" y="22" width="44" height="8" rx="4" fill="#E8A963"/>'}[a.acc]||'';
-  return '<svg class="avatar" viewBox="0 0 64 64" width="'+(taille||32)+'" height="'+(taille||32)+'" aria-hidden="true"><circle cx="32" cy="34" r="30" fill="var(--grid)"/><path d="M12 64c2-14 10-18 20-18s18 4 20 18z" fill="'+a.haut+'"/><circle cx="32" cy="30" r="15" fill="'+a.peau+'"/><g fill="'+a.cheveux+'">'+coupe+'</g><circle cx="26" cy="30" r="1.8" fill="#2A140B"/><circle cx="38" cy="30" r="1.8" fill="#2A140B"/><path d="M27 37q5 4 10 0" fill="none" stroke="#2A140B" stroke-width="1.6" stroke-linecap="round"/>'+acc+'</svg>';
+/* l'avatar, dans l'esprit du bureau lofi (27 octobre) : un buste peint en aplats doux, éclairé
+   par la fenêtre le jour, par la lampe la nuit (jetons --av-* de variables.css). Mêmes réglages
+   qu'avant : peau, cheveux, coupe, haut, accessoire. Les couleurs de l'ancienne palette, trop vives
+   pour le décor, sont lues comme leur équivalent lofi : un avatar déjà composé garde son allure. */
+const AVATAR_DEFAUT={peau:'#F1C9A5',cheveux:'#3B2A1A',coupe:'court',haut:'#4A5A8A',acc:'aucun'};
+const AVATAR_ANCIENNES={'#000000':'#14110F','#B22222':'#B5452B','#6B6B6B':'#8A8A8A','#FFFFFF':'#EDE6DA',
+  '#2B5BD7':'#4A5A8A','#C4186A':'#B5524A','#1F8A45':'#7E9C7A','#7B3FD1':'#7A4E6E','#0B7C86':'#3F6E7A','#2A140B':'#3B3346','#FFD166':'#D9A441'};
+function avatarReglages(role){ role=role||lire('role','eleve');
+  const a= role==='eleve' ? Object.assign({},AVATAR_DEFAUT,lire('avatar',{})) : role==='parent' ? {peau:'#E0AC7E',cheveux:'#8A8A8A',coupe:'court',haut:'#6B4A33',acc:'aucun'} : {peau:'#F1C9A5',cheveux:'#8B5A2B',coupe:'chignon',haut:'#4A5A8A',acc:'lunettes'};
+  ['peau','cheveux','haut'].forEach(k=>{ const c=String(a[k]||'').toUpperCase(); if(AVATAR_ANCIENNES[c]) a[k]=AVATAR_ANCIENNES[c]; });
+  return a; }
+const AVATAR_COUPES={   // un calque derrière la tête, un calque devant, un reflet
+  court:['','<path d="M37 55C34 33 46 21 61 21C77 21 87 33 83 55C81 47 78 42 73 39C66 44 54 45 44 42C41 46 39 50 37 55Z"/>','M50 27C56 24 66 24 72 28'],
+  long:['<path d="M33 52C31 29 45 18 60 18C76 18 90 29 87 52L90 96Q81 102 73 96L72 66L48 66L47 96Q39 102 30 96Z"/>','<path d="M36 58C33 33 46 20 60 20C75 20 87 33 84 58C82 49 79 43 74 38C70 44 64 46 60 40C56 46 50 45 46 38C41 43 38 50 36 58Z"/>','M47 27C53 23 63 22 70 26'],
+  boucle:['<circle cx="40" cy="34" r="11"/><circle cx="52" cy="24" r="12"/><circle cx="67" cy="23" r="12"/><circle cx="80" cy="33" r="11"/><circle cx="35" cy="47" r="10"/><circle cx="85" cy="47" r="10"/><circle cx="36" cy="60" r="8"/><circle cx="84" cy="60" r="8"/>','<circle cx="44" cy="36" r="8"/><circle cx="54" cy="31" r="8"/><circle cx="65" cy="31" r="8"/><circle cx="75" cy="36" r="8"/><circle cx="39" cy="45" r="6"/><circle cx="81" cy="45" r="6"/>','M47 25C52 21 58 20 63 21'],
+  chignon:['<circle cx="60" cy="17" r="11"/>','<path d="M37 54C35 33 46 23 60 23C74 23 85 33 83 54C80 45 76 39 70 36C64 38 56 38 50 36C44 39 40 45 37 54Z"/>','M53 13C57 10 63 10 66 13'],
+  ras:['','<path d="M38 50C37 34 47 25 60 25C73 25 83 34 82 50C79 42 72 37 60 37C48 37 41 42 38 50Z" opacity=".92"/>','']};
+const AVATAR_ACC={
+  lunettes:'<g fill="rgba(255,250,240,.18)" stroke="#3A2418" stroke-width="1.8"><circle cx="51" cy="56" r="6.5"/><circle cx="69" cy="56" r="6.5"/></g><path d="M57.5 56h5M44.5 55l-6-2M75.5 55l6-2" fill="none" stroke="#3A2418" stroke-width="1.6" stroke-linecap="round"/>',
+  casque:'<path d="M34 56C32 30 46 17 60 17C74 17 88 30 86 56" fill="none" stroke="#3B3346" stroke-width="5" stroke-linecap="round"/><path d="M35 50C35 31 47 20 60 20" fill="none" stroke="#5A5068" stroke-width="1.6" stroke-linecap="round"/><rect x="28" y="47" width="12" height="19" rx="5" fill="#3B3346"/><rect x="80" y="47" width="12" height="19" rx="5" fill="#3B3346"/><rect x="33" y="49" width="7" height="15" rx="3" fill="#E9A766"/><rect x="80" y="49" width="7" height="15" rx="3" fill="#E9A766"/>',
+  bonnet:'<path d="M35 48C35 29 46 19 60 19C74 19 85 29 85 48Z" fill="#C4703F"/><path d="M44 24v22M52 21v25M60 20v26M68 21v25M76 24v22" stroke="#A85A30" stroke-width="1.4" opacity=".7"/><rect x="32" y="44" width="56" height="10" rx="5" fill="#D9895A"/><path d="M38 46v6M44 46v6M50 46v6M56 46v6M62 46v6M68 46v6M74 46v6M80 46v6" stroke="#B86B40" stroke-width="1.3"/><circle cx="60" cy="17" r="6" fill="#F3E3C8"/>'};
+const AVATAR_SOUS_BONNET={   // ce qui dépasse du bonnet, selon la coupe
+  long:'<path d="M36 52C36 66 37 84 33 94Q40 99 46 94C45 82 44 66 43 52Z"/><path d="M84 52C84 66 83 84 87 94Q80 99 74 94C75 82 76 66 77 52Z"/>',
+  court:'<path d="M37 52C37 58 38 62 40 64L43 52Z"/><path d="M83 52C83 58 82 62 80 64L77 52Z"/>',
+  boucle:'<circle cx="36" cy="56" r="6"/><circle cx="84" cy="56" r="6"/><circle cx="37" cy="66" r="5"/><circle cx="83" cy="66" r="5"/>'};
+AVATAR_SOUS_BONNET.chignon=AVATAR_SOUS_BONNET.court;
+let avatarN=0;
+function avatarTeinte(c,vers,k){ const h=x=>{ x=String(x||'#888').replace('#',''); if(x.length===3) x=x.replace(/./g,'$&$&'); return [0,2,4].map(i=>parseInt(x.substr(i,2),16)||0); };
+  const a=h(c), b=h(vers); return '#'+a.map((v,i)=>Math.round(v+(b[i]-v)*k).toString(16).padStart(2,'0')).join(''); }
+/* taille en px ; role pour les avatars du parent et du professeur ; reglages pour dessiner une
+   variante (les vignettes de Personnalisation) sans toucher à ce qui est enregistré */
+function avatarSVG(taille,role,reglages){
+  const a=Object.assign({},AVATAR_DEFAUT,reglages||avatarReglages(role)), id='av'+(++avatarN), t=taille||32, petit=t<56;
+  const fonce=(c,k)=>avatarTeinte(c,'#2A160E',k), clair=(c,k)=>avatarTeinte(c,'#FFF3DE',k);
+  const P=a.peau, Po=fonce(P,.22), Pt=fonce(P,.38), C=a.cheveux, Co=fonce(C,.25), H=a.haut, Ho=fonce(H,.25);
+  const cp=AVATAR_COUPES[a.coupe]||AVATAR_COUPES.court, bonnet=a.acc==='bonnet';
+  return '<svg class="avatar avatar-lofi" viewBox="0 0 120 120" width="'+t+'" height="'+t+'" aria-hidden="true">'+
+    '<defs><clipPath id="'+id+'c"><circle cx="60" cy="60" r="60"/></clipPath>'+
+    '<linearGradient id="'+id+'f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--av-fond-haut)"/><stop offset="1" style="stop-color:var(--av-fond-bas)"/></linearGradient>'+
+    '<radialGradient id="'+id+'l" cx=".28" cy=".22" r=".55"><stop offset="0" style="stop-color:var(--av-lueur)"/><stop offset="1" style="stop-color:var(--av-lueur);stop-opacity:0"/></radialGradient>'+
+    '<linearGradient id="'+id+'v" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="'+P+'"/><stop offset=".72" stop-color="'+P+'"/><stop offset="1" stop-color="'+Po+'"/></linearGradient>'+
+    '<linearGradient id="'+id+'h" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="'+clair(H,.18)+'"/><stop offset=".55" stop-color="'+H+'"/><stop offset="1" stop-color="'+Ho+'"/></linearGradient>'+
+    '<linearGradient id="'+id+'e" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--av-eclair-g)"/><stop offset=".5" style="stop-color:var(--av-eclair-g);stop-opacity:0"/><stop offset=".62" style="stop-color:var(--av-eclair-d);stop-opacity:0"/><stop offset="1" style="stop-color:var(--av-eclair-d)"/></linearGradient>'+
+    (petit?'':'<filter id="'+id+'g" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .1  0 0 0 0 .05  0 0 0 .5 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>')+
+    '</defs><g clip-path="url(#'+id+'c)">'+
+    '<rect width="120" height="120" fill="url(#'+id+'f)"/><rect width="120" height="120" fill="url(#'+id+'l)"/>'+
+    (petit?'':'<path d="M0 104h120v16H0z" style="fill:var(--av-plateau)"/>')+
+    (bonnet?'':'<g fill="'+Co+'">'+cp[0]+'</g>')+                                                     // les cheveux derrière
+    '<path d="M12 124C14 103 28 93 45 90L75 90C92 93 106 103 108 124Z" fill="url(#'+id+'h)"/>'+          // le pull
+    '<path d="M30 124C31 112 33 104 36 98M90 124C89 112 87 104 84 98" fill="none" stroke="'+Ho+'" stroke-width="1.6" opacity=".55" stroke-linecap="round"/>'+
+    '<path d="M52 72h16v18c-3 3-13 3-16 0z" fill="'+Po+'"/><path d="M47 90C50 97 70 97 73 90L70 88C66 92 54 92 50 88Z" fill="'+Ho+'"/>'+   // le cou, le col
+    '<ellipse cx="38.5" cy="57" rx="4.5" ry="6" fill="'+Po+'"/><ellipse cx="81.5" cy="57" rx="4.5" ry="6" fill="'+Po+'"/>'+
+    '<path d="M39 52C39 35 48 27 60 27C72 27 81 35 81 52C81 67 71 79 60 79C49 79 39 67 39 52Z" fill="url(#'+id+'v)"/>'+
+    (petit?'':'<path d="M41 47C48 50 70 50 79 47L79 51C70 54 50 54 41 51Z" fill="'+Pt+'" opacity=".25"/><path d="M41 56C41 66 47 75 55 78" fill="none" style="stroke:var(--av-lisere)" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>')+
+    '<ellipse cx="47" cy="64" rx="4.6" ry="2.6" fill="#E77F6B" opacity=".32"/><ellipse cx="73" cy="64" rx="4.6" ry="2.6" fill="#E77F6B" opacity=".32"/>'+
+    '<ellipse cx="51" cy="57" rx="2.3" ry="2.9" fill="#2E1A12"/><ellipse cx="69" cy="57" rx="2.3" ry="2.9" fill="#2E1A12"/>'+
+    (petit?'':'<circle cx="51.8" cy="56" r=".8" fill="#FFF8EC"/><circle cx="69.8" cy="56" r=".8" fill="#FFF8EC"/>')+
+    '<path d="M46.5 50.5q4.5-2.4 9 0M64.5 50.5q4.5-2.4 9 0" fill="none" stroke="'+Co+'" stroke-width="1.5" stroke-linecap="round"/>'+
+    '<path d="M60 60q-1.4 3.4.6 4.4" fill="none" stroke="'+Pt+'" stroke-width="1.3" stroke-linecap="round"/><path d="M55.5 69.5q4.5 3.4 9 0" fill="none" stroke="#7A3B2C" stroke-width="1.6" stroke-linecap="round"/>'+
+    (bonnet ? '<g fill="'+C+'">'+(AVATAR_SOUS_BONNET[a.coupe]||'')+'</g>'
+            : '<g fill="'+C+'">'+cp[1]+'</g>'+(cp[2]&&!petit?'<path d="'+cp[2]+'" fill="none" stroke="'+clair(C,.35)+'" stroke-width="2" stroke-linecap="round" opacity=".7"/>':''))+
+    (AVATAR_ACC[a.acc]||'')+
+    // la lumière : la fenêtre à gauche le jour ; la nuit, le froid à gauche et la lampe à droite
+    '<rect width="120" height="120" fill="url(#'+id+'e)" style="mix-blend-mode:soft-light"/><rect width="120" height="120" style="fill:var(--av-voile)"/>'+
+    (petit?'':'<rect width="120" height="120" filter="url(#'+id+'g)" opacity=".35"/>')+
+    '</g></svg>';
 }
 
 /* -- le bandeau -- */
@@ -459,7 +516,7 @@ function coque(info,opts){
   col.addEventListener('click',e=>{ if(e.target.closest('a[href]')&&matchMedia('(max-width:999px)').matches) ouvrir(false); });
   // activité, rappel de pause, succès
   Pupitre.activite(); ['click','keydown','pointerdown'].forEach(ev=>document.addEventListener(ev,()=>{ clearTimeout(window._mpAct); window._mpAct=setTimeout(()=>Pupitre.activite(),2000); },{passive:true}));
-  if(role==='eleve') Pupitre.gagne.rattraper();
+  if(role==='eleve'){ Pupitre.jourActif(); Pupitre.gagne.rattraper(); }
   on('succes',s=>{ toast('<span class="ico" aria-hidden="true">🏅</span><strong>Succès : '+echap(s.nom)+'</strong><span>'+echap(s.txt)+'</span>'); redessinerGagnes(); });
   // ce qui se gagne sur le bureau : un mot discret, et le décor se repeint (l'objet arrive en fondu)
   on('gagne',g=>{ const m=messageGagne(g); if(m) toast('<span class="ico" aria-hidden="true">'+m[0]+'</span><strong>'+echap(m[1])+'</strong><span>'+echap(m[2])+'</span>'); redessinerGagnes(); });
@@ -585,7 +642,7 @@ function brancherObjets(f){
   function etatTasse(){ const e=document.querySelector('#pastille-pause .etat'); if(e&&e.textContent) tasse.setAttribute('aria-label','Rappel de pause · '+e.textContent); }
   etatTasse(); clearInterval(window._mpTasse); window._mpTasse=setInterval(etatTasse,30e3);
   const js=Pupitre.joursSemaine().filter(j=>j.actif).length;
-  f.querySelector('[data-objet="plante"]').title=js+' jour'+(js>1?'s':'')+' de travail cette semaine';
+  f.querySelector('[data-objet="plante"]').title=js+' jour'+(js>1?'s':'')+' actif'+(js>1?'s':'')+' cette semaine';
   Object.keys(BULLES).forEach(nom=>{ const el=f.querySelector('[data-objet="'+nom+'"]'); if(el) brancherBulle(el,nom); });
   mesurerFond(); if(!window._mpFondEcoute){ window._mpFondEcoute=true; addEventListener('resize',mesurerFond); }
 }
@@ -896,7 +953,7 @@ function rappelDePause(ci){
 }
 function chargerMusique(){ const s=document.createElement('script'); s.src=RACINE+'assets/js/musique.js'; s.defer=true; document.head.appendChild(s); }
 
-window.Bureau={coque,toast,avatarSVG,theme,lien:p=>lien(p),decorHeure,demoAction,
+window.Bureau={coque,toast,avatarSVG,avatarReglages,theme,lien:p=>lien(p),decorHeure,demoAction,
   bureau:{reglages:reglagesBureau,enregistrer:enregistrerBureau,rafraichir:rafraichirBureau,chargerAmbiances,DEFAUT:BUREAU_DEFAUT,
     chargerPack,chargerSvg,peint:{reglages:reglagesPeint,DEFAUT:PEINT_DEFAUT,moment:momentPeint,piece:piecePeinte,filtres:filtresPeint,teinte:teintePeinte,vue:vuePiece,ombre:ombrePiece,scene:scenePeinte,pieceScene,IMG:IMG_BUREAU}}};
 })();
