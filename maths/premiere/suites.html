@@ -1,0 +1,891 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de suites.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/premiere/suites.source.html
+     Programme : spécialité de première, BO n° 14 du 2 avril 2026 (docs/programmes/maths-premiere-generale.md).
+     Les pièges viennent de la liste proposée au professeur le 27 octobre 2026, gardée telle quelle
+     pour être testée sur ses élèves. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Suites numériques · Première</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=8d2cd6a573">
+<script src="../../assets/js/site.js?v=b9e61de4df" defer></script>
+</head>
+<body data-matiere="maths" data-chapitre="suites" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Première spécialité · Algèbre</span>
+  <h1>Suites numériques</h1>
+  <p class="chapeau">Un capital qui grossit chaque année, une population qu'on recense, la dose d'un médicament qui s'accumule dans le sang : quand une grandeur évolue par étapes, on la décrit par une liste de nombres numérotés, une <strong>suite</strong>. Ce chapitre t'apprend à la fabriquer, à la lire, à savoir si elle monte ou descend, et à prévoir où elle va.</p>
+  <ul class="objectifs">
+    <li>Calculer des termes, par une formule ou de proche en proche</li><li>Représenter une suite</li><li>Étudier le sens de variation</li><li>Reconnaître une suite arithmétique ou géométrique</li><li>Calculer une somme de termes</li><li>Conjecturer une limite</li><li>Écrire un algorithme de seuil en Python</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Un patient prend 100 mg d'un médicament toutes les 12 heures.</strong> Entre deux prises, son organisme en élimine 30 %. Juste après chaque prise, il en a 100 mg dans le sang, puis 170, puis 219, puis 253… La quantité monte, mais de moins en moins : elle s'approche d'un palier d'environ 333 mg. Le médecin a besoin de connaître ce palier pour savoir si le traitement sera efficace, et sans danger. Un livret d'épargne à 3 % par an, une ville qui gagne 1 % d'habitants chaque année : même mécanique. Une grandeur qui évolue par étapes, c'est une suite.</p>
+    <p class="discret">Ils s'en servent : les pharmaciens et les médecins (posologie d'un traitement), les conseillers bancaires et les actuaires (épargne, crédits, assurances), les démographes et les urbanistes (populations), les data scientists (prévisions). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-generer">1. Une suite, c'est quoi ?</h3>
+
+  <div class="bloc definition" data-titre="Suite numérique">
+    <p>Une <strong>suite numérique</strong> $(u_n)$ associe à chaque entier naturel $n$ (parfois seulement à partir d'un certain rang) un nombre réel noté $u_n$.</p>
+    <ul>
+      <li>$n$ est l'<strong>indice</strong>, ou le <strong>rang</strong> ;</li>
+      <li>$u_n$ est le <strong>terme de rang $n$</strong>. On écrit aussi $u(n)$ ;</li>
+      <li>$(u_n)$, avec les parenthèses, désigne la suite tout entière.</li>
+    </ul>
+    <p>Une suite peut commencer à $u_0$ ou à $u_1$ : l'énoncé le dit toujours, et cela change la numérotation.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Deux façons de définir une suite">
+    <ul>
+      <li><strong>Par une formule explicite</strong> $u_n=f(n)$ : on calcule directement n'importe quel terme. Avec $u_n=n^2+1$, on a tout de suite $u_{10}=10^2+1=101$.</li>
+      <li><strong>Par récurrence</strong> : on donne le premier terme et une relation $u_{n+1}=f(u_n)$ qui fabrique chaque terme à partir du précédent. Avec $u_0=2$ et $u_{n+1}=3u_n-1$ : $u_1=3\times2-1=5$, puis $u_2=3\times5-1=14$. Pour obtenir $u_{10}$, il faut calculer tous les termes avant lui.</li>
+    </ul>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Une suite qui vient d'un motif">
+      <p>On range des jetons en triangle. Il en faut 1, puis 3, puis 6, puis 10. Pour passer d'une étape à la suivante, on ajoute une rangée qui a un jeton de plus que la précédente : si $t_n$ est le nombre de jetons à l'étape $n$, alors $t_1=1$ et $t_{n+1}=t_n+(n+1)$.</p>
+      <p>C'est une définition par récurrence. La formule explicite, $t_n=\dfrac{n(n+1)}{2}$, arrive dans la partie 4.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 412 154" role="img" aria-label="Les nombres triangulaires : 1 jeton, puis 3 en deux rangées, puis 6 en trois rangées, puis 10 en quatre rangées ; chaque étape ajoute une rangée d'un jeton de plus."><circle class="pt pt-u" cx="38.0" cy="99.6" r="4.5"/><text class="moyen" x="17.0" y="131.8">t₁ = 1</text><circle class="pt pt-u" cx="105.2" cy="75.8" r="4.5"/><circle class="pt pt-v" cx="91.2" cy="99.6" r="4.5"/><circle class="pt pt-v" cx="119.2" cy="99.6" r="4.5"/><text class="moyen" x="84.2" y="131.8">t₂ = 3</text><circle class="pt pt-u" cx="194.8" cy="52.0" r="4.5"/><circle class="pt pt-u" cx="180.8" cy="75.8" r="4.5"/><circle class="pt pt-u" cx="208.8" cy="75.8" r="4.5"/><circle class="pt pt-v" cx="166.8" cy="99.6" r="4.5"/><circle class="pt pt-v" cx="194.8" cy="99.6" r="4.5"/><circle class="pt pt-v" cx="222.8" cy="99.6" r="4.5"/><text class="moyen" x="173.8" y="131.8">t₃ = 6</text><circle class="pt pt-u" cx="312.4" cy="28.2" r="4.5"/><circle class="pt pt-u" cx="298.4" cy="52.0" r="4.5"/><circle class="pt pt-u" cx="326.4" cy="52.0" r="4.5"/><circle class="pt pt-u" cx="284.4" cy="75.8" r="4.5"/><circle class="pt pt-u" cx="312.4" cy="75.8" r="4.5"/><circle class="pt pt-u" cx="340.4" cy="75.8" r="4.5"/><circle class="pt pt-v" cx="270.4" cy="99.6" r="4.5"/><circle class="pt pt-v" cx="298.4" cy="99.6" r="4.5"/><circle class="pt pt-v" cx="326.4" cy="99.6" r="4.5"/><circle class="pt pt-v" cx="354.4" cy="99.6" r="4.5"/><text class="moyen" x="291.4" y="131.8">t₄ = 10</text></svg><figcaption>Les nombres triangulaires : chaque étape ajoute une rangée, plus longue d'un jeton que la précédente.</figcaption></figure>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer des termes">
+    <ol class="etapes">
+      <li><span>Formule explicite : je remplace $n$ par sa valeur, <strong>partout</strong> dans la formule, entre parenthèses si besoin.</span></li>
+      <li><span>Récurrence : je pars du premier terme et j'applique la relation une fois par rang, sans en sauter.</span></li>
+      <li><span>Pour $u_{n+1}$ en fonction de $n$ : je remplace chaque $n$ par $(n+1)$, puis je développe et je réduis.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> On pose $u_n=2n^2-3$ et, d'autre part, $v_0=4$ et $v_{n+1}=\dfrac{v_n}{2}+1$. Calculer $u_0$, $u_3$, puis $u_{n+1}$ en fonction de $n$. Calculer $v_1$, $v_2$ et $v_3$.</p>
+      <ol class="pas">
+        <li><strong>$u_0$ et $u_3$.</strong> $u_0=2\times0^2-3=-3$ et $u_3=2\times3^2-3=18-3=15$.</li>
+        <li><strong>$u_{n+1}$.</strong> On remplace $n$ par $(n+1)$ : $u_{n+1}=2(n+1)^2-3=2(n^2+2n+1)-3=2n^2+4n-1$.</li>
+        <li><strong>$v_1$, $v_2$, $v_3$.</strong> $v_1=\dfrac42+1=3$, puis $v_2=\dfrac32+1=2{,}5$, puis $v_3=\dfrac{2{,}5}{2}+1=2{,}25$.</li>
+        <li><strong>À retenir.</strong> $u_{n+1}=2n^2+4n-1$, alors que $u_n+1=2n^2-2$ : ce ne sont pas du tout les mêmes nombres.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Le terme suivant n'est pas le terme plus 1">
+    <p class="faux">Avec $u_n=2n^2-3$ : $u_{n+1}=2n^2-3+1$</p>
+    <p class="juste">$u_{n+1}=2(n+1)^2-3$</p>
+    <p>$u_{n+1}$ est le <strong>terme suivant</strong> : on remplace $n$ par $n+1$. $u_n+1$, c'est le terme $u_n$ augmenté de 1. La place de l'indice change tout.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-graphique">2. Représenter une suite</h3>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Représentation graphique">
+      <p>Dans un repère, la suite $(u_n)$ se représente par le <strong>nuage des points</strong> de coordonnées $(n\,;u_n)$.</p>
+      <p>Comme $n$ est un entier, les points sont isolés : <strong>on ne les relie pas</strong>. Entre $n=2$ et $n=3$, la suite n'existe pas.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 326 248" role="img" aria-label="Le nuage de points de la suite u n égale n au carré moins 6 n plus 10, pour n de 0 à 6 : 10, 5, 2, 1, 2, 5, 10. Les points descendent jusqu'au rang 3 puis remontent ; ils ne sont pas reliés."><g class="trace t-n"><line x1="44" y1="219" x2="294.6" y2="219.0"/><polygon points="302.4,219.0 289.4,224.8 289.4,213.2"/></g><g class="trace t-n"><line x1="44" y1="230.4" x2="44.0" y2="19.7"/><polygon points="44.0,11.9 49.9,24.9 38.1,24.9"/></g><text class="moyen" x="290.5" y="208.1">n</text><text class="moyen" x="50.8" y="18.5">uₙ</text><g class="trace t-n"><line x1="44" y1="223.1" x2="44" y2="214.9"/></g><text class="petit" x="39.9" y="235.4">0</text><g class="trace t-n"><line x1="78" y1="223.1" x2="78" y2="214.9"/></g><text class="petit" x="73.9" y="235.4">1</text><g class="trace t-n"><line x1="112" y1="223.1" x2="112" y2="214.9"/></g><text class="petit" x="107.9" y="235.4">2</text><g class="trace t-n"><line x1="146" y1="223.1" x2="146" y2="214.9"/></g><text class="petit" x="141.9" y="235.4">3</text><g class="trace t-n"><line x1="180" y1="223.1" x2="180" y2="214.9"/></g><text class="petit" x="175.9" y="235.4">4</text><g class="trace t-n"><line x1="214" y1="223.1" x2="214" y2="214.9"/></g><text class="petit" x="209.9" y="235.4">5</text><g class="trace t-n"><line x1="248" y1="223.1" x2="248" y2="214.9"/></g><text class="petit" x="243.9" y="235.4">6</text><g class="trace t-n"><line x1="41.3" y1="181" x2="46.7" y2="181"/></g><text class="petit" x="25.6" y="184.9">2</text><g class="trace t-n"><line x1="41.3" y1="143" x2="46.7" y2="143"/></g><text class="petit" x="25.6" y="146.9">4</text><g class="trace t-n"><line x1="41.3" y1="105" x2="46.7" y2="105"/></g><text class="petit" x="25.6" y="108.9">6</text><g class="trace t-n"><line x1="41.3" y1="67" x2="46.7" y2="67"/></g><text class="petit" x="25.6" y="70.9">8</text><g class="trace t-n"><line x1="41.3" y1="29" x2="46.7" y2="29"/></g><text class="petit" x="17.5" y="32.9">10</text><g class="trace t-n pointille"><line x1="44" y1="219" x2="44" y2="29"/></g><circle class="pt pt-u" cx="44" cy="29" r="4.5"/><g class="trace t-n pointille"><line x1="78" y1="219" x2="78" y2="124"/></g><circle class="pt pt-u" cx="78" cy="124" r="4.5"/><g class="trace t-n pointille"><line x1="112" y1="219" x2="112" y2="181"/></g><circle class="pt pt-u" cx="112" cy="181" r="4.5"/><g class="trace t-n pointille"><line x1="146" y1="219" x2="146" y2="200"/></g><circle class="pt pt-v" cx="146" cy="200" r="4.5"/><g class="trace t-n pointille"><line x1="180" y1="219" x2="180" y2="181"/></g><circle class="pt pt-u" cx="180" cy="181" r="4.5"/><g class="trace t-n pointille"><line x1="214" y1="219" x2="214" y2="124"/></g><circle class="pt pt-u" cx="214" cy="124" r="4.5"/><g class="trace t-n pointille"><line x1="248" y1="219" x2="248" y2="29"/></g><circle class="pt pt-u" cx="248" cy="29" r="4.5"/><text class="moyen" x="139.2" y="189.5">u₃</text></svg><figcaption>La suite $u_n=n^2-6n+10$ : elle descend jusqu'à $u_3=1$, puis remonte. On lit chaque terme sur l'axe vertical.</figcaption></figure>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc remarque" data-titre="Pour aller plus loin : l'escalier">
+      <p>Pour une suite définie par $u_{n+1}=f(u_n)$, on peut construire les termes sur le graphique de $f$, avec la droite $y=x$ :</p>
+      <ol>
+        <li>on place $u_0$ sur l'axe des abscisses et on monte jusqu'à la courbe de $f$ : la hauteur atteinte est $f(u_0)=u_1$ ;</li>
+        <li>on part à l'horizontale jusqu'à la droite $y=x$ : on se retrouve à l'abscisse $u_1$ ;</li>
+        <li>on recommence à partir de $u_1$.</li>
+      </ol>
+      <p>Les termes se lisent sur l'axe horizontal. Le labo « L'escalier », dans l'onglet Explorer, le construit pas à pas.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 300 296" role="img" aria-label="La construction en escalier de la suite u zéro égale 0, u n plus 1 égale 0,5 u n plus 2. La droite y égale x et la droite de f se coupent au point d'abscisse 4 ; l'escalier part de 0 et monte vers ce point, les termes 0, 2, 3 et 3,5 se lisent sur l'axe horizontal."><g class="trace t-n"><line x1="33.0" y1="249.2" x2="273.6" y2="249.2"/><polygon points="281.4,249.2 268.4,255.0 268.4,243.3"/></g><g class="trace t-n"><line x1="33.0" y1="263.0" x2="33.0" y2="27.0"/><polygon points="33.0,19.2 38.9,32.2 27.1,32.2"/></g><g class="trace t-n"><path d="M33.0,249.2 L33.9,248.3 L34.9,247.3 L35.8,246.4 L36.8,245.4 L37.7,244.5 L38.6,243.6 L39.6,242.6 L40.5,241.7 L41.5,240.7 L42.4,239.8 L43.3,238.9 L44.3,237.9 L45.2,237.0 L46.1,236.1 L47.1,235.1 L48.0,234.2 L49.0,233.2 L49.9,232.3 L50.8,231.4 L51.8,230.4 L52.7,229.5 L53.7,228.5 L54.6,227.6 L55.5,226.7 L56.5,225.7 L57.4,224.8 L58.4,223.8 L59.3,222.9 L60.2,222.0 L61.2,221.0 L62.1,220.1 L63.1,219.1 L64.0,218.2 L64.9,217.3 L65.9,216.3 L66.8,215.4 L67.7,214.5 L68.7,213.5 L69.6,212.6 L70.6,211.6 L71.5,210.7 L72.4,209.8 L73.4,208.8 L74.3,207.9 L75.3,206.9 L76.2,206.0 L77.1,205.1 L78.1,204.1 L79.0,203.2 L80.0,202.2 L80.9,201.3 L81.8,200.4 L82.8,199.4 L83.7,198.5 L84.7,197.5 L85.6,196.6 L86.5,195.7 L87.5,194.7 L88.4,193.8 L89.4,192.8 L90.3,191.9 L91.2,191.0 L92.2,190.0 L93.1,189.1 L94.0,188.2 L95.0,187.2 L95.9,186.3 L96.9,185.3 L97.8,184.4 L98.7,183.5 L99.7,182.5 L100.6,181.6 L101.6,180.6 L102.5,179.7 L103.4,178.8 L104.4,177.8 L105.3,176.9 L106.3,175.9 L107.2,175.0 L108.1,174.1 L109.1,173.1 L110.0,172.2 L111.0,171.2 L111.9,170.3 L112.8,169.4 L113.8,168.4 L114.7,167.5 L115.6,166.6 L116.6,165.6 L117.5,164.7 L118.5,163.7 L119.4,162.8 L120.3,161.9 L121.3,160.9 L122.2,160.0 L123.2,159.0 L124.1,158.1 L125.0,157.2 L126.0,156.2 L126.9,155.3 L127.9,154.3 L128.8,153.4 L129.7,152.5 L130.7,151.5 L131.6,150.6 L132.6,149.6 L133.5,148.7 L134.4,147.8 L135.4,146.8 L136.3,145.9 L137.2,145.0 L138.2,144.0 L139.1,143.1 L140.1,142.1 L141.0,141.2 L141.9,140.3 L142.9,139.3 L143.8,138.4 L144.8,137.4 L145.7,136.5 L146.6,135.6 L147.6,134.6 L148.5,133.7 L149.5,132.7 L150.4,131.8 L151.3,130.9 L152.3,129.9 L153.2,129.0 L154.2,128.0 L155.1,127.1 L156.0,126.2 L157.0,125.2 L157.9,124.3 L158.8,123.4 L159.8,122.4 L160.7,121.5 L161.7,120.5 L162.6,119.6 L163.5,118.7 L164.5,117.7 L165.4,116.8 L166.4,115.8 L167.3,114.9 L168.2,114.0 L169.2,113.0 L170.1,112.1 L171.1,111.1 L172.0,110.2 L172.9,109.3 L173.9,108.3 L174.8,107.4 L175.8,106.4 L176.7,105.5 L177.6,104.6 L178.6,103.6 L179.5,102.7 L180.4,101.8 L181.4,100.8 L182.3,99.9 L183.3,98.9 L184.2,98.0 L185.1,97.1 L186.1,96.1 L187.0,95.2 L188.0,94.2 L188.9,93.3 L189.8,92.4 L190.8,91.4 L191.7,90.5 L192.7,89.5 L193.6,88.6 L194.5,87.7 L195.5,86.7 L196.4,85.8 L197.4,84.8 L198.3,83.9 L199.2,83.0 L200.2,82.0 L201.1,81.1 L202.1,80.1 L203.0,79.2 L203.9,78.3 L204.9,77.3 L205.8,76.4 L206.7,75.5 L207.7,74.5 L208.6,73.6 L209.6,72.6 L210.5,71.7 L211.4,70.8 L212.4,69.8 L213.3,68.9 L214.3,67.9 L215.2,67.0 L216.1,66.1 L217.1,65.1 L218.0,64.2 L219.0,63.2 L219.9,62.3 L220.8,61.4 L221.8,60.4 L222.7,59.5 L223.7,58.5 L224.6,57.6 L225.5,56.7 L226.5,55.7 L227.4,54.8 L228.3,53.9 L229.3,52.9 L230.2,52.0 L231.2,51.0 L232.1,50.1 L233.0,49.2 L234.0,48.2 L234.9,47.3 L235.9,46.3 L236.8,45.4 L237.7,44.5 L238.7,43.5 L239.6,42.6 L240.6,41.6 L241.5,40.7 L242.4,39.8 L243.4,38.8 L244.3,37.9 L245.3,36.9 L246.2,36.0 L247.1,35.1 L248.1,34.1 L249.0,33.2 L249.9,32.3 L250.9,31.3 L251.8,30.4 L252.8,29.4 L253.7,28.5 L254.6,27.6 L255.6,26.6 L256.5,25.7 L257.5,24.7 L258.4,23.8"/></g><g class="trace t-u"><path d="M33.0,157.2 L34.0,156.7 L35.0,156.2 L36.0,155.7 L37.0,155.2 L38.0,154.7 L39.0,154.2 L40.0,153.7 L41.0,153.2 L42.0,152.7 L43.0,152.2 L44.0,151.7 L45.0,151.2 L46.0,150.7 L47.0,150.2 L47.9,149.7 L48.9,149.2 L49.9,148.7 L50.9,148.2 L51.9,147.7 L52.9,147.2 L53.9,146.7 L54.9,146.2 L55.9,145.7 L56.9,145.2 L57.9,144.7 L58.9,144.2 L59.9,143.7 L60.9,143.2 L61.9,142.7 L62.9,142.2 L63.9,141.8 L64.9,141.3 L65.9,140.8 L66.9,140.3 L67.9,139.8 L68.9,139.3 L69.9,138.8 L70.9,138.3 L71.9,137.8 L72.9,137.3 L73.9,136.8 L74.9,136.3 L75.9,135.8 L76.9,135.3 L77.9,134.8 L78.8,134.3 L79.8,133.8 L80.8,133.3 L81.8,132.8 L82.8,132.3 L83.8,131.8 L84.8,131.3 L85.8,130.8 L86.8,130.3 L87.8,129.8 L88.8,129.3 L89.8,128.8 L90.8,128.3 L91.8,127.8 L92.8,127.3 L93.8,126.8 L94.8,126.3 L95.8,125.8 L96.8,125.3 L97.8,124.8 L98.8,124.3 L99.8,123.8 L100.8,123.3 L101.8,122.8 L102.8,122.3 L103.8,121.8 L104.8,121.3 L105.8,120.8 L106.8,120.3 L107.8,119.8 L108.7,119.3 L109.7,118.8 L110.7,118.3 L111.7,117.8 L112.7,117.3 L113.7,116.8 L114.7,116.3 L115.7,115.8 L116.7,115.3 L117.7,114.8 L118.7,114.3 L119.7,113.8 L120.7,113.3 L121.7,112.8 L122.7,112.4 L123.7,111.9 L124.7,111.4 L125.7,110.9 L126.7,110.4 L127.7,109.9 L128.7,109.4 L129.7,108.9 L130.7,108.4 L131.7,107.9 L132.7,107.4 L133.7,106.9 L134.7,106.4 L135.7,105.9 L136.7,105.4 L137.6,104.9 L138.6,104.4 L139.6,103.9 L140.6,103.4 L141.6,102.9 L142.6,102.4 L143.6,101.9 L144.6,101.4 L145.6,100.9 L146.6,100.4 L147.6,99.9 L148.6,99.4 L149.6,98.9 L150.6,98.4 L151.6,97.9 L152.6,97.4 L153.6,96.9 L154.6,96.4 L155.6,95.9 L156.6,95.4 L157.6,94.9 L158.6,94.4 L159.6,93.9 L160.6,93.4 L161.6,92.9 L162.6,92.4 L163.6,91.9 L164.6,91.4 L165.6,90.9 L166.6,90.4 L167.5,89.9 L168.5,89.4 L169.5,88.9 L170.5,88.4 L171.5,87.9 L172.5,87.4 L173.5,86.9 L174.5,86.4 L175.5,85.9 L176.5,85.4 L177.5,84.9 L178.5,84.4 L179.5,83.9 L180.5,83.4 L181.5,82.9 L182.5,82.5 L183.5,82.0 L184.5,81.5 L185.5,81.0 L186.5,80.5 L187.5,80.0 L188.5,79.5 L189.5,79.0 L190.5,78.5 L191.5,78.0 L192.5,77.5 L193.5,77.0 L194.5,76.5 L195.5,76.0 L196.5,75.5 L197.5,75.0 L198.4,74.5 L199.4,74.0 L200.4,73.5 L201.4,73.0 L202.4,72.5 L203.4,72.0 L204.4,71.5 L205.4,71.0 L206.4,70.5 L207.4,70.0 L208.4,69.5 L209.4,69.0 L210.4,68.5 L211.4,68.0 L212.4,67.5 L213.4,67.0 L214.4,66.5 L215.4,66.0 L216.4,65.5 L217.4,65.0 L218.4,64.5 L219.4,64.0 L220.4,63.5 L221.4,63.0 L222.4,62.5 L223.4,62.0 L224.4,61.5 L225.4,61.0 L226.4,60.5 L227.3,60.0 L228.3,59.5 L229.3,59.0 L230.3,58.5 L231.3,58.0 L232.3,57.5 L233.3,57.0 L234.3,56.5 L235.3,56.0 L236.3,55.5 L237.3,55.0 L238.3,54.5 L239.3,54.0 L240.3,53.5 L241.3,53.0 L242.3,52.5 L243.3,52.1 L244.3,51.6 L245.3,51.1 L246.3,50.6 L247.3,50.1 L248.3,49.6 L249.3,49.1 L250.3,48.6 L251.3,48.1 L252.3,47.6 L253.3,47.1 L254.3,46.6 L255.3,46.1 L256.3,45.6 L257.2,45.1 L258.2,44.6 L259.2,44.1 L260.2,43.6 L261.2,43.1 L262.2,42.6 L263.2,42.1 L264.2,41.6 L265.2,41.1 L266.2,40.6 L267.2,40.1 L268.2,39.6 L269.2,39.1 L270.2,38.6 L271.2,38.1 L272.2,37.6"/></g><text class="moyen" x="223.9" y="21.5">y = x</text><text class="moyen" x="240.0" y="76.7">y = f(x)</text><g class="trace t-v"><line x1="33.0" y1="249.2" x2="33.0" y2="157.2"/></g><g class="trace t-v"><line x1="33.0" y1="157.2" x2="125.0" y2="157.2"/></g><g class="trace t-v"><line x1="125.0" y1="157.2" x2="125.0" y2="111.2"/></g><g class="trace t-v"><line x1="125.0" y1="111.2" x2="171.0" y2="111.2"/></g><g class="trace t-v"><line x1="171.0" y1="111.2" x2="171.0" y2="88.2"/></g><g class="trace t-v"><line x1="171.0" y1="88.2" x2="194.0" y2="88.2"/></g><circle class="pt pt-v" cx="33.0" cy="249.2" r="4.5"/><text class="moyen" x="25.2" y="274.5">u₀</text><g class="trace t-n pointille"><line x1="125.0" y1="249.2" x2="125.0" y2="157.2"/></g><circle class="pt pt-v" cx="125.0" cy="249.2" r="4.5"/><text class="moyen" x="117.2" y="274.5">u₁</text><g class="trace t-n pointille"><line x1="171.0" y1="249.2" x2="171.0" y2="111.2"/></g><circle class="pt pt-v" cx="171.0" cy="249.2" r="4.5"/><text class="moyen" x="163.2" y="274.5">u₂</text><g class="trace t-n pointille"><line x1="194.0" y1="249.2" x2="194.0" y2="88.2"/></g><circle class="pt pt-v" cx="194.0" cy="249.2" r="4.5"/><text class="moyen" x="186.2" y="274.5">u₃</text><circle class="pt pt-w" cx="217.0" cy="65.2" r="4.5"/></svg><figcaption>$u_0=0$ et $u_{n+1}=0{,}5\,u_n+2$ : l'escalier monte vers le point où la droite de $f$ coupe $y=x$, à l'abscisse $4$.</figcaption></figure>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-variations">3. Le sens de variation</h3>
+
+  <div class="bloc definition" data-titre="Suite croissante, décroissante">
+    <ul>
+      <li>$(u_n)$ est <strong>croissante</strong> si, pour tout $n$, $u_{n+1}\ge u_n$ : chaque terme est au moins aussi grand que le précédent ;</li>
+      <li>$(u_n)$ est <strong>décroissante</strong> si, pour tout $n$, $u_{n+1}\le u_n$ ;</li>
+      <li>$(u_n)$ est <strong>constante</strong> si, pour tout $n$, $u_{n+1}=u_n$.</li>
+    </ul>
+    <p>Une suite croissante ou décroissante est dite <strong>monotone</strong>. Si l'inégalité n'est vraie qu'à partir d'un certain $n=p$, on dit que la suite est croissante (ou décroissante) <strong>à partir du rang $p$</strong>.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le signe de la différence">
+    <p>$(u_n)$ est croissante si et seulement si $u_{n+1}-u_n\ge0$ pour tout $n$. Elle est décroissante si et seulement si $u_{n+1}-u_n\le0$ pour tout $n$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Le sens de variation par la différence">
+    <ol class="etapes">
+      <li><span>J'écris $u_{n+1}$ en remplaçant $n$ par $(n+1)$.</span></li>
+      <li><span>Je calcule $u_{n+1}-u_n$ et je réduis.</span></li>
+      <li><span>J'étudie son signe <strong>pour tout entier $n$</strong>, pas seulement pour quelques valeurs.</span></li>
+      <li><span>Je conclus par une phrase.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Étudier le sens de variation de la suite définie pour tout $n\ge0$ par $u_n=n^2+3n$.</p>
+      <ol class="pas">
+        <li><strong>$u_{n+1}$.</strong> $u_{n+1}=(n+1)^2+3(n+1)$.</li>
+        <li><strong>La différence.</strong> $u_{n+1}-u_n=(n+1)^2+3(n+1)-(n^2+3n)=n^2+2n+1+3n+3-n^2-3n=2n+4$.</li>
+        <li><strong>Le signe.</strong> Pour tout entier $n\ge0$, $2n\ge0$ donc $2n+4\ge4&gt;0$.</li>
+        <li><strong>Conclusion.</strong> $u_{n+1}-u_n&gt;0$ pour tout $n$ : la suite $(u_n)$ est croissante. Tu peux refaire ce calcul ligne par ligne avec le tuteur, dans l'onglet Exercices.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le quotient, pour une suite à termes strictement positifs">
+    <p>Si $u_n&gt;0$ pour tout $n$ :</p>
+    <ul>
+      <li>$(u_n)$ est croissante si et seulement si $\dfrac{u_{n+1}}{u_n}\ge1$ pour tout $n$ ;</li>
+      <li>$(u_n)$ est décroissante si et seulement si $\dfrac{u_{n+1}}{u_n}\le1$ pour tout $n$.</li>
+    </ul>
+    <p>C'est la bonne méthode quand $u_n$ est un produit ou un quotient où figure une puissance $q^n$ : le quotient la simplifie. Pour une somme comme $3-2\times0{,}7^n$, on garde la différence.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Le sens de variation par le quotient">
+    <ol class="etapes">
+      <li><span>Je vérifie que tous les termes sont strictement positifs. Sinon, cette méthode ne marche pas.</span></li>
+      <li><span>Je calcule $\dfrac{u_{n+1}}{u_n}$ et je simplifie.</span></li>
+      <li><span>Je compare le quotient à $1$, pour tout $n$, et je conclus.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Étudier le sens de variation de $u_n=\dfrac{3^n}{n+1}$, pour $n\ge0$.</p>
+      <ol class="pas">
+        <li><strong>Les termes sont positifs.</strong> $3^n&gt;0$ et $n+1&gt;0$, donc $u_n&gt;0$ pour tout $n$.</li>
+        <li><strong>Le quotient.</strong> $\dfrac{u_{n+1}}{u_n}=\dfrac{3^{n+1}}{n+2}\times\dfrac{n+1}{3^n}=\dfrac{3(n+1)}{n+2}$.</li>
+        <li><strong>La comparaison à 1.</strong> $\dfrac{3(n+1)}{n+2}\ge1\iff3n+3\ge n+2\iff2n\ge-1$, ce qui est vrai pour tout entier $n\ge0$.</li>
+        <li><strong>Conclusion.</strong> Le quotient est supérieur ou égal à $1$ : la suite est croissante.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Quand la suite est explicite">
+    <p>Si $u_n=f(n)$ et si la fonction $f$ est croissante sur $[0\,;+\infty[$, la suite $(u_n)$ est croissante (et de même pour décroissante). Le chapitre « Dérivation » donnera l'outil pour étudier $f$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Trois termes ne prouvent rien">
+    <p>$u_n=-n^2+5n$ : $u_0=0$, $u_1=4$, $u_2=6$. « Les termes augmentent, donc la suite est croissante » : faux. $u_3=6$, $u_4=4$, $u_5=0$… Quelques termes donnent une <strong>conjecture</strong> ; seul le calcul de $u_{n+1}-u_n$ pour tout $n$ prouve le sens de variation.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-arithmetiques">4. Les suites arithmétiques</h3>
+
+  <div class="bloc definition" data-titre="Suite arithmétique">
+    <p>Une suite $(u_n)$ est <strong>arithmétique</strong> s'il existe un réel $r$ tel que, pour tout $n$ : $u_{n+1}=u_n+r$. Le nombre $r$ est la <strong>raison</strong>.</p>
+    <p>On passe d'un terme au suivant en ajoutant toujours le même nombre. Pour reconnaître une suite arithmétique, on montre que $u_{n+1}-u_n$ est une constante.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Terme général d'une suite arithmétique">
+    <p>Si $(u_n)$ est arithmétique de raison $r$, alors pour tout $n$ :</p>
+    $$ u_n=u_0+nr \qquad\text{et plus généralement}\qquad u_n=u_p+(n-p)\,r $$
+    <p>Si la suite commence à $u_1$ : $u_n=u_1+(n-1)\,r$.</p>
+    <details class="preuve"><summary>La démonstration</summary>
+      <p>On ajoute $r$ à chaque rang. Pour aller de $u_0$ à $u_n$, il y a $n$ rangs à franchir : $u_n=u_0+\underbrace{r+r+\dots+r}_{n\text{ fois}}=u_0+nr$. De $u_p$ à $u_n$, il y a $n-p$ rangs, d'où $u_n=u_p+(n-p)\,r$.</p>
+    </details>
+  </div>
+
+  <div class="bloc propriete" data-titre="Sens de variation d'une suite arithmétique">
+    <p>$u_{n+1}-u_n=r$, donc : si $r&gt;0$, la suite est croissante ; si $r&lt;0$, elle est décroissante ; si $r=0$, elle est constante.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc remarque" data-titre="Croissance linéaire">
+      <p>$u_n=u_0+rn$, c'est $f(n)$ avec la fonction affine $f(x)=rx+u_0$ : les points d'une suite arithmétique sont <strong>alignés</strong>. On ajoute la même quantité à chaque étape : on parle de <strong>croissance linéaire</strong>.</p>
+      <p>Une suite géométrique, elle, multiplie par le même nombre : dès que $q\ne1$ et $u_0\ne0$, ses points ne sont pas alignés, ils suivent une courbe qui se cambre de plus en plus.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 308 254" role="img" aria-label="Deux suites de même premier terme 1. L'arithmétique 1 plus 1,5 n donne des points alignés ; la géométrique 1,5 puissance n donne des points qui montent de plus en plus vite et dépassent l'autre au rang 6."><g class="trace t-n"><line x1="46" y1="226" x2="279.4" y2="226.0"/><polygon points="287.2,226.0 274.2,231.8 274.2,220.2"/></g><g class="trace t-n"><line x1="46" y1="236.8" x2="46.0" y2="19.6"/><polygon points="46.0,11.8 51.9,24.8 40.1,24.8"/></g><text class="moyen" x="274.6" y="214.8">n</text><text class="moyen" x="53.2" y="18.5">uₙ</text><g class="trace t-n"><line x1="46" y1="230.2" x2="46" y2="221.8"/></g><text class="petit" x="41.7" y="242.9">0</text><g class="trace t-n"><line x1="82" y1="230.2" x2="82" y2="221.8"/></g><text class="petit" x="77.7" y="242.9">1</text><g class="trace t-n"><line x1="118" y1="230.2" x2="118" y2="221.8"/></g><text class="petit" x="113.7" y="242.9">2</text><g class="trace t-n"><line x1="154" y1="230.2" x2="154" y2="221.8"/></g><text class="petit" x="149.7" y="242.9">3</text><g class="trace t-n"><line x1="190" y1="230.2" x2="190" y2="221.8"/></g><text class="petit" x="185.7" y="242.9">4</text><g class="trace t-n"><line x1="226" y1="230.2" x2="226" y2="221.8"/></g><text class="petit" x="221.7" y="242.9">5</text><g class="trace t-n"><line x1="262" y1="230.2" x2="262" y2="221.8"/></g><text class="petit" x="257.7" y="242.9">6</text><g class="trace t-n"><line x1="43.1" y1="190" x2="48.9" y2="190"/></g><text class="petit" x="26.6" y="194.0">2</text><g class="trace t-n"><line x1="43.1" y1="154" x2="48.9" y2="154"/></g><text class="petit" x="26.6" y="158.0">4</text><g class="trace t-n"><line x1="43.1" y1="118" x2="48.9" y2="118"/></g><text class="petit" x="26.6" y="122.0">6</text><g class="trace t-n"><line x1="43.1" y1="82" x2="48.9" y2="82"/></g><text class="petit" x="26.6" y="86.0">8</text><g class="trace t-n"><line x1="43.1" y1="46" x2="48.9" y2="46"/></g><text class="petit" x="17.9" y="50.0">10</text><g class="trace t-u fin pointille"><path d="M46.0,208.0 L46.9,207.3 L47.9,206.6 L48.8,205.9 L49.8,205.2 L50.7,204.5 L51.7,203.7 L52.6,203.0 L53.6,202.3 L54.5,201.6 L55.4,200.9 L56.4,200.2 L57.3,199.5 L58.3,198.8 L59.2,198.1 L60.2,197.4 L61.1,196.7 L62.1,196.0 L63.0,195.2 L64.0,194.5 L64.9,193.8 L65.8,193.1 L66.8,192.4 L67.7,191.7 L68.7,191.0 L69.6,190.3 L70.6,189.6 L71.5,188.9 L72.5,188.2 L73.4,187.4 L74.4,186.7 L75.3,186.0 L76.2,185.3 L77.2,184.6 L78.1,183.9 L79.1,183.2 L80.0,182.5 L81.0,181.8 L81.9,181.1 L82.9,180.4 L83.8,179.7 L84.7,178.9 L85.7,178.2 L86.6,177.5 L87.6,176.8 L88.5,176.1 L89.5,175.4 L90.4,174.7 L91.4,174.0 L92.3,173.3 L93.2,172.6 L94.2,171.9 L95.1,171.1 L96.1,170.4 L97.0,169.7 L98.0,169.0 L98.9,168.3 L99.9,167.6 L100.8,166.9 L101.8,166.2 L102.7,165.5 L103.6,164.8 L104.6,164.1 L105.5,163.3 L106.5,162.6 L107.4,161.9 L108.4,161.2 L109.3,160.5 L110.3,159.8 L111.2,159.1 L112.1,158.4 L113.1,157.7 L114.0,157.0 L115.0,156.3 L115.9,155.6 L116.9,154.8 L117.8,154.1 L118.8,153.4 L119.7,152.7 L120.7,152.0 L121.6,151.3 L122.5,150.6 L123.5,149.9 L124.4,149.2 L125.4,148.5 L126.3,147.8 L127.3,147.0 L128.2,146.3 L129.2,145.6 L130.1,144.9 L131.1,144.2 L132.0,143.5 L132.9,142.8 L133.9,142.1 L134.8,141.4 L135.8,140.7 L136.7,140.0 L137.7,139.3 L138.6,138.5 L139.6,137.8 L140.5,137.1 L141.4,136.4 L142.4,135.7 L143.3,135.0 L144.3,134.3 L145.2,133.6 L146.2,132.9 L147.1,132.2 L148.1,131.5 L149.0,130.7 L150.0,130.0 L150.9,129.3 L151.8,128.6 L152.8,127.9 L153.7,127.2 L154.7,126.5 L155.6,125.8 L156.6,125.1 L157.5,124.4 L158.5,123.7 L159.4,123.0 L160.3,122.2 L161.3,121.5 L162.2,120.8 L163.2,120.1 L164.1,119.4 L165.1,118.7 L166.0,118.0 L167.0,117.3 L167.9,116.6 L168.8,115.9 L169.8,115.2 L170.7,114.4 L171.7,113.7 L172.6,113.0 L173.6,112.3 L174.5,111.6 L175.5,110.9 L176.4,110.2 L177.4,109.5 L178.3,108.8 L179.2,108.1 L180.2,107.4 L181.1,106.6 L182.1,105.9 L183.0,105.2 L184.0,104.5 L184.9,103.8 L185.9,103.1 L186.8,102.4 L187.8,101.7 L188.7,101.0 L189.6,100.3 L190.6,99.6 L191.5,98.9 L192.5,98.1 L193.4,97.4 L194.4,96.7 L195.3,96.0 L196.3,95.3 L197.2,94.6 L198.1,93.9 L199.1,93.2 L200.0,92.5 L201.0,91.8 L201.9,91.1 L202.9,90.3 L203.8,89.6 L204.8,88.9 L205.7,88.2 L206.7,87.5 L207.6,86.8 L208.5,86.1 L209.5,85.4 L210.4,84.7 L211.4,84.0 L212.3,83.3 L213.3,82.6 L214.2,81.8 L215.2,81.1 L216.1,80.4 L217.0,79.7 L218.0,79.0 L218.9,78.3 L219.9,77.6 L220.8,76.9 L221.8,76.2 L222.7,75.5 L223.7,74.8 L224.6,74.0 L225.5,73.3 L226.5,72.6 L227.4,71.9 L228.4,71.2 L229.3,70.5 L230.3,69.8 L231.2,69.1 L232.2,68.4 L233.1,67.7 L234.1,67.0 L235.0,66.2 L235.9,65.5 L236.9,64.8 L237.8,64.1 L238.8,63.4 L239.7,62.7 L240.7,62.0 L241.6,61.3 L242.6,60.6 L243.5,59.9 L244.5,59.2 L245.4,58.5 L246.3,57.7 L247.3,57.0 L248.2,56.3 L249.2,55.6 L250.1,54.9 L251.1,54.2 L252.0,53.5 L253.0,52.8 L253.9,52.1 L254.8,51.4 L255.8,50.7 L256.7,49.9 L257.7,49.2 L258.6,48.5 L259.6,47.8 L260.5,47.1 L261.5,46.4 L262.4,45.7 L263.4,45.0 L264.3,44.3 L265.2,43.6 L266.2,42.9 L267.1,42.2 L268.1,41.4 L269.0,40.7 L270.0,40.0 L270.9,39.3 L271.9,38.6 L272.8,37.9"/></g><g class="trace t-v fin pointille"><path d="M46.0,208.0 L46.9,207.8 L47.8,207.6 L48.7,207.4 L49.6,207.2 L50.5,207.1 L51.4,206.9 L52.4,206.7 L53.3,206.5 L54.2,206.3 L55.1,206.1 L56.0,205.9 L56.9,205.7 L57.8,205.4 L58.7,205.2 L59.6,205.0 L60.5,204.8 L61.4,204.6 L62.3,204.4 L63.2,204.1 L64.2,203.9 L65.1,203.7 L66.0,203.5 L66.9,203.2 L67.8,203.0 L68.7,202.8 L69.6,202.5 L70.5,202.3 L71.4,202.0 L72.3,201.8 L73.2,201.5 L74.1,201.3 L75.0,201.0 L75.9,200.8 L76.9,200.5 L77.8,200.3 L78.7,200.0 L79.6,199.7 L80.5,199.5 L81.4,199.2 L82.3,198.9 L83.2,198.6 L84.1,198.3 L85.0,198.1 L85.9,197.8 L86.8,197.5 L87.7,197.2 L88.7,196.9 L89.6,196.6 L90.5,196.3 L91.4,196.0 L92.3,195.7 L93.2,195.4 L94.1,195.1 L95.0,194.7 L95.9,194.4 L96.8,194.1 L97.7,193.8 L98.6,193.4 L99.5,193.1 L100.5,192.8 L101.4,192.4 L102.3,192.1 L103.2,191.7 L104.1,191.4 L105.0,191.0 L105.9,190.7 L106.8,190.3 L107.7,189.9 L108.6,189.6 L109.5,189.2 L110.4,188.8 L111.3,188.4 L112.2,188.0 L113.2,187.7 L114.1,187.3 L115.0,186.9 L115.9,186.5 L116.8,186.1 L117.7,185.6 L118.6,185.2 L119.5,184.8 L120.4,184.4 L121.3,184.0 L122.2,183.5 L123.1,183.1 L124.0,182.6 L125.0,182.2 L125.9,181.8 L126.8,181.3 L127.7,180.8 L128.6,180.4 L129.5,179.9 L130.4,179.4 L131.3,179.0 L132.2,178.5 L133.1,178.0 L134.0,177.5 L134.9,177.0 L135.8,176.5 L136.8,176.0 L137.7,175.5 L138.6,174.9 L139.5,174.4 L140.4,173.9 L141.3,173.4 L142.2,172.8 L143.1,172.3 L144.0,171.7 L144.9,171.2 L145.8,170.6 L146.7,170.0 L147.6,169.4 L148.5,168.9 L149.5,168.3 L150.4,167.7 L151.3,167.1 L152.2,166.5 L153.1,165.9 L154.0,165.3 L154.9,164.6 L155.8,164.0 L156.7,163.4 L157.6,162.7 L158.5,162.1 L159.4,161.4 L160.3,160.7 L161.3,160.1 L162.2,159.4 L163.1,158.7 L164.0,158.0 L164.9,157.3 L165.8,156.6 L166.7,155.9 L167.6,155.2 L168.5,154.5 L169.4,153.7 L170.3,153.0 L171.2,152.2 L172.1,151.5 L173.1,150.7 L174.0,149.9 L174.9,149.2 L175.8,148.4 L176.7,147.6 L177.6,146.8 L178.5,145.9 L179.4,145.1 L180.3,144.3 L181.2,143.5 L182.1,142.6 L183.0,141.8 L183.9,140.9 L184.8,140.0 L185.8,139.1 L186.7,138.2 L187.6,137.3 L188.5,136.4 L189.4,135.5 L190.3,134.6 L191.2,133.6 L192.1,132.7 L193.0,131.7 L193.9,130.8 L194.8,129.8 L195.7,128.8 L196.6,127.8 L197.6,126.8 L198.5,125.8 L199.4,124.7 L200.3,123.7 L201.2,122.6 L202.1,121.6 L203.0,120.5 L203.9,119.4 L204.8,118.3 L205.7,117.2 L206.6,116.1 L207.5,115.0 L208.4,113.8 L209.3,112.7 L210.3,111.5 L211.2,110.3 L212.1,109.2 L213.0,108.0 L213.9,106.7 L214.8,105.5 L215.7,104.3 L216.6,103.0 L217.5,101.8 L218.4,100.5 L219.3,99.2 L220.2,97.9 L221.1,96.6 L222.1,95.3 L223.0,93.9 L223.9,92.6 L224.8,91.2 L225.7,89.8 L226.6,88.4 L227.5,87.0 L228.4,85.6 L229.3,84.1 L230.2,82.7 L231.1,81.2 L232.0,79.7 L232.9,78.2 L233.9,76.7 L234.8,75.1 L235.7,73.6 L236.6,72.0 L237.5,70.4 L238.4,68.8 L239.3,67.2 L240.2,65.6 L241.1,63.9 L242.0,62.3 L242.9,60.6 L243.8,58.9 L244.7,57.2 L245.7,55.5 L246.6,53.7 L247.5,51.9 L248.4,50.1 L249.3,48.3 L250.2,46.5 L251.1,44.7 L252.0,42.8 L252.9,40.9 L253.8,39.0 L254.7,37.1 L255.6,35.2 L256.5,33.2 L257.4,31.2 L258.4,29.2 L259.3,27.2 L260.2,25.2 L261.1,23.1 L262.0,21.0 L262.9,18.9 L263.8,16.8"/></g><circle class="pt pt-u" cx="46" cy="208.0" r="4.5"/><circle class="pt pt-v" cx="46" cy="208.0" r="4.5"/><circle class="pt pt-u" cx="82" cy="181.0" r="4.5"/><circle class="pt pt-v" cx="82" cy="199.0" r="4.5"/><circle class="pt pt-u" cx="118" cy="154.0" r="4.5"/><circle class="pt pt-v" cx="118" cy="185.5" r="4.5"/><circle class="pt pt-u" cx="154" cy="127.0" r="4.5"/><circle class="pt pt-v" cx="154" cy="165.2" r="4.5"/><circle class="pt pt-u" cx="190" cy="100.0" r="4.5"/><circle class="pt pt-v" cx="190" cy="134.9" r="4.5"/><circle class="pt pt-u" cx="226" cy="73.0" r="4.5"/><circle class="pt pt-v" cx="226" cy="89.3" r="4.5"/><circle class="pt pt-u" cx="262" cy="46.0" r="4.5"/><circle class="pt pt-v" cx="262" cy="21.0" r="4.5"/><text class="moyen" x="100.0" y="87.4">1 + 1,5n</text><text class="moyen" x="217.0" y="172.0">1,5ⁿ</text></svg><figcaption>En bleu, l'arithmétique $1+1{,}5n$ : des points alignés. En rose, la géométrique $1\times1{,}5^n$ : même départ, mais la courbe se redresse.</figcaption></figure>
+  </div>
+
+  <div class="bloc exemple" data-titre="Un loyer qui augmente de 12 € par an">
+    <p>Un loyer de 600 € par mois augmente de 12 € chaque année. Avec $u_0=600$ cette année, $u_n=600+12n$ : dans 10 ans, $u_{10}=600+120=720$ €. Le loyer atteint 800 € quand $600+12n=800$, soit $n=\dfrac{200}{12}\approx16{,}7$ : il dépasse 800 € dans 17 ans.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="La somme des entiers de 1 à n">
+      $$ 1+2+3+\dots+n=\frac{n(n+1)}{2} $$
+      <details class="preuve"><summary>La démonstration</summary>
+        <p>On écrit la somme $S$ dans les deux sens, l'une sous l'autre :</p>
+        <p>$S=1+2+\dots+(n-1)+n$<br>$S=n+(n-1)+\dots+2+1$</p>
+        <p>En additionnant colonne par colonne, chaque colonne vaut $n+1$, et il y a $n$ colonnes : $2S=n(n+1)$, donc $S=\dfrac{n(n+1)}{2}$. La figure montre la même idée avec des cases.</p>
+      </details>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 272 232" role="img" aria-label="Un escalier de 1, 2, 3, 4 et 5 cases, et le même escalier retourné posé dessus : ensemble, ils forment un rectangle de 5 colonnes et 6 lignes, soit 30 cases."><rect class="forme-3" x="24.0" y="166.8" width="28.0" height="28.0"/><rect class="forme-4" x="24.0" y="138.8" width="28.0" height="28.0"/><rect class="forme-4" x="24.0" y="110.8" width="28.0" height="28.0"/><rect class="forme-4" x="24.0" y="82.8" width="28.0" height="28.0"/><rect class="forme-4" x="24.0" y="54.8" width="28.0" height="28.0"/><rect class="forme-4" x="24.0" y="26.8" width="28.0" height="28.0"/><rect class="forme-3" x="52.0" y="166.8" width="28.0" height="28.0"/><rect class="forme-3" x="52.0" y="138.8" width="28.0" height="28.0"/><rect class="forme-4" x="52.0" y="110.8" width="28.0" height="28.0"/><rect class="forme-4" x="52.0" y="82.8" width="28.0" height="28.0"/><rect class="forme-4" x="52.0" y="54.8" width="28.0" height="28.0"/><rect class="forme-4" x="52.0" y="26.8" width="28.0" height="28.0"/><rect class="forme-3" x="80.0" y="166.8" width="28.0" height="28.0"/><rect class="forme-3" x="80.0" y="138.8" width="28.0" height="28.0"/><rect class="forme-3" x="80.0" y="110.8" width="28.0" height="28.0"/><rect class="forme-4" x="80.0" y="82.8" width="28.0" height="28.0"/><rect class="forme-4" x="80.0" y="54.8" width="28.0" height="28.0"/><rect class="forme-4" x="80.0" y="26.8" width="28.0" height="28.0"/><rect class="forme-3" x="108.0" y="166.8" width="28.0" height="28.0"/><rect class="forme-3" x="108.0" y="138.8" width="28.0" height="28.0"/><rect class="forme-3" x="108.0" y="110.8" width="28.0" height="28.0"/><rect class="forme-3" x="108.0" y="82.8" width="28.0" height="28.0"/><rect class="forme-4" x="108.0" y="54.8" width="28.0" height="28.0"/><rect class="forme-4" x="108.0" y="26.8" width="28.0" height="28.0"/><rect class="forme-3" x="136.0" y="166.8" width="28.0" height="28.0"/><rect class="forme-3" x="136.0" y="138.8" width="28.0" height="28.0"/><rect class="forme-3" x="136.0" y="110.8" width="28.0" height="28.0"/><rect class="forme-3" x="136.0" y="82.8" width="28.0" height="28.0"/><rect class="forme-3" x="136.0" y="54.8" width="28.0" height="28.0"/><rect class="forme-4" x="136.0" y="26.8" width="28.0" height="28.0"/><text class="moyen" x="77.2" y="215.8">5</text><text class="moyen" x="171.0" y="115.0">6</text><text class="petit" x="189.2" y="54.8">1+2+3+4+5</text><text class="petit" x="189.2" y="74.4">deux fois</text><text class="petit" x="189.2" y="94.0">= 5 × 6</text></svg><figcaption>Deux escaliers $1+2+3+4+5$ font un rectangle de $5\times6$ cases : chaque escalier en compte $\dfrac{5\times6}{2}=15$.</figcaption></figure>
+  </div>
+
+  <div class="bloc propriete" data-titre="Somme de termes consécutifs d'une suite arithmétique">
+    $$ S=\text{nombre de termes}\times\frac{\text{premier terme}+\text{dernier terme}}{2} $$
+    <p>De $u_p$ à $u_n$, il y a $n-p+1$ termes.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer une somme de termes d'une suite arithmétique">
+    <ol class="etapes">
+      <li><span>Je vérifie que la suite est arithmétique et je trouve sa raison.</span></li>
+      <li><span>Je repère le premier et le dernier terme, avec leurs indices.</span></li>
+      <li><span>Je compte les termes : indice du dernier − indice du premier + 1.</span></li>
+      <li><span>J'applique la formule.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Calculer $S=5+8+11+\dots+62$.</p>
+      <ol class="pas">
+        <li><strong>La suite.</strong> On ajoute 3 à chaque fois : ce sont les termes de la suite arithmétique $u_n=5+3n$, avec $u_0=5$.</li>
+        <li><strong>L'indice du dernier terme.</strong> $5+3n=62\iff3n=57\iff n=19$ : le dernier terme est $u_{19}$.</li>
+        <li><strong>Le nombre de termes.</strong> De $u_0$ à $u_{19}$ : $19-0+1=20$ termes.</li>
+        <li><strong>La somme.</strong> $S=20\times\dfrac{5+62}{2}=20\times33{,}5=670$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Le nombre de termes">
+    <p class="faux">De $u_3$ à $u_{15}$, il y a $15-3=12$ termes.</p>
+    <p class="juste">De $u_3$ à $u_{15}$, il y a $15-3+1=13$ termes.</p>
+    <p>Compte sur tes doigts de 3 à 5 : 3, 4, 5, cela fait trois nombres, pas deux. On oublie toujours le premier.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-geometriques">5. Les suites géométriques</h3>
+
+  <div class="bloc definition" data-titre="Suite géométrique">
+    <p>Une suite $(u_n)$ est <strong>géométrique</strong> s'il existe un réel $q$ tel que, pour tout $n$ : $u_{n+1}=q\times u_n$. Le nombre $q$ est la <strong>raison</strong>.</p>
+    <p>On passe d'un terme au suivant en multipliant toujours par le même nombre. Pour une suite à termes non nuls, on la reconnaît en montrant que $\dfrac{u_{n+1}}{u_n}$ est une constante.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Évolution à taux constant">
+    <p>Augmenter de $t\,\%$, c'est multiplier par $1+\dfrac{t}{100}$ ; baisser de $t\,\%$, c'est multiplier par $1-\dfrac{t}{100}$.</p>
+    <p>Une grandeur qui évolue chaque année du même pourcentage est donc une suite géométrique : une hausse de 3 % donne $q=1{,}03$, une baisse de 20 % donne $q=0{,}8$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Terme général d'une suite géométrique">
+    <p>Si $(u_n)$ est géométrique de raison $q$, alors pour tout $n$ :</p>
+    $$ u_n=u_0\times q^n \qquad\text{et plus généralement}\qquad u_n=u_p\times q^{\,n-p} $$
+    <p>Si la suite commence à $u_1$ : $u_n=u_1\times q^{\,n-1}$.</p>
+    <details class="preuve"><summary>La démonstration</summary>
+      <p>On multiplie par $q$ à chaque rang. Pour aller de $u_0$ à $u_n$, il y a $n$ rangs : $u_n=u_0\times\underbrace{q\times q\times\dots\times q}_{n\text{ fois}}=u_0\times q^n$. De $u_p$ à $u_n$, il y a $n-p$ rangs.</p>
+    </details>
+  </div>
+
+  <div class="bloc propriete" data-titre="Sens de variation, pour un premier terme positif">
+    <p>Si $u_0&gt;0$ et $q&gt;0$ : si $q&gt;1$, la suite est croissante ; si $0&lt;q&lt;1$, elle est décroissante ; si $q=1$, elle est constante.</p>
+    <p>Si $q&lt;0$, les termes changent de signe à chaque rang : la suite n'est ni croissante ni décroissante. Si $u_0&lt;0$, les sens sont inversés.</p>
+    <details class="preuve"><summary>La démonstration</summary>
+      <p>$u_{n+1}-u_n=u_0\,q^{n+1}-u_0\,q^n=u_0\,q^n\,(q-1)$. Avec $u_0&gt;0$ et $q&gt;0$, le facteur $u_0\,q^n$ est positif : la différence a le signe de $q-1$.</p>
+    </details>
+  </div>
+
+  <div class="bloc exemple" data-titre="Un livret à 3 %">
+    <p>On place 1 000 € sur un livret à 3 % par an, et on laisse les intérêts sur le livret. Chaque année, le capital est multiplié par $1{,}03$ : $C_n=1\,000\times1{,}03^n$. Au bout de 10 ans, $C_{10}=1\,000\times1{,}03^{10}\approx1\,343{,}92$ €. Les intérêts produisent eux-mêmes des intérêts : ce sont des <strong>intérêts composés</strong>.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Croissance exponentielle">
+    <p>Une suite géométrique de premier terme positif et de raison $q&gt;1$ décrit une <strong>croissance exponentielle</strong> : c'est le même pourcentage qui s'ajoute, mais sur une quantité de plus en plus grande. Le chapitre « Fonction exponentielle » fera le lien avec la fonction exponentielle.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="La somme des puissances de q">
+    <p>Pour tout réel $q\ne1$ :</p>
+    $$ 1+q+q^2+\dots+q^n=\frac{1-q^{n+1}}{1-q} $$
+    <details class="preuve"><summary>La démonstration</summary>
+      <p>On note $S=1+q+\dots+q^n$. Alors $qS=q+q^2+\dots+q^{n+1}$. Dans la différence $S-qS$, tous les termes se simplifient sauf le premier de $S$ et le dernier de $qS$ : $S-qS=1-q^{n+1}$. Donc $S(1-q)=1-q^{n+1}$, et comme $q\ne1$, $S=\dfrac{1-q^{n+1}}{1-q}$.</p>
+    </details>
+  </div>
+
+  <div class="bloc propriete" data-titre="Somme de termes consécutifs d'une suite géométrique">
+    $$ S=\text{premier terme}\times\frac{1-q^{\,\text{nombre de termes}}}{1-q}\qquad(q\ne1) $$
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer une somme de termes d'une suite géométrique">
+    <ol class="etapes">
+      <li><span>Je trouve la raison $q$ et le premier terme.</span></li>
+      <li><span>Je trouve l'indice du dernier terme, puis je compte les termes.</span></li>
+      <li><span>J'applique la formule : l'exposant de $q$ est le <strong>nombre de termes</strong>.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Calculer $S=2+6+18+\dots+1\,458$, sans calculatrice.</p>
+      <ol class="pas">
+        <li><strong>La suite.</strong> On multiplie par 3 à chaque fois : $u_n=2\times3^n$, avec $u_0=2$.</li>
+        <li><strong>Le dernier terme.</strong> $2\times3^n=1\,458\iff3^n=729=3^6$ : le dernier terme est $u_6$.</li>
+        <li><strong>Le nombre de termes.</strong> De $u_0$ à $u_6$ : $7$ termes.</li>
+        <li><strong>La somme.</strong> $S=2\times\dfrac{1-3^7}{1-3}=2\times\dfrac{1-2\,187}{-2}=2\,186$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="La raison d'un pourcentage">
+    <p class="faux">Une hausse de 3 % par an : $q=0{,}03$, ou $u_{n+1}=u_n+3$.</p>
+    <p class="juste">$q=1{,}03$ : on garde les 100 % et on ajoute 3 %.</p>
+    <p>Et une baisse de 5 % donne $q=0{,}95$, pas $-0{,}05$.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-limite">6. Vers quoi va la suite ?</h3>
+  <p>En première, on ne définit pas la limite d'une suite : on l'<strong>observe</strong> sur des exemples, en calculant des termes de plus en plus loin, à la calculatrice, au tableur ou en Python. La définition précise est au programme de terminale. Quatre comportements reviennent souvent.</p>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 440 303" role="img" aria-label="Quatre petits graphiques de suites. En haut à gauche, 0,3 n au carré tend vers plus l'infini. En haut à droite, 4 fois 0,7 puissance n tend vers 0. En bas à gauche, 3 moins 2 fois 0,7 puissance n monte vers 3. En bas à droite, moins 1 puissance n alterne entre 1 et moins 1 sans limite."><g class="trace t-n"><line x1="22.6" y1="131.8" x2="203.2" y2="131.8"/></g><g class="trace t-n"><line x1="22.6" y1="133.9" x2="22.6" y2="26.8"/></g><circle class="pt pt-u" cx="31.0" cy="131.8" r="4.5"/><circle class="pt pt-u" cx="52.0" cy="130.2" r="4.5"/><circle class="pt pt-u" cx="73.0" cy="125.5" r="4.5"/><circle class="pt pt-u" cx="94.0" cy="117.6" r="4.5"/><circle class="pt pt-u" cx="115.0" cy="106.6" r="4.5"/><circle class="pt pt-u" cx="136.0" cy="92.4" r="4.5"/><circle class="pt pt-u" cx="157.0" cy="75.1" r="4.5"/><circle class="pt pt-u" cx="178.0" cy="54.6" r="4.5"/><circle class="pt pt-u" cx="199.0" cy="31.0" r="4.5"/><text class="moyen" x="31.0" y="17.3">tend vers +∞</text><g class="trace t-n"><line x1="232.6" y1="131.8" x2="413.2" y2="131.8"/></g><g class="trace t-n"><line x1="232.6" y1="133.9" x2="232.6" y2="26.8"/></g><g class="trace t-w pointille"><line x1="232.6" y1="131.8" x2="413.2" y2="131.8"/></g><text class="petit" x="221.0" y="136.0">0</text><circle class="pt pt-u" cx="241.0" cy="35.8" r="4.5"/><circle class="pt pt-u" cx="262.0" cy="64.6" r="4.5"/><circle class="pt pt-u" cx="283.0" cy="84.8" r="4.5"/><circle class="pt pt-u" cx="304.0" cy="98.9" r="4.5"/><circle class="pt pt-u" cx="325.0" cy="108.8" r="4.5"/><circle class="pt pt-u" cx="346.0" cy="115.7" r="4.5"/><circle class="pt pt-u" cx="367.0" cy="120.5" r="4.5"/><circle class="pt pt-u" cx="388.0" cy="123.9" r="4.5"/><circle class="pt pt-u" cx="409.0" cy="126.3" r="4.5"/><text class="moyen" x="241.0" y="17.3">tend vers 0</text><g class="trace t-n"><line x1="22.6" y1="270.4" x2="203.2" y2="270.4"/></g><g class="trace t-n"><line x1="22.6" y1="272.5" x2="22.6" y2="165.4"/></g><g class="trace t-w pointille"><line x1="22.6" y1="186.4" x2="203.2" y2="186.4"/></g><text class="petit" x="11.0" y="190.6">3</text><circle class="pt pt-u" cx="31.0" cy="242.4" r="4.5"/><circle class="pt pt-u" cx="52.0" cy="225.6" r="4.5"/><circle class="pt pt-u" cx="73.0" cy="213.8" r="4.5"/><circle class="pt pt-u" cx="94.0" cy="205.6" r="4.5"/><circle class="pt pt-u" cx="115.0" cy="199.8" r="4.5"/><circle class="pt pt-u" cx="136.0" cy="195.8" r="4.5"/><circle class="pt pt-u" cx="157.0" cy="193.0" r="4.5"/><circle class="pt pt-u" cx="178.0" cy="191.0" r="4.5"/><circle class="pt pt-u" cx="199.0" cy="189.6" r="4.5"/><text class="moyen" x="31.0" y="156.0">tend vers 3</text><g class="trace t-n"><line x1="232.6" y1="220.0" x2="413.2" y2="220.0"/></g><g class="trace t-n"><line x1="232.6" y1="270.4" x2="232.6" y2="165.4"/></g><circle class="pt pt-u" cx="241.0" cy="186.4" r="4.5"/><circle class="pt pt-u" cx="262.0" cy="253.6" r="4.5"/><circle class="pt pt-u" cx="283.0" cy="186.4" r="4.5"/><circle class="pt pt-u" cx="304.0" cy="253.6" r="4.5"/><circle class="pt pt-u" cx="325.0" cy="186.4" r="4.5"/><circle class="pt pt-u" cx="346.0" cy="253.6" r="4.5"/><circle class="pt pt-u" cx="367.0" cy="186.4" r="4.5"/><circle class="pt pt-u" cx="388.0" cy="253.6" r="4.5"/><circle class="pt pt-u" cx="409.0" cy="186.4" r="4.5"/><text class="moyen" x="241.0" y="156.0">pas de limite</text></svg><figcaption>Quatre suites, quatre comportements : elle grandit sans fin, elle s'écrase sur 0, elle se stabilise vers un nombre, ou elle ne se décide jamais.</figcaption></figure>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Elle grandit sans fin">
+      <p>$u_n=0{,}3\,n^2$ ou $v_n=1{,}2^n$ : les termes finissent par dépasser n'importe quel nombre, aussi grand soit-il, et restent au-dessus. On dit que la suite <strong>tend vers $+\infty$</strong>. De même, $5-3n$ finit par descendre sous n'importe quel nombre : elle <strong>tend vers $-\infty$</strong>.</p>
+    </div>
+    <div class="bloc exemple" data-titre="Elle s'écrase sur un nombre">
+      <p>$4\times0{,}7^n$ : $4$ ; $2{,}8$ ; $1{,}96$… et $4\times0{,}7^{30}\approx0{,}000\,09$. Les termes se rapprochent autant qu'on veut de $0$ : la suite <strong>tend vers $0$</strong>. De même, $3-2\times0{,}7^n$ tend vers $3$, et la quantité de médicament de l'ouverture vers un palier d'environ 333 mg.</p>
+    </div>
+  </div>
+  <div class="bloc exemple" data-titre="Elle n'a pas de limite">
+    <p>$(-1)^n$ vaut $1$ ; $-1$ ; $1$ ; $-1$… sans fin. Elle ne se rapproche d'aucun nombre et ne grandit pas sans limite : elle <strong>n'a pas de limite</strong>. C'est aussi le cas de $(-2)^n$ : $1$ ; $-2$ ; $4$ ; $-8$ ; $16$…</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Ce qu'on observe pour q puissance n">
+    <p>En calculant des termes, on observe que $q^n$ tend vers $+\infty$ si $q&gt;1$, vers $0$ si $0\le q&lt;1$, reste égal à $1$ si $q=1$. Pour $-1&lt;q&lt;0$, il tend vers $0$ en changeant de signe ; pour $q\le-1$, il n'a pas de limite. Ces résultats seront démontrés en terminale.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Croissante ne veut pas dire « tend vers l'infini »">
+    <p>$3-2\times0{,}7^n$ est croissante, et pourtant elle reste sous $3$ : elle monte de moins en moins vite. Une suite croissante peut tendre vers un nombre.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-python">7. Algorithmes en Python</h3>
+  <p>Une suite se calcule très bien en Python : une boucle <code>for</code> quand on sait combien de pas faire, une boucle <code>while</code> quand on attend qu'une condition soit remplie. On écrit des <strong>fonctions</strong>, qui renvoient un résultat. Les exemples suivent le livret à 3 % : $u_0=1\,000$ et $u_{n+1}=1{,}03\,u_n$.</p>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Calculer un terme">
+<pre class="code">def terme(n):
+    u = 1000              # u0
+    for k in range(n):    # n pas
+        u = u * 1.03      # le terme suivant
+    return u</pre>
+      <p><code>terme(10)</code> renvoie $u_{10}\approx1\,343{,}92$.</p>
+    </div>
+    <div class="bloc exemple" data-titre="La liste des premiers termes">
+<pre class="code">def premiers_termes(n):
+    L = [1000]
+    for k in range(n):
+        L.append(L[-1] * 1.03)
+    return L</pre>
+      <p><code>L[-1]</code> est le dernier élément de la liste. Pour une suite explicite, une liste en compréhension suffit : <code>[k**2 + 3*k for k in range(6)]</code> donne <code>[0, 4, 10, 18, 28, 40]</code>.</p>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Une somme">
+<pre class="code">def somme(n):
+    s = 0
+    for k in range(n + 1):   # k = 0, 1, …, n
+        s = s + 2*k + 1
+    return s</pre>
+      <p><code>somme(9)</code> renvoie $1+3+5+\dots+19=100$. Attention : <code>range(n + 1)</code> va de $0$ à $n$, soit $n+1$ termes.</p>
+    </div>
+    <div class="bloc exemple" data-titre="Un seuil">
+<pre class="code">def seuil(S):
+    n = 0
+    u = 1000
+    while u &lt;= S:        # tant que le seuil n'est pas franchi
+        n = n + 1
+        u = u * 1.03
+    return n</pre>
+      <p><code>seuil(1500)</code> renvoie $14$ : $u_{13}\approx1\,468{,}53$ est encore sous $1\,500$, et $u_{14}\approx1\,512{,}59$ le dépasse. Le capital dépasse 1 500 € au bout de 14 ans.</p>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Écrire un algorithme de seuil">
+    <ol class="etapes">
+      <li><span>J'initialise le rang et le terme au départ : <code>n = 0</code> et <code>u = </code> le premier terme.</span></li>
+      <li><span>J'écris la condition du <code>while</code> comme le <strong>contraire</strong> de ce que j'attends : pour « dépasser 1 500 », c'est <code>while u &lt;= 1500</code>.</span></li>
+      <li><span>Dans la boucle, j'avance d'un rang : <code>n</code> et <code>u</code> changent ensemble.</span></li>
+      <li><span>Je renvoie le <strong>rang</strong> <code>n</code>, puis je l'interprète dans la situation (en années, en heures…).</span></li>
+    </ol>
+  </div>
+
+  <div class="bloc remarque" data-titre="D'autres algorithmes classiques">
+    <ul>
+      <li><strong>La factorielle</strong> $n!=1\times2\times\dots\times n$ : une boucle qui multiplie au lieu d'additionner.</li>
+      <li><strong>La suite de Fibonacci</strong> : $1$ ; $1$ ; $2$ ; $3$ ; $5$ ; $8$… chaque terme est la somme des deux précédents. En liste : <code>L.append(L[-1] + L[-2])</code>.</li>
+      <li><strong>La suite de Syracuse</strong> : si le terme est pair, on le divise par 2, sinon on le multiplie par 3 et on ajoute 1. Partant de 7 : 7 ; 22 ; 11 ; 34 ; 17 ; 52 ; 26 ; 13 ; 40 ; 20 ; 10 ; 5 ; 16 ; 8 ; 4 ; 2 ; 1. Personne n'a jamais prouvé qu'on finit toujours par tomber sur 1.</li>
+    </ul>
+    <p>À l'épreuve anticipée, la calculatrice est interdite : on te demandera de compléter un algorithme, de dire ce qu'il renvoie ou de l'interpréter, pas de calculer de tête $1{,}03^{14}$.</p>
+  </div>
+
+  <!-- ===== Les pièges ===== -->
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les dix erreurs que tout le monde fait">
+    <ol>
+      <li><strong>$u_{n+1}$ n'est pas $u_n+1$</strong>, et $u_{2n}$ n'est pas $2u_n$. On remplace $n$ par $n+1$ (ou par $2n$) partout dans la formule.</li>
+      <li><strong>Le décalage d'indice.</strong> Si la suite commence à $u_0$, le 10<sup>e</sup> terme est $u_9$. Et si $u_0$ correspond à 2026, $u_8$ correspond à 2034.</li>
+      <li><strong>Le nombre de termes d'une somme.</strong> De $u_p$ à $u_n$, il y en a $n-p+1$ : le « $+1$ » s'oublie.</li>
+      <li><strong>Arithmétique ou géométrique ?</strong> « +3 % par an » n'est pas $u_n+3$ : c'est $q=1{,}03$. Pas $0{,}03$ non plus. Une baisse de 5 % donne $q=0{,}95$, pas $-0{,}05$.</li>
+      <li><strong>Conclure sans calculer.</strong> « $u_0&lt;u_1&lt;u_2$ donc la suite est croissante » : non, trois termes donnent une conjecture. Il faut le signe de $u_{n+1}-u_n$ pour tout $n$.</li>
+      <li><strong>Le signe de $u_n$ n'est pas le signe de $u_{n+1}-u_n$.</strong> $0{,}5^n$ est positive et décroissante. « $u_n&gt;0$ donc croissante » ne veut rien dire.</li>
+      <li><strong>Mal développer $u_{n+1}$.</strong> $(n+1)^2=n^2+2n+1$, pas $n^2+1$. Et on remplace <strong>chaque</strong> $n$, pas seulement le premier.</li>
+      <li><strong>L'exposant du terme général.</strong> Si le premier terme est $u_1$, alors $u_n=u_1\times q^{\,n-1}$. Et $u_0\times q^n$ n'est pas $(u_0\times q)^n$.</li>
+      <li><strong>Le quotient sur une suite qui n'est pas positive.</strong> Pour $(-2)^n$, $\dfrac{u_{n+1}}{u_n}=-2&lt;1$, et pourtant la suite n'est pas décroissante : elle change de signe à chaque rang. La méthode du quotient exige des termes strictement positifs.</li>
+      <li><strong>Le seuil.</strong> On demande le <strong>rang</strong> $n$, pas la valeur $u_n$. Et c'est le premier rang qui franchit le seuil, pas le dernier qui reste en dessous.</li>
+    </ol>
+  </div>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Suites arithmétiques et géométriques en six minutes"></div>
+    <div class="video" data-titre="Le sens de variation d'une suite"></div>
+    <div class="video" data-titre="Un algorithme de seuil en Python"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, chacun avec ses défis. Commence par viser les points : c'est là qu'on sent la différence entre ajouter et multiplier.</p>
+  <div class="labo" data-labo="suites" data-outil="cible"></div>
+  <div class="labo" data-labo="suites" data-outil="seuil"></div>
+  <div class="labo" data-labo="suites" data-outil="escalier"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, dans toutes les catégories du chapitre ; le bilan de fin de partie te dit quoi retravailler. Le quiz vérifie les réflexes du cours. Ni l'un ni l'autre ne demande de calculatrice.</p>
+
+  <div class="jeu" data-generateurs="suites" data-questions="10" data-titre="Le défi des suites"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>On pose $u_n=3n+2$. Que vaut $u_{n+1}$ ?</p>
+      <ul class="choix"><li class="bon">$3n+5$</li><li>$3n+3$</li><li>$3n+2$</li><li>$4n+2$</li></ul>
+      <div class="explication">On remplace $n$ par $n+1$ : $u_{n+1}=3(n+1)+2=3n+5$. La réponse $3n+3$, c'est $u_n+1$ : l'erreur la plus fréquente du chapitre.</div>
+    </div>
+    <div class="question" data-reponse="13">
+      <p>$u_0=4$ et $u_{n+1}=2u_n-1$. Calcule $u_2$.</p>
+      <div class="explication">De proche en proche : $u_1=2\times4-1=7$, puis $u_2=2\times7-1=13$.</div>
+    </div>
+    <div class="question">
+      <p>Une suite commence à $u_0$. Son 15<sup>e</sup> terme est…</p>
+      <ul class="choix"><li class="bon">$u_{14}$</li><li>$u_{15}$</li><li>$u_{16}$</li></ul>
+      <div class="explication">Le 1<sup>er</sup> terme est $u_0$, le 2<sup>e</sup> est $u_1$… le 15<sup>e</sup> est $u_{14}$.</div>
+    </div>
+    <div class="question">
+      <p>Un prix augmente de 4 % chaque année. Quelle est la raison de la suite géométrique des prix ?</p>
+      <ul class="choix"><li class="bon">$1{,}04$</li><li>$0{,}04$</li><li>$4$</li><li>$1{,}4$</li></ul>
+      <div class="explication">Augmenter de 4 %, c'est multiplier par $1+\frac{4}{100}=1{,}04$.</div>
+    </div>
+    <div class="question" data-reponse="18">
+      <p>Combien de termes y a-t-il de $u_3$ à $u_{20}$, ces deux termes compris ?</p>
+      <div class="explication">$20-3+1=18$. Sans le « $+1$ », on oublie $u_3$.</div>
+    </div>
+    <div class="question">
+      <p>Pour tout $n\ge0$, $u_{n+1}-u_n=-2n-1$. La suite $(u_n)$ est…</p>
+      <ul class="choix"><li class="bon">décroissante</li><li>croissante</li><li>constante</li><li>on ne peut pas savoir sans les termes</li></ul>
+      <div class="explication">Pour tout $n\ge0$, $-2n-1\le-1&lt;0$ : chaque terme est plus petit que le précédent.</div>
+    </div>
+    <div class="question" data-reponse="210">
+      <p>Calcule $1+2+3+\dots+20$.</p>
+      <div class="explication">$\dfrac{20\times21}{2}=210$.</div>
+    </div>
+    <div class="question" data-reponse="96">
+      <p>$(u_n)$ est géométrique, $u_0=3$ et $q=2$. Calcule $u_5$.</p>
+      <div class="explication">$u_5=3\times2^5=3\times32=96$.</div>
+    </div>
+    <div class="question">
+      <p>Une suite à termes strictement positifs vérifie $\dfrac{u_{n+1}}{u_n}=0{,}9$ pour tout $n$. Elle est…</p>
+      <ul class="choix"><li class="bon">décroissante</li><li>croissante</li><li>constante</li><li>ni croissante ni décroissante</li></ul>
+      <div class="explication">Termes positifs et quotient inférieur à $1$ : chaque terme est plus petit que le précédent.</div>
+    </div>
+    <div class="question">
+      <p>Laquelle de ces suites n'a pas de limite ?</p>
+      <ul class="choix"><li class="bon">$(-1)^n$</li><li>$0{,}5^n$</li><li>$1{,}1^n$</li><li>$3-\dfrac{1}{n+1}$</li></ul>
+      <div class="explication">$(-1)^n$ alterne entre $1$ et $-1$ sans se rapprocher de rien. Les autres en ont une : $0{,}5^n$ tend vers $0$, $1{,}1^n$ vers $+\infty$, et $3-\frac{1}{n+1}$ vers $3$.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Ici, pas de correction à ouvrir : tu écris ton calcul ligne par ligne, en $n$, et le vérificateur te dit si chaque ligne est juste. Écris <code>n^2</code> ou <code>n²</code> pour $n^2$. Si tu bloques, demande un indice, mais essaie d'abord seul : la réussite sans aide compte le plus.</p>
+  <div class="tuteurs">
+    <div class="tuteur" data-tuteur="expression" data-lettre="n" data-id="suites-difference-1" data-depart="(n+1)^2+3(n+1)-(n^2+3n)" data-consigne="On pose $u_n=n^2+3n$. Développe et réduis $u_{n+1}-u_n$ :"></div>
+    <div class="tuteur" data-tuteur="expression" data-lettre="n" data-id="suites-difference-2" data-depart="-2(n+1)^2+5(n+1)+1-(-2n^2+5n+1)" data-consigne="On pose $u_n=-2n^2+5n+1$. Développe et réduis $u_{n+1}-u_n$ :"></div>
+    <div class="tuteur" data-tuteur="expression" data-lettre="n" data-id="suites-difference-3" data-depart="(n+2)(n-1)-(n+1)(n-2)" data-consigne="On pose $u_n=(n+1)(n-2)$, donc $u_{n+1}=(n+2)(n-1)$. Développe et réduis $u_{n+1}-u_n$ :"></div>
+    <div class="tuteur" data-tuteur="expression" data-lettre="n" data-id="suites-terme-general" data-depart="7+(n-1)(-3)" data-consigne="$(u_n)$ est arithmétique, de premier terme $u_1=7$ et de raison $-3$. Écris $u_n=u_1+(n-1)r$ le plus simplement possible :"></div>
+    <div class="tuteur" data-tuteur="equation" data-lettre="n" data-id="suites-rang" data-depart="3n+2=59" data-consigne="$u_n=3n+2$. Pour quel rang $n$ a-t-on $u_n=59$ ? Résous :"></div>
+    <div class="tuteur" data-tuteur="equation" data-lettre="r" data-id="suites-raison" data-depart="17+7r=38" data-consigne="$(u_n)$ est arithmétique, $u_5=17$ et $u_{12}=38$. Comme $u_{12}=u_5+7r$, trouve la raison $r$ :"></div>
+  </div>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ calculer et reconnaître, ★★ variations, sommes et modélisations, ★★★ problèmes. Rédige ta réponse avant d'ouvrir la correction. Quand un exercice demande la calculatrice, l'énoncé le dit.</p>
+
+  <h3>Niveau 1 · Calculer et reconnaître</h3>
+
+  <article class="exercice" id="ex-conclure-apres-les-calculs-guides" data-titre="Conclure après les calculs guidés" data-niveau="1" data-type="application" data-notions="suites developper equation" data-duree="8" data-calculatrice="non">
+    <p>Reprends tes résultats des six exercices guidés.</p>
+    <ol>
+      <li>Pour les trois premiers, conclure sur le sens de variation de la suite.</li>
+      <li>Pour le quatrième, dire si la suite est croissante ou décroissante, et calculer $u_{10}$.</li>
+      <li>Pour le cinquième, la suite commence à $u_0$ : quel est le rang de 59 ? Est-ce le 19<sup>e</sup> terme ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$u_n=n^2+3n$ : $u_{n+1}-u_n=2n+4&gt;0$ pour tout $n\ge0$, la suite est croissante. $u_n=-2n^2+5n+1$ : $u_{n+1}-u_n=-4n+3$. Pour $n=0$, cela vaut $3&gt;0$ (donc $u_1&gt;u_0$), mais pour tout $n\ge1$, $-4n+3\le-1&lt;0$ : la suite est décroissante <strong>à partir du rang 1</strong>. $u_n=(n+1)(n-2)$ : $u_{n+1}-u_n=2n\ge0$ pour tout $n$, la suite est croissante (avec $u_1=u_0=-2$).</li>
+        <li>$u_n=-3n+10$ : la raison $-3$ est négative, la suite est décroissante. $u_{10}=-30+10=-20$.</li>
+        <li>$n=19$ : $59=u_{19}$. Comme la suite commence à $u_0$, c'est le 20<sup>e</sup> terme, pas le 19<sup>e</sup>. Et pour le sixième, $r=3$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-calculer-des-termes" data-titre="Calculer des termes" data-niveau="1" data-type="application" data-notions="suites developper" data-duree="10" data-calculatrice="non">
+    <p>On pose $u_n=2n^2-3n+1$ pour tout $n\ge0$.</p>
+    <ol>
+      <li>Calculer $u_0$, $u_1$, $u_2$ et $u_5$.</li>
+      <li>Exprimer $u_{n+1}$ en fonction de $n$. Comparer avec $u_n+1$.</li>
+      <li>Exprimer $u_{2n}$ en fonction de $n$. Est-ce $2u_n$ ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$u_0=1$ ; $u_1=2-3+1=0$ ; $u_2=8-6+1=3$ ; $u_5=50-15+1=36$.</li>
+        <li>On remplace chaque $n$ par $(n+1)$ : $u_{n+1}=2(n+1)^2-3(n+1)+1=2n^2+4n+2-3n-3+1=2n^2+n$. Alors que $u_n+1=2n^2-3n+2$ : ce n'est pas la même expression (pour $n=1$, $u_2=3$ mais $u_1+1=1$).</li>
+        <li>On remplace chaque $n$ par $(2n)$ : $u_{2n}=2(2n)^2-3(2n)+1=8n^2-6n+1$. Et $2u_n=4n^2-6n+2$ : ce n'est pas pareil (pour $n=1$ : $u_2=3$ mais $2u_1=0$).</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-de-proche-en-proche" data-titre="De proche en proche" data-niveau="1" data-type="application" data-notions="suites" data-duree="10" data-calculatrice="non">
+    <ol>
+      <li>$u_0=5$ et $u_{n+1}=2u_n-3$. Calculer $u_1$, $u_2$, $u_3$ et $u_4$. Peut-on calculer $u_{20}$ sans calculer les termes d'avant ?</li>
+      <li>$v_0=1$ et $v_{n+1}=v_n+2n+1$. Calculer $v_1$ à $v_4$, puis conjecturer une formule explicite de $v_n$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$u_1=2\times5-3=7$ ; $u_2=2\times7-3=11$ ; $u_3=19$ ; $u_4=35$. Avec la seule relation de récurrence, non : pour avoir $u_{20}$, il faut $u_{19}$, donc $u_{18}$… C'est le travail d'un algorithme (une boucle de 20 pas). Une formule explicite existe pourtant, $u_n=3+2^{n+1}$ (vérifie-la sur les premiers termes), mais il faut la trouver : c'est ce que permet une suite auxiliaire, comme dans l'exercice « Le médicament qui s'accumule ».</li>
+        <li>$v_1=1+0+1=2$ ; $v_2=2+2+1=5$ ; $v_3=5+4+1=10$ ; $v_4=10+6+1=17$. On reconnaît $1+1$, $4+1$, $9+1$, $16+1$ : on conjecture $v_n=n^2+1$. (C'est bien cohérent : $(n+1)^2+1-(n^2+1)=2n+1$, l'écart donné par la relation.)</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-arithmetique-geometrique-ou-ni-l-un-ni-l-autre" data-titre="Arithmétique, géométrique, ou ni l'un ni l'autre" data-niveau="1" data-type="application" data-notions="suites" data-duree="8" data-calculatrice="non">
+    <p>Voici les premiers termes de six suites. Pour chacune, dire si ces termes peuvent être ceux d'une suite arithmétique, géométrique, ou ni l'un ni l'autre, et donner la raison.</p>
+    <p>a) $3$ ; $7$ ; $11$ ; $15$ &nbsp; b) $2$ ; $6$ ; $18$ ; $54$ &nbsp; c) $1$ ; $4$ ; $9$ ; $16$ &nbsp; d) $80$ ; $40$ ; $20$ ; $10$ &nbsp; e) $5$ ; $5$ ; $5$ ; $5$ &nbsp; f) $10$ ; $7$ ; $4$ ; $1$</p>
+    <details class="correction">
+      <p>On calcule les écarts (pour l'arithmétique) et les quotients (pour la géométrique).</p>
+      <p>a) Écarts $4$ ; $4$ ; $4$ : arithmétique de raison $4$.</p>
+      <p>b) Quotients $3$ ; $3$ ; $3$ : géométrique de raison $3$ (les écarts $4$ ; $12$ ; $36$ ne sont pas constants).</p>
+      <p>c) Écarts $3$ ; $5$ ; $7$, quotients $4$ ; $2{,}25$ : ni l'un ni l'autre. Ce sont les carrés $n^2$.</p>
+      <p>d) Quotients $0{,}5$ : géométrique de raison $0{,}5$.</p>
+      <p>e) Les deux : arithmétique de raison $0$, géométrique de raison $1$. Une suite constante est les deux à la fois.</p>
+      <p>f) Écarts $-3$ : arithmétique de raison $-3$.</p>
+      <p>Attention : quatre termes ne suffisent pas à <strong>prouver</strong> qu'une suite est arithmétique. Il faut la relation $u_{n+1}=u_n+r$ pour tout $n$ ; ici, on dit seulement que ces termes sont compatibles.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-lire-un-nuage-de-points" data-titre="Lire un nuage de points" data-niveau="1" data-type="application" data-notions="suites courbe" data-duree="8" data-calculatrice="non">
+    <figure class="figure-svg"><svg viewBox="0 0 292 275" role="img" aria-label="Six points d'une suite, pour n de 0 à 5, sur un quadrillage : 9, 7, 5, 3, 1 et moins 1. Ils sont alignés et descendent de 2 à chaque rang."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="265"/><line x1="44" y1="10" x2="44" y2="265"/><line x1="78" y1="10" x2="78" y2="265"/><line x1="112" y1="10" x2="112" y2="265"/><line x1="146" y1="10" x2="146" y2="265"/><line x1="180" y1="10" x2="180" y2="265"/><line x1="214" y1="10" x2="214" y2="265"/><line x1="248" y1="10" x2="248" y2="265"/><line x1="282" y1="10" x2="282" y2="265"/><line x1="10" y1="265" x2="282" y2="265"/><line x1="10" y1="248" x2="282" y2="248"/><line x1="10" y1="231" x2="282" y2="231"/><line x1="10" y1="214" x2="282" y2="214"/><line x1="10" y1="197" x2="282" y2="197"/><line x1="10" y1="180" x2="282" y2="180"/><line x1="10" y1="163" x2="282" y2="163"/><line x1="10" y1="146" x2="282" y2="146"/><line x1="10" y1="129" x2="282" y2="129"/><line x1="10" y1="112" x2="282" y2="112"/><line x1="10" y1="95" x2="282" y2="95"/><line x1="10" y1="78" x2="282" y2="78"/><line x1="10" y1="61" x2="282" y2="61"/><line x1="10" y1="44" x2="282" y2="44"/><line x1="10" y1="27" x2="282" y2="27"/><line x1="10" y1="10" x2="282" y2="10"/></g><g class="trace t-n"><line x1="44" y1="197" x2="264.0" y2="197.0"/><polygon points="271.8,197.0 258.8,202.8 258.8,191.2"/></g><g class="trace t-n"><line x1="44" y1="241.2" x2="44.0" y2="19.5"/><polygon points="44.0,11.7 49.9,24.7 38.1,24.7"/></g><text class="moyen" x="259.9" y="185.5">n</text><text class="moyen" x="50.8" y="18.6">uₙ</text><g class="trace t-n"><line x1="44" y1="201.3" x2="44" y2="192.7"/></g><text class="petit" x="39.9" y="245.4">0</text><g class="trace t-n"><line x1="78" y1="201.3" x2="78" y2="192.7"/></g><text class="petit" x="73.9" y="245.4">1</text><g class="trace t-n"><line x1="112" y1="201.3" x2="112" y2="192.7"/></g><text class="petit" x="107.9" y="245.4">2</text><g class="trace t-n"><line x1="146" y1="201.3" x2="146" y2="192.7"/></g><text class="petit" x="141.9" y="245.4">3</text><g class="trace t-n"><line x1="180" y1="201.3" x2="180" y2="192.7"/></g><text class="petit" x="175.9" y="245.4">4</text><g class="trace t-n"><line x1="214" y1="201.3" x2="214" y2="192.7"/></g><text class="petit" x="209.9" y="245.4">5</text><g class="trace t-n"><line x1="41.3" y1="231" x2="46.7" y2="231"/></g><text class="petit" x="17.5" y="235.1">−2</text><g class="trace t-n"><line x1="41.3" y1="163" x2="46.7" y2="163"/></g><text class="petit" x="25.6" y="167.1">2</text><g class="trace t-n"><line x1="41.3" y1="129" x2="46.7" y2="129"/></g><text class="petit" x="25.6" y="133.1">4</text><g class="trace t-n"><line x1="41.3" y1="95" x2="46.7" y2="95"/></g><text class="petit" x="25.6" y="99.1">6</text><g class="trace t-n"><line x1="41.3" y1="61" x2="46.7" y2="61"/></g><text class="petit" x="25.6" y="65.1">8</text><g class="trace t-n"><line x1="41.3" y1="27" x2="46.7" y2="27"/></g><text class="petit" x="17.5" y="31.1">10</text><circle class="pt pt-u" cx="44" cy="44" r="4.5"/><circle class="pt pt-u" cx="78" cy="78" r="4.5"/><circle class="pt pt-u" cx="112" cy="112" r="4.5"/><circle class="pt pt-u" cx="146" cy="146" r="4.5"/><circle class="pt pt-u" cx="180" cy="180" r="4.5"/><circle class="pt pt-u" cx="214" cy="214" r="4.5"/></svg></figure>
+    <p>Le graphique représente les six premiers termes d'une suite $(u_n)$.</p>
+    <ol>
+      <li>Lire $u_0$, $u_1$, $u_2$, $u_3$, $u_4$ et $u_5$.</li>
+      <li>Quel semble être le type de la suite ? Sa raison ?</li>
+      <li>En admettant cette conjecture, exprimer $u_n$ en fonction de $n$, puis calculer $u_{10}$.</li>
+      <li>Quel est le sens de variation de la suite ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$u_0=9$ ; $u_1=7$ ; $u_2=5$ ; $u_3=3$ ; $u_4=1$ ; $u_5=-1$.</li>
+        <li>Les points sont alignés et on descend de $2$ à chaque rang : la suite semble arithmétique de raison $-2$.</li>
+        <li>$u_n=u_0+nr=9-2n$. Donc $u_{10}=9-20=-11$.</li>
+        <li>La raison est négative : la suite est décroissante.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-motif-d-allumettes" data-titre="Un motif d'allumettes" data-niveau="1" data-type="probleme" data-notions="suites expr" data-duree="12" data-calculatrice="non">
+    <figure class="figure-svg"><svg viewBox="0 0 714 154" role="img" aria-label="Des triangles d'allumettes alignés : 1 triangle avec 3 allumettes, 2 triangles avec 5 allumettes, 3 triangles avec 7 allumettes."><g class="allumette"><line x1="32.8" y1="82.8" x2="77.8" y2="82.8"/><circle class="tete" cx="75.8" cy="82.8" r="4.2"/></g><g class="allumette"><line x1="29.8" y1="77.6" x2="52.3" y2="38.6"/><circle class="tete" cx="51.3" cy="40.4" r="4.2"/></g><g class="allumette"><line x1="79.8" y1="77.6" x2="57.3" y2="38.6"/><circle class="tete" cx="58.3" cy="40.4" r="4.2"/></g><text class="petit" x="26.8" y="122.0">1 triangle · 3 allumettes</text><g class="allumette"><line x1="223.2" y1="82.8" x2="268.2" y2="82.8"/><circle class="tete" cx="266.2" cy="82.8" r="4.2"/></g><g class="allumette"><line x1="220.2" y1="77.6" x2="242.7" y2="38.6"/><circle class="tete" cx="241.7" cy="40.4" r="4.2"/></g><g class="allumette"><line x1="270.2" y1="77.6" x2="247.7" y2="38.6"/><circle class="tete" cx="248.7" cy="40.4" r="4.2"/></g><g class="allumette"><line x1="251.2" y1="34.3" x2="296.2" y2="34.3"/><circle class="tete" cx="294.2" cy="34.3" r="4.2"/></g><g class="allumette"><line x1="276.2" y1="77.6" x2="298.7" y2="38.6"/><circle class="tete" cx="297.7" cy="40.4" r="4.2"/></g><text class="petit" x="217.2" y="122.0">2 triangles · 5 allumettes</text><g class="allumette"><line x1="441.6" y1="82.8" x2="486.6" y2="82.8"/><circle class="tete" cx="484.6" cy="82.8" r="4.2"/></g><g class="allumette"><line x1="438.6" y1="77.6" x2="461.1" y2="38.6"/><circle class="tete" cx="460.1" cy="40.4" r="4.2"/></g><g class="allumette"><line x1="488.6" y1="77.6" x2="466.1" y2="38.6"/><circle class="tete" cx="467.1" cy="40.4" r="4.2"/></g><g class="allumette"><line x1="469.6" y1="34.3" x2="514.6" y2="34.3"/><circle class="tete" cx="512.6" cy="34.3" r="4.2"/></g><g class="allumette"><line x1="494.6" y1="77.6" x2="517.1" y2="38.6"/><circle class="tete" cx="516.1" cy="40.4" r="4.2"/></g><g class="allumette"><line x1="497.6" y1="82.8" x2="542.6" y2="82.8"/><circle class="tete" cx="540.6" cy="82.8" r="4.2"/></g><g class="allumette"><line x1="544.6" y1="77.6" x2="522.1" y2="38.6"/><circle class="tete" cx="523.1" cy="40.4" r="4.2"/></g><text class="petit" x="435.6" y="122.0">3 triangles · 7 allumettes</text></svg></figure>
+    <p>On aligne des triangles d'allumettes. On note $a_n$ le nombre d'allumettes qu'il faut pour $n$ triangles : $a_1=3$.</p>
+    <ol>
+      <li>Donner $a_2$, $a_3$ et $a_4$.</li>
+      <li>Exprimer $a_{n+1}$ en fonction de $a_n$. Quelle est la nature de la suite ?</li>
+      <li>Exprimer $a_n$ en fonction de $n$. Combien faut-il d'allumettes pour 50 triangles ?</li>
+      <li>On a 200 allumettes. Combien de triangles peut-on aligner au maximum ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$a_2=5$ ; $a_3=7$ ; $a_4=9$.</li>
+        <li>Chaque nouveau triangle s'appuie sur le côté du précédent : il ne demande que 2 allumettes. Donc $a_{n+1}=a_n+2$ : la suite est arithmétique de raison $2$.</li>
+        <li>La suite commence à $a_1$ : $a_n=a_1+(n-1)\times2=3+2n-2=2n+1$. Pour 50 triangles : $a_{50}=101$ allumettes.</li>
+        <li>On cherche le plus grand $n$ tel que $2n+1\le200$, soit $n\le99{,}5$ : 99 triangles, avec 199 allumettes. Il en reste une.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-indices-et-nombre-de-termes" data-titre="Indices et nombre de termes" data-niveau="1" data-type="application" data-notions="suites" data-duree="6" data-calculatrice="non">
+    <ol>
+      <li>Une suite commence à $u_0$. Quel est l'indice de son 1<sup>er</sup> terme ? De son 10<sup>e</sup> ? De son 100<sup>e</sup> ?</li>
+      <li>Même question si elle commence à $u_1$.</li>
+      <li>Combien y a-t-il de termes de $u_5$ à $u_{30}$ ? De $u_0$ à $u_n$ ?</li>
+      <li>On relève une population chaque 1<sup>er</sup> janvier, avec $u_0$ pour 2026. À quelle année correspond $u_8$ ? Quel est le terme de 2040 ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$u_0$, $u_9$, $u_{99}$ : l'indice a toujours un de moins que le numéro du terme.</li>
+        <li>$u_1$, $u_{10}$, $u_{100}$ : l'indice et le numéro coïncident.</li>
+        <li>$30-5+1=26$ termes. De $u_0$ à $u_n$ : $n-0+1=n+1$ termes.</li>
+        <li>$u_n$ correspond à l'année $2026+n$ : $u_8$ à 2034. L'année 2040 correspond à $n=2040-2026=14$ : c'est $u_{14}$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Variations, sommes et modélisations</h3>
+
+  <article class="exercice" id="ex-sens-de-variation-par-la-difference" data-titre="Sens de variation par la différence" data-niveau="2" data-type="application" data-notions="suites developper" data-duree="12" data-calculatrice="non">
+    <ol>
+      <li>Étudier le sens de variation de $u_n=n^2-4n+1$, pour $n\ge0$.</li>
+      <li>Étudier le sens de variation de $w_n=\dfrac{1}{n+1}$, pour $n\ge0$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$u_{n+1}-u_n=(n+1)^2-4(n+1)+1-(n^2-4n+1)=n^2+2n+1-4n-4+1-n^2+4n-1=2n-3$. Pour $n=0$ et $n=1$, $2n-3&lt;0$ ; pour $n\ge2$, $2n-3\ge1&gt;0$. La suite décroît de $u_0=1$ à $u_2=-3$ (en passant par $u_1=-2$), puis elle est croissante <strong>à partir du rang 2</strong>. Elle n'est donc ni croissante ni décroissante sur tous les entiers.</li>
+        <li>$w_{n+1}-w_n=\dfrac{1}{n+2}-\dfrac{1}{n+1}=\dfrac{(n+1)-(n+2)}{(n+1)(n+2)}=\dfrac{-1}{(n+1)(n+2)}$. Le dénominateur est positif, le numérateur négatif : la différence est négative pour tout $n$, la suite est décroissante.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-sens-de-variation-par-le-quotient" data-titre="Sens de variation par le quotient" data-niveau="2" data-type="raisonnement" data-notions="suites" data-duree="15" data-calculatrice="non">
+    <ol>
+      <li>Étudier le sens de variation de $u_n=\dfrac{n}{2^n}$, pour $n\ge1$.</li>
+      <li><em>Pour aller plus loin.</em> $v_n=\dfrac{5^n}{n!}$ pour $n\ge1$, où $n!=1\times2\times\dots\times n$. Montrer que $\dfrac{v_{n+1}}{v_n}=\dfrac{5}{n+1}$ et en déduire le sens de variation de $(v_n)$ à partir d'un certain rang.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Pour $n\ge1$, $u_n&gt;0$. $\dfrac{u_{n+1}}{u_n}=\dfrac{n+1}{2^{n+1}}\times\dfrac{2^n}{n}=\dfrac{n+1}{2n}$. Or $\dfrac{n+1}{2n}\le1\iff n+1\le2n\iff n\ge1$ : c'est vrai pour tout $n\ge1$. La suite est décroissante (avec $u_1=u_2=\frac12$, puis strictement décroissante).</li>
+        <li>$(n+1)!=(n+1)\times n!$, donc $\dfrac{v_{n+1}}{v_n}=\dfrac{5^{n+1}}{(n+1)!}\times\dfrac{n!}{5^n}=\dfrac{5}{n+1}$. Ce quotient est inférieur ou égal à $1$ dès que $n+1\ge5$, soit $n\ge4$ : la suite est décroissante à partir du rang 4. Avant, elle croît : $v_1=5$, $v_2=12{,}5$, $v_3\approx20{,}8$, $v_4\approx26{,}0$, $v_5\approx26{,}0$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-placement-a-interets-composes" data-titre="Un placement à intérêts composés" data-niveau="2" data-type="probleme" data-notions="suites" data-duree="15" data-calculatrice="oui">
+    <p><em>Calculatrice.</em> On place 2 000 € à 2,5 % par an ; chaque année, les intérêts s'ajoutent au capital. On note $C_n$ le capital au bout de $n$ années : $C_0=2\,000$.</p>
+    <ol>
+      <li>Calculer $C_1$ et $C_2$.</li>
+      <li>Exprimer $C_{n+1}$ en fonction de $C_n$. Quelle est la nature de la suite ?</li>
+      <li>Exprimer $C_n$ en fonction de $n$, puis calculer $C_{10}$ au centime.</li>
+      <li>Avec un placement à intérêts simples, on gagnerait 2,5 % de 2 000 €, soit 50 €, chaque année. Quel serait le capital au bout de 10 ans ? D'où vient l'écart ?</li>
+      <li>Au bout de combien d'années le capital dépasse-t-il 2 500 € ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$C_1=2\,000\times1{,}025=2\,050$ ; $C_2=2\,050\times1{,}025=2\,101{,}25$.</li>
+        <li>Augmenter de 2,5 %, c'est multiplier par $1{,}025$ : $C_{n+1}=1{,}025\,C_n$. La suite est géométrique de raison $1{,}025$.</li>
+        <li>$C_n=2\,000\times1{,}025^n$, et $C_{10}\approx2\,560{,}17$ €.</li>
+        <li>Intérêts simples : $S_n=2\,000+50n$, suite arithmétique, et $S_{10}=2\,500$ €. L'écart de $60{,}17$ € vient des intérêts composés : chaque année, les intérêts déjà gagnés rapportent à leur tour.</li>
+        <li>$C_9\approx2\,497{,}73$ et $C_{10}\approx2\,560{,}17$ : le capital dépasse 2 500 € au bout de 10 ans. Avec les intérêts simples, il fallait 10 ans pour l'atteindre tout juste, sans le dépasser.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-commune-qui-perd-des-habitants" data-titre="Une commune qui perd des habitants" data-niveau="2" data-type="probleme" data-notions="suites" data-duree="12" data-calculatrice="oui">
+    <p><em>Calculatrice.</em> Une commune compte 12 000 habitants en 2026. Chaque année, elle en perd 3 %. On note $P_n$ sa population en $2026+n$.</p>
+    <ol>
+      <li>Calculer $P_1$.</li>
+      <li>Justifier que $(P_n)$ est géométrique et donner sa raison. Quel est son sens de variation ?</li>
+      <li>Exprimer $P_n$ en fonction de $n$. Estimer la population en 2036.</li>
+      <li>En quelle année la population passe-t-elle sous 10 000 habitants ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$P_1=12\,000\times0{,}97=11\,640$.</li>
+        <li>Perdre 3 %, c'est multiplier par $1-0{,}03=0{,}97$ : $P_{n+1}=0{,}97\,P_n$. La suite est géométrique de raison $0{,}97$. Comme $P_0&gt;0$ et $0&lt;0{,}97&lt;1$, elle est décroissante.</li>
+        <li>$P_n=12\,000\times0{,}97^n$. En 2036, $n=10$ : $P_{10}\approx8\,849$ habitants.</li>
+        <li>$P_5\approx10\,305$ et $P_6\approx9\,996$ : la population passe sous 10 000 habitants pour $n=6$, en 2032.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-abonnement-qui-augmente-chaque-mois" data-titre="Un abonnement qui augmente chaque mois" data-niveau="2" data-type="probleme" data-notions="suites" data-duree="10" data-calculatrice="non">
+    <p>Une application de musique coûte 9,90 € le premier mois, puis 1,50 € de plus chaque mois. On note $p_n$ le prix du $n$-ième mois : $p_1=9{,}90$.</p>
+    <ol>
+      <li>Quelle est la nature de la suite $(p_n)$ ? Exprimer $p_n$ en fonction de $n$.</li>
+      <li>Calculer le prix du 12<sup>e</sup> mois.</li>
+      <li>Combien paie-t-on en tout la première année ?</li>
+      <li>Un forfait annuel coûte 199 €. Est-il plus avantageux ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>On ajoute 1,50 € chaque mois : suite arithmétique de raison $1{,}5$. Elle commence à $p_1$ : $p_n=9{,}90+1{,}5\,(n-1)$.</li>
+        <li>$p_{12}=9{,}90+1{,}5\times11=26{,}40$ €.</li>
+        <li>De $p_1$ à $p_{12}$ : $12$ termes. $S=12\times\dfrac{9{,}90+26{,}40}{2}=12\times18{,}15=217{,}80$ €.</li>
+        <li>Oui : le forfait fait économiser $217{,}80-199=18{,}80$ € sur l'année.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-dose-d-un-medicament" data-titre="La dose d'un médicament" data-niveau="2" data-type="probleme" data-notions="suites limsuites" data-duree="15" data-calculatrice="oui">
+    <p><em>Calculatrice.</em> On injecte 50 mg d'un médicament à un patient. Chaque jour, son organisme en élimine 20 %, sans nouvelle injection. On note $q_n$ la quantité restante au bout de $n$ jours : $q_0=50$.</p>
+    <ol>
+      <li>Exprimer $q_{n+1}$ en fonction de $q_n$, puis $q_n$ en fonction de $n$.</li>
+      <li>Le médicament n'agit plus sous 5 mg. Écrire une fonction Python qui renvoie le nombre de jours au bout duquel la quantité passe sous 5 mg, puis donner ce nombre.</li>
+      <li>Que devient la quantité à long terme ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Éliminer 20 %, c'est multiplier par $0{,}8$ : $q_{n+1}=0{,}8\,q_n$, suite géométrique, et $q_n=50\times0{,}8^n$.</li>
+        <li>
+<pre class="code">def jours():
+    n = 0
+    q = 50
+    while q &gt;= 5:
+        n = n + 1
+        q = q * 0.8
+    return n</pre>
+        Elle renvoie $11$ : $q_{10}\approx5{,}37$ mg et $q_{11}\approx4{,}29$ mg. Le médicament n'agit plus au bout de 11 jours.</li>
+        <li>En calculant des termes de plus en plus loin, ils se rapprochent de $0$ : on conjecture que $(q_n)$ tend vers $0$. Le médicament finit par disparaître de l'organisme.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-sommes-geometriques" data-titre="Des sommes géométriques" data-niveau="2" data-type="application" data-notions="suites" data-duree="12" data-calculatrice="non">
+    <p>Calculer, sans calculatrice :</p>
+    <p>a) $1+2+4+\dots+2^{10}$ &nbsp; b) $5+10+20+\dots+640$ &nbsp; c) $1+\dfrac13+\dfrac19+\dots+\dfrac{1}{3^5}$</p>
+    <details class="correction">
+      <p>a) $11$ termes ($2^0$ à $2^{10}$), raison $2$ : $\dfrac{1-2^{11}}{1-2}=2^{11}-1=2\,047$.</p>
+      <p>b) $5\times2^n=640\iff2^n=128=2^7$ : de $2^0$ à $2^7$, $8$ termes. $S=5\times\dfrac{1-2^8}{1-2}=5\times255=1\,275$.</p>
+      <p>c) $6$ termes, raison $\frac13$ : $S=\dfrac{1-\left(\frac13\right)^6}{1-\frac13}=\dfrac{1-\frac{1}{729}}{\frac23}=\dfrac{728}{729}\times\dfrac32=\dfrac{364}{243}\approx1{,}498$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-sommes-arithmetiques" data-titre="Des sommes arithmétiques" data-niveau="2" data-type="application" data-notions="suites" data-duree="10" data-calculatrice="non">
+    <p>Calculer, sans calculatrice :</p>
+    <p>a) $1+2+3+\dots+100$ &nbsp; b) $2+4+6+\dots+100$ &nbsp; c) $7+11+15+\dots+87$</p>
+    <details class="correction">
+      <p>a) $\dfrac{100\times101}{2}=5\,050$.</p>
+      <p>b) $50$ termes (les pairs de 2 à 100) : $50\times\dfrac{2+100}{2}=2\,550$. Ou : $2\times(1+2+\dots+50)=2\times1\,275=2\,550$.</p>
+      <p>c) Raison $4$, $u_n=7+4n$. $7+4n=87\iff n=20$ : de $u_0$ à $u_{20}$, $21$ termes. $S=21\times\dfrac{7+87}{2}=21\times47=987$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="suites" data-duree="10" data-calculatrice="non">
+    <p>Un élève a demandé à une IA de calculer $S=3+6+12+\dots+768$. Voici sa réponse. Trouve les erreurs, puis rédige la bonne réponse.</p>
+    <blockquote class="copie-ia">« La suite est géométrique de raison $q=2$ et de premier terme $3$. Comme $768=3\times2^8$, le dernier terme est $u_8$ : il y a donc 8 termes. On applique la formule $S=\text{premier terme}\times\dfrac{1-q^n}{1-q}$ avec $n=8$ : $S=3\times\dfrac{1-2^8}{1-2}=3\times255=765$. Vérification : 765 est bien un multiple de 3, le résultat est donc correct. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1, le nombre de termes.</strong> Le premier terme est $3=3\times2^0=u_0$ et le dernier $u_8$. De $u_0$ à $u_8$, il y a $8-0+1=9$ termes, pas 8. C'est le décalage d'indice. Et comme l'exposant de $q$ dans la formule est le nombre de termes, l'erreur se propage : il fallait $2^9$, pas $2^8$.</p>
+      <p><strong>Erreur 2, la « vérification ».</strong> Tous les termes sont des multiples de 3, donc n'importe quelle somme d'une partie d'entre eux l'est aussi : ce test ne vérifie rien. Un bon test était sous les yeux : la somme contient le terme $768$, elle ne peut pas valoir $765$. En fait, $765=3+6+\dots+384$ : l'IA a oublié le dernier terme.</p>
+      <p><strong>La bonne réponse.</strong> $S=3\times\dfrac{1-2^9}{1-2}=3\times(512-1)=3\times511=1\,533$.</p>
+      <p>Une réponse fluide, structurée et sûre d'elle peut être fausse dès la deuxième ligne. Le réflexe : recompter les termes, et comparer le résultat à un ordre de grandeur évident.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Problèmes</h3>
+
+  <article class="exercice" id="ex-deux-propositions-d-embauche" data-titre="Deux propositions d'embauche" data-niveau="3" data-type="probleme" data-notions="suites" data-duree="25" data-calculatrice="oui">
+    <p><em>Calculatrice ou tableur.</em> On propose deux contrats à une jeune infirmière. Contrat A : 24 000 € la première année, puis 1 000 € de plus chaque année. Contrat B : 24 000 € la première année, puis une hausse de 3,5 % chaque année. On note $a_n$ et $b_n$ le salaire annuel de la $n$-ième année : $a_1=b_1=24\,000$.</p>
+    <ol>
+      <li>Exprimer $a_n$ et $b_n$ en fonction de $n$.</li>
+      <li>Quel contrat paie le plus la 2<sup>e</sup> année ? À partir de quelle année le contrat B paie-t-il plus que le contrat A ?</li>
+      <li>Calculer ce que chaque contrat rapporte en tout sur 10 ans, puis sur 20 ans. Que conseiller ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$(a_n)$ est arithmétique de raison $1\,000$ : $a_n=24\,000+1\,000\,(n-1)$. $(b_n)$ est géométrique de raison $1{,}035$ : $b_n=24\,000\times1{,}035^{\,n-1}$.</li>
+        <li>$a_2=25\,000$ et $b_2=24\,840$ : A paie plus. Au tableur : $a_{11}=34\,000$ et $b_{11}\approx33\,854$, puis $a_{12}=35\,000$ et $b_{12}\approx35\,039$. B dépasse A à partir de la 12<sup>e</sup> année.</li>
+        <li>Sur 10 ans : $A=10\times\dfrac{24\,000+33\,000}{2}=285\,000$ € ; $B=24\,000\times\dfrac{1-1{,}035^{10}}{1-1{,}035}\approx281\,553$ €. Sur 20 ans : $A=20\times\dfrac{24\,000+43\,000}{2}=670\,000$ € ; $B\approx678\,712$ €. Au total, B ne rattrape A qu'au bout de 17 ans : A est meilleur pour une carrière plus courte, B pour une longue carrière. C'est la croissance exponentielle : lente au début, elle finit par dépasser toute croissance linéaire.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-medicament-qui-s-accumule" data-titre="Le médicament qui s'accumule" data-niveau="3" data-type="probleme" data-notions="suites limsuites" data-duree="30" data-calculatrice="oui">
+    <p>Un patient prend 40 mg d'un médicament chaque matin. Entre deux prises, son organisme en élimine 20 %. On note $u_n$ la quantité dans le sang juste après la prise du jour $n$ : $u_0=40$.</p>
+    <ol>
+      <li>Calculer $u_1$ et $u_2$. Justifier que $u_{n+1}=0{,}8\,u_n+40$.</li>
+      <li>La suite $(u_n)$ est-elle arithmétique ? géométrique ?</li>
+      <li>On pose $v_n=u_n-200$. Montrer que $(v_n)$ est géométrique de raison $0{,}8$ et préciser $v_0$.</li>
+      <li>En déduire $v_n$, puis $u_n=200-160\times0{,}8^n$.</li>
+      <li>Conjecturer la limite de $(u_n)$ et l'interpréter.</li>
+      <li>La dose devient toxique au-delà de 250 mg. Y a-t-il un risque ?</li>
+      <li><em>Calculatrice.</em> Le traitement est pleinement efficace au-dessus de 190 mg. À partir de quel jour ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>$u_1=0{,}8\times40+40=72$ ; $u_2=0{,}8\times72+40=97{,}6$. Entre deux prises, il reste $80\,\%$ de la quantité, soit $0{,}8\,u_n$ ; on ajoute la nouvelle prise de 40 mg : $u_{n+1}=0{,}8\,u_n+40$.</li>
+        <li>Écarts : $32$ puis $25{,}6$, pas constants. Quotients : $1{,}8$ puis environ $1{,}36$, pas constants. Ni arithmétique ni géométrique.</li>
+        <li>$v_{n+1}=u_{n+1}-200=0{,}8\,u_n+40-200=0{,}8\,u_n-160=0{,}8\,(u_n-200)=0{,}8\,v_n$. La suite $(v_n)$ est géométrique de raison $0{,}8$, avec $v_0=u_0-200=-160$.</li>
+        <li>$v_n=-160\times0{,}8^n$, et $u_n=v_n+200=200-160\times0{,}8^n$.</li>
+        <li>$0{,}8^n$ se rapproche de $0$ quand $n$ grandit (on l'observe en calculant des termes), donc $u_n$ se rapproche de $200$ : on conjecture que $(u_n)$ tend vers $200$. La quantité se stabilise autour d'un palier de 200 mg : chaque jour, l'organisme élimine autant que ce qu'apporte la prise.</li>
+        <li>$160\times0{,}8^n&gt;0$, donc $u_n&lt;200$ pour tout $n$ : la quantité reste toujours sous 200 mg, jamais au-delà de 250 mg. Aucun risque de toxicité.</li>
+        <li>$u_{12}\approx189{,}0$ et $u_{13}\approx191{,}2$ : à partir du jour 13 (le 14<sup>e</sup> matin, puisque le jour 0 est le premier).</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-algorithme-de-seuil-a-completer" data-titre="Un algorithme de seuil à compléter" data-niveau="3" data-type="probleme" data-notions="suites" data-duree="15" data-calculatrice="oui">
+    <p>Une culture compte 2 000 bactéries. Leur nombre augmente de 15 % par heure. On veut savoir au bout de combien d'heures il dépassera 10 000.</p>
+<pre class="code">def seuil():
+    n = 0
+    b = 2000
+    while ........ :
+        n = ........
+        b = ........
+    return n</pre>
+    <ol>
+      <li>Compléter la fonction.</li>
+      <li><em>Calculatrice.</em> Que renvoie <code>seuil()</code> ? Interpréter.</li>
+      <li>Un élève a écrit <code>while b &gt; 10000:</code>. Que renvoie sa fonction ? Pourquoi ?</li>
+      <li>Un autre a écrit <code>b = b + 0.15</code>. Quelle erreur de modélisation a-t-il faite ?</li>
+      <li>Modifier la fonction pour qu'elle renvoie aussi le nombre de bactéries à ce moment-là.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li><code>while b &lt;= 10000:</code>, <code>n = n + 1</code>, <code>b = b * 1.15</code>.</li>
+        <li>On cherche le premier $n$ tel que $2\,000\times1{,}15^n&gt;10\,000$, soit $1{,}15^n&gt;5$. $1{,}15^{11}\approx4{,}65$ et $1{,}15^{12}\approx5{,}35$ : la fonction renvoie $12$. Le nombre de bactéries dépasse 10 000 au bout de 12 heures.</li>
+        <li>Au départ, $b=2\,000$ et la condition $b&gt;10\,000$ est fausse : la boucle ne tourne jamais, la fonction renvoie $0$. La condition du <code>while</code> doit dire « tant que le seuil n'est <strong>pas</strong> franchi ».</li>
+        <li>Il ajoute $0{,}15$ bactérie par heure : c'est une suite arithmétique de raison $0{,}15$. « Augmenter de 15 % », c'est multiplier par $1{,}15$.</li>
+        <li>Remplacer la dernière ligne par <code>return n, b</code>.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-pyramide-de-boites" data-titre="La pyramide de boîtes" data-niveau="3" data-type="raisonnement" data-notions="suites equation" data-duree="15" data-calculatrice="non">
+    <p>Dans un magasin, on empile des boîtes de conserve en pyramide : une au sommet, deux en dessous, trois en dessous, et ainsi de suite, chaque rangée ayant une boîte de plus que celle du dessus.</p>
+    <ol>
+      <li>On a 210 boîtes. Combien de rangées peut-on faire, en les utilisant toutes ?</li>
+      <li>On a 250 boîtes. Combien de rangées complètes, et combien de boîtes restent ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Avec $n$ rangées, il faut $1+2+\dots+n=\dfrac{n(n+1)}{2}$ boîtes. On cherche $n$ tel que $\dfrac{n(n+1)}{2}=210$, soit $n(n+1)=420$. Deux entiers consécutifs dont le produit vaut 420 : comme $20^2=400$, on essaie $20\times21=420$. Il faut 20 rangées.</li>
+        <li>On cherche le plus grand $n$ tel que $\dfrac{n(n+1)}{2}\le250$. Pour $n=21$ : $231$ boîtes ; pour $n=22$ : $253$, c'est trop. On fait 21 rangées, et il reste $250-231=19$ boîtes.</li>
+      </ol>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>$u_n$, $u(n)$, $(u_n)$ : c'est la même chose ?</summary>
+      <div><p>$u_n$ et $u(n)$ désignent le même nombre : le terme de rang $n$. $(u_n)$, avec les parenthèses, désigne la suite tout entière, la liste de tous les termes. On dit « la suite $(u_n)$ est croissante », mais « le terme $u_5$ vaut 12 ».</p></div></details>
+    <details><summary>Pourquoi ne relie-t-on pas les points ?</summary>
+      <div><p>Parce que la suite n'existe que pour les entiers : il n'y a pas de terme $u_{2{,}5}$. Relier les points ferait croire à des valeurs qui n'existent pas. On peut tracer une courbe à côté pour guider l'œil, mais le graphique d'une suite, ce sont les points.</p></div></details>
+    <details><summary>Comment savoir si une suite est arithmétique ou géométrique ?</summary>
+      <div><p>Pour se faire une idée, on calcule quelques écarts $u_{n+1}-u_n$ et quelques quotients $\frac{u_{n+1}}{u_n}$ : des écarts constants font penser à une arithmétique, des quotients constants à une géométrique. Pour le <strong>prouver</strong>, il faut montrer que l'écart ou le quotient est le même pour tout $n$, à partir de la formule ou de la situation (« on ajoute 12 € chaque année », « on perd 3 % chaque année »).</p></div></details>
+    <details><summary>Pourquoi certaines suites commencent à $u_0$ et d'autres à $u_1$ ?</summary>
+      <div><p>C'est un choix de l'énoncé, souvent dicté par la situation : $u_0$ pour « la situation de départ » (un capital au moment du placement), $u_1$ pour « la première fois » (le prix du premier mois). Les formules s'adaptent : $u_n=u_0+nr$ ou $u_n=u_1+(n-1)r$. Repère toujours le premier terme avant de calculer.</p></div></details>
+    <details><summary>Une suite croissante tend-elle forcément vers $+\infty$ ?</summary>
+      <div><p>Non. $3-2\times0{,}7^n$ est croissante et se rapproche de $3$ sans jamais l'atteindre : elle monte de moins en moins vite. C'est exactement ce que fait la quantité de médicament dans le sang.</p></div></details>
+    <details><summary>Sans calculatrice à l'épreuve anticipée, comment calculer $1{,}03^{14}$ ?</summary>
+      <div><p>On ne te le demandera pas. Les sujets sans calculatrice choisissent des nombres qui se calculent à la main ($2^{10}$, $3^6$, $0{,}5^3$), donnent les valeurs utiles dans l'énoncé, ou te demandent de compléter et d'interpréter un algorithme. Ce qui compte, c'est de savoir <strong>quoi</strong> calculer : la formule, le nombre de termes, la condition du seuil.</p></div></details>
+    <details><summary>On m'a parlé de la démonstration par récurrence. C'est au programme ?</summary>
+      <div><p>Pas en première. Ici, on <strong>définit</strong> des suites par récurrence (chaque terme à partir du précédent). Le raisonnement par récurrence, qui sert à démontrer une propriété pour tous les entiers, est au programme de terminale.</p></div></details>
+    <details><summary>Quelles formules de somme faut-il retenir ?</summary>
+      <div><p>Deux suffisent. Arithmétique : nombre de termes $\times\dfrac{\text{premier}+\text{dernier}}{2}$. Géométrique : premier terme $\times\dfrac{1-q^{\text{nombre de termes}}}{1-q}$. Dans les deux, l'étape qui fait perdre des points est le compte des termes : dernier indice − premier indice + 1.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

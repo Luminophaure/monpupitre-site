@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
 <title>Limites de suites et de fonctions · Terminale</title>
-<link rel="stylesheet" href="../../assets/css/site.css?v=8b4d2040ac">
-<script src="../../assets/js/site.js?v=3b21040d70" defer></script>
+<link rel="stylesheet" href="../../assets/css/site.css?v=8d2cd6a573">
+<script src="../../assets/js/site.js?v=b9e61de4df" defer></script>
 </head>
 <body data-matiere="maths" data-chapitre="limites-comp" data-mise-en-page="classeur">
 <main class="chapitre">
@@ -375,7 +375,7 @@
 
   <h3>Niveau 1 · Limites simples</h3>
 
-  <article class="exercice" data-niveau="1" data-titre="Suites de référence">
+  <article class="exercice" id="ex-suites-de-reference" data-titre="Suites de référence" data-niveau="1" data-type="application" data-notions="limsuites" data-duree="8" data-calculatrice="non">
     <p>Déterminer la limite de chaque suite.</p>
     <p>a) $u_n=\dfrac{1}{n^2}$ &nbsp;&nbsp; b) $v_n=5+\dfrac1n$ &nbsp;&nbsp; c) $w_n=-n^3$ &nbsp;&nbsp; d) $t_n=\dfrac{3}{\sqrt n}$</p>
     <details class="correction">
@@ -386,7 +386,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="1" data-titre="Suites géométriques">
+  <article class="exercice" id="ex-suites-geometriques" data-titre="Suites géométriques" data-niveau="1" data-type="application" data-notions="limsuites" data-duree="8" data-calculatrice="non">
     <p>Déterminer, si elle existe, la limite de chaque suite.</p>
     <p>a) $0{,}8^n$ &nbsp;&nbsp; b) $1{,}05^n$ &nbsp;&nbsp; c) $(-0{,}5)^n$ &nbsp;&nbsp; d) $2\times3^n$ &nbsp;&nbsp; e) $(-2)^n$</p>
     <details class="correction">
@@ -398,7 +398,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="1" data-titre="Fonctions de référence et asymptotes">
+  <article class="exercice" id="ex-fonctions-de-reference-et-asymptotes" data-titre="Fonctions de référence et asymptotes" data-niveau="1" data-type="application" data-notions="limfonctions" data-duree="8" data-calculatrice="non">
     <p>Déterminer chaque limite, puis donner l'asymptote correspondante quand il y en a une.</p>
     <p>a) $\lim\limits_{x\to+\infty}\frac1x$ &nbsp; b) $\lim\limits_{x\to-\infty}e^x$ &nbsp; c) $\lim\limits_{x\to0^+}\ln x$ &nbsp; d) $\lim\limits_{x\to0^-}\frac1x$ &nbsp; e) $\lim\limits_{x\to+\infty}\sqrt x$</p>
     <details class="correction">
@@ -410,7 +410,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="1" data-titre="Conjecturer, puis démontrer">
+  <article class="exercice" id="ex-conjecturer-puis-demontrer" data-titre="Conjecturer, puis démontrer" data-niveau="1" data-type="raisonnement" data-notions="limsuites" data-duree="10" data-calculatrice="oui">
     <p>On pose $u_n = 2-\dfrac3n$ pour $n\ge1$.</p>
     <ol>
       <li>Calculer $u_1$, $u_{10}$, $u_{100}$ et $u_{1000}$.</li>
@@ -430,7 +430,7 @@
 
   <h3>Niveau 2 · Opérations et formes indéterminées</h3>
 
-  <article class="exercice" data-niveau="2" data-titre="Opérations sans piège">
+  <article class="exercice" id="ex-operations-sans-piege" data-titre="Opérations sans piège" data-niveau="2" data-type="application" data-notions="limsuites" data-duree="12" data-calculatrice="non">
     <p>Déterminer la limite de chaque suite, en citant la règle utilisée.</p>
     <p>a) $u_n=n^2+3n$ &nbsp; b) $v_n=\left(2+\frac1n\right)\left(5-\frac1{n^2}\right)$ &nbsp; c) $w_n=\dfrac{4}{1+\frac1n}$ &nbsp; d) $t_n=-2n+\frac1n$</p>
     <details class="correction">
@@ -441,7 +441,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="2" data-titre="Forme « ∞ − ∞ »">
+  <article class="exercice" id="ex-forme-infini-moins-infini" data-titre="Forme « ∞ − ∞ »" data-niveau="2" data-type="application" data-notions="limsuites" data-duree="12" data-calculatrice="non">
     <p>Déterminer la limite de : a) $u_n=n^2-5n$ &nbsp; b) $v_n=3n-n^2$ &nbsp; c) $w_n=n-\sqrt n$</p>
     <details class="correction">
       <p>Les trois sont des formes indéterminées $\infty-\infty$ : on factorise par le terme dominant.</p>
@@ -451,7 +451,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="2" data-titre="Forme « ∞ / ∞ »">
+  <article class="exercice" id="ex-forme-infini-sur-infini" data-titre="Forme « ∞ / ∞ »" data-niveau="2" data-type="application" data-notions="limsuites" data-duree="12" data-calculatrice="non">
     <p>Déterminer la limite de chaque suite.</p>
     <p>a) $\dfrac{3n^2+2n-1}{n^2+4}$ &nbsp; b) $\dfrac{2n+1}{n^2+1}$ &nbsp; c) $\dfrac{n^3-1}{5n^2+n}$ &nbsp; d) $\dfrac{4-n}{2n+3}$</p>
     <details class="correction">
@@ -463,7 +463,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="2" data-titre="Limites de fonctions">
+  <article class="exercice" id="ex-limites-de-fonctions" data-titre="Limites de fonctions" data-niveau="2" data-type="application" data-notions="limfonctions" data-duree="12" data-calculatrice="non">
     <ol>
       <li>Calculer $\lim\limits_{x\to+\infty}\dfrac{2x^2-x+1}{x^2+3}$ et interpréter graphiquement.</li>
       <li>Calculer $\lim\limits_{x\to2^+}\dfrac1{x-2}$ et $\lim\limits_{x\to2^-}\dfrac1{x-2}$ et interpréter graphiquement.</li>
@@ -481,7 +481,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="2" data-titre="Le paradoxe de Zénon">
+  <article class="exercice" id="ex-le-paradoxe-de-zenon" data-titre="Le paradoxe de Zénon" data-niveau="2" data-type="probleme" data-notions="limsuites" data-duree="15" data-calculatrice="oui">
     <p>Achille court vers un arbre. Il parcourt d'abord 1 km, puis la moitié de cette distance, puis la moitié de la moitié, et ainsi de suite. On note $S_n=1+0{,}5+0{,}5^2+\cdots+0{,}5^n$ la distance parcourue après $n+1$ étapes.</p>
     <ol>
       <li>Montrer que $S_n=2\left(1-0{,}5^{n+1}\right)$.</li>
@@ -497,7 +497,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="2" data-titre="Corrige l'IA">
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="limsuites" data-duree="10" data-calculatrice="non">
     <p>Une IA a rédigé cette réponse. Elle est sûre d'elle. Trouve l'erreur, puis donne la bonne limite.</p>
     <blockquote class="copie-ia">« On cherche $\lim\limits_{n\to+\infty}\dfrac{n^2+1}{n+1}$. Le numérateur tend vers $+\infty$ et le dénominateur aussi. Comme $\frac{\infty}{\infty}=1$, la limite vaut $1$. »</blockquote>
     <details class="correction">
@@ -509,7 +509,7 @@
 
   <h3>Niveau 3 · Comparaison et synthèse</h3>
 
-  <article class="exercice" data-niveau="3" data-titre="Comparaison vers l'infini">
+  <article class="exercice" id="ex-comparaison-vers-l-infini" data-titre="Comparaison vers l'infini" data-niveau="3" data-type="raisonnement" data-notions="limsuites" data-duree="20" data-calculatrice="non">
     <p>a) Déterminer la limite de $u_n=n^2+(-1)^n$. &nbsp; b) Déterminer la limite de $v_n=-n+\cos n$.</p>
     <details class="correction">
       <p>a) Pour tout $n$, $(-1)^n\ge-1$, donc $u_n\ge n^2-1$. Or $\lim(n^2-1)=+\infty$. D'après le théorème de comparaison, $\lim u_n=+\infty$.</p>
@@ -517,7 +517,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="3" data-titre="Les gendarmes">
+  <article class="exercice" id="ex-les-gendarmes" data-titre="Les gendarmes" data-niveau="3" data-type="raisonnement" data-notions="limsuites" data-duree="20" data-calculatrice="non">
     <p>Déterminer la limite de : a) $u_n=\dfrac{(-1)^n}{n}$ &nbsp; b) $v_n=\dfrac{\cos n}{n^2}$ &nbsp; c) $w_n=\dfrac{2n+\sin n}{n}$</p>
     <details class="correction">
       <p>a) $-1\le(-1)^n\le1$, et en divisant par $n&gt;0$ : $-\frac1n\le u_n\le\frac1n$. Les deux bornes tendent vers $0$, donc d'après le théorème des gendarmes, $\lim u_n=0$.</p>
@@ -526,7 +526,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="3" data-titre="Peut-on conclure ?">
+  <article class="exercice" id="ex-peut-on-conclure" data-titre="Peut-on conclure ?" data-niveau="3" data-type="raisonnement" data-notions="limsuites" data-duree="20" data-calculatrice="non">
     <p>Pour chaque information, dire si l'on peut conclure sur la limite de $(u_n)$ et, si oui, la donner.</p>
     <p>a) $u_n\le n^2$ &nbsp; b) $0\le u_n\le2$ &nbsp; c) $u_n\ge\sqrt n$ &nbsp; d) $1-\frac1n\le u_n\le1+\frac1{n^2}$</p>
     <details class="correction">
@@ -537,7 +537,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="3" data-titre="Comparaison pour les fonctions">
+  <article class="exercice" id="ex-comparaison-pour-les-fonctions" data-titre="Comparaison pour les fonctions" data-niveau="3" data-type="raisonnement" data-notions="limfonctions" data-duree="20" data-calculatrice="non">
     <ol>
       <li>Montrer que pour tout $x&gt;0$, $1-\frac1x\le\dfrac{x+\sin x}{x}\le1+\frac1x$, puis en déduire $\lim\limits_{x\to+\infty}\dfrac{x+\sin x}{x}$.</li>
       <li>Déterminer $\lim\limits_{x\to+\infty}\left(x^2+\cos x\right)$.</li>
@@ -550,7 +550,7 @@
     </details>
   </article>
 
-  <article class="exercice" data-niveau="3" data-titre="Synthèse : la perfusion">
+  <article class="exercice" id="ex-synthese-la-perfusion" data-titre="Synthèse : la perfusion" data-niveau="3" data-type="probleme" data-notions="limsuites" data-duree="25" data-calculatrice="oui">
     <p>Un patient est placé sous perfusion. Chaque heure, son organisme élimine $20\,\%$ du médicament présent dans le sang, puis la perfusion en apporte $10$ mg. Au départ, il n'y a pas de médicament dans le sang. On note $u_n$ la quantité (en mg) au bout de $n$ heures : $u_0=0$.</p>
     <ol>
       <li>Justifier que $u_{n+1}=0{,}8\,u_n+10$.</li>

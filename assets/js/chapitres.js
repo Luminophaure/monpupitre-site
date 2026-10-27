@@ -144,7 +144,7 @@ window.MATIERES = [
       ]},
       { id: "premiere", nom: "Première spécialité", chapitres: [
         { id: "second-degre",  titre: "Second degré" },
-        { id: "suites",        titre: "Suites numériques" },
+        { id: "suites",        titre: "Suites numériques", fichier: "maths/premiere/suites.html" },
         { id: "derivation",    titre: "Dérivation" },
         { id: "variations-1",  titre: "Variations et courbes" },
         { id: "exponentielle", titre: "Fonction exponentielle" },

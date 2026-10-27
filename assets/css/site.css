@@ -492,6 +492,14 @@ input[type=range].rose{accent-color:var(--pink)}
 .bloc.plie:hover{box-shadow:inset 6px 0 0 var(--c),0 0 0 2px var(--c)}
 @media (max-width:480px){ .bloc.pliable{grid-template-columns:minmax(0,1fr)} .bloc-plier{grid-column:1;grid-row:auto;justify-self:start;padding-left:0} }
 :is(.bloc,article.exercice) p.formule{text-align:center;font-size:1.06rem;padding:var(--e-1-5) 0;max-width:none}
+/* une démonstration repliée sous la propriété qu'elle prouve (suites, première) */
+.bloc details.preuve{border-top:1px dashed var(--line);padding-top:var(--e-2-5);display:grid;gap:var(--e-2)}
+.bloc details.preuve > summary{cursor:pointer;font-weight:700;color:var(--c);list-style:none;width:max-content;max-width:100%}
+.bloc details.preuve > summary::-webkit-details-marker{display:none}
+.bloc details.preuve > summary::before{content:"▸ "}
+.bloc details.preuve[open] > summary::before{content:"▾ "}
+/* un programme Python dans le cours ou dans un exercice : plus lisible que le code du mode d'emploi */
+:is(.bloc,article.exercice,.labo) pre.code{font-size:var(--t-s);max-width:100%}
 
 /* ---------- 6. Méthodes : étapes numérotées et solution déroulée ---------- */
 :is(.etapes,.deroule ol.pas){list-style:none;padding:0;margin:0;display:grid;gap:var(--e-2-5)}
@@ -595,7 +603,7 @@ figure.graphe.panoramique canvas{aspect-ratio:16/10}
 .t-phase{--trait:var(--fil-phase)} .t-neutre{--trait:var(--fil-neutre)} .t-terre{--trait:var(--fil-terre)} .t-terre2{--trait:var(--fil-terre2)} .t-chaud{--trait:var(--chaud)} .t-froid{--trait:var(--froid)}   /* électricité, thermique */
 .figure-svg .note{font:500 13px var(--f-body);fill:var(--ink)}
 :is(.figure-svg,.media) .fond-carte{fill:var(--card);stroke:var(--line);stroke-width:1.5}
-.media :is(.oscillo-svg,.wien-svg){max-width:360px}
+.media :is(.oscillo-svg,.wien-svg,.nuage-svg){max-width:360px}
 .media .picto-media{width:96px;height:96px;display:block}
 .labo .journal-elec li .m{font:600 .8rem var(--f-mono);color:var(--mc);margin-right:var(--e-1-5)}   /* le journal du défaut d'isolement : « 0 ms », « < 40 ms »… */
 .labo .journal:empty{display:none}
@@ -665,13 +673,17 @@ article.exercice .num-ex{font:800 var(--t-l) var(--f-display)}
 article.exercice .etoiles{color:var(--b-ex);letter-spacing:2px}
 article.exercice .etoiles-vides{opacity:.25}
 article.exercice .titre-ex{color:var(--muted)}
-details.correction{border:2px dashed var(--line);border-radius:var(--r-m)}
-details.correction > summary{cursor:pointer;padding:var(--e-2) var(--e-3-5);font-family:var(--f-hand);font-size:1.45rem;color:var(--ko);list-style:none}
-details.correction > summary::-webkit-details-marker{display:none}
+details.correction,details.indice{border:2px dashed var(--line);border-radius:var(--r-m)}
+details.correction > summary,details.indice > summary{cursor:pointer;padding:var(--e-2) var(--e-3-5);font-family:var(--f-hand);font-size:1.45rem;color:var(--ko);list-style:none}
+details.correction > summary::-webkit-details-marker,details.indice > summary::-webkit-details-marker{display:none}
 details.correction > summary::before{content:"✎ "}
-details.correction[open] > summary{border-bottom:2px dashed var(--line)}
-details.correction > .contenu{padding:var(--e-3) var(--e-4) var(--e-3-5) var(--e-4-5);border-left:4px solid var(--ko);margin:var(--e-2-5) var(--e-3) var(--e-3);display:grid;gap:var(--e-2)}
-details.correction > .contenu > *,.bloc > *,.question > *,.deroule > *{min-width:0;max-width:100%}
+details.correction[open] > summary,details.indice[open] > summary{border-bottom:2px dashed var(--line)}
+details.correction > .contenu,details.indice > .contenu{padding:var(--e-3) var(--e-4) var(--e-3-5) var(--e-4-5);border-left:4px solid var(--ko);margin:var(--e-2-5) var(--e-3) var(--e-3);display:grid;gap:var(--e-2)}
+details.correction > .contenu > *,details.indice > .contenu > *,.bloc > *,.question > *,.deroule > *{min-width:0;max-width:100%}
+/* le coup de pouce : même forme que la correction, l'encre des indices du tuteur */
+details.indice > summary{color:var(--b-meth);font-size:1.3rem}
+details.indice > summary::before{content:"✦ "}
+details.indice > .contenu{border-left-color:var(--b-meth)}
 
 /* ---------- 11. Quiz et jeu ---------- */
 :is(.quiz,.jeu){padding:var(--e-5);display:grid;gap:var(--e-4)}

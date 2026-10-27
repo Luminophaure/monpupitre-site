@@ -28,8 +28,8 @@
 <meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
 <title>TITRE DU CHAPITRE · Seconde</title>
-<link rel="stylesheet" href="../../assets/css/site.css?v=8b4d2040ac">
-<script src="../../assets/js/site.js?v=3b21040d70" defer></script>
+<link rel="stylesheet" href="../../assets/css/site.css?v=8d2cd6a573">
+<script src="../../assets/js/site.js?v=b9e61de4df" defer></script>
 </head>
 <body data-matiere="ID-DE-LA-MATIERE" data-chapitre="ID-DU-CHAPITRE" data-mise-en-page="classeur">
 <main class="chapitre">
@@ -171,9 +171,18 @@
 
   <h3>Niveau 1 · Reconnaître et appliquer</h3>
 
-  <!-- data-niveau : 1, 2 ou 3 étoiles. Les numéros s'ajoutent tout seuls. -->
-  <article class="exercice" data-niveau="1" data-titre="Titre court">
+  <!-- Chaque exercice est une FICHE de la banque d'exercices (CLAUDE.md, « La banque
+       d'exercices ») : id stable (ex- + le titre en minuscules sans accents, puis on n'y
+       touche plus), niveau 1 à 3, type, notions de notions.js, durée en minutes,
+       calculatrice. Les numéros et les étoiles s'ajoutent tout seuls.
+       Puis : python3 outils/banque.py -->
+  <article class="exercice" id="ex-titre-court" data-titre="Titre court" data-niveau="1"
+           data-type="application" data-notions="notion" data-duree="8" data-calculatrice="non">
     <p>Énoncé.</p>
+    <!-- facultatif : un ou plusieurs coups de pouce, dans l'ordre -->
+    <details class="indice">
+      <p>Une question qui remet sur la piste, sans donner la méthode toute faite.</p>
+    </details>
     <details class="correction">
       <p>Correction rédigée, avec le calcul.</p>
     </details>
@@ -181,7 +190,8 @@
 
   <h3>Niveau 2 · Analyser une situation</h3>
 
-  <article class="exercice" data-niveau="2" data-titre="Titre court">
+  <article class="exercice" id="ex-autre-titre" data-titre="Autre titre" data-niveau="2"
+           data-type="probleme" data-notions="notion" data-duree="15" data-calculatrice="oui">
     <p>1. Première question.<br>2. Deuxième question.</p>
     <details class="correction">
       <p>1. Réponse.</p>
@@ -191,7 +201,8 @@
 
   <!-- UN PAR CHAPITRE, obligatoire : une réponse d'IA fluide, assurée et fausse dès la
        première ligne, que l'élève doit démonter. C'est une signature du projet. -->
-  <article class="exercice" data-niveau="2" data-titre="Corrige l'IA">
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2"
+           data-type="corrige-ia" data-notions="notion" data-duree="10" data-calculatrice="oui">
     <p>Un élève a demandé à une IA de… Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
     <blockquote class="copie-ia">« Le raisonnement faux, écrit avec aplomb, qui enchaîne les “donc”. »</blockquote>
     <details class="correction">
@@ -203,7 +214,8 @@
 
   <h3>Niveau 3 · Synthèse</h3>
 
-  <article class="exercice" data-niveau="3" data-titre="Titre court">
+  <article class="exercice" id="ex-synthese" data-titre="Synthèse" data-niveau="3"
+           data-type="probleme" data-notions="notion" data-duree="25" data-calculatrice="oui">
     <p>Une situation complète, à démêler en plusieurs questions.</p>
     <details class="correction">
       <p>La correction, question par question.</p>

@@ -7,8 +7,8 @@
 <meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
 <title>Mode d'emploi · Monpupitre</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="assets/css/site.css?v=8b4d2040ac">
-<script src="assets/js/site.js?v=3b21040d70" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=8d2cd6a573">
+<script src="assets/js/site.js?v=b9e61de4df" defer></script>
 </head>
 <body data-titre-page="Mode d'emploi">
 <main class="chapitre">
@@ -141,10 +141,13 @@ $$ \frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd} \qquad x \in [-2\,;\,4] \qquad
 
 <section id="exercices">
   <h2>Exercices corrigés</h2>
-  <p>Numéro et étoiles s'ajoutent tout seuls. Dès qu'il y a plusieurs niveaux, des filtres de difficulté apparaissent, ainsi qu'un bouton pour ouvrir toutes les corrections.</p>
+  <p>Chaque exercice est une fiche de la banque d'exercices : un identifiant qui ne change jamais, et ses étiquettes (type, notions, durée, calculatrice). Les coups de pouce (<code>details.indice</code>) sont facultatifs. Numéro et étoiles s'ajoutent tout seuls. Dès qu'il y a plusieurs niveaux, des filtres de difficulté apparaissent, ainsi qu'un bouton pour ouvrir toutes les corrections.</p>
   <div class="demo">
-<article class="exercice" data-niveau="2" data-titre="Antécédents par le calcul">
+<article class="exercice" id="ex-antecedents-par-le-calcul" data-titre="Antécédents par le calcul" data-niveau="2" data-type="application" data-notions="image resoudre" data-duree="5" data-calculatrice="non">
   <p>Soit $g(x) = -2x + 7$. Trouve l'antécédent de $3$.</p>
+  <details class="indice">
+    <p>Quelle équation traduit « $g(x)$ vaut $3$ » ?</p>
+  </details>
   <details class="correction">
     <p>$-2x + 7 = 3 \iff -2x = -4 \iff x = 2$.</p>
   </details>

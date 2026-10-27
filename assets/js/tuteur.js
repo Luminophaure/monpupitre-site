@@ -94,7 +94,7 @@ function termes(n,signe){ signe=signe===undefined?1:signe;
 function estMonome(n){ // nombre, x, x^k, nombre×x, nombre×x^k, ou divisé par un nombre
   if(n.t==='num'||n.t==='var') return true; if(n.t==='pow') return n.a.t==='var';
   if(n.t==='neg') return estMonome(n.a);
-  if(n.t==='mul') return n.a.t==='num'&&(n.b.t==='var'||(n.b.t==='pow'&&n.b.a.t==='var'));
+  if(n.t==='mul') return (n.a.t==='num'||(n.a.t==='neg'&&n.a.a.t==='num'))&&(n.b.t==='var'||(n.b.t==='pow'&&n.b.a.t==='var'));   // 2x, et -4n (lu comme (-4)×n)
   if(n.t==='div') return n.b.t==='num'&&estMonome(n.a); return false; }
 function estReduite(n){ const ts=termes(n); if(!ts.every(t=>estMonome(t.n))) return false;
   const exps=ts.map(t=>{ const p=poly(t.n); return p?Poly.deg(p):-1; }); return new Set(exps).size===exps.length; }
