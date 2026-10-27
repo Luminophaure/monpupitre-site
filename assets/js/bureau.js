@@ -717,8 +717,10 @@ function monterPeint(){
   const C=(P.compagnons||{})[r.compagnon]; if(C){ const v=vuePiece(C,nuit), bx=v.boite, ct=v.contact||[bx[2]*.2,bx[2]*.8], l=ct[1]-ct[0];
     cadre+='<i class="fb-ombre fb-ombre-c" style="left:'+pc(bx[0]+ct[0]-l*.12,W)+';width:'+pc(l*1.24,W)+';top:'+pc(bx[1]+v.appui[1],H)+'"></i>';
     cadre+=img(v.src,'fb-compagnon'+(v.allumee?' fb-dort':''),'left:'+pc(bx[0],W)+';top:'+pc(bx[1],H)+';width:'+pc(bx[2],W)+';'+(v.allumee?'':teintePeinte(moment,'g'))); }
+  // on peut le caresser : une zone pour le pointeur, comme les objets gagnés (caresser())
+  const vC=C&&vuePiece(C,nuit), toucheC=vC?'<button type="button" class="fb-touche fb-caresse" tabindex="-1" data-compagnon="'+echap(r.compagnon)+'" style="left:'+pc(vC.boite[0],W)+';top:'+pc(vC.boite[1],H)+';width:'+pc(vC.boite[2],W)+';height:'+pc(vC.boite[3],H)+'"></button>':'';
   cadre+=Gn.appui;
-  f.innerHTML=filtresPeint(S)+cadre+'</div>'+Gn.touches;
+  f.innerHTML=filtresPeint(S)+cadre+'</div>'+(!toucheC?Gn.touches:Gn.touches?Gn.touches.replace(/<\/div>$/,toucheC+'</div>'):'<div class="fb-touches" aria-hidden="true">'+toucheC+'</div>');
   f._vitrine=Gn.vitrine||null;   // placerPeint écarte le pot du mode « haut » de la vitrine
   // les objets-commandes et les objets décoratifs, posés dans les marges par placerPeint
   const objets=[['lampe','button','Thème clair ou sombre (la lampe)',r.lampe,r.lampeCouleur],['tasse','button','Rappel de pause (la tasse)',r.tasse,r.tasseCouleur],
@@ -739,6 +741,7 @@ function monterPeint(){
   body.insertBefore(f,body.firstChild);
   brancherObjets(f);
   f.querySelectorAll('.fb-touche').forEach(t=>{ const b=Gn.bulles[t.dataset.gagne]; if(b) brancherBulle(t,b); });
+  const tc=f.querySelector('.fb-caresse'); if(tc){ brancherBulle(tc,()=>bulleCompagnon(P,r.compagnon,!!(vC&&vC.allumee))); tc.addEventListener('click',()=>caresser(f,r.compagnon)); }
   if(Gn.nouveaux.length) Pupitre.gagne.voir(Gn.nouveaux);
   mentionDecor(true); surveillerMoment();
   if(garderFocus){ const n=f.querySelector('[data-objet="'+garderFocus+'"]'); if(n) n.focus(); }
@@ -805,6 +808,23 @@ function gagnesPeints(P,moment,pc,img){
     R.bulles['instrument-'+k]=()=>[i[1]+' · '+i[2],'Ton premier défi de labo réussi dans cette matière'+(g.date?', le '+date(g.date):'')+'.',c?'« '+c.chapitre.titre+' »':'']; });
   R.touches='<div class="fb-touches" aria-hidden="true">'+zones.map(z=>'<a class="fb-touche" tabindex="-1" data-gagne="'+z[0]+'" href="'+lien(z[5])+'" style="'+boite([z[1],z[2],z[3],z[4]])+';height:'+pc(z[4],H)+'"></a>').join('')+'</div>';
   return R; }
+/* la caresse du compagnon (27 octobre, demande du professeur) : un son doux et bref, joué par
+   musique.js (Musique.caresse : un son par famille d'animal, réglé par le volume de la musique,
+   muet pendant un contrôle blanc ou une vidéo), un petit mouvement et trois cœurs qui montent.
+   Seulement au clic, jamais tout seul ; rien ne bouge sous « réduire les animations ». Ce n'est
+   pas une récompense : rien ne se compte, rien ne change d'une caresse à l'autre. */
+const PHRASES_COMPAGNON={ronron:'Caresse-le : il ronronne.',pepie:'Caresse-la : elle pépie.',gemit:'Caresse-le : il est tout content.',
+  couine:'Caresse-le : il couine de plaisir.',grogne:'Caresse-le : il grogne tout doux.',pouic:'Appuie dessus : elle fait « pouic ».'};
+function bulleCompagnon(P,k,dort){ const type=(window.Musique&&Musique.SONS_COMPAGNON||{})[k]||'ronron';
+  return [((P.noms||{})[k]||'Ton compagnon')+' · ton compagnon', dort?'Il dort. Caresse-le doucement : il ronronne sans se réveiller.':PHRASES_COMPAGNON[type]||PHRASES_COMPAGNON.ronron,'Le son suit le volume de la musique']; }
+function caresser(f,k){
+  if(window.Musique&&Musique.caresse) Musique.caresse(k);
+  const im=f.querySelector('.fb-compagnon'), t=f.querySelector('.fb-caresse'); if(!im||!t||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  im.classList.remove('fb-caresse-joue'); void im.offsetWidth; im.classList.add('fb-caresse-joue');
+  clearTimeout(im._caresse); im._caresse=setTimeout(()=>im.classList.remove('fb-caresse-joue'),1500);
+  [.3,.55,.78].forEach((x,i)=>{ const c=document.createElement('i'); c.className='fb-coeur'; c.setAttribute('aria-hidden','true');
+    c.style.left='calc('+t.style.left+' + '+t.style.width+' * '+x+')'; c.style.top='calc('+t.style.top+' + '+t.style.height+' * .15)'; c.style.animationDelay=(i*.2)+'s';
+    t.parentNode.appendChild(c); setTimeout(()=>c.remove(),2400); }); }
 /* l'ombre d'un objet posé sur l'appui de la fenêtre (comme celle du compagnon) */
 function ombreAppui(p,pc,W,H){ const b=p.boite, c=p.contact||[b[2]*.2,b[2]*.8], l=c[1]-c[0];
   return '<i class="fb-ombre fb-ombre-c" style="left:'+pc(b[0]+c[0]-l*.12,W)+';width:'+pc(l*1.24,W)+';top:'+pc(b[1]+p.appui[1],H)+'"></i>'; }
@@ -852,7 +872,7 @@ const BULLES={
     ? ['La lampe · le thème','Éteins-la pour revenir au thème clair.','']
     : ['La lampe · le thème','Allume-la pour passer au thème sombre, plus doux le soir.',''],
   casque:()=>{ const e=document.querySelector('#pastille-musique .etat');
-    return ['Le casque · la musique','Ouvre la musique de concentration : neuf ambiances et le minuteur 25 / 5.',e&&e.textContent?e.textContent:'']; },
+    return ['Le casque · la musique','Ouvre la musique de concentration : dix ambiances et le minuteur 25 / 5.',e&&e.textContent?e.textContent:'']; },
   tasse:()=>{ const e=document.querySelector('#pastille-pause .etat');
     return ['La tasse · la pause','Règle le rappel qui te propose une pause pendant que tu travailles.',e&&e.textContent?e.textContent:'']; },
   livres:()=>{ const id=lire('matiere-ouverte','maths'), m=(window.MATIERES||[]).find(x=>x.id===id);

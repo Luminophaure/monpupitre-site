@@ -11,6 +11,7 @@
      feu     : souffle grave et crépitements par rafales
      rose    : bruit rose (−3 dB/octave)
      brun    : bruit brun, grave et régulier
+     ronron  : un chat qui ronronne, au rythme de sa respiration
      silence : rien, seulement le minuteur
    AUCUNE NE TOURNE EN ROND : les deux ambiances musicales changent de grille
    d'accords toutes les huit mesures et transposent par moments ; les ambiances
@@ -32,7 +33,7 @@ const P=window.Pupitre; if(!P) return;
    un objet {stop()} + une ligne dans demarrer(). */
 const GROUPES=[
   ['Avec des notes',[['lofi','Lo-fi','accords feutrés, rythme lent'],['piano','Piano calme','notes douces, lentes'],['nappes','Nappes','accords longs, sans rythme']]],
-  ['Sans notes',[['pluie','Pluie','averse et gouttes'],['vagues','Vagues','ressac lent'],['feu','Feu de bois','crépitements'],['rose','Bruit rose','souffle équilibré'],['brun','Bruit brun','grave et régulier']]],
+  ['Sans notes',[['pluie','Pluie','averse et gouttes'],['vagues','Vagues','ressac lent'],['feu','Feu de bois','crépitements'],['rose','Bruit rose','souffle équilibré'],['brun','Bruit brun','grave et régulier'],['ronron','Ronron','un chat qui ronronne']]],
   ['',[['silence','Silence','seulement le minuteur']]]
 ];
 const AMBIANCES=GROUPES.reduce(function(a,g){ return a.concat(g[1]); },[]);
@@ -41,6 +42,7 @@ const sauver=()=>P.ecrire('musique',etat);
 
 /* ---------- le moteur sonore ---------- */
 let ctx=null, master=null, courant=null, raisonPause=null;
+const silence={controle:false,video:false};   // même musique coupée : la caresse du compagnon se tait aussi
 function contexte(){ if(ctx) return ctx; const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return null; ctx=new AC(); master=ctx.createGain(); master.gain.value=etat.volume*.6; master.connect(ctx.destination); return ctx; }
 function bruit(secondes,type){ const n=Math.floor(ctx.sampleRate*secondes), b=ctx.createBuffer(1,n,ctx.sampleRate), d=b.getChannelData(0); let last=0;
   // bruit rose : filtre de Paul Kellet, −3 dB par octave. Entre le blanc (sifflant) et le
@@ -226,9 +228,94 @@ function nappes(){
   (function boucle(){ if(!vivant) return; const d=poser(); timer=setTimeout(boucle,d*620); })();
   return {stop(){ vivant=false; clearTimeout(timer); setTimeout(function(){ try{ sec.disconnect(); revG.disconnect(); }catch(e){} },8000); }}; }
 
+/* Ronron : un chat qui ronronne contre toi. La vibration est un train d'impulsions vers 25 Hz
+   (le larynx du chat), riche en harmoniques graves, et un souffle filtré passe au même rythme.
+   Le chat ronronne en respirant : l'inspiration plus douce et un peu plus lente, l'expiration
+   plus forte, des durées tirées à chaque souffle et, de loin en loin, un temps d'arrêt. Deux
+   oscillations lentes de périodes incommensurables font dériver le timbre et la force : la même
+   respiration ne revient jamais. La caresse du compagnon reprend la même voix, deux souffles. */
+let ondeRonron=null;
+function voixRonron(sortie){
+  // une vibration ronde : peu d'harmoniques, qui décroissent vite — des impulsions arrondies, pas des clics
+  if(!ondeRonron){ const n=16, re=new Float32Array(n), im=new Float32Array(n); for(let k=1;k<n;k++) re[k]=Math.pow(.77,k); ondeRonron=ctx.createPeriodicWave(re,im); }
+  const vib=ctx.createOscillator(); vib.setPeriodicWave(ondeRonron); vib.frequency.value=23;
+  // le timbre : la poitrine du chat, grave et chaude ; deux passe-bas à la suite pour qu'il ne grésille pas
+  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=270; lp.Q.value=.5;
+  const lp2=ctx.createBiquadFilter(); lp2.type='lowpass'; lp2.frequency.value=380; lp2.Q.value=.4;
+  const corps=ctx.createBiquadFilter(); corps.type='peaking'; corps.frequency.value=95; corps.Q.value=.9; corps.gain.value=7;
+  const voix=ctx.createGain(); voix.gain.value=.27;
+  vib.connect(lp); lp.connect(lp2); lp2.connect(corps); corps.connect(voix);
+  // un souffle discret et grave, au même rythme
+  const s=ctx.createBufferSource(); s.buffer=bruit(5,'brun'); s.loop=true;
+  const sf=ctx.createBiquadFilter(); sf.type='lowpass'; sf.frequency.value=400; sf.Q.value=.3;
+  const am=ctx.createGain(); am.gain.value=0; const prof=ctx.createGain(); prof.gain.value=.5; vib.connect(prof); prof.connect(am.gain);
+  const grain=ctx.createGain(); grain.gain.value=1.6;
+  s.connect(sf); sf.connect(am); am.connect(grain); grain.connect(voix);
+  const souffle=ctx.createGain(); souffle.gain.value=.0001; voix.connect(souffle); souffle.connect(sortie);
+  vib.start(); s.start();
+  return {vib:vib,lp:lp,voix:voix,souffle:souffle,stop:function(t){ t=Math.max(t||0,ctx.currentTime); [vib,s].forEach(x=>{ try{ x.stop(t+.05); }catch(e){} });
+    setTimeout(()=>{ try{ souffle.disconnect(); }catch(e){} },(t-ctx.currentTime)*1000+400); }};
+}
+/* un souffle : l'inspiration, un petit arrêt, l'expiration, en courbes douces (pas de rampes
+   droites, qui s'entendent comme des bords) ; rend l'instant où il finit */
+function souffleRonron(v,t,force){ force=force||1; const g=v.souffle.gain, f=v.vib.frequency;
+  const ins=.95+Math.random()*.55, exp=1.15+Math.random()*.7, arret=.08+Math.random()*.16;
+  const a1=(.45+Math.random()*.15)*force, a2=(.85+Math.random()*.15)*force;
+  f.setValueAtTime(20+Math.random()*2,t);
+  g.setValueAtTime(.0001,t); g.setTargetAtTime(a1,t,.13); g.setTargetAtTime(a1*.8,t+ins*.55,.25); g.setTargetAtTime(.0001,t+ins-.2,.08);
+  const t2=t+ins+arret; f.setValueAtTime(22.5+Math.random()*2.5,t2);
+  g.setValueAtTime(.0001,t2); g.setTargetAtTime(a2,t2,.11); g.setTargetAtTime(a2*.75,t2+exp*.55,.3); g.setTargetAtTime(.0001,t2+exp-.22,.09);
+  return t2+exp; }
+function ronron(){
+  const v=voixRonron(master);
+  const lfos=[[.019,90,v.lp.frequency],[.0123,.07,v.voix.gain]].map(function(c){ const o=ctx.createOscillator(), a=ctx.createGain(); o.frequency.value=c[0]; a.gain.value=c[1]; o.connect(a); a.connect(c[2]); o.start(); return o; });
+  let suite=ctx.currentTime+.1, vivant=true, timer=null;
+  (function respirer(){ if(!vivant) return;
+    while(suite<ctx.currentTime+2.5){ let fin=souffleRonron(v,Math.max(suite,ctx.currentTime+.05)); fin+=.12+Math.random()*.3;
+      if(Math.random()<.07) fin+=.8+Math.random()*1.6;   // de loin en loin, le chat s'arrête un instant
+      suite=fin; }
+    timer=setTimeout(respirer,700); })();
+  return {stop(){ vivant=false; clearTimeout(timer); const t=ctx.currentTime; v.souffle.gain.cancelScheduledValues(t); v.souffle.gain.setTargetAtTime(.0001,t,.08); v.stop(t+.5);
+    lfos.forEach(o=>{ try{ o.stop(); }catch(e){} }); }}; }
+
+/* La caresse du compagnon (bureau.js) : un son doux et bref, seulement au clic de l'élève,
+   jamais tout seul ; muet pendant un contrôle blanc ou une vidéo ; réglé par le volume de la
+   musique, et plus bas qu'elle (sous 0,05 efficace, mesuré par tests/musique_test.py). Un son
+   par famille d'animal : les chats et le lionceau ronronnent, la perruche pépie, le chien
+   gémit de contentement, le lapin, le renard et le panda couinent, le dinosaure et le dragon
+   grognent tout doux, les peluches font « pouic ». */
+const SONS_COMPAGNON={chaton:'ronron','chat-tigre':'ronron','chat-noir':'ronron','chat-gris':'ronron',lionceau:'ronron',
+  perruche:'pepie',chien:'gemit',lapin:'couine',renard:'couine',panda:'couine',dinosaure:'grogne',dragon:'grogne',
+  'peluche-elephant':'pouic','peluche-girafe':'pouic','peluche-tigre':'pouic'};
+function caresse(quoi){
+  if(silence.controle||silence.video||!contexte()) return null;
+  if(!bruitBlanc) bruitBlanc=bruit(4,'blanc');
+  try{ ctx.resume(); }catch(e){}
+  const type=SONS_COMPAGNON[quoi]||quoi||'ronron', sortie=ctx.createGain(); sortie.gain.value=.55; sortie.connect(master);
+  const t=ctx.currentTime+.04;
+  // les sons aigus et brefs portent mieux à l'oreille que le ronron grave : un peu plus forts
+  const glisse=(f1,f2,t0,d,v,forme)=>{ v*=1.8; const o=ctx.createOscillator(), g=ctx.createGain(); o.type=forme||'sine';
+    o.frequency.setValueAtTime(f1,t0); o.frequency.exponentialRampToValueAtTime(f2,t0+d*.7);
+    g.gain.setValueAtTime(.0001,t0); g.gain.linearRampToValueAtTime(v,t0+Math.min(.03,d*.25)); g.gain.exponentialRampToValueAtTime(.0005,t0+d);
+    o.connect(g); g.connect(sortie); o.start(t0); o.stop(t0+d+.05); return o; };
+  let fin=t+1;
+  if(type==='ronron'){ const v=voixRonron(sortie); fin=souffleRonron(v,t,.9); fin=souffleRonron(v,fin+.12,.7); v.stop(fin); }
+  else if(type==='pepie'){ let u=t; const n=3+Math.floor(Math.random()*2); for(let i=0;i<n;i++){ const f=2600+Math.random()*900; glisse(f,f*1.35,u,.07+Math.random()*.03,.09); u+=.11+Math.random()*.07; } fin=u+.1; }
+  else if(type==='couine'){ glisse(820,1150,t,.16,.08); glisse(900,1300,t+.24,.2,.07); fin=t+.5; }
+  else if(type==='gemit'){ const o=glisse(520,760,t,.55,.06,'triangle'), vb=ctx.createOscillator(), vg=ctx.createGain(); vb.frequency.value=6; vg.gain.value=18; vb.connect(vg); vg.connect(o.frequency); vb.start(t); vb.stop(t+.6); fin=t+.7; }
+  else if(type==='grogne'){ const o=ctx.createOscillator(), f=ctx.createBiquadFilter(), g=ctx.createGain(), tr=ctx.createOscillator(), tg=ctx.createGain();
+    o.type='sawtooth'; o.frequency.setValueAtTime(62,t); o.frequency.linearRampToValueAtTime(55,t+.5); o.frequency.linearRampToValueAtTime(78,t+.85);
+    f.type='lowpass'; f.frequency.value=260; g.gain.setValueAtTime(.0001,t); g.gain.linearRampToValueAtTime(.16,t+.12); g.gain.linearRampToValueAtTime(.11,t+.6); g.gain.exponentialRampToValueAtTime(.0005,t+.95);
+    tr.frequency.value=22; tg.gain.value=.06; tr.connect(tg); tg.connect(g.gain);
+    o.connect(f); f.connect(g); g.connect(sortie); o.start(t); tr.start(t); o.stop(t+1); tr.stop(t+1); fin=t+1; }
+  else if(type==='pouic'){ glisse(1400,1900,t,.09,.06,'triangle'); glisse(1900,1300,t+.11,.12,.05,'triangle'); fin=t+.3; }
+  setTimeout(()=>{ try{ sortie.disconnect(); }catch(e){} },(fin-ctx.currentTime)*1000+600);
+  return type; }
+window.Musique=Object.assign(window.Musique||{},{caresse:caresse,SONS_COMPAGNON:SONS_COMPAGNON});
+
 function demarrer(){ if(!contexte()) return false; if(!bruitBlanc) bruitBlanc=bruit(4,'blanc'); arreterMoteur();
   if(etat.ambiance==='silence') return true;
-  const MOTEURS={pluie:pluie,vagues:vagues,feu:feu,rose:rose,brun:brun,nappes:nappes};
+  const MOTEURS={pluie:pluie,vagues:vagues,feu:feu,rose:rose,brun:brun,nappes:nappes,ronron:ronron};
   const f=MOTEURS[etat.ambiance];
   courant= f ? f() : musicien(etat.ambiance); return true; }
 function arreterMoteur(){ if(courant){ courant.stop(); courant=null; } }
@@ -243,10 +330,10 @@ async function jouer(parGeste){ etat.joue=true; sauver(); raisonPause=null;
 function couper(){ etat.joue=false; sauver(); arreterMoteur(); peindre(); }
 function pauser(raison){ if(!etat.joue) return; raisonPause=raison; arreterMoteur(); peindre(); }
 function reprendre(raison){ if(raisonPause!==raison) return; raisonPause=null; if(etat.joue&&ctx&&ctx.state==='running'&&!minuteurEnPause()) demarrer(); peindre(); }
-P.on('video',d=>{ if(d&&d.lecture) pauser('video'); else reprendre('video'); });
-P.on('controle',d=>{ if(d&&d.debut) pauser('controle'); else reprendre('controle'); });
-document.addEventListener('play',e=>{ if(e.target.tagName==='VIDEO') pauser('video'); },true);
-document.addEventListener('pause',e=>{ if(e.target.tagName==='VIDEO') reprendre('video'); },true);
+P.on('video',d=>{ silence.video=!!(d&&d.lecture); if(silence.video) pauser('video'); else reprendre('video'); });
+P.on('controle',d=>{ silence.controle=!!(d&&d.debut); if(silence.controle) pauser('controle'); else reprendre('controle'); });
+document.addEventListener('play',e=>{ if(e.target.tagName==='VIDEO'){ silence.video=true; pauser('video'); } },true);
+document.addEventListener('pause',e=>{ if(e.target.tagName==='VIDEO'){ silence.video=false; reprendre('video'); } },true);
 document.addEventListener('click',e=>{ if(e.target.closest('.video .lancer')) pauser('video'); });
 
 /* ---------- le minuteur 25 / 5 ---------- */
@@ -294,7 +381,7 @@ panneau.addEventListener('click',e=>{ e.stopPropagation();
   if(e.target.closest('[data-lecture]')){ if(etat.joue) couper(); else jouer(true); } });
 panneau.addEventListener('input',e=>{ if(e.target.matches('[data-volume]')){ etat.volume=+e.target.value; sauver(); if(master) master.gain.value=etat.volume*.6; } });
 panneau.addEventListener('change',e=>{ if(e.target.matches('[data-minuteur]')) minuteurBasculer(); });
-window.Musique={minuteurActif:()=>M().actif,pauser,reprendre,jouer,couper};
+Object.assign(window.Musique,{minuteurActif:()=>M().actif,pauser,reprendre,jouer,couper});
 peindre();
 // reprise d'une page à l'autre : si la musique jouait, on retente (le navigateur peut demander un geste)
 if(etat.joue) jouer(false);

@@ -261,6 +261,17 @@ body[data-fb-large] .fb-peint .fb-decor{-webkit-mask-image:linear-gradient(90deg
 @media (prefers-reduced-motion:reduce){ .fb-peint .fb-cadre .fb-nouveau{animation:none} }
 .fb-peint .fb-touches{position:absolute;top:calc(var(--fbp-dy,0px) * var(--fb-s,1) * -1);left:var(--fb-ox,0px);width:calc(var(--fbp-w,2048px) * var(--fb-s,1));height:calc(var(--fbp-h,1152px) * var(--fb-s,1));pointer-events:none}
 .fb-peint .fb-touche{position:absolute;display:block;pointer-events:auto;cursor:pointer;border-radius:12px}
+/* la caresse du compagnon (caresser() dans bureau.js) : il se frotte un instant, trois cœurs
+   montent ; rien sous « réduire les animations » */
+.fb-peint .fb-caresse{border:0;padding:0;background:none;font:inherit}
+.fb-peint .fb-cadre .fb-compagnon.fb-caresse-joue{transform-origin:50% 100%;animation:fb-caresse 1.4s ease-in-out}
+@keyframes fb-caresse{20%{transform:rotate(-2.5deg) scale(1.01,.985)}45%{transform:rotate(2deg) scale(.99,1.02)}70%{transform:rotate(-1deg)}100%{transform:none}}
+.fb-peint .fb-coeur{position:absolute;width:calc(36px * var(--fb-s,1));aspect-ratio:1;background:var(--fbp-coeur);pointer-events:none;opacity:0;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 4.4 2.5.8-1.3 2.2-2.5 4.4-2.5 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 4.4 2.5.8-1.3 2.2-2.5 4.4-2.5 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:fb-coeur 1.7s ease-out both}
+@keyframes fb-coeur{0%{opacity:0;transform:translate(-50%,0) scale(.5)}20%{opacity:.95}100%{opacity:0;transform:translate(-50%,-220%) scale(1.05)}}
+@media (prefers-reduced-motion:reduce){ .fb-peint .fb-cadre .fb-compagnon.fb-caresse-joue,.fb-peint .fb-coeur{animation:none;display:none} }
 /* la lueur de la lampe allumée : un halo ambré posé sur l'ampoule */
 .fb-peint .fb-lueur{position:absolute;pointer-events:none;border-radius:50%;mix-blend-mode:screen;background:radial-gradient(closest-side,var(--fbp-lueur-1),var(--fbp-lueur-2) 38%,var(--fbp-lueur-3) 62%,transparent)}
 body:not([data-fb-objets]) .fb-peint .fb-lueur{display:none}

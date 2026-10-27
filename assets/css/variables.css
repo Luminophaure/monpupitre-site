@@ -31,6 +31,7 @@
   --fb-plateau-h:#CB975F; --fb-plateau-b:#A97845; --fb-chant:#DDAE74; --fb-fil:#7E5329;
   --av-fond-haut:#F9E2B6; --av-fond-bas:#EDB06F; --av-lueur:rgba(255,246,222,.9); --av-plateau:#C77A3E; --av-eclair-g:rgba(255,236,190,.9); --av-eclair-d:rgba(120,70,40,.35); --av-voile:rgba(0,0,0,0); --av-lisere:#FFE7B8;   /* l'avatar : le jour, la lumière de la fenêtre */
   --av-cadre-1:#B9773F; --av-cadre-2:#7A4321; --av-coin:#F6E7CF;   /* le portrait de Personnalisation */
+  --fbp-coeur:#D9534A;   /* les cœurs de la caresse du compagnon */
   --fbp-ombre:rgba(48,20,6,.5); --fbp-lueur-1:rgba(255,196,110,.55); --fbp-lueur-2:rgba(255,160,70,.22); --fbp-lueur-3:rgba(255,140,60,.08); --fbp-mur-0:#D8B48A; --fbp-plateau-0:#C46A2A;   /* le bureau lofi : ombre de contact, lueur de la lampe, aplats d'attente */
   --fb-sousmain:var(--fb-sousmain-jour,#E3D4B6); --fb-sousmain-b:var(--fb-sousmain-b-jour,#D6C4A2); --fb-couture:#B9A27C;   /* clair le jour : des titres se posent dessus */
   /* Les jetons que l'élève peut changer dans Personnalisation passent par un choix
@@ -130,6 +131,7 @@
   --fb-plateau-h:#3A2416; --fb-plateau-b:#24150B; --fb-chant:#4A2C18; --fb-fil:#120A05;
   --av-fond-haut:#2C3160; --av-fond-bas:#56406A; --av-lueur:rgba(255,200,130,.4); --av-plateau:#5A2E1C; --av-eclair-g:rgba(70,80,160,.9); --av-eclair-d:rgba(255,170,80,.9); --av-voile:rgba(30,26,70,.22); --av-lisere:rgba(150,170,255,.7);   /* l'avatar : la nuit, le froid à gauche, la lampe à droite */
   --av-cadre-1:#6E4426; --av-cadre-2:#3A2112; --av-coin:#2A1D15;
+  --fbp-coeur:#F49A86;
   --fbp-ombre:rgba(10,4,16,.55); --fbp-lueur-1:rgba(255,196,110,.55); --fbp-lueur-2:rgba(255,160,70,.22); --fbp-lueur-3:rgba(255,140,60,.08); --fbp-mur-0:#3A2E3A; --fbp-plateau-0:#4A2416;
   --fb-sousmain:var(--fb-sousmain-nuit,#1C3526); --fb-sousmain-b:var(--fb-sousmain-b-nuit,#12261A); --fb-couture:#2E5A40;
   --fb-etagere:var(--fb-etagere-nuit,#4A2C18); --fb-etagere-ombre:var(--fb-etagere-ombre-nuit,#2B1A10);
