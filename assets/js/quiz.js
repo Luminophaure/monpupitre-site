@@ -135,7 +135,7 @@ function initJeu(bloc){
   }
   function bilan(tempsEcoule){
     if(G.courant){ G.courant.detruire(); G.courant=null; }
-    if(controle){ clearInterval(G.timer); if(window.Pupitre){ Pupitre.emettre('controle',{debut:false}); Pupitre.etape(site().chapitreId,'controle'); Pupitre.succes.debloquer('controle-blanc'); Pupitre.jourActif(); }
+    if(controle){ clearInterval(G.timer); if(window.Pupitre){ Pupitre.emettre('controle',{debut:false}); Pupitre.etape(site().chapitreId,'controle'); Pupitre.succes.debloquer('controle-blanc'); }
       const n=G.res.length; const par={}; G.res.forEach(r=>{ par[r.cat]=par[r.cat]||{n:0,ok:0}; par[r.cat].n++; if(r.ok) par[r.cat].ok++; });
       $('.corps').innerHTML='<div class="question"><h3>'+G.score+' / '+n+(tempsEcoule?' · temps écoulé':'')+'</h3><p>'+(G.score>=0.8*n?'Tu es prêt. Relis quand même les questions ratées.':G.score>=0.5*n?'Pas mal. Les notions à reprendre sont listées en rouge.':'Reprends le cours et les méthodes des notions en rouge avant le vrai contrôle.')+'</p>'+
         '<div class="bilan">'+Object.keys(par).map(k=>'<div class="rangee"><span>'+k+'</span><span class="m '+(par[k].ok===par[k].n?'ok':'ko')+'">'+par[k].ok+' / '+par[k].n+'</span></div>').join('')+'</div>'+

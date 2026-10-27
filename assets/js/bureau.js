@@ -91,17 +91,19 @@ const Pupitre={
   /* --- la barre de parcours d'un chapitre --- */
   parcours(ch){ return lire('parcours:'+ch,{}); },
   etape(ch,nom,fait){ if(!ch) return; if(fait!==false&&GAGNE.travail.includes(nom)) Pupitre.gagne.travail();
-    const p=lire('parcours:'+ch,{}); if(p[nom]===(fait!==false)) return; p[nom]=fait!==false; ecrire('parcours:'+ch,p); emettre('etape',{chapitre:ch,etape:nom,fait:p[nom]}); Pupitre.jourActif(); Pupitre.gagne.chapitre(ch); },
+    const p=lire('parcours:'+ch,{}); if(p[nom]===(fait!==false)) return; p[nom]=fait!==false; ecrire('parcours:'+ch,p); emettre('etape',{chapitre:ch,etape:nom,fait:p[nom]}); Pupitre.gagne.chapitre(ch); },
   pourcentage(ch){ const p=Pupitre.parcours(ch); return Math.round(100*ETAPES.filter(e=>p[e[0]]).length/ETAPES.length); },
   /* --- exercices guidés : niveau d'aide utilisé, pour l'indicateur d'autonomie --- */
-  exercice(e){ const l=lire('exos',[]); l.push(Object.assign({date:Date.now()},e)); ecrire('exos',l.slice(-400)); Pupitre.jourActif(); Pupitre.gagne.travail();
+  exercice(e){ const l=lire('exos',[]); l.push(Object.assign({date:Date.now()},e)); ecrire('exos',l.slice(-400)); Pupitre.gagne.travail();
     const sans=l.filter(x=>x.ok&&x.aide===0).length; if(sans>=1) Pupitre.succes.debloquer('premiere-ligne'); if(sans>=10) Pupitre.succes.debloquer('dix-sans-indice');
     if(e.ok&&e.aide===1) Pupitre.succes.debloquer('erreur-corrigee'); emettre('exercice',e); },
   autonomie(){ const l=lire('exos',[]); const s0=semaineDe(Date.now()), s1=s0-7*864e5;
     const f=(a,b)=>l.filter(x=>x.ok!==undefined&&x.date>=a&&x.date<b); const c=f(s0,Infinity), p=f(s1,s0);
     const taux=t=>t.length?Math.round(100*t.filter(x=>x.ok&&x.aide===0).length/t.length):null;
     return {total:c.length,sans:c.filter(x=>x.ok&&x.aide===0).length,taux:taux(c),precedent:taux(p)}; },
-  /* --- jours actifs de la semaine (une semaine active, pas une série) --- */
+  /* --- les jours de travail de la semaine (une semaine active, pas une série). Depuis le 27
+     octobre, un jour ne s'inscrit que quand l'élève a répondu à quelque chose (gagne.travail) :
+     ouvrir le site ou lire le cours ne comptent plus. mp:jours garde les 120 derniers. --- */
   jourActif(){ const j=lire('jours',[]); const d=aujourdhui(); if(!j.includes(d)){ j.push(d); ecrire('jours',j.slice(-120)); } },
   joursSemaine(){ const j=new Set(lire('jours',[])); const s=new Date(semaineDe(Date.now())); return [0,1,2,3,4,5,6].map(i=>{ const d=new Date(s); d.setDate(s.getDate()+i); const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); return {jour:'LMMJVSD'[i],date:k,actif:j.has(k),futur:d>new Date()}; }); },
   /* --- succès --- */
@@ -114,12 +116,12 @@ const Pupitre={
      médailles, elles, sont les succès --- */
   gagne:{
     etat(){ const e=lire('bureau-gagne',null)||{}; return {semaine:e.semaine||'',jours:e.jours||[],semaines:e.semaines||[],plante:e.plante||null,
-      livres:e.livres||[],instruments:e.instruments||{},vus:e.vus||[],rattrape:!!e.rattrape}; },
+      livres:e.livres||[],instruments:e.instruments||{},vus:e.vus||[],rattrape:!!e.rattrape,jt:!!e.jt}; },
     stade(n){ return GAGNE.seuils.filter(s=>n>=s).length; },   // 0 rien, 1 une pousse, 2 une jeune plante, 3 en fleurs
     _plante(e){ const st=Pupitre.gagne.stade(e.semaines.length); if(st<=((e.plante&&e.plante.stade)||0)) return null;
       e.plante={stade:st,date:Date.now()}; return {quoi:'plante',stade:st,semaines:e.semaines.length}; },
     /* un jour de travail : l'élève a répondu à quelque chose (pas une lecture, pas une connexion) */
-    travail(){ const e=Pupitre.gagne.etat(), s=cleJour(semaineDe(Date.now())), d=aujourdhui(), avant=e.semaine+e.jours.join();
+    travail(){ Pupitre.jourActif(); const e=Pupitre.gagne.etat(), s=cleJour(semaineDe(Date.now())), d=aujourdhui(), avant=e.semaine+e.jours.join();
       if(e.semaine!==s){ e.semaine=s; e.jours=[]; }
       if(!e.jours.includes(d)) e.jours.push(d);
       let gain=null; if(e.jours.length>=GAGNE.jours&&!e.semaines.includes(s)){ e.semaines.push(s); gain=Pupitre.gagne._plante(e); }
@@ -138,8 +140,12 @@ const Pupitre={
       emettre('gagne',{quoi:'instrument',cle:k,matiere:c.matiere.nom,titre:c.chapitre.titre}); },
     /* ce qu'un navigateur avait déjà fait avant le bureau personnel : les chapitres terminés, et
        les semaines de travail qu'on peut encore lire dans les exercices guidés datés. Une fois,
-       sans message (les jours actifs, eux, comptent les visites : ils ne servent pas). */
-    rattraper(){ const e=Pupitre.gagne.etat(); if(e.rattrape) return; e.rattrape=true;
+       sans message. Et, une fois aussi, mp:jours refait avec les seuls jours de travail connus :
+       jusqu'au 27 octobre il comptait les visites. */
+    rattraper(){ const e=Pupitre.gagne.etat();
+      if(!e.jt){ const j=new Set(e.jours); lire('exos',[]).forEach(x=>{ if(x.date) j.add(cleJour(x.date)); });
+        ecrire('jours',[...j].sort().slice(-120)); e.jt=true; ecrire('bureau-gagne',e); }
+      if(e.rattrape) return; e.rattrape=true;
       try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(!k||!k.startsWith('mp:parcours:')) continue;
         const ch=k.slice(12), p=lire('parcours:'+ch,{}), c=chapitreCatalogue(ch);
         if(c&&GAGNE.etapes.every(x=>p[x])&&!e.livres.some(l=>l.ch===ch)){ e.livres.push({ch,couleur:c.matiere.couleur||'neutre',date:Date.now()}); e.vus.push('livre:'+ch); } } }catch(err){}
@@ -175,7 +181,7 @@ const Pupitre={
       const J=864e5, t=Date.now(), lundi=semaineDe(t), idx=Math.min(6,Math.floor((t-lundi)/J));   // idx : 0 lundi … 6 dimanche
       const cle=ms=>{ const d=new Date(ms); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
       const quand=(sem,i,h)=>Math.min(t-5*60e3,lundi-7*J*sem+i*J+h*36e5);   // sem : 0 cette semaine, 1 la semaine dernière
-      // jours actifs : cette semaine jusqu'à aujourd'hui (un jour sauté quand la semaine est avancée), et quatre jours la semaine dernière
+      // jours de travail : cette semaine jusqu'à aujourd'hui (un jour sauté quand la semaine est avancée), et quatre jours la semaine dernière
       const cette=[]; for(let i=0;i<=idx;i++){ if(i===1&&idx>=3) continue; cette.push(i); }
       ecrire('jours',[...[0,1,3,4].map(i=>cle(lundi-7*J+i*J)),...cette.map(i=>cle(lundi+i*J))]);
       // exercices guidés : cette semaine, surtout sans aide ; la semaine dernière, avec plus d'indices
@@ -212,7 +218,7 @@ const Pupitre={
       ecrire('bureau-gagne',{semaine:cle(lundi),jours:[],semaines:[5,4,3,2,1].map(sem),plante:{stade:2,date:quand(1,3,17)},
         livres:[{ch:'calcul-litteral-4',couleur:'maths',date:quand(2,2,18)},{ch:'solutions-ph',couleur:'pc',date:quand(1,1,18)},{ch:'fonctions',couleur:'maths',date:quand(0,c(0),10)}],
         instruments:{maths:{date:quand(2,1,17),ch:'calcul-litteral-4'},pc:{date:quand(1,0,18),ch:'solutions-ph'}},
-        vus:['plante:1','plante:2','livre:calcul-litteral-4','livre:solutions-ph','livre:fonctions','instrument:maths','instrument:pc','vitrine'].concat(['premiere-ligne','tous-les-labos','erreur-corrigee','controle-blanc','semaine-active'].map(x=>'medaille:'+x)),rattrape:true});
+        jt:true,vus:['plante:1','plante:2','livre:calcul-litteral-4','livre:solutions-ph','livre:fonctions','instrument:maths','instrument:pc','vitrine'].concat(['premiere-ligne','tous-les-labos','erreur-corrigee','controle-blanc','semaine-active'].map(x=>'medaille:'+x)),rattrape:true});
       ecrire('demo',true);
     },
     effacer(){ Pupitre.toutEffacer(); }
@@ -453,7 +459,7 @@ function coque(info,opts){
   col.addEventListener('click',e=>{ if(e.target.closest('a[href]')&&matchMedia('(max-width:999px)').matches) ouvrir(false); });
   // activité, rappel de pause, succès
   Pupitre.activite(); ['click','keydown','pointerdown'].forEach(ev=>document.addEventListener(ev,()=>{ clearTimeout(window._mpAct); window._mpAct=setTimeout(()=>Pupitre.activite(),2000); },{passive:true}));
-  if(role==='eleve'){ Pupitre.jourActif(); Pupitre.gagne.rattraper(); }
+  if(role==='eleve') Pupitre.gagne.rattraper();
   on('succes',s=>{ toast('<span class="ico" aria-hidden="true">🏅</span><strong>Succès : '+echap(s.nom)+'</strong><span>'+echap(s.txt)+'</span>'); redessinerGagnes(); });
   // ce qui se gagne sur le bureau : un mot discret, et le décor se repeint (l'objet arrive en fondu)
   on('gagne',g=>{ const m=messageGagne(g); if(m) toast('<span class="ico" aria-hidden="true">'+m[0]+'</span><strong>'+echap(m[1])+'</strong><span>'+echap(m[2])+'</span>'); redessinerGagnes(); });
@@ -579,7 +585,7 @@ function brancherObjets(f){
   function etatTasse(){ const e=document.querySelector('#pastille-pause .etat'); if(e&&e.textContent) tasse.setAttribute('aria-label','Rappel de pause · '+e.textContent); }
   etatTasse(); clearInterval(window._mpTasse); window._mpTasse=setInterval(etatTasse,30e3);
   const js=Pupitre.joursSemaine().filter(j=>j.actif).length;
-  f.querySelector('[data-objet="plante"]').title=js+' jour'+(js>1?'s':'')+' actif'+(js>1?'s':'')+' cette semaine';
+  f.querySelector('[data-objet="plante"]').title=js+' jour'+(js>1?'s':'')+' de travail cette semaine';
   Object.keys(BULLES).forEach(nom=>{ const el=f.querySelector('[data-objet="'+nom+'"]'); if(el) brancherBulle(el,nom); });
   mesurerFond(); if(!window._mpFondEcoute){ window._mpFondEcoute=true; addEventListener('resize',mesurerFond); }
 }
