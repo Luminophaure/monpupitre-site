@@ -66,7 +66,7 @@ const Poly={
   prop(a,b){ a=Poly.norm(a); b=Poly.norm(b); if(a.length!==b.length) return 0; const i=a.length-1; if(Math.abs(a[i])<1e-9||Math.abs(b[i])<1e-9) return 0; const k=a[i]/b[i]; return a.every((c,j)=>Math.abs(c-k*b[j])<1e-7*(1+Math.abs(c)))?k:0; },
   deg(a){ a=Poly.norm(a); return a.length-1; },
   eval(a,x){ return a.reduce((s,c,i)=>s+c*Math.pow(x,i),0); },
-  tex(a){ a=Poly.norm(a); const t=[]; for(let i=a.length-1;i>=0;i--){ const c=a[i]; if(!c) continue; const coef=(Math.abs(c)===1&&i>0)?'':nombre(Math.abs(c)); t.push((c<0?'-':(t.length?'+':''))+coef+(i===0?'':i===1?'x':'x^{'+i+'}')); } return t.length?t.join(''):'0'; },
+  tex(a,lettre){ const L=lettre||'x'; a=Poly.norm(a); const t=[]; for(let i=a.length-1;i>=0;i--){ const c=a[i]; if(!c) continue; const coef=(Math.abs(c)===1&&i>0)?'':nombre(Math.abs(c)); t.push((c<0?'-':(t.length?'+':''))+coef+(i===0?'':i===1?L:L+'^{'+i+'}')); } return t.length?t.join(''):'0'; },
 };
 function nombre(v){ const r=Math.round(v*1e6)/1e6; return String(r).replace('.','{,}'); }
 function poly(n){ // renvoie null si ce n'est pas un polynôme (division par une expression en x)
@@ -153,6 +153,10 @@ function diagnostiquer(prec,sv,lettre){ // prec, sv : {ast, poly} ; renvoie {cod
   return null;
 }
 function noeuds(n){ const l=[]; parcourir(n,x=>l.push(x)); return l; }
+/* les messages sont écrits en x ; dans un exercice en n (une suite), l'exemple voisin doit parler
+   de n lui aussi. On ne change la lettre que dans les formules ($…$) : le texte contient des x
+   (« deux », « exemple ») et \times n'en contient pas. */
+function enLettre(s,L){ return L==='x'||!s ? s : String(s).replace(/\$[^$]*\$/g,m=>m.replace(/x/g,L)); }
 
 /* ---------- 4. L'exercice guidé ---------- */
 const ENCOURAGEMENTS=['Juste. Continue.','Bien vu.','C\'est ça.','Exact, tu avances.','Oui. Étape suivante ?'];
@@ -175,8 +179,8 @@ function initTuteur(el){
   el.innerHTML='<div class="tuteur-tete"><span class="etiquette">Exercice guidé</span><span class="mode-ia"></span></div>'+
     '<p class="consigne">'+echap(consigne)+' $'+texLigne(L0)+'$</p>'+
     '<ol class="lignes" aria-label="Ton brouillon"></ol>'+
-    '<form class="saisie-tuteur"><label for="'+id+'-in">'+(mode==='equation'?'Ligne suivante (les deux membres, avec =)':'Ligne suivante')+'</label><div class="ligne"><input id="'+id+'-in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="text" placeholder="'+(mode==='equation'?'par exemple 3x = 15':'par exemple 2x + 7')+'"><button class="btn" type="submit">Vérifier cette étape</button></div></form>'+
-    '<div class="clavier" aria-label="Symboles">'+['x','²','(',')','×','/',mode==='equation'?'=':'−'].map(s=>'<button type="button" class="puce" data-touche="'+s+'">'+s+'</button>').join('')+'</div>'+
+    '<form class="saisie-tuteur"><label for="'+id+'-in">'+(mode==='equation'?'Ligne suivante (les deux membres, avec =)':'Ligne suivante')+'</label><div class="ligne"><input id="'+id+'-in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="text" placeholder="'+(mode==='equation'?'par exemple 3'+lettre+' = 15':'par exemple 2'+lettre+' + 7')+'"><button class="btn" type="submit">Vérifier cette étape</button></div></form>'+
+    '<div class="clavier" aria-label="Symboles">'+[lettre,'²','(',')','×','/',mode==='equation'?'=':'−'].map(s=>'<button type="button" class="puce" data-touche="'+s+'">'+s+'</button>').join('')+'</div>'+
     '<div class="retour-tuteur" aria-live="polite"></div>'+
     '<div class="aide-tuteur"><button type="button" class="btn fantome" data-aide>Je bloque, un indice ?</button><span class="niveau-aide discret">Aide utilisée : aucune</span><button type="button" class="btn fantome" data-recommencer hidden>Recommencer</button></div>';
   const $=s=>el.querySelector(s); const lignesEl=$('.lignes'), input=$('input'), retour=$('.retour-tuteur'), modeEl=$('.mode-ia'), niveauEl=$('.niveau-aide'), bAide=$('[data-aide]');
@@ -187,7 +191,7 @@ function initTuteur(el){
   function niveau(){ niveauEl.textContent='Aide utilisée : '+['aucune','une question','un indice','un exemple voisin'][E.aide]; }
   peindreLignes(); niveau(); site().maths(el.querySelector('.consigne'));
   // le petit clavier
-  el.querySelector('.clavier').addEventListener('click',e=>{ const b=e.target.closest('[data-touche]'); if(!b) return; const t=b.dataset.touche==='x'?lettre:b.dataset.touche;
+  el.querySelector('.clavier').addEventListener('click',e=>{ const b=e.target.closest('[data-touche]'); if(!b) return; const t=b.dataset.touche;
     const s=input.selectionStart||input.value.length; input.value=input.value.slice(0,s)+t+input.value.slice(s); input.focus(); input.setSelectionRange(s+t.length,s+t.length); });
 
   function butAtteint(l){ if(mode==='equation'){ const estVar=n=>n.t==='var'; const constante=n=>{ const p=poly(n); return p&&Poly.deg(p)===0; };
@@ -233,7 +237,7 @@ function initTuteur(el){
   function aideDepart(){ if(mode==='equation') return {question:'Ton but : avoir $'+lettre+'$ tout seul d\'un côté. Quel terme t\'en empêche pour l\'instant ?',indice:'Fais passer les nombres d\'un côté et les $'+lettre+'$ de l\'autre, en changeant leur signe quand ils changent de membre. Puis divise les deux membres par le nombre devant $'+lettre+'$.',exemple:'Sur $2x+3=11$ : $2x=11-3$, donc $2x=8$, puis $x=8\\div 2=4$.'};
     if(mode==='factoriser') return {question:'Quel facteur retrouves-tu dans chaque terme ?',indice:'Cherche un facteur commun à tous les termes (un nombre, une lettre, ou une parenthèse), puis écris $k\\times(\\ldots)$ : ce qui reste de chaque terme va dans la parenthèse.',exemple:'Sur $6x+9$ : $3$ est commun, $6x=3\\times 2x$ et $9=3\\times 3$, donc $3(2x+3)$.'};
     return {question:'Quels termes vont ensemble ? Repère les termes en $'+lettre+'$ et les nombres tout seuls.',indice:'Regroupe les termes semblables : d\'abord tous les $'+lettre+'$ ensemble, puis tous les nombres. S\'il y a une parenthèse, développe-la d\'abord.',exemple:'Sur $4x+3-x+5$ : $4x-x=3x$ et $3+5=8$, donc $3x+8$.'}; }
-  bAide.addEventListener('click',()=>{ if(E.fini) return; const d=E.dernierDiag||aideDepart(); E.aide=Math.min(3,E.aide+1); niveau();
+  bAide.addEventListener('click',()=>{ if(E.fini) return; const d0=E.dernierDiag||aideDepart(); const d={question:enLettre(d0.question,lettre),indice:enLettre(d0.indice,lettre),exemple:enLettre(d0.exemple,lettre)}; E.aide=Math.min(3,E.aide+1); niveau();
     if(iaOn()&&P()) P().ia.compter();
     const on=iaOn();
     if(E.aide===1) dire((on?'<strong>Une question d\'abord :</strong> ':'<strong>Indice 1.</strong> ')+d.question,'info');
