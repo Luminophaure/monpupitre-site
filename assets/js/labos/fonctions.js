@@ -55,7 +55,7 @@ function machine(el){
     const fleche=(x,coul)=>{ c.save(); c.fillStyle=coul; c.beginPath(); c.moveTo(x,cy-7); c.lineTo(x+12,cy); c.lineTo(x,cy+7); c.closePath(); c.fill(); c.restore(); };
     fleche((xIn+r+xBox-bw/2)/2-6,bleu); fleche((xBox+bw/2+xOut-r)/2-6,rose);
     // la boîte
-    c.save(); c.fillStyle=mc; c.shadowColor='rgba(0,0,0,.18)'; c.shadowBlur=14; c.shadowOffsetY=6; c.beginPath(); if(c.roundRect) c.roundRect(xBox-bw/2,cy-bh/2,bw,bh,18); else c.rect(xBox-bw/2,cy-bh/2,bw,bh); c.fill(); c.restore();
+    c.save(); c.fillStyle=mc; c.shadowColor=css('--ombre-graphe'); c.shadowBlur=14; c.shadowOffsetY=6; c.beginPath(); if(c.roundRect) c.roundRect(xBox-bw/2,cy-bh/2,bw,bh,18); else c.rect(xBox-bw/2,cy-bh/2,bw,bh); c.fill(); c.restore();
     etiquette(c,f.nom,xBox,cy-bh/2+22,css('--sur-accent'),{align:'center',taille:22,halo:mc});
     etiquette(c,f.nom+'(x) = '+G.afficher(f.src).replace(/<[^>]+>/g,''),xBox,cy+bh/2-22,css('--sur-accent'),{align:'center',taille:W<460?12:14,gras:false,halo:mc});
     // les jetons

@@ -250,6 +250,10 @@ function mentionLicence(){
    qu'avant : peau, cheveux, coupe, haut, accessoire. Les couleurs de l'ancienne palette, trop vives
    pour le décor, sont lues comme leur équivalent lofi : un avatar déjà composé garde son allure. */
 const AVATAR_DEFAUT={peau:'#F1C9A5',cheveux:'#3B2A1A',coupe:'court',haut:'#4A5A8A',acc:'aucun'};
+/* Les palettes et les couleurs choisies sont des DONNÉES (l'élève les enregistre) : elles restent
+   ici. Tout le reste du dessin — l'œil, la joue, les accessoires, la lumière — est dans bureau.css
+   (section « L'avatar »), en classes qui lisent les jetons --av-* de variables.css. Le script ne
+   pose sur le <svg> que des variables : les couleurs choisies et leurs ombres calculées. */
 const AVATAR_ANCIENNES={'#000000':'#14110F','#B22222':'#B5452B','#6B6B6B':'#8A8A8A','#FFFFFF':'#EDE6DA',
   '#2B5BD7':'#4A5A8A','#C4186A':'#B5524A','#1F8A45':'#7E9C7A','#7B3FD1':'#7A4E6E','#0B7C86':'#3F6E7A','#2A140B':'#3B3346','#FFD166':'#D9A441'};
 function avatarReglages(role){ role=role||lire('role','eleve');
@@ -263,52 +267,59 @@ const AVATAR_COUPES={   // un calque derrière la tête, un calque devant, un re
   chignon:['<circle cx="60" cy="17" r="11"/>','<path d="M37 54C35 33 46 23 60 23C74 23 85 33 83 54C80 45 76 39 70 36C64 38 56 38 50 36C44 39 40 45 37 54Z"/>','M53 13C57 10 63 10 66 13'],
   ras:['','<path d="M38 50C37 34 47 25 60 25C73 25 83 34 82 50C79 42 72 37 60 37C48 37 41 42 38 50Z" opacity=".92"/>','']};
 const AVATAR_ACC={
-  lunettes:'<g fill="rgba(255,250,240,.18)" stroke="#3A2418" stroke-width="1.8"><circle cx="51" cy="56" r="6.5"/><circle cx="69" cy="56" r="6.5"/></g><path d="M57.5 56h5M44.5 55l-6-2M75.5 55l6-2" fill="none" stroke="#3A2418" stroke-width="1.6" stroke-linecap="round"/>',
-  casque:'<path d="M34 56C32 30 46 17 60 17C74 17 88 30 86 56" fill="none" stroke="#3B3346" stroke-width="5" stroke-linecap="round"/><path d="M35 50C35 31 47 20 60 20" fill="none" stroke="#5A5068" stroke-width="1.6" stroke-linecap="round"/><rect x="28" y="47" width="12" height="19" rx="5" fill="#3B3346"/><rect x="80" y="47" width="12" height="19" rx="5" fill="#3B3346"/><rect x="33" y="49" width="7" height="15" rx="3" fill="#E9A766"/><rect x="80" y="49" width="7" height="15" rx="3" fill="#E9A766"/>',
-  bonnet:'<path d="M35 48C35 29 46 19 60 19C74 19 85 29 85 48Z" fill="#C4703F"/><path d="M44 24v22M52 21v25M60 20v26M68 21v25M76 24v22" stroke="#A85A30" stroke-width="1.4" opacity=".7"/><rect x="32" y="44" width="56" height="10" rx="5" fill="#D9895A"/><path d="M38 46v6M44 46v6M50 46v6M56 46v6M62 46v6M68 46v6M74 46v6M80 46v6" stroke="#B86B40" stroke-width="1.3"/><circle cx="60" cy="17" r="6" fill="#F3E3C8"/>'};
+  lunettes:'<g class="av-verres" stroke-width="1.8"><circle cx="51" cy="56" r="6.5"/><circle cx="69" cy="56" r="6.5"/></g><path class="av-branches" d="M57.5 56h5M44.5 55l-6-2M75.5 55l6-2" stroke-width="1.6" stroke-linecap="round"/>',
+  casque:'<path class="av-arceau" d="M34 56C32 30 46 17 60 17C74 17 88 30 86 56" stroke-width="5" stroke-linecap="round"/><path class="av-arceau-reflet" d="M35 50C35 31 47 20 60 20" stroke-width="1.6" stroke-linecap="round"/><rect class="av-casque" x="28" y="47" width="12" height="19" rx="5"/><rect class="av-casque" x="80" y="47" width="12" height="19" rx="5"/><rect class="av-coussin" x="33" y="49" width="7" height="15" rx="3"/><rect class="av-coussin" x="80" y="49" width="7" height="15" rx="3"/>',
+  bonnet:'<path class="av-bonnet" d="M35 48C35 29 46 19 60 19C74 19 85 29 85 48Z"/><path class="av-bonnet-cotes" d="M44 24v22M52 21v25M60 20v26M68 21v25M76 24v22" stroke-width="1.4" opacity=".7"/><rect class="av-bonnet-revers" x="32" y="44" width="56" height="10" rx="5"/><path class="av-bonnet-mailles" d="M38 46v6M44 46v6M50 46v6M56 46v6M62 46v6M68 46v6M74 46v6M80 46v6" stroke-width="1.3"/><circle class="av-pompon" cx="60" cy="17" r="6"/>'};
 const AVATAR_SOUS_BONNET={   // ce qui dépasse du bonnet, selon la coupe
   long:'<path d="M36 52C36 66 37 84 33 94Q40 99 46 94C45 82 44 66 43 52Z"/><path d="M84 52C84 66 83 84 87 94Q80 99 74 94C75 82 76 66 77 52Z"/>',
   court:'<path d="M37 52C37 58 38 62 40 64L43 52Z"/><path d="M83 52C83 58 82 62 80 64L77 52Z"/>',
   boucle:'<circle cx="36" cy="56" r="6"/><circle cx="84" cy="56" r="6"/><circle cx="37" cy="66" r="5"/><circle cx="83" cy="66" r="5"/>'};
 AVATAR_SOUS_BONNET.chignon=AVATAR_SOUS_BONNET.court;
-let avatarN=0;
+let avatarN=0, avatarMel=null;
+/* les deux teintes vers lesquelles on fonce ou on éclaircit une couleur choisie : des jetons de
+   variables.css, lus une fois */
+function avatarMelanges(){ if(avatarMel) return avatarMel; const st=getComputedStyle(document.documentElement);
+  const m={ombre:st.getPropertyValue('--av-melange-ombre').trim(),lumiere:st.getPropertyValue('--av-melange-lumiere').trim()};
+  if(m.ombre&&m.lumiere) avatarMel=m; return m; }
 function avatarTeinte(c,vers,k){ const h=x=>{ x=String(x||'#888').replace('#',''); if(x.length===3) x=x.replace(/./g,'$&$&'); return [0,2,4].map(i=>parseInt(x.substr(i,2),16)||0); };
   const a=h(c), b=h(vers); return '#'+a.map((v,i)=>Math.round(v+(b[i]-v)*k).toString(16).padStart(2,'0')).join(''); }
 /* taille en px ; role pour les avatars du parent et du professeur ; reglages pour dessiner une
    variante (les vignettes de Personnalisation) sans toucher à ce qui est enregistré */
 function avatarSVG(taille,role,reglages){
   const a=Object.assign({},AVATAR_DEFAUT,reglages||avatarReglages(role)), id='av'+(++avatarN), t=taille||32, petit=t<56;
-  const fonce=(c,k)=>avatarTeinte(c,'#2A160E',k), clair=(c,k)=>avatarTeinte(c,'#FFF3DE',k);
-  const P=a.peau, Po=fonce(P,.22), Pt=fonce(P,.38), C=a.cheveux, Co=fonce(C,.25), H=a.haut, Ho=fonce(H,.25);
+  const m=avatarMelanges(), fonce=(c,k)=>avatarTeinte(c,m.ombre,k), clair=(c,k)=>avatarTeinte(c,m.lumiere,k);
+  const vars={'--av-peau':a.peau,'--av-peau-o':fonce(a.peau,.22),'--av-peau-t':fonce(a.peau,.38),
+    '--av-cheveux':a.cheveux,'--av-cheveux-o':fonce(a.cheveux,.25),'--av-cheveux-c':clair(a.cheveux,.35),
+    '--av-haut':a.haut,'--av-haut-o':fonce(a.haut,.25),'--av-haut-c':clair(a.haut,.18)};
   const cp=AVATAR_COUPES[a.coupe]||AVATAR_COUPES.court, bonnet=a.acc==='bonnet';
-  return '<svg class="avatar avatar-lofi" viewBox="0 0 120 120" width="'+t+'" height="'+t+'" aria-hidden="true">'+
+  return '<svg class="avatar avatar-lofi" viewBox="0 0 120 120" width="'+t+'" height="'+t+'" aria-hidden="true" style="'+Object.entries(vars).map(([k,v])=>k+':'+v).join(';')+'">'+
     '<defs><clipPath id="'+id+'c"><circle cx="60" cy="60" r="60"/></clipPath>'+
-    '<linearGradient id="'+id+'f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--av-fond-haut)"/><stop offset="1" style="stop-color:var(--av-fond-bas)"/></linearGradient>'+
-    '<radialGradient id="'+id+'l" cx=".28" cy=".22" r=".55"><stop offset="0" style="stop-color:var(--av-lueur)"/><stop offset="1" style="stop-color:var(--av-lueur);stop-opacity:0"/></radialGradient>'+
-    '<linearGradient id="'+id+'v" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="'+P+'"/><stop offset=".72" stop-color="'+P+'"/><stop offset="1" stop-color="'+Po+'"/></linearGradient>'+
-    '<linearGradient id="'+id+'h" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="'+clair(H,.18)+'"/><stop offset=".55" stop-color="'+H+'"/><stop offset="1" stop-color="'+Ho+'"/></linearGradient>'+
-    '<linearGradient id="'+id+'e" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--av-eclair-g)"/><stop offset=".5" style="stop-color:var(--av-eclair-g);stop-opacity:0"/><stop offset=".62" style="stop-color:var(--av-eclair-d);stop-opacity:0"/><stop offset="1" style="stop-color:var(--av-eclair-d)"/></linearGradient>'+
+    '<linearGradient id="'+id+'f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="av-s-fond-haut"/><stop offset="1" class="av-s-fond-bas"/></linearGradient>'+
+    '<radialGradient id="'+id+'l" cx=".28" cy=".22" r=".55"><stop offset="0" class="av-s-lueur"/><stop offset="1" class="av-s-lueur av-s-transparent"/></radialGradient>'+
+    '<linearGradient id="'+id+'v" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="av-s-peau"/><stop offset=".72" class="av-s-peau"/><stop offset="1" class="av-s-peau-o"/></linearGradient>'+
+    '<linearGradient id="'+id+'h" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="av-s-haut-c"/><stop offset=".55" class="av-s-haut"/><stop offset="1" class="av-s-haut-o"/></linearGradient>'+
+    '<linearGradient id="'+id+'e" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="av-s-eclair-g"/><stop offset=".5" class="av-s-eclair-g av-s-transparent"/><stop offset=".62" class="av-s-eclair-d av-s-transparent"/><stop offset="1" class="av-s-eclair-d"/></linearGradient>'+
     (petit?'':'<filter id="'+id+'g" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .1  0 0 0 0 .05  0 0 0 .5 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>')+
     '</defs><g clip-path="url(#'+id+'c)">'+
     '<rect width="120" height="120" fill="url(#'+id+'f)"/><rect width="120" height="120" fill="url(#'+id+'l)"/>'+
-    (petit?'':'<path d="M0 104h120v16H0z" style="fill:var(--av-plateau)"/>')+
-    (bonnet?'':'<g fill="'+Co+'">'+cp[0]+'</g>')+                                                     // les cheveux derrière
+    (petit?'':'<path class="av-plateau" d="M0 104h120v16H0z"/>')+
+    (bonnet?'':'<g class="av-cheveux-dos">'+cp[0]+'</g>')+                                             // les cheveux derrière
     '<path d="M12 124C14 103 28 93 45 90L75 90C92 93 106 103 108 124Z" fill="url(#'+id+'h)"/>'+          // le pull
-    '<path d="M30 124C31 112 33 104 36 98M90 124C89 112 87 104 84 98" fill="none" stroke="'+Ho+'" stroke-width="1.6" opacity=".55" stroke-linecap="round"/>'+
-    '<path d="M52 72h16v18c-3 3-13 3-16 0z" fill="'+Po+'"/><path d="M47 90C50 97 70 97 73 90L70 88C66 92 54 92 50 88Z" fill="'+Ho+'"/>'+   // le cou, le col
-    '<ellipse cx="38.5" cy="57" rx="4.5" ry="6" fill="'+Po+'"/><ellipse cx="81.5" cy="57" rx="4.5" ry="6" fill="'+Po+'"/>'+
+    '<path class="av-pli" d="M30 124C31 112 33 104 36 98M90 124C89 112 87 104 84 98" stroke-width="1.6" opacity=".55" stroke-linecap="round"/>'+
+    '<path class="av-peau-o" d="M52 72h16v18c-3 3-13 3-16 0z"/><path class="av-haut-o" d="M47 90C50 97 70 97 73 90L70 88C66 92 54 92 50 88Z"/>'+   // le cou, le col
+    '<ellipse class="av-peau-o" cx="38.5" cy="57" rx="4.5" ry="6"/><ellipse class="av-peau-o" cx="81.5" cy="57" rx="4.5" ry="6"/>'+
     '<path d="M39 52C39 35 48 27 60 27C72 27 81 35 81 52C81 67 71 79 60 79C49 79 39 67 39 52Z" fill="url(#'+id+'v)"/>'+
-    (petit?'':'<path d="M41 47C48 50 70 50 79 47L79 51C70 54 50 54 41 51Z" fill="'+Pt+'" opacity=".25"/><path d="M41 56C41 66 47 75 55 78" fill="none" style="stroke:var(--av-lisere)" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>')+
-    '<ellipse cx="47" cy="64" rx="4.6" ry="2.6" fill="#E77F6B" opacity=".32"/><ellipse cx="73" cy="64" rx="4.6" ry="2.6" fill="#E77F6B" opacity=".32"/>'+
-    '<ellipse cx="51" cy="57" rx="2.3" ry="2.9" fill="#2E1A12"/><ellipse cx="69" cy="57" rx="2.3" ry="2.9" fill="#2E1A12"/>'+
-    (petit?'':'<circle cx="51.8" cy="56" r=".8" fill="#FFF8EC"/><circle cx="69.8" cy="56" r=".8" fill="#FFF8EC"/>')+
-    '<path d="M46.5 50.5q4.5-2.4 9 0M64.5 50.5q4.5-2.4 9 0" fill="none" stroke="'+Co+'" stroke-width="1.5" stroke-linecap="round"/>'+
-    '<path d="M60 60q-1.4 3.4.6 4.4" fill="none" stroke="'+Pt+'" stroke-width="1.3" stroke-linecap="round"/><path d="M55.5 69.5q4.5 3.4 9 0" fill="none" stroke="#7A3B2C" stroke-width="1.6" stroke-linecap="round"/>'+
-    (bonnet ? '<g fill="'+C+'">'+(AVATAR_SOUS_BONNET[a.coupe]||'')+'</g>'
-            : '<g fill="'+C+'">'+cp[1]+'</g>'+(cp[2]&&!petit?'<path d="'+cp[2]+'" fill="none" stroke="'+clair(C,.35)+'" stroke-width="2" stroke-linecap="round" opacity=".7"/>':''))+
+    (petit?'':'<path class="av-front" d="M41 47C48 50 70 50 79 47L79 51C70 54 50 54 41 51Z" opacity=".25"/><path class="av-lisere" d="M41 56C41 66 47 75 55 78" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>')+
+    '<ellipse class="av-joue" cx="47" cy="64" rx="4.6" ry="2.6" opacity=".32"/><ellipse class="av-joue" cx="73" cy="64" rx="4.6" ry="2.6" opacity=".32"/>'+
+    '<ellipse class="av-oeil" cx="51" cy="57" rx="2.3" ry="2.9"/><ellipse class="av-oeil" cx="69" cy="57" rx="2.3" ry="2.9"/>'+
+    (petit?'':'<circle class="av-reflet-oeil" cx="51.8" cy="56" r=".8"/><circle class="av-reflet-oeil" cx="69.8" cy="56" r=".8"/>')+
+    '<path class="av-sourcil" d="M46.5 50.5q4.5-2.4 9 0M64.5 50.5q4.5-2.4 9 0" stroke-width="1.5" stroke-linecap="round"/>'+
+    '<path class="av-nez" d="M60 60q-1.4 3.4.6 4.4" stroke-width="1.3" stroke-linecap="round"/><path class="av-bouche" d="M55.5 69.5q4.5 3.4 9 0" stroke-width="1.6" stroke-linecap="round"/>'+
+    (bonnet ? '<g class="av-cheveux">'+(AVATAR_SOUS_BONNET[a.coupe]||'')+'</g>'
+            : '<g class="av-cheveux">'+cp[1]+'</g>'+(cp[2]&&!petit?'<path class="av-reflet" d="'+cp[2]+'" stroke-width="2" stroke-linecap="round" opacity=".7"/>':''))+
     (AVATAR_ACC[a.acc]||'')+
     // la lumière : la fenêtre à gauche le jour ; la nuit, le froid à gauche et la lampe à droite
-    '<rect width="120" height="120" fill="url(#'+id+'e)" style="mix-blend-mode:soft-light"/><rect width="120" height="120" style="fill:var(--av-voile)"/>'+
+    '<rect class="av-eclair" width="120" height="120" fill="url(#'+id+'e)"/><rect class="av-voile" width="120" height="120"/>'+
     (petit?'':'<rect width="120" height="120" filter="url(#'+id+'g)" opacity=".35"/>')+
     '</g></svg>';
 }
@@ -560,10 +571,12 @@ const PEINT_DEFAUT={ambiance:'base',lumiere:'heure',paysage:'ville',lampe:'artic
   etagereG:'livres-classique',etagereD:'globe'};   // choix du professeur (26 octobre) : le chaton sur le rebord, des livres à gauche et le globe à droite
 function reglagesPeint(){ return Object.assign({},PEINT_DEFAUT,reglagesBureau().peint||{}); }
 
+/* un script du site, avec son numéro de version quand le site est publié (Site.versionnee, dans site.js) */
+const urlScript=nom=>{ const u=RACINE+'assets/js/'+nom; return window.Site&&Site.versionnee?Site.versionnee(u):u; };
 /* charger un script une seule fois, et rappeler tous ceux qui l'attendaient */
 function chargerScript(nom,glob,apres){ if(window[glob]){ apres(); return; }
   const cle='_mpCharge_'+glob; if(window[cle]){ window[cle].push(apres); return; } window[cle]=[apres];
-  const s=document.createElement('script'); s.src=RACINE+'assets/js/'+nom; s.defer=true;
+  const s=document.createElement('script'); s.src=urlScript(nom); s.defer=true;
   s.onload=()=>{ const l=window[cle]; window[cle]=null; l.forEach(f=>f()); };
   s.onerror=()=>{ window[cle]=null; if(glob==='PACK_BUREAU') secoursPeint(); };
   document.head.appendChild(s); }
@@ -605,7 +618,7 @@ function appliquerBureau(){
 function chargerAmbiances(apres){ if(window.FOND_AMBIANCES){ apres(); return; }
   if(window._mpAmbiancesEnCours){ window._mpAmbiancesEnCours.push(apres); return; }
   window._mpAmbiancesEnCours=[apres];
-  const s=document.createElement('script'); s.src=RACINE+'assets/js/fond-ambiances.js'; s.defer=true;
+  const s=document.createElement('script'); s.src=urlScript('fond-ambiances.js'); s.defer=true;
   s.onload=()=>{ const l=window._mpAmbiancesEnCours; window._mpAmbiancesEnCours=null; l.forEach(f=>f()); }; document.head.appendChild(s); }
 function monterFond(){
   const r=reglagesBureau();
@@ -671,7 +684,9 @@ function filtresPeint(P){ const t=P.teintes||{};
   const valeurs=m=>m.map(l=>l[0]+' '+l[1]+' '+l[2]+' 0 '+l[3]).join(' ')+' 0 0 0 1 0';
   return '<svg class="fb-filtres" width="0" height="0" aria-hidden="true" focusable="false"><defs>'+Object.keys(t).map(m=>'<filter id="fb-teinte-'+m+'" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="'+valeurs(t[m])+'"/></filter>').join('')+'</defs></svg>'; }
 /* le filtre d'un objet : aucun à midi ni pour une lampe allumée ; la nuit, selon son côté */
-function teintePeinte(moment,cote){ return moment==='midi'?'':'filter:url(#fb-teinte-'+(moment==='nuit'?'nuit-'+(cote||'d'):moment)+')'; }
+/* la teinte d'un objet peint selon le moment : des classes ; les filtres eux-mêmes sont posés par
+   bureau.css (.fb-peint[data-moment] .fb-teinte), sur les filtres SVG de filtresPeint */
+function teintePeinte(moment,cote){ return moment==='midi'?'':' fb-teinte fb-teinte-'+(cote||'d'); }
 /* la scène du bureau lofi : celle de base, ou celle de l'ambiance choisie (même cadre, mêmes
    places ; ses propres décors, vues, teintes, objets et étagères) */
 function scenePeinte(P,r){ const A=r.ambiance&&r.ambiance!=='base'&&P.ambiances&&P.ambiances[r.ambiance];
@@ -686,7 +701,7 @@ function vuePiece(e,nuit){ const n=nuit&&e.images.nuit;
           contact:n&&e.nuit_contact?e.nuit_contact:e.contact, allumee:!!n}; }
 /* l'ombre de contact sous un objet posé : une ellipse floue, de la largeur de ce qui touche */
 function ombrePiece(v){ const [w,h]=[v.boite[2],v.boite[3]], c=v.contact||[w*.2,w*.8], l=c[1]-c[0];
-  return '<i class="fb-ombre" style="left:'+(100*(c[0]-l*.12)/w).toFixed(2)+'%;width:'+(100*l*1.24/w).toFixed(2)+'%;top:'+(100*v.appui[1]/h).toFixed(2)+'%"></i>'; }
+  return '<i class="fb-ombre" style="--x:'+(100*(c[0]-l*.12)/w).toFixed(2)+'%;--l:'+(100*l*1.24/w).toFixed(2)+'%;--y:'+(100*v.appui[1]/h).toFixed(2)+'%"></i>'; }
 function monterPeint(){
   const P=window.PACK_BUREAU, r=reglagesPeint(), body=document.body, st=document.documentElement.style, S=scenePeinte(P,r);
   const moment=momentPeint(r), nuit=moment==='nuit', [W,H]=P.cadre, dec=P.geometrie.decalage||0;
@@ -700,9 +715,10 @@ function monterPeint(){
   f.dataset.ambiance=S.cle;
   const b=S.bords&&S.bords[moment]; if(b){ f.style.setProperty('--fbp-mur',b.mur); f.style.setProperty('--fbp-plateau',b.plateau); }
   const pc=(v,t)=>(100*v/t).toFixed(3)+'%';
-  const img=(src,cls,style)=>'<img class="'+cls+'" src="'+RACINE+IMG_BUREAU+src+'" alt="" decoding="async" draggable="false"'+(style?' style="'+style+'"':'')+'>';
+  // une image du décor ; sa place (--x, --y, --l, --h) est une variable, que la classe fb-pose lit
+  const img=(src,cls,place)=>'<img class="'+cls+(place?' fb-pose':'')+'" src="'+RACINE+IMG_BUREAU+src+'" alt="" decoding="async" draggable="false"'+(place?' style="'+place+'"':'')+'>';
   let cadre='<div class="fb-cadre" aria-hidden="true">'+img(S.decors[moment],'fb-decor');
-  const vue=(S.vues||{})[r.paysage]; if(vue&&vue[moment]){ const v=P.vues_boite; cadre+=img(vue[moment],'fb-vue','left:'+pc(v[0],W)+';top:'+pc(v[1],H)+';width:'+pc(v[2]-v[0],W)+';height:'+pc(v[3]-v[1],H)); }
+  const vue=(S.vues||{})[r.paysage]; if(vue&&vue[moment]){ const v=P.vues_boite; cadre+=img(vue[moment],'fb-vue','--x:'+pc(v[0],W)+';--y:'+pc(v[1],H)+';--l:'+pc(v[2]-v[0],W)+';--h:'+pc(v[3]-v[1],H)); }
   // le bureau personnel : ce que l'élève a gagné (livres, vitrine, plante, instruments)
   const Gn=gagnesPeints(P,moment,pc,img);
   // les décorations sont peintes pour l'étagère de droite (la lumière de la fenêtre à leur
@@ -711,14 +727,14 @@ function monterPeint(){
   const E=P.geometrie.etageres, decale=((E.gauche.x1+E.gauche.x2)-(E.droite.x1+E.droite.x2))/2;
   cadre+=Gn.mur;
   [['etagereD',0,'d'],['etagereG',decale,'g']].forEach(([cle,dx,cote])=>{ if(Gn.occupe[cote]) return; const e=S.etageres?S.etageres[cote]:P.etageres[r[cle]]; if(!e) return;
-    const bx=e.boite, miroir=cote==='g'?';transform:scaleX(-1)':'';
-    cadre+=img(e.images.midi,'fb-deco','left:'+pc(bx[0]+dx,W)+';top:'+pc(bx[1],H)+';width:'+pc(bx[2],W)+';'+teintePeinte(moment,cote)+miroir); });
+    const bx=e.boite;
+    cadre+=img(e.images.midi,'fb-deco'+teintePeinte(moment,cote)+(cote==='g'?' fb-miroir':''),'--x:'+pc(bx[0]+dx,W)+';--y:'+pc(bx[1],H)+';--l:'+pc(bx[2],W)); });
   // le compagnon, sur l'appui de la fenêtre ; un chat dort la nuit, et respire lentement
   const C=(P.compagnons||{})[r.compagnon]; if(C){ const v=vuePiece(C,nuit), bx=v.boite, ct=v.contact||[bx[2]*.2,bx[2]*.8], l=ct[1]-ct[0];
-    cadre+='<i class="fb-ombre fb-ombre-c" style="left:'+pc(bx[0]+ct[0]-l*.12,W)+';width:'+pc(l*1.24,W)+';top:'+pc(bx[1]+v.appui[1],H)+'"></i>';
-    cadre+=img(v.src,'fb-compagnon'+(v.allumee?' fb-dort':''),'left:'+pc(bx[0],W)+';top:'+pc(bx[1],H)+';width:'+pc(bx[2],W)+';'+(v.allumee?'':teintePeinte(moment,'g'))); }
+    cadre+='<i class="fb-ombre fb-ombre-c" style="--x:'+pc(bx[0]+ct[0]-l*.12,W)+';--l:'+pc(l*1.24,W)+';--y:'+pc(bx[1]+v.appui[1],H)+'"></i>';
+    cadre+=img(v.src,'fb-compagnon'+(v.allumee?' fb-dort':teintePeinte(moment,'g')),'--x:'+pc(bx[0],W)+';--y:'+pc(bx[1],H)+';--l:'+pc(bx[2],W)); }
   // on peut le caresser : une zone pour le pointeur, comme les objets gagnés (caresser())
-  const vC=C&&vuePiece(C,nuit), toucheC=vC?'<button type="button" class="fb-touche fb-caresse" tabindex="-1" data-compagnon="'+echap(r.compagnon)+'" style="left:'+pc(vC.boite[0],W)+';top:'+pc(vC.boite[1],H)+';width:'+pc(vC.boite[2],W)+';height:'+pc(vC.boite[3],H)+'"></button>':'';
+  const vC=C&&vuePiece(C,nuit), toucheC=vC?'<button type="button" class="fb-touche fb-caresse" tabindex="-1" data-compagnon="'+echap(r.compagnon)+'" style="--x:'+pc(vC.boite[0],W)+';--y:'+pc(vC.boite[1],H)+';--l:'+pc(vC.boite[2],W)+';--h:'+pc(vC.boite[3],H)+'"></button>':'';
   cadre+=Gn.appui;
   f.innerHTML=filtresPeint(S)+cadre+'</div>'+(!toucheC?Gn.touches:Gn.touches?Gn.touches.replace(/<\/div>$/,toucheC+'</div>'):'<div class="fb-touches" aria-hidden="true">'+toucheC+'</div>');
   f._vitrine=Gn.vitrine||null;   // placerPeint écarte le pot du mode « haut » de la vitrine
@@ -733,7 +749,7 @@ function monterPeint(){
     if(tag==='button') el.type='button';
     if(e){ const v=vuePiece(e,nuit), bx=v.boite;
       el._pose={w:bx[2],h:bx[3],ax:v.appui[0],ay:v.appui[1]};
-      el.innerHTML=ombrePiece(v)+img(v.src,'fb-dessin',v.allumee?'':teintePeinte(moment,e.cote));
+      el.innerHTML=ombrePiece(v)+img(v.src,'fb-dessin'+(v.allumee?'':teintePeinte(moment,e.cote)));
       // la lueur de la lampe allumée, posée sur l'ampoule, en mélange « screen »
       if(nom==='lampe'&&v.allumee&&e.lueur){ const l=document.createElement('div'); l.className='fb-lueur'; l.setAttribute('aria-hidden','true');
         l._pose={x:e.lueur[0],y:e.lueur[1],r:Math.max(bx[2],bx[3])*1.15}; f.appendChild(l); el._lueur=l; } }
@@ -764,7 +780,7 @@ function gagnesPeints(P,moment,pc,img){
   if(!G||Pupitre.masque('bureau-perso')&&Pupitre.masque('succes')) return R;
   const [W,H]=P.cadre, e=Pupitre.gagne.etat(), vus=new Set(e.vus), E=P.geometrie.etageres, voirG=!Pupitre.masque('bureau-perso');
   const neuf=k=>{ if(vus.has(k)) return ''; R.nouveaux.push(k); return ' fb-nouveau'; };
-  const boite=(b,cls,st)=>'left:'+pc(b[0],W)+';top:'+pc(b[1],H)+';width:'+pc(b[2],W)+(st||'');
+  const boite=b=>'--x:'+pc(b[0],W)+';--y:'+pc(b[1],H)+';--l:'+pc(b[2],W);   // la place, en variables (classe fb-pose)
   const zones=[];   // [clé, x, y, l, h, lien]
   const date=ms=>{ try{ return new Date(ms).toLocaleDateString('fr-FR',{day:'numeric',month:'long'}); }catch(err){ return ''; } };
   // les livres
@@ -776,37 +792,37 @@ function gagnesPeints(P,moment,pc,img){
       if(cote==='g') xg-=w+1; else xd+=w+1;
       R.occupe[cote]=true; x1=Math.min(x1,x); x2=Math.max(x2,x+w); y1=Math.min(y1,y);
       const c=chapitreCatalogue(l.ch); if(c) titres.push(c.chapitre.titre);
-      R.mur+=img(p.images.midi,'fb-livre'+neuf('livre:'+l.ch),boite([x,y,w,h],'',';'+teintePeinte(moment,cote)+(cote==='d'?';transform:scaleX(-1)':''))); });
+      R.mur+=img(p.images.midi,'fb-livre'+neuf('livre:'+l.ch)+teintePeinte(moment,cote)+(cote==='d'?' fb-miroir':''),boite([x,y,w,h])); });
     if(titres.length){ zones.push(['livres',x1,y1,x2-x1,E.gauche.y+2-y1,'personnalisation.html#objets']);
       R.bulles.livres=()=>['Tes chapitres terminés',titres.length===1?'« '+titres[0]+' ».':'« '+titres.slice(-2).reverse().join(' », « ')+' »'+(titres.length>2?' et '+(titres.length-2)+' autre'+(titres.length>3?'s':'')+'.':'.'),
         titres.length+' chapitre'+(titres.length>1?'s':'')+' · un livre chacun']; } }
   // la vitrine des succès et ses médailles
   const succes=Pupitre.succes.liste();
   if(!Pupitre.masque('succes')&&succes.length&&G.vitrine){ const V=G.vitrine, vb=V.boite; R.vitrine=vb;
-    R.mur+=img(V.images.midi,'fb-vitrine'+neuf('vitrine'),boite(vb,'',';'+teintePeinte(moment,'g')));
+    R.mur+=img(V.images.midi,'fb-vitrine'+neuf('vitrine')+teintePeinte(moment,'g'),boite(vb));
     const [ix,iy,iw,ih]=V.interieur, n=succes.length, rangs=n<=5?1:n<=12?2:3, parRang=Math.ceil(n/rangs);
     const mh=Math.min(ih*.86/rangs-(rangs>1?ih*.04:0),iw/parRang*1.9), pasX=iw/parRang, pasY=ih/rangs;
     succes.forEach((x,i)=>{ const fam=GAGNE.familles[(SUCCES[x.id]||{}).fam]||'autonomie', m=G.medailles&&(G.medailles[fam]||G.medailles.autonomie); if(!m) return;
       const k=mh/m.boite[3], mw=m.boite[2]*k, ri=Math.floor(i/parRang), ci=i%parRang, dansRang=ri<rangs-1?parRang:n-parRang*(rangs-1);
       const cx=vb[0]+ix+(iw-dansRang*pasX)/2+(ci+.5)*pasX, cy=vb[1]+iy+(ri+.5)*pasY;
-      R.mur+=img(m.images.midi,'fb-medaille'+neuf('medaille:'+x.id),boite([cx-mw/2,cy-mh/2,mw,mh],'',';'+teintePeinte(moment,'g'))); });
+      R.mur+=img(m.images.midi,'fb-medaille'+neuf('medaille:'+x.id)+teintePeinte(moment,'g'),boite([cx-mw/2,cy-mh/2,mw,mh])); });
     zones.push(['vitrine',vb[0],vb[1],vb[2],vb[3],'personnalisation.html#objets']);
     const d=Pupitre.succes.dernier();
     R.bulles.vitrine=()=>['La vitrine · tes succès','Une médaille par succès, visible par toi seul.'+(d?' Le dernier : '+d.nom+'.':''),n+' succès']; }
   // le géranium, sur l'appui
   const st=e.plante&&e.plante.stade;
   if(voirG&&st&&G.plante&&G.plante[st-1]){ const p=G.plante[st-1], b=p.boite;
-    R.appui+=ombreAppui(p,pc,W,H)+img(p.images.midi,'fb-plante'+neuf('plante:'+st),boite(b,'',';'+teintePeinte(moment,'g')));
+    R.appui+=ombreAppui(p,pc,W,H)+img(p.images.midi,'fb-plante'+neuf('plante:'+st)+teintePeinte(moment,'g'),boite(b));
     zones.push(['plante',b[0],b[1],b[2],b[3],'personnalisation.html#objets']);
     const n=e.semaines.length;
     R.bulles.plante=()=>['Le géranium · ta régularité','Il pousse avec tes semaines de travail : deux jours dans la semaine où tu as répondu à quelque chose. Il ne perd jamais ce qu\'il a pris.',n+' semaine'+(n>1?'s':'')+' de travail']; }
   // les instruments, sur l'appui, chacun à sa place
   if(voirG&&G.instruments) Object.keys(G.instruments).forEach(k=>{ const g=e.instruments[k], p=G.instruments[k]; if(!g||!p) return; const b=p.boite, i=INSTRUMENTS[k]||['','',''];
-    R.appui+=ombreAppui(p,pc,W,H)+img(p.images.midi,'fb-instrument'+neuf('instrument:'+k),boite(b,'',';'+teintePeinte(moment,'g')));
+    R.appui+=ombreAppui(p,pc,W,H)+img(p.images.midi,'fb-instrument'+neuf('instrument:'+k)+teintePeinte(moment,'g'),boite(b));
     zones.push(['instrument-'+k,b[0],b[1],b[2],b[3],'personnalisation.html#objets']);
     const c=chapitreCatalogue(g.ch);
     R.bulles['instrument-'+k]=()=>[i[1]+' · '+i[2],'Ton premier défi de labo réussi dans cette matière'+(g.date?', le '+date(g.date):'')+'.',c?'« '+c.chapitre.titre+' »':'']; });
-  R.touches='<div class="fb-touches" aria-hidden="true">'+zones.map(z=>'<a class="fb-touche" tabindex="-1" data-gagne="'+z[0]+'" href="'+lien(z[5])+'" style="'+boite([z[1],z[2],z[3],z[4]])+';height:'+pc(z[4],H)+'"></a>').join('')+'</div>';
+  R.touches='<div class="fb-touches" aria-hidden="true">'+zones.map(z=>'<a class="fb-touche" tabindex="-1" data-gagne="'+z[0]+'" href="'+lien(z[5])+'" style="'+boite([z[1],z[2],z[3],z[4]])+';--h:'+pc(z[4],H)+'"></a>').join('')+'</div>';
   return R; }
 /* la caresse du compagnon (27 octobre, demande du professeur) : un son doux et bref, joué par
    musique.js (Musique.caresse : un son par famille d'animal, réglé par le volume de la musique,
@@ -823,11 +839,12 @@ function caresser(f,k){
   im.classList.remove('fb-caresse-joue'); void im.offsetWidth; im.classList.add('fb-caresse-joue');
   clearTimeout(im._caresse); im._caresse=setTimeout(()=>im.classList.remove('fb-caresse-joue'),1500);
   [.3,.55,.78].forEach((x,i)=>{ const c=document.createElement('i'); c.className='fb-coeur'; c.setAttribute('aria-hidden','true');
-    c.style.left='calc('+t.style.left+' + '+t.style.width+' * '+x+')'; c.style.top='calc('+t.style.top+' + '+t.style.height+' * .15)'; c.style.animationDelay=(i*.2)+'s';
+    const v=k=>t.style.getPropertyValue(k);
+    c.style.setProperty('--x','calc('+v('--x')+' + '+v('--l')+' * '+x+')'); c.style.setProperty('--y','calc('+v('--y')+' + '+v('--h')+' * .15)'); c.style.setProperty('--delai',(i*.2)+'s');
     t.parentNode.appendChild(c); setTimeout(()=>c.remove(),2400); }); }
 /* l'ombre d'un objet posé sur l'appui de la fenêtre (comme celle du compagnon) */
 function ombreAppui(p,pc,W,H){ const b=p.boite, c=p.contact||[b[2]*.2,b[2]*.8], l=c[1]-c[0];
-  return '<i class="fb-ombre fb-ombre-c" style="left:'+pc(b[0]+c[0]-l*.12,W)+';width:'+pc(l*1.24,W)+';top:'+pc(b[1]+p.appui[1],H)+'"></i>'; }
+  return '<i class="fb-ombre fb-ombre-c" style="--x:'+pc(b[0]+c[0]-l*.12,W)+';--l:'+pc(l*1.24,W)+';--y:'+pc(b[1]+p.appui[1],H)+'"></i>'; }
 /* les objets dans les marges : leur point d'appui (le bas, au centre) à une place relative à
    la marge et à la profondeur du plateau, à l'échelle de la scène, sans jamais déborder sur
    la page. En mode « haut » (portable), la lampe et le pot seuls, au bord du plateau. */
@@ -848,9 +865,9 @@ function placerPeint(s,J,vw,vh,marge){
       else return; }
     else { const q=places[el.dataset.objet]; if(!q) return; x=q[0]; y=q[1]; }
     const gx=x-p.ax*k, gy=y-p.ay*k;
-    el.style.left=gx.toFixed(1)+'px'; el.style.top=gy.toFixed(1)+'px'; el.style.width=(p.w*k).toFixed(1)+'px';
+    el.style.setProperty('--x',gx.toFixed(1)+'px'); el.style.setProperty('--y',gy.toFixed(1)+'px'); el.style.setProperty('--l',(p.w*k).toFixed(1)+'px');
     const l=el._lueur;
-    if(l){ const r=l._pose.r*k; l.style.left=(gx+l._pose.x*k-r).toFixed(1)+'px'; l.style.top=(gy+l._pose.y*k-r).toFixed(1)+'px'; l.style.width=l.style.height=(2*r).toFixed(1)+'px'; } });
+    if(l){ const r=l._pose.r*k; l.style.setProperty('--x',(gx+l._pose.x*k-r).toFixed(1)+'px'); l.style.setProperty('--y',(gy+l._pose.y*k-r).toFixed(1)+'px'); l.style.setProperty('--l',(2*r).toFixed(1)+'px'); } });
 }
 /* la mention du décor provisoire, au pied de chaque page tant que le bureau lofi est affiché */
 function mentionDecor(oui){ const p=document.querySelector('footer.pied .in'); if(!p) return;
@@ -898,7 +915,7 @@ function afficherBulle(el,nom){
   const x= aGauche ? Math.max(8,r.left-b.width-14) : Math.min(vw-b.width-8,r.right+14);
   const centre=r.top+r.height/2, y=Math.min(vh-b.height-8,Math.max(8,centre-b.height/2));
   bulleEl.dataset.cote= aGauche?'gauche':'droite';
-  bulleEl.style.left=Math.round(x)+'px'; bulleEl.style.top=Math.round(y)+'px';
+  bulleEl.style.setProperty('--x',Math.round(x)+'px'); bulleEl.style.setProperty('--y',Math.round(y)+'px');
   bulleEl.style.setProperty('--fleche',Math.round(Math.min(b.height-16,Math.max(10,centre-y-6)))+'px');
   bulleEl.classList.add('visible');
 }
@@ -971,7 +988,7 @@ function rappelDePause(ci){
   maj(); setInterval(maj,30e3);
   el.querySelector('button').addEventListener('click',()=>{ location.href=lien('personnalisation.html#pause'); });
 }
-function chargerMusique(){ const s=document.createElement('script'); s.src=RACINE+'assets/js/musique.js'; s.defer=true; document.head.appendChild(s); }
+function chargerMusique(){ const s=document.createElement('script'); s.src=urlScript('musique.js'); s.defer=true; document.head.appendChild(s); }
 
 window.Bureau={coque,toast,avatarSVG,avatarReglages,theme,lien:p=>lien(p),decorHeure,demoAction,
   bureau:{reglages:reglagesBureau,enregistrer:enregistrerBureau,rafraichir:rafraichirBureau,chargerAmbiances,DEFAUT:BUREAU_DEFAUT,

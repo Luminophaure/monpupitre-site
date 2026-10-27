@@ -14,7 +14,7 @@ const mil=v=>String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 function lambdaTxt(l){ const u=[[1e3,'km'],[1,'m'],[1e-2,'cm'],[1e-3,'mm'],[1e-6,'µm'],[1e-9,'nm'],[1e-12,'pm']]; for(const [v,n] of u){ if(l>=v*0.999){ const x=l/v; return nb(x,x<10?(x<1?2:1):0)+' '+n; } } return nb(l*1e12,2)+' pm'; }
 const DOMAINES=[['rayons γ',1e-14,1e-11,'--d-gamma'],['rayons X',1e-11,1e-8,'--d-x'],['ultraviolet',1e-8,4e-7,'--d-uv'],['visible',4e-7,8e-7,null],['infrarouge',8e-7,1e-3,'--d-ir'],['micro-ondes',1e-3,1e-1,'--d-micro'],['ondes radio',1e-1,1e4,'--d-radio']];
 const domaine=l=>DOMAINES.find(d=>l>=d[1]&&l<d[2])||DOMAINES[6];
-function arcEnCiel(ctx,x1,x2,y,h){ const g=ctx.createLinearGradient(x1,0,x2,0); [['#7B2FBE',0],['#2B5BD7',.3],['#2E9E4E',.5],['#F2C230',.7],['#D7263D',1]].forEach(([c,o])=>g.addColorStop(o,c)); ctx.fillStyle=g; ctx.fillRect(x1,y,x2-x1,h); }
+function arcEnCiel(ctx,x1,x2,y,h){ const g=ctx.createLinearGradient(x1,0,x2,0); [['--sc-violet',0],['--sc-bleu',.3],['--sc-vert',.5],['--sc-jaune',.7],['--sc-rouge',1]].forEach(([c,o])=>g.addColorStop(o,css(c))); ctx.fillStyle=g; ctx.fillRect(x1,y,x2-x1,h); }
 
 /* =================================================================
    1. LE SPECTRE
@@ -185,9 +185,9 @@ function camera(el){
     for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){ const t=temperature((i+.5)/cols,(j+.5)/rows); c.fillStyle=pal((t-TMIN)/(TMAX-TMIN)); c.fillRect(Math.floor(i*cw),Math.floor(j*ch),Math.ceil(cw)+1,Math.ceil(ch)+1); }
     // échelle de couleur
     for(let k=0;k<40;k++){ c.fillStyle=pal(k/39); c.fillRect(W-22,sh-14-k*(sh-30)/40,12,(sh-30)/40+.5); }
-    etiquette(c,TMAX+' °C',W-26,20,'#fff',{align:'right',taille:11,halo:'rgba(0,0,0,.6)'}); etiquette(c,TMIN+' °C',W-26,sh-10,'#fff',{align:'right',taille:11,halo:'rgba(0,0,0,.6)'});
-    if(st.vitre) etiquette(c,'vitre',W*st.px,sh*.5,'#fff',{align:'center',taille:13,halo:'rgba(0,0,0,.6)'});
-    if(st.souris){ const [x,y]=st.souris; c.save(); c.strokeStyle='#fff'; c.lineWidth=2; c.beginPath(); c.arc(x*W,y*sh,9,0,7); c.stroke(); c.restore(); }
+    etiquette(c,TMAX+' °C',W-26,20,css('--sur-image'),{align:'right',taille:11,halo:css('--halo-sur-image')}); etiquette(c,TMIN+' °C',W-26,sh-10,css('--sur-image'),{align:'right',taille:11,halo:css('--halo-sur-image')});
+    if(st.vitre) etiquette(c,'vitre',W*st.px,sh*.5,css('--sur-image'),{align:'center',taille:13,halo:css('--halo-sur-image')});
+    if(st.souris){ const [x,y]=st.souris; c.save(); c.strokeStyle=css('--sur-image'); c.lineWidth=2; c.beginPath(); c.arc(x*W,y*sh,9,0,7); c.stroke(); c.restore(); }
     // --- le détecteur de présence
     const dy=sh+8, dh=H-dy; c.save(); c.fillStyle=css('--card'); c.fillRect(0,dy,W,dh); c.restore();
     // deux zones

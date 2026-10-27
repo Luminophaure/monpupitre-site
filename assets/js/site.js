@@ -1,3 +1,5 @@
+/* versions des fichiers publiés (outils/publication.py) */
+window.VERSIONS={"assets/js/bureau.js":"7f5377c4dc","assets/js/carnet.js":"131046a1aa","assets/js/chapitres.js":"cb2745de96","assets/js/espaces.js":"03fab0a5f7","assets/js/fond-ambiances.js":"bd0feb1112","assets/js/fond-bureau.js":"dd10ee1138","assets/js/generateurs/electricite.js":"5d10a8c8df","assets/js/generateurs/espace.js":"b690005da4","assets/js/generateurs/fonctions.js":"5a2261ec58","assets/js/generateurs/infrarouges.js":"074c302643","assets/js/generateurs/limites.js":"ab052b43fc","assets/js/generateurs/litteral.js":"7e56253c58","assets/js/generateurs/ondes.js":"0ad2b511c6","assets/js/generateurs/solutions.js":"3294d765e0","assets/js/generateurs/vecteurs.js":"4def1f5cec","assets/js/graphe.js":"b784063975","assets/js/labos/commun.js":"535121b8b4","assets/js/labos/electricite.js":"dbb8ad7892","assets/js/labos/espace.js":"5329b0d5ea","assets/js/labos/fonctions.js":"4e9e20648c","assets/js/labos/infrarouges.js":"9583395f76","assets/js/labos/limites.js":"eb3b038c49","assets/js/labos/litteral.js":"539e64544a","assets/js/labos/ondes.js":"015123fa3c","assets/js/labos/solutions.js":"3772f7a0f2","assets/js/labos/vecteurs.js":"929b40bac1","assets/js/musique.js":"a0be3adf72","assets/js/notions.js":"c08c3318e0","assets/js/pack-bureau.js":"9e78aa7141","assets/js/portes.js":"eb0be631a5","assets/js/quiz.js":"85203a05d5","assets/js/tuteur.js":"a32b69b58a","assets/vendor/katex/auto-render.min.js":"82dca94048","assets/vendor/katex/katex.min.css":"43459d515f","assets/vendor/katex/katex.min.js":"6d481709e3"};
 /* =====================================================================
    SCRIPT PRINCIPAL — à inclure une seule fois dans chaque page :
      <script src="../assets/js/site.js" defer></script>
@@ -13,6 +15,10 @@
 const scriptCourant=document.currentScript;
 const RACINE=scriptCourant ? scriptCourant.src.replace(/assets\/js\/site\.js.*$/,'') : '';
 const KATEX=RACINE+'assets/vendor/katex/';   // KaTeX est livré avec le site : formules lisibles même hors ligne
+/* le site publié donne à chaque script un numéro tiré de son contenu (?v=…) : un fichier modifié est
+   rechargé, un fichier inchangé reste en cache. La table window.VERSIONS est posée en tête de ce
+   fichier par la publication (outils/publication.py) ; dans les sources, elle n'existe pas. */
+const versionnee=u=>{ const v=window.VERSIONS&&u.startsWith(RACINE)&&window.VERSIONS[u.slice(RACINE.length)]; return v?u+'?v='+v:u; };
 
 /* ---------- thème (avant tout, pour éviter un flash) ---------- */
 /* Le thème : CLAIR PAR DÉFAUT. Le sombre ne s'active plus tout seul avec la préférence
@@ -20,17 +26,17 @@ const KATEX=RACINE+'assets/vendor/katex/';   // KaTeX est livré avec le site : 
    l'autre. La couleur de la barre du navigateur (sur téléphone) suit le thème affiché. */
 try{ const t=localStorage.getItem('theme'); if(t) document.documentElement.setAttribute('data-theme',t); }catch(e){}
 function couleurNavigateur(){
-  const sombre=document.documentElement.dataset.theme==='dark';
   const metas=[...document.querySelectorAll('meta[name="theme-color"]')];
   metas.slice(1).forEach(m=>m.remove());
   const m=metas[0]||document.head.appendChild(Object.assign(document.createElement('meta'),{name:'theme-color'}));
-  m.removeAttribute('media'); m.setAttribute('content', sombre?'#3A2416':'#F2BE78');
+  // la couleur vient du thème (jeton --barre-navigateur de variables.css), pas du script
+  m.removeAttribute('media'); m.setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--barre-navigateur').trim());
 }
 new MutationObserver(couleurNavigateur).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 if(document.head) couleurNavigateur(); else addEventListener('DOMContentLoaded',couleurNavigateur);
 
-function charger(src){ if(window.MODULES_INCLUS&&window.MODULES_INCLUS[src.replace(RACINE,'')]) return Promise.resolve(); return new Promise((ok,ko)=>{ const s=document.createElement('script'); s.src=src; s.onload=ok; s.onerror=()=>ko(new Error('Impossible de charger '+src)); document.head.appendChild(s); }); }
-function feuille(href){ if(window.MODULES_INCLUS&&window.MODULES_INCLUS[href.replace(RACINE,'')]) return; const l=document.createElement('link'); l.rel='stylesheet'; l.href=href; document.head.appendChild(l); }
+function charger(src){ if(window.MODULES_INCLUS&&window.MODULES_INCLUS[src.replace(RACINE,'')]) return Promise.resolve(); return new Promise((ok,ko)=>{ const s=document.createElement('script'); s.src=versionnee(src); s.onload=ok; s.onerror=()=>ko(new Error('Impossible de charger '+src)); document.head.appendChild(s); }); }
+function feuille(href){ if(window.MODULES_INCLUS&&window.MODULES_INCLUS[href.replace(RACINE,'')]) return; const l=document.createElement('link'); l.rel='stylesheet'; l.href=versionnee(href); document.head.appendChild(l); }
 const echap=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
 /* ---------- formules ---------- */
@@ -400,7 +406,7 @@ async function demarrer(){
   if(info&&info.courant) body.dataset.niveau=info.courant.niveauId||'';
   if(info&&info.matiere) body.dataset.couleur=info.matiere.couleur||'neutre';
   else if(body.dataset.matiere){ const m=trouverMatiere(body.dataset.matiere); if(m) body.dataset.couleur=m.couleur||'neutre'; }
-  window.Site={deplier,racine:RACINE,chapitre:(body.dataset.matiere?body.dataset.matiere+'/':'')+(id||''),chapitreId:id||'',info,maths,blocs,echap,charger,trouverMatiere,trouverChapitre,matieres,lienMatiere};   // blocs : étiquettes des blocs ajoutés par un labo
+  window.Site={deplier,racine:RACINE,versionnee,chapitre:(body.dataset.matiere?body.dataset.matiere+'/':'')+(id||''),chapitreId:id||'',info,maths,blocs,echap,charger,trouverMatiere,trouverChapitre,matieres,lienMatiere};   // blocs : étiquettes des blocs ajoutés par un labo
   if(window.Bureau&&!window.AUTONOME) Bureau.coque(info,{racine:RACINE}); else barre(info);
   /* les exercices reçoivent leur id AVANT que les onglets lisent le #hash : sinon un lien
      du carnet vers un exercice (chapitre.html#ex-…) ne trouve rien et retombe sur le cours */

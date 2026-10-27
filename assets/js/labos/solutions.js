@@ -15,7 +15,7 @@ function chiffres(v,n){ if(v===0) return '0'; const e=Math.floor(Math.log10(Math
 /* mélange de deux couleurs CSS (hex) selon t */
 function mel(a,b,t){ const h=x=>[parseInt(x.slice(1,3),16),parseInt(x.slice(3,5),16),parseInt(x.slice(5,7),16)]; const A=h(a),B=h(b); return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(',')+')'; }
 const le=n=>(/^[aeiouyéèh]/i.test(n)?'l\'':'le ')+n.toLowerCase();
-const hex=v=>{ const s=css(v).trim(); return s[0]==='#'?s:'#7FB8EA'; };
+const hex=v=>{ const s=css(v).trim(); return s[0]==='#'?s:css('--sol-1'); };
 
 /* ---------- la verrerie dessinée sur un canvas ---------- */
 function fioleCanvas(c,x,y,h,niveau,coul,trait,o){ o=o||{}; const r=h*.3, ytrait=y-h+14, cy=y-r, sj=Math.sqrt(r*r-49), yj=cy-sj;
@@ -161,14 +161,14 @@ function ph(el){
   const st={pH:7,memo:null};
   const conc=p=>Math.pow(10,-p);
   const nature=p=>p<6.5?'acide':p>7.5?'basique':p===7?'neutre':'presque neutre';
-  const bbt=p=>p<6?'#F2C230':p>7.6?'#2B5BD7':'#2E9E4E';
+  const bbt=p=>css(p<6?'--sc-jaune':p>7.6?'--sc-bleu':'--sc-vert');   // les teintes du bleu de bromothymol
   function concTex(p){ const e=-p; if(Number.isInteger(e)) return '10^{'+e+'}'; const E=Math.floor(e); const m=Math.pow(10,e-E); return nb(m,1).replace(',','{,}')+'\\times10^{'+E+'}'; }
   function concTxt(p){ const e=-p; if(Number.isInteger(e)) return '10<sup>'+e+'</sup>'; const E=Math.floor(e); const m=Math.pow(10,e-E); return nb(m,1)+' × 10<sup>'+E+'</sup>'; }
   const cv=g.querySelector('canvas');
   const T=Toile(cv,T=>{ const c=T.ctx,W=T.W,H=T.H; c.clearRect(0,0,W,H); const ink=css('--ink'),muted=css('--muted');
     const x0=24,x1=W-24,y=H*.14,h=H*.14; const X=p=>x0+p/14*(x1-x0);
-    const gr=c.createLinearGradient(x0,0,x1,0); [['#D7263D',0],['#F28C28',.25],['#F2C230',.45],['#2E9E4E',.5],['#2B5BD7',.65],['#5B2A86',1]].forEach(([k,o])=>gr.addColorStop(o,k)); c.save(); c.fillStyle=gr; c.beginPath(); if(c.roundRect) c.roundRect(x0,y,x1-x0,h,8); else c.rect(x0,y,x1-x0,h); c.fill(); c.restore();
-    for(let p=0;p<=14;p++) etiquette(c,String(p),X(p)+(p===0?6:p===14?-8:0),y+h/2,'#fff',{align:'center',taille:12,halo:'rgba(0,0,0,.35)'});
+    const gr=c.createLinearGradient(x0,0,x1,0); [['--sc-rouge',0],['--sc-orange',.25],['--sc-jaune',.45],['--sc-vert',.5],['--sc-bleu',.65],['--sc-pourpre',1]].forEach(([k,o])=>gr.addColorStop(o,css(k))); c.save(); c.fillStyle=gr; c.beginPath(); if(c.roundRect) c.roundRect(x0,y,x1-x0,h,8); else c.rect(x0,y,x1-x0,h); c.fill(); c.restore();
+    for(let p=0;p<=14;p++) etiquette(c,String(p),X(p)+(p===0?6:p===14?-8:0),y+h/2,css('--sur-image'),{align:'center',taille:12,halo:css('--halo-sur-image-leger')});
     etiquette(c,'acide',X(2.5),y-12,ink,{align:'center',taille:12}); etiquette(c,'neutre',X(7),y-12,ink,{align:'center',taille:12}); etiquette(c,'basique',X(11.5),y-12,ink,{align:'center',taille:12});
     // curseur
     const xc=X(st.pH); c.save(); c.fillStyle=css('--pink'); c.beginPath(); c.moveTo(xc-9,y+h+14); c.lineTo(xc+9,y+h+14); c.lineTo(xc,y+h+2); c.closePath(); c.fill(); c.restore();

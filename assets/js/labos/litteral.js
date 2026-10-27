@@ -46,7 +46,7 @@ const P={
    Chaque motif fournit ses éléments pour un rang n, et plusieurs « regards » :
    une façon de grouper les éléments (couleurs) et l'expression qui va avec.
    ================================================================= */
-const BOIS='#C98B4B', TETE='#D7372B';
+const BOIS=css('--allumette-bois'), TETE=css('--allumette-tete');   // variables.css
 const MOTIFS=[
   { nom:'Rangée de carrés', unite:'allumettes', min:1, f:n=>3*n+1, allumettes:true,
     elements(n){ const e=[]; for(let i=0;i<=n;i++) e.push({a:[i,0],b:[i,1],k:'v',i}); for(let i=0;i<n;i++){ e.push({a:[i,1],b:[i+1,1],k:'h',i}); e.push({a:[i,0],b:[i+1,0],k:'h',i}); } return e; },

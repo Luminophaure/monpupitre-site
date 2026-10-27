@@ -100,12 +100,12 @@ function formules(){ const cas=hasard(0,2); const [nom,f,nat]=prendre(NOMS);
 
 /* ----- 8. Pictogrammes (en SVG) ----- */
 const PICTO_SVG={corrosif:'<path d="M-16,-14 l-6,14 h12 z M4,-14 l-6,14 h12 z"/><path class="trait" d="M-10,0 q0,8 -4,12 M10,0 q0,8 4,12"/><rect x="-18" y="12" width="14" height="6"/><path d="M4,14 q6,-6 12,0 l2,6 h-16 z"/>',
-  toxique:'<circle cx="0" cy="-5" r="9"/><circle cx="-3.5" cy="-7" r="2.2" style="fill:#fff"/><circle cx="3.5" cy="-7" r="2.2" style="fill:#fff"/><rect x="-4" y="2" width="8" height="5"/><path class="trait" d="M-12,8 l24,10 M12,8 l-24,10"/>',
+  toxique:'<circle cx="0" cy="-5" r="9"/><circle cx="-3.5" cy="-7" r="2.2" class="picto-clair"/><circle cx="3.5" cy="-7" r="2.2" class="picto-clair"/><rect x="-4" y="2" width="8" height="5"/><path class="trait" d="M-12,8 l24,10 M12,8 l-24,10"/>',
   irritant:'<rect x="-3" y="-18" width="6" height="22" rx="2"/><circle cx="0" cy="12" r="3.5"/>',
   inflammable:'<path d="M0,-18 q10,10 4,20 q8,-4 6,-12 q10,14 -4,24 h-12 q-12,-10 -2,-22 q-2,8 4,10 q-6,-12 4,-20 z"/><rect x="-12" y="14" width="24" height="3"/>',
-  comburant:'<circle cx="0" cy="8" r="9" style="fill:none;stroke:currentColor;stroke-width:4"/><path d="M0,-20 q8,8 3,16 q7,-3 5,-10 q8,12 -3,20 h-10 q-10,-8 -1,-18 q-2,6 3,8 q-5,-10 3,-16 z"/>',
+  comburant:'<circle class="picto-anneau" cx="0" cy="8" r="9"/><path d="M0,-20 q8,8 3,16 q7,-3 5,-10 q8,12 -3,20 h-10 q-10,-8 -1,-18 q-2,6 3,8 q-5,-10 3,-16 z"/>',
   sante:'<circle cx="0" cy="-13" r="5"/><path d="M-9,-6 h18 l-3,14 h-12 z"/><path d="M0,10 l3,8 h8 l-6,5 l2,8 l-7,-5 l-7,5 l2,-8 l-6,-5 h8 z"/>',
-  environnement:'<path d="M-14,-18 l8,12 h-5 l7,10 h-20 l7,-10 h-5 z"/><rect x="-15" y="4" width="3" height="8"/><path d="M4,8 q6,-8 14,0 q-6,8 -14,0 z M-2,8 l6,-4 v8 z"/><circle cx="12" cy="7" r="1.2" style="fill:#fff"/><path class="trait" d="M-20,18 h40"/>',
+  environnement:'<path d="M-14,-18 l8,12 h-5 l7,10 h-20 l7,-10 h-5 z"/><rect x="-15" y="4" width="3" height="8"/><path d="M4,8 q6,-8 14,0 q-6,8 -14,0 z M-2,8 l6,-4 v8 z"/><circle cx="12" cy="7" r="1.2" class="picto-clair"/><path class="trait" d="M-20,18 h40"/>',
   gaz:'<rect x="-8" y="-14" width="16" height="32" rx="6"/><rect x="-3" y="-20" width="6" height="6"/>',
   explosif:'<path d="M0,-20 l4,10 l10,-6 l-4,10 l10,4 l-10,4 l4,10 l-10,-6 l-4,10 l-4,-10 l-10,6 l4,-10 l-10,-4 l10,-4 l-4,-10 l10,6 z"/>'};
 const PICTO_NOM={corrosif:'corrosif',toxique:'toxique, mortel',irritant:'irritant, nocif',inflammable:'inflammable',comburant:'comburant',sante:'danger grave pour la santé',environnement:'dangereux pour le milieu aquatique',gaz:'gaz sous pression',explosif:'explosif'};

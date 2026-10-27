@@ -59,7 +59,7 @@ function Ecran(cv,o){
     const c=T.ctx,W=T.W,H=T.H; G=geo(W,H); c.clearRect(0,0,W,H);
     // la figure sur l'écran
     bande(W); c.save(); c.beginPath(); c.roundRect?c.roundRect(G.m,G.yb,W-2*G.m,G.hb,8):c.rect(G.m,G.yb,W-2*G.m,G.hb); c.clip();
-    c.fillStyle='#0E0B12'; c.fillRect(G.m,G.yb,W-2*G.m,G.hb); c.imageSmoothingEnabled=true; c.drawImage(off,G.m,G.yb,W-2*G.m,G.hb); c.restore();
+    c.fillStyle=css('--ecran-oscillo'); c.fillRect(G.m,G.yb,W-2*G.m,G.hb); c.imageSmoothingEnabled=true; c.drawImage(off,G.m,G.yb,W-2*G.m,G.hb); c.restore();
     // la règle
     const ink=css('--ink'),muted=css('--muted'),line=css('--line');
     const parMm=(W-2*G.m)/(2*E.demi);
@@ -161,7 +161,7 @@ function commandesCuve(d,C){
   b.addEventListener('click',()=>{ C.joue=!C.joue; texte(); C.lancer(); });
   texte();
 }
-const EAU={mur:'#F3E7CF',murTrait:'#5B4636',jaune:'#FFD166',rose:'#FF8FB8',blanc:'#FFFFFF',sombre:'#08203A'};
+const EAU={mur:css('--cuve-mur'),murTrait:css('--cuve-trait'),jaune:css('--cuve-jaune'),rose:css('--cuve-rose'),blanc:css('--cuve-blanc'),sombre:css('--cuve-sombre')};   // variables.css
 function segmentEau(c,R,a,b,coul,tirets){ c.save(); c.strokeStyle=coul; c.lineWidth=2.5; if(tirets) c.setLineDash(tirets); c.beginPath(); c.moveTo(R.X(a[0]),R.Y(a[1])); c.lineTo(R.X(b[0]),R.Y(b[1])); c.stroke(); c.restore(); }
 function etiquetteEau(c,t,x,y,coul,o){ etiquette(c,t,x,y,coul,Object.assign({halo:EAU.sombre},o||{})); }
 function regleLambda(c,R,lam){ // une barre de longueur λ en bas à gauche, pour comparer
@@ -200,7 +200,7 @@ function diffraction(el){
       const r=st.lam/st.a;
       if(r<1){ const t=Math.asin(r), lg=Hc-YB-1.5;
         [-1,1].forEach(s=>segmentEau(c,R,[L/2,YB+EP/2],[L/2+s*lg*Math.tan(t),YB+EP/2+lg],EAU.jaune,[8,6]));
-        segmentEau(c,R,[L/2,YB+EP/2],[L/2,Hc-1],'rgba(255,255,255,.55)',[3,5]);
+        segmentEau(c,R,[L/2,YB+EP/2],[L/2,Hc-1],css('--cuve-trait-clair'),[3,5]);
         const ra=Math.min(5,Hc-YB-3); c.save(); c.strokeStyle=EAU.jaune; c.lineWidth=2; c.beginPath(); c.arc(R.X(L/2),R.Y(YB+EP/2),ra*R.u,Math.PI/2-t,Math.PI/2); c.stroke(); c.restore();
         etiquetteEau(c,'θ',R.X(L/2+ra*Math.sin(t/2)+0.4),R.Y(YB+EP/2+ra*Math.cos(t/2)+0.5),EAU.jaune,{italique:true,taille:17}); }
       etiquetteEau(c,'a',R.X(L/2),R.Y(YB-EP/2-0.9),EAU.jaune,{align:'center',italique:true,taille:17});
@@ -442,7 +442,7 @@ function young(el){
   const E=Ecran(g.querySelector('canvas'),{demi:15,
     spectre:()=>st.blanc?SPECTRE:[{l:st.lam,c:rgbLambda(st.lam)}],
     I,
-    courbes:()=>st.blanc?[{l:450,coul:'#3B6CFF'},{l:550,coul:'#1FA34A'},{l:650,coul:'#E0352B'}].map(k=>Object.assign(k,{ep:1.8})):[{l:st.lam,coul:css('--mc')}],
+    courbes:()=>st.blanc?[{l:450,coul:css('--raie-450')},{l:550,coul:css('--raie-550')},{l:650,coul:css('--raie-650')}].map(k=>Object.assign(k,{ep:1.8})):[{l:st.lam,coul:css('--mc')}],
     surCurseurs:releves});
   function teinte(){ const p=d.querySelector('.pastille-lambda'); p.style.setProperty('--teinte',hex(rgbLambda(st.lam))); }
   function releves(){
