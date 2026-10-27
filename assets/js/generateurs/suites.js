@@ -35,7 +35,7 @@ function suivant(){
   const bon=poly([1+b+c,2+b,1]);
   const reserve=[poly([c+1,b,1]),poly([1+b+c,b,1]),poly([c+1,b+2,1]),poly([c,b,1])].map($);
   return Object.assign(qcm($(bon),reserve),{enonce:'On pose $u_n='+poly([c,b,1])+'$. Que vaut $u_{n+1}$ ?',
-    explication:'On remplace chaque $n$ par $(n+1)$ : $u_{n+1}=(n+1)^2'+fois(b,'(n+1)')+(c?signe(c):'')+'=n^2+2n+1'+fois(b,'n')+signe(b)+(c?signe(c):'')+'='+bon+'$. Le piège : $(n+1)^2$ se développe en $n^2+2n+1$.'});
+    explication:'On remplace chaque $n$ par $(n+1)$ : $u_{n+1}=(n+1)^2'+fois(b,'(n+1)')+(c?signe(c):'')+'=n^2+2n+1'+fois(b,'n')+signe(b)+(c?signe(c):'')+'='+bon+'$. Le piège : $(n+1)^2=n^2+2n+1$, pas $n^2+1$.'});
 }
 
 /* ----- 2. Une suite explicite ----- */
@@ -72,7 +72,7 @@ function reconnaitre(){ const cas=hasard(0,2); let t,bon,exp;
   if(cas===0){ const u0=hasard(-5,12), r=prendre([-6,-4,-3,-2,2,3,4,5,7]); t=[0,1,2,3].map(n=>u0+n*r); bon=A(r); exp='Les écarts valent tous $'+tex(r)+'$ : on ajoute toujours le même nombre.'; }
   else if(cas===1){ const u0=prendre([1,2,3,5,-2,64,81]), q=u0===64?prendre([0.5,0.25]):u0===81?1/3:prendre([2,3,-2,4]); t=[0,1,2,3].map(n=>u0*Math.pow(q,n)); bon=G(q===1/3?'\\tfrac13':q); exp='Chaque terme est le précédent multiplié par $'+(q===1/3?'\\frac13':tex(q))+'$ : le quotient est constant.';
     if(q===1/3) bon='géométrique de raison $\\frac13$'; }
-  else { const k=hasard(0,3); t=[[1,4,9,16],[2,5,10,17],[1,3,6,10],[1,2,4,7],[0,1,1,2]][k===3?prendre([3,4]):k]; bon=N; exp='Écarts : '+t.slice(1).map((v,i)=>'$'+tex(v-t[i])+'$').join(', ')+' (pas constants). '+(t[0]===0?'Le premier terme est nul, puis on multiplie par $1$ et par $2$ : pas de raison commune.':'Quotients pas constants non plus.')+' Ni l\'un ni l\'autre.'; }
+  else { const k=hasard(0,3); t=[[1,4,9,16],[2,5,10,17],[1,3,6,10],[1,2,4,7],[0,1,1,2]][k===3?prendre([3,4]):k]; bon=N; exp='Écarts : '+t.slice(1).map((v,i)=>'$'+tex(v-t[i])+'$').join(', ')+' (pas constants). Quotients pas constants non plus : ni l\'un ni l\'autre.'; }
   const d1=t[1]-t[0], q0=t[0]?t[1]/t[0]:2, q1=Math.abs(q0*100-Math.round(q0*100))<1e-9?q0:3;
   const reserve=[N,A(d1),G(q1||2),A(d1+1),G(2),A(2),G(3),A(-d1||1)];
   return Object.assign(qcm(bon,reserve),{enonce:'Les premiers termes d\'une suite sont '+t.map(v=>'$'+tex(v)+'$').join(' ; ')+'. Ils peuvent être ceux d\'une suite…',explication:exp}); }
@@ -116,20 +116,20 @@ function sommeArith(){ if(hasard(0,2)===0){ const n=prendre([10,20,30,40,50,100,
     explication:'On ajoute $'+r+'$ à chaque fois : $u_n='+u0+'+'+r+'n$. $'+u0+'+'+r+'n='+dernier+'$ donne $n='+(N-1)+'$ : de $u_0$ à $u_{'+(N-1)+'}$, il y a $'+N+'$ termes. $S='+N+'\\times\\dfrac{'+u0+'+'+dernier+'}{2}='+mil(S)+'$.'}); }
 
 /* ----- 10. Somme géométrique ----- */
-function sommeGeom(){ const q=prendre([2,2,3]), a=prendre([1,2,3,5]), N=q===2?hasard(4,9):hasard(4,6); const dernier=a*Math.pow(q,N-1); const S=a*(Math.pow(q,N)-1)/(q-1);
+function sommeGeom(){ const q=prendre([2,2,3]), a=prendre([1,2,3,5]), N=q===2?hasard(4,9):hasard(3,6); const dernier=a*Math.pow(q,N-1); const S=a*(Math.pow(q,N)-1)/(q-1);
   return Object.assign(num(S,0),{enonce:'Calcule $'+a+'+'+a*q+'+'+a*q*q+'+\\dots+'+mil(dernier)+'$.',
     explication:'On multiplie par $'+q+'$ à chaque fois : $u_n='+(a===1?'':a+'\\times')+q+'^n$. Le dernier terme est $'+(a===1?'':a+'\\times')+q+'^{'+(N-1)+'}$ : de $u_0$ à $u_{'+(N-1)+'}$, il y a $'+N+'$ termes. $S='+a+'\\times\\dfrac{1-'+q+'^{'+N+'}}{1-'+q+'}='+(a===1?'':a+'\\times')+'\\dfrac{'+mil(Math.pow(q,N))+'-1}{'+(q-1)+'}='+mil(S)+'$.'}); }
 
 /* ----- 11. Le sens de variation ----- */
 function variation(){ const R=['croissante','décroissante','constante','ni croissante ni décroissante']; const cas=hasard(0,3);
-  if(cas===0){ const e=prendre([['2n+3',0],['n^2+1',0],['5',0],['3n+1',0],['-3',1],['-n-1',1],['-2n^2-4',1]]);
+  if(cas===0){ const e=prendre([['2n+3',0],['n^2+1',0],['5',0],['-3',1],['-n-1',1],['-2n^2-4',1],['0',2]]);
     return Object.assign(qcm(R[e[1]],R),{enonce:'Pour tout entier $n\\ge0$, $u_{n+1}-u_n='+e[0]+'$. La suite $(u_n)$ est…',
-      explication:'Pour tout $n\\ge0$, $'+e[0]+'$ est '+(e[1]?'strictement négatif':'strictement positif')+' : chaque terme est '+(e[1]?'plus petit':'plus grand')+' que le précédent.'}); }
+      explication:e[1]===2?'La différence est nulle : chaque terme est égal au précédent.':'Pour tout $n\\ge0$, $'+e[0]+'$ est '+(e[1]?'strictement négatif':'strictement positif')+' : chaque terme est '+(e[1]?'plus petit':'plus grand')+' que le précédent.'}); }
   if(cas===1){ const r=prendre([-5,-2,-0.5,3,1.5,4]); return Object.assign(qcm(R[r>0?0:1],R),{enonce:'$(u_n)$ est arithmétique de raison $'+tex(r)+'$. Elle est…',explication:'$u_{n+1}-u_n=r='+tex(r)+'$, '+(r>0?'positif':'négatif')+'.'}); }
   if(cas===2){ const u0=prendre([2,5,10,100]), q=prendre([0.5,0.8,1.5,2,3,0.9,-2,-0.5]); const k=q<0?3:q>1?0:1;
     return Object.assign(qcm(R[k],R),{enonce:'$(u_n)$ est géométrique, $u_0='+u0+'$ et $q='+tex(q)+'$. Elle est…',
       explication:q<0?'Avec $q&lt;0$, les termes changent de signe à chaque rang : '+u0+', '+tex(u0*q)+', '+tex(u0*q*q)+'… Ni croissante ni décroissante.':'$u_0&gt;0$ et '+(q>1?'$q&gt;1$ : chaque terme est plus grand que le précédent.':'$0&lt;q&lt;1$ : chaque terme est plus petit que le précédent.')}); }
-  const q=prendre([0.5,0.8,0.2]); return Object.assign(qcm(R[1],R),{enonce:'Tous les termes de $u_n='+tex(q)+'^n$ sont positifs. Quel est son sens de variation ?',
+  const q=prendre([0.5,0.8,0.2]); return Object.assign(qcm(R[1],R),{enonce:'Tous les termes de $u_n='+tex(q)+'^n$ sont positifs. La suite est donc…',
     explication:'Le signe de $u_n$ ne dit rien du sens de variation. Ici, le quotient vaut $'+tex(q)+'&lt;1$ pour des termes positifs : chaque terme est plus petit que le précédent, la suite est décroissante.'}); }
 
 /* ----- 12. Le seuil ----- */

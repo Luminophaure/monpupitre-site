@@ -1,5 +1,5 @@
 /* versions des fichiers publiés (outils/publication.py) */
-window.VERSIONS={"assets/js/banque.js":"06d0da5c73","assets/js/bureau.js":"8535d4c11e","assets/js/carnet.js":"131046a1aa","assets/js/chapitres.js":"a7eda7f0ff","assets/js/comptes.js":"07f9ddf9be","assets/js/espaces.js":"03fab0a5f7","assets/js/fond-ambiances.js":"bd0feb1112","assets/js/fond-bureau.js":"dd10ee1138","assets/js/generateurs/electricite.js":"5d10a8c8df","assets/js/generateurs/espace.js":"b690005da4","assets/js/generateurs/fonctions.js":"5a2261ec58","assets/js/generateurs/infrarouges.js":"074c302643","assets/js/generateurs/limites.js":"ab052b43fc","assets/js/generateurs/litteral.js":"7e56253c58","assets/js/generateurs/ondes.js":"0ad2b511c6","assets/js/generateurs/solutions.js":"3294d765e0","assets/js/generateurs/suites.js":"3165d7e12f","assets/js/generateurs/vecteurs.js":"4def1f5cec","assets/js/graphe.js":"b784063975","assets/js/labos/commun.js":"535121b8b4","assets/js/labos/electricite.js":"dbb8ad7892","assets/js/labos/espace.js":"5329b0d5ea","assets/js/labos/fonctions.js":"4e9e20648c","assets/js/labos/infrarouges.js":"9583395f76","assets/js/labos/limites.js":"eb3b038c49","assets/js/labos/litteral.js":"539e64544a","assets/js/labos/ondes.js":"015123fa3c","assets/js/labos/solutions.js":"3772f7a0f2","assets/js/labos/suites.js":"6ab5c20a8d","assets/js/labos/vecteurs.js":"929b40bac1","assets/js/musique.js":"a0be3adf72","assets/js/notions.js":"c08c3318e0","assets/js/pack-bureau.js":"9e78aa7141","assets/js/portes.js":"513b02990f","assets/js/quiz.js":"7a8f34b811","assets/js/tuteur.js":"96fe8a29e6","assets/vendor/katex/auto-render.min.js":"82dca94048","assets/vendor/katex/katex.min.css":"43459d515f","assets/vendor/katex/katex.min.js":"6d481709e3"};
+window.VERSIONS={"assets/js/banque-outil.js":"1a63c4585e","assets/js/banque.js":"ab56650822","assets/js/bureau.js":"fbbb46b073","assets/js/carnet.js":"5c589cd309","assets/js/chapitres.js":"a7eda7f0ff","assets/js/comptes.js":"07f9ddf9be","assets/js/devoirs.js":"a1b282a8dd","assets/js/espaces.js":"f319eaea9c","assets/js/fiches.js":"3b76e15f0b","assets/js/fond-ambiances.js":"bd0feb1112","assets/js/fond-bureau.js":"dd10ee1138","assets/js/generateurs/electricite.js":"5d10a8c8df","assets/js/generateurs/espace.js":"b690005da4","assets/js/generateurs/fonctions.js":"5a2261ec58","assets/js/generateurs/infrarouges.js":"074c302643","assets/js/generateurs/limites.js":"ab052b43fc","assets/js/generateurs/litteral.js":"7e56253c58","assets/js/generateurs/ondes.js":"0ad2b511c6","assets/js/generateurs/solutions.js":"3294d765e0","assets/js/generateurs/suites.js":"e9ec50e1b2","assets/js/generateurs/vecteurs.js":"4def1f5cec","assets/js/graphe.js":"b784063975","assets/js/labos/commun.js":"535121b8b4","assets/js/labos/electricite.js":"dbb8ad7892","assets/js/labos/espace.js":"5329b0d5ea","assets/js/labos/fonctions.js":"4e9e20648c","assets/js/labos/infrarouges.js":"9583395f76","assets/js/labos/limites.js":"eb3b038c49","assets/js/labos/litteral.js":"539e64544a","assets/js/labos/ondes.js":"015123fa3c","assets/js/labos/solutions.js":"3772f7a0f2","assets/js/labos/suites.js":"3a323ee492","assets/js/labos/vecteurs.js":"929b40bac1","assets/js/musique.js":"a0be3adf72","assets/js/notions.js":"c08c3318e0","assets/js/pack-bureau.js":"9e78aa7141","assets/js/portes.js":"36c6bc6a6f","assets/js/quiz.js":"7a8f34b811","assets/js/tuteur.js":"96fe8a29e6","assets/vendor/katex/auto-render.min.js":"82dca94048","assets/vendor/katex/katex.min.css":"43459d515f","assets/vendor/katex/katex.min.js":"6d481709e3"};
 /* =====================================================================
    SCRIPT PRINCIPAL — à inclure une seule fois dans chaque page :
      <script src="../assets/js/site.js" defer></script>
@@ -307,22 +307,27 @@ function pliables(r){
 function deplier(el){ if(!el) return; for(let b=el.closest('.bloc.plie');b;b=b.parentElement&&b.parentElement.closest('.bloc.plie')){ const bt=b.querySelector(':scope > .bloc-plier'); if(bt) bt.click(); else b.classList.remove('plie'); } }
 
 /* ---------- exercices : numéros, étoiles, filtres ---------- */
+/* une fiche d'exercice telle que l'élève la voit : numéro, étoiles, titre, et les volets
+   « coup de pouce » et « correction » avec leur intitulé. Une seule façon de présenter un
+   exercice : les chapitres l'appellent ici, la banque et les devoirs (fiches.js) aussi,
+   par Site.preparerExercice. */
+function preparerExercice(ex,numero){ if(ex.querySelector(':scope > header')) return;
+  /* chaque exercice est une fiche de la banque : son id est écrit dans la page
+     (id="ex-…", format dans CLAUDE.md) et ne change jamais, même si le titre change.
+     C'est ce qu'un lien du carnet ou un devoir retient. Le repli sur le titre ne sert
+     qu'à une page qui n'aurait pas encore ses identifiants. */
+  if(!ex.id) ex.id='ex-'+(ex.dataset.titre||'exercice-'+numero).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const niv=parseInt(ex.dataset.niveau||'0',10);
+  const h=document.createElement('header');
+  h.innerHTML='<span class="num-ex">Exercice '+numero+'</span>'+(niv?'<span class="etoiles" title="Difficulté '+niv+' sur 3" aria-label="Difficulté '+niv+' sur 3">'+'★'.repeat(niv)+'<span class="etoiles-vides">'+'★'.repeat(Math.max(0,3-niv))+'</span></span>':'')+(ex.dataset.titre?'<span class="titre-ex">'+echap(ex.dataset.titre)+'</span>':'');
+  ex.prepend(h);
+  let coup=0;
+  ex.querySelectorAll(':scope > details.correction, :scope > details.indice').forEach(d=>{ if(!d.querySelector('summary')){ const s=document.createElement('summary'); s.textContent=d.classList.contains('indice')?'Un coup de pouce'+(ex.querySelectorAll(':scope > details.indice').length>1?' ('+(++coup)+')':''):'Voir la correction'; d.prepend(s); }
+    if(!d.querySelector(':scope > .contenu')){ const c=document.createElement('div'); c.className='contenu'; [...d.childNodes].forEach(n=>{ if(n.nodeName!=='SUMMARY') c.appendChild(n); }); d.appendChild(c); } });
+}
 function exercices(r){
   const tous=[...r.querySelectorAll('article.exercice')];
-  tous.forEach((ex,i)=>{ if(ex.querySelector(':scope > header')) return;
-    /* chaque exercice est une fiche de la banque : son id est écrit dans la page
-       (id="ex-…", format dans CLAUDE.md) et ne change jamais, même si le titre change.
-       C'est ce qu'un lien du carnet ou un devoir retient. Le repli sur le titre ne sert
-       qu'à une page qui n'aurait pas encore ses identifiants. */
-    if(!ex.id) ex.id='ex-'+(ex.dataset.titre||'exercice-'+(i+1)).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-    const niv=parseInt(ex.dataset.niveau||'0',10);
-    const h=document.createElement('header');
-    h.innerHTML='<span class="num-ex">Exercice '+(i+1)+'</span>'+(niv?'<span class="etoiles" title="Difficulté '+niv+' sur 3" aria-label="Difficulté '+niv+' sur 3">'+'★'.repeat(niv)+'<span class="etoiles-vides">'+'★'.repeat(Math.max(0,3-niv))+'</span></span>':'')+(ex.dataset.titre?'<span class="titre-ex">'+echap(ex.dataset.titre)+'</span>':'');
-    ex.prepend(h);
-    let coup=0;
-    ex.querySelectorAll(':scope > details.correction, :scope > details.indice').forEach(d=>{ if(!d.querySelector('summary')){ const s=document.createElement('summary'); s.textContent=d.classList.contains('indice')?'Un coup de pouce'+(ex.querySelectorAll(':scope > details.indice').length>1?' ('+(++coup)+')':''):'Voir la correction'; d.prepend(s); }
-      if(!d.querySelector(':scope > .contenu')){ const c=document.createElement('div'); c.className='contenu'; [...d.childNodes].forEach(n=>{ if(n.nodeName!=='SUMMARY') c.appendChild(n); }); d.appendChild(c); } });
-  });
+  tous.forEach((ex,i)=>preparerExercice(ex,i+1));
   // une barre d'outils par section qui contient des exercices
   const sections=new Set(tous.map(ex=>ex.closest('section')).filter(Boolean));
   sections.forEach(sec=>{ if(sec.querySelector('.outils-ex')) return;
@@ -408,7 +413,7 @@ async function demarrer(){
   if(info&&info.courant) body.dataset.niveau=info.courant.niveauId||'';
   if(info&&info.matiere) body.dataset.couleur=info.matiere.couleur||'neutre';
   else if(body.dataset.matiere){ const m=trouverMatiere(body.dataset.matiere); if(m) body.dataset.couleur=m.couleur||'neutre'; }
-  window.Site={deplier,racine:RACINE,versionnee,chapitre:(body.dataset.matiere?body.dataset.matiere+'/':'')+(id||''),chapitreId:id||'',info,maths,blocs,echap,charger,trouverMatiere,trouverChapitre,matieres,lienMatiere};   // blocs : étiquettes des blocs ajoutés par un labo
+  window.Site={deplier,preparerExercice,racine:RACINE,versionnee,chapitre:(body.dataset.matiere?body.dataset.matiere+'/':'')+(id||''),chapitreId:id||'',info,maths,blocs,echap,charger,trouverMatiere,trouverChapitre,matieres,lienMatiere};   // blocs : étiquettes des blocs ajoutés par un labo
   if(window.Bureau&&!window.AUTONOME) Bureau.coque(info,{racine:RACINE}); else barre(info);
   /* les exercices reçoivent leur id AVANT que les onglets lisent le #hash : sinon un lien
      du carnet vers un exercice (chapitre.html#ex-…) ne trouve rien et retombe sur le cours */
@@ -448,10 +453,14 @@ async function demarrer(){
     // pages du bureau (accueil, portes d'entrée, espaces parent et professeur, réglages)
     const pageBureau=body.dataset.page; if(pageBureau&&!window.AUTONOME){
       // le carnet des professeurs est lu par le bureau, la page carnet, « Mon compte », et les espaces parent et professeur
-      try{ await charger(RACINE+'assets/js/carnet.js'); }catch(e){ console.warn(e); }
+      try{ await charger(RACINE+'assets/js/carnet.js'); await charger(RACINE+'assets/js/devoirs.js'); }catch(e){ console.warn(e); }
       // les comptes du prototype : la page de connexion, et la carte du compte dans « Mon compte »
       if(pageBureau==='connexion'||pageBureau==='compte'){ try{ await charger(RACINE+'assets/js/comptes.js'); }catch(e){ console.warn(e); } }
-      if(pageBureau!=='connexion') await charger(RACINE+'assets/js/'+(pageBureau==='parent'||pageBureau==='prof'?'espaces':'portes')+'.js'); if(window.Pages&&Pages[pageBureau]) await Pages[pageBureau](body); }
+      // la banque d'exercices : l'outil du professeur, le devoir de l'élève, la planche à imprimer
+      const BANQUE={banque:['banque','fiches','banque-outil'],devoir:['banque','fiches'],planche:['banque','fiches']}[pageBureau];
+      if(BANQUE){ for(const s of BANQUE) await charger(RACINE+'assets/js/'+s+'.js'); }
+      else if(pageBureau!=='connexion') await charger(RACINE+'assets/js/'+(pageBureau==='parent'||pageBureau==='prof'?'espaces':'portes')+'.js');
+      if(window.Pages&&Pages[pageBureau]) await Pages[pageBureau](body); }
   }catch(e){ console.error(e); }
   if(location.hash&&body.dataset.miseEnPage!=='classeur'){ const t=document.getElementById(location.hash.slice(1)); if(t) setTimeout(()=>t.scrollIntoView(),50); }
 }

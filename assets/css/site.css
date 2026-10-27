@@ -350,7 +350,13 @@ a.lien-bloc{text-decoration:none;color:inherit}                         /* une c
 .curseur,
 .phrases,
 .labo .champ,
-.formulaire label:not(.case-ligne){display:grid;gap:var(--e-1)}
+.formulaire label:not(.case-ligne),
+.banque-filtres label,
+.reglages-devoir > label,
+.ce-que-voit > label:not(.interrupteur),
+.fiche-resume,
+.compo-corps,
+.bilan-fiche{display:grid;gap:var(--e-1)}
 .barres,
 .intercalaires,
 .bureau-atelier .options > div,
@@ -367,7 +373,11 @@ a.lien-bloc{text-decoration:none;color:inherit}                         /* une c
 .messages-classe,
 .parcours-liste,
 .bilan,
-.bilan-controle{display:grid;gap:var(--e-2)}
+.bilan-controle,
+.choix-nature,
+.ce-que-voit,
+.devoir-outils,
+.fiche-ligne{display:grid;gap:var(--e-2)}
 .faq,
 .bureau-atelier .options{display:grid;gap:var(--e-2-5)}
 .demo-rendu,
@@ -1470,7 +1480,7 @@ body:not([data-fb-objets]) .fb-peint .fb-lueur{display:none}
 h3.titre-suite{margin-top:var(--e-3-5)}                                   /* un second titre dans la même carte */
 .surtitre.sur-inverse{color:var(--inverse-muted)}             /* un surtitre sur un fond inversé (la projection) */
 .interrupteur input{position:absolute;opacity:0;width:0;height:0}
-.interrupteur .piste{width:40px;height:24px;border-radius:999px;background:var(--line);position:relative;transition:background .2s}
+.interrupteur .piste{flex:none;width:40px;height:24px;border-radius:999px;background:var(--line);position:relative;transition:background .2s}
 .interrupteur .piste::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--blanc);transition:left .2s}
 .interrupteur input:checked + .piste{background:var(--ok)}
 .interrupteur input:checked + .piste::after{left:19px}
@@ -1663,6 +1673,99 @@ mark.a-completer{background:var(--jaune);color:var(--jaune-ink);padding:1px var(
 .mail-simule .entete{font:400 var(--t-xs) var(--f-mono);color:var(--muted)}
 .code-secours{font:700 1.35rem var(--f-mono);letter-spacing:.14em;padding:var(--e-2-5) var(--e-3-5);background:var(--grid);border-radius:var(--r-s);width:max-content;max-width:100%;overflow-wrap:anywhere;user-select:all}
 .code-secours.petit{display:inline-block;font-size:1rem;padding:var(--e-0) var(--e-2)}
+
+/* ---------- La banque d'exercices : l'outil du professeur, le devoir de l'élève, la planche ----------
+   banque.html (banque-outil.js), devoir.html et planche.html (fiches.js). Les fiches elles-mêmes
+   gardent la présentation des chapitres (article.exercice, composants.css). */
+/* sur grand écran, la recherche à gauche et la composition à droite, qui reste en vue */
+@media (min-width:1400px){
+  .banque-plan{grid-template-columns:minmax(0,1.45fr) minmax(360px,1fr)}
+  .banque-plan > #composer{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;overscroll-behavior:contain}
+  .vers-compo{display:none}
+  .banque .fiche-ligne{grid-template-columns:minmax(0,1fr)}
+  .banque .fiche-boutons{justify-content:flex-start}
+}
+.banque-plan{display:grid;gap:var(--e-4);align-items:start;min-width:0}
+.banque-plan > *{min-width:0}
+.banque-filtres{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr));gap:var(--e-2-5) var(--e-3)}
+.banque-filtres label,.reglages-devoir > label,.ce-que-voit > label:not(.interrupteur),.compo-points{font:700 var(--t-s) var(--f-body)}
+.banque-filtres .champ-saisie,.reglages-devoir .champ-saisie,.ce-que-voit .champ-saisie,.compo-points .champ-saisie{font:400 var(--t-m) var(--f-body)}
+.reglages-devoir .discret,.ce-que-voit .discret{font-weight:400}
+.fiche-ligne{grid-template-columns:minmax(0,1fr) auto;align-items:start;padding:var(--e-3) var(--e-3-5);border-radius:var(--r-m);background:var(--card);box-shadow:var(--ombre)}
+.fiche-resume{gap:2px}
+.fiche-etiquettes{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--e-1) var(--e-2-5);font-size:var(--t-xs);color:var(--muted)}
+.fiche-etiquettes .etoiles{color:var(--b-ex);letter-spacing:1px}
+.fiche-etiquettes .etoiles-vides,.compo-corps .etoiles-vides{opacity:.25}
+.fiche-etiquettes .notion{padding:0 var(--e-2);border-radius:var(--r-pilule);background:var(--grid);color:var(--ink)}
+.fiche-boutons{justify-content:flex-end}
+.fiche-apercu{grid-column:1 / -1}
+.fiche-apercu > article.exercice{box-shadow:inset 0 0 0 2px var(--line)}
+.titre-compose{display:grid;gap:var(--e-1);padding:var(--e-3) var(--e-3-5);border-radius:var(--r-m);background:var(--grid)}
+.titre-compose strong{font:800 var(--t-l)/1.25 var(--f-display)}
+.reglages-devoir{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:var(--e-3);align-items:start}
+.choix-nature,.ce-que-voit{border:0;margin:0;padding:0;min-width:0}
+.choix-nature legend,.ce-que-voit legend{font:800 var(--t-m) var(--f-display);padding:0;margin-bottom:var(--e-1-5)}
+.choix-nature .case-ligne{font:700 var(--t-s) var(--f-body);padding:var(--e-1-5) var(--e-3);border-radius:var(--r-pilule);background:var(--card);box-shadow:var(--ombre-pose);cursor:pointer}
+.choix-nature .case-ligne:has(input:checked){background:var(--jaune);color:var(--jaune-ink)}
+.ce-que-voit{padding:var(--e-3) var(--e-3-5);border-radius:var(--r-m);background:var(--grid)}
+.compo-ligne{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:var(--e-2) var(--e-3);padding:var(--e-2-5) var(--e-3);border-radius:var(--r-m);background:var(--card);box-shadow:var(--ombre)}
+.compo-num{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--feuille);font:800 var(--t-s) var(--f-display)}
+.compo-corps{gap:2px}
+.compo-points{grid-column:2;grid-row:2;display:flex;align-items:center;gap:var(--e-2)}
+.compo-points .champ-saisie{width:84px;height:38px}
+.compo-boutons{grid-column:3;grid-row:1}
+.compo-boutons .btn.petit{min-width:38px;padding:0 var(--e-2-5)}
+@media (max-width:640px){
+  .fiche-ligne{grid-template-columns:minmax(0,1fr)}
+  .fiche-boutons{justify-content:flex-start}
+  .compo-ligne{grid-template-columns:auto minmax(0,1fr)}
+  .compo-ligne > .compo-boutons{grid-column:2;grid-row:auto}
+}
+.notes-dm{box-shadow:inset 0 5px 0 var(--jaune),var(--ombre)}
+.avertissement,.note-dm{padding:var(--e-2-5) var(--e-3-5);border-radius:var(--r-m);background:var(--jaune-soft);border-left:4px solid var(--jaune)}
+.compo-sauvee{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--e-2) var(--e-3);padding:var(--e-2-5) var(--e-3);border-radius:var(--r-m);background:var(--grid)}
+.compo-sauvee.courante{box-shadow:inset 4px 0 0 var(--jaune)}
+.compo-sauvee .compo-corps{flex:1 1 240px}
+#diffuser a[aria-disabled="true"]{opacity:.5;pointer-events:none}
+#diffuser [data-lien]{flex:1 1 180px}
+.devoir-tete .chiffres{grid-template-columns:repeat(auto-fit,minmax(min(100%,112px),1fr))}
+/* le devoir de l'élève */
+.devoir .devoir-bilan:empty{display:none}
+.devoir-sommaire a{display:grid;place-items:center;min-width:40px;height:40px;padding:0 var(--e-2);border-radius:var(--r-pilule);background:var(--card);color:var(--ink);font:800 var(--t-s) var(--f-display);text-decoration:none;box-shadow:var(--ombre-pose)}
+.devoir-sommaire a[data-etat="fini"]{background:var(--grid)}
+.devoir-sommaire a[data-etat="seul"]{background:var(--ok-soft);color:var(--ok)}
+.devoir-sommaire a[data-etat="aide"]{background:var(--jaune-soft);color:var(--jaune-ink)}
+.devoir-sommaire a[data-etat="pas-encore"]{background:var(--ko-soft);color:var(--ko)}
+:root[data-theme="dark"] .devoir-sommaire a[data-etat="aide"]{color:var(--jaune)}
+.fiche-meta{margin-top:calc(-1 * var(--e-1-5))}
+.devoir-outils{border-top:2px dashed var(--line);padding-top:var(--e-2-5)}
+.devoir-outils:empty{display:none}
+article.exercice.reussie{box-shadow:inset 5px 0 0 var(--ok),var(--ombre)}
+article.exercice.introuvable{box-shadow:inset 5px 0 0 var(--ko),var(--ombre)}
+/* la planche : une feuille, qui part seule à l'impression */
+.planche{display:grid;gap:var(--e-5);padding:var(--e-5) clamp(16px,4vw,48px);border-radius:var(--r-xl);background:var(--feuille);box-shadow:var(--ombre-forte);min-width:0}
+.planche section,.espace .planche section{background:none;box-shadow:none;border-radius:0;padding:0}
+.planche-tete{display:grid;gap:var(--e-1-5)}
+.planche-tete h2{font-size:var(--t-xl)}
+.planche-nom{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-6)}
+.planche-nom span{flex:1 1 200px;padding-bottom:var(--e-1);border-bottom:1px dotted var(--muted);font-weight:700}
+.planche article.exercice{box-shadow:none;border:1px solid var(--line)}
+.planche article.exercice.corrige > .contenu{display:grid;gap:var(--e-2);border-left:4px solid var(--ko);padding-left:var(--e-3-5)}
+.planche-pouce{display:grid;gap:var(--e-1-5)}
+.planche-corrige,.planche-pouces{border-top:2px dashed var(--line);padding-top:var(--e-5)}
+@page{size:A4;margin:14mm 14mm 16mm}
+@media print{
+  body[data-page="planche"]{background:var(--blanc)}
+  body[data-page="planche"] :is(.accueil-tete,.planche-outils,.fond-bureau,.voile,.toast,.fb-bulle,.mention-decor){display:none!important}
+  body[data-page="planche"] :is(.zone,.bureau){background:none;box-shadow:none;padding:0;margin:0;max-width:none}
+  body[data-page="planche"] .zone::before,body[data-page="planche"] .zone::after{display:none}
+  body[data-page="planche"] .espace{padding:0;max-width:none}
+  .planche{box-shadow:none;border-radius:0;padding:0;background:none;color:var(--noir)}
+  .planche-pouces,.planche-corrige{break-before:page;border-top:0;padding-top:0}
+  .planche article.exercice{break-inside:avoid-page}
+  .planche figure,.planche table{break-inside:avoid}
+}
+.carnet-item.type-devoir{background:var(--blue-soft);border-left:4px solid var(--blue)}
 
 /* ---------- tuteur.css ---------- */
 /* =====================================================================

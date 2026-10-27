@@ -12,6 +12,9 @@
      exercice   un exercice précis d'un chapitre, à conseiller
      cours      un point précis du cours (une section), à revoir
      echeance   un contrôle, un rendu, un oral… avec une date
+     devoir     une séance ou un devoir maison composé dans la banque
+                d'exercices (devoirs.js) : sa liste de fiches, ses réglages,
+                son échéance ; il s'ouvre sur devoir.html
      message    un message PRÉFAIT, choisi dans le catalogue ci-dessous
    Il n'y a de texte libre nulle part : c'est voulu. Pas de messagerie,
    pas de mot déplacé possible, et le parent voit tout le carnet en lecture.
@@ -48,8 +51,9 @@ const MESSAGES=[
   ['regulier',   'Dix minutes chaque jour valent mieux qu\'une heure la veille.'],
 ];
 const NATURES=[['controle','Contrôle'],['devoir','Devoir à rendre'],['oral','Évaluation orale'],['blanc','Épreuve blanche'],['tp','TP noté'],['rattrapage','Rattrapage']];
-const TYPES={exercice:'Exercice conseillé',cours:'Point de cours',echeance:'Échéance',message:'Message'};
-const ICONES={exercice:'✎',cours:'📖',echeance:'📅',message:'💬'};
+const TYPES={exercice:'Exercice conseillé',cours:'Point de cours',echeance:'Échéance',devoir:'Devoir',message:'Message'};
+const ICONES={exercice:'✎',cours:'📖',echeance:'📅',devoir:'📝',message:'💬'};
+const D=()=>window.Devoirs;
 
 /* ---------- le catalogue des chapitres (pour nommer et relier) ---------- */
 function matieres(){ return window.MATIERES||[]; }
@@ -83,16 +87,16 @@ function tout(){
   return profs().map(pr=>({prof:pr,items:trier(items(pr.code))}));
 }
 function trier(l){
-  const rang={echeance:0,exercice:1,cours:2,message:3};
+  const rang={echeance:0,devoir:0,exercice:1,cours:2,message:3};
   return l.slice().sort((a,b)=>{
-    if(a.type==='echeance'&&b.type==='echeance') return (a.echeance||'').localeCompare(b.echeance||'');
+    if(rang[a.type]===0&&rang[b.type]===0) return (a.echeance||'').localeCompare(b.echeance||'');
     if(rang[a.type]!==rang[b.type]) return rang[a.type]-rang[b.type];
     return (b.date||'').localeCompare(a.date||'');
   });
 }
 function echeancesAVenir(){
   const auj=aujourdhui();
-  return tout().flatMap(r=>r.items.filter(i=>i.type==='echeance'&&(i.echeance||'')>=auj).map(i=>Object.assign({prof:r.prof},i)))
+  return tout().flatMap(r=>r.items.filter(i=>(i.type==='echeance'||i.type==='devoir')&&(i.echeance||'')>=auj).map(i=>Object.assign({prof:r.prof},i)))
              .sort((a,b)=>a.echeance.localeCompare(b.echeance));
 }
 
@@ -125,12 +129,17 @@ function libelleCible(it){
   if(it.type==='cours') return (it.section&&it.section.titre?it.section.titre:'Un point du cours')+(c?' · '+c.titre:'');
   if(it.type==='echeance'){ const n=(NATURES.find(x=>x[0]===it.nature)||[,'Échéance'])[1]; const chs=(it.chapitres||[]).map(id=>{ const x=chapitre(id); return x?x.titre:id; }); return n+(chs.length?' · '+chs.join(', '):''); }
   if(it.type==='message'){ const m=MESSAGES.find(x=>x[0]===it.message); return m?m[1]:''; }
+  // un devoir : son titre composé (« Devoir maison noté · Suites numériques »), la date à part
+  if(it.type==='devoir') return D()&&it.devoir ? D().titre(Object.assign({},it.devoir,{echeance:''})) : 'Un devoir';
   return '';
 }
+/* l'étiquette d'un envoi : sa sorte (une seule source, aussi pour la carte du bureau) */
+function etiquette(it){ return TYPES[it.type]||it.type; }
 function lienCible(it){
   if(it.type==='exercice') return lienChapitre(it.chapitre,it.exercice&&it.exercice.id);
   if(it.type==='cours') return lienChapitre(it.chapitre,it.section&&it.section.id);
   if(it.type==='echeance'&&it.chapitres&&it.chapitres.length===1) return lienChapitre(it.chapitres[0],'entrainement');
+  if(it.type==='devoir'&&D()&&it.devoir){ const R=(window.Site&&window.Site.racine)||''; return R+D().chemin(it.devoir); }
   return null;
 }
 function messageJoint(it){ if(it.type==='message'||!it.message) return ''; const m=MESSAGES.find(x=>x[0]===it.message); return m?'<span class="mot">« '+echap(m[1])+' »</span>':''; }
@@ -139,11 +148,11 @@ function messageJoint(it){ if(it.type==='message'||!it.message) return ''; const
    opts.lecture : vrai pour le parent (pas de case « fait »)
    opts.retirer : vrai pour le professeur (bouton pour retirer) */
 function rendreItem(it,opts){ opts=opts||{}; const f=faits(); const url=lienCible(it); const fait=f.has(it.id);
-  const quand= it.type==='echeance' ? '<b class="quand">'+echap(dateFr(it.echeance,true))+'</b><span class="discret"> · '+echap(dansCombien(it.echeance))+'</span>' : '<span class="discret">'+echap(dateFr(it.date))+'</span>';
+  const quand= (it.type==='echeance'||it.type==='devoir')&&it.echeance ? '<b class="quand">'+echap(dateFr(it.echeance,true))+'</b><span class="discret"> · '+echap(dansCombien(it.echeance))+(it.type==='devoir'&&D()?' · '+echap(D().resume(it.devoir)):'')+'</span>' : '<span class="discret">'+echap(dateFr(it.date))+'</span>';
   const titre= url ? '<a href="'+echap(url)+'">'+echap(libelleCible(it))+'</a>' : '<span>'+echap(libelleCible(it))+'</span>';
   return '<li class="carnet-item type-'+echap(it.type)+(fait?' fait':'')+'" data-item="'+echap(it.id)+'">'+
     '<span class="ico" aria-hidden="true">'+ICONES[it.type]+'</span>'+
-    '<div class="corps"><span class="etiq">'+echap(TYPES[it.type]||it.type)+'</span>'+titre+messageJoint(it)+'<span class="meta">'+quand+'</span></div>'+
+    '<div class="corps"><span class="etiq">'+echap(etiquette(it))+'</span>'+titre+messageJoint(it)+'<span class="meta">'+quand+'</span></div>'+
     (opts.retirer?'<button type="button" class="btn fantome petit" data-retirer="'+echap(it.id)+'" aria-label="Retirer cet envoi">Retirer</button>':
      opts.lecture||it.type==='message'||it.type==='echeance'?'':'<label class="case-fait"><input type="checkbox" data-fait="'+echap(it.id)+'"'+(fait?' checked':'')+'><span>fait</span></label>')+
     '</li>';
@@ -167,9 +176,9 @@ function brancher(el,opts){ opts=opts||{};
 }
 
 /* ---------- ce que l'on dit à l'élève du dispositif ---------- */
-const EXPLICATION='<ul class="transparence-liste"><li><span class="oui">✓</span> un professeur te propose des exercices, des points de cours, des dates — jamais de note</li><li><span class="oui">✓</span> tu vois exactement ce qu\'il voit de toi, dans « Mon compte »</li><li><span class="oui">✓</span> tu peux quitter sa classe à tout moment</li><li><span class="non">✗</span> tu ne vois rien des autres élèves de la classe, et eux rien de toi</li><li><span class="non">✗</span> pas de messagerie : les messages sont choisis dans une liste, personne ne t\'écrit librement</li></ul>';
+const EXPLICATION='<ul class="transparence-liste"><li><span class="oui">✓</span> un professeur te propose des exercices, des devoirs, des points de cours, des dates — jamais de note, sauf celle d\'un devoir maison qu\'il a choisi de noter</li><li><span class="oui">✓</span> tu vois exactement ce qu\'il voit de toi, dans « Mon compte »</li><li><span class="oui">✓</span> tu peux quitter sa classe à tout moment</li><li><span class="non">✗</span> tu ne vois rien des autres élèves de la classe, et eux rien de toi</li><li><span class="non">✗</span> pas de messagerie : les messages sont choisis dans une liste, personne ne t\'écrit librement</li></ul>';
 
 window.Carnet={MESSAGES,NATURES,TYPES,ICONES,EXPLICATION,
   chapitre,matiere,lienChapitre,profs,rejoindre,quitter,items,publier,retirer,faits,setFait,tout,trier,echeancesAVenir,
-  aujourdhui,dateFr,dansCombien,lienRejoindre,decoderLien,libelleCible,lienCible,rendreItem,rendreRubrique,brancher,echap};
+  aujourdhui,dateFr,dansCombien,lienRejoindre,decoderLien,libelleCible,etiquette,lienCible,rendreItem,rendreRubrique,brancher,echap};
 })();

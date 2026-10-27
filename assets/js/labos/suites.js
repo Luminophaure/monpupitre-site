@@ -96,8 +96,7 @@ function cible(el){
       (C.taux?' Une évolution de '+(C.taux>0?'+':'−')+Math.abs(C.taux)+' % par an, c\'est $q=1'+(C.taux>0?'+':'-')+'0{,}'+String(Math.abs(C.taux)).padStart(2,'0')+'='+tx(C.r)+'$.':'')+
       (st.reussis>=3?' Trois défis réussis : tu sais lire une suite sur un graphique.':' Autre défi ?')+'</span>'; maths(v); T.redessiner(); return; }
     v.className='verdict ko'; let msg='';
-    if(st.type==='g'&&st.u0===0) msg='<strong>Ta suite est nulle.</strong><span>Avec $u_0=0$, une suite géométrique vaut $0$ à tous les rangs, quelle que soit sa raison. Règle d\'abord $u_0$.</span>';
-    else if(C.rangs.every(k=>egal(mien(k-1),valeurCible(k)))) msg='<strong>Un rang de décalage : ta suite atteint chaque valeur un rang trop tôt.</strong><span>Tu as pris pour $u_0$ la valeur du rang 1. Le premier terme, c\'est celui du rang $0$ : remonte d\'un rang de plus.</span>';
+    if(C.rangs.every(k=>egal(mien(k-1),valeurCible(k)))) msg='<strong>Un rang de décalage : ta suite atteint chaque valeur un rang trop tôt.</strong><span>Tu as pris pour $u_0$ la valeur du rang 1. Le premier terme, c\'est celui du rang $0$ : remonte d\'un rang de plus.</span>';
     else if(C.rangs.every(k=>egal(mien(k+1),valeurCible(k)))) msg='<strong>Un rang de décalage : ta suite atteint chaque valeur un rang trop tard.</strong><span>Ton $u_0$ est la valeur que la suite des cibles prendrait au rang $-1$. Le premier terme, c\'est celui du rang $0$.</span>';
     else if(C.taux&&st.type==='g'&&egal(st.r,Math.abs(C.taux)/100)) msg='<strong>$q='+tx(st.r)+'$ fait fondre la suite.</strong><span>Une '+(C.taux>0?'hausse':'baisse')+' de '+Math.abs(C.taux)+' %, ce n\'est pas multiplier par $'+tx(Math.abs(C.taux)/100)+'$ : on garde les 100 % et on '+(C.taux>0?'ajoute':'retire')+' '+Math.abs(C.taux)+' %, soit $q='+tx(C.r)+'$.</span>';
     else if(C.taux&&st.type==='g'&&egal(st.r,1-C.taux/100)) msg='<strong>Ta suite '+(C.taux>0?'baisse':'monte')+' alors que la situation '+(C.taux>0?'monte':'baisse')+'.</strong><span>Avec $q='+tx(st.r)+'$, tu as fait une '+(C.taux>0?'baisse':'hausse')+' de '+Math.abs(C.taux)+' %. Une '+(C.taux>0?'hausse':'baisse')+' donne $q='+tx(C.r)+'$.</span>';
@@ -174,9 +173,9 @@ function seuilLabo(el){
     v.className='verdict ko'; let m='';
     if(rep===N-1) m='<strong>Un rang trop tôt.</strong><span>$'+s.var+'_{'+(N-1)+'}\\approx'+tx(t[N-1])+'$ : le seuil n\'est pas encore franchi. On cherche le premier rang qui le franchit.</span>';
     else if(rep===N+1) m='<strong>Un rang trop tard.</strong><span>$'+s.var+'_{'+N+'}\\approx'+tx(t[N])+'$ a déjà franchi le seuil. On demande le <strong>premier</strong> rang où c\'est vrai.</span>';
-    else if(s.arith&&[Math.floor(Math.abs((s.S-s.u0)/s.arith.pas))+1,Math.floor(Math.abs((s.S-s.u0)/s.arith.pas))].includes(rep)) m='<strong>Tu as calculé comme une suite arithmétique.</strong><span>'+s.arith.dire+'</span>';
     else if(rep>=2000&&rep<=2100&&N<100) m='<strong>C\'est une année, pas un rang.</strong><span>On demande un nombre '+s.combien+' : le rang $n$, compté à partir de $0$.</span>';
     else if(Math.abs(rep-s.S)<1e-9||(N<rep&&t.some(x=>Math.abs(x-rep)<=0.01*Math.abs(x)+0.5))) m='<strong>Tu as donné une valeur, pas un rang.</strong><span>On cherche $n$, le numéro du terme, pas $'+s.var+'_n$ ni le seuil. La fonction renvoie <code>n</code>, pas <code>'+s.var+'</code>.</span>';
+    else if(s.arith){ const Na=Math.floor(Math.abs((s.S-s.u0)/s.arith.pas))+1; if(rep===Na||rep===Na-1) m='<strong>Tu as calculé comme une suite arithmétique.</strong><span>'+s.arith.dire+'</span>'; }
     if(!m){ const v_=termes(s,Math.max(0,Math.min(rep,10000)))[Math.max(0,Math.min(rep,10000))]; m= rep<N?'<strong>Trop tôt.</strong><span>Au rang '+rep+', $'+s.var+'\\approx'+tx(v_)+'$ : le seuil n\'est pas franchi. Fais tourner la boucle pour voir où elle s\'arrête.</span>':'<strong>Trop tard.</strong><span>Le seuil est franchi avant le rang '+rep+'. Fais tourner la boucle tour par tour.</span>'; }
     v.innerHTML=m; maths(v); });
   programme(); zero(); q('.verdict').innerHTML='<span>Lis la situation, cherche le rang, écris-le. La boucle est là pour vérifier.</span>';
@@ -246,7 +245,6 @@ function escalier(el){
     texteDefi(); v.innerHTML='<span>'+['Deux marches : $u_1=f(u_0)$, puis $u_2=f(u_1)$.','La suite reste sur place quand $f(u_0)=u_0$.','Regarde si les marches rapetissent ou grandissent.'][st.defi]+'</span>'; maths(v); }
   function comportement(){ const t=suite(400); const z=fixe(); if(Math.abs(st.u0-z)<1e-9) return 3; const fin=t[400]; if(!isFinite(fin)||Math.abs(fin)>1e6) return fin>0?1:2; return Math.abs(fin-z)<1e-3?0:(fin>0?1:2); }
   function repondreLimite(i){ const v=q('.verdict'); const c=comportement(); const z=fixe();
-    if(c===3&&i===0){ reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Juste.</strong><span>Elle est même sur le point vert dès le départ : $f(u_0)=u_0$, la suite est constante, égale à $'+tx(z)+'$. Une suite constante a pour limite sa valeur.</span>'; maths(v); return; }
     if(i===c){ reussi(v); v.className='verdict ok'; v.innerHTML='<strong>Juste.</strong><span>'+[
       'Les marches rapetissent : la suite se rapproche de $'+tx(z)+'$, l\'abscisse du point où la droite de $f$ coupe $y=x$. On conjecture que sa limite est $'+tx(z)+'$.'+(F().a<0?' Ici, elle tourne autour en spirale : un terme au-dessus, le suivant en dessous.':''),
       'Les marches grandissent et partent vers la droite : la suite tend vers $+\\infty$.',

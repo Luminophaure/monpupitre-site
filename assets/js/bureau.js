@@ -427,7 +427,7 @@ function menuCompte(role){
   const l=[];
   if(r==='eleve'){ l.push(['compte.html','Mon compte'],['carnet.html','Carnet des professeurs'],['personnalisation.html','Personnalisation'],['compte.html#parents','Ce que voient mes parents']); }
   if(r==='parent'){ l.push(['compte.html','Mon compte'],['parent.html','Espace parent'],['parent.html#transparence','Ce que je vois de mon enfant']); }
-  if(r==='prof'){ l.push(['compte.html','Mon compte'],['prof.html','Espace professeur'],['prof.html#transparence','Ce que voient mes élèves de moi']); }
+  if(r==='prof'){ l.push(['compte.html','Mon compte'],['prof.html','Espace professeur'],['banque.html','Banque d\'exercices'],['prof.html#transparence','Ce que voient mes élèves de moi']); }
   l.push(['lire-le-cours.html','Comment lire un cours'],['aide.html','Aide et tutoriels'],['compte.html#donnees','Exporter mes données']);
   return '<div class="menu" role="menu">'+
     '<div class="menu-tete">'+avatarSVG(44)+'<div><strong>'+echap(q.titre)+'</strong><span class="discret">'+echap(q.sous)+'</span></div></div>'+
@@ -532,8 +532,14 @@ function colonneEleve(info){
 function colonnePersonnes(role){
   if(role==='parent') return '<span class="surtitre col-titre">Mes enfants</span><nav class="intercalaires personnes" aria-label="Enfants"><a class="personne courant" href="#" data-enfant="lea" aria-current="page"><span class="pastille-p" data-couleur="maths"></span><span><strong>Léa</strong><small>Seconde · 2de 4</small></span></a><a class="personne" href="#" data-enfant="tom"><span class="pastille-p" data-couleur="svt"></span><span><strong>Tom</strong><small>Quatrième · 4e B</small></span></a></nav>'+
     '<nav class="rubriques" aria-label="Rubriques"><a href="#ensemble"><span class="ico" aria-hidden="true">👀</span>Vue d\'ensemble</a><a href="#echeances"><span class="ico" aria-hidden="true">📅</span>Échéances</a><a href="#reglages"><span class="ico" aria-hidden="true">⚙️</span>Réglages de suivi</a><a href="#transparence"><span class="ico" aria-hidden="true">🔎</span>Ce que je vois</a></nav>';
-  return '<span class="surtitre col-titre">Mes classes</span><nav class="intercalaires personnes" aria-label="Classes"><a class="personne courant" href="#" data-classe="2de4" aria-current="page"><span class="pastille-p" data-couleur="maths"></span><span><strong>2de 4</strong><small>26 élèves · code <code>4K7P</code></small></span></a><a class="personne" href="#" data-classe="tle"><span class="pastille-p" data-couleur="maths"></span><span><strong>Terminale spé 2</strong><small>31 élèves · code <code>7MQ2</code></small></span></a></nav>'+
-    '<nav class="rubriques" aria-label="Rubriques"><a href="#ensemble"><span class="ico" aria-hidden="true">👀</span>Vue d\'ensemble</a><a href="#eleves"><span class="ico" aria-hidden="true">🧑‍🎓</span>Élèves</a><a href="#parcours"><span class="ico" aria-hidden="true">🧭</span>Parcours</a><a href="#page-classe"><span class="ico" aria-hidden="true">📌</span>Page de classe</a><a href="#mode-classe"><span class="ico" aria-hidden="true">📽</span>Mode classe</a></nav>';
+  /* la banque d'exercices (banque.html, planche.html) garde la colonne du professeur : ses
+     classes et ses rubriques mènent alors à l'espace professeur */
+  const ici=document.body.dataset.page==='prof', r=a=>ici?a:lien('prof.html'+a);
+  const classe=(id,nom,detail,courant)=>'<a class="personne'+(courant&&ici?' courant':'')+'" href="'+(ici?'#':lien('prof.html'))+'"'+(ici?' data-classe="'+id+'"'+(courant?' aria-current="page"':''):'')+'><span class="pastille-p" data-couleur="maths"></span><span><strong>'+nom+'</strong><small>'+detail+'</small></span></a>';
+  const banque=['banque','planche'].includes(document.body.dataset.page);
+  return '<span class="surtitre col-titre">Mes classes</span><nav class="intercalaires personnes" aria-label="Classes">'+classe('2de4','2de 4','26 élèves · code <code>4K7P</code>',true)+classe('tle','Terminale spé 2','31 élèves · code <code>7MQ2</code>',false)+'</nav>'+
+    '<nav class="rubriques" aria-label="Rubriques"><a href="'+r('#ensemble')+'"><span class="ico" aria-hidden="true">👀</span>Vue d\'ensemble</a><a href="'+r('#eleves')+'"><span class="ico" aria-hidden="true">🧑‍🎓</span>Élèves</a><a href="'+r('#parcours')+'"><span class="ico" aria-hidden="true">🧭</span>Parcours</a><a href="'+r('#carnet-prof')+'"><span class="ico" aria-hidden="true">📌</span>Carnet des élèves</a>'+
+    '<a href="'+lien('banque.html')+'"'+(banque?' aria-current="page"':'')+'><span class="ico" aria-hidden="true">📚</span>Banque d\'exercices</a><a href="'+r('#mode-classe')+'"><span class="ico" aria-hidden="true">📽</span>Mode classe</a></nav>';
 }
 function colonne(role,info){
   const a=document.createElement('aside'); a.className='classeur-col'; a.id='classeur-col'; a.setAttribute('aria-label','Classeur');

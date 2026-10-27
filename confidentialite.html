@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#F2BE78">
 <title>Données et confidentialité · Monpupitre</title>
 <meta name="description" content="Ce que Monpupitre fait des données des élèves, des parents et des enseignants : ce qui est collecté, pourquoi, combien de temps, qui le voit, et vos droits.">
-<link rel="stylesheet" href="assets/css/site.css?v=8d2cd6a573">
-<script src="assets/js/site.js?v=b9e61de4df" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=313d6c635a">
+<script src="assets/js/site.js?v=3e42c627af" defer></script>
 </head>
 <body data-page="confidentialite" data-titre-page="Données et confidentialité">
 <section class="accueil-tete gutter">
@@ -83,6 +83,8 @@
         <tr><td>Niveau scolaire, année de naissance (jamais la date complète)</td><td>Proposer les bons chapitres ; appliquer les règles liées à l'âge</td><td>Exécution du service</td><td>Durée du compte</td></tr>
         <tr><td>Liens avec un parent, un enseignant, une classe</td><td>Appliquer les droits d'accès que vous avez acceptés</td><td>Consentement (révocable à tout moment)</td><td>Lien de classe : fin de l'année scolaire. Lien parent : jusqu'à sa suppression</td></tr>
         <tr><td>Résultats par exercice, niveau d'aide utilisé, erreurs corrigées, temps passé, jours actifs</td><td>Votre bureau, votre indicateur d'autonomie, le suivi par un parent ou un enseignant</td><td>Exécution du service</td><td>Durée du compte, puis anonymisés pour les statistiques d'usage</td></tr>
+        <tr><td>Séances et devoirs composés par un enseignant dans la banque d'exercices : la liste des exercices, l'ordre, les réglages, l'échéance, le barème d'un devoir maison noté</td><td>Les retrouver, les dupliquer, les donner à une classe</td><td>Exécution du service</td><td>Durée du compte de l'enseignant</td></tr>
+        <tr><td>Note d'un devoir maison que l'enseignant a choisi de noter</td><td>La seule note du site : elle est fixée par l'enseignant, jamais calculée par la plateforme</td><td><mark class="a-completer">base légale à fixer avec le juriste</mark></td><td><mark class="a-completer">fin de l'année scolaire ? — à fixer</mark></td></tr>
         <tr><td>Étapes écrites dans le tuteur</td><td>Faire fonctionner le tuteur, diagnostiquer les erreurs</td><td>Exécution du service</td><td>Quelques semaines, puis seulement le diagnostic agrégé (quelle erreur, pas quel texte)</td></tr>
         <tr><td>Échanges avec le tuteur <em>avec IA</em></td><td>Faire fonctionner l'aide par questions et indices</td><td>Consentement (l'interrupteur « Tuteur avec IA »)</td><td>Non conservés au-delà de la session, sauf le diagnostic agrégé</td></tr>
         <tr><td>Messages retenus par le filtre de détresse</td><td>Protéger l'élève (voir plus bas)</td><td>Protection de la personne — ce point est examiné dans l'analyse d'impact</td><td>Le temps strictement nécessaire au protocole</td></tr>
@@ -99,7 +101,7 @@
         <li>aucune photo, aucun enregistrement de voix conservé, aucune géolocalisation ;</li>
         <li>aucune date de naissance complète, aucun nom réel obligatoire ;</li>
         <li>aucune donnée de santé : les options d'affichage (police, espacement, contraste) sont enregistrées comme des réglages, sans diagnostic ni type de trouble ;</li>
-        <li>aucune note mise par l'enseignant, aucun classement, aucune comparaison entre élèves.</li>
+        <li>aucune note, sauf celle d'un devoir maison qu'un enseignant a choisi de noter, et qu'il fixe lui-même ; aucune moyenne de classe, aucun classement, aucune comparaison entre élèves.</li>
       </ul>
     </div>
   </section>
@@ -117,6 +119,7 @@
         <tr><td>Réponses détaillées, brouillons</td><td>oui</td><td><strong>non</strong></td><td><strong>non</strong></td><td>non</td></tr>
         <tr><td>Échanges avec le tuteur</td><td>oui</td><td><strong>non</strong></td><td><strong>non</strong></td><td>non, sauf message retenu par le filtre de détresse</td></tr>
         <tr><td>Carnet des professeurs</td><td>oui</td><td>oui, en lecture</td><td>ce qu'il a envoyé lui-même</td><td>non</td></tr>
+        <tr><td>Note d'un devoir maison noté</td><td>oui</td><td><strong>non</strong></td><td>oui, celle qu'il a mise</td><td>non</td></tr>
         <tr><td>Signalement « je n'ai pas compris »</td><td>oui</td><td>non</td><td>un nombre, sans nom</td><td>non</td></tr>
         <tr><td>Avatar, musique, succès, réglages</td><td>oui</td><td><strong>non</strong></td><td><strong>non</strong></td><td>non</td></tr>
         <tr><td>Les autres élèves d'une classe</td><td><strong>non</strong></td><td>non</td><td>oui, ceux qui ont rejoint sa classe</td><td>non</td></tr>
@@ -219,6 +222,7 @@
     <div class="carte">
       <p>La version que vous consultez n'a <strong>ni serveur, ni base de données</strong>. Tout ce que le site retient — progression, réglages, classes rejointes, carnet des professeurs — est enregistré dans le stockage local de votre navigateur, sous des clés qui commencent par <code>mp:</code>. Rien n'est envoyé nulle part : il n'y a pas d'adresse où l'envoyer. Changer d'appareil, c'est repartir de zéro ; vider les données du site, c'est tout effacer.</p>
       <p><strong>Les comptes du prototype</strong> (depuis le 27 octobre 2026) se créent et se connectent pour de vrai, mais ils vivent eux aussi dans ce navigateur, sur cet appareil seulement. Un compte y garde : un identifiant (un pseudonyme suffit), le prénom ou surnom choisi, le rôle (élève, parent, professeur), l'année de naissance pour un élève (la règle des 15 ans), une adresse mail pour un parent, un professeur ou un élève de 15 ans et plus qui le souhaite, la matière d'un professeur, et les liens entre parents et enfants. Les mots de passe et les codes de secours ne sont <strong>jamais gardés en clair</strong> : seulement une empreinte (PBKDF2, salée) ; la version en ligne utilisera Argon2. Chaque compte a sa propre mémoire, séparée de celle des autres comptes et de celle d'une visite sans compte. <strong>Aucun mail ne part</strong> : le mail qui partirait (confirmation, invitation d'un parent, mot de passe oublié) s'affiche à l'écran, avec son lien. Supprimer son compte, depuis « Mon compte », efface sa fiche et toute sa mémoire.</p>
+      <p><strong>La banque d'exercices</strong> (depuis le 27 octobre 2026) : un professeur y compose des séances et des devoirs. Ses compositions — la liste des exercices, leur ordre, ses réglages, l'échéance et le barème d'un devoir maison noté, rien d'autre — sont gardées dans ce navigateur, dans la mémoire de son compte (<code>mp:compositions</code>, et <code>mp:banque-brouillon</code> pour celle en cours). Un devoir se donne par un lien qui ne contient que les identifiants des exercices et ces réglages : ni nom, ni classe, ni compte. L'élève qui le fait garde ce qu'il coche (fini, réussi seul, avec un coup de pouce, pas encore) sur son appareil (<code>mp:devoirs-faits</code>) ; <strong>rien ne remonte au professeur</strong>, et aucune note n'est saisie ni calculée dans le prototype.</p>
       <p>Le tuteur avec IA du prototype est une <strong>simulation étiquetée</strong> : aucun modèle n'est appelé, les questions et les indices sont écrits à l'avance. Le vérificateur de calcul, lui, est réel et tourne dans votre navigateur.</p>
       <p>Les rôles « parent » et « professeur » du prototype sont des démonstrations avec des données fictives, pour montrer ce que chacun verra. Le bouton « Charger une démo » remplit le bureau de deux semaines de travail fictif, effaçables en un clic.</p>
     </div>
