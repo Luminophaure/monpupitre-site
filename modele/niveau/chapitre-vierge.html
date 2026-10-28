@@ -10,10 +10,10 @@
        (exemples : maths/seconde/fonctions.html, qui n'utilise que des graphes interactifs)
   2. Change le <title>, data-matiere et data-chapitre (les mêmes "id" que dans
      assets/js/chapitres.js), et le nombre de ../ des deux chemins vers assets/.
-  3. Déclare le chapitre dans les trois manifestes :
-     · assets/js/chapitres.js   la ligne du chapitre, avec  fichier: "..."
-     · assets/js/portes.js      LABOS (titres des labos), GENERATEURS (chapitre → fichier),
-                                THEMES de la matière
+  3. Déclare le chapitre dans les deux manifestes :
+     · assets/js/chapitres.js   la ligne du chapitre, avec  fichier: "..." ; dessous,
+                                generateur: "fichier" et labos: [["outil", "titre"], …],
+                                et l'id du chapitre dans un thème de la matière (themes:)
      · assets/js/notions.js     les notions et leurs liens, si la matière en a
   4. Remplis les cinq sections ci-dessous, dans cet ordre : les onglets se fabriquent
      tout seuls à partir des <h2>. Supprime une section dont tu n'as pas besoin.
@@ -29,7 +29,18 @@
 <meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
 <title>TITRE DU CHAPITRE · Seconde</title>
 <link rel="stylesheet" href="../../assets/css/site.css?v=e2e0886de0">
-<script type="module" src="../../assets/js/site.js?v=08e2e933a7"></script>
+<script type="module" src="../../assets/js/site.js?v=ba01403776"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5I6PFMAG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-N4J67VCH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-4IWCSV5I.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FLYA5V7M.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YOZ2HNGX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-GP7Z7ULA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BQYQD2R7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-K7XVW2BQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-K5CTTPVO.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CG5YCEWP.js">
 </head>
 <body data-matiere="ID-DE-LA-MATIERE" data-chapitre="ID-DU-CHAPITRE" data-mise-en-page="classeur">
 <main class="chapitre">
@@ -133,7 +144,7 @@
   <p>Une phrase qui dit ce qu'on va manipuler, et dans quel ordre.</p>
 
   <!-- Chaque labo a besoin d'un outil déclaré dans assets/js/labos/NOM.js
-       (window.LABOS.NOM = {outil1, outil2}) et d'une ligne dans LABOS, dans portes.js.
+       (window.LABOS.NOM = {outil1, outil2}) et de sa ligne labos: dans chapitres.js.
        Décommenter après avoir remplacé NOM, sinon le fichier n'existe pas.
   <div class="labo" data-labo="NOM" data-outil="outil1"></div>
   -->
