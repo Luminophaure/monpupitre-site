@@ -96,7 +96,8 @@ const mdpChamps=(quoi)=>champ('mdp',quoi||'Mot de passe','password','autocomplet
   champ('mdp2','Le même, encore une fois','password','autocomplete="new-password" required')+
   '<label class="case-ligne"><input type="checkbox" data-voir-mdp> Afficher le mot de passe</label>';
 function anneesOptions(min,max){ let o='<option value="">— choisir —</option>'; for(let a=max;a>=min;a--) o+='<option value="'+a+'">'+a+'</option>'; return o; }
-const NOTE_PROTO='<p class="discret">Prototype : ton compte vit dans ce navigateur, sur cet appareil seulement. Rien n\'est envoyé sur internet, et aucun mail ne part. Le détail : <a href="'+lien('confidentialite.html#aujourdhui')+'">Données et confidentialité</a>.</p>';
+/* calculée à l'affichage : le lien a besoin de window.Site, qui n'existe pas encore quand ce script s'exécute */
+const noteProto=()=>'<p class="discret">Prototype : ton compte vit dans ce navigateur, sur cet appareil seulement. Rien n\'est envoyé sur internet, et aucun mail ne part. Le détail : <a href="'+lien('confidentialite.html#aujourdhui')+'">Données et confidentialité</a>.</p>';
 function erreur(f,msg){ let e=f.querySelector('.retour.mauvais'); if(!msg){ if(e) e.remove(); return; }
   if(!e){ e=document.createElement('div'); e.className='retour mauvais'; e.setAttribute('role','alert'); f.querySelector('.envoi').before(e); }
   e.innerHTML='<span>'+msg+'</span>'; e.scrollIntoView({block:'nearest'}); }
@@ -145,7 +146,7 @@ function Connexion(body){
       '<div class="ligne envoi"><button class="btn" type="submit">Se connecter</button><a href="#oubli">Mot de passe oublié ?</a></div></form></section>'+
       '<section class="carte"><h2>Pas encore de compte ?</h2><p>Élève, parent ou professeur : deux minutes, et sans adresse mail pour un élève.</p><p><a class="btn fantome" href="#creer">Créer un compte</a></p>'+
       '<p class="discret">Sans compte, tout le site reste ouvert : ce que tu fais reste dans ce navigateur. <a href="'+accueil()+'">Continuer sans compte</a></p></section>'+
-      NOTE_PROTO+boiteHTML();
+      noteProto()+boiteHTML();
     const f=m.querySelector('form');
     f.addEventListener('submit',async e=>{ e.preventDefault(); const qui=f.qui.value, mdp=f.mdp.value;
       if(!qui.trim()||!mdp) return erreur(f,'Écris ton identifiant (ou ton adresse mail) et ton mot de passe.');
@@ -163,7 +164,7 @@ function Connexion(body){
        ['creer-parent','🏡','Je suis parent','Tu crées ton compte, puis celui de ton enfant, ou tu relies le sien avec son code.'],
        ['creer-prof','📚','Je suis professeur','En établissement ou particulier : tes élèves te rejoignent par un lien. Compte vérifié avant activation.']]
       .map(([v,ico,t,p])=>'<a class="carte lien-bloc carte-role" href="#'+v+'"><span class="ico" aria-hidden="true">'+ico+'</span><strong>'+t+'</strong><span class="discret">'+p+'</span></a>').join('')+'</div>'+
-      '<p><a href="#connexion">J\'ai déjà un compte : me connecter</a></p>'+NOTE_PROTO; }
+      '<p><a href="#connexion">J\'ai déjà un compte : me connecter</a></p>'+noteProto(); }
 
   /* ---------- l'élève, seul ---------- */
   function vueEleve(){ tete('Créer mon compte élève','Ton année de naissance, un prénom ou un surnom, un identifiant, un mot de passe : c\'est tout.');
@@ -178,7 +179,7 @@ function Connexion(body){
       '<div class="email-15" hidden>'+champ('email','Une adresse mail (facultatif)','email','autocomplete="email"','Elle sert seulement à retrouver ton compte. Sans elle, tu auras un code de secours.')+'</div>'+
       garde('eleve')+
       '<label class="case-ligne"><input type="checkbox" name="accord" required> J\'ai lu ce que Monpupitre garde de moi, et je suis d\'accord.</label>'+
-      '<div class="ligne envoi"><button class="btn" type="submit">Créer mon compte</button><a href="#creer">Revenir</a></div></form></section>'+NOTE_PROTO;
+      '<div class="ligne envoi"><button class="btn" type="submit">Créer mon compte</button><a href="#creer">Revenir</a></div></form></section>'+noteProto();
     const f=m.querySelector('form'); let identTouche=false;
     const age=()=>{ const a=+f.annee.value; if(!a) return null; const q=f.querySelector('input[name=quinze]:checked'); return {annee:a,quinze:quinzeAns(a,q?q.value==='oui':null),douteux:anneeCourante()-a===15&&!q}; };
     function majAge(){ const a=+f.annee.value, d=a?anneeCourante()-a:0, x=age();
@@ -215,7 +216,7 @@ function Connexion(body){
       '<div class="ligne"><button type="button" class="btn fantome" data-imprimer>Imprimer</button></div>'+
       '<label class="case-ligne"><input type="checkbox" data-note> J\'ai noté mon code de secours.</label></section>'+
       (c.statut==='decouverte'?inviterHTML(c):'')+
-      '<p><a class="btn" href="'+accueil()+'" data-suite aria-disabled="true">Aller à mon bureau</a></p>'+NOTE_PROTO;
+      '<p><a class="btn" href="'+accueil()+'" data-suite aria-disabled="true">Aller à mon bureau</a></p>'+noteProto();
     const suite=m.querySelector('[data-suite]');
     suite.addEventListener('click',e=>{ if(suite.getAttribute('aria-disabled')==='true'){ e.preventDefault(); m.querySelector('[data-note]').focus(); } });
     m.querySelector('[data-note]').addEventListener('change',e=>suite.setAttribute('aria-disabled',String(!e.target.checked)));
@@ -231,7 +232,7 @@ function Connexion(body){
       champ('nom','Le prénom à afficher (facultatif)','text','maxlength="30" autocomplete="given-name"','Ton enfant le verra dans « Ce que voient mes parents ».')+
       mdpChamps()+garde('parent')+
       '<label class="case-ligne"><input type="checkbox" name="accord" required> J\'ai lu ce que Monpupitre garde de moi, et je suis d\'accord.</label>'+
-      '<div class="ligne envoi"><button class="btn" type="submit">Créer mon compte</button><a href="#creer">Revenir</a></div></form></section>'+NOTE_PROTO;
+      '<div class="ligne envoi"><button class="btn" type="submit">Créer mon compte</button><a href="#creer">Revenir</a></div></form></section>'+noteProto();
     const f=m.querySelector('form');
     f.addEventListener('submit',async e=>{ e.preventDefault(); const mail=f.email.value.trim();
       if(!OK_EMAIL.test(mail)) return erreur(f,'Écris une adresse mail complète.');
@@ -262,7 +263,7 @@ function Connexion(body){
       '<section class="carte"><h2>Il a déjà un compte ?</h2><p>Demande-lui le <strong>code d\'invitation</strong> qu\'il trouve dans « Mon compte » : il est à usage unique, et c\'est lui qui décide de te le donner.</p>'+
       '<form class="formulaire" data-form="code" novalidate>'+champ('code','Le code d\'invitation','text','maxlength="9" autocapitalize="characters" spellcheck="false" required')+
       '<div class="ligne envoi"><button class="btn fantome" type="submit">Relier son compte</button></div></form></section>'+
-      '<p><a class="btn fantome" href="'+lien('parent.html')+'">'+(enfants.length?'Aller à mon espace parent':'Plus tard : aller à mon espace parent')+'</a></p>'+NOTE_PROTO;
+      '<p><a class="btn fantome" href="'+lien('parent.html')+'">'+(enfants.length?'Aller à mon espace parent':'Plus tard : aller à mon espace parent')+'</a></p>'+noteProto();
     const f=m.querySelector('form[data-form=enfant]'), fc=m.querySelector('form[data-form=code]'); let identTouche=false;
     f.nom.addEventListener('input',()=>{ if(!identTouche) f.identifiant.value=f.nom.value.trim()?proposer(f.nom.value):''; });
     f.identifiant.addEventListener('input',()=>{ identTouche=true; });
@@ -288,7 +289,7 @@ function Connexion(body){
       '<label>Ta matière<select class="champ-saisie" name="matiere" required><option value="">— choisir —</option>'+mats.map(x=>'<option value="'+x.id+'">'+echap(x.nom)+'</option>').join('')+'</select></label>'+
       mdpChamps()+garde('prof')+
       '<label class="case-ligne"><input type="checkbox" name="accord" required> J\'ai lu ce que Monpupitre garde de moi, et je suis d\'accord.</label>'+
-      '<div class="ligne envoi"><button class="btn" type="submit">Créer mon compte</button><a href="#creer">Revenir</a></div></form></section>'+NOTE_PROTO;
+      '<div class="ligne envoi"><button class="btn" type="submit">Créer mon compte</button><a href="#creer">Revenir</a></div></form></section>'+noteProto();
     const f=m.querySelector('form');
     f.addEventListener('submit',async e=>{ e.preventDefault(); const mail=f.email.value.trim();
       if(!f.nom.value.trim()) return erreur(f,'Écris ton nom tel que tes élèves le verront.');
@@ -308,14 +309,14 @@ function Connexion(body){
            :'<p>Ton adresse n\'est pas académique : un membre de l\'équipe vérifiera que tu enseignes avant d\'activer ton compte (une attestation peut t\'être demandée). En attendant, tu peux découvrir l\'espace professeur, avec des données fictives.</p>'+
             '<p class="discret">Prototype : il n\'y a pas d\'équipe derrière. Tu peux jouer son rôle :</p><p><button type="button" class="btn fantome" data-valider-prof>Simuler la validation par l\'équipe</button></p>')+
       '</section><p><a class="btn" href="'+lien('prof.html')+'">Aller à mon espace professeur</a></p>'+
-      '<p class="discret">Avec les vrais comptes, la double authentification sera demandée à chaque professeur.</p>'+NOTE_PROTO;
+      '<p class="discret">Avec les vrais comptes, la double authentification sera demandée à chaque professeur.</p>'+noteProto();
     const b=m.querySelector('[data-valider-prof]'); if(b) b.addEventListener('click',()=>{ const x=compte(c.id); x.verifie=true; x.verifiePar='equipe'; enregistrer(x); toast('<strong>Compte vérifié.</strong><span>Tes classes peuvent s\'ouvrir.</span>'); b.disabled=true; b.textContent='Compte vérifié'; }); }
 
   /* ---------- mot de passe oublié ---------- */
   function vueOubli(){ tete('Mot de passe oublié','Ça arrive. Donne ton identifiant ou ton adresse : on te dit comment faire.');
     m.innerHTML='<section class="carte"><form class="formulaire" data-form="oubli" novalidate>'+
       champ('qui','Ton identifiant ou ton adresse mail','text','autocomplete="username" autocapitalize="off" spellcheck="false" required')+
-      '<div class="ligne envoi"><button class="btn" type="submit">Continuer</button><a href="#connexion">Revenir</a></div></form></section><div class="suite-oubli"></div>'+NOTE_PROTO;
+      '<div class="ligne envoi"><button class="btn" type="submit">Continuer</button><a href="#connexion">Revenir</a></div></form></section><div class="suite-oubli"></div>'+noteProto();
     const f=m.querySelector('form'), suite=m.querySelector('.suite-oubli');
     f.addEventListener('submit',e=>{ e.preventDefault(); const c=trouver(f.qui.value); erreur(f,'');
       if(!f.qui.value.trim()) return erreur(f,'Écris ton identifiant ou ton adresse mail.');
@@ -357,7 +358,7 @@ function Connexion(body){
         tete('Comptes reliés','Tu suis maintenant '+c.nom+'.'); m.innerHTML='<section class="retour bon"><span><strong>Ton compte est relié à celui de '+echap(c.nom)+'.</strong> Son mode découverte est levé : sa progression peut être enregistrée.</span></section><p><a class="btn" href="'+lien('parent.html')+'">Aller à mon espace parent</a></p>'; return true; }
       tete('Une invitation de '+c.nom,'Pour suivre son travail et donner ton accord, connecte-toi ou crée ton compte parent.');
       m.innerHTML='<section class="carte"><p><strong>'+echap(c.nom)+'</strong> t\'invite à relier ton compte parent au sien. Ton accord lèvera son mode découverte : sa progression pourra être enregistrée.</p>'+
-        '<div class="ligne"><a class="btn" href="'+urlJeton(jetonUrl,'creer-parent')+'">Créer mon compte parent</a><a class="btn fantome" href="'+lien('connexion.html')+'?suite='+encodeURIComponent('connexion.html?jeton='+jetonUrl)+'#connexion">J\'ai déjà un compte</a></div></section>'+NOTE_PROTO;
+        '<div class="ligne"><a class="btn" href="'+urlJeton(jetonUrl,'creer-parent')+'">Créer mon compte parent</a><a class="btn fantome" href="'+lien('connexion.html')+'?suite='+encodeURIComponent('connexion.html?jeton='+jetonUrl)+'#connexion">J\'ai déjà un compte</a></div></section>'+noteProto();
       return true; }
     return false; }
 }

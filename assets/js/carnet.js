@@ -113,8 +113,9 @@ function dansCombien(iso){ const [a,m,j]=iso.split('-').map(Number); const n=Mat
 function lienRejoindre(c){
   const R=(window.Site&&window.Site.racine)||'';
   const q=new URLSearchParams({rejoindre:c.code,p:c.prof,m:c.matiere,c:c.classe||'',n:c.niveau||''});
+  // la racine est une adresse complète (lue sur celle du script) : on la résout, on ne la colle pas
   const base=location.href.split('?')[0].split('#')[0].replace(/[^/]*$/,'');
-  return base+R+'compte.html?'+q.toString();
+  return new URL(R+'compte.html?'+q.toString(),base).href;
 }
 function decoderLien(search){
   const q=new URLSearchParams(search||location.search);
@@ -127,7 +128,7 @@ function libelleCible(it){
   const c=chapitre(it.chapitre);
   if(it.type==='exercice') return (it.exercice&&it.exercice.titre?it.exercice.titre:'Un exercice')+(c?' · '+c.titre:'');
   if(it.type==='cours') return (it.section&&it.section.titre?it.section.titre:'Un point du cours')+(c?' · '+c.titre:'');
-  if(it.type==='echeance'){ const n=(NATURES.find(x=>x[0]===it.nature)||[,'Échéance'])[1]; const chs=(it.chapitres||[]).map(id=>{ const x=chapitre(id); return x?x.titre:id; }); return n+(chs.length?' · '+chs.join(', '):''); }
+  if(it.type==='echeance'){ const n=(NATURES.find(x=>x[0]===it.nature)||['','Échéance'])[1]; const chs=(it.chapitres||[]).map(id=>{ const x=chapitre(id); return x?x.titre:id; }); return n+(chs.length?' · '+chs.join(', '):''); }
   if(it.type==='message'){ const m=MESSAGES.find(x=>x[0]===it.message); return m?m[1]:''; }
   // un devoir : son titre composé (« Devoir maison noté · Suites numériques »), la date à part
   if(it.type==='devoir') return D()&&it.devoir ? D().titre(Object.assign({},it.devoir,{echeance:''})) : 'Un devoir';
