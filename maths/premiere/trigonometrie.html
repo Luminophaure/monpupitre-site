@@ -15,7 +15,7 @@
 <meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
 <title>Trigonométrie · Première</title>
 <link rel="stylesheet" href="../../assets/css/site.css?v=a559c329f0">
-<script type="module" src="../../assets/js/site.js?v=e5e58999b7"></script>
+<script type="module" src="../../assets/js/site.js?v=51b5cbb023"></script>
 <link rel="modulepreload" href="../../assets/js/chunks/chunk-PXEZELIN.js">
 <link rel="modulepreload" href="../../assets/js/chunks/chunk-BXIJRJXK.js">
 <link rel="modulepreload" href="../../assets/js/chunks/chunk-RE67HJOX.js">
@@ -33,7 +33,7 @@
 <link rel="modulepreload" href="../../assets/js/chunks/chunk-LGI6A4EG.js">
 <link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
 <link rel="modulepreload" href="../../assets/js/chunks/chunk-CG5YCEWP.js">
-<link rel="modulepreload" href="../../assets/js/labos/trigo.js?v=c8eaa64cab">
+<link rel="modulepreload" href="../../assets/js/labos/trigo.js?v=78f25bd477">
 <link rel="modulepreload" href="../../assets/js/chunks/chunk-MI35G4WU.js">
 <link rel="modulepreload" href="../../assets/js/generateurs/trigo.js?v=97fb44dce1">
 <link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
@@ -548,22 +548,23 @@ def principal(x):
     </details>
   </article>
 
-  <article class="exercice" id="ex-une-fonction-python-a-completer" data-titre="Une fonction Python à completer" data-niveau="2" data-type="application" data-notions="radian" data-duree="10" data-calculatrice="non">
-    <p>On veut une fonction qui renvoie le réel de $]-\pi\,;\pi]$ ayant la même image que $x$.</p>
-<pre class="code">from math import pi
-
-def principal(x):
-    while x &gt; ...... :
-        x = x - ......
-    while x &lt;= -pi:
-        x = ......
-    return x</pre>
-    <p>a) Complète les pointillés. b) Que renvoie <code>principal(7 * pi / 2)</code> ? Combien de fois la première boucle tourne-t-elle ? c) Pourquoi la condition de la deuxième boucle est-elle <code>&lt;=</code> et non <code>&lt;</code> ? d) Écris une fonction <code>degres(x)</code> qui convertit un réel en radians en degrés.</p>
+  <article class="exercice" id="ex-l-octogone-regulier" data-titre="L'octogone régulier" data-niveau="2" data-type="probleme" data-notions="cossin associes" data-duree="15" data-calculatrice="non">
+    <p>Les huit points $M\!\left(\dfrac{k\pi}{4}\right)$, pour $k$ de $0$ à $7$, sont les sommets d'un octogone régulier inscrit dans le cercle trigonométrique. On les note $A_0$, $A_1$, …, $A_7$.</p>
+    <p>a) Place-les et donne les coordonnées exactes de chacun. b) Quels sommets ont la même abscisse que $A_1$ ? Le même sinus ? c) Quel est le symétrique de $A_1$ par rapport à $O$ ? par rapport à l'axe des ordonnées ? d) Calcule la longueur exacte du côté $A_0A_1$ (on donne $\sqrt{2-\sqrt2}\approx0{,}765$), puis le périmètre de l'octogone. Compare-le à celui du cercle.</p>
+    <details class="indice"><p>d) $A_0(1\,;0)$ et $A_1\!\left(\dfrac{\sqrt2}{2}\,;\dfrac{\sqrt2}{2}\right)$ : Pythagore dans le triangle rectangle formé avec les projections.</p></details>
     <details class="correction">
-      <p>a) <code>while x &gt; pi:</code> ; <code>x = x - 2 * pi</code> ; <code>x = x + 2 * pi</code>.</p>
-      <p>b) $\dfrac{7\pi}{2}\approx10{,}99&gt;\pi$ : on retire $2\pi$ (reste $\dfrac{3\pi}{2}$, encore $&gt;\pi$), puis encore $2\pi$ : $-\dfrac{\pi}{2}$. Deux tours de boucle, résultat $-\dfrac{\pi}{2}\approx-1{,}571$.</p>
-      <p>c) $-\pi$ n'est pas dans $]-\pi\,;\pi]$ (le crochet est ouvert) ; il faut le ramener à $\pi$. Avec <code>&lt;</code>, <code>principal(-pi)</code> renverrait $-\pi$.</p>
-      <p>d) <code>def degres(x): return x * 180 / pi</code>.</p>
+      <p>a) $A_0(1\,;0)$, $A_1\!\left(\dfrac{\sqrt2}{2}\,;\dfrac{\sqrt2}{2}\right)$, $A_2(0\,;1)$, $A_3\!\left(-\dfrac{\sqrt2}{2}\,;\dfrac{\sqrt2}{2}\right)$, $A_4(-1\,;0)$, $A_5\!\left(-\dfrac{\sqrt2}{2}\,;-\dfrac{\sqrt2}{2}\right)$, $A_6(0\,;-1)$, $A_7\!\left(\dfrac{\sqrt2}{2}\,;-\dfrac{\sqrt2}{2}\right)$.</p>
+      <p>b) Même abscisse $\dfrac{\sqrt2}{2}$ : $A_7$, c'est-à-dire $M\!\left(-\dfrac{\pi}{4}\right)$. Même sinus : $A_3=M\!\left(\pi-\dfrac{\pi}{4}\right)$.</p>
+      <p>c) Par rapport à $O$ : $A_5=M\!\left(\dfrac{\pi}{4}+\pi\right)$. Par rapport à l'axe des ordonnées : $A_3$.</p>
+      <p>d) $A_0A_1^2=\left(1-\dfrac{\sqrt2}{2}\right)^2+\left(\dfrac{\sqrt2}{2}\right)^2=1-\sqrt2+\dfrac12+\dfrac12=2-\sqrt2$, donc $A_0A_1=\sqrt{2-\sqrt2}\approx0{,}765$. Périmètre $8\times0{,}765\approx6{,}12$, un peu moins que $2\pi\approx6{,}28$ : le polygone est à l'intérieur du cercle. C'est le début de la méthode d'Archimède, avec un carré qu'on a doublé.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-vrai-ou-faux" data-titre="Vrai ou faux" data-niveau="2" data-type="raisonnement" data-notions="radian cossin associes" data-duree="12" data-calculatrice="non">
+    <p>Pour chaque affirmation, dis si elle est vraie ou fausse, et justifie : une démonstration si c'est vrai, un contre-exemple si c'est faux.</p>
+    <p>a) Pour tout réel $x$, $\cos(2x)=2\cos x$. · b) Pour tout réel $x$, $\sin(\pi-x)=-\sin x$. · c) Si $x$ et $x'$ ont la même image sur le cercle, alors $x'-x$ est un multiple de $2\pi$. · d) Il existe un réel $x$ tel que $\cos x=1{,}2$. · e) Pour tout réel $x$, $\cos\!\left(x+\dfrac{\pi}{2}\right)=-\sin x$. · f) Si $\cos x=\cos y$, alors $x=y$. · g) Un radian mesure moins de $60°$.</p>
+    <details class="correction">
+      <p>a) Faux : pour $x=\dfrac{\pi}{2}$, $\cos\pi=-1$ et $2\cos\dfrac{\pi}{2}=0$. b) Faux : $\sin(\pi-x)=\sin x$ ; pour $x=\dfrac{\pi}{6}$, les deux valent $\dfrac12$. c) Vrai : c'est la définition de l'enroulement, on repasse sur le même point tous les $2\pi$. d) Faux : $\cos x$ est l'abscisse d'un point du cercle de rayon $1$, donc $-1\le\cos x\le1$. e) Vrai : $M\!\left(x+\dfrac{\pi}{2}\right)$ est $M(x)$ tourné d'un quart de tour, de coordonnées $(-\sin x\,;\cos x)$. f) Faux : $\cos\dfrac{\pi}{3}=\cos\!\left(-\dfrac{\pi}{3}\right)=\dfrac12$ avec $\dfrac{\pi}{3}\ne-\dfrac{\pi}{3}$ ; et aussi $\cos\dfrac{7\pi}{3}=\dfrac12$. g) Vrai : $1$ rad $=\dfrac{180}{\pi}°\approx57{,}3°$, et $60°=\dfrac{\pi}{3}\approx1{,}047$ rad $&gt;1$.</p>
     </details>
   </article>
 
@@ -623,6 +624,19 @@ def archimede(k):
       <p>c) $\cos x-\sin x-\cos x+\sin x=0$ : les quatre abscisses s'annulent deux à deux.</p>
       <p>d) $M\!\left(\dfrac{\sqrt3}{2}\,;\dfrac12\right)$, $A\left(-\dfrac12\,;\dfrac{\sqrt3}{2}\right)$, $B\left(-\dfrac{\sqrt3}{2}\,;-\dfrac12\right)$, $C\left(\dfrac12\,;-\dfrac{\sqrt3}{2}\right)$.</p>
       <p>e) $\cos\!\left(x+\dfrac{\pi}{2}\right)=-\sin x$, donc $\cos^2\!\left(x+\dfrac{\pi}{2}\right)+\cos^2x=\sin^2x+\cos^2x=1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-eolienne" data-titre="L'éolienne" data-niveau="3" data-type="probleme" data-notions="cossin radian associes" data-duree="20" data-calculatrice="oui">
+    <p>Une éolienne a un mât de $80$ m et des pales de $40$ m. On repère la pointe d'une pale par l'angle $x$ (en radians) dont elle a tourné depuis la position verticale, pointe en haut, dans le sens direct : sa hauteur au-dessus du sol est alors $h(x)=80+40\cos x$. Calculatrice autorisée pour la question e).</p>
+    <p>a) Justifie la formule avec un dessin. b) Calcule la hauteur de la pointe pour $x=\dfrac{\pi}{3}$, $\dfrac{\pi}{2}$, $\pi$ et $\dfrac{5\pi}{3}$. c) Les trois pales sont décalées de $\dfrac{2\pi}{3}$ : quand la première est en $x$, les deux autres sont en $x+\dfrac{2\pi}{3}$ et $x+\dfrac{4\pi}{3}$. Calcule les trois hauteurs pour $x=0$, puis pour $x=\dfrac{\pi}{2}$. Que remarques-tu sur leur somme ? d) Pour quels angles $x$ de $[0\,;2\pi[$ la pointe est-elle à $60$ m, la hauteur du toit voisin ? e) Le rotor fait $15$ tours par minute. De quel angle tourne-t-il en une seconde ? Quelle distance la pointe parcourt-elle en une seconde ? Convertis cette vitesse en km/h.</p>
+    <details class="indice"><p>e) Un tour, c'est $2\pi$ rad ; la distance parcourue sur un cercle, c'est $L=R\theta$.</p></details>
+    <details class="correction">
+      <p>a) Dans le repère centré sur l'axe du rotor, à $80$ m, la pointe est en $(-40\sin x\,;40\cos x)$ : à $x=0$ elle est $40$ m au-dessus de l'axe. Hauteur au-dessus du sol : $80+40\cos x$.</p>
+      <p>b) $x=\dfrac{\pi}{3}$ : $80+20=100$ m. $x=\dfrac{\pi}{2}$ : $80$ m, à l'horizontale. $x=\pi$ : $80-40=40$ m, pointe en bas. $x=\dfrac{5\pi}{3}$ : $\cos\dfrac{5\pi}{3}=\cos\!\left(-\dfrac{\pi}{3}\right)=\dfrac12$, donc $100$ m.</p>
+      <p>c) Pour $x=0$ : $120$, $80+40\cos\dfrac{2\pi}{3}=60$ et $80+40\cos\dfrac{4\pi}{3}=60$ ; somme $240$. Pour $x=\dfrac{\pi}{2}$ : $80$, $80+40\cos\dfrac{7\pi}{6}=80-20\sqrt3$ et $80+40\cos\dfrac{11\pi}{6}=80+20\sqrt3$ ; somme $240$ encore. La somme des trois hauteurs vaut toujours $240$ m, trois fois la hauteur de l'axe : les trois cosinus s'annulent (on le démontrera en terminale ; sur le cercle, les trois points forment un triangle équilatéral centré en $O$).</p>
+      <p>d) $80+40\cos x=60\iff\cos x=-\dfrac12\iff x=\dfrac{2\pi}{3}$ ou $x=\dfrac{4\pi}{3}$.</p>
+      <p>e) $15$ tours par minute, c'est $\dfrac{15\times2\pi}{60}=\dfrac{\pi}{2}$ rad par seconde. La pointe parcourt $L=R\theta=40\times\dfrac{\pi}{2}=20\pi\approx62{,}8$ m par seconde, soit $62{,}8\times3{,}6\approx226$ km/h. C'est pour cela que le bout des pales siffle.</p>
     </details>
   </article>
 
