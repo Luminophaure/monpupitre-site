@@ -1,0 +1,758 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de fonctions.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/premiere-techno/fonctions.source.html
+     Les relevés (température, concentration, glycémie, croissance) sont des données FICTIVES
+     d'allure réaliste, écrites pour le cours ; elles ne décrivent aucun patient réel. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Fonctions : représentations et taux de variation · Première technologique</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=d374642e66">
+<script type="module" src="../../assets/js/site.js?v=220f216967"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PXEZELIN.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-DBNZQZWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-4NFI5NKA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CIY22D54.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TU2CML7W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CRFRSPIA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ARIWGPNE.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Y4MCCTGS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MSRPJQUT.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QMZR4NH7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-6DVOM7N3.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LGI6A4EG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CG5YCEWP.js">
+<link rel="modulepreload" href="../../assets/js/labos/fonctions-1t.js?v=90749f089d">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MI35G4WU.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/fonctions-1t.js?v=7d3c630885">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-CW2PTOAI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TLTAELPK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/graphe-GOXNYLJA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-VSN757AO.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=9e78aa7141">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="fonctions-1t" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Première technologique · Analyse</span>
+  <h1>Fonctions : représentations et taux de variation</h1>
+  <p class="chapeau">Au pied d'un lit d'hôpital, une feuille de surveillance : la température relevée toutes les heures, et une courbe qui monte, culmine, redescend. Cette courbe est une <strong>fonction</strong>. La lire, c'est répondre à trois questions : combien ? quand ? et surtout <strong>à quelle vitesse ça change ?</strong> Cette dernière question a un nom, le <strong>taux de variation</strong>, et c'est lui que ce chapitre ajoute à ce que tu sais déjà des fonctions.</p>
+  <ul class="objectifs">
+    <li>Passer d'une représentation à l'autre</li><li>Modéliser une situation par une fonction</li><li>Résoudre graphiquement f(x) = k, f(x) &lt; k, f(x) &gt; k</li><li>Calculer un taux de variation, avec son unité</li><li>Y voir la pente d'une sécante</li><li>Relier sens de variation et signe du taux</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>7 h, relève du matin.</strong> L'infirmière reprend la feuille de surveillance de M. Lenoir, celle de la veille : la température relevée chaque heure, et la courbe qu'on obtient en reliant les points. Elle ne lit pas seulement « 38,6 °C à 14 h ». Elle lit que la fièvre <em>montait</em> dès 6 h, qu'elle a monté <em>vite</em> entre 8 h et 10 h, qu'après le paracétamol de midi elle a <em>baissé de 0,4 °C par heure</em> en moyenne, et qu'elle est repassée à 38 °C vers 16 h. Chaque fois qu'elle dit « de tant par heure », elle calcule un taux de variation sans le nommer. Ce chapitre lui donne un nom, une formule et une figure : la pente de la droite qui joint deux points de la courbe.</p>
+    <p class="discret">Ils lisent des courbes toute la journée : les <a href="https://www.onisep.fr/ressources/univers-metier/metiers/infirmier-infirmiere" rel="noopener">infirmiers et infirmières</a> et les aides-soignants (la feuille de température, la saturation, la tension), les <a href="https://www.onisep.fr/ressources/univers-metier/metiers/preparateur-preparatrice-en-pharmacie" rel="noopener">préparateurs en pharmacie</a> (la concentration d'un médicament dans le sang au fil des heures), les <a href="https://www.onisep.fr/ressources/univers-metier/metiers/technicien-technicienne-d-analyses-biomedicales" rel="noopener">techniciens d'analyses biomédicales</a> (une glycémie après un repas, une culture qui se développe), les <a href="https://www.onisep.fr/ressources/univers-metier/metiers/puericulteur-puericultrice" rel="noopener">puéricultrices et puériculteurs</a> (les courbes de croissance du carnet de santé). Les courbes de ce chapitre leur ressemblent ; les valeurs sont inventées pour l'exercice.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-rappels">1. Ce que tu sais déjà</h3>
+
+  <div class="bloc remarque" data-titre="Rappels de seconde : les quatre mots">
+    <p>Une <strong>fonction</strong> $f$ fait correspondre à chaque nombre $x$ d'un ensemble un seul nombre, noté $f(x)$. Quatre mots à avoir au clair, le reste du chapitre s'appuie dessus :</p>
+    <ul>
+      <li>$f(x)$ est l'<strong>image</strong> de $x$ : ce qui sort de la machine. <em>Un nombre a une seule image.</em></li>
+      <li>$x$ est un <strong>antécédent</strong> de $f(x)$ : ce qui est entré. <em>Un nombre peut avoir zéro, un ou plusieurs antécédents.</em></li>
+      <li>La <strong>courbe</strong> de $f$ est l'ensemble des points $(x\,;\,f(x))$ : l'abscisse est l'antécédent, l'ordonnée est l'image.</li>
+      <li>Un <strong>tableau de valeurs</strong> donne quelques images, en colonnes.</li>
+    </ul>
+    <p>Le chapitre de seconde <a href="../../maths/seconde/fonctions.html">« Fonctions : image, antécédent, courbe »</a> détaille tout cela, avec les méthodes pour résoudre $f(x)=k$. Ici, on rappelle et on avance.</p>
+  </div>
+
+  <figure class="graphe" data-f="-0.5x^2+3x+1" data-nom="f" data-fenetre="-1 7 -1 6.5" data-interactif="image" data-tableau="0 6">
+    <figcaption>Déplace le curseur : l'image de $x$ se lit sur l'axe vertical, et le tableau de valeurs se remplit. L'abscisse entre, l'ordonnée sort.</figcaption>
+  </figure>
+
+  <div class="bloc piege" data-titre="Les deux axes, les deux mots">
+    <p>« $f(2)=3$ » se lit : <em>l'image de 2 est 3</em>, ou <em>2 est un antécédent de 3</em>. Pas l'inverse. Sur la courbe, on part de l'abscisse $2$ (en bas), on monte jusqu'à la courbe, on lit l'ordonnée $3$ (à gauche). Pour un antécédent, c'est le chemin inverse : on part de l'ordonnée, on va jusqu'à la courbe (peut-être plusieurs fois), on descend lire les abscisses.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-representations">2. Quatre façons de dire la même fonction</h3>
+
+  <div class="bloc definition" data-titre="Les représentations d'une fonction">
+    <p>Une même fonction peut se présenter de quatre manières, et le programme te demande de passer de l'une à l'autre :</p>
+    <ul>
+      <li><strong>une phrase</strong>, la situation : « un flacon de perfusion de 500 mL se vide à 50 mL par heure » ;</li>
+      <li><strong>une expression littérale</strong>, la formule : $V(t)=500-50t$, où $t$ est le temps en heures et $V(t)$ le volume en mL ;</li>
+      <li><strong>un tableau de valeurs</strong>, quelques images calculées ;</li>
+      <li><strong>une représentation graphique</strong>, la courbe.</li>
+    </ul>
+    <p>La formule et la courbe sont les deux représentations que nomme le programme ; le tableau est l'outil qui fait passer de l'une à l'autre.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="carte">
+      <strong>Le flacon de perfusion : le tableau</strong>
+      <div class="defile"><table class="valeurs">
+        <tr><th>$t$ (h)</th><td>0</td><td>2</td><td>4</td><td>6</td><td>8</td><td>10</td></tr>
+        <tr><th>$V(t)$ (mL)</th><td>500</td><td>400</td><td>300</td><td>200</td><td>100</td><td>0</td></tr>
+      </table></div>
+      <p class="discret">$V(6)=500-50\times6=500-300=200$ : au bout de 6 h, il reste 200 mL.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 419 318" role="img" aria-label="La courbe du volume du flacon de perfusion en fonction du temps : une droite qui descend de 500 mL à 0 h jusqu'à 0 mL à 10 h, avec les six points du tableau de valeurs marqués toutes les deux heures. Axe horizontal : t en heures ; axe vertical : V en mL."><g class="quadrillage"><line x1="67.0" y1="39.4" x2="67.0" y2="262.0"/><line x1="97.0" y1="39.4" x2="97.0" y2="262.0"/><line x1="127.0" y1="39.4" x2="127.0" y2="262.0"/><line x1="157.0" y1="39.4" x2="157.0" y2="262.0"/><line x1="187.0" y1="39.4" x2="187.0" y2="262.0"/><line x1="217.0" y1="39.4" x2="217.0" y2="262.0"/><line x1="247.0" y1="39.4" x2="247.0" y2="262.0"/><line x1="277.0" y1="39.4" x2="277.0" y2="262.0"/><line x1="307.0" y1="39.4" x2="307.0" y2="262.0"/><line x1="337.0" y1="39.4" x2="337.0" y2="262.0"/><line x1="367.0" y1="39.4" x2="367.0" y2="262.0"/><line x1="67.0" y1="262.0" x2="385.0" y2="262.0"/><line x1="67.0" y1="220.0" x2="385.0" y2="220.0"/><line x1="67.0" y1="178.0" x2="385.0" y2="178.0"/><line x1="67.0" y1="136.0" x2="385.0" y2="136.0"/><line x1="67.0" y1="94.0" x2="385.0" y2="94.0"/><line x1="67.0" y1="52.0" x2="385.0" y2="52.0"/></g><g class="trace t-n"><line x1="55.0" y1="262.0" x2="395.2" y2="262.0"/><polygon points="403.0,262.0 390.0,267.9 390.0,256.1"/></g><g class="trace t-n"><line x1="67.0" y1="278.8" x2="67.0" y2="32.5"/><polygon points="67.0,24.7 72.8,37.7 61.1,37.7"/></g><text class="moyen" x="403.0" y="244.4" text-anchor="end">t (h)</text><text class="moyen" x="73.8" y="24.7" text-anchor="start">V (mL)</text><g class="trace t-n"><line x1="127.0" y1="265.0" x2="127.0" y2="259.0"/></g><text class="petit" x="127.0" y="278.0" text-anchor="middle">2</text><g class="trace t-n"><line x1="187.0" y1="265.0" x2="187.0" y2="259.0"/></g><text class="petit" x="187.0" y="278.0" text-anchor="middle">4</text><g class="trace t-n"><line x1="247.0" y1="265.0" x2="247.0" y2="259.0"/></g><text class="petit" x="247.0" y="278.0" text-anchor="middle">6</text><g class="trace t-n"><line x1="307.0" y1="265.0" x2="307.0" y2="259.0"/></g><text class="petit" x="307.0" y="278.0" text-anchor="middle">8</text><g class="trace t-n"><line x1="367.0" y1="265.0" x2="367.0" y2="259.0"/></g><text class="petit" x="367.0" y="278.0" text-anchor="middle">10</text><g class="trace t-n"><line x1="62.8" y1="220.0" x2="71.2" y2="220.0"/></g><text class="petit" x="59.5" y="224.0" text-anchor="end">100</text><g class="trace t-n"><line x1="62.8" y1="178.0" x2="71.2" y2="178.0"/></g><text class="petit" x="59.5" y="182.0" text-anchor="end">200</text><g class="trace t-n"><line x1="62.8" y1="136.0" x2="71.2" y2="136.0"/></g><text class="petit" x="59.5" y="140.0" text-anchor="end">300</text><g class="trace t-n"><line x1="62.8" y1="94.0" x2="71.2" y2="94.0"/></g><text class="petit" x="59.5" y="98.0" text-anchor="end">400</text><g class="trace t-n"><line x1="62.8" y1="52.0" x2="71.2" y2="52.0"/></g><text class="petit" x="59.5" y="56.0" text-anchor="end">500</text><g class="trace t-u"><line x1="67.0" y1="52.0" x2="379.0" y2="270.4"/></g><circle class="pt pt-u" cx="67.0" cy="52.0" r="3.5"/><circle class="pt pt-u" cx="127.0" cy="94.0" r="3.5"/><circle class="pt pt-u" cx="187.0" cy="136.0" r="3.5"/><circle class="pt pt-u" cx="247.0" cy="178.0" r="3.5"/><circle class="pt pt-u" cx="307.0" cy="220.0" r="3.5"/><circle class="pt pt-u" cx="367.0" cy="262.0" r="3.5"/><text class="moyen" x="253.0" y="85.6" text-anchor="start">V(t) = 500 − 50t</text></svg><figcaption>La courbe de $V$ : les six points du tableau, et la droite qui passe par eux. Une fonction affine se représente par une droite.</figcaption></figure>
+  </div>
+
+  <div class="bloc methode" data-titre="De la formule à la courbe">
+    <ol class="etapes">
+      <li><span>Je choisis quelques valeurs de la variable, dans l'intervalle où la situation a un sens (ici $t$ de $0$ à $10$ h : après, le flacon est vide).</span></li>
+      <li><span>Je calcule leurs images avec la formule, et je les range dans un tableau de valeurs, avec les unités dans les en-têtes.</span></li>
+      <li><span>Je gradue les deux axes, je nomme chacun avec son unité, et je place les points $(t\,;\,V(t))$.</span></li>
+      <li><span>Je relie les points. Pour une fonction affine, c'est une droite : deux points suffisent, le troisième vérifie.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un sirop se dose à $0{,}5$ mL par kilogramme de masse de l'enfant. Écris la formule, dresse un tableau de valeurs pour $10$, $16$ et $30$ kg, et décris la courbe.</p>
+      <ol class="pas">
+        <li><strong>La variable et la formule.</strong> La masse $m$, en kg, est la variable ; la dose $D(m)$, en mL, en dépend : $D(m)=0{,}5\,m$. La variable ne s'appelle pas $x$ : c'est $m$, parce que c'est une masse.</li>
+        <li><strong>Le tableau.</strong> $D(10)=5$ mL ; $D(16)=8$ mL ; $D(30)=15$ mL.</li>
+        <li><strong>La courbe.</strong> Les points $(10\,;\,5)$, $(16\,;\,8)$ et $(30\,;\,15)$ sont alignés sur une droite qui passe par l'origine : $D(0)=0$, un enfant de $0$ kg n'a pas de dose. C'est une situation de proportionnalité.</li>
+        <li><strong>L'intervalle.</strong> La formule n'a de sens que pour des masses raisonnables, disons de $3$ à $40$ kg : au-delà, le sirop n'est plus adapté et la notice donne une dose maximale. Une fonction qui modélise une situation vit sur un intervalle.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Relier les points d'un tableau, c'est déjà un choix">
+    <p>Sur une feuille de température, on relie les relevés par des segments : entre 13 h et 14 h, personne n'a pris la température, et la ligne droite est une <em>supposition</em> raisonnable, pas une mesure. Quand une formule est connue, la courbe est exacte ; quand on n'a que des relevés, la courbe entre deux points est un modèle. Les deux se lisent de la même façon, mais on ne leur fait pas dire la même chose : « à 13 h 30, la température était de 38,85 °C » est une estimation, pas une donnée.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-modeliser">3. Modéliser : une fonction pour une situation</h3>
+
+  <div class="bloc definition" data-titre="Variable, grandeur, intervalle d'étude">
+    <p><strong>Modéliser</strong> une situation par une fonction, c'est repérer deux grandeurs dont l'une dépend de l'autre, et écrire cette dépendance :</p>
+    <ul>
+      <li>la <strong>variable</strong>, celle qu'on choisit ou qui s'écoule : le temps $t$, la masse $m$, la distance $d$, le nombre d'articles $q$… ;</li>
+      <li>la <strong>grandeur qui en dépend</strong>, l'image : le volume $V(t)$, la dose $D(m)$, le prix $p(d)$… ;</li>
+      <li>l'<strong>intervalle d'étude</strong>, les valeurs de la variable qui ont un sens dans la situation.</li>
+    </ul>
+    <p>Chaque grandeur a une <strong>unité</strong>, et la formule n'est juste que si les unités sont dites : $V(t)=500-50t$ suppose $t$ en heures et $V$ en mL.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Modéliser une situation">
+    <ol class="etapes">
+      <li><span>Je nomme la variable et son unité : « soit $d$ la distance parcourue, en km ».</span></li>
+      <li><span>Je nomme la grandeur qui en dépend, avec son unité : « $p(d)$ est le prix de la course, en euros ».</span></li>
+      <li><span>Je traduis la phrase en formule, un morceau à la fois : la part fixe, la part qui dépend de la variable.</span></li>
+      <li><span>Je fixe l'intervalle d'étude, et je vérifie la formule sur une valeur simple.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un taxi conventionné (le transport d'un patient, remboursé par l'Assurance maladie) facture $4$ € de prise en charge, puis $1{,}50$ € par kilomètre. Modélise le prix de la course.</p>
+      <ol class="pas">
+        <li><strong>La variable.</strong> Soit $d$ la distance de la course, en kilomètres, avec $d\geqslant0$.</li>
+        <li><strong>La grandeur.</strong> $p(d)$ est le prix de la course, en euros.</li>
+        <li><strong>La formule.</strong> La part fixe : $4$ €. La part qui dépend de $d$ : $1{,}50$ € par km, donc $1{,}5\,d$ euros pour $d$ km. Au total : $p(d)=4+1{,}5\,d$.</li>
+        <li><strong>La vérification.</strong> $p(10)=4+1{,}5\times10=4+15=19$ € : dix kilomètres coûtent $19$ €. Et $p(0)=4$ : même sans rouler, la prise en charge est due.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="La variable ne s'appelle pas toujours x">
+    <p>En seconde, la variable s'appelait presque toujours $x$. Dans une situation réelle, on la nomme d'après ce qu'elle est : $t$ pour un temps, $m$ pour une masse, $d$ pour une distance, $q$ pour une quantité, $r$ pour un revenu. $\theta(t)$ est la température <em>à l'instant</em> $t$ : $\theta(14)=38{,}6$ veut dire « à 14 h, 38,6 °C ». Le nombre entre parenthèses est toujours la variable ; le résultat est toujours l'image.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Sans unité, un nombre ne dit rien">
+    <p>« $V(6)=200$ » ne veut rien dire tant qu'on n'a pas dit : $6$ heures, $200$ mL. Et « $f(t)$ est le temps » est faux : $t$ est le temps, $f(t)$ est la grandeur qui en dépend. Quand tu écris une formule, écris les unités à côté ; quand tu conclus, écris une phrase avec les deux unités : « au bout de 6 h, il reste 200 mL ».</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Deux grandeurs inversement proportionnelles">
+    <p>Une poche de $500$ mL passée à un débit $D$ (en mL par heure) dure $t(D)=\dfrac{500}{D}$ heures : $t(50)=10$ h, $t(100)=5$ h, $t(250)=2$ h. Quand le débit double, la durée est divisée par deux : les deux grandeurs sont <strong>inversement proportionnelles</strong>, et la courbe de $t$ n'est pas une droite mais une courbe qui descend de plus en plus lentement. Le programme te demande de savoir lire ce genre de courbe, pas d'en connaître la formule par cœur.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-resoudre">4. Résoudre graphiquement f(x) = k, f(x) &lt; k, f(x) &gt; k</h3>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 442 264" role="img" aria-label="La feuille de température de M. Lenoir de 6 h à 22 h : une ligne brisée qui monte de 37,2 °C à 6 h jusqu'à un maximum de 39,4 °C à 12 h, puis redescend à 38 °C à 16 h et 37,5 °C à 22 h, avec un plateau à 37,6 °C de 19 h à 21 h. Une droite horizontale en pointillés marque le seuil de 38 °C. Axe horizontal : t en heures ; axe vertical : θ en degrés Celsius."><g class="quadrillage"><line x1="47.4" y1="34.0" x2="47.4" y2="226.0"/><line x1="69.4" y1="34.0" x2="69.4" y2="226.0"/><line x1="91.4" y1="34.0" x2="91.4" y2="226.0"/><line x1="113.4" y1="34.0" x2="113.4" y2="226.0"/><line x1="135.4" y1="34.0" x2="135.4" y2="226.0"/><line x1="157.4" y1="34.0" x2="157.4" y2="226.0"/><line x1="179.4" y1="34.0" x2="179.4" y2="226.0"/><line x1="201.4" y1="34.0" x2="201.4" y2="226.0"/><line x1="223.4" y1="34.0" x2="223.4" y2="226.0"/><line x1="245.4" y1="34.0" x2="245.4" y2="226.0"/><line x1="267.4" y1="34.0" x2="267.4" y2="226.0"/><line x1="289.4" y1="34.0" x2="289.4" y2="226.0"/><line x1="311.4" y1="34.0" x2="311.4" y2="226.0"/><line x1="333.4" y1="34.0" x2="333.4" y2="226.0"/><line x1="355.4" y1="34.0" x2="355.4" y2="226.0"/><line x1="377.4" y1="34.0" x2="377.4" y2="226.0"/><line x1="399.4" y1="34.0" x2="399.4" y2="226.0"/><line x1="47.4" y1="226.0" x2="410.4" y2="226.0"/><line x1="47.4" y1="202.0" x2="410.4" y2="202.0"/><line x1="47.4" y1="178.0" x2="410.4" y2="178.0"/><line x1="47.4" y1="154.0" x2="410.4" y2="154.0"/><line x1="47.4" y1="130.0" x2="410.4" y2="130.0"/><line x1="47.4" y1="106.0" x2="410.4" y2="106.0"/><line x1="47.4" y1="82.0" x2="410.4" y2="82.0"/><line x1="47.4" y1="58.0" x2="410.4" y2="58.0"/><line x1="47.4" y1="34.0" x2="410.4" y2="34.0"/></g><g class="trace t-n"><line x1="38.6" y1="226.0" x2="418.0" y2="226.0"/><polygon points="425.8,226.0 412.8,231.8 412.8,220.2"/></g><g class="trace t-n"><line x1="47.4" y1="235.6" x2="47.4" y2="27.4"/><polygon points="47.4,19.6 53.2,32.6 41.5,32.6"/></g><text class="moyen" x="425.8" y="210.2" text-anchor="end">t (h)</text><text class="moyen" x="57.3" y="19.6" text-anchor="start">θ (°C)</text><g class="trace t-n"><line x1="91.4" y1="228.6" x2="91.4" y2="223.4"/></g><text class="petit" x="91.4" y="240.4" text-anchor="middle">8</text><g class="trace t-n"><line x1="135.4" y1="228.6" x2="135.4" y2="223.4"/></g><text class="petit" x="135.4" y="240.4" text-anchor="middle">10</text><g class="trace t-n"><line x1="179.4" y1="228.6" x2="179.4" y2="223.4"/></g><text class="petit" x="179.4" y="240.4" text-anchor="middle">12</text><g class="trace t-n"><line x1="223.4" y1="228.6" x2="223.4" y2="223.4"/></g><text class="petit" x="223.4" y="240.4" text-anchor="middle">14</text><g class="trace t-n"><line x1="267.4" y1="228.6" x2="267.4" y2="223.4"/></g><text class="petit" x="267.4" y="240.4" text-anchor="middle">16</text><g class="trace t-n"><line x1="311.4" y1="228.6" x2="311.4" y2="223.4"/></g><text class="petit" x="311.4" y="240.4" text-anchor="middle">18</text><g class="trace t-n"><line x1="355.4" y1="228.6" x2="355.4" y2="223.4"/></g><text class="petit" x="355.4" y="240.4" text-anchor="middle">20</text><g class="trace t-n"><line x1="399.4" y1="228.6" x2="399.4" y2="223.4"/></g><text class="petit" x="399.4" y="240.4" text-anchor="middle">22</text><g class="trace t-n"><line x1="42.8" y1="178.0" x2="52.0" y2="178.0"/></g><text class="petit" x="36.4" y="181.4" text-anchor="end">37</text><g class="trace t-n"><line x1="42.8" y1="130.0" x2="52.0" y2="130.0"/></g><text class="petit" x="36.4" y="133.4" text-anchor="end">38</text><g class="trace t-n"><line x1="42.8" y1="82.0" x2="52.0" y2="82.0"/></g><text class="petit" x="36.4" y="85.4" text-anchor="end">39</text><g class="trace t-n"><line x1="42.8" y1="34.0" x2="52.0" y2="34.0"/></g><text class="petit" x="36.4" y="37.4" text-anchor="end">40</text><text class="petit" x="36.4" y="228.4" text-anchor="end">36</text><text class="petit" x="47.4" y="240.4" text-anchor="middle">6</text><g class="trace t-v pointille"><line x1="47.4" y1="130.0" x2="412.6" y2="130.0"/></g><text class="petit halo" x="412.6" y="125.2" text-anchor="end">38 °C</text><g class="trace t-u ep-3"><path d="M47.4,168.4 L69.4,158.8 L91.4,144.4 L113.4,115.6 L135.4,86.8 L157.4,72.4 L179.4,62.8 L201.4,77.2 L223.4,101.2 L245.4,120.4 L267.4,130.0 L289.4,139.6 L311.4,144.4 L333.4,149.2 L355.4,149.2 L377.4,149.2 L399.4,154.0"/></g><circle class="pt pt-u" cx="47.4" cy="168.4" r="3"/><circle class="pt pt-u" cx="69.4" cy="158.8" r="3"/><circle class="pt pt-u" cx="91.4" cy="144.4" r="3"/><circle class="pt pt-u" cx="113.4" cy="115.6" r="3"/><circle class="pt pt-u" cx="135.4" cy="86.8" r="3"/><circle class="pt pt-u" cx="157.4" cy="72.4" r="3"/><circle class="pt pt-u" cx="179.4" cy="62.8" r="3"/><circle class="pt pt-u" cx="201.4" cy="77.2" r="3"/><circle class="pt pt-u" cx="223.4" cy="101.2" r="3"/><circle class="pt pt-u" cx="245.4" cy="120.4" r="3"/><circle class="pt pt-u" cx="267.4" cy="130.0" r="3"/><circle class="pt pt-u" cx="289.4" cy="139.6" r="3"/><circle class="pt pt-u" cx="311.4" cy="144.4" r="3"/><circle class="pt pt-u" cx="333.4" cy="149.2" r="3"/><circle class="pt pt-u" cx="355.4" cy="149.2" r="3"/><circle class="pt pt-u" cx="377.4" cy="149.2" r="3"/><circle class="pt pt-u" cx="399.4" cy="154.0" r="3"/></svg><figcaption>La feuille de température de M. Lenoir, de 6 h à 22 h (relevé toutes les heures, valeurs fictives). Les relevés sont reliés par des segments. Le seuil de la fièvre, 38 °C, est marqué.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Résoudre graphiquement une équation ou une inéquation">
+    <ol class="etapes">
+      <li><span>Je trace la droite horizontale $y=k$ (ici $k=38$).</span></li>
+      <li><span>Pour $f(x)=k$ : je repère les points où la courbe <em>coupe</em> cette droite, et je lis leurs <strong>abscisses</strong>. Ce sont les solutions.</span></li>
+      <li><span>Pour $f(x)&gt;k$ : je repère les morceaux de courbe <em>au-dessus</em> de la droite, et je lis les abscisses correspondantes : la solution est un <strong>intervalle</strong> (ou plusieurs). Pour $f(x)&lt;k$ : les morceaux en dessous.</span></li>
+      <li><span>J'écris la réponse avec le mot de la situation : « la température dépasse 38 °C de 8 h 30 à 16 h ».</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Sur la feuille de M. Lenoir, à quelles heures la température vaut-elle exactement $38$ °C ? Pendant quelle période dépasse-t-elle $38$ °C ?</p>
+      <figure class="figure-svg large"><svg viewBox="0 0 442 264" role="img" aria-label="La feuille de température avec la droite y = 38. La courbe coupe cette droite en deux points, à 8 h 30 et à 16 h ; entre ces deux points, la partie de la courbe au-dessus de 38 °C est coloriée, et l'intervalle de 8,5 à 16 est marqué en gras sur l'axe des heures."><polygon class="t-v plein op-30" points="102.4,130.0 113.4,115.6 135.4,86.8 157.4,72.4 179.4,62.8 201.4,77.2 223.4,101.2 245.4,120.4 267.4,130.0"/><g class="quadrillage"><line x1="47.4" y1="34.0" x2="47.4" y2="226.0"/><line x1="69.4" y1="34.0" x2="69.4" y2="226.0"/><line x1="91.4" y1="34.0" x2="91.4" y2="226.0"/><line x1="113.4" y1="34.0" x2="113.4" y2="226.0"/><line x1="135.4" y1="34.0" x2="135.4" y2="226.0"/><line x1="157.4" y1="34.0" x2="157.4" y2="226.0"/><line x1="179.4" y1="34.0" x2="179.4" y2="226.0"/><line x1="201.4" y1="34.0" x2="201.4" y2="226.0"/><line x1="223.4" y1="34.0" x2="223.4" y2="226.0"/><line x1="245.4" y1="34.0" x2="245.4" y2="226.0"/><line x1="267.4" y1="34.0" x2="267.4" y2="226.0"/><line x1="289.4" y1="34.0" x2="289.4" y2="226.0"/><line x1="311.4" y1="34.0" x2="311.4" y2="226.0"/><line x1="333.4" y1="34.0" x2="333.4" y2="226.0"/><line x1="355.4" y1="34.0" x2="355.4" y2="226.0"/><line x1="377.4" y1="34.0" x2="377.4" y2="226.0"/><line x1="399.4" y1="34.0" x2="399.4" y2="226.0"/><line x1="47.4" y1="226.0" x2="410.4" y2="226.0"/><line x1="47.4" y1="202.0" x2="410.4" y2="202.0"/><line x1="47.4" y1="178.0" x2="410.4" y2="178.0"/><line x1="47.4" y1="154.0" x2="410.4" y2="154.0"/><line x1="47.4" y1="130.0" x2="410.4" y2="130.0"/><line x1="47.4" y1="106.0" x2="410.4" y2="106.0"/><line x1="47.4" y1="82.0" x2="410.4" y2="82.0"/><line x1="47.4" y1="58.0" x2="410.4" y2="58.0"/><line x1="47.4" y1="34.0" x2="410.4" y2="34.0"/></g><g class="trace t-n"><line x1="38.6" y1="226.0" x2="418.0" y2="226.0"/><polygon points="425.8,226.0 412.8,231.8 412.8,220.2"/></g><g class="trace t-n"><line x1="47.4" y1="235.6" x2="47.4" y2="27.4"/><polygon points="47.4,19.6 53.2,32.6 41.5,32.6"/></g><text class="moyen" x="425.8" y="210.2" text-anchor="end">t (h)</text><text class="moyen" x="57.3" y="19.6" text-anchor="start">θ (°C)</text><g class="trace t-n"><line x1="135.4" y1="228.6" x2="135.4" y2="223.4"/></g><text class="petit" x="135.4" y="240.4" text-anchor="middle">10</text><g class="trace t-n"><line x1="179.4" y1="228.6" x2="179.4" y2="223.4"/></g><text class="petit" x="179.4" y="240.4" text-anchor="middle">12</text><g class="trace t-n"><line x1="223.4" y1="228.6" x2="223.4" y2="223.4"/></g><text class="petit" x="223.4" y="240.4" text-anchor="middle">14</text><g class="trace t-n"><line x1="311.4" y1="228.6" x2="311.4" y2="223.4"/></g><text class="petit" x="311.4" y="240.4" text-anchor="middle">18</text><g class="trace t-n"><line x1="355.4" y1="228.6" x2="355.4" y2="223.4"/></g><text class="petit" x="355.4" y="240.4" text-anchor="middle">20</text><g class="trace t-n"><line x1="399.4" y1="228.6" x2="399.4" y2="223.4"/></g><text class="petit" x="399.4" y="240.4" text-anchor="middle">22</text><g class="trace t-n"><line x1="42.8" y1="178.0" x2="52.0" y2="178.0"/></g><text class="petit" x="36.4" y="181.4" text-anchor="end">37</text><g class="trace t-n"><line x1="42.8" y1="130.0" x2="52.0" y2="130.0"/></g><text class="petit" x="36.4" y="133.4" text-anchor="end">38</text><g class="trace t-n"><line x1="42.8" y1="82.0" x2="52.0" y2="82.0"/></g><text class="petit" x="36.4" y="85.4" text-anchor="end">39</text><g class="trace t-n"><line x1="42.8" y1="34.0" x2="52.0" y2="34.0"/></g><text class="petit" x="36.4" y="37.4" text-anchor="end">40</text><text class="petit" x="36.4" y="228.4" text-anchor="end">36</text><text class="petit" x="47.4" y="240.4" text-anchor="middle">6</text><g class="trace t-v pointille"><line x1="47.4" y1="130.0" x2="412.6" y2="130.0"/></g><text class="petit halo" x="412.6" y="125.2" text-anchor="end">38 °C</text><g class="trace t-u ep-3"><path d="M47.4,168.4 L69.4,158.8 L91.4,144.4 L113.4,115.6 L135.4,86.8 L157.4,72.4 L179.4,62.8 L201.4,77.2 L223.4,101.2 L245.4,120.4 L267.4,130.0 L289.4,139.6 L311.4,144.4 L333.4,149.2 L355.4,149.2 L377.4,149.2 L399.4,154.0"/></g><circle class="pt pt-u" cx="47.4" cy="168.4" r="3"/><circle class="pt pt-u" cx="69.4" cy="158.8" r="3"/><circle class="pt pt-u" cx="91.4" cy="144.4" r="3"/><circle class="pt pt-u" cx="113.4" cy="115.6" r="3"/><circle class="pt pt-u" cx="135.4" cy="86.8" r="3"/><circle class="pt pt-u" cx="157.4" cy="72.4" r="3"/><circle class="pt pt-u" cx="179.4" cy="62.8" r="3"/><circle class="pt pt-u" cx="201.4" cy="77.2" r="3"/><circle class="pt pt-u" cx="223.4" cy="101.2" r="3"/><circle class="pt pt-u" cx="245.4" cy="120.4" r="3"/><circle class="pt pt-u" cx="267.4" cy="130.0" r="3"/><circle class="pt pt-u" cx="289.4" cy="139.6" r="3"/><circle class="pt pt-u" cx="311.4" cy="144.4" r="3"/><circle class="pt pt-u" cx="333.4" cy="149.2" r="3"/><circle class="pt pt-u" cx="355.4" cy="149.2" r="3"/><circle class="pt pt-u" cx="377.4" cy="149.2" r="3"/><circle class="pt pt-u" cx="399.4" cy="154.0" r="3"/><circle class="pt pt-v" cx="102.4" cy="130.0" r="4.5"/><g class="trace t-v pointille"><line x1="102.4" y1="130.0" x2="102.4" y2="226.0"/></g><circle class="pt pt-v" cx="267.4" cy="130.0" r="4.5"/><g class="trace t-v pointille"><line x1="267.4" y1="130.0" x2="267.4" y2="226.0"/></g><g class="trace t-v ep-6"><path d="M102.4,226.0 L267.4,226.0"/></g><text class="lettre halo" x="102.4" y="241.4" text-anchor="middle">8,5</text><text class="lettre halo" x="267.4" y="241.4" text-anchor="middle">16</text><text class="lettre halo" x="183.8" y="94.0" text-anchor="middle">θ(t) > 38</text></svg><figcaption>La droite $y=38$ coupe la courbe en deux points ; entre eux, la courbe est au-dessus.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>L'équation $\theta(t)=38$.</strong> La courbe coupe la droite $y=38$ en deux points, d'abscisses $8{,}5$ et $16$. Les solutions sont $t=8{,}5$ (8 h 30) et $t=16$ (16 h).</li>
+        <li><strong>L'inéquation $\theta(t)&gt;38$.</strong> La courbe est au-dessus de la droite entre ces deux points : les solutions sont les $t$ de l'intervalle $]8{,}5\,;\,16[$.</li>
+        <li><strong>La phrase.</strong> M. Lenoir a plus de 38 °C de 8 h 30 à 16 h, soit pendant 7 h 30. À 16 h, il est à 38 °C tout juste : « dépasser », c'est strictement plus, donc 16 est exclu.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="graphe" data-f="-0.5x^2+3x+1" data-nom="f" data-fenetre="-1 7 -1 6.5" data-interactif="antecedents">
+    <figcaption>Déplace la droite horizontale : les antécédents de $k$ apparaissent. Quand elle passe au-dessus du sommet, il n'y en a plus aucun.</figcaption>
+  </figure>
+
+  <div class="bloc piege" data-titre="La solution d'une inéquation est un intervalle d'abscisses">
+    <ul>
+      <li>Pas une ordonnée : « la température dépasse 38 °C » n'a pas pour réponse « 39,4 °C ». On demande <em>quand</em>, la réponse est en heures.</li>
+      <li>Pas un seul instant : « à 12 h » répond à « quand est-elle la plus haute ? », pas à « quand dépasse-t-elle 38 ? ». Une inéquation a pour solution un intervalle, parfois plusieurs.</li>
+      <li>Pas un seul morceau quand il y en a deux : si la courbe repasse au-dessus du seuil le soir, la réponse a deux intervalles.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-taux">5. Le taux de variation</h3>
+
+  <div class="bloc definition" data-titre="Taux de variation entre deux valeurs">
+    <p>Soit $f$ une fonction, et $a$ et $b$ deux nombres <strong>distincts</strong>, pris dans son intervalle d'étude. Le <strong>taux de variation de $f$ entre $a$ et $b$</strong> est le nombre</p>
+    $$ \frac{f(b)-f(a)}{b-a}. $$
+    <p>C'est la <strong>variation de l'image</strong>, $f(b)-f(a)$, <em>divisée par</em> la <strong>variation de la variable</strong>, $b-a$. Il se lit : <em>de combien $f$ varie, en moyenne, quand la variable augmente de 1</em>.</p>
+    <p>Son <strong>unité</strong> est l'unité de $f$ <em>par</em> unité de la variable : des °C <em>par heure</em>, des mg/L <em>par heure</em>, des euros <em>par kilomètre</em>, des centimètres <em>par mois</em>.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer un taux de variation">
+    <ol class="etapes">
+      <li><span>Je lis ou je calcule les deux images, $f(a)$ et $f(b)$, avec leur unité.</span></li>
+      <li><span>Je calcule la variation de l'image, $f(b)-f(a)$, <strong>dans cet ordre</strong> (l'arrivée moins le départ), avec son signe : négative si ça a baissé.</span></li>
+      <li><span>Je calcule la variation de la variable, $b-a$, dans le même ordre.</span></li>
+      <li><span>Je divise la première par la seconde, et j'écris le résultat avec son unité : « $-0{,}4$ °C par heure ».</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Sur la feuille de M. Lenoir, $\theta(12)=39{,}4$ °C et $\theta(14)=38{,}6$ °C. Calcule le taux de variation de la température entre 12 h et 14 h.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 373 279" role="img" aria-label="Zoom sur la feuille de température entre 11 h et 15 h. Les points A (12 h ; 39,4 °C) et B (14 h ; 38,6 °C) sont marqués, la sécante AB est tracée, et le triangle de pente montre un déplacement de plus 2 heures en horizontale et de moins 0,8 degré en verticale."><g class="quadrillage"><line x1="65.8" y1="43.6" x2="65.8" y2="235.6"/><line x1="127.8" y1="43.6" x2="127.8" y2="235.6"/><line x1="189.8" y1="43.6" x2="189.8" y2="235.6"/><line x1="251.8" y1="43.6" x2="251.8" y2="235.6"/><line x1="313.8" y1="43.6" x2="313.8" y2="235.6"/><line x1="65.8" y1="235.6" x2="344.8" y2="235.6"/><line x1="65.8" y1="187.6" x2="344.8" y2="187.6"/><line x1="65.8" y1="139.6" x2="344.8" y2="139.6"/><line x1="65.8" y1="91.6" x2="344.8" y2="91.6"/><line x1="65.8" y1="43.6" x2="344.8" y2="43.6"/></g><g class="trace t-n"><line x1="41.0" y1="235.6" x2="349.4" y2="235.6"/><polygon points="357.2,235.6 344.2,241.4 344.2,229.8"/></g><g class="trace t-n"><line x1="65.8" y1="254.8" x2="65.8" y2="41.8"/><polygon points="65.8,34.0 71.6,47.0 59.9,47.0"/></g><text class="moyen" x="357.2" y="221.9" text-anchor="end">t (h)</text><text class="moyen" x="82.5" y="34.0" text-anchor="start">θ (°C)</text><g class="trace t-n"><line x1="127.8" y1="238.2" x2="127.8" y2="233.0"/></g><text class="petit" x="127.8" y="248.1" text-anchor="middle">12</text><g class="trace t-n"><line x1="189.8" y1="238.2" x2="189.8" y2="233.0"/></g><text class="petit" x="189.8" y="248.1" text-anchor="middle">13</text><g class="trace t-n"><line x1="251.8" y1="238.2" x2="251.8" y2="233.0"/></g><text class="petit" x="251.8" y="248.1" text-anchor="middle">14</text><g class="trace t-n"><line x1="313.8" y1="238.2" x2="313.8" y2="233.0"/></g><text class="petit" x="313.8" y="248.1" text-anchor="middle">15</text><g class="trace t-n"><line x1="62.0" y1="187.6" x2="69.6" y2="187.6"/></g><text class="petit" x="47.2" y="191.0" text-anchor="end">38,5</text><g class="trace t-n"><line x1="62.0" y1="139.6" x2="69.6" y2="139.6"/></g><text class="petit" x="47.2" y="143.0" text-anchor="end">39</text><g class="trace t-n"><line x1="62.0" y1="91.6" x2="69.6" y2="91.6"/></g><text class="petit" x="47.2" y="95.0" text-anchor="end">39,5</text><g class="trace t-n"><line x1="62.0" y1="43.6" x2="69.6" y2="43.6"/></g><text class="petit" x="47.2" y="47.0" text-anchor="end">40</text><text class="petit" x="47.2" y="238.5" text-anchor="end">38</text><g class="trace t-u ep-3"><path d="M65.8,120.4 L127.8,101.2 L189.8,130.0 L251.8,178.0 L313.8,216.4"/></g><circle class="pt pt-u" cx="65.8" cy="120.4" r="3"/><circle class="pt pt-u" cx="127.8" cy="101.2" r="3"/><circle class="pt pt-u" cx="189.8" cy="130.0" r="3"/><circle class="pt pt-u" cx="251.8" cy="178.0" r="3"/><circle class="pt pt-u" cx="313.8" cy="216.4" r="3"/><g class="trace t-v"><line x1="90.6" y1="78.2" x2="289.0" y2="201.0"/></g><g class="trace t-n pointille"><line x1="127.8" y1="101.2" x2="251.8" y2="101.2"/></g><g class="trace t-n pointille"><line x1="251.8" y1="101.2" x2="251.8" y2="178.0"/></g><circle class="pt pt-v" cx="127.8" cy="101.2" r="5"/><circle class="pt pt-v" cx="251.8" cy="178.0" r="5"/><text class="lettre halo" x="120.4" y="89.7" text-anchor="end">A</text><text class="lettre halo" x="259.2" y="189.5" text-anchor="start">B</text><text class="petit halo" x="189.8" y="91.6" text-anchor="middle">+2 h</text><text class="petit halo" x="258.0" y="139.6" text-anchor="start">−0,8 °C</text><text class="note" x="72.0" y="214.5" text-anchor="start">taux : −0,8 / 2 = −0,4 °C par heure</text></svg><figcaption>Entre $A(12\,;\,39{,}4)$ et $B(14\,;\,38{,}6)$ : la variable avance de $2$ h, l'image recule de $0{,}8$ °C.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>Les deux images.</strong> $\theta(12)=39{,}4$ °C au départ, $\theta(14)=38{,}6$ °C à l'arrivée.</li>
+        <li><strong>La variation de l'image.</strong> $\theta(14)-\theta(12)=38{,}6-39{,}4=-0{,}8$ °C. Le signe moins dit que la température a baissé.</li>
+        <li><strong>La variation de la variable.</strong> $14-12=2$ h.</li>
+        <li><strong>Le taux.</strong> $\dfrac{-0{,}8}{2}=-0{,}4$ °C par heure. Entre 12 h et 14 h, la température a baissé en moyenne de $0{,}4$ °C par heure.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <figure class="figure-svg"><svg viewBox="0 0 373 312" role="img" aria-label="Zoom sur la feuille de température entre 7 h et 11 h. Les points A (8 h ; 37,7 °C) et B (10 h ; 38,9 °C) sont marqués, la sécante AB monte, et le triangle de pente montre plus 2 heures en horizontale et plus 1,2 degré en verticale."><g class="quadrillage"><line x1="65.8" y1="46.0" x2="65.8" y2="271.0"/><line x1="127.8" y1="46.0" x2="127.8" y2="271.0"/><line x1="189.8" y1="46.0" x2="189.8" y2="271.0"/><line x1="251.8" y1="46.0" x2="251.8" y2="271.0"/><line x1="313.8" y1="46.0" x2="313.8" y2="271.0"/><line x1="65.8" y1="271.0" x2="344.8" y2="271.0"/><line x1="65.8" y1="226.0" x2="344.8" y2="226.0"/><line x1="65.8" y1="181.0" x2="344.8" y2="181.0"/><line x1="65.8" y1="136.0" x2="344.8" y2="136.0"/><line x1="65.8" y1="91.0" x2="344.8" y2="91.0"/><line x1="65.8" y1="46.0" x2="344.8" y2="46.0"/></g><g class="trace t-n"><line x1="41.0" y1="271.0" x2="349.4" y2="271.0"/><polygon points="357.2,271.0 344.2,276.9 344.2,265.1"/></g><g class="trace t-n"><line x1="65.8" y1="284.5" x2="65.8" y2="40.3"/><polygon points="65.8,32.5 71.6,45.5 59.9,45.5"/></g><text class="moyen" x="357.2" y="257.1" text-anchor="end">t (h)</text><text class="moyen" x="82.5" y="32.5" text-anchor="start">θ (°C)</text><g class="trace t-n"><line x1="127.8" y1="274.0" x2="127.8" y2="268.0"/></g><text class="petit" x="127.8" y="283.6" text-anchor="middle">8</text><g class="trace t-n"><line x1="189.8" y1="274.0" x2="189.8" y2="268.0"/></g><text class="petit" x="189.8" y="283.6" text-anchor="middle">9</text><g class="trace t-n"><line x1="251.8" y1="274.0" x2="251.8" y2="268.0"/></g><text class="petit" x="251.8" y="283.6" text-anchor="middle">10</text><g class="trace t-n"><line x1="313.8" y1="274.0" x2="313.8" y2="268.0"/></g><text class="petit" x="313.8" y="283.6" text-anchor="middle">11</text><g class="trace t-n"><line x1="62.0" y1="226.0" x2="69.6" y2="226.0"/></g><text class="petit" x="47.2" y="229.9" text-anchor="end">37,5</text><g class="trace t-n"><line x1="62.0" y1="181.0" x2="69.6" y2="181.0"/></g><text class="petit" x="47.2" y="184.9" text-anchor="end">38</text><g class="trace t-n"><line x1="62.0" y1="136.0" x2="69.6" y2="136.0"/></g><text class="petit" x="47.2" y="139.9" text-anchor="end">38,5</text><g class="trace t-n"><line x1="62.0" y1="91.0" x2="69.6" y2="91.0"/></g><text class="petit" x="47.2" y="94.9" text-anchor="end">39</text><g class="trace t-n"><line x1="62.0" y1="46.0" x2="69.6" y2="46.0"/></g><text class="petit" x="47.2" y="49.9" text-anchor="end">39,5</text><text class="petit" x="47.2" y="273.7" text-anchor="end">37</text><g class="trace t-u ep-3"><path d="M65.8,235.0 L127.8,208.0 L189.8,154.0 L251.8,100.0 L313.8,73.0"/></g><circle class="pt pt-u" cx="65.8" cy="235.0" r="3"/><circle class="pt pt-u" cx="127.8" cy="208.0" r="3"/><circle class="pt pt-u" cx="189.8" cy="154.0" r="3"/><circle class="pt pt-u" cx="251.8" cy="100.0" r="3"/><circle class="pt pt-u" cx="313.8" cy="73.0" r="3"/><g class="trace t-v"><line x1="90.6" y1="240.4" x2="289.0" y2="67.6"/></g><g class="trace t-n pointille"><line x1="127.8" y1="208.0" x2="251.8" y2="208.0"/></g><g class="trace t-n pointille"><line x1="251.8" y1="208.0" x2="251.8" y2="100.0"/></g><circle class="pt pt-v" cx="127.8" cy="208.0" r="5"/><circle class="pt pt-v" cx="251.8" cy="100.0" r="5"/><text class="lettre halo" x="120.4" y="218.8" text-anchor="end">A</text><text class="lettre halo" x="259.2" y="89.2" text-anchor="start">B</text><text class="petit halo" x="189.8" y="222.4" text-anchor="middle">+2 h</text><text class="petit halo" x="258.0" y="154.0" text-anchor="start">+1,2 °C</text><text class="note" x="140.2" y="53.2" text-anchor="start">taux : +1,2 / 2 = +0,6 °C par heure</text></svg><figcaption>Entre 8 h et 10 h : $\dfrac{38{,}9-37{,}7}{10-8}=\dfrac{1{,}2}{2}=+0{,}6$ °C par heure. La courbe monte, le taux est positif.</figcaption></figure>
+    <div class="bloc exemple" data-titre="Le même calcul, en mg/L">
+      <p>Après une prise de paracétamol, la concentration dans le sang (valeurs fictives) vaut $C(2)=14$ mg/L et $C(4)=8$ mg/L. Le taux de variation entre 2 h et 4 h est $\dfrac{C(4)-C(2)}{4-2}=\dfrac{8-14}{2}=\dfrac{-6}{2}=-3$ mg/L par heure : le médicament s'élimine, en moyenne, à raison de $3$ mg/L par heure sur cette période.</p>
+      <p>Entre 8 h et 12 h, $C(8)=2{,}5$ et $C(12)=1$ : le taux vaut $\dfrac{1-2{,}5}{4}=-0{,}375$ mg/L par heure. L'élimination ralentit quand il reste moins de médicament.</p>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Les trois erreurs du taux">
+    <ul>
+      <li><strong>Diviser à l'envers.</strong> $\dfrac{14-12}{38{,}6-39{,}4}=\dfrac{2}{-0{,}8}=-2{,}5$ : des « heures par degré », ce n'est pas la question. En haut, la variation de l'<em>image</em> ; en bas, celle de la <em>variable</em>.</li>
+      <li><strong>Soustraire dans deux ordres différents.</strong> $\dfrac{39{,}4-38{,}6}{14-12}=+0{,}4$ fait croire que la température monte. Arrivée moins départ, en haut comme en bas : $f(b)-f(a)$ sur $b-a$.</li>
+      <li><strong>Oublier de diviser.</strong> « La température a varié de $-0{,}8$ °C » est vrai, mais ce n'est pas un taux : c'est la variation. Le taux dit <em>par heure</em>.</li>
+    </ul>
+    <p>Et toujours l'unité : un taux sans unité est un nombre qu'on ne peut pas interpréter.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Taux de variation et taux d'évolution : deux « taux » différents">
+    <p>Le <strong>taux d'évolution</strong> (chapitre des pourcentages) compare la variation à la valeur de départ : $\dfrac{38{,}6-39{,}4}{39{,}4}\approx-0{,}020$, soit $-2{,}0\,\%$. Il n'a pas d'unité et ne parle pas du temps. Le <strong>taux de variation</strong> compare la variation à la durée : $-0{,}4$ °C par heure. Il a une unité et répond à « à quelle vitesse ? ». Les deux sont au programme, les deux s'appellent « taux » : lis bien lequel on te demande.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-secante">6. La pente de la sécante</h3>
+
+  <div class="bloc definition" data-titre="Sécante">
+    <p>Soit $A$ et $B$ deux points distincts de la courbe de $f$, d'abscisses $a$ et $b$. La droite $(AB)$ s'appelle une <strong>sécante</strong> à la courbe : elle la coupe en $A$ et en $B$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le taux de variation est la pente de la sécante">
+    <p>Le taux de variation de $f$ entre $a$ et $b$ est le <strong>coefficient directeur</strong> de la sécante $(AB)$ :</p>
+    $$ \text{pente de }(AB)=\frac{y_B-y_A}{x_B-x_A}=\frac{f(b)-f(a)}{b-a}. $$
+    <p>Sur la figure, c'est le triangle rectangle construit sur $[AB]$ : on avance de $b-a$ horizontalement, on monte (ou on descend) de $f(b)-f(a)$ verticalement. Le taux dit de combien on monte quand on avance de $1$.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Une fonction affine : toujours la même pente">
+    <p>Pour le flacon, $V(t)=500-50t$ : entre $2$ et $6$ h, le taux vaut $\dfrac{200-400}{6-2}=\dfrac{-200}{4}=-50$ mL par heure ; entre $0$ et $10$ h, $\dfrac{0-500}{10}=-50$ aussi. Pour une fonction affine $f(x)=ax+b$, le taux de variation entre deux valeurs quelconques vaut toujours $a$, le coefficient directeur de la droite. C'est l'automatisme de l'épreuve anticipée : <em>le coefficient directeur d'une droite qui passe par $A(x_A\,;\,y_A)$ et $B(x_B\,;\,y_B)$ est $\dfrac{y_B-y_A}{x_B-x_A}$</em>.</p>
+    <p>Par exemple, la droite qui passe par $A(1\,;\,3)$ et $B(4\,;\,9)$ a pour coefficient directeur $\dfrac{9-3}{4-1}=\dfrac{6}{3}=2$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 419 318" role="img" aria-label="La même droite du flacon, avec deux triangles de pente : entre 2 h et 4 h, on avance de 2 heures et on descend de 100 mL ; entre 6 h et 10 h, on avance de 4 heures et on descend de 200 mL. Les deux pentes valent moins 50 mL par heure."><g class="quadrillage"><line x1="67.0" y1="39.4" x2="67.0" y2="262.0"/><line x1="97.0" y1="39.4" x2="97.0" y2="262.0"/><line x1="127.0" y1="39.4" x2="127.0" y2="262.0"/><line x1="157.0" y1="39.4" x2="157.0" y2="262.0"/><line x1="187.0" y1="39.4" x2="187.0" y2="262.0"/><line x1="217.0" y1="39.4" x2="217.0" y2="262.0"/><line x1="247.0" y1="39.4" x2="247.0" y2="262.0"/><line x1="277.0" y1="39.4" x2="277.0" y2="262.0"/><line x1="307.0" y1="39.4" x2="307.0" y2="262.0"/><line x1="337.0" y1="39.4" x2="337.0" y2="262.0"/><line x1="367.0" y1="39.4" x2="367.0" y2="262.0"/><line x1="67.0" y1="262.0" x2="385.0" y2="262.0"/><line x1="67.0" y1="220.0" x2="385.0" y2="220.0"/><line x1="67.0" y1="178.0" x2="385.0" y2="178.0"/><line x1="67.0" y1="136.0" x2="385.0" y2="136.0"/><line x1="67.0" y1="94.0" x2="385.0" y2="94.0"/><line x1="67.0" y1="52.0" x2="385.0" y2="52.0"/></g><g class="trace t-n"><line x1="55.0" y1="262.0" x2="395.2" y2="262.0"/><polygon points="403.0,262.0 390.0,267.9 390.0,256.1"/></g><g class="trace t-n"><line x1="67.0" y1="278.8" x2="67.0" y2="32.5"/><polygon points="67.0,24.7 72.8,37.7 61.1,37.7"/></g><text class="moyen" x="403.0" y="244.4" text-anchor="end">t (h)</text><text class="moyen" x="73.8" y="24.7" text-anchor="start">V (mL)</text><g class="trace t-n"><line x1="127.0" y1="265.0" x2="127.0" y2="259.0"/></g><text class="petit" x="127.0" y="278.0" text-anchor="middle">2</text><g class="trace t-n"><line x1="187.0" y1="265.0" x2="187.0" y2="259.0"/></g><text class="petit" x="187.0" y="278.0" text-anchor="middle">4</text><g class="trace t-n"><line x1="247.0" y1="265.0" x2="247.0" y2="259.0"/></g><text class="petit" x="247.0" y="278.0" text-anchor="middle">6</text><g class="trace t-n"><line x1="307.0" y1="265.0" x2="307.0" y2="259.0"/></g><text class="petit" x="307.0" y="278.0" text-anchor="middle">8</text><g class="trace t-n"><line x1="367.0" y1="265.0" x2="367.0" y2="259.0"/></g><text class="petit" x="367.0" y="278.0" text-anchor="middle">10</text><g class="trace t-n"><line x1="62.8" y1="220.0" x2="71.2" y2="220.0"/></g><text class="petit" x="59.5" y="224.0" text-anchor="end">100</text><g class="trace t-n"><line x1="62.8" y1="178.0" x2="71.2" y2="178.0"/></g><text class="petit" x="59.5" y="182.0" text-anchor="end">200</text><g class="trace t-n"><line x1="62.8" y1="136.0" x2="71.2" y2="136.0"/></g><text class="petit" x="59.5" y="140.0" text-anchor="end">300</text><g class="trace t-n"><line x1="62.8" y1="94.0" x2="71.2" y2="94.0"/></g><text class="petit" x="59.5" y="98.0" text-anchor="end">400</text><g class="trace t-n"><line x1="62.8" y1="52.0" x2="71.2" y2="52.0"/></g><text class="petit" x="59.5" y="56.0" text-anchor="end">500</text><g class="trace t-u"><line x1="67.0" y1="52.0" x2="379.0" y2="270.4"/></g><circle class="pt pt-u" cx="67.0" cy="52.0" r="3.5"/><circle class="pt pt-u" cx="127.0" cy="94.0" r="3.5"/><circle class="pt pt-u" cx="187.0" cy="136.0" r="3.5"/><circle class="pt pt-u" cx="247.0" cy="178.0" r="3.5"/><circle class="pt pt-u" cx="307.0" cy="220.0" r="3.5"/><circle class="pt pt-u" cx="367.0" cy="262.0" r="3.5"/><g class="trace t-v pointille"><line x1="127.0" y1="94.0" x2="187.0" y2="94.0"/></g><g class="trace t-v pointille"><line x1="187.0" y1="94.0" x2="187.0" y2="136.0"/></g><text class="petit halo" x="157.0" y="86.4" text-anchor="middle">+2 h</text><text class="petit halo" x="194.5" y="114.2" text-anchor="start">−100 mL</text><g class="trace t-v pointille"><line x1="247.0" y1="178.0" x2="367.0" y2="178.0"/></g><g class="trace t-v pointille"><line x1="367.0" y1="178.0" x2="367.0" y2="262.0"/></g><text class="petit halo" x="307.0" y="170.4" text-anchor="middle">+4 h</text><text class="petit halo" x="374.5" y="220.0" text-anchor="start">−200 mL</text><text class="note" x="79.0" y="245.2" text-anchor="start">pente : −100 / 2 = −200 / 4 = −50 mL par heure</text></svg><figcaption>Sur une droite, tous les triangles de pente sont semblables : $-100$ mL en $2$ h, $-200$ mL en $4$ h, toujours $-50$ mL par heure.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Quand B se rapproche de A">
+    <figure class="figure-svg"><svg viewBox="0 0 378 305" role="img" aria-label="Une courbe en arc, un point A fixé sur sa partie montante, et trois points B de plus en plus proches de A. Les trois sécantes AB se redressent progressivement ; une droite en pointillés, la tangente en A, est la position limite."><g class="trace t-n"><line x1="23.8" y1="267.6" x2="351.8" y2="267.6"/><polygon points="359.6,267.6 346.6,273.5 346.6,261.8"/></g><g class="trace t-n"><line x1="46.8" y1="286.0" x2="46.8" y2="45.4"/><polygon points="46.8,37.6 52.6,50.6 40.9,50.6"/></g><text class="moyen" x="359.6" y="242.3" text-anchor="end">x</text><text class="moyen" x="59.2" y="37.6" text-anchor="start">y</text><g class="trace t-n"><line x1="92.8" y1="270.6" x2="92.8" y2="264.6"/></g><text class="petit" x="92.8" y="290.6" text-anchor="middle">1</text><g class="trace t-n"><line x1="138.8" y1="270.6" x2="138.8" y2="264.6"/></g><text class="petit" x="138.8" y="290.6" text-anchor="middle">2</text><g class="trace t-n"><line x1="184.8" y1="270.6" x2="184.8" y2="264.6"/></g><text class="petit" x="184.8" y="290.6" text-anchor="middle">3</text><g class="trace t-n"><line x1="230.8" y1="270.6" x2="230.8" y2="264.6"/></g><text class="petit" x="230.8" y="290.6" text-anchor="middle">4</text><g class="trace t-n"><line x1="276.8" y1="270.6" x2="276.8" y2="264.6"/></g><text class="petit" x="276.8" y="290.6" text-anchor="middle">5</text><g class="trace t-n"><line x1="322.8" y1="270.6" x2="322.8" y2="264.6"/></g><text class="petit" x="322.8" y="290.6" text-anchor="middle">6</text><g class="trace t-n"><line x1="42.8" y1="221.6" x2="50.8" y2="221.6"/></g><text class="petit" x="33.0" y="225.5" text-anchor="end">1</text><g class="trace t-n"><line x1="42.8" y1="175.6" x2="50.8" y2="175.6"/></g><text class="petit" x="33.0" y="179.5" text-anchor="end">2</text><g class="trace t-n"><line x1="42.8" y1="129.6" x2="50.8" y2="129.6"/></g><text class="petit" x="33.0" y="133.5" text-anchor="end">3</text><g class="trace t-n"><line x1="42.8" y1="83.6" x2="50.8" y2="83.6"/></g><text class="petit" x="33.0" y="87.5" text-anchor="end">4</text><g class="trace t-u"><path d="M56.0,249.8 L57.2,247.3 L58.4,244.8 L59.6,242.3 L60.8,239.8 L61.9,237.4 L63.1,235.0 L64.3,232.6 L65.5,230.2 L66.7,227.8 L67.9,225.5 L69.1,223.2 L70.3,220.9 L71.4,218.6 L72.6,216.3 L73.8,214.1 L75.0,211.8 L76.2,209.6 L77.4,207.4 L78.6,205.3 L79.8,203.1 L81.0,201.0 L82.1,198.9 L83.3,196.8 L84.5,194.7 L85.7,192.6 L86.9,190.6 L88.1,188.6 L89.3,186.6 L90.5,184.6 L91.7,182.7 L92.8,180.7 L94.0,178.8 L95.2,176.9 L96.4,175.0 L97.6,173.1 L98.8,171.3 L100.0,169.5 L101.2,167.7 L102.3,165.9 L103.5,164.1 L104.7,162.4 L105.9,160.6 L107.1,158.9 L108.3,157.2 L109.5,155.6 L110.7,153.9 L111.9,152.3 L113.0,150.7 L114.2,149.1 L115.4,147.5 L116.6,145.9 L117.8,144.4 L119.0,142.9 L120.2,141.4 L121.4,139.9 L122.5,138.4 L123.7,137.0 L124.9,135.6 L126.1,134.2 L127.3,132.8 L128.5,131.4 L129.7,130.1 L130.9,128.8 L132.1,127.5 L133.2,126.2 L134.4,124.9 L135.6,123.7 L136.8,122.4 L138.0,121.2 L139.2,120.0 L140.4,118.8 L141.6,117.7 L142.7,116.6 L143.9,115.4 L145.1,114.3 L146.3,113.3 L147.5,112.2 L148.7,111.2 L149.9,110.2 L151.1,109.2 L152.3,108.2 L153.4,107.2 L154.6,106.3 L155.8,105.3 L157.0,104.4 L158.2,103.6 L159.4,102.7 L160.6,101.8 L161.8,101.0 L163.0,100.2 L164.1,99.4 L165.3,98.7 L166.5,97.9 L167.7,97.2 L168.9,96.5 L170.1,95.8 L171.3,95.1 L172.5,94.4 L173.6,93.8 L174.8,93.2 L176.0,92.6 L177.2,92.0 L178.4,91.5 L179.6,90.9 L180.8,90.4 L182.0,89.9 L183.2,89.4 L184.3,88.9 L185.5,88.5 L186.7,88.1 L187.9,87.7 L189.1,87.3 L190.3,86.9 L191.5,86.6 L192.7,86.2 L193.8,85.9 L195.0,85.6 L196.2,85.4 L197.4,85.1 L198.6,84.9 L199.8,84.7 L201.0,84.5 L202.2,84.3 L203.4,84.2 L204.5,84.0 L205.7,83.9 L206.9,83.8 L208.1,83.7 L209.3,83.7 L210.5,83.6 L211.7,83.6 L212.9,83.6 L214.0,83.6 L215.2,83.7 L216.4,83.7 L217.6,83.8 L218.8,83.9 L220.0,84.0 L221.2,84.1 L222.4,84.3 L223.6,84.4 L224.7,84.6 L225.9,84.8 L227.1,85.1 L228.3,85.3 L229.5,85.6 L230.7,85.9 L231.9,86.2 L233.1,86.5 L234.2,86.8 L235.4,87.2 L236.6,87.6 L237.8,88.0 L239.0,88.4 L240.2,88.8 L241.4,89.3 L242.6,89.8 L243.8,90.3 L244.9,90.8 L246.1,91.3 L247.3,91.9 L248.5,92.5 L249.7,93.1 L250.9,93.7 L252.1,94.3 L253.3,94.9 L254.5,95.6 L255.6,96.3 L256.8,97.0 L258.0,97.7 L259.2,98.5 L260.4,99.2 L261.6,100.0 L262.8,100.8 L264.0,101.7 L265.1,102.5 L266.3,103.4 L267.5,104.2 L268.7,105.1 L269.9,106.1 L271.1,107.0 L272.3,108.0 L273.5,108.9 L274.7,109.9 L275.8,110.9 L277.0,112.0 L278.2,113.0 L279.4,114.1 L280.6,115.2 L281.8,116.3 L283.0,117.4 L284.2,118.6 L285.3,119.8 L286.5,120.9 L287.7,122.1 L288.9,123.4 L290.1,124.6 L291.3,125.9 L292.5,127.2 L293.7,128.5 L294.9,129.8 L296.0,131.1 L297.2,132.5 L298.4,133.9 L299.6,135.3 L300.8,136.7 L302.0,138.1 L303.2,139.6 L304.4,141.1 L305.6,142.5 L306.7,144.1 L307.9,145.6 L309.1,147.1 L310.3,148.7 L311.5,150.3 L312.7,151.9 L313.9,153.5 L315.1,155.2 L316.2,156.9 L317.4,158.5 L318.6,160.3 L319.8,162.0 L321.0,163.7 L322.2,165.5 L323.4,167.3 L324.6,169.1 L325.8,170.9 L326.9,172.7 L328.1,174.6 L329.3,176.5 L330.5,178.4 L331.7,180.3 L332.9,182.2 L334.1,184.2 L335.3,186.1 L336.4,188.1 L337.6,190.1 L338.8,192.2 L340.0,194.2 L341.2,196.3"/></g><g class="trace t-n"><line x1="69.8" y1="176.5" x2="304.4" y2="103.1"/></g><circle class="pt pt" cx="276.8" cy="111.8" r="4"/><text class="petit halo" x="283.7" y="131.1" text-anchor="start">B₁</text><g class="trace t-n"><line x1="69.8" y1="192.6" x2="230.8" y2="61.8"/></g><circle class="pt pt" cx="203.2" cy="84.2" r="4"/><text class="petit halo" x="210.1" y="103.5" text-anchor="start">B₂</text><g class="trace t-v"><line x1="69.8" y1="204.6" x2="175.6" y2="79.0"/></g><circle class="pt pt-v" cx="148.0" cy="111.8" r="4"/><text class="petit halo" x="154.9" y="131.1" text-anchor="start">B₃</text><g class="trace t-w pointille"><line x1="60.6" y1="228.5" x2="189.4" y2="35.3"/></g><circle class="pt pt-v" cx="102.0" cy="166.4" r="5"/><text class="lettre halo" x="95.1" y="152.6" text-anchor="end">A</text><text class="petit halo" x="191.7" y="33.0" text-anchor="start">tangente en A</text></svg><figcaption>Trois sécantes issues du même point $A$, avec $B$ de plus en plus proche : elles se redressent vers une position limite, la tangente en $A$.</figcaption></figure>
+    <p>Sur une courbe qui n'est pas une droite, le taux dépend des deux points choisis. Si l'on garde $A$ et qu'on rapproche $B$ de $A$, la sécante tourne et se rapproche d'une droite limite, qui frôle la courbe en $A$ : la <strong>tangente</strong>. Sa pente est le <strong>nombre dérivé</strong> de $f$ en $a$ : la « vitesse instantanée » de variation, celle qu'affiche un compteur de voiture, alors que le taux de variation est une vitesse <em>moyenne</em> entre deux instants. C'est le chapitre « Nombre dérivé et tangente », un peu plus tard dans l'année ; ici, retiens seulement la figure.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-variations">7. Croissante, décroissante : le signe du taux</h3>
+
+  <div class="bloc definition" data-titre="Fonction croissante, décroissante, monotone sur un intervalle">
+    <p>Soit $f$ définie sur un intervalle $I$.</p>
+    <ul>
+      <li>$f$ est <strong>croissante</strong> sur $I$ si, pour tous $a$ et $b$ de $I$, $a&lt;b$ entraîne $f(a)\leqslant f(b)$ : quand la variable augmente, l'image augmente (ou reste égale). La courbe <em>monte</em> quand on la lit de gauche à droite.</li>
+      <li>$f$ est <strong>décroissante</strong> sur $I$ si $a&lt;b$ entraîne $f(a)\geqslant f(b)$ : la courbe <em>descend</em>.</li>
+      <li>$f$ est <strong>monotone</strong> sur $I$ si elle est croissante sur $I$ ou décroissante sur $I$ : elle ne change pas de sens.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="Sens de variation et signe du taux de variation">
+    <p>Sur un intervalle $I$ :</p>
+    <ul>
+      <li>$f$ est croissante sur $I$ si, et seulement si, <strong>tous</strong> ses taux de variation entre deux valeurs de $I$ sont positifs ou nuls ;</li>
+      <li>$f$ est décroissante sur $I$ si, et seulement si, tous ses taux de variation sur $I$ sont négatifs ou nuls.</li>
+    </ul>
+    <p>C'est le lien entre le dessin et le calcul : une courbe qui monte, ce sont des sécantes qui montent, donc des pentes positives.</p>
+  </div>
+
+  <div class="colonnes">
+    <figure class="figure-svg"><svg viewBox="0 0 437 255" role="img" aria-label="La glycémie après un repas, de 0 à 3 heures : elle monte de 0,9 g/L à 1,4 g/L en une heure, puis redescend jusqu'à 0,9 g/L à 3 heures. Deux sécantes sont tracées : l'une qui monte entre 0 et 1 heure, l'autre qui descend entre 1 et 3 heures."><g class="quadrillage"><line x1="82.0" y1="35.0" x2="82.0" y2="210.0"/><line x1="130.0" y1="35.0" x2="130.0" y2="210.0"/><line x1="178.0" y1="35.0" x2="178.0" y2="210.0"/><line x1="226.0" y1="35.0" x2="226.0" y2="210.0"/><line x1="274.0" y1="35.0" x2="274.0" y2="210.0"/><line x1="322.0" y1="35.0" x2="322.0" y2="210.0"/><line x1="370.0" y1="35.0" x2="370.0" y2="210.0"/><line x1="82.0" y1="210.0" x2="389.2" y2="210.0"/><line x1="82.0" y1="185.0" x2="389.2" y2="185.0"/><line x1="82.0" y1="160.0" x2="389.2" y2="160.0"/><line x1="82.0" y1="135.0" x2="389.2" y2="135.0"/><line x1="82.0" y1="110.0" x2="389.2" y2="110.0"/><line x1="82.0" y1="85.0" x2="389.2" y2="85.0"/><line x1="82.0" y1="60.0" x2="389.2" y2="60.0"/><line x1="82.0" y1="35.0" x2="389.2" y2="35.0"/></g><g class="trace t-n"><line x1="72.4" y1="210.0" x2="405.4" y2="210.0"/><polygon points="413.2,210.0 400.2,215.8 400.2,204.2"/></g><g class="trace t-n"><line x1="82.0" y1="225.0" x2="82.0" y2="27.8"/><polygon points="82.0,20.0 87.8,33.0 76.2,33.0"/></g><text class="moyen" x="413.2" y="199.0" text-anchor="end">t (h)</text><text class="moyen" x="90.6" y="20.0" text-anchor="start">g (g/L)</text><g class="trace t-n"><line x1="130.0" y1="212.5" x2="130.0" y2="207.5"/></g><text class="petit" x="130.0" y="220.0" text-anchor="middle">0,5</text><g class="trace t-n"><line x1="178.0" y1="212.5" x2="178.0" y2="207.5"/></g><text class="petit" x="178.0" y="220.0" text-anchor="middle">1</text><g class="trace t-n"><line x1="226.0" y1="212.5" x2="226.0" y2="207.5"/></g><text class="petit" x="226.0" y="220.0" text-anchor="middle">1,5</text><g class="trace t-n"><line x1="274.0" y1="212.5" x2="274.0" y2="207.5"/></g><text class="petit" x="274.0" y="220.0" text-anchor="middle">2</text><g class="trace t-n"><line x1="322.0" y1="212.5" x2="322.0" y2="207.5"/></g><text class="petit" x="322.0" y="220.0" text-anchor="middle">2,5</text><g class="trace t-n"><line x1="370.0" y1="212.5" x2="370.0" y2="207.5"/></g><text class="petit" x="370.0" y="220.0" text-anchor="middle">3</text><g class="trace t-n"><line x1="77.9" y1="185.0" x2="86.1" y2="185.0"/></g><text class="petit" x="72.4" y="188.2" text-anchor="end">0,9</text><g class="trace t-n"><line x1="77.9" y1="160.0" x2="86.1" y2="160.0"/></g><text class="petit" x="72.4" y="163.2" text-anchor="end">1</text><g class="trace t-n"><line x1="77.9" y1="135.0" x2="86.1" y2="135.0"/></g><text class="petit" x="72.4" y="138.2" text-anchor="end">1,1</text><g class="trace t-n"><line x1="77.9" y1="110.0" x2="86.1" y2="110.0"/></g><text class="petit" x="72.4" y="113.2" text-anchor="end">1,2</text><g class="trace t-n"><line x1="77.9" y1="85.0" x2="86.1" y2="85.0"/></g><text class="petit" x="72.4" y="88.2" text-anchor="end">1,3</text><g class="trace t-n"><line x1="77.9" y1="60.0" x2="86.1" y2="60.0"/></g><text class="petit" x="72.4" y="63.2" text-anchor="end">1,4</text><g class="trace t-n"><line x1="77.9" y1="35.0" x2="86.1" y2="35.0"/></g><text class="petit" x="72.4" y="38.2" text-anchor="end">1,5</text><text class="petit" x="72.4" y="212.5" text-anchor="end">0,8</text><g class="trace t-u ep-3"><path d="M82.0,185.0 L130.0,110.0 L178.0,60.0 L226.0,85.0 L274.0,135.0 L322.0,160.0 L370.0,185.0"/></g><circle class="pt pt-u" cx="82.0" cy="185.0" r="3"/><circle class="pt pt-u" cx="130.0" cy="110.0" r="3"/><circle class="pt pt-u" cx="178.0" cy="60.0" r="3"/><circle class="pt pt-u" cx="226.0" cy="85.0" r="3"/><circle class="pt pt-u" cx="274.0" cy="135.0" r="3"/><circle class="pt pt-u" cx="322.0" cy="160.0" r="3"/><circle class="pt pt-u" cx="370.0" cy="185.0" r="3"/><g class="trace t-w"><line x1="82.0" y1="185.0" x2="178.0" y2="60.0"/></g><g class="trace t-ko"><line x1="178.0" y1="60.0" x2="370.0" y2="185.0"/></g><circle class="pt pt-v" cx="82.0" cy="185.0" r="4.5"/><circle class="pt pt-v" cx="178.0" cy="60.0" r="4.5"/><circle class="pt pt-v" cx="370.0" cy="185.0" r="4.5"/><text class="petit halo" x="110.8" y="92.5" text-anchor="start">+0,5 g/L par heure</text><text class="petit halo" x="250.0" y="160.0" text-anchor="start">−0,25 g/L par heure</text><text class="note" x="130.0" y="35.0" text-anchor="middle">croissante</text><text class="note" x="283.6" y="35.0" text-anchor="middle">décroissante</text></svg><figcaption>La glycémie après un repas (valeurs fictives) : croissante sur $[0\,;\,1]$, décroissante sur $[1\,;\,3]$. Les sécantes montent à gauche, descendent à droite.</figcaption></figure>
+    <div class="bloc methode" data-titre="Dresser un tableau de variations d'après une courbe">
+      <ol class="etapes">
+        <li><span>Je repère, de gauche à droite, les abscisses où la courbe cesse de monter pour descendre, ou l'inverse : les sommets et les creux.</span></li>
+        <li><span>Je découpe l'intervalle d'étude en morceaux sur lesquels la courbe ne change pas de sens.</span></li>
+        <li><span>Dans le tableau, une flèche qui monte pour chaque morceau croissant, une qui descend pour chaque morceau décroissant, et les images aux extrémités.</span></li>
+      </ol>
+      <div class="deroule">
+        <p class="consigne"><strong>Exercice.</strong> Dresse le tableau de variations de la glycémie $g$ sur $[0\,;\,3]$ (en g/L, $t$ en heures).</p>
+        <ol class="pas">
+          <li><strong>Le sommet.</strong> La courbe monte jusqu'à $t=1$ ($g(1)=1{,}4$), puis descend jusqu'à $t=3$ ($g(3)=0{,}9$).</li>
+          <li><strong>Les morceaux.</strong> $g$ est croissante sur $[0\,;\,1]$ et décroissante sur $[1\,;\,3]$.</li>
+          <li><strong>Le tableau.</strong>
+            <div class="defile"><table class="valeurs">
+              <tr><th>$t$</th><td>$0$</td><td></td><td>$1$</td><td></td><td>$3$</td></tr>
+              <tr><th>$g(t)$</th><td>$0{,}9$</td><td>↗</td><td>$1{,}4$</td><td>↘</td><td>$0{,}9$</td></tr>
+            </table></div>
+          </li>
+          <li><strong>Les taux confirment.</strong> Sur $[0\,;\,1]$ : $\dfrac{1{,}4-0{,}9}{1}=+0{,}5$ g/L par heure. Sur $[1\,;\,3]$ : $\dfrac{0{,}9-1{,}4}{2}=-0{,}25$ g/L par heure.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Croissante ne veut pas dire positive">
+    <figure class="figure-svg"><svg viewBox="0 0 420 255" role="img" aria-label="La température d'un congélateur en panne de 0 à 6 heures : une droite qui monte de moins 18 degrés à moins 6 degrés. L'axe des abscisses est en haut de la figure, à 0 degré : toute la courbe est en dessous, dans les valeurs négatives, et elle monte."><g class="quadrillage"><line x1="69.8" y1="43.1" x2="69.8" y2="208.7"/><line x1="115.8" y1="43.1" x2="115.8" y2="208.7"/><line x1="161.8" y1="43.1" x2="161.8" y2="208.7"/><line x1="207.8" y1="43.1" x2="207.8" y2="208.7"/><line x1="253.8" y1="43.1" x2="253.8" y2="208.7"/><line x1="299.8" y1="43.1" x2="299.8" y2="208.7"/><line x1="345.8" y1="43.1" x2="345.8" y2="208.7"/><line x1="69.8" y1="208.7" x2="364.2" y2="208.7"/><line x1="69.8" y1="181.1" x2="364.2" y2="181.1"/><line x1="69.8" y1="153.5" x2="364.2" y2="153.5"/><line x1="69.8" y1="125.9" x2="364.2" y2="125.9"/><line x1="69.8" y1="98.3" x2="364.2" y2="98.3"/><line x1="69.8" y1="70.7" x2="364.2" y2="70.7"/><line x1="69.8" y1="43.1" x2="364.2" y2="43.1"/></g><g class="trace t-n"><line x1="51.4" y1="43.1" x2="393.2" y2="43.1"/><polygon points="401.0,43.1 388.0,49.0 388.0,37.2"/></g><g class="trace t-n"><line x1="69.8" y1="231.7" x2="69.8" y2="23.3"/><polygon points="69.8,15.5 75.6,28.5 63.9,28.5"/></g><text class="moyen" x="401.0" y="26.9" text-anchor="end">t (h)</text><text class="moyen" x="82.2" y="15.5" text-anchor="start">θ (°C)</text><g class="trace t-n"><line x1="115.8" y1="45.7" x2="115.8" y2="40.5"/></g><text class="petit" x="115.8" y="57.8" text-anchor="middle">1</text><g class="trace t-n"><line x1="161.8" y1="45.7" x2="161.8" y2="40.5"/></g><text class="petit" x="161.8" y="57.8" text-anchor="middle">2</text><g class="trace t-n"><line x1="207.8" y1="45.7" x2="207.8" y2="40.5"/></g><text class="petit" x="207.8" y="57.8" text-anchor="middle">3</text><g class="trace t-n"><line x1="253.8" y1="45.7" x2="253.8" y2="40.5"/></g><text class="petit" x="253.8" y="57.8" text-anchor="middle">4</text><g class="trace t-n"><line x1="299.8" y1="45.7" x2="299.8" y2="40.5"/></g><text class="petit" x="299.8" y="57.8" text-anchor="middle">5</text><g class="trace t-n"><line x1="345.8" y1="45.7" x2="345.8" y2="40.5"/></g><text class="petit" x="345.8" y="57.8" text-anchor="middle">6</text><g class="trace t-n"><line x1="65.6" y1="208.7" x2="74.0" y2="208.7"/></g><text class="petit" x="56.0" y="212.1" text-anchor="end">−18</text><g class="trace t-n"><line x1="65.6" y1="181.1" x2="74.0" y2="181.1"/></g><text class="petit" x="56.0" y="184.5" text-anchor="end">−15</text><g class="trace t-n"><line x1="65.6" y1="153.5" x2="74.0" y2="153.5"/></g><text class="petit" x="56.0" y="156.9" text-anchor="end">−12</text><g class="trace t-n"><line x1="65.6" y1="125.9" x2="74.0" y2="125.9"/></g><text class="petit" x="56.0" y="129.3" text-anchor="end">−9</text><g class="trace t-n"><line x1="65.6" y1="98.3" x2="74.0" y2="98.3"/></g><text class="petit" x="56.0" y="101.7" text-anchor="end">−6</text><g class="trace t-n"><line x1="65.6" y1="70.7" x2="74.0" y2="70.7"/></g><text class="petit" x="56.0" y="74.1" text-anchor="end">−3</text><g class="trace t-u"><line x1="69.8" y1="208.7" x2="345.8" y2="98.3"/></g><circle class="pt pt-u" cx="69.8" cy="208.7" r="4"/><circle class="pt pt-u" cx="345.8" cy="98.3" r="4"/><text class="moyen" x="226.2" y="164.6" text-anchor="start">θ(t) = −18 + 2t</text><text class="note" x="217.0" y="85.4" text-anchor="start">négative : la courbe est sous l'axe</text><text class="note" x="83.6" y="229.9" text-anchor="start">croissante : la courbe monte</text></svg><figcaption>Un congélateur à vaccins en panne (valeurs fictives) : la température passe de $-18$ °C à $-6$ °C en 6 h. Elle est <em>négative</em> tout le temps, et <em>croissante</em> tout le temps.</figcaption></figure>
+    <p>Le <strong>signe</strong> de $f$ dit où est la courbe : au-dessus de l'axe (positive) ou en dessous (négative). Le <strong>sens de variation</strong> dit où elle va : elle monte (croissante) ou elle descend (décroissante). Les deux n'ont rien à voir : une fonction peut être négative et croissante (le congélateur), positive et décroissante (la fièvre qui baisse). « $f$ est décroissante parce que $f(x)$ est négatif » est une erreur que tout le monde fait un jour ; dans une copie, elle coûte toute la question.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Un taux négatif entre deux points ne dit rien de tout l'intervalle">
+    <figure class="figure-svg"><svg viewBox="0 0 437 255" role="img" aria-label="La même courbe de glycémie. Les points d'abscisses 0,5 heure (1,2 g/L) et 2,5 heures (1,0 g/L) sont marqués et reliés par une sécante qui descend légèrement, alors que la courbe entre eux monte jusqu'à 1,4 puis redescend."><g class="quadrillage"><line x1="82.0" y1="35.0" x2="82.0" y2="210.0"/><line x1="130.0" y1="35.0" x2="130.0" y2="210.0"/><line x1="178.0" y1="35.0" x2="178.0" y2="210.0"/><line x1="226.0" y1="35.0" x2="226.0" y2="210.0"/><line x1="274.0" y1="35.0" x2="274.0" y2="210.0"/><line x1="322.0" y1="35.0" x2="322.0" y2="210.0"/><line x1="370.0" y1="35.0" x2="370.0" y2="210.0"/><line x1="82.0" y1="210.0" x2="389.2" y2="210.0"/><line x1="82.0" y1="185.0" x2="389.2" y2="185.0"/><line x1="82.0" y1="160.0" x2="389.2" y2="160.0"/><line x1="82.0" y1="135.0" x2="389.2" y2="135.0"/><line x1="82.0" y1="110.0" x2="389.2" y2="110.0"/><line x1="82.0" y1="85.0" x2="389.2" y2="85.0"/><line x1="82.0" y1="60.0" x2="389.2" y2="60.0"/><line x1="82.0" y1="35.0" x2="389.2" y2="35.0"/></g><g class="trace t-n"><line x1="72.4" y1="210.0" x2="405.4" y2="210.0"/><polygon points="413.2,210.0 400.2,215.8 400.2,204.2"/></g><g class="trace t-n"><line x1="82.0" y1="225.0" x2="82.0" y2="27.8"/><polygon points="82.0,20.0 87.8,33.0 76.2,33.0"/></g><text class="moyen" x="413.2" y="199.0" text-anchor="end">t (h)</text><text class="moyen" x="90.6" y="20.0" text-anchor="start">g (g/L)</text><g class="trace t-n"><line x1="130.0" y1="212.5" x2="130.0" y2="207.5"/></g><text class="petit" x="130.0" y="220.0" text-anchor="middle">0,5</text><g class="trace t-n"><line x1="178.0" y1="212.5" x2="178.0" y2="207.5"/></g><text class="petit" x="178.0" y="220.0" text-anchor="middle">1</text><g class="trace t-n"><line x1="226.0" y1="212.5" x2="226.0" y2="207.5"/></g><text class="petit" x="226.0" y="220.0" text-anchor="middle">1,5</text><g class="trace t-n"><line x1="274.0" y1="212.5" x2="274.0" y2="207.5"/></g><text class="petit" x="274.0" y="220.0" text-anchor="middle">2</text><g class="trace t-n"><line x1="322.0" y1="212.5" x2="322.0" y2="207.5"/></g><text class="petit" x="322.0" y="220.0" text-anchor="middle">2,5</text><g class="trace t-n"><line x1="370.0" y1="212.5" x2="370.0" y2="207.5"/></g><text class="petit" x="370.0" y="220.0" text-anchor="middle">3</text><g class="trace t-n"><line x1="77.9" y1="185.0" x2="86.1" y2="185.0"/></g><text class="petit" x="72.4" y="188.2" text-anchor="end">0,9</text><g class="trace t-n"><line x1="77.9" y1="160.0" x2="86.1" y2="160.0"/></g><text class="petit" x="72.4" y="163.2" text-anchor="end">1</text><g class="trace t-n"><line x1="77.9" y1="135.0" x2="86.1" y2="135.0"/></g><text class="petit" x="72.4" y="138.2" text-anchor="end">1,1</text><g class="trace t-n"><line x1="77.9" y1="110.0" x2="86.1" y2="110.0"/></g><text class="petit" x="72.4" y="113.2" text-anchor="end">1,2</text><g class="trace t-n"><line x1="77.9" y1="85.0" x2="86.1" y2="85.0"/></g><text class="petit" x="72.4" y="88.2" text-anchor="end">1,3</text><g class="trace t-n"><line x1="77.9" y1="60.0" x2="86.1" y2="60.0"/></g><text class="petit" x="72.4" y="63.2" text-anchor="end">1,4</text><g class="trace t-n"><line x1="77.9" y1="35.0" x2="86.1" y2="35.0"/></g><text class="petit" x="72.4" y="38.2" text-anchor="end">1,5</text><text class="petit" x="72.4" y="212.5" text-anchor="end">0,8</text><g class="trace t-u ep-3"><path d="M82.0,185.0 L130.0,110.0 L178.0,60.0 L226.0,85.0 L274.0,135.0 L322.0,160.0 L370.0,185.0"/></g><circle class="pt pt-u" cx="82.0" cy="185.0" r="3"/><circle class="pt pt-u" cx="130.0" cy="110.0" r="3"/><circle class="pt pt-u" cx="178.0" cy="60.0" r="3"/><circle class="pt pt-u" cx="226.0" cy="85.0" r="3"/><circle class="pt pt-u" cx="274.0" cy="135.0" r="3"/><circle class="pt pt-u" cx="322.0" cy="160.0" r="3"/><circle class="pt pt-u" cx="370.0" cy="185.0" r="3"/><g class="trace t-ko"><line x1="130.0" y1="110.0" x2="322.0" y2="160.0"/></g><circle class="pt pt-v" cx="130.0" cy="110.0" r="4.5"/><circle class="pt pt-v" cx="322.0" cy="160.0" r="4.5"/><text class="lettre halo" x="120.4" y="125.0" text-anchor="end">A</text><text class="lettre halo" x="331.6" y="170.0" text-anchor="start">B</text><text class="petit halo" x="254.8" y="117.5" text-anchor="start">taux : −0,1 g/L par heure</text><text class="note" x="178.0" y="35.0" text-anchor="start">la courbe monte pourtant ici</text></svg><figcaption>Sur la glycémie, entre $0{,}5$ h et $2{,}5$ h : $\dfrac{1{,}0-1{,}2}{2}=-0{,}1$ g/L par heure. Le taux est négatif… et pourtant la courbe monte d'abord.</figcaption></figure>
+    <p>Un taux de variation négatif entre $a$ et $b$ dit seulement que $f(b)&lt;f(a)$ : à l'arrivée, c'est plus bas qu'au départ. Entre les deux, la courbe a pu monter puis redescendre. Pour affirmer que $f$ est décroissante sur $[a\,;\,b]$, il faut que <em>tous</em> les taux sur cet intervalle soient négatifs, autrement dit que la courbe descende tout le long. Sur $[0\,;\,3]$, la glycémie revient même à sa valeur de départ : taux nul, et pourtant elle a bougé.</p>
+  </div>
+
+  <!-- ===== pièges ===== -->
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait un jour">
+    <ul>
+      <li><strong>Image et antécédent échangés.</strong> $f(2)=3$ : l'image de $2$ est $3$ ; $2$ est un antécédent de $3$. L'abscisse entre, l'ordonnée sort.</li>
+      <li><strong>Le taux divisé à l'envers.</strong> En haut, $f(b)-f(a)$ ; en bas, $b-a$. Des °C par heure, pas des heures par °C.</li>
+      <li><strong>La variation prise pour le taux.</strong> $-0{,}8$ °C, c'est la variation ; $-0{,}4$ °C par heure, c'est le taux.</li>
+      <li><strong>Le signe perdu.</strong> Arrivée moins départ, en haut comme en bas. Une baisse donne un taux négatif.</li>
+      <li><strong>Le taux sans unité.</strong> Un taux se dit « tant <em>par</em> tant ».</li>
+      <li><strong>Taux de variation et taux d'évolution confondus.</strong> L'un divise par la durée et a une unité ; l'autre divise par la valeur de départ et s'écrit en %.</li>
+      <li><strong>Croissante confondue avec positive.</strong> Le signe dit où est la courbe, le sens de variation dit où elle va.</li>
+      <li><strong>Un taux négatif entre deux points → « décroissante sur l'intervalle ».</strong> Non : la courbe a pu monter puis descendre entre les deux.</li>
+      <li><strong>La solution d'une inéquation donnée comme un point ou une ordonnée.</strong> C'est un intervalle d'abscisses, parfois plusieurs.</li>
+      <li><strong>La variable prise pour l'image.</strong> $t$ est le temps ; $\theta(t)$ est la température à l'instant $t$.</li>
+      <li><strong>Les points d'un tableau reliés et lus comme des mesures.</strong> Entre deux relevés, la ligne est un modèle.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Les représentations d'une fonction, et résoudre graphiquement"></div>
+    <div class="video" data-titre="Le taux de variation : formule, unité, signe, pente de la sécante"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, dans l'ordre : d'abord <strong>calculer un taux</strong> entre deux points d'une vraie courbe de soin, et voir le verdict nommer ton erreur s'il y en a une ; puis passer <strong>d'une représentation à l'autre</strong> (une phrase, un tableau, une formule, une droite à régler) ; enfin <strong>chercher où ça change le plus vite</strong> sur la feuille de température, et quand elle dépasse le seuil. Chaque labo a un défi : c'est le défi qui compte.</p>
+  <div class="labo" data-labo="fonctions-1t" data-outil="taux"></div>
+  <div class="labo" data-labo="fonctions-1t" data-outil="representations"></div>
+  <div class="labo" data-labo="fonctions-1t" data-outil="vitesse"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des courbes et des situations au hasard : lire une image, des antécédents, résoudre une inéquation, calculer un taux avec son unité, dire son signe, reconnaître une formule. Tout se fait de tête, comme à l'épreuve anticipée. Le quiz reprend les réflexes du cours ; le contrôle blanc s'ajoute en bas.</p>
+
+  <div class="jeu" data-generateurs="fonctions-1t" data-questions="10" data-titre="Le défi des courbes"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>$f(5)=2$. Quelle phrase est juste ?</p>
+      <ul class="choix">
+        <li class="bon">L'image de $5$ est $2$</li><li>L'image de $2$ est $5$</li><li>$5$ est un antécédent de $5$</li>
+      </ul>
+      <div class="explication">Le nombre entre parenthèses est la variable, ce qui entre : $5$. Le résultat, $2$, est son image. On peut aussi dire que $5$ est un antécédent de $2$.</div>
+    </div>
+    <div class="question" data-reponse="-0,3">
+      <p>Chez une autre patiente, $\theta(8)=38{,}4$ °C et $\theta(10)=37{,}8$ °C. Quel est le taux de variation de $\theta$ entre 8 h et 10 h, en °C par heure ?</p>
+      <div class="explication">$\dfrac{\theta(10)-\theta(8)}{10-8}=\dfrac{37{,}8-38{,}4}{2}=\dfrac{-0{,}6}{2}=-0{,}3$ °C par heure. Le signe moins : la température baisse.</div>
+    </div>
+    <div class="question">
+      <p>Le taux de variation d'une concentration (en mg/L) en fonction du temps (en heures) se dit en…</p>
+      <ul class="choix">
+        <li class="bon">mg/L par heure</li><li>heures par mg/L</li><li>mg/L</li><li>%</li>
+      </ul>
+      <div class="explication">L'unité de l'image <em>par</em> unité de la variable. « mg/L » seul, c'est une concentration ; « % », c'est un taux d'évolution ; « heures par mg/L », c'est la division à l'envers.</div>
+    </div>
+    <div class="question">
+      <p>Entre $a$ et $b$ (avec $a&lt;b$), la courbe de $f$ descend : $f(b)&lt;f(a)$. Le taux de variation de $f$ entre $a$ et $b$ est…</p>
+      <ul class="choix">
+        <li class="bon">négatif</li><li>positif</li><li>nul</li><li>on ne peut pas savoir</li>
+      </ul>
+      <div class="explication">$f(b)-f(a)&lt;0$ et $b-a&gt;0$ : le quotient est négatif. Une baisse, un taux négatif, une sécante qui descend.</div>
+    </div>
+    <div class="question">
+      <p>Une température passe de $36$ °C à $39$ °C en $2$ heures. Son taux de variation est…</p>
+      <ul class="choix">
+        <li class="bon">$1{,}5$ °C par heure</li><li>$3$ °C</li><li>$8{,}3\,\%$</li><li>$0{,}67$ heure par °C</li>
+      </ul>
+      <div class="explication">$\dfrac{39-36}{2}=\dfrac{3}{2}=1{,}5$ °C par heure. « $3$ °C » est la variation sans diviser ; « $8{,}3\,\%$ » est le taux d'évolution ($\frac{3}{36}$) ; « $0{,}67$ h par °C » est la division à l'envers ($\frac{2}{3}$).</div>
+    </div>
+    <div class="question" data-reponse="2">
+      <p>Une droite passe par $A(1\,;\,3)$ et $B(4\,;\,9)$. Quel est son coefficient directeur ?</p>
+      <div class="explication">$\dfrac{y_B-y_A}{x_B-x_A}=\dfrac{9-3}{4-1}=\dfrac{6}{3}=2$. C'est le taux de variation entre $1$ et $4$ de la fonction affine dont la droite est la courbe.</div>
+    </div>
+    <div class="question">
+      <p>Le taux de variation de $f$ entre $a$ et $b$ est le coefficient directeur…</p>
+      <ul class="choix">
+        <li class="bon">de la droite $(AB)$, la sécante, où $A$ et $B$ sont les points de la courbe d'abscisses $a$ et $b$</li><li>de la tangente en $A$</li><li>de l'axe des abscisses</li>
+      </ul>
+      <div class="explication">La sécante joint deux points de la courbe ; sa pente est $\frac{f(b)-f(a)}{b-a}$. La tangente, c'est la limite quand $B$ se rapproche de $A$ : le chapitre suivant.</div>
+    </div>
+    <div class="question">
+      <p>Sur $[0\,;\,6]$, la température d'un congélateur en panne passe de $-18$ °C à $-6$ °C en montant régulièrement. Sur cet intervalle, la fonction est…</p>
+      <ul class="choix">
+        <li class="bon">croissante et négative</li><li>décroissante, puisque négative</li><li>croissante, donc positive</li>
+      </ul>
+      <div class="explication">Elle monte (de $-18$ à $-6$) : croissante. Elle reste sous zéro : négative. Le signe dit où est la courbe, le sens de variation dit où elle va.</div>
+    </div>
+    <div class="question">
+      <p>Sur un graphique, on lit que la courbe de $f$ est au-dessus de la droite $y=3$ pour les abscisses entre $2$ et $5$ seulement. L'ensemble des solutions de $f(x)&gt;3$ est…</p>
+      <ul class="choix">
+        <li class="bon">l'intervalle $]2\,;\,5[$</li><li>le nombre $3$</li><li>les ordonnées entre $3$ et le maximum</li><li>$x=2$ et $x=5$</li>
+      </ul>
+      <div class="explication">La solution d'une inéquation est un ensemble d'abscisses : ici l'intervalle ouvert $]2\,;\,5[$. $2$ et $5$ sont les solutions de l'équation $f(x)=3$, et les ordonnées ne répondent pas à la question.</div>
+    </div>
+    <div class="question">
+      <p>Dans « $V(t)=500-50t$, où $t$ est en heures », la variable est…</p>
+      <ul class="choix">
+        <li class="bon">$t$, le temps</li><li>$V$, le volume</li><li>$500$</li>
+      </ul>
+      <div class="explication">La variable est ce qui entre dans la fonction, le nombre entre parenthèses : $t$. $V(t)$ est l'image, le volume qui dépend du temps.</div>
+    </div>
+    <div class="question">
+      <p>Entre $a$ et $b$, le taux de variation de $f$ est négatif. Peut-on affirmer que $f$ est décroissante sur $[a\,;\,b]$ ?</p>
+      <ul class="choix">
+        <li class="bon">Non : la courbe a pu monter puis redescendre ; il faudrait tous les taux négatifs</li><li>Oui, c'est la définition</li><li>Oui, si $a&lt;b$</li>
+      </ul>
+      <div class="explication">Un taux négatif dit seulement $f(b)&lt;f(a)$. La glycémie entre $0{,}5$ h et $2{,}5$ h en est l'exemple : taux négatif, et pourtant elle monte d'abord. Décroissante sur $[a\,;\,b]$ demande que <em>tous</em> les taux soient négatifs.</div>
+    </div>
+    <div class="question" data-reponse="0">
+      <p>$g(0)=0{,}9$ et $g(3)=0{,}9$. Quel est le taux de variation de $g$ entre $0$ et $3$ ?</p>
+      <div class="explication">$\dfrac{0{,}9-0{,}9}{3-0}=\dfrac{0}{3}=0$. Un taux nul : la fonction revient à sa valeur de départ. Cela ne veut pas dire qu'elle est restée constante entre les deux.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Pas de correction à ouvrir : l'équation (ou le calcul) est déjà posée, et tu la résous ligne par ligne. Le vérificateur te dit si chaque ligne est juste. Écris <code>1,5x</code> pour $1{,}5\,x$ et <code>-0,6/2</code> pour $\dfrac{-0{,}6}{2}$. Si tu bloques, demande un indice, mais cherche d'abord seul.</p>
+
+  <article class="exercice" id="ex-la-dose-de-paracetamol" data-titre="La dose de paracétamol" data-niveau="1" data-type="guide" data-notions="modeliser resoudre" data-duree="4" data-calculatrice="non">
+    <p>Pour un enfant, la dose de paracétamol par prise est de $15$ mg par kilogramme : $D(m)=15\,m$, avec $m$ la masse en kg et $D(m)$ la dose en mg. Pour quelle masse la dose vaut-elle $300$ mg ? On a écrit $D(m)=300$. Résous.</p>
+    <div class="tuteur" data-tuteur="equation" data-lettre="m" data-id="f1t-dose" data-depart="15m=300" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-le-taxi-conventionne" data-titre="Le taxi conventionné" data-niveau="1" data-type="guide" data-notions="modeliser resoudre" data-duree="5" data-calculatrice="non">
+    <p>Le prix d'une course est $p(x)=4+1{,}5\,x$, avec $x$ la distance en km et $p(x)$ en euros. Pour quelle distance la course coûte-t-elle $19$ € ? On a écrit $p(x)=19$. Résous.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="f1t-taxi" data-depart="4+1,5x=19" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-quand-le-flacon-sera-a-200-ml" data-titre="Quand le flacon sera à 200 mL" data-niveau="1" data-type="guide" data-notions="modeliser resoudre" data-duree="5" data-calculatrice="non">
+    <p>Le volume du flacon de perfusion est $V(t)=500-50t$ ($t$ en heures, $V(t)$ en mL). Au bout de combien de temps reste-t-il $200$ mL ? On a écrit $V(t)=200$. Résous.</p>
+    <div class="tuteur" data-tuteur="equation" data-lettre="t" data-id="f1t-flacon" data-depart="500-50t=200" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-le-taux-de-la-fievre" data-titre="Le taux de la fièvre" data-niveau="1" data-type="guide" data-notions="taux-variation" data-duree="4" data-calculatrice="non">
+    <p>Chez une autre patiente, $\theta(8)=38{,}4$ °C et $\theta(10)=37{,}8$ °C. Le taux de variation entre 8 h et 10 h est posé : $\dfrac{\theta(10)-\theta(8)}{10-8}$. Calcule-le, en °C par heure. Le tuteur accepte le résultat sous la forme $\dfrac{-0{,}6}{2}$ ou directement le nombre.</p>
+    <div class="tuteur" data-tuteur="expression" data-id="f1t-taux" data-depart="(37,8-38,4)/(10-8)" data-consigne="Calcule :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ lire et calculer, ★★ des situations complètes, ★★★ des raisonnements et des problèmes. Rédige ta réponse avant d'ouvrir la correction : la formule ou la lecture, le calcul avec ses unités, la phrase de conclusion. Sauf mention contraire, tout se fait sans calculatrice, comme à l'épreuve anticipée.</p>
+
+  <h3>Niveau 1 · Lire et calculer</h3>
+
+  <article class="exercice" id="ex-la-feuille-de-temperature" data-titre="La feuille de température" data-niveau="1" data-type="application" data-notions="image courbe resoudre" data-duree="10" data-calculatrice="non">
+    <p>On reprend la feuille de température de M. Lenoir (partie 4 du cours : $\theta(t)$ en °C, $t$ en heures, de 6 h à 22 h).</p>
+    <figure class="figure-svg large"><svg viewBox="0 0 442 264" role="img" aria-label="La feuille de température de M. Lenoir de 6 h à 22 h, sans le seuil : la courbe monte de 37,2 °C à 6 h à 39,4 °C à 12 h, redescend à 38,0 °C à 16 h, 37,7 °C à 18 h, reste à 37,6 °C de 19 h à 21 h et finit à 37,5 °C à 22 h. Axes gradués, t en heures et θ en degrés Celsius."><g class="quadrillage"><line x1="47.4" y1="34.0" x2="47.4" y2="226.0"/><line x1="69.4" y1="34.0" x2="69.4" y2="226.0"/><line x1="91.4" y1="34.0" x2="91.4" y2="226.0"/><line x1="113.4" y1="34.0" x2="113.4" y2="226.0"/><line x1="135.4" y1="34.0" x2="135.4" y2="226.0"/><line x1="157.4" y1="34.0" x2="157.4" y2="226.0"/><line x1="179.4" y1="34.0" x2="179.4" y2="226.0"/><line x1="201.4" y1="34.0" x2="201.4" y2="226.0"/><line x1="223.4" y1="34.0" x2="223.4" y2="226.0"/><line x1="245.4" y1="34.0" x2="245.4" y2="226.0"/><line x1="267.4" y1="34.0" x2="267.4" y2="226.0"/><line x1="289.4" y1="34.0" x2="289.4" y2="226.0"/><line x1="311.4" y1="34.0" x2="311.4" y2="226.0"/><line x1="333.4" y1="34.0" x2="333.4" y2="226.0"/><line x1="355.4" y1="34.0" x2="355.4" y2="226.0"/><line x1="377.4" y1="34.0" x2="377.4" y2="226.0"/><line x1="399.4" y1="34.0" x2="399.4" y2="226.0"/><line x1="47.4" y1="226.0" x2="410.4" y2="226.0"/><line x1="47.4" y1="202.0" x2="410.4" y2="202.0"/><line x1="47.4" y1="178.0" x2="410.4" y2="178.0"/><line x1="47.4" y1="154.0" x2="410.4" y2="154.0"/><line x1="47.4" y1="130.0" x2="410.4" y2="130.0"/><line x1="47.4" y1="106.0" x2="410.4" y2="106.0"/><line x1="47.4" y1="82.0" x2="410.4" y2="82.0"/><line x1="47.4" y1="58.0" x2="410.4" y2="58.0"/><line x1="47.4" y1="34.0" x2="410.4" y2="34.0"/></g><g class="trace t-n"><line x1="38.6" y1="226.0" x2="418.0" y2="226.0"/><polygon points="425.8,226.0 412.8,231.8 412.8,220.2"/></g><g class="trace t-n"><line x1="47.4" y1="235.6" x2="47.4" y2="27.4"/><polygon points="47.4,19.6 53.2,32.6 41.5,32.6"/></g><text class="moyen" x="425.8" y="210.2" text-anchor="end">t (h)</text><text class="moyen" x="57.3" y="19.6" text-anchor="start">θ (°C)</text><g class="trace t-n"><line x1="91.4" y1="228.6" x2="91.4" y2="223.4"/></g><text class="petit" x="91.4" y="240.4" text-anchor="middle">8</text><g class="trace t-n"><line x1="135.4" y1="228.6" x2="135.4" y2="223.4"/></g><text class="petit" x="135.4" y="240.4" text-anchor="middle">10</text><g class="trace t-n"><line x1="179.4" y1="228.6" x2="179.4" y2="223.4"/></g><text class="petit" x="179.4" y="240.4" text-anchor="middle">12</text><g class="trace t-n"><line x1="223.4" y1="228.6" x2="223.4" y2="223.4"/></g><text class="petit" x="223.4" y="240.4" text-anchor="middle">14</text><g class="trace t-n"><line x1="267.4" y1="228.6" x2="267.4" y2="223.4"/></g><text class="petit" x="267.4" y="240.4" text-anchor="middle">16</text><g class="trace t-n"><line x1="311.4" y1="228.6" x2="311.4" y2="223.4"/></g><text class="petit" x="311.4" y="240.4" text-anchor="middle">18</text><g class="trace t-n"><line x1="355.4" y1="228.6" x2="355.4" y2="223.4"/></g><text class="petit" x="355.4" y="240.4" text-anchor="middle">20</text><g class="trace t-n"><line x1="399.4" y1="228.6" x2="399.4" y2="223.4"/></g><text class="petit" x="399.4" y="240.4" text-anchor="middle">22</text><g class="trace t-n"><line x1="42.8" y1="178.0" x2="52.0" y2="178.0"/></g><text class="petit" x="36.4" y="181.4" text-anchor="end">37</text><g class="trace t-n"><line x1="42.8" y1="130.0" x2="52.0" y2="130.0"/></g><text class="petit" x="36.4" y="133.4" text-anchor="end">38</text><g class="trace t-n"><line x1="42.8" y1="82.0" x2="52.0" y2="82.0"/></g><text class="petit" x="36.4" y="85.4" text-anchor="end">39</text><g class="trace t-n"><line x1="42.8" y1="34.0" x2="52.0" y2="34.0"/></g><text class="petit" x="36.4" y="37.4" text-anchor="end">40</text><text class="petit" x="36.4" y="228.4" text-anchor="end">36</text><text class="petit" x="47.4" y="240.4" text-anchor="middle">6</text><g class="trace t-u ep-3"><path d="M47.4,168.4 L69.4,158.8 L91.4,144.4 L113.4,115.6 L135.4,86.8 L157.4,72.4 L179.4,62.8 L201.4,77.2 L223.4,101.2 L245.4,120.4 L267.4,130.0 L289.4,139.6 L311.4,144.4 L333.4,149.2 L355.4,149.2 L377.4,149.2 L399.4,154.0"/></g><circle class="pt pt-u" cx="47.4" cy="168.4" r="3"/><circle class="pt pt-u" cx="69.4" cy="158.8" r="3"/><circle class="pt pt-u" cx="91.4" cy="144.4" r="3"/><circle class="pt pt-u" cx="113.4" cy="115.6" r="3"/><circle class="pt pt-u" cx="135.4" cy="86.8" r="3"/><circle class="pt pt-u" cx="157.4" cy="72.4" r="3"/><circle class="pt pt-u" cx="179.4" cy="62.8" r="3"/><circle class="pt pt-u" cx="201.4" cy="77.2" r="3"/><circle class="pt pt-u" cx="223.4" cy="101.2" r="3"/><circle class="pt pt-u" cx="245.4" cy="120.4" r="3"/><circle class="pt pt-u" cx="267.4" cy="130.0" r="3"/><circle class="pt pt-u" cx="289.4" cy="139.6" r="3"/><circle class="pt pt-u" cx="311.4" cy="144.4" r="3"/><circle class="pt pt-u" cx="333.4" cy="149.2" r="3"/><circle class="pt pt-u" cx="355.4" cy="149.2" r="3"/><circle class="pt pt-u" cx="377.4" cy="149.2" r="3"/><circle class="pt pt-u" cx="399.4" cy="154.0" r="3"/></svg><figcaption>La même feuille, sans le seuil tracé.</figcaption></figure>
+    <p>1. Lis $\theta(10)$ et $\theta(18)$.<br>2. À quelle heure la température est-elle maximale ? Que vaut ce maximum ?<br>3. Résous graphiquement $\theta(t)=37{,}6$.<br>4. Pendant quelle période a-t-on $\theta(t)\geqslant39$ ?</p>
+    <details class="indice"><p>Pour une image, pars de l'heure en bas et remonte. Pour un antécédent, pars de la température à gauche et va vers la droite, autant de fois que la courbe est à cette hauteur.</p></details>
+    <details class="correction">
+      <p>1. $\theta(10)=38{,}9$ °C et $\theta(18)=37{,}7$ °C.</p>
+      <p>2. Le point le plus haut est à $t=12$ : le maximum est $\theta(12)=39{,}4$ °C, à midi.</p>
+      <p>3. La droite $y=37{,}6$ coupe la courbe une fois dans la montée, entre 7 h ($37{,}4$) et 8 h ($37{,}7$), vers $t\approx7{,}7$ (7 h 40) ; puis elle la longe : $\theta(19)=\theta(20)=\theta(21)=37{,}6$. Les solutions sont $t\approx7{,}7$ et tous les $t$ de $[19\,;\,21]$. Une équation peut avoir une infinité de solutions quand la courbe est plate à la bonne hauteur.</p>
+      <p>4. La courbe est au-dessus de $39$ entre le point de la montée où elle atteint $39$ (entre 10 h, $38{,}9$, et 11 h, $39{,}2$ : vers $10{,}3$) et celui de la descente (entre 13 h, $39{,}1$, et 14 h, $38{,}6$ : vers $13{,}2$). Donc $\theta(t)\geqslant39$ pour $t\in[10{,}3\,;\,13{,}2]$ environ, soit de 10 h 20 à 13 h 10. Avec des relevés toutes les heures, ces bornes sont des estimations.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-taux-entre-deux-heures" data-titre="Le taux entre deux heures" data-niveau="1" data-type="application" data-notions="taux-variation" data-duree="8" data-calculatrice="non">
+    <p>Toujours sur la feuille de M. Lenoir : $\theta(6)=37{,}2$, $\theta(9)=38{,}3$, $\theta(12)=39{,}4$, $\theta(16)=38{,}0$, $\theta(22)=37{,}5$.</p>
+    <p>Calcule le taux de variation de $\theta$, en °C par heure, entre : a) 6 h et 9 h ; b) 9 h et 12 h ; c) 12 h et 16 h ; d) 16 h et 22 h. Puis une phrase pour chacun.</p>
+    <details class="indice"><p>Arrivée moins départ, en haut comme en bas. Garde le signe.</p></details>
+    <details class="correction">
+      <p>a) $\dfrac{38{,}3-37{,}2}{9-6}=\dfrac{1{,}1}{3}\approx0{,}37$ °C par heure : la fièvre monte, d'environ $0{,}37$ °C par heure en moyenne.</p>
+      <p>b) $\dfrac{39{,}4-38{,}3}{12-9}=\dfrac{1{,}1}{3}\approx0{,}37$ °C par heure : même rythme moyen.</p>
+      <p>c) $\dfrac{38{,}0-39{,}4}{16-12}=\dfrac{-1{,}4}{4}=-0{,}35$ °C par heure : après le paracétamol, elle baisse de $0{,}35$ °C par heure en moyenne.</p>
+      <p>d) $\dfrac{37{,}5-38{,}0}{22-16}=\dfrac{-0{,}5}{6}\approx-0{,}08$ °C par heure : elle baisse encore, mais beaucoup plus lentement.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-sirop" data-titre="Le sirop" data-niveau="1" data-type="application" data-notions="modeliser image" data-duree="8" data-calculatrice="non">
+    <p>Un sirop se dose à $0{,}5$ mL par kilogramme de masse de l'enfant, pour des masses de $4$ à $40$ kg.</p>
+    <p>1. Nomme la variable et son unité, la grandeur qui en dépend et son unité, puis écris la formule.<br>2. Calcule la dose pour un enfant de $12$ kg, puis de $26$ kg.<br>3. Quelle est la masse d'un enfant qui reçoit $9$ mL ?<br>4. Quelle est l'allure de la courbe ? Passe-t-elle par l'origine ?</p>
+    <details class="correction">
+      <p>1. La variable est la masse $m$, en kg, avec $4\leqslant m\leqslant40$. La dose $D(m)$, en mL, en dépend : $D(m)=0{,}5\,m$.</p>
+      <p>2. $D(12)=0{,}5\times12=6$ mL ; $D(26)=0{,}5\times26=13$ mL.</p>
+      <p>3. On cherche $m$ tel que $0{,}5\,m=9$, donc $m=9\div0{,}5=18$ kg.</p>
+      <p>4. $D(m)=0{,}5\,m$ est une fonction linéaire : sa courbe est une droite qui passe par l'origine (une masse nulle donnerait une dose nulle), de coefficient directeur $0{,}5$. Sur l'intervalle $[4\,;\,40]$, on n'en trace qu'un morceau.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-pente-de-la-droite" data-titre="La pente de la droite" data-niveau="1" data-type="application" data-notions="taux-variation courbe" data-duree="10" data-calculatrice="non">
+    <p>1. Calcule le coefficient directeur de la droite qui passe par les deux points : a) $A(2\,;\,5)$ et $B(6\,;\,13)$ ; b) $C(0\,;\,7)$ et $D(4\,;\,1)$ ; c) $E(-1\,;\,2)$ et $F(3\,;\,2)$.<br>2. La courbe ci-dessous est celle de la concentration de paracétamol $C$ (en mg/L, $t$ en heures). Place les points $A$ et $B$ d'abscisses $1$ et $4$, trace la sécante $(AB)$ et calcule sa pente. Que représente-t-elle ?</p>
+    <figure class="figure-svg"><svg viewBox="0 0 425 294" role="img" aria-label="La concentration de paracétamol dans le sang de 0 à 12 heures après une prise : elle monte de 0 à 16 mg/L en une heure, puis redescend de plus en plus lentement, 8 mg/L à 4 heures, 2,5 mg/L à 8 heures, 1 mg/L à 12 heures. Une droite horizontale en pointillés marque 2,5 mg/L. Axe horizontal : t en heures ; axe vertical : C en mg/L."><g class="quadrillage"><line x1="75.0" y1="39.9" x2="75.0" y2="246.9"/><line x1="100.0" y1="39.9" x2="100.0" y2="246.9"/><line x1="125.0" y1="39.9" x2="125.0" y2="246.9"/><line x1="150.0" y1="39.9" x2="150.0" y2="246.9"/><line x1="175.0" y1="39.9" x2="175.0" y2="246.9"/><line x1="200.0" y1="39.9" x2="200.0" y2="246.9"/><line x1="225.0" y1="39.9" x2="225.0" y2="246.9"/><line x1="250.0" y1="39.9" x2="250.0" y2="246.9"/><line x1="275.0" y1="39.9" x2="275.0" y2="246.9"/><line x1="300.0" y1="39.9" x2="300.0" y2="246.9"/><line x1="325.0" y1="39.9" x2="325.0" y2="246.9"/><line x1="350.0" y1="39.9" x2="350.0" y2="246.9"/><line x1="375.0" y1="39.9" x2="375.0" y2="246.9"/><line x1="75.0" y1="246.9" x2="387.5" y2="246.9"/><line x1="75.0" y1="223.9" x2="387.5" y2="223.9"/><line x1="75.0" y1="200.9" x2="387.5" y2="200.9"/><line x1="75.0" y1="177.9" x2="387.5" y2="177.9"/><line x1="75.0" y1="154.9" x2="387.5" y2="154.9"/><line x1="75.0" y1="131.9" x2="387.5" y2="131.9"/><line x1="75.0" y1="108.9" x2="387.5" y2="108.9"/><line x1="75.0" y1="85.9" x2="387.5" y2="85.9"/><line x1="75.0" y1="62.9" x2="387.5" y2="62.9"/><line x1="75.0" y1="39.9" x2="387.5" y2="39.9"/></g><g class="trace t-n"><line x1="65.0" y1="246.9" x2="402.2" y2="246.9"/><polygon points="410.0,246.9 397.0,252.8 397.0,241.1"/></g><g class="trace t-n"><line x1="75.0" y1="264.1" x2="75.0" y2="31.6"/><polygon points="75.0,23.8 80.8,36.8 69.2,36.8"/></g><text class="moyen" x="410.0" y="230.5" text-anchor="end">t (h)</text><text class="moyen" x="82.9" y="23.8" text-anchor="start">C (mg/L)</text><g class="trace t-n"><line x1="100.0" y1="249.8" x2="100.0" y2="244.0"/></g><text class="petit" x="100.0" y="261.9" text-anchor="middle">1</text><g class="trace t-n"><line x1="125.0" y1="249.8" x2="125.0" y2="244.0"/></g><text class="petit" x="125.0" y="261.9" text-anchor="middle">2</text><g class="trace t-n"><line x1="150.0" y1="249.8" x2="150.0" y2="244.0"/></g><text class="petit" x="150.0" y="261.9" text-anchor="middle">3</text><g class="trace t-n"><line x1="175.0" y1="249.8" x2="175.0" y2="244.0"/></g><text class="petit" x="175.0" y="261.9" text-anchor="middle">4</text><g class="trace t-n"><line x1="200.0" y1="249.8" x2="200.0" y2="244.0"/></g><text class="petit" x="200.0" y="261.9" text-anchor="middle">5</text><g class="trace t-n"><line x1="225.0" y1="249.8" x2="225.0" y2="244.0"/></g><text class="petit" x="225.0" y="261.9" text-anchor="middle">6</text><g class="trace t-n"><line x1="250.0" y1="249.8" x2="250.0" y2="244.0"/></g><text class="petit" x="250.0" y="261.9" text-anchor="middle">7</text><g class="trace t-n"><line x1="275.0" y1="249.8" x2="275.0" y2="244.0"/></g><text class="petit" x="275.0" y="261.9" text-anchor="middle">8</text><g class="trace t-n"><line x1="300.0" y1="249.8" x2="300.0" y2="244.0"/></g><text class="petit" x="300.0" y="261.9" text-anchor="middle">9</text><g class="trace t-n"><line x1="325.0" y1="249.8" x2="325.0" y2="244.0"/></g><text class="petit" x="325.0" y="261.9" text-anchor="middle">10</text><g class="trace t-n"><line x1="350.0" y1="249.8" x2="350.0" y2="244.0"/></g><text class="petit" x="350.0" y="261.9" text-anchor="middle">11</text><g class="trace t-n"><line x1="375.0" y1="249.8" x2="375.0" y2="244.0"/></g><text class="petit" x="375.0" y="261.9" text-anchor="middle">12</text><g class="trace t-n"><line x1="70.9" y1="223.9" x2="79.1" y2="223.9"/></g><text class="petit" x="66.2" y="227.6" text-anchor="end">2</text><g class="trace t-n"><line x1="70.9" y1="200.9" x2="79.1" y2="200.9"/></g><text class="petit" x="66.2" y="204.6" text-anchor="end">4</text><g class="trace t-n"><line x1="70.9" y1="177.9" x2="79.1" y2="177.9"/></g><text class="petit" x="66.2" y="181.6" text-anchor="end">6</text><g class="trace t-n"><line x1="70.9" y1="154.9" x2="79.1" y2="154.9"/></g><text class="petit" x="66.2" y="158.6" text-anchor="end">8</text><g class="trace t-n"><line x1="70.9" y1="131.9" x2="79.1" y2="131.9"/></g><text class="petit" x="66.2" y="135.6" text-anchor="end">10</text><g class="trace t-n"><line x1="70.9" y1="108.9" x2="79.1" y2="108.9"/></g><text class="petit" x="66.2" y="112.6" text-anchor="end">12</text><g class="trace t-n"><line x1="70.9" y1="85.9" x2="79.1" y2="85.9"/></g><text class="petit" x="66.2" y="89.6" text-anchor="end">14</text><g class="trace t-n"><line x1="70.9" y1="62.9" x2="79.1" y2="62.9"/></g><text class="petit" x="66.2" y="66.6" text-anchor="end">16</text><g class="trace t-n"><line x1="70.9" y1="39.9" x2="79.1" y2="39.9"/></g><text class="petit" x="66.2" y="43.6" text-anchor="end">18</text><g class="trace t-v pointille"><line x1="75.0" y1="218.2" x2="395.0" y2="218.2"/></g><text class="petit halo" x="365.0" y="207.8" text-anchor="end">2,5 mg/L</text><g class="trace t-u ep-3"><path d="M75.0,246.9 L100.0,62.9 L125.0,85.9 L150.0,120.4 L175.0,154.9 L200.0,177.9 L225.0,195.2 L250.0,206.7 L275.0,218.2 L300.0,223.9 L325.0,229.7 L350.0,233.1 L375.0,235.4"/></g><circle class="pt pt-u" cx="75.0" cy="246.9" r="3"/><circle class="pt pt-u" cx="100.0" cy="62.9" r="3"/><circle class="pt pt-u" cx="125.0" cy="85.9" r="3"/><circle class="pt pt-u" cx="150.0" cy="120.4" r="3"/><circle class="pt pt-u" cx="175.0" cy="154.9" r="3"/><circle class="pt pt-u" cx="200.0" cy="177.9" r="3"/><circle class="pt pt-u" cx="225.0" cy="195.2" r="3"/><circle class="pt pt-u" cx="250.0" cy="206.7" r="3"/><circle class="pt pt-u" cx="275.0" cy="218.2" r="3"/><circle class="pt pt-u" cx="300.0" cy="223.9" r="3"/><circle class="pt pt-u" cx="325.0" cy="229.7" r="3"/><circle class="pt pt-u" cx="350.0" cy="233.1" r="3"/><circle class="pt pt-u" cx="375.0" cy="235.4" r="3"/></svg><figcaption>La concentration de paracétamol dans le sang après une prise (valeurs fictives).</figcaption></figure>
+    <details class="indice"><p>Coefficient directeur : $\dfrac{y_B-y_A}{x_B-x_A}$. Dans 1. b), l'ordonnée baisse quand l'abscisse monte : le résultat est négatif.</p></details>
+    <details class="correction">
+      <p>1. a) $\dfrac{13-5}{6-2}=\dfrac{8}{4}=2$. b) $\dfrac{1-7}{4-0}=\dfrac{-6}{4}=-1{,}5$. c) $\dfrac{2-2}{3-(-1)}=\dfrac{0}{4}=0$ : la droite est horizontale.</p>
+      <p>2. $A(1\,;\,16)$ et $B(4\,;\,8)$. La pente de $(AB)$ est $\dfrac{8-16}{4-1}=\dfrac{-8}{3}\approx-2{,}7$ mg/L par heure. C'est le taux de variation de $C$ entre 1 h et 4 h : la vitesse moyenne à laquelle la concentration a baissé sur ces trois heures.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-quatre-representations" data-titre="Quatre représentations" data-niveau="1" data-type="application" data-notions="modeliser courbe fonction" data-duree="10" data-calculatrice="non">
+    <p>Trois situations, trois formules, trois tableaux. Associe-les, puis dis laquelle des trois courbes est une droite qui passe par l'origine, laquelle est une droite qui descend, laquelle est une droite qui monte sans passer par l'origine.</p>
+    <p><strong>Situations.</strong> (S1) Une poche de perfusion de $1\,000$ mL passe à $125$ mL par heure. (S2) Un transport en ambulance : $60$ € de forfait, puis $2{,}50$ € par kilomètre. (S3) Une dose de $15$ mg par kilogramme.</p>
+    <p><strong>Formules.</strong> (F1) $f(x)=60+2{,}5\,x$ · (F2) $f(x)=15\,x$ · (F3) $f(x)=1\,000-125\,x$</p>
+    <p><strong>Tableaux.</strong> (T1) $x$ : $0$, $4$, $8$ → $f(x)$ : $1\,000$, $500$, $0$ · (T2) $x$ : $10$, $20$, $40$ → $f(x)$ : $150$, $300$, $600$ · (T3) $x$ : $0$, $4$, $20$ → $f(x)$ : $60$, $70$, $110$</p>
+    <details class="correction">
+      <p>(S1) – (F3) – (T1) : $1\,000-125\times4=500$ et $1\,000-125\times8=0$. La droite descend ($-125$ mL par heure) et part de $1\,000$ : elle ne passe pas par l'origine.</p>
+      <p>(S2) – (F1) – (T3) : $60+2{,}5\times4=70$, $60+2{,}5\times20=110$. La droite monte ($+2{,}50$ € par km) et part de $60$ : pas par l'origine.</p>
+      <p>(S3) – (F2) – (T2) : $15\times10=150$, $15\times40=600$. La droite monte et passe par l'origine : une situation de proportionnalité.</p>
+      <p>Le réflexe : la part fixe de la phrase est la valeur en $x=0$ ; la part « par kilomètre », « par heure », « par kilogramme » est le coefficient de $x$, avec son signe.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Des situations complètes</h3>
+
+  <article class="exercice" id="ex-la-concentration-du-medicament" data-titre="La concentration du médicament" data-niveau="2" data-type="probleme" data-notions="courbe resoudre taux-variation monotonie" data-duree="15" data-calculatrice="non">
+    <p>La courbe de l'exercice « La pente de la droite » donne la concentration $C(t)$ de paracétamol dans le sang (mg/L) en fonction du temps $t$ (heures) après une prise. Relevés : $C(0)=0$, $C(1)=16$, $C(2)=14$, $C(3)=11$, $C(4)=8$, $C(6)=4{,}5$, $C(8)=2{,}5$, $C(12)=1$. Pour cet exercice, on considère que le médicament agit tant que la concentration dépasse $2{,}5$ mg/L. (Valeurs fictives : la vraie pharmacologie est plus subtile.)</p>
+    <p>1. Quand la concentration est-elle maximale ? Que vaut-elle ?<br>2. Dresse le tableau de variations de $C$ sur $[0\,;\,12]$.<br>3. Résous graphiquement $C(t)&gt;2{,}5$ et interprète.<br>4. Calcule le taux de variation de $C$ entre 1 h et 3 h, puis entre 6 h et 8 h. Que constate-t-on ?</p>
+    <details class="indice"><p>3. Trace la droite $y=2{,}5$. Elle coupe la courbe une première fois dans la montée très rapide du début, et une seconde fois à $t=8$.</p></details>
+    <details class="correction">
+      <p>1. Le maximum est atteint à $t=1$ : $C(1)=16$ mg/L, une heure après la prise.</p>
+      <p>2. $C$ est croissante sur $[0\,;\,1]$ (de $0$ à $16$) et décroissante sur $[1\,;\,12]$ (de $16$ à $1$).</p>
+      <p>3. La courbe est au-dessus de $2{,}5$ entre le début de la montée (quelques minutes après la prise, vers $t\approx0{,}15$ h) et $t=8$, où $C(8)=2{,}5$ exactement. Solutions : $t\in\,]0{,}15\,;\,8[$ environ. Le médicament agit pendant près de 8 heures ; c'est cohérent avec « une prise toutes les 6 à 8 heures ».</p>
+      <p>4. Entre 1 h et 3 h : $\dfrac{11-16}{3-1}=\dfrac{-5}{2}=-2{,}5$ mg/L par heure. Entre 6 h et 8 h : $\dfrac{2{,}5-4{,}5}{8-6}=\dfrac{-2}{2}=-1$ mg/L par heure. L'élimination ralentit : moins il reste de médicament, moins vite la concentration baisse. Les deux taux sont négatifs, et la fonction est bien décroissante sur $[1\,;\,12]$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-glycemie" data-titre="La glycémie" data-niveau="2" data-type="probleme" data-notions="monotonie taux-variation courbe" data-duree="20" data-calculatrice="non">
+    <p>Après un repas, on mesure la glycémie $g(t)$ d'une personne (en g/L), $t$ étant le temps en heures depuis le repas (valeurs fictives) :</p>
+    <div class="defile"><table class="valeurs">
+      <tr><th>$t$ (h)</th><td>0</td><td>0,5</td><td>1</td><td>1,5</td><td>2</td><td>2,5</td><td>3</td></tr>
+      <tr><th>$g(t)$ (g/L)</th><td>0,9</td><td>1,2</td><td>1,4</td><td>1,3</td><td>1,1</td><td>1,0</td><td>0,9</td></tr>
+    </table></div>
+    <p>1. Trace la courbe de $g$ (axes nommés, unités). Quel est le sens de variation de $g$ sur $[0\,;\,1]$ ? Sur $[1\,;\,3]$ ?<br>2. Calcule le taux de variation de $g$ entre $0$ et $0{,}5$, puis entre $0{,}5$ et $1$. Sur quelle demi-heure la glycémie monte-t-elle le plus vite ?<br>3. Calcule le taux entre $1$ et $2$, puis entre $2$ et $3$. Interprète.<br>4. Calcule le taux entre $0$ et $3$. Qu'en déduire — et que ne faut-il surtout pas en déduire ?</p>
+    <details class="correction">
+      <p>1. $g$ est croissante sur $[0\,;\,1]$ ($0{,}9\to1{,}4$) et décroissante sur $[1\,;\,3]$ ($1{,}4\to0{,}9$).</p>
+      <p>2. Entre $0$ et $0{,}5$ : $\dfrac{1{,}2-0{,}9}{0{,}5}=\dfrac{0{,}3}{0{,}5}=0{,}6$ g/L par heure. Entre $0{,}5$ et $1$ : $\dfrac{1{,}4-1{,}2}{0{,}5}=0{,}4$ g/L par heure. La montée est plus rapide pendant la première demi-heure.</p>
+      <p>3. Entre $1$ et $2$ : $\dfrac{1{,}1-1{,}4}{1}=-0{,}3$ g/L par heure. Entre $2$ et $3$ : $\dfrac{0{,}9-1{,}1}{1}=-0{,}2$ g/L par heure. La glycémie redescend, d'abord vite puis plus lentement.</p>
+      <p>4. Entre $0$ et $3$ : $\dfrac{0{,}9-0{,}9}{3}=0$. La glycémie est revenue à sa valeur de départ : la variation globale est nulle. Il ne faut surtout pas en déduire que $g$ est constante sur $[0\,;\,3]$ : elle est montée de $0{,}5$ g/L puis redescendue d'autant. Un taux entre deux points ne voit que les deux points.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-croissance-du-nourrisson" data-titre="La croissance du nourrisson" data-niveau="2" data-type="probleme" data-notions="taux-variation modeliser" data-duree="12" data-calculatrice="oui">
+    <p>La taille $T(a)$ d'un enfant, en cm, en fonction de son âge $a$ en mois (valeurs arrondies, d'allure réaliste) :</p>
+    <div class="defile"><table class="valeurs">
+      <tr><th>$a$ (mois)</th><td>0</td><td>3</td><td>6</td><td>9</td><td>12</td><td>18</td><td>24</td></tr>
+      <tr><th>$T(a)$ (cm)</th><td>50</td><td>60</td><td>67</td><td>71</td><td>75</td><td>81</td><td>86</td></tr>
+    </table></div>
+    <p>1. Calcule le taux de variation de $T$ entre $0$ et $3$ mois, puis entre $12$ et $24$ mois (arrondis au dixième). Quelle est son unité ? Que mesure-t-il ?<br>2. Entre quels relevés la croissance est-elle la plus rapide ? La plus lente ?<br>3. La puéricultrice dit : « il a pris 25 cm la première année ». Est-ce un taux de variation ? Transforme sa phrase en taux.</p>
+    <details class="correction">
+      <p>1. Entre $0$ et $3$ : $\dfrac{60-50}{3}=\dfrac{10}{3}\approx3{,}3$ cm par mois. Entre $12$ et $24$ : $\dfrac{86-75}{12}=\dfrac{11}{12}\approx0{,}9$ cm par mois. L'unité est le centimètre par mois ; le taux mesure la vitesse moyenne de croissance sur la période.</p>
+      <p>2. Les taux sur chaque période : $[0\,;\,3]$ : $3{,}3$ ; $[3\,;\,6]$ : $\frac{7}{3}\approx2{,}3$ ; $[6\,;\,9]$ : $\frac{4}{3}\approx1{,}3$ ; $[9\,;\,12]$ : $\frac{4}{3}\approx1{,}3$ ; $[12\,;\,18]$ : $1$ ; $[18\,;\,24]$ : $\frac{5}{6}\approx0{,}8$ cm par mois. La croissance est la plus rapide dans les trois premiers mois, la plus lente entre 18 et 24 mois. La courbe monte de moins en moins vite : elle est croissante, et ses taux décroissent.</p>
+      <p>3. « 25 cm la première année » est une variation, $T(12)-T(0)=25$ cm, pas un taux. En taux : $\dfrac{25}{12}\approx2{,}1$ cm par mois en moyenne sur la première année.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-duree-de-la-perfusion" data-titre="La durée de la perfusion" data-niveau="2" data-type="probleme" data-notions="modeliser courbe image" data-duree="12" data-calculatrice="non">
+    <p>Une poche de $500$ mL est passée à un débit constant $D$, en mL par heure. La durée de la perfusion, en heures, est $t(D)=\dfrac{500}{D}$, pour $D$ entre $25$ et $250$ mL/h.</p>
+    <p>1. Calcule $t(50)$, $t(100)$, $t(125)$ et $t(250)$.<br>2. Quand le débit double, que devient la durée ? Comment appelle-t-on deux grandeurs liées ainsi ?<br>3. Quel débit faut-il pour que la poche passe en $8$ heures ?<br>4. La courbe de $t$ est-elle une droite ? Justifie avec les taux de variation entre $50$ et $100$, puis entre $100$ et $250$.</p>
+    <details class="correction">
+      <p>1. $t(50)=10$ h ; $t(100)=5$ h ; $t(125)=4$ h ; $t(250)=2$ h.</p>
+      <p>2. De $50$ à $100$ mL/h, la durée passe de $10$ à $5$ h : elle est divisée par $2$. Les deux grandeurs sont inversement proportionnelles : leur produit est constant, $D\times t=500$.</p>
+      <p>3. $\dfrac{500}{D}=8$ donne $D=\dfrac{500}{8}=62{,}5$ mL/h.</p>
+      <p>4. Entre $50$ et $100$ : $\dfrac{5-10}{100-50}=\dfrac{-5}{50}=-0{,}1$ h par mL/h. Entre $100$ et $250$ : $\dfrac{2-5}{150}=-0{,}02$ h par mL/h. Les taux ne sont pas égaux : ce n'est pas une droite. La courbe descend, de plus en plus lentement — c'est l'allure d'une fonction du type $\dfrac{k}{x}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-taux-de-variation-ou-taux-d-evolution" data-titre="Taux de variation ou taux d'évolution ?" data-niveau="2" data-type="raisonnement" data-notions="taux-variation pourcentages" data-duree="10" data-calculatrice="non">
+    <p>Le nombre de patients accueillis par un service d'urgences est passé de $120$ par jour en janvier (mois $1$) à $150$ par jour en avril (mois $4$).</p>
+    <p>1. Calcule le taux d'évolution de ce nombre entre janvier et avril, en pourcentage.<br>2. Calcule le taux de variation de la fonction « nombre de patients par jour » entre le mois $1$ et le mois $4$. Quelle est son unité ?<br>3. Les deux nombres répondent à deux questions différentes. Lesquelles ?<br>4. Si l'augmentation continue au même taux de variation, combien de patients par jour en juillet (mois $7$) ? Et si elle continue au même taux d'évolution tous les trois mois ?</p>
+    <details class="correction">
+      <p>1. Taux d'évolution : $\dfrac{150-120}{120}=\dfrac{30}{120}=0{,}25$, soit $+25\,\%$. Pas d'unité : c'est une proportion de la valeur de départ.</p>
+      <p>2. Taux de variation : $\dfrac{150-120}{4-1}=\dfrac{30}{3}=10$ patients par jour <em>par mois</em>. L'unité dit : chaque mois, dix patients par jour de plus, en moyenne.</p>
+      <p>3. Le taux d'évolution répond à « de quelle fraction de la valeur de départ a-t-on augmenté ? ». Le taux de variation répond à « de combien par mois ? » : il tient compte du temps écoulé.</p>
+      <p>4. Au même taux de variation : $150+10\times3=180$ patients par jour en juillet (on ajoute $10$ chaque mois). Au même taux d'évolution de $+25\,\%$ par trimestre : $150\times1{,}25=187{,}5$, soit environ $188$ par jour. Les deux modèles ne donnent pas la même prévision : l'un ajoute, l'autre multiplie.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-vitesse-moyenne" data-titre="La vitesse moyenne" data-niveau="2" data-type="probleme" data-notions="taux-variation modeliser" data-duree="10" data-calculatrice="non">
+    <p><em>(Un exemple pour la STI2D.)</em> Un véhicule part à $t=0$. La distance parcourue $d(t)$, en km, est relevée toutes les demi-heures : $d(0)=0$, $d(0{,}5)=30$, $d(1)=75$, $d(1{,}5)=120$, $d(2)=130$, $d(2{,}5)=175$.</p>
+    <p>1. Calcule le taux de variation de $d$ entre $0{,}5$ et $1{,}5$ h. Quelle est son unité ? Comment appelle-t-on ce nombre en physique ?<br>2. Calcule-le entre $1{,}5$ et $2$ h. Que s'est-il passé ?<br>3. Calcule la vitesse moyenne sur tout le trajet.<br>4. $d$ est-elle croissante sur $[0\,;\,2{,}5]$ ? Pourquoi est-ce normal pour une distance parcourue ?</p>
+    <details class="correction">
+      <p>1. $\dfrac{120-30}{1{,}5-0{,}5}=\dfrac{90}{1}=90$ km par heure : c'est la <strong>vitesse moyenne</strong> entre ces deux instants. Un taux de variation d'une distance par rapport au temps est une vitesse.</p>
+      <p>2. $\dfrac{130-120}{2-1{,}5}=\dfrac{10}{0{,}5}=20$ km/h : un ralentissement net, un bouchon ou une traversée de ville.</p>
+      <p>3. $\dfrac{175-0}{2{,}5-0}=70$ km/h en moyenne sur le trajet.</p>
+      <p>4. Oui : chaque relevé est supérieur au précédent, tous les taux sont positifs. Une distance parcourue ne peut pas diminuer : au pire le véhicule s'arrête, et le taux est nul.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-culture-de-bacteries" data-titre="La culture de bactéries" data-niveau="2" data-type="probleme" data-notions="taux-variation monotonie" data-duree="10" data-calculatrice="non">
+    <p><em>(Un exemple pour la STL.)</em> Dans une culture, le nombre de bactéries $N(t)$, en millions par mL, est relevé toutes les heures : $N(0)=1$, $N(1)=2$, $N(2)=4$, $N(3)=8$, $N(4)=16$.</p>
+    <p>1. Calcule le taux de variation de $N$ sur chaque heure : $[0\,;\,1]$, $[1\,;\,2]$, $[2\,;\,3]$, $[3\,;\,4]$. Unité ?<br>2. Que remarque-t-on ? La courbe est-elle une droite ?<br>3. Calcule le taux d'évolution de $N$ sur chaque heure. Que remarque-t-on cette fois ?<br>4. Laquelle des deux descriptions, « taux de variation » ou « taux d'évolution », résume le mieux cette croissance ?</p>
+    <details class="correction">
+      <p>1. $1$, $2$, $4$ et $8$ millions de bactéries par mL <em>par heure</em>.</p>
+      <p>2. Les taux doublent d'une heure à l'autre : la croissance est de plus en plus rapide. Ce n'est pas une droite, dont les taux seraient tous égaux. $N$ est croissante (tous les taux sont positifs), et de plus en plus vite.</p>
+      <p>3. Taux d'évolution : $\dfrac{2-1}{1}=\dfrac{4-2}{2}=\dfrac{8-4}{4}=\dfrac{16-8}{8}=1$, soit $+100\,\%$ chaque heure : la population double à chaque heure.</p>
+      <p>4. Ici, le taux d'évolution est constant et dit tout en un chiffre (« ça double chaque heure ») ; le taux de variation change tout le temps. C'est une croissance exponentielle, que les suites géométriques décrivent. Pour une droite, ce serait l'inverse : taux de variation constant, taux d'évolution variable.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-atelier" data-titre="L'atelier" data-niveau="2" data-type="probleme" data-notions="modeliser taux-variation resoudre" data-duree="12" data-calculatrice="non">
+    <p><em>(Un exemple pour la STMG.)</em> Un atelier fabrique des orthèses. Ses coûts fixes sont de $200$ € par jour, et chaque orthèse coûte $15$ € de matière. On note $C(q)$ le coût total de la journée, en euros, pour $q$ orthèses fabriquées ($0\leqslant q\leqslant60$).</p>
+    <p>1. Écris $C(q)$. Calcule $C(0)$, $C(10)$ et $C(40)$.<br>2. Quel est le taux de variation de $C$ entre $10$ et $40$ ? Et entre $0$ et $60$ ? Que représente-t-il pour l'atelier ?<br>3. Combien d'orthèses pour un coût de $500$ € ? Résous par le calcul, puis dis comment le lire sur la courbe.<br>4. Chaque orthèse est vendue $20$ €. Écris la recette $R(q)$ et trouve graphiquement à partir de combien d'orthèses l'atelier est rentable.</p>
+    <details class="correction">
+      <p>1. $C(q)=200+15\,q$. $C(0)=200$ € (les coûts fixes, même sans produire) ; $C(10)=350$ € ; $C(40)=800$ €.</p>
+      <p>2. $\dfrac{800-350}{40-10}=\dfrac{450}{30}=15$ € par orthèse ; entre $0$ et $60$ : $\dfrac{1\,100-200}{60}=15$ aussi. Pour une fonction affine, le taux est constant : c'est le coût de matière d'une orthèse, $15$ €, le coefficient directeur de la droite.</p>
+      <p>3. $200+15\,q=500$ donne $15\,q=300$, donc $q=20$ orthèses. Graphiquement : la droite $y=500$ coupe la courbe de $C$ au point d'abscisse $20$.</p>
+      <p>4. $R(q)=20\,q$ : une droite qui passe par l'origine. L'atelier est rentable quand $R(q)&gt;C(q)$, c'est-à-dire quand la droite de $R$ est au-dessus de celle de $C$ : à partir de leur point d'intersection, $20\,q=200+15\,q$, soit $q=40$. Au-delà de $40$ orthèses par jour, l'atelier gagne de l'argent.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="taux-variation" data-duree="12" data-calculatrice="non">
+    <p>Sur la feuille de température de M. Lenoir, $\theta(8)=37{,}7$ °C et $\theta(10)=38{,}9$ °C ; puis $\theta(12)=39{,}4$ °C et $\theta(14)=38{,}6$ °C. Un élève a demandé à une IA de calculer le taux de variation de la température entre 12 h et 14 h, et d'interpréter. Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« Le taux de variation se calcule en divisant la variation du temps par la variation de la température : $\dfrac{14-12}{38{,}6-39{,}4}=\dfrac{2}{-0{,}8}=-2{,}5$. La température varie donc de $-2{,}5$ °C par heure entre 12 h et 14 h, c'est-à-dire qu'elle chute de 2,5 degrés chaque heure. C'est une baisse très rapide et préoccupante : en moins de deux heures, le patient serait passé sous les 35 °C. L'équipe doit être alertée. »</blockquote>
+    <details class="indice"><p>Reprends la définition : qu'y a-t-il en haut, qu'y a-t-il en bas ? Puis vérifie la conclusion avec les deux valeurs de départ : de $39{,}4$ à $38{,}6$, est-ce une chute de $2{,}5$ °C par heure ?</p></details>
+    <details class="correction">
+      <p><strong>Erreur 1 : la fraction est à l'envers.</strong> Le taux de variation est $\dfrac{\theta(14)-\theta(12)}{14-12}$ : la variation de l'<em>image</em> (la température) en haut, celle de la <em>variable</em> (le temps) en bas. L'IA a divisé le temps par la température : son $-2{,}5$ est en « heures par degré », et elle le lit en « degrés par heure ».</p>
+      <p><strong>Erreur 2 : la conclusion contredit les données.</strong> La température est passée de $39{,}4$ à $38{,}6$ °C en deux heures, soit $0{,}8$ °C en tout. Une « chute de 2,5 degrés chaque heure » aurait donné $34{,}4$ °C à 14 h. Une phrase fluide et alarmante, fausse dès la première ligne ; le réflexe de vérification manque.</p>
+      <p><strong>Erreur 3 : l'extrapolation.</strong> Même avec un taux juste, rien ne dit que la baisse continue au même rythme : un taux de variation décrit ce qui s'est passé <em>entre</em> deux instants, pas ce qui va se passer après.</p>
+      <p><strong>La réponse correcte.</strong> $\dfrac{\theta(14)-\theta(12)}{14-12}=\dfrac{38{,}6-39{,}4}{2}=\dfrac{-0{,}8}{2}=-0{,}4$ °C par heure. Entre 12 h et 14 h, la température a baissé en moyenne de $0{,}4$ °C par heure : le paracétamol de midi fait effet, la fièvre reflue à un rythme ordinaire. Au passage, entre 8 h et 10 h, le taux valait $\dfrac{38{,}9-37{,}7}{2}=+0{,}6$ °C par heure : la montée du matin était plus rapide que la baisse de l'après-midi.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Raisonner et modéliser</h3>
+
+  <article class="exercice" id="ex-croissante-donc-positive" data-titre="Croissante, donc positive ?" data-niveau="3" data-type="raisonnement" data-notions="monotonie" data-duree="12" data-calculatrice="non">
+    <p>Quatre affirmations. Pour chacune, dis si elle est vraie ; si elle est fausse, donne un contre-exemple (une situation ou une formule).</p>
+    <p>a) Une fonction croissante sur un intervalle y est positive.<br>b) Une fonction négative sur un intervalle y est décroissante.<br>c) Une fonction peut être décroissante sur un intervalle et positive sur tout cet intervalle.<br>d) Si $f$ est croissante sur $[0\,;\,6]$ et $f(0)=-18$, alors $f(6)\geqslant-18$.</p>
+    <details class="indice"><p>Le congélateur en panne du cours : de $-18$ °C à $-6$ °C en montant. Et la fièvre qui baisse : positive, décroissante.</p></details>
+    <details class="correction">
+      <p>a) <strong>Faux.</strong> $\theta(t)=-18+2t$ sur $[0\,;\,6]$ : croissante (le coefficient $2$ est positif), et pourtant $\theta(t)$ va de $-18$ à $-6$, toujours négatif.</p>
+      <p>b) <strong>Faux.</strong> Le même contre-exemple : négative et croissante.</p>
+      <p>c) <strong>Vrai.</strong> La fièvre de M. Lenoir sur $[12\,;\,22]$ : la température est toujours positive (autour de 38 °C) et elle décroît. Ou $f(x)=10-x$ sur $[0\,;\,5]$.</p>
+      <p>d) <strong>Vrai.</strong> C'est la définition : $0&lt;6$ et $f$ croissante entraînent $f(0)\leqslant f(6)$, donc $f(6)\geqslant-18$. Le signe de $f(0)$ n'y change rien.</p>
+      <p>Le signe parle de la <em>position</em> de la courbe par rapport à l'axe ; le sens de variation parle de sa <em>direction</em>. Deux informations indépendantes.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-signe-du-taux" data-titre="Le signe du taux" data-niveau="3" data-type="raisonnement" data-notions="monotonie taux-variation" data-duree="15" data-calculatrice="non">
+    <p>On veut comprendre pourquoi « $f$ croissante sur $I$ » et « tous les taux de variation de $f$ sur $I$ sont positifs ou nuls » disent la même chose.</p>
+    <p>1. Soit $f$ croissante sur $I$, et $a&lt;b$ deux nombres de $I$. Quel est le signe de $f(b)-f(a)$ ? De $b-a$ ? Du taux $\dfrac{f(b)-f(a)}{b-a}$ ?<br>2. Toujours $f$ croissante, mais cette fois $a&gt;b$. Reprends les trois signes. Que constate-t-on ?<br>3. Réciproquement, on suppose que tous les taux de variation de $f$ sur $I$ sont positifs ou nuls. Montre que si $a&lt;b$, alors $f(a)\leqslant f(b)$.<br>4. Pour la fonction affine $f(x)=-50x+500$, calcule le taux entre deux valeurs quelconques $a$ et $b$. Qu'en déduire sur son sens de variation ?</p>
+    <details class="indice"><p>1. Croissante : quand on avance, on ne descend pas. 3. Un quotient positif dont le dénominateur $b-a$ est positif a un numérateur positif.</p></details>
+    <details class="correction">
+      <p>1. $a&lt;b$ et $f$ croissante donnent $f(a)\leqslant f(b)$, donc $f(b)-f(a)\geqslant0$. Et $b-a&gt;0$. Le quotient d'un nombre positif ou nul par un nombre positif est positif ou nul : le taux est $\geqslant0$.</p>
+      <p>2. Si $a&gt;b$ : $f(a)\geqslant f(b)$, donc $f(b)-f(a)\leqslant0$ ; et $b-a&lt;0$. Quotient de deux nombres de même signe : le taux est encore $\geqslant0$. Le taux ne dépend pas de l'ordre dans lequel on nomme les deux points — à condition de soustraire dans le même ordre en haut et en bas.</p>
+      <p>3. Soit $a&lt;b$ dans $I$. Le taux $\dfrac{f(b)-f(a)}{b-a}$ est $\geqslant0$ par hypothèse, et $b-a&gt;0$. Un quotient positif ou nul dont le dénominateur est strictement positif a un numérateur positif ou nul : $f(b)-f(a)\geqslant0$, c'est-à-dire $f(a)\leqslant f(b)$. $f$ est croissante.</p>
+      <p>4. $\dfrac{f(b)-f(a)}{b-a}=\dfrac{(-50b+500)-(-50a+500)}{b-a}=\dfrac{-50b+50a}{b-a}=\dfrac{-50(b-a)}{b-a}=-50$. Tous les taux valent $-50&lt;0$ : $f$ est décroissante sur $\mathbb{R}$. Pour une fonction affine, le signe du coefficient directeur donne le sens de variation.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-creche" data-titre="La crèche" data-niveau="3" data-type="probleme" data-notions="modeliser courbe resoudre" data-duree="18" data-calculatrice="oui">
+    <p>Dans une crèche, le tarif horaire dépend des revenus mensuels de la famille, selon un barème simplifié inspiré du barème national : le tarif est de $0{,}06\,\%$ des revenus mensuels $r$ (en euros), avec un plancher de revenus à $800$ € et un plafond à $7\,000$ € (en dessous du plancher, on applique le tarif du plancher ; au-dessus du plafond, celui du plafond). On note $T(r)$ le tarif horaire, en euros.</p>
+    <p>1. Calcule $T(2\,000)$ et $T(3\,500)$.<br>2. Écris la formule de $T(r)$ pour $800\leqslant r\leqslant7\,000$. Que vaut $T(r)$ pour $r&lt;800$ ? Pour $r&gt;7\,000$ ?<br>3. Trace la courbe de $T$ pour $r$ de $0$ à $9\,000$ (axes nommés, unités). Quelle est sa forme ?<br>4. Pour un enfant gardé $160$ heures par mois, quelle famille paie $320$ € par mois ? Résous graphiquement puis par le calcul.<br>5. Quel est le taux de variation de $T$ entre $2\,000$ et $3\,500$ € ? Entre $7\,000$ et $8\,000$ € ? Interprète.</p>
+    <details class="indice"><p>$0{,}06\,\%=\dfrac{0{,}06}{100}=0{,}0006$. Et $320$ € pour $160$ h, c'est un tarif horaire de $2$ €.</p></details>
+    <details class="correction">
+      <p>1. $T(2\,000)=0{,}0006\times2\,000=1{,}20$ € par heure ; $T(3\,500)=0{,}0006\times3\,500=2{,}10$ € par heure.</p>
+      <p>2. Pour $800\leqslant r\leqslant7\,000$ : $T(r)=0{,}0006\,r$. Pour $r&lt;800$ : $T(r)=T(800)=0{,}48$ €. Pour $r&gt;7\,000$ : $T(r)=T(7\,000)=4{,}20$ €.</p>
+      <p>3. Trois morceaux : un palier horizontal à $0{,}48$ jusqu'à $800$, un segment de droite qui monte de $(800\,;\,0{,}48)$ à $(7\,000\,;\,4{,}20)$, puis un palier à $4{,}20$. C'est une fonction définie par morceaux, croissante sur tout $[0\,;\,9\,000]$ (elle ne descend jamais), constante sur les deux paliers.</p>
+      <p>4. $320$ € pour $160$ h : $T(r)=2$. Graphiquement, la droite $y=2$ coupe le segment oblique en un point d'abscisse voisine de $3\,300$. Par le calcul : $0{,}0006\,r=2$, donc $r=\dfrac{2}{0{,}0006}\approx3\,333$ €. Une famille aux revenus d'environ $3\,330$ € par mois.</p>
+      <p>5. Entre $2\,000$ et $3\,500$ : $\dfrac{2{,}10-1{,}20}{1\,500}=\dfrac{0{,}90}{1\,500}=0{,}0006$ € par euro de revenu : c'est le coefficient $0{,}06\,\%$, le même partout sur le segment. Entre $7\,000$ et $8\,000$ : $\dfrac{4{,}20-4{,}20}{1\,000}=0$ : au-dessus du plafond, gagner plus ne change plus le tarif.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-dans-l-esprit-de-l-epreuve-anticipee" data-titre="Dans l'esprit de l'épreuve anticipée" data-niveau="3" data-type="probleme" data-notions="courbe resoudre monotonie taux-variation image" data-duree="20" data-calculatrice="non" data-source="Dans l'esprit de l'exercice « fonctions » de l'épreuve anticipée 2026, voie technologique (lecture graphique, tableau de variations, puis calcul)">
+    <p>On donne ci-dessous la courbe d'une fonction $f$ définie sur $[-2\,;\,6]$.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 360 292" role="img" aria-label="La courbe d'une fonction f sur l'intervalle de moins 2 à 6, dans un repère gradué. Elle part de moins 1 en moins 2, monte jusqu'à 3 en 0, redescend jusqu'à moins 1 en 3 en passant par 0 en 2, puis remonte en passant par 0 en 4 et 2 en 5, jusqu'à 5 en 6."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="282"/><line x1="44" y1="10" x2="44" y2="282"/><line x1="78" y1="10" x2="78" y2="282"/><line x1="112" y1="10" x2="112" y2="282"/><line x1="146" y1="10" x2="146" y2="282"/><line x1="180" y1="10" x2="180" y2="282"/><line x1="214" y1="10" x2="214" y2="282"/><line x1="248" y1="10" x2="248" y2="282"/><line x1="282" y1="10" x2="282" y2="282"/><line x1="316" y1="10" x2="316" y2="282"/><line x1="350" y1="10" x2="350" y2="282"/><line x1="10" y1="282" x2="350" y2="282"/><line x1="10" y1="248" x2="350" y2="248"/><line x1="10" y1="214" x2="350" y2="214"/><line x1="10" y1="180" x2="350" y2="180"/><line x1="10" y1="146" x2="350" y2="146"/><line x1="10" y1="112" x2="350" y2="112"/><line x1="10" y1="78" x2="350" y2="78"/><line x1="10" y1="44" x2="350" y2="44"/><line x1="10" y1="10" x2="350" y2="10"/></g><g class="trace t-n"><line x1="13.4" y1="214" x2="338.8" y2="214.0"/><polygon points="346.6,214.0 333.6,219.8 333.6,208.2"/></g><g class="trace t-n"><line x1="112" y1="278.6" x2="112.0" y2="29.7"/><polygon points="112.0,21.9 117.8,34.9 106.2,34.9"/></g><text class="moyen" x="346.6" y="195.3" text-anchor="end">x</text><text class="moyen" x="121.2" y="21.9" text-anchor="start">y</text><g class="trace t-n"><line x1="44" y1="217.1" x2="44" y2="210.9"/></g><text class="petit" x="44" y="231.0" text-anchor="middle">−2</text><g class="trace t-n"><line x1="78" y1="217.1" x2="78" y2="210.9"/></g><text class="petit" x="78" y="231.0" text-anchor="middle">−1</text><g class="trace t-n"><line x1="146" y1="217.1" x2="146" y2="210.9"/></g><text class="petit" x="146" y="231.0" text-anchor="middle">1</text><g class="trace t-n"><line x1="180" y1="217.1" x2="180" y2="210.9"/></g><text class="petit" x="180" y="231.0" text-anchor="middle">2</text><g class="trace t-n"><line x1="214" y1="217.1" x2="214" y2="210.9"/></g><text class="petit" x="214" y="231.0" text-anchor="middle">3</text><g class="trace t-n"><line x1="248" y1="217.1" x2="248" y2="210.9"/></g><text class="petit" x="248" y="231.0" text-anchor="middle">4</text><g class="trace t-n"><line x1="282" y1="217.1" x2="282" y2="210.9"/></g><text class="petit" x="282" y="231.0" text-anchor="middle">5</text><g class="trace t-n"><line x1="316" y1="217.1" x2="316" y2="210.9"/></g><text class="petit" x="316" y="231.0" text-anchor="middle">6</text><g class="trace t-n"><line x1="108.0" y1="248" x2="116.0" y2="248"/></g><text class="petit" x="101.8" y="252.0" text-anchor="end">−1</text><g class="trace t-n"><line x1="108.0" y1="180" x2="116.0" y2="180"/></g><text class="petit" x="101.8" y="184.0" text-anchor="end">1</text><g class="trace t-n"><line x1="108.0" y1="146" x2="116.0" y2="146"/></g><text class="petit" x="101.8" y="150.0" text-anchor="end">2</text><g class="trace t-n"><line x1="108.0" y1="112" x2="116.0" y2="112"/></g><text class="petit" x="101.8" y="116.0" text-anchor="end">3</text><g class="trace t-n"><line x1="108.0" y1="78" x2="116.0" y2="78"/></g><text class="petit" x="101.8" y="82.0" text-anchor="end">4</text><g class="trace t-n"><line x1="108.0" y1="44" x2="116.0" y2="44"/></g><text class="petit" x="101.8" y="48.0" text-anchor="end">5</text><g class="trace t-u ep-3"><path d="M44.0,248.0 L45.4,243.7 L46.8,239.2 L48.2,234.6 L49.7,229.8 L51.1,225.0 L52.5,220.1 L53.9,215.2 L55.3,210.2 L56.8,205.3 L58.2,200.3 L59.6,195.4 L61.0,190.6 L62.4,185.9 L63.8,181.3 L65.2,176.8 L66.7,172.4 L68.1,168.3 L69.5,164.3 L70.9,160.6 L72.3,157.1 L73.8,153.9 L75.2,150.9 L76.6,148.3 L78.0,146.0 L79.4,143.9 L80.8,141.8 L82.2,139.7 L83.7,137.6 L85.1,135.5 L86.5,133.5 L87.9,131.5 L89.3,129.6 L90.8,127.8 L92.2,126.0 L93.6,124.3 L95.0,122.6 L96.4,121.1 L97.8,119.6 L99.2,118.3 L100.7,117.0 L102.1,115.9 L103.5,114.9 L104.9,114.1 L106.3,113.3 L107.8,112.8 L109.2,112.3 L110.6,112.1 L112.0,112.0 L113.4,112.1 L114.8,112.4 L116.2,112.8 L117.7,113.5 L119.1,114.3 L120.5,115.2 L121.9,116.3 L123.3,117.5 L124.8,118.8 L126.2,120.2 L127.6,121.7 L129.0,123.3 L130.4,125.0 L131.8,126.8 L133.2,128.6 L134.7,130.5 L136.1,132.4 L137.5,134.3 L138.9,136.3 L140.3,138.2 L141.8,140.2 L143.2,142.2 L144.6,144.1 L146.0,146.0 L147.4,148.0 L148.8,150.2 L150.2,152.6 L151.7,155.2 L153.1,158.0 L154.5,160.9 L155.9,163.9 L157.3,167.0 L158.8,170.2 L160.2,173.4 L161.6,176.7 L163.0,180.0 L164.4,183.3 L165.8,186.6 L167.2,189.8 L168.7,193.0 L170.1,196.1 L171.5,199.1 L172.9,202.0 L174.3,204.8 L175.8,207.4 L177.2,209.8 L178.6,212.0 L180.0,214.0 L181.4,215.9 L182.8,217.8 L184.2,219.8 L185.7,221.8 L187.1,223.7 L188.5,225.7 L189.9,227.6 L191.3,229.5 L192.8,231.4 L194.2,233.2 L195.6,235.0 L197.0,236.7 L198.4,238.3 L199.8,239.8 L201.2,241.2 L202.7,242.5 L204.1,243.7 L205.5,244.8 L206.9,245.7 L208.3,246.5 L209.8,247.2 L211.2,247.6 L212.6,247.9 L214.0,248.0 L215.4,247.9 L216.8,247.6 L218.2,247.2 L219.7,246.5 L221.1,245.7 L222.5,244.8 L223.9,243.7 L225.3,242.5 L226.8,241.2 L228.2,239.8 L229.6,238.3 L231.0,236.7 L232.4,235.0 L233.8,233.2 L235.2,231.4 L236.7,229.5 L238.1,227.6 L239.5,225.7 L240.9,223.7 L242.3,221.8 L243.8,219.8 L245.2,217.8 L246.6,215.9 L248.0,214.0 L249.4,212.1 L250.8,210.0 L252.2,207.9 L253.7,205.6 L255.1,203.3 L256.5,200.8 L257.9,198.3 L259.3,195.7 L260.8,193.0 L262.2,190.3 L263.6,187.4 L265.0,184.5 L266.4,181.6 L267.8,178.6 L269.2,175.5 L270.7,172.4 L272.1,169.2 L273.5,166.0 L274.9,162.7 L276.3,159.4 L277.8,156.1 L279.2,152.8 L280.6,149.4 L282.0,146.0 L283.4,142.5 L284.8,138.9 L286.2,135.2 L287.7,131.4 L289.1,127.4 L290.5,123.4 L291.9,119.2 L293.3,115.0 L294.8,110.7 L296.2,106.4 L297.6,102.0 L299.0,97.6 L300.4,93.1 L301.8,88.6 L303.2,84.0 L304.7,79.5 L306.1,75.0 L307.5,70.5 L308.9,66.0 L310.3,61.5 L311.8,57.0 L313.2,52.6 L314.6,48.3 L316.0,44.0"/></g><circle class="pt pt-u" cx="44" cy="248" r="4"/><circle class="pt pt-u" cx="316" cy="44" r="4"/><text class="moyen" x="326.2" y="57.6" text-anchor="start">y = f(x)</text></svg><figcaption>La courbe de $f$ sur $[-2\,;\,6]$, dans un repère gradué d'une unité en une unité.</figcaption></figure>
+    <p><strong>Partie A — lecture graphique.</strong><br>1. Lis $f(0)$ et $f(5)$.<br>2. Donne les antécédents de $0$ par $f$.<br>3. Résous $f(x)=2$.<br>4. Résous $f(x)\leqslant0$.<br>5. Dresse le tableau de variations de $f$ sur $[-2\,;\,6]$.</p>
+    <p><strong>Partie B — le taux de variation.</strong><br>6. Calcule le taux de variation de $f$ entre $-2$ et $0$, puis entre $0$ et $2$.<br>7. Le taux de variation de $f$ entre $-2$ et $6$ est-il positif, négatif ou nul ? Que vaut-il ? Peut-on en déduire que $f$ est croissante sur $[-2\,;\,6]$ ?</p>
+    <details class="indice"><p>Chaque carreau vaut une unité. Pour le tableau de variations, repère le sommet et le creux.</p></details>
+    <details class="correction">
+      <p>1. $f(0)=3$ et $f(5)=2$.</p>
+      <p>2. La courbe coupe l'axe des abscisses en $x=2$ et $x=4$ : les antécédents de $0$ sont $2$ et $4$.</p>
+      <p>3. La droite $y=2$ coupe la courbe en trois points, d'abscisses $-1$, $1$ et $5$ : $S=\{-1\,;\,1\,;\,5\}$.</p>
+      <p>4. La courbe est sur l'axe ou en dessous pour $x$ entre $2$ et $4$ : $S=[2\,;\,4]$.</p>
+      <p>5. $f$ est croissante sur $[-2\,;\,0]$ (de $-1$ à $3$), décroissante sur $[0\,;\,3]$ (de $3$ à $-1$), croissante sur $[3\,;\,6]$ (de $-1$ à $5$).</p>
+      <div class="defile"><table class="valeurs">
+        <tr><th>$x$</th><td>$-2$</td><td></td><td>$0$</td><td></td><td>$3$</td><td></td><td>$6$</td></tr>
+        <tr><th>$f(x)$</th><td>$-1$</td><td>↗</td><td>$3$</td><td>↘</td><td>$-1$</td><td>↗</td><td>$5$</td></tr>
+      </table></div>
+      <p>6. Entre $-2$ et $0$ : $\dfrac{3-(-1)}{0-(-2)}=\dfrac{4}{2}=2$. Entre $0$ et $2$ : $\dfrac{0-3}{2-0}=\dfrac{-3}{2}=-1{,}5$. Positif quand la courbe monte, négatif quand elle descend.</p>
+      <p>7. $\dfrac{f(6)-f(-2)}{6-(-2)}=\dfrac{5-(-1)}{8}=\dfrac{6}{8}=0{,}75&gt;0$. Le taux est positif, mais $f$ n'est pas croissante sur $[-2\,;\,6]$ : elle descend entre $0$ et $3$. Un taux positif entre deux points dit seulement que l'arrivée est plus haute que le départ.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Taux de variation et taux d'évolution, c'est pareil ?</summary>
+      <div><p>Non. Le taux d'évolution divise la variation par la <em>valeur de départ</em> : $\frac{f(b)-f(a)}{f(a)}$, un nombre sans unité, souvent écrit en pourcentage ; il ne parle pas du temps écoulé. Le taux de variation divise la variation par la <em>variation de la variable</em> : $\frac{f(b)-f(a)}{b-a}$, un nombre avec une unité (des °C par heure), qui dit à quelle vitesse ça change. Les deux sont au programme de première ; l'énoncé dit lequel il veut.</p></div></details>
+    <details><summary>Pourquoi faut-il $a\neq b$ ?</summary>
+      <div><p>Parce qu'on divise par $b-a$, et qu'on ne divise pas par zéro. Avec un seul point, il n'y a pas de variation à mesurer : il faut deux instants pour parler d'une vitesse moyenne. Le chapitre « Nombre dérivé » montrera ce qui se passe quand $b$ se rapproche de $a$ sans jamais l'atteindre.</p></div></details>
+    <details><summary>Le taux de variation, c'est une vitesse ?</summary>
+      <div><p>C'est toujours une vitesse <em>moyenne</em> : « tant par unité de la variable ». Quand la variable est le temps et l'image une distance, c'est la vitesse au sens courant, en km/h. Quand l'image est une température, c'est une vitesse de réchauffement en °C par heure ; une concentration, une vitesse d'élimination en mg/L par heure. Le mot « vitesse » aide à penser ; l'unité, elle, est à chaque fois différente.</p></div></details>
+    <details><summary>Dans quel ordre soustraire ?</summary>
+      <div><p>Dans le même ordre en haut et en bas : $f(b)-f(a)$ sur $b-a$, ou $f(a)-f(b)$ sur $a-b$, ce qui donne le même résultat. L'erreur est de mélanger : $f(a)-f(b)$ sur $b-a$ change le signe. Le plus sûr : « arrivée moins départ », en haut comme en bas.</p></div></details>
+    <details><summary>Croissante, ça veut dire positive ?</summary>
+      <div><p>Non. Croissante dit que la courbe <em>monte</em> ; positive dit qu'elle est <em>au-dessus de l'axe</em>. Un congélateur en panne qui passe de $-18$ °C à $-6$ °C a une température croissante et négative. Une fièvre qui baisse a une température positive et décroissante. Le signe de $f$ et le sens de variation de $f$ sont deux informations indépendantes.</p></div></details>
+    <details><summary>Si le taux est négatif entre $a$ et $b$, $f$ est décroissante sur $[a\,;\,b]$ ?</summary>
+      <div><p>Pas forcément. Le taux ne regarde que les deux extrémités : il dit que $f(b)&lt;f(a)$. Entre les deux, la courbe a pu monter puis redescendre (la glycémie après un repas). Pour conclure « décroissante sur $[a\,;\,b]$ », il faut que <em>tous</em> les taux pris dans l'intervalle soient négatifs — autrement dit que la courbe descende tout le long.</p></div></details>
+    <details><summary>Pourquoi la variable ne s'appelle-t-elle pas toujours $x$ ?</summary>
+      <div><p>Parce qu'une lettre qui dit ce qu'elle représente évite les erreurs : $t$ pour un temps, $m$ pour une masse, $d$ pour une distance. La fonction s'écrit alors $\theta(t)$, $D(m)$, $p(d)$. Rien ne change dans les calculs : la lettre entre parenthèses est la variable, le résultat est l'image. Le programme demande explicitement de varier le nom de la variable.</p></div></details>
+    <details><summary>Qu'est-ce qu'une sécante ? Et une tangente ?</summary>
+      <div><p>Une sécante coupe la courbe en deux points $A$ et $B$ ; sa pente est le taux de variation entre leurs abscisses. Une tangente frôle la courbe en un point, sans la traverser à cet endroit ; sa pente est le nombre dérivé, la limite du taux de variation quand $B$ se rapproche de $A$. Ce chapitre s'occupe des sécantes ; le suivant, des tangentes.</p></div></details>
+    <details><summary>Comment écrire la solution d'une inéquation ?</summary>
+      <div><p>Avec un intervalle d'abscisses, et des crochets qui disent si les bornes sont prises : $f(x)&gt;38$ sur $]8{,}5\,;\,16[$ (bornes exclues, l'inégalité est stricte), $f(x)\geqslant38$ sur $[8{,}5\,;\,16]$. S'il y a deux morceaux, on les écrit tous les deux : $[1\,;\,2]\cup[5\,;\,6]$. Et dans la situation, une phrase : « de 8 h 30 à 16 h ».</p></div></details>
+    <details><summary>Qu'est-ce qui tombe à l'épreuve anticipée ?</summary>
+      <div><p>Sans calculatrice, deux choses. Dans les automatismes : lire une image, des antécédents, résoudre $f(x)=k$ ou $f(x)&lt;k$ sur un graphique, lire ou dresser un tableau de variations, trouver le coefficient directeur d'une droite par deux points, et distinguer taux de variation et taux d'évolution. Dans l'exercice de fonctions : une courbe donnée, des lectures, un tableau de variations, puis des calculs qui confirment — l'exercice « Dans l'esprit de l'épreuve anticipée » en est l'entraînement.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
