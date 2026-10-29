@@ -1,0 +1,667 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de trigonometrie.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/premiere/trigonometrie.source.html
+     Programme : spécialité de première, BO n° 14 du 2 avril 2026, partie « Fonctions trigonométriques »
+     réduite en 2026 au cercle, au radian, à l'enroulement, aux cosinus et sinus d'un réel, aux valeurs
+     remarquables et aux angles associés ; les fonctions cos et sin (courbes, parité, périodicité) sont
+     parties en terminale (docs/programmes/maths-premiere-generale.md). cos²x + sin²x = 1 est traitée ici.
+     Les pièges sont des reconstitutions (29 octobre 2026), à tester sur les élèves du professeur.
+     Pas de tuteur : son vérificateur calcule sur des polynômes, pas sur des cosinus (CLAUDE.md). -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Trigonométrie · Première</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=a559c329f0">
+<script type="module" src="../../assets/js/site.js?v=e5e58999b7"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PXEZELIN.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BXIJRJXK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RE67HJOX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-4TLODPUZ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UASD6DFB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CRFRSPIA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-GSHDQNGB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Y4MCCTGS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-DN62O6WX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QMZR4NH7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-WCKW5DHR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LGI6A4EG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CG5YCEWP.js">
+<link rel="modulepreload" href="../../assets/js/labos/trigo.js?v=c8eaa64cab">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MI35G4WU.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/trigo.js?v=97fb44dce1">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-D46WULH7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TLTAELPK.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=9e78aa7141">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="trigo" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Première spécialité · Analyse</span>
+  <h1>Trigonométrie</h1>
+  <p class="chapeau">Une nacelle de grande roue, l'aiguille d'une horloge, un satellite autour de la Terre : tout ce qui tourne se repère par un angle. Ce chapitre change la façon de mesurer les angles — le <strong>radian</strong>, une longueur plutôt qu'un degré —, enroule la droite des nombres sur un cercle, et redonne au cosinus et au sinus du collège un sens nouveau : ce sont les coordonnées d'un point qui tourne. À la fin, tu lis sur le cercle, sans calculatrice, le cosinus et le sinus de n'importe quel réel remarquable.</p>
+  <ul class="objectifs">
+    <li>Convertir des degrés en radians et inversement</li><li>Placer un point sur le cercle trigonométrique</li><li>Connaître les valeurs remarquables et savoir les démontrer</li><li>Lire sur le cercle les cosinus et sinus des angles associés</li><li>Utiliser $\cos^2x+\sin^2x=1$</li><li>Approcher $\pi$ par la méthode d'Archimède, en Python</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Tu montes dans une grande roue de 10 m de rayon, dont l'axe est à 11 m du sol.</strong> La nacelle part du point le plus bas et tourne. Après un angle $x$, à quelle hauteur es-tu ? Le cercle répond d'un coup : $h=11-10\cos x$. Un tiers de tour ($x=\frac{2\pi}{3}$) : $16$ m. Un demi-tour : $21$ m, tout en haut. Un tour et quart ($x=\frac{5\pi}{2}$) : $11$ m, à hauteur de l'axe. Et la question inverse, « à partir de quel angle voit-on par-dessus l'immeuble de 16 m ? », se lit aussi sur le cercle. Le GPS de ton téléphone fait pareil avec la Terre : une latitude est un angle, et la distance jusqu'à l'équateur est un arc de cercle.</p>
+    <p class="discret">Ils s'en servent : les navigateurs, pilotes et géomètres (latitudes, caps, arcs), les ingénieurs en mécanique (tout ce qui tourne : roues, bielles, éoliennes), les animateurs 3D et développeurs de jeux (rotations), les électriciens et les acousticiens (le courant alternatif, le son : des sinus). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <figure class="figure-svg"><svg viewBox="0 0 292 254" role="img" aria-label="Une grande roue vue de côté : un cercle de rayon R dont l'axe est à la hauteur 1 + R au-dessus du sol. La nacelle est partie du point le plus bas et a tourné d'un angle x dans le sens direct ; sa hauteur h est cotée à droite, la hauteur de l'axe à gauche."><rect class="fond-grid" x="16.8" y="224.2" width="258.4" height="11.9"/><text class="petit" x="23.6" y="233.3" text-anchor="start">le sol</text><circle class="contour t-n ep-2-5" cx="132.4" cy="118.8" r="88.4"/><g class="trace t-n"><line x1="132.4" y1="118.8" x2="220.8" y2="118.8"/></g><g class="trace t-n"><line x1="132.4" y1="118.8" x2="194.9" y2="56.3"/></g><g class="trace t-n"><line x1="132.4" y1="118.8" x2="132.4" y2="30.4"/></g><g class="trace t-n"><line x1="132.4" y1="118.8" x2="69.9" y2="56.3"/></g><g class="trace t-n"><line x1="132.4" y1="118.8" x2="44.0" y2="118.8"/></g><g class="trace t-n"><line x1="132.4" y1="118.8" x2="69.9" y2="181.3"/></g><g class="trace t-n"><line x1="132.4" y1="118.8" x2="132.4" y2="207.2"/></g><g class="trace t-n"><line x1="132.4" y1="118.8" x2="194.9" y2="181.3"/></g><circle class="pt pt" cx="132.4" cy="118.8" r="4.5"/><g class="trace t-n"><line x1="91.6" y1="224.2" x2="132.4" y2="118.8"/></g><g class="trace t-n"><line x1="173.2" y1="224.2" x2="132.4" y2="118.8"/></g><g class="trace t-v"><line x1="132.4" y1="118.8" x2="198.3" y2="59.9"/></g><g class="trace t-v"><path d="M132.4,142.6 A23.8,23.8 0 0 0 150.1,102.9"/></g><g class="trace t-v"><polygon points="145.7,98.0 158.2,104.5 150.8,111.1"/></g><text class="lettre" x="151.1" y="151.1" text-anchor="start">x</text><rect class="forme-3" x="190.8" y="61.6" width="15.0" height="11.2"/><circle class="pt pt-v" cx="198.3" cy="59.9" r="4.5"/><text class="moyen" x="206.8" y="58.2" text-anchor="start">la nacelle</text><circle class="pt pt-w" cx="132.4" cy="207.2" r="4.5"/><text class="moyen" x="139.2" y="222.6" text-anchor="start">départ : x = 0</text><g class="trace t-n pointille"><line x1="198.3" y1="59.9" x2="198.3" y2="224.2"/></g><g class="trace t-n"><line x1="254.8" y1="142.1" x2="254.8" y2="216.4"/><polygon points="254.8,224.2 249.0,211.2 260.7,211.2"/></g><g class="trace t-n"><line x1="254.8" y1="142.1" x2="254.8" y2="67.7"/><polygon points="254.8,59.9 260.7,72.9 249.0,72.9"/></g><text class="moyen" x="270.8" y="146.1">h</text><g class="trace t-n"><line x1="30.4" y1="171.5" x2="30.4" y2="216.4"/><polygon points="30.4,224.2 24.5,211.2 36.2,211.2"/></g><g class="trace t-n"><line x1="30.4" y1="171.5" x2="30.4" y2="126.6"/><polygon points="30.4,118.8 36.2,131.8 24.5,131.8"/></g><text class="moyen" x="0.4" y="175.5">1 + R</text><text class="moyen" x="158.6" y="83.2" text-anchor="start">R</text></svg><figcaption>La nacelle a tourné d'un angle $x$ depuis le bas. Sa hauteur est $h=(1+R)-R\cos x$ : le cosinus d'un réel, qui peut dépasser un tour.</figcaption></figure>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-radian">1. Le cercle trigonométrique et le radian</h3>
+
+  <div class="bloc definition" data-titre="Cercle trigonométrique">
+    <p>Dans un repère orthonormé $(O\,;I\,;J)$, le <strong>cercle trigonométrique</strong> est le cercle de centre $O$ et de rayon $1$, parcouru dans le <strong>sens direct</strong> : le sens inverse des aiguilles d'une montre. Son périmètre vaut $2\pi\times1=2\pi$.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Le radian">
+    <p>Le <strong>radian</strong> est l'unité d'angle pour laquelle un angle au centre de $1$ rad intercepte, sur un cercle de rayon $R$, un arc de longueur $R$. Sur le cercle trigonométrique, <strong>la mesure en radians d'un angle au centre est la longueur de l'arc</strong> qu'il intercepte.</p>
+    <p>Un tour complet vaut $2\pi$ rad (le périmètre), un demi-tour $\pi$ rad, un quart de tour $\dfrac{\pi}{2}$ rad.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 322 174" role="img" aria-label="Deux cercles de rayon R. À gauche, un angle au centre qui intercepte un arc de longueur R : c'est un angle de 1 radian, environ 57 degrés. À droite, un angle de θ radians intercepte un arc de longueur R fois θ."><circle class="contour t-n" cx="92.8" cy="85.6" r="54.0"/><circle class="pt pt" cx="92.8" cy="85.6" r="4.5"/><g class="trace t-n"><line x1="92.8" y1="85.6" x2="146.8" y2="85.6"/></g><g class="trace t-n"><line x1="92.8" y1="85.6" x2="122.0" y2="40.2"/></g><g class="trace t-v"><path d="M146.8,85.6 A54.0,54.0 0 0 0 122.0,40.2"/></g><g class="trace t-v fin"><path d="M107.9,85.6 A15.1,15.1 0 0 0 101.0,72.9"/></g><text class="moyen" x="119.8" y="104.5" text-anchor="middle">R</text><text class="moyen" x="99.5" y="62.2" text-anchor="end">R</text><text class="moyen" x="144.2" y="37.7" text-anchor="start">arc de longueur R</text><text class="lettre" x="112.4" y="79.9" text-anchor="start">1 rad</text><circle class="contour t-n" cx="236.8" cy="85.6" r="54.0"/><circle class="pt pt" cx="236.8" cy="85.6" r="4.5"/><g class="trace t-n"><line x1="236.8" y1="85.6" x2="290.8" y2="85.6"/></g><g class="trace t-n"><line x1="236.8" y1="85.6" x2="214.3" y2="36.5"/></g><g class="trace t-u"><path d="M290.8,85.6 A54.0,54.0 0 0 0 214.3,36.5"/></g><g class="trace t-u fin"><path d="M251.9,85.6 A15.1,15.1 0 0 0 230.5,71.9"/></g><text class="moyen" x="263.8" y="104.5" text-anchor="middle">R</text><text class="moyen" x="217.6" y="60.3" text-anchor="end">R</text><text class="moyen" x="258.9" y="19.0" text-anchor="middle">L = R × θ</text><text class="lettre" x="248.9" y="71.8" text-anchor="start">θ</text><text class="petit" x="92.8" y="155.8" text-anchor="middle">1 radian ≈ 57,3°</text><text class="petit" x="236.8" y="155.8" text-anchor="middle">θ = 2 rad ≈ 114,6°</text></svg><figcaption>À gauche, l'arc a la longueur du rayon : l'angle vaut $1$ radian, un peu moins que $60°$. À droite, un angle de $\theta$ radians intercepte un arc de longueur $L=R\theta$.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Degrés et radians">
+    <p>Les mesures en degrés et en radians sont <strong>proportionnelles</strong> : $180°$ correspondent à $\pi$ rad. Donc</p>
+    $$\text{(radians)}=\text{(degrés)}\times\dfrac{\pi}{180}\qquad\text{et}\qquad\text{(degrés)}=\text{(radians)}\times\dfrac{180}{\pi}.$$
+    <div class="defile"><table class="valeurs"><tr><th>degrés</th><td>$0$</td><td>$30$</td><td>$45$</td><td>$60$</td><td>$90$</td><td>$120$</td><td>$135$</td><td>$150$</td><td>$180$</td><td>$270$</td><td>$360$</td></tr><tr><th>radians</th><td>$0$</td><td>$\dfrac{\pi}{6}$</td><td>$\dfrac{\pi}{4}$</td><td>$\dfrac{\pi}{3}$</td><td>$\dfrac{\pi}{2}$</td><td>$\dfrac{2\pi}{3}$</td><td>$\dfrac{3\pi}{4}$</td><td>$\dfrac{5\pi}{6}$</td><td>$\pi$</td><td>$\dfrac{3\pi}{2}$</td><td>$2\pi$</td></tr></table></div>
+    <p>Sur un cercle de rayon $R$, un angle au centre de $\theta$ radians intercepte un arc de longueur $L=R\theta$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Convertir des degrés en radians">
+    <ol class="etapes">
+      <li><span>J'écris la fraction $\dfrac{\text{degrés}}{180}$ et je la simplifie.</span></li>
+      <li><span>Je multiplie par $\pi$ : le résultat est une <strong>fraction de $\pi$</strong>, que je laisse telle quelle. $\dfrac{5\pi}{6}$ est une réponse exacte ; $2{,}618$ n'en est qu'une approximation.</span></li>
+      <li><span>Dans l'autre sens, je remplace $\pi$ par $180$ : $\dfrac{3\pi}{4}=\dfrac{3\times180}{4}=135°$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Convertir $150°$ en radians, puis $\dfrac{7\pi}{6}$ rad en degrés. Combien mesure l'arc intercepté par un angle de $150°$ sur un cercle de rayon $3$ cm ?</p>
+      <ol class="pas">
+        <li><strong>$150°$ en radians.</strong> $\dfrac{150}{180}=\dfrac{5}{6}$, donc $150°=\dfrac{5\pi}{6}$ rad.</li>
+        <li><strong>$\dfrac{7\pi}{6}$ en degrés.</strong> $\dfrac{7\times180}{6}=210°$ : plus qu'un demi-tour.</li>
+        <li><strong>L'arc.</strong> $L=R\theta=3\times\dfrac{5\pi}{6}=\dfrac{5\pi}{2}\approx7{,}85$ cm. La formule exige l'angle <strong>en radians</strong> : avec $150$, on aurait trouvé $450$ cm, absurde pour un cercle de $19$ cm de tour.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="La Terre, un cercle de 40 000 km">
+    <p>Un méridien est un cercle de rayon $R\approx6\,371$ km. Paris est à la latitude $48{,}9°$ nord, soit $48{,}9\times\dfrac{\pi}{180}\approx0{,}853$ rad. La distance de Paris à l'équateur, le long du méridien, est un arc : $L=R\theta\approx6\,371\times0{,}853\approx5\,440$ km. Et une minute d'angle ($\frac{1}{60}$ de degré) intercepte un arc de $\dfrac{2\pi\times6\,371}{360\times60}\approx1{,}85$ km : c'est le <strong>mille marin</strong> des navigateurs et des pilotes, $1\,852$ m.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="π n'est pas 180">
+    <p>$\pi$ rad et $180°$ mesurent le même angle, mais $\pi\approx3{,}14$ : écrire « $\pi=180$ » est faux. La formule $L=R\theta$ ne marche qu'en radians. Et un radian n'est pas un petit angle : $1$ rad $\approx57{,}3°$.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-enroulement">2. Enrouler la droite des réels sur le cercle</h3>
+
+  <div class="bloc definition" data-titre="Image d'un réel sur le cercle">
+    <p>On trace la droite des réels tangente au cercle en $I$, le $0$ en $I$, les positifs vers le haut. On l'<strong>enroule</strong> sur le cercle : les positifs dans le sens direct, les négatifs dans l'autre sens. Le réel $x$ vient se poser sur un point $M$ du cercle : c'est le <strong>point image de $x$</strong>, noté $M(x)$. L'arc de $I$ à $M$ a pour longueur $|x|$.</p>
+    <p>$M(0)=I$, $M\!\left(\frac{\pi}{2}\right)=J$, $M(\pi)=I'$ (le point opposé à $I$), $M\!\left(\frac{3\pi}{2}\right)=M\!\left(-\frac{\pi}{2}\right)=J'$, et $M(2\pi)=I$ : au bout d'un tour, on est revenu.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 323 343" role="img" aria-label="Le cercle trigonométrique et, tangente au point I, la droite des réels graduée verticalement de −2 à 2. Un segment de longueur π/3 sur la droite s'enroule en un arc de même longueur, de I vers le haut, jusqu'au point M(π/3) ; un segment de longueur π/2 vers le bas s'enroule vers le bas jusqu'au point M(−π/2)."><g class="trace t-n"><line x1="26.5" y1="194.8" x2="210.1" y2="194.8"/><polygon points="217.9,194.8 204.9,200.7 204.9,189.0"/></g><g class="trace t-n"><line x1="122.2" y1="290.5" x2="122.2" y2="106.9"/><polygon points="122.2,99.1 128.1,112.1 116.4,112.1"/></g><circle class="contour t-n" cx="122.2" cy="194.8" r="66.0"/><circle class="pt pt" cx="188.2" cy="194.8" r="4.5"/><circle class="pt pt" cx="122.2" cy="128.8" r="4.5"/><text class="lettre" x="181.6" y="217.4" text-anchor="end">I</text><text class="lettre" x="128.8" y="125.5" text-anchor="start">J</text><text class="lettre" x="116.9" y="216.1" text-anchor="end">O</text><g class="trace t-n"><line x1="188.2" y1="323.5" x2="188.2" y2="19.9"/></g><text class="petit" x="196.1" y="30.5" text-anchor="start">la droite des réels</text><g class="trace t-n"><line x1="183.6" y1="326.8" x2="192.8" y2="326.8"/></g><text class="petit" x="197.4" y="331.8" text-anchor="start">−2</text><g class="trace t-n"><line x1="183.6" y1="260.8" x2="192.8" y2="260.8"/></g><text class="petit" x="197.4" y="265.8" text-anchor="start">−1</text><g class="trace t-n"><line x1="183.6" y1="128.8" x2="192.8" y2="128.8"/></g><text class="petit" x="197.4" y="133.8" text-anchor="start">1</text><g class="trace t-n"><line x1="183.6" y1="62.8" x2="192.8" y2="62.8"/></g><text class="petit" x="197.4" y="67.8" text-anchor="start">2</text><text class="petit" x="197.4" y="199.8" text-anchor="start">0</text><g class="trace t-v"><line x1="183.6" y1="91.1" x2="192.8" y2="91.1"/></g><text class="moyen" x="197.4" y="97.1" text-anchor="start">π/2</text><g class="trace t-w"><line x1="183.6" y1="298.5" x2="192.8" y2="298.5"/></g><text class="moyen" x="197.4" y="304.5" text-anchor="start">−π/2</text><g class="trace t-v"><line x1="188.2" y1="194.8" x2="188.2" y2="125.7"/></g><g class="trace t-v"><path d="M188.2,194.8 A66.0,66.0 0 0 0 155.2,137.6"/></g><g class="trace t-v"><polygon points="149.5,134.3 163.4,136.6 158.4,145.2"/></g><circle class="pt pt-v" cx="155.2" cy="137.6" r="4.5"/><text class="lettre" x="163.1" y="119.5" text-anchor="start">M(π/3)</text><text class="petit" x="221.2" y="158.5" text-anchor="start">longueur π/3</text><text class="petit" x="221.2" y="175.0" text-anchor="start">sur la droite,</text><text class="petit" x="221.2" y="191.5" text-anchor="start">puis sur le cercle</text><g class="trace t-w"><line x1="188.2" y1="194.8" x2="188.2" y2="298.5"/></g><g class="trace t-w"><path d="M122.2,260.8 A66.0,66.0 0 0 0 188.2,194.8"/></g><g class="trace t-w"><polygon points="115.6,260.8 128.8,265.8 128.8,255.9"/></g><circle class="pt pt-w" cx="122.2" cy="260.8" r="4.5"/><text class="lettre" x="114.3" y="282.7" text-anchor="end">M(−π/2)</text><text class="petit" x="221.2" y="257.5" text-anchor="start">longueur π/2</text><text class="petit" x="221.2" y="274.0" text-anchor="start">vers le bas</text><text class="petit" x="13.3" y="29.8" text-anchor="start">sens direct :</text><text class="petit" x="13.3" y="44.3" text-anchor="start">les positifs</text><text class="petit" x="13.3" y="58.8" text-anchor="start">tournent vers J</text></svg><figcaption>La longueur $\dfrac{\pi}{3}$ prise sur la droite devient la longueur de l'arc de $I$ à $M\!\left(\dfrac{\pi}{3}\right)$. Vers le bas, $-\dfrac{\pi}{2}$ fait un quart de tour dans le sens des aiguilles d'une montre.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Plusieurs réels, un seul point">
+    <p>Deux réels $x$ et $x'$ ont la même image sur le cercle si et seulement s'ils diffèrent d'un nombre entier de tours : $x'=x+2k\pi$ avec $k$ entier relatif. Chaque point du cercle est l'image d'une infinité de réels, et <strong>d'un seul réel de l'intervalle $]-\pi\,;\pi]$</strong>.</p>
+    <p>Exemple : $\dfrac{13\pi}{6}=\dfrac{\pi}{6}+2\pi$, donc $M\!\left(\dfrac{13\pi}{6}\right)=M\!\left(\dfrac{\pi}{6}\right)$. Et $-\dfrac{\pi}{6}$ n'a <strong>pas</strong> la même image : c'est le symétrique par rapport à l'axe des abscisses.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Placer le point image d'un réel">
+    <ol class="etapes">
+      <li><span>J'écris $x$ comme une fraction de $\pi$ et je repère le <strong>signe</strong> : positif, je tourne dans le sens direct ; négatif, dans le sens des aiguilles.</span></li>
+      <li><span>Si $|x|&gt;\pi$, je retire ou j'ajoute des tours ($2\pi$) jusqu'à tomber dans $]-\pi\,;\pi]$ : le point ne bouge pas.</span></li>
+      <li><span>Je découpe le demi-cercle en parts : $\dfrac{\pi}{6}$ est un douzième de tour, $\dfrac{\pi}{4}$ un huitième, $\dfrac{\pi}{3}$ un sixième, $\dfrac{\pi}{2}$ un quart.</span></li>
+      <li><span>Je compte les parts à partir de $I$ et je place $M$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Placer $M\!\left(\dfrac{5\pi}{3}\right)$, $M\!\left(-\dfrac{3\pi}{4}\right)$ et $M\!\left(\dfrac{7\pi}{2}\right)$ sur le cercle.</p>
+      <ol class="pas">
+        <li><strong>$\dfrac{5\pi}{3}$.</strong> Positif, et $\dfrac{5\pi}{3}&gt;\pi$ : $\dfrac{5\pi}{3}-2\pi=-\dfrac{\pi}{3}$. Le point est celui de $-\dfrac{\pi}{3}$ : un sixième de tour sous $I$, en bas à droite.</li>
+        <li><strong>$-\dfrac{3\pi}{4}$.</strong> Négatif, déjà dans $]-\pi\,;\pi]$ : trois huitièmes de tour dans le sens des aiguilles, en bas à gauche.</li>
+        <li><strong>$\dfrac{7\pi}{2}$.</strong> $\dfrac{7\pi}{2}=\dfrac{3\pi}{2}+2\pi=-\dfrac{\pi}{2}+4\pi$ : deux tours, puis un quart de tour vers le bas. C'est $J'$, le point le plus bas.</li>
+        <li><strong>Contrôle.</strong> Les trois réels de $]-\pi\,;\pi]$ associés : $-\dfrac{\pi}{3}$, $-\dfrac{3\pi}{4}$ et $-\dfrac{\pi}{2}$. Tu peux refaire chaque placement dans le labo « La droite qui s'enroule ».</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="π est un demi-tour, pas un tour">
+    <p>$x+\pi$ est le point <strong>opposé</strong> à $M(x)$, pas le même point ; il faut $x+2\pi$ pour revenir. Et $-x$ n'est pas « un tour en arrière » : c'est le symétrique de $M(x)$ par rapport à l'axe $(OI)$. Trois réels différents, trois points différents : $\dfrac{\pi}{6}$, $\dfrac{\pi}{6}+\pi=\dfrac{7\pi}{6}$ et $-\dfrac{\pi}{6}$.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-cossin">3. Cosinus et sinus d'un réel</h3>
+
+  <div class="bloc definition" data-titre="Cosinus, sinus">
+    <p>Soit $x$ un réel et $M(x)$ son image sur le cercle trigonométrique. Le <strong>cosinus</strong> de $x$ est l'<strong>abscisse</strong> de $M$, le <strong>sinus</strong> de $x$ est son <strong>ordonnée</strong> :</p>
+    $$M(x)=(\cos x\,;\sin x).$$
+    <p>Comme $M$ est sur le cercle de rayon $1$ : $-1\le\cos x\le1$ et $-1\le\sin x\le1$. Et comme $x$ et $x+2\pi$ ont la même image : $\cos(x+2\pi)=\cos x$ et $\sin(x+2\pi)=\sin x$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 221 216" role="img" aria-label="Le cercle trigonométrique avec un point M d'angle x. Ses projections sur les axes donnent cos x sur l'axe horizontal, en bleu, et sin x sur l'axe vertical, en rose. Le triangle O H M est rectangle en H, avec l'hypoténuse O M de longueur 1."><g class="trace t-n"><line x1="24.0" y1="105.2" x2="178.6" y2="105.2"/><polygon points="186.4,105.2 173.4,111.0 173.4,99.4"/></g><g class="trace t-n"><line x1="105.2" y1="186.4" x2="105.2" y2="31.8"/><polygon points="105.2,24.0 111.0,37.0 99.4,37.0"/></g><circle class="contour t-n" cx="105.2" cy="105.2" r="56.0"/><circle class="pt pt" cx="161.2" cy="105.2" r="4.5"/><circle class="pt pt" cx="105.2" cy="49.2" r="4.5"/><text class="lettre" x="165.7" y="127.9" text-anchor="start">I</text><text class="lettre" x="110.8" y="46.4" text-anchor="start">J</text><text class="lettre" x="100.7" y="125.7" text-anchor="end">O</text><g class="trace t-u"><line x1="105.2" y1="105.2" x2="140.0" y2="105.2"/></g><g class="trace t-v"><line x1="105.2" y1="105.2" x2="105.2" y2="61.3"/></g><g class="trace t-n pointille"><line x1="140.0" y1="61.3" x2="140.0" y2="105.2"/></g><g class="trace t-n pointille"><line x1="140.0" y1="61.3" x2="105.2" y2="61.3"/></g><g class="trace t-n"><line x1="105.2" y1="105.2" x2="140.0" y2="61.3"/></g><g class="trace t-v fin"><path d="M122.0,105.2 A16.8,16.8 0 0 0 115.6,92.0"/></g><text class="lettre" x="125.4" y="99.6" text-anchor="start">x</text><path class="trace t-n fin" d="M140.5,104.7 l0,-9 l-9,0" fill="none"/><circle class="pt pt-v" cx="140.0" cy="61.3" r="4.5"/><text class="lettre" x="144.5" y="56.9" text-anchor="start">M(x)</text><text class="lettre" x="143.4" y="126.6" text-anchor="start">H</text><text class="moyen" x="121.5" y="146.6" text-anchor="middle">cos x</text><text class="moyen" x="100.7" y="89.3" text-anchor="end">sin x</text><text class="lettre" x="100.7" y="66.3" text-anchor="end">K</text><text class="petit" x="49.2" y="128.6" text-anchor="middle">−1</text><text class="petit" x="100.7" y="166.2" text-anchor="end">−1</text><text class="petit" x="116.4" y="77.2" text-anchor="start">OM = 1</text></svg><figcaption>$\cos x$ se lit sur l'axe horizontal, $\sin x$ sur l'axe vertical. Le triangle $OHM$ est rectangle en $H$ et son hypoténuse $OM$ vaut $1$ : c'est le cosinus et le sinus du collège, dans un triangle d'hypoténuse $1$.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Le lien avec le triangle rectangle">
+    <p>Si $0&lt;x&lt;\dfrac{\pi}{2}$, le triangle $OHM$ est rectangle en $H$, d'hypoténuse $OM=1$, et l'angle $\widehat{HOM}$ mesure $x$ radians. Le cosinus du collège donne $\cos x=\dfrac{OH}{OM}=OH$ et $\sin x=\dfrac{HM}{OM}=HM$ : les deux définitions coïncident. La nouvelle vaut pour <strong>tout</strong> réel $x$, négatif ou plus grand qu'un tour.</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="cos²x + sin²x = 1">
+    <p>Pour tout réel $x$ : $$\cos^2x+\sin^2x=1.$$</p>
+    <p><strong>Démonstration.</strong> $M(x)$ a pour coordonnées $(\cos x\,;\sin x)$ et $OM=1$. Dans le triangle $OHM$ rectangle en $H$, Pythagore donne $OH^2+HM^2=OM^2$, soit $\cos^2x+\sin^2x=1$. Si $M$ est sur un axe, l'une des coordonnées vaut $0$ et l'autre $\pm1$ : l'égalité tient encore.</p>
+    <p>Notation : $\cos^2x$ veut dire $(\cos x)^2$, et pas $\cos(x^2)$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Trouver cos x quand on connaît sin x">
+    <ol class="etapes">
+      <li><span>J'écris $\cos^2x=1-\sin^2x$ et je calcule.</span></li>
+      <li><span>J'en déduis <strong>deux</strong> valeurs possibles : $\cos x=\sqrt{\cdots}$ ou $\cos x=-\sqrt{\cdots}$.</span></li>
+      <li><span>Je choisis le signe grâce à l'intervalle où se trouve $x$ : à droite de l'axe vertical, le cosinus est positif ; à gauche, négatif.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> On sait que $\sin x=\dfrac{3}{5}$ et que $x\in\left[\dfrac{\pi}{2}\,;\pi\right]$. Calculer $\cos x$.</p>
+      <ol class="pas">
+        <li><strong>Le carré.</strong> $\cos^2x=1-\left(\dfrac{3}{5}\right)^2=1-\dfrac{9}{25}=\dfrac{16}{25}$.</li>
+        <li><strong>Deux candidats.</strong> $\cos x=\dfrac{4}{5}$ ou $\cos x=-\dfrac{4}{5}$.</li>
+        <li><strong>Le signe.</strong> Pour $x\in\left[\dfrac{\pi}{2}\,;\pi\right]$, le point $M(x)$ est en haut à gauche : son abscisse est négative.</li>
+        <li><strong>Conclusion.</strong> $\cos x=-\dfrac{4}{5}$. Sans l'intervalle, on ne pouvait pas trancher : deux points du cercle ont un sinus égal à $\dfrac{3}{5}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les valeurs remarquables">
+    <div class="defile"><table class="valeurs"><tr><th>$x$</th><td>$0$</td><td>$\dfrac{\pi}{6}$</td><td>$\dfrac{\pi}{4}$</td><td>$\dfrac{\pi}{3}$</td><td>$\dfrac{\pi}{2}$</td><td>$\pi$</td></tr><tr><th>$\cos x$</th><td>$1$</td><td>$\dfrac{\sqrt3}{2}$</td><td>$\dfrac{\sqrt2}{2}$</td><td>$\dfrac12$</td><td>$0$</td><td>$-1$</td></tr><tr><th>$\sin x$</th><td>$0$</td><td>$\dfrac12$</td><td>$\dfrac{\sqrt2}{2}$</td><td>$\dfrac{\sqrt3}{2}$</td><td>$1$</td><td>$0$</td></tr></table></div>
+    <p>Pour les retenir : de $0$ à $\dfrac{\pi}{2}$, le cosinus <em>descend</em> $1$, $\dfrac{\sqrt3}{2}$, $\dfrac{\sqrt2}{2}$, $\dfrac12$, $0$ et le sinus <em>monte</em> dans l'ordre inverse. Tout le reste du cercle se lit à partir de ces valeurs (partie 4).</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Démonstrations, au programme">
+    <div class="deroule">
+      <p class="consigne"><strong>Pourquoi ces valeurs ?</strong> Les trois démonstrations exigibles du chapitre : $\sin\dfrac{\pi}{4}$, puis $\cos\dfrac{\pi}{3}$ et $\sin\dfrac{\pi}{3}$. Cherche-les sur la figure avant de dévoiler.</p>
+      <ol class="pas">
+        <li><strong>$\dfrac{\pi}{4}$ : le triangle isocèle.</strong> $M\!\left(\dfrac{\pi}{4}\right)$ est sur la bissectrice des axes ($45°$) : le triangle $OHM$, rectangle en $H$, a deux angles de $45°$, il est isocèle : $OH=HM$, c'est-à-dire $\cos\dfrac{\pi}{4}=\sin\dfrac{\pi}{4}$. Avec $\cos^2+\sin^2=1$ : $2\sin^2\dfrac{\pi}{4}=1$, donc $\sin^2\dfrac{\pi}{4}=\dfrac12$ et, le sinus étant positif, $\sin\dfrac{\pi}{4}=\dfrac{1}{\sqrt2}=\dfrac{\sqrt2}{2}$.</li>
+        <li><strong>$\dfrac{\pi}{3}$ : le triangle équilatéral.</strong> $OI=OM=1$ et $\widehat{IOM}=60°$ : le triangle $OIM$ est isocèle avec un angle de $60°$, donc équilatéral. La hauteur issue de $M$ tombe au milieu $H$ de $[OI]$ : $OH=\dfrac12$, soit $\cos\dfrac{\pi}{3}=\dfrac12$.</li>
+        <li><strong>$\sin\dfrac{\pi}{3}$.</strong> $\sin^2\dfrac{\pi}{3}=1-\cos^2\dfrac{\pi}{3}=1-\dfrac14=\dfrac34$, et le sinus est positif : $\sin\dfrac{\pi}{3}=\dfrac{\sqrt3}{2}$.</li>
+        <li><strong>Et $\dfrac{\pi}{6}$.</strong> Le point $M\!\left(\dfrac{\pi}{6}\right)$ est le symétrique de $M\!\left(\dfrac{\pi}{3}\right)$ par rapport à la bissectrice : ses coordonnées sont échangées, $\cos\dfrac{\pi}{6}=\dfrac{\sqrt3}{2}$ et $\sin\dfrac{\pi}{6}=\dfrac12$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 411 204" role="img" aria-label="Deux quarts de cercle trigonométrique. À gauche, le point M d'angle π/3 : le triangle O I M est équilatéral, et H, pied de la hauteur issue de M, est le milieu de O I. À droite, le point M d'angle π/4 : le triangle O H M est rectangle isocèle, cos et sin y sont égaux."><g class="trace t-n"><line x1="27.6" y1="133.2" x2="143.0" y2="133.2"/><polygon points="150.8,133.2 137.8,139.0 137.8,127.3"/></g><g class="trace t-n"><line x1="36.4" y1="142.0" x2="36.4" y2="26.6"/><polygon points="36.4,18.8 42.2,31.8 30.5,31.8"/></g><g class="trace t-n"><path d="M133.2,133.2 A96.8,96.8 0 0 0 36.4,36.4"/></g><polygon class="forme-3" points="36.4,133.2 133.2,133.2 84.8,49.4"/><g class="trace t-v"><line x1="36.4" y1="133.2" x2="84.8" y2="49.4"/></g><g class="trace t-v"><line x1="84.8" y1="49.4" x2="133.2" y2="133.2"/></g><g class="trace t-n pointille"><line x1="84.8" y1="49.4" x2="84.8" y2="133.2"/></g><g class="trace t-v fin"><path d="M56.2,133.2 A19.8,19.8 0 0 0 46.3,116.1"/></g><circle class="pt pt-v" cx="84.8" cy="49.4" r="4.5"/><circle class="pt pt" cx="133.2" cy="133.2" r="4.5"/><circle class="pt pt" cx="84.8" cy="133.2" r="4.5"/><text class="lettre" x="84.8" y="45.0" text-anchor="middle">M(π/3)</text><text class="lettre" x="135.4" y="152.7" text-anchor="start">I</text><text class="lettre" x="84.8" y="154.7" text-anchor="middle">H</text><text class="lettre" x="32.9" y="152.7" text-anchor="end">O</text><text class="petit" x="60.6" y="127.9" text-anchor="start">60°</text><text class="moyen" x="54.0" y="86.9" text-anchor="end">1</text><text class="moyen" x="114.3" y="96.3" text-anchor="start">1</text><text class="petit" x="60.6" y="170.7" text-anchor="middle">cos π/3</text><text class="petit" x="43.0" y="188.7" text-anchor="start">équilatéral : OH = HI</text><g class="trace t-n"><line x1="234.4" y1="133.2" x2="349.8" y2="133.2"/><polygon points="357.6,133.2 344.6,139.0 344.6,127.3"/></g><g class="trace t-n"><line x1="243.2" y1="142.0" x2="243.2" y2="26.6"/><polygon points="243.2,18.8 249.0,31.8 237.3,31.8"/></g><g class="trace t-n"><path d="M340.0,133.2 A96.8,96.8 0 0 0 243.2,36.4"/></g><polygon class="forme-4" points="243.2,133.2 311.6,133.2 311.6,64.8"/><g class="trace t-v"><line x1="243.2" y1="133.2" x2="311.6" y2="64.8"/></g><g class="trace t-n pointille"><line x1="311.6" y1="64.8" x2="311.6" y2="133.2"/></g><g class="trace t-n pointille"><line x1="311.6" y1="64.8" x2="243.2" y2="64.8"/></g><g class="trace t-w fin pointille"><line x1="238.8" y1="137.6" x2="348.8" y2="27.6"/></g><g class="trace t-v fin"><path d="M263.0,133.2 A19.8,19.8 0 0 0 257.2,119.2"/></g><circle class="pt pt-v" cx="311.6" cy="64.8" r="4.5"/><circle class="pt pt" cx="311.6" cy="133.2" r="4.5"/><circle class="pt pt" cx="243.2" cy="64.8" r="4.5"/><text class="lettre" x="316.0" y="60.4" text-anchor="start">M(π/4)</text><text class="lettre" x="311.6" y="154.7" text-anchor="middle">H</text><text class="lettre" x="239.7" y="69.8" text-anchor="end">K</text><text class="lettre" x="239.7" y="152.7" text-anchor="end">O</text><text class="petit" x="267.4" y="128.8" text-anchor="start">45°</text><text class="moyen" x="270.8" y="93.7" text-anchor="end">1</text><text class="petit" x="277.4" y="170.7" text-anchor="middle">cos π/4</text><text class="petit" x="249.8" y="188.7" text-anchor="start">isocèle : OH = HM</text></svg><figcaption>À gauche, $OIM$ équilatéral : $H$ est le milieu de $[OI]$, donc $\cos\dfrac{\pi}{3}=\dfrac12$. À droite, $OHM$ rectangle isocèle : $\cos\dfrac{\pi}{4}=\sin\dfrac{\pi}{4}$, et Pythagore finit le travail.</figcaption></figure>
+
+  <figure class="figure-svg"><svg viewBox="0 0 332 308" role="img" aria-label="Le cercle trigonométrique avec seize points remarquables et le réel de l'intervalle moins pi, pi qui leur est associé : 0, π/6, π/4, π/3, π/2, 2π/3, 3π/4, 5π/6, π, et leurs opposés −π/6, −π/4, −π/3, −π/2, −2π/3, −3π/4, −5π/6."><g class="trace t-n"><line x1="42.0" y1="154.0" x2="282.2" y2="154.0"/><polygon points="290.0,154.0 277.0,159.8 277.0,148.2"/></g><g class="trace t-n"><line x1="166.0" y1="278.0" x2="166.0" y2="37.8"/><polygon points="166.0,30.0 171.8,43.0 160.2,43.0"/></g><circle class="contour t-n" cx="166.0" cy="154.0" r="100.0"/><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="266.0" y2="154.0"/></g><circle class="pt pt-u" cx="266.0" cy="154.0" r="4.5"/><text class="moyen" x="280.4" y="160.0" text-anchor="start">0</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="252.6" y2="104.0"/></g><circle class="pt pt-v" cx="252.6" cy="104.0" r="4.5"/><text class="moyen" x="265.1" y="96.8" text-anchor="start">π/6</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="236.7" y2="83.3"/></g><circle class="pt pt-v" cx="236.7" cy="83.3" r="4.5"/><text class="moyen" x="246.9" y="73.1" text-anchor="start">π/4</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="216.0" y2="67.4"/></g><circle class="pt pt-v" cx="216.0" cy="67.4" r="4.5"/><text class="moyen" x="223.2" y="54.9" text-anchor="start">π/3</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="166.0" y2="54.0"/></g><circle class="pt pt-u" cx="166.0" cy="54.0" r="4.5"/><text class="moyen" x="166.0" y="39.6" text-anchor="middle">π/2</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="116.0" y2="67.4"/></g><circle class="pt pt-u" cx="116.0" cy="67.4" r="4.5"/><text class="moyen" x="108.8" y="54.9" text-anchor="end">2π/3</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="95.3" y2="83.3"/></g><circle class="pt pt-u" cx="95.3" cy="83.3" r="4.5"/><text class="moyen" x="85.1" y="73.1" text-anchor="end">3π/4</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="79.4" y2="104.0"/></g><circle class="pt pt-u" cx="79.4" cy="104.0" r="4.5"/><text class="moyen" x="66.9" y="96.8" text-anchor="end">5π/6</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="66.0" y2="154.0"/></g><circle class="pt pt-u" cx="66.0" cy="154.0" r="4.5"/><text class="moyen" x="51.6" y="160.0" text-anchor="end">π</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="252.6" y2="204.0"/></g><circle class="pt pt-u" cx="252.6" cy="204.0" r="4.5"/><text class="moyen" x="265.1" y="223.2" text-anchor="start">−π/6</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="236.7" y2="224.7"/></g><circle class="pt pt-u" cx="236.7" cy="224.7" r="4.5"/><text class="moyen" x="246.9" y="246.9" text-anchor="start">−π/4</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="216.0" y2="240.6"/></g><circle class="pt pt-u" cx="216.0" cy="240.6" r="4.5"/><text class="moyen" x="223.2" y="265.1" text-anchor="start">−π/3</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="166.0" y2="254.0"/></g><circle class="pt pt-u" cx="166.0" cy="254.0" r="4.5"/><text class="moyen" x="166.0" y="280.4" text-anchor="middle">−π/2</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="116.0" y2="240.6"/></g><circle class="pt pt-u" cx="116.0" cy="240.6" r="4.5"/><text class="moyen" x="108.8" y="265.1" text-anchor="end">−2π/3</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="95.3" y2="224.7"/></g><circle class="pt pt-u" cx="95.3" cy="224.7" r="4.5"/><text class="moyen" x="85.1" y="246.9" text-anchor="end">−3π/4</text><g class="trace t-n pointille"><line x1="166.0" y1="154.0" x2="79.4" y2="204.0"/></g><circle class="pt pt-u" cx="79.4" cy="204.0" r="4.5"/><text class="moyen" x="66.9" y="223.2" text-anchor="end">−5π/6</text><text class="lettre" x="170.0" y="164.0" text-anchor="start">O</text></svg><figcaption>Les seize points remarquables et le réel de $]-\pi\,;\pi]$ qui va avec. En rose, les trois à connaître par cœur avec leurs coordonnées : tous les autres s'en déduisent par symétrie.</figcaption></figure>
+
+  <div class="bloc piege" data-titre="30 ou π/6 : la calculatrice a deux modes">
+    <p>$\sin30°=\dfrac12$ et $\sin\dfrac{\pi}{6}=\dfrac12$ : le même angle. Mais $\sin30$, le sinus du <strong>réel</strong> $30$ (presque cinq tours), vaut $-0{,}988$. Une calculatrice en mode degrés et un énoncé en radians donnent n'importe quoi. À l'épreuve anticipée, il n'y a pas de calculatrice : le cercle et le tableau suffisent.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-associes">4. Les angles associés : lire tout le cercle</h3>
+
+  <div class="bloc propriete" data-titre="Angles associés">
+    <p>Pour tout réel $x$ :</p>
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Le point</th><th>Par rapport à $M(x)$</th><th>Cosinus</th><th>Sinus</th></tr></thead>
+      <tbody>
+        <tr><td>$M(-x)$</td><td>symétrique par rapport à l'axe des abscisses</td><td>$\cos(-x)=\cos x$</td><td>$\sin(-x)=-\sin x$</td></tr>
+        <tr><td>$M(\pi-x)$</td><td>symétrique par rapport à l'axe des ordonnées</td><td>$\cos(\pi-x)=-\cos x$</td><td>$\sin(\pi-x)=\sin x$</td></tr>
+        <tr><td>$M(\pi+x)$</td><td>symétrique par rapport à $O$</td><td>$\cos(\pi+x)=-\cos x$</td><td>$\sin(\pi+x)=-\sin x$</td></tr>
+        <tr><td>$M\!\left(\frac{\pi}{2}-x\right)$</td><td>symétrique par rapport à la bissectrice $y=x$</td><td>$\cos\!\left(\frac{\pi}{2}-x\right)=\sin x$</td><td>$\sin\!\left(\frac{\pi}{2}-x\right)=\cos x$</td></tr>
+        <tr><td>$M\!\left(\frac{\pi}{2}+x\right)$</td><td>un quart de tour après $M(x)$</td><td>$\cos\!\left(\frac{\pi}{2}+x\right)=-\sin x$</td><td>$\sin\!\left(\frac{\pi}{2}+x\right)=\cos x$</td></tr>
+      </tbody>
+    </table></div>
+    <p>Rien à apprendre par cœur : chaque ligne se <strong>lit sur la figure</strong>. Une symétrie par rapport à un axe change le signe d'une coordonnée ; la symétrie par rapport à la bissectrice les échange.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 351 314" role="img" aria-label="Le cercle trigonométrique avec un point M d'angle x et ses points associés : M(−x), symétrique par rapport à l'axe des abscisses ; M(π − x), symétrique par rapport à l'axe des ordonnées ; M(π + x), symétrique par rapport à O ; M(π/2 − x), symétrique par rapport à la bissectrice ; et M(π/2 + x). Les coordonnées de chaque point sont écrites avec cos x et sin x."><g class="trace t-n"><line x1="52.0" y1="161.2" x2="287.8" y2="161.2"/><polygon points="295.6,161.2 282.6,167.0 282.6,155.3"/></g><g class="trace t-n"><line x1="173.8" y1="283.0" x2="173.8" y2="47.2"/><polygon points="173.8,39.4 179.7,52.4 168.0,52.4"/></g><circle class="contour t-n" cx="173.8" cy="161.2" r="96.6"/><g class="trace t-n pointille"><line x1="256.2" y1="110.7" x2="256.2" y2="211.7"/></g><g class="trace t-n pointille"><line x1="256.2" y1="110.7" x2="91.4" y2="110.7"/></g><g class="trace t-n pointille"><line x1="256.2" y1="110.7" x2="91.4" y2="211.7"/></g><g class="trace t-w fin pointille"><line x1="64.6" y1="270.4" x2="278.8" y2="56.2"/></g><text class="petit" x="70.9" y="276.7" text-anchor="end">y = x</text><g class="trace t-v fin"><path d="M196.9,161.2 A23.1,23.1 0 0 0 193.5,149.1"/></g><text class="lettre" x="199.8" y="156.2" text-anchor="start">x</text><circle class="pt pt-v" cx="256.2" cy="110.7" r="4.5"/><text class="lettre" x="265.4" y="108.6" text-anchor="start">M(x)</text><text class="note" x="265.4" y="124.6" text-anchor="start">(cos x ; sin x)</text><circle class="pt pt-u" cx="256.2" cy="211.7" r="4.5"/><text class="lettre" x="265.4" y="224.3" text-anchor="start">M(−x)</text><text class="note" x="265.4" y="240.3" text-anchor="start">(cos x ; −sin x)</text><circle class="pt pt-u" cx="91.4" cy="110.7" r="4.5"/><text class="lettre" x="82.2" y="108.6" text-anchor="end">M(π − x)</text><text class="note" x="82.2" y="124.6" text-anchor="end">(−cos x ; sin x)</text><circle class="pt pt-u" cx="91.4" cy="211.7" r="4.5"/><text class="lettre" x="82.2" y="224.3" text-anchor="end">M(π + x)</text><text class="note" x="82.2" y="240.3" text-anchor="end">(−cos x ; −sin x)</text><circle class="pt pt-w" cx="224.3" cy="78.8" r="4.5"/><text class="lettre" x="228.5" y="55.7" text-anchor="start">M(π/2 − x)</text><text class="note" x="228.5" y="71.7" text-anchor="start">(sin x ; cos x)</text><circle class="pt pt-w" cx="123.3" cy="78.8" r="4.5"/><text class="lettre" x="119.1" y="55.7" text-anchor="end">M(π/2 + x)</text><text class="note" x="119.1" y="71.7" text-anchor="end">(−sin x ; cos x)</text></svg><figcaption>Les points associés à $M(x)$ et leurs coordonnées. Les symétries sont celles du dessin : c'est ainsi qu'on les retrouve, pas de mémoire.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Lire le cosinus et le sinus d'un réel quelconque">
+    <ol class="etapes">
+      <li><span>Je ramène le réel dans $]-\pi\,;\pi]$ en retirant des tours : les cosinus et sinus ne changent pas.</span></li>
+      <li><span>Je place le point et je repère le <strong>quadrant</strong> : il donne les signes (à droite, $\cos&gt;0$ ; en haut, $\sin&gt;0$).</span></li>
+      <li><span>Je trouve l'angle associé de $\left[0\,;\dfrac{\pi}{2}\right]$ qui a le même point au signe près ($\pi-x$, $-x$ ou $x-\pi$), et je lis sa valeur dans le tableau.</span></li>
+      <li><span>Je pose les signes du quadrant.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Donner les valeurs exactes de $\cos\dfrac{5\pi}{6}$, $\sin\!\left(-\dfrac{\pi}{3}\right)$ et $\cos\dfrac{17\pi}{4}$.</p>
+      <ol class="pas">
+        <li><strong>$\cos\dfrac{5\pi}{6}$.</strong> $\dfrac{5\pi}{6}=\pi-\dfrac{\pi}{6}$ : en haut à gauche, le symétrique de $M\!\left(\dfrac{\pi}{6}\right)$ par rapport à l'axe vertical. $\cos\dfrac{5\pi}{6}=-\cos\dfrac{\pi}{6}=-\dfrac{\sqrt3}{2}$ (et $\sin\dfrac{5\pi}{6}=\dfrac12$).</li>
+        <li><strong>$\sin\!\left(-\dfrac{\pi}{3}\right)$.</strong> En bas à droite, symétrique de $M\!\left(\dfrac{\pi}{3}\right)$ par rapport à l'axe horizontal : $\sin\!\left(-\dfrac{\pi}{3}\right)=-\sin\dfrac{\pi}{3}=-\dfrac{\sqrt3}{2}$.</li>
+        <li><strong>$\cos\dfrac{17\pi}{4}$.</strong> $\dfrac{17\pi}{4}=\dfrac{\pi}{4}+\dfrac{16\pi}{4}=\dfrac{\pi}{4}+4\pi$ : deux tours, même point que $\dfrac{\pi}{4}$. $\cos\dfrac{17\pi}{4}=\dfrac{\sqrt2}{2}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le cercle à l'envers : quels réels ont un cosinus égal à ½ ?">
+    <p>Sur le cercle, l'abscisse $\dfrac12$ est atteinte en deux points : $M\!\left(\dfrac{\pi}{3}\right)$ et son symétrique $M\!\left(-\dfrac{\pi}{3}\right)$. Dans $]-\pi\,;\pi]$, les réels dont le cosinus vaut $\dfrac12$ sont donc $\dfrac{\pi}{3}$ et $-\dfrac{\pi}{3}$ — deux, pas un. Dans $[0\,;4\pi]$, on ajoute des tours : $\dfrac{\pi}{3}$, $\dfrac{5\pi}{3}$, $\dfrac{7\pi}{3}$, $\dfrac{11\pi}{3}$. Même chose pour un sinus : $\sin x=-\dfrac{\sqrt2}{2}$ en $-\dfrac{\pi}{4}$ et en $-\dfrac{3\pi}{4}$, les deux points de hauteur $-\dfrac{\sqrt2}{2}$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Un signe qui s'oublie">
+    <p>$\sin(\pi-x)=\sin x$, <strong>sans</strong> signe moins : $M(\pi-x)$ est à la même hauteur que $M(x)$. C'est le cosinus qui change. Dessine les deux points plutôt que de réciter : les erreurs de signe viennent toutes d'une formule mal retenue.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pour la terminale : la courbe du sinus">
+    <p>Quand $x$ parcourt la droite des réels, $\sin x$ monte et descend entre $-1$ et $1$, et recommence à chaque tour : sa courbe est une vague, la <strong>sinusoïde</strong>. C'est le dessin du courant alternatif, du son, des marées. Les fonctions $x\mapsto\cos x$ et $x\mapsto\sin x$, leur parité et leur périodicité, sont au programme de terminale ; en première, tout se passe sur le cercle.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 456 164" role="img" aria-label="À gauche, le cercle trigonométrique avec un point M d'angle x. À droite, la courbe de sin x pour x de 0 à 2π : la hauteur du point M, reportée en pointillés, est l'ordonnée du point de la courbe d'abscisse x. La courbe monte jusqu'à 1 en π/2, redescend à −1 en 3π/2 et revient à 0 en 2π."><g class="trace t-n"><line x1="14.0" y1="86.0" x2="118.2" y2="86.0"/><polygon points="126.0,86.0 113.0,91.8 113.0,80.2"/></g><g class="trace t-n"><line x1="70.0" y1="142.0" x2="70.0" y2="37.8"/><polygon points="70.0,30.0 75.8,43.0 64.2,43.0"/></g><circle class="contour t-n" cx="70.0" cy="86.0" r="40.0"/><circle class="pt pt-v" cx="46.5" cy="53.7" r="4.5"/><text class="lettre" x="42.5" y="48.9" text-anchor="end">M(x)</text><g class="trace t-n"><line x1="70.0" y1="86.0" x2="46.5" y2="53.7"/></g><g class="trace t-n"><line x1="154.0" y1="86.0" x2="429.5" y2="86.0"/><polygon points="437.3,86.0 424.3,91.8 424.3,80.2"/></g><g class="trace t-n"><line x1="166.0" y1="142.0" x2="166.0" y2="29.8"/><polygon points="166.0,22.0 171.8,35.0 160.2,35.0"/></g><g class="trace t-v"><path d="M166.0,86.0 L167.0,85.0 L168.1,83.9 L169.1,82.9 L170.2,81.8 L171.2,80.8 L172.3,79.7 L173.3,78.7 L174.4,77.7 L175.4,76.7 L176.5,75.6 L177.5,74.6 L178.6,73.6 L179.6,72.6 L180.7,71.7 L181.7,70.7 L182.8,69.7 L183.8,68.8 L184.8,67.8 L185.9,66.9 L186.9,66.0 L188.0,65.1 L189.0,64.2 L190.1,63.3 L191.1,62.5 L192.2,61.6 L193.2,60.8 L194.3,60.0 L195.3,59.2 L196.4,58.5 L197.4,57.7 L198.5,57.0 L199.5,56.3 L200.6,55.6 L201.6,54.9 L202.7,54.3 L203.7,53.6 L204.7,53.0 L205.8,52.5 L206.8,51.9 L207.9,51.4 L208.9,50.8 L210.0,50.4 L211.0,49.9 L212.1,49.5 L213.1,49.0 L214.2,48.7 L215.2,48.3 L216.3,48.0 L217.3,47.6 L218.4,47.4 L219.4,47.1 L220.5,46.9 L221.5,46.7 L222.5,46.5 L223.6,46.3 L224.6,46.2 L225.7,46.1 L226.7,46.1 L227.8,46.0 L228.8,46.0 L229.9,46.0 L230.9,46.1 L232.0,46.1 L233.0,46.2 L234.1,46.3 L235.1,46.5 L236.2,46.7 L237.2,46.9 L238.3,47.1 L239.3,47.4 L240.4,47.6 L241.4,48.0 L242.4,48.3 L243.5,48.7 L244.5,49.0 L245.6,49.5 L246.6,49.9 L247.7,50.4 L248.7,50.8 L249.8,51.4 L250.8,51.9 L251.9,52.5 L252.9,53.0 L254.0,53.6 L255.0,54.3 L256.1,54.9 L257.1,55.6 L258.2,56.3 L259.2,57.0 L260.2,57.7 L261.3,58.5 L262.3,59.2 L263.4,60.0 L264.4,60.8 L265.5,61.6 L266.5,62.5 L267.6,63.3 L268.6,64.2 L269.7,65.1 L270.7,66.0 L271.8,66.9 L272.8,67.8 L273.9,68.8 L274.9,69.7 L276.0,70.7 L277.0,71.7 L278.1,72.6 L279.1,73.6 L280.1,74.6 L281.2,75.6 L282.2,76.7 L283.3,77.7 L284.3,78.7 L285.4,79.7 L286.4,80.8 L287.5,81.8 L288.5,82.9 L289.6,83.9 L290.6,85.0 L291.7,86.0 L292.7,87.0 L293.8,88.1 L294.8,89.1 L295.9,90.2 L296.9,91.2 L297.9,92.3 L299.0,93.3 L300.0,94.3 L301.1,95.3 L302.1,96.4 L303.2,97.4 L304.2,98.4 L305.3,99.4 L306.3,100.3 L307.4,101.3 L308.4,102.3 L309.5,103.2 L310.5,104.2 L311.6,105.1 L312.6,106.0 L313.7,106.9 L314.7,107.8 L315.7,108.7 L316.8,109.5 L317.8,110.4 L318.9,111.2 L319.9,112.0 L321.0,112.8 L322.0,113.5 L323.1,114.3 L324.1,115.0 L325.2,115.7 L326.2,116.4 L327.3,117.1 L328.3,117.7 L329.4,118.4 L330.4,119.0 L331.5,119.5 L332.5,120.1 L333.6,120.6 L334.6,121.2 L335.6,121.6 L336.7,122.1 L337.7,122.5 L338.8,123.0 L339.8,123.3 L340.9,123.7 L341.9,124.0 L343.0,124.4 L344.0,124.6 L345.1,124.9 L346.1,125.1 L347.2,125.3 L348.2,125.5 L349.3,125.7 L350.3,125.8 L351.4,125.9 L352.4,125.9 L353.4,126.0 L354.5,126.0 L355.5,126.0 L356.6,125.9 L357.6,125.9 L358.7,125.8 L359.7,125.7 L360.8,125.5 L361.8,125.3 L362.9,125.1 L363.9,124.9 L365.0,124.6 L366.0,124.4 L367.1,124.0 L368.1,123.7 L369.2,123.3 L370.2,123.0 L371.3,122.5 L372.3,122.1 L373.3,121.6 L374.4,121.2 L375.4,120.6 L376.5,120.1 L377.5,119.5 L378.6,119.0 L379.6,118.4 L380.7,117.7 L381.7,117.1 L382.8,116.4 L383.8,115.7 L384.9,115.0 L385.9,114.3 L387.0,113.5 L388.0,112.8 L389.1,112.0 L390.1,111.2 L391.1,110.4 L392.2,109.5 L393.2,108.7 L394.3,107.8 L395.3,106.9 L396.4,106.0 L397.4,105.1 L398.5,104.2 L399.5,103.2 L400.6,102.3 L401.6,101.3 L402.7,100.3 L403.7,99.4 L404.8,98.4 L405.8,97.4 L406.9,96.4 L407.9,95.3 L408.9,94.3 L410.0,93.3 L411.0,92.3 L412.1,91.2 L413.1,90.2 L414.2,89.1 L415.2,88.1 L416.3,87.0 L417.3,86.0"/></g><g class="trace t-n"><line x1="228.8" y1="88.4" x2="228.8" y2="83.6"/></g><text class="petit" x="228.8" y="104.8" text-anchor="middle">π/2</text><g class="trace t-n"><line x1="291.7" y1="88.4" x2="291.7" y2="83.6"/></g><text class="petit" x="291.7" y="104.8" text-anchor="middle">π</text><g class="trace t-n"><line x1="354.5" y1="88.4" x2="354.5" y2="83.6"/></g><text class="petit" x="354.5" y="104.8" text-anchor="middle">3π/2</text><g class="trace t-n"><line x1="417.3" y1="88.4" x2="417.3" y2="83.6"/></g><text class="petit" x="417.3" y="104.8" text-anchor="middle">2π</text><text class="petit" x="162.0" y="51.0" text-anchor="end">1</text><text class="petit" x="162.0" y="131.0" text-anchor="end">−1</text><g class="trace t-n"><line x1="164.0" y1="46.0" x2="168.0" y2="46.0"/></g><g class="trace t-n"><line x1="164.0" y1="126.0" x2="168.0" y2="126.0"/></g><g class="trace t-n pointille"><line x1="46.5" y1="53.7" x2="254.0" y2="53.7"/></g><g class="trace t-n pointille"><line x1="254.0" y1="86.0" x2="254.0" y2="53.7"/></g><circle class="pt pt-v" cx="254.0" cy="53.7" r="4.5"/><text class="lettre" x="254.0" y="106.8" text-anchor="middle">x</text><text class="moyen" x="433.3" y="81.2" text-anchor="start">x</text><text class="moyen" x="172.0" y="24.0" text-anchor="start">sin x</text></svg><figcaption>La hauteur du point $M(x)$, reportée en face de $x$ : point par point, la courbe de $\sin x$ se dessine. Elle revient au même après chaque tour de $2\pi$.</figcaption></figure>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-python">5. Archimède et Python : approcher π</h3>
+  <p>Comment connaît-on les décimales de $\pi$ ? Archimède, vers 250 avant notre ère, coince le cercle entre deux polygones réguliers, l'un inscrit, l'autre circonscrit, et double le nombre de côtés : 6, 12, 24, 48, 96. Le demi-périmètre du polygone inscrit dans le cercle de rayon $1$ approche $\pi$ par défaut. C'est l'algorithme du programme.</p>
+
+  <div class="colonnes">
+    <figure class="figure-svg"><svg viewBox="0 0 296 277" role="img" aria-label="Un cercle de rayon 1 avec un hexagone régulier inscrit, en bleu, et le dodécagone inscrit obtenu en doublant les côtés, en pointillés roses. Sur un côté A B de l'hexagone, H est le milieu, P le nouveau sommet sur le cercle : les longueurs s, a, 1 − a et s prime sont marquées."><circle class="contour t-n" cx="143.4" cy="143.4" r="101.2"/><polygon class="contour t-v tirets-5" points="244.6,143.4 231.0,92.8 194.0,55.8 143.4,42.2 92.8,55.8 55.8,92.8 42.2,143.4 55.8,194.0 92.8,231.0 143.4,244.6 194.0,231.0 231.0,194.0 244.6,143.4"/><g class="trace t-u"><line x1="244.6" y1="143.4" x2="194.0" y2="55.8"/></g><g class="trace t-u"><line x1="194.0" y1="55.8" x2="92.8" y2="55.8"/></g><g class="trace t-u"><line x1="92.8" y1="55.8" x2="42.2" y2="143.4"/></g><g class="trace t-u"><line x1="42.2" y1="143.4" x2="92.8" y2="231.0"/></g><g class="trace t-u"><line x1="92.8" y1="231.0" x2="194.0" y2="231.0"/></g><g class="trace t-u"><line x1="194.0" y1="231.0" x2="244.6" y2="143.4"/></g><g class="trace t-n"><line x1="143.4" y1="143.4" x2="244.6" y2="143.4"/></g><g class="trace t-n"><line x1="143.4" y1="143.4" x2="194.0" y2="55.8"/></g><g class="trace t-w"><line x1="143.4" y1="143.4" x2="219.3" y2="99.6"/></g><g class="trace t-v"><line x1="219.3" y1="99.6" x2="231.0" y2="92.8"/></g><g class="trace t-v"><line x1="244.6" y1="143.4" x2="231.0" y2="92.8"/></g><circle class="pt pt" cx="244.6" cy="143.4" r="4.5"/><text class="lettre" x="251.0" y="142.8" text-anchor="start">A</text><circle class="pt pt" cx="194.0" cy="55.8" r="4.5"/><text class="lettre" x="198.6" y="51.5" text-anchor="start">B</text><circle class="pt pt-v" cx="231.0" cy="92.8" r="4.5"/><text class="lettre" x="241.2" y="87.6" text-anchor="start">P</text><circle class="pt pt" cx="219.3" cy="99.6" r="4.5"/><text class="lettre" x="213.8" y="96.2" text-anchor="end">H</text><text class="lettre" x="138.8" y="162.0" text-anchor="end">O</text><text class="lettre" x="226.4" y="131.9" text-anchor="end">s</text><text class="lettre" x="183.7" y="137.0" text-anchor="start">a</text><text class="moyen" x="217.0" y="80.3" text-anchor="end">1 − a</text><g class="trace t-n"><line x1="215.6" y1="83.0" x2="225.2" y2="96.2"/></g><text class="lettre" x="247.0" y="123.0" text-anchor="start">s′</text><text class="petit" x="14.6" y="23.8" text-anchor="start">hexagone : 6 côtés</text><text class="petit" x="14.6" y="37.6" text-anchor="start">dodécagone : 12 côtés</text><text class="petit" x="143.4" y="260.7" text-anchor="middle">OA = OB = OP = 1</text></svg><figcaption>Du côté $s=AB$ de l'hexagone au côté $s'=AP$ du dodécagone : deux triangles rectangles, deux fois Pythagore.</figcaption></figure>
+    <div class="bloc propriete" data-titre="Doubler les côtés">
+      <p>Dans le cercle de rayon $1$, soit $s$ le côté du polygone régulier inscrit à $n$ côtés et $s'$ celui du polygone à $2n$ côtés. Avec $H$ le milieu de $[AB]$ et $P$ le nouveau sommet :</p>
+      <ul>
+        <li>$OH=a=\sqrt{1-\dfrac{s^2}{4}}$ (triangle $OHA$, rectangle en $H$) ;</li>
+        <li>$HP=1-a$, et $s'^2=AH^2+HP^2=\dfrac{s^2}{4}+(1-a)^2=2-2a$ (triangle $AHP$).</li>
+      </ul>
+      <p>Donc $s'=\sqrt{2-\sqrt{4-s^2}}$. On part de l'hexagone, $s=1$, et on double. Le demi-périmètre $\dfrac{n\,s}{2}$ grandit vers $\pi$.</p>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="La méthode d'Archimède en Python">
+<pre class="code">from math import sqrt
+
+def archimede(k):
+    """demi-périmètre du polygone inscrit
+    à 6 × 2**k côtés"""
+    n = 6
+    s = 1.0            # côté de l'hexagone
+    for i in range(k):
+        s = sqrt(2 - sqrt(4 - s*s))
+        n = 2 * n
+    return n * s / 2</pre>
+      <p><code>archimede(0)</code> renvoie $3$ (l'hexagone), <code>archimede(4)</code> renvoie $3{,}14103\ldots$ avec $96$ côtés : c'est le polygone d'Archimède, et sa borne $3+\dfrac{10}{71}\approx3{,}1408$. <code>archimede(10)</code> donne $3{,}141592\ldots$ avec $6\,144$ côtés.</p>
+    </div>
+    <div class="bloc exemple" data-titre="Des degrés aux radians, et un réel ramené dans ]−π ; π]">
+<pre class="code">from math import pi
+
+def radians(d):
+    return d * pi / 180
+
+def principal(x):
+    """le réel de ]-pi ; pi] qui a
+    la même image que x"""
+    while x &gt; pi:
+        x = x - 2 * pi
+    while x &lt;= -pi:
+        x = x + 2 * pi
+    return x</pre>
+      <p><code>principal(17 * pi / 4)</code> renvoie $0{,}785\ldots$, c'est-à-dire $\dfrac{\pi}{4}$ : la boucle a retiré deux tours. Les deux boucles <code>while</code> font exactement ce que tu fais à la main.</p>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Et le polygone circonscrit ?">
+    <p>Archimède encadre : le polygone circonscrit à $n$ côtés a pour côté $t=\dfrac{s}{a}$, et son demi-périmètre $\dfrac{n\,t}{2}$ approche $\pi$ par excès. Avec 96 côtés : $3{,}1410&lt;\pi&lt;3{,}1427$, d'où le célèbre $\dfrac{22}{7}$. Le labo « π par les polygones » te montre l'encadrement se resserrer.</p>
+  </div>
+
+  <!-- ===== Les pièges ===== -->
+  <h3 id="c-pieges">6. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les dix erreurs que tout le monde fait">
+    <ol>
+      <li><strong>« $\pi=180$ ».</strong> $\pi$ rad et $180°$ mesurent le même angle ; $\pi$ reste $3{,}14\ldots$ Dans $L=R\theta$, l'angle est en radians.</li>
+      <li><strong>$\pi$ pris pour un tour.</strong> Un tour, c'est $2\pi$. $x+\pi$ est le point opposé.</li>
+      <li><strong>$-x$ pris pour « le même point en sens inverse ».</strong> $M(-x)$ est le symétrique de $M(x)$ par rapport à l'axe des abscisses : même cosinus, sinus opposé.</li>
+      <li><strong>Le sens.</strong> Les réels positifs tournent dans le sens direct, contraire aux aiguilles d'une montre. Une horloge tourne dans le sens indirect.</li>
+      <li><strong>cos et sin échangés.</strong> Le cosinus est l'<strong>abscisse</strong> (axe horizontal), le sinus l'ordonnée. $\cos\dfrac{\pi}{2}=0$, pas $1$.</li>
+      <li><strong>$\sin(\pi-x)=-\sin x$.</strong> Faux : $\sin(\pi-x)=\sin x$. Dessine les deux points.</li>
+      <li><strong>Une seule valeur de $\cos x$ quand on connaît $\sin x$.</strong> $\cos^2x=1-\sin^2x$ donne deux candidats ; l'intervalle choisit.</li>
+      <li><strong>« $\cos x=\dfrac12$ donc $x=\dfrac{\pi}{3}$ ».</strong> Il y a aussi $-\dfrac{\pi}{3}$, et tous les $\pm\dfrac{\pi}{3}+2k\pi$. On lit le cercle, pas la touche $\cos^{-1}$.</li>
+      <li><strong>$\cos^2x$ lu comme $\cos(x^2)$,</strong> ou $\cos(2x)$ remplacé par $2\cos x$. Le carré porte sur le cosinus ; $\cos(2x)$ n'est pas $2\cos x$ (pour $x=\dfrac{\pi}{2}$ : $-1$ contre $0$).</li>
+      <li><strong>La calculatrice en degrés.</strong> $\sin30$ (le réel) et $\sin30°$ n'ont rien à voir. Sans calculatrice à l'épreuve, le cercle et les valeurs remarquables sont tes seuls outils : apprends-les.</li>
+    </ol>
+  </div>
+
+  <h3 id="c-videos">7. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Le radian et l'enroulement de la droite"></div>
+    <div class="video" data-titre="Les valeurs remarquables, démontrées"></div>
+    <div class="video" data-titre="Lire les angles associés sur le cercle"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, chacun avec ses défis. Commence par enrouler la droite : c'est là qu'on comprend pourquoi un point a une infinité de réels. Puis lis cosinus et sinus sur le cercle, et finis par le calcul de $\pi$ d'Archimède.</p>
+
+  <div class="labo" data-labo="trigo" data-outil="enrouler"></div>
+  <div class="labo" data-labo="trigo" data-outil="lecture"></div>
+  <div class="labo" data-labo="trigo" data-outil="archimede"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, dans toutes les catégories du chapitre, et dessine des points au hasard sur le cercle à lire ; le bilan de fin de partie te dit quoi retravailler. Le quiz vérifie les réflexes du cours. Ni l'un ni l'autre ne demande de calculatrice : c'est le format de l'épreuve anticipée.</p>
+
+  <div class="jeu" data-generateurs="trigo" data-questions="12" data-titre="Le défi du cercle"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>$150°$, en radians, c'est…</p>
+      <ul class="choix"><li class="bon">$\dfrac{5\pi}{6}$</li><li>$\dfrac{5\pi}{3}$</li><li>$\dfrac{3\pi}{4}$</li><li>$150\pi$</li></ul>
+      <div class="explication">$\dfrac{150}{180}=\dfrac56$, donc $150°=\dfrac{5\pi}{6}$ rad. Cinq douzièmes de tour.</div>
+    </div>
+    <div class="question" data-reponse="135">
+      <p>Convertis $\dfrac{3\pi}{4}$ rad en degrés.</p>
+      <div class="explication">On remplace $\pi$ par $180$ : $\dfrac{3\times180}{4}=135°$.</div>
+    </div>
+    <div class="question">
+      <p>Lequel de ces réels a la même image que $\dfrac{\pi}{6}$ sur le cercle ?</p>
+      <ul class="choix"><li class="bon">$\dfrac{13\pi}{6}$</li><li>$\dfrac{7\pi}{6}$</li><li>$-\dfrac{\pi}{6}$</li><li>$\dfrac{5\pi}{6}$</li></ul>
+      <div class="explication">$\dfrac{13\pi}{6}=\dfrac{\pi}{6}+2\pi$ : un tour de plus, même point. $\dfrac{7\pi}{6}$ est le point opposé ($+\pi$), $-\dfrac{\pi}{6}$ le symétrique par rapport à l'axe des abscisses, $\dfrac{5\pi}{6}$ celui par rapport à l'axe des ordonnées.</div>
+    </div>
+    <div class="question">
+      <p>$\cos\dfrac{\pi}{6}=$</p>
+      <ul class="choix"><li class="bon">$\dfrac{\sqrt3}{2}$</li><li>$\dfrac12$</li><li>$\dfrac{\sqrt2}{2}$</li><li>$\dfrac{\sqrt3}{3}$</li></ul>
+      <div class="explication">$M\!\left(\dfrac{\pi}{6}\right)$ est proche de $I$ : grande abscisse, petite ordonnée. $\cos\dfrac{\pi}{6}=\dfrac{\sqrt3}{2}$ et $\sin\dfrac{\pi}{6}=\dfrac12$.</div>
+    </div>
+    <div class="question">
+      <p>Quel réel de $\left]0\,;\dfrac{\pi}{2}\right[$ a un sinus égal à $\dfrac12$ ?</p>
+      <ul class="choix"><li class="bon">$\dfrac{\pi}{6}$</li><li>$\dfrac{\pi}{3}$</li><li>$\dfrac{\pi}{4}$</li><li>$\dfrac{\pi}{2}$</li></ul>
+      <div class="explication">Le sinus est l'ordonnée : la hauteur $\dfrac12$ est atteinte en $\dfrac{\pi}{6}$ dans le premier quadrant. En $\dfrac{\pi}{3}$, c'est le cosinus qui vaut $\dfrac12$.</div>
+    </div>
+    <div class="question">
+      <p>Pour tout réel $x$, $\cos(\pi-x)=$</p>
+      <ul class="choix"><li class="bon">$-\cos x$</li><li>$\cos x$</li><li>$\sin x$</li><li>$-\sin x$</li></ul>
+      <div class="explication">$M(\pi-x)$ est le symétrique de $M(x)$ par rapport à l'axe des ordonnées : l'abscisse change de signe, l'ordonnée non.</div>
+    </div>
+    <div class="question" data-reponse="-0,8">
+      <p>$\sin x=0{,}6$ et $x\in\left]\dfrac{\pi}{2}\,;\pi\right[$. Que vaut $\cos x$ ?</p>
+      <div class="explication">$\cos^2x=1-0{,}36=0{,}64$, donc $\cos x=\pm0{,}8$. Dans $\left]\dfrac{\pi}{2}\,;\pi\right[$, le point est à gauche de l'axe vertical : $\cos x=-0{,}8$.</div>
+    </div>
+    <div class="question">
+      <p>Le réel de $]-\pi\,;\pi]$ qui a la même image que $\dfrac{11\pi}{4}$ est…</p>
+      <ul class="choix"><li class="bon">$\dfrac{3\pi}{4}$</li><li>$-\dfrac{\pi}{4}$</li><li>$\dfrac{\pi}{4}$</li><li>$-\dfrac{3\pi}{4}$</li></ul>
+      <div class="explication">$\dfrac{11\pi}{4}-2\pi=\dfrac{11\pi}{4}-\dfrac{8\pi}{4}=\dfrac{3\pi}{4}$, qui est bien dans $]-\pi\,;\pi]$.</div>
+    </div>
+    <div class="question" data-reponse="1,57" data-tolerance="0,02">
+      <p>Sur un cercle de rayon $2$, quelle est la longueur de l'arc intercepté par un angle au centre de $\dfrac{\pi}{4}$ rad ? (arrondi au centième)</p>
+      <div class="explication">$L=R\theta=2\times\dfrac{\pi}{4}=\dfrac{\pi}{2}\approx1{,}57$.</div>
+    </div>
+    <div class="question">
+      <p>« Il existe un réel $x$ tel que $\cos x=1{,}2$. »</p>
+      <ul class="choix"><li class="bon">Faux : un cosinus est toujours entre $-1$ et $1$</li><li>Vrai, pour $x$ assez grand</li><li>Vrai, en radians seulement</li></ul>
+      <div class="explication">$\cos x$ est l'abscisse d'un point du cercle de rayon $1$ : elle ne sort jamais de $[-1\,;1]$, quel que soit $x$.</div>
+    </div>
+    <div class="question" data-reponse="1">
+      <p>Calcule $\cos^2\dfrac{\pi}{7}+\sin^2\dfrac{\pi}{7}$.</p>
+      <div class="explication">Pour tout réel $x$, $\cos^2x+\sin^2x=1$ : pas besoin de connaître $\cos\dfrac{\pi}{7}$.</div>
+    </div>
+    <div class="question">
+      <p>Pour $x=\dfrac{5\pi}{6}$, les signes de $\cos x$ et $\sin x$ sont…</p>
+      <ul class="choix"><li class="bon">$\cos x&lt;0$ et $\sin x&gt;0$</li><li>$\cos x&gt;0$ et $\sin x&gt;0$</li><li>$\cos x&lt;0$ et $\sin x&lt;0$</li><li>$\cos x&gt;0$ et $\sin x&lt;0$</li></ul>
+      <div class="explication">$\dfrac{5\pi}{6}$ est entre $\dfrac{\pi}{2}$ et $\pi$ : en haut à gauche. Abscisse négative, ordonnée positive.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre : ★ convertir, placer, lire ; ★★ calculer avec le cercle ; ★★★ démontrer et modéliser. Rédige ta réponse, avec un cercle dessiné quand il le faut, avant d'ouvrir la correction. Pas d'exercice guidé dans ce chapitre : le vérificateur du tuteur calcule sur des polynômes, pas sur des cosinus. Quand un exercice demande la calculatrice, l'énoncé le dit ; sinon, fais sans, comme à l'épreuve.</p>
+
+  <h3>Niveau 1 · Convertir, placer, lire</h3>
+
+  <article class="exercice" id="ex-convertir" data-titre="Convertir" data-niveau="1" data-type="application" data-notions="radian" data-duree="8" data-calculatrice="non">
+    <p>a) Convertis en radians, en fraction de $\pi$ : $30°$, $45°$, $120°$, $225°$, $300°$, $15°$. b) Convertis en degrés : $\dfrac{\pi}{3}$, $\dfrac{3\pi}{2}$, $\dfrac{5\pi}{4}$, $\dfrac{7\pi}{6}$, $\dfrac{\pi}{12}$, $3\pi$. c) Un radian, c'est à peu près combien de degrés ?</p>
+    <details class="indice"><p>$180°=\pi$ rad : simplifie d'abord la fraction $\dfrac{\text{degrés}}{180}$.</p></details>
+    <details class="correction">
+      <p>a) $\dfrac{\pi}{6}$ ; $\dfrac{\pi}{4}$ ; $\dfrac{2\pi}{3}$ ; $\dfrac{5\pi}{4}$ ; $\dfrac{5\pi}{3}$ ; $\dfrac{\pi}{12}$.</p>
+      <p>b) $60°$ ; $270°$ ; $225°$ ; $210°$ ; $15°$ ; $540°$ (un tour et demi).</p>
+      <p>c) $1$ rad $=\dfrac{180}{\pi}°\approx57{,}3°$. Un peu moins que $60°$ : le triangle équilatéral a des angles de $\dfrac{\pi}{3}\approx1{,}05$ rad.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-placer-des-points" data-titre="Placer des points" data-niveau="1" data-type="application" data-notions="radian" data-duree="10" data-calculatrice="non">
+    <p>Trace un cercle trigonométrique et place les points images des réels $\dfrac{\pi}{4}$, $\dfrac{2\pi}{3}$, $-\dfrac{\pi}{6}$, $\dfrac{7\pi}{6}$, $-\dfrac{3\pi}{2}$, $\dfrac{9\pi}{4}$, $-\dfrac{13\pi}{6}$ et $5\pi$. Pour chacun, donne le réel de $]-\pi\,;\pi]$ qui a la même image.</p>
+    <details class="indice"><p>Quand $|x|&gt;\pi$, retire ou ajoute $2\pi$ autant de fois qu'il faut : le point ne bouge pas.</p></details>
+    <details class="correction">
+      <p>$\dfrac{\pi}{4}$ : premier quadrant, un huitième de tour ; lui-même. $\dfrac{2\pi}{3}$ : deuxième quadrant, un tiers de tour ; lui-même. $-\dfrac{\pi}{6}$ : quatrième quadrant ; lui-même. $\dfrac{7\pi}{6}=\pi+\dfrac{\pi}{6}$ : troisième quadrant, un peu après $I'$ ; le réel associé est $\dfrac{7\pi}{6}-2\pi=-\dfrac{5\pi}{6}$. $-\dfrac{3\pi}{2}+2\pi=\dfrac{\pi}{2}$ : c'est $J$. $\dfrac{9\pi}{4}-2\pi=\dfrac{\pi}{4}$ : même point que le premier. $-\dfrac{13\pi}{6}+2\pi=-\dfrac{\pi}{6}$ : même point que le troisième. $5\pi=\pi+4\pi$ : c'est $I'$, de réel associé $\pi$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-meme-point" data-titre="Le même point ?" data-niveau="1" data-type="application" data-notions="radian" data-duree="6" data-calculatrice="non">
+    <p>Pour chaque paire, dis si les deux réels ont la même image sur le cercle, et sinon quelle symétrie relie leurs images.</p>
+    <p>a) $\dfrac{\pi}{5}$ et $\dfrac{11\pi}{5}$ · b) $\dfrac{\pi}{5}$ et $-\dfrac{\pi}{5}$ · c) $\dfrac{\pi}{5}$ et $\dfrac{6\pi}{5}$ · d) $\dfrac{\pi}{5}$ et $\dfrac{4\pi}{5}$ · e) $\dfrac{\pi}{5}$ et $-\dfrac{19\pi}{5}$</p>
+    <details class="correction">
+      <p>a) $\dfrac{11\pi}{5}=\dfrac{\pi}{5}+2\pi$ : même point. b) Opposés : symétriques par rapport à l'axe des abscisses. c) $\dfrac{6\pi}{5}=\dfrac{\pi}{5}+\pi$ : points opposés, symétriques par rapport à $O$. d) $\dfrac{4\pi}{5}=\pi-\dfrac{\pi}{5}$ : symétriques par rapport à l'axe des ordonnées. e) $-\dfrac{19\pi}{5}=\dfrac{\pi}{5}-4\pi$ : même point, deux tours en arrière.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-lire-sur-le-cercle" data-titre="Lire sur le cercle" data-niveau="1" data-type="application" data-notions="cossin associes" data-duree="10" data-calculatrice="non">
+    <figure class="figure-svg"><svg viewBox="0 0 328 319" role="img" aria-label="Le cercle trigonométrique avec quatre points A, B, C, D et leurs projections en pointillés sur les axes, où se lisent 1/2, √2/2 et √3/2 et leurs opposés. A est à l'angle π/3, B à 3π/4, C à −5π/6 et D à −π/4."><g class="trace t-n"><line x1="27.6" y1="159.6" x2="292.6" y2="159.6"/><polygon points="300.4,159.6 287.4,165.4 287.4,153.8"/></g><g class="trace t-n"><line x1="164.0" y1="296.0" x2="164.0" y2="31.0"/><polygon points="164.0,23.2 169.8,36.2 158.2,36.2"/></g><circle class="contour t-n" cx="164.0" cy="159.6" r="110.0"/><circle class="pt pt" cx="274.0" cy="159.6" r="4.5"/><circle class="pt pt" cx="164.0" cy="49.6" r="4.5"/><text class="lettre" x="282.8" y="188.8" text-anchor="start">I</text><text class="lettre" x="175.0" y="44.1" text-anchor="start">J</text><text class="lettre" x="155.2" y="184.4" text-anchor="end">O</text><g class="trace t-n pointille"><line x1="219.0" y1="64.3" x2="219.0" y2="159.6"/></g><g class="trace t-n pointille"><line x1="219.0" y1="64.3" x2="164.0" y2="64.3"/></g><g class="trace t-n"><line x1="219.0" y1="162.7" x2="219.0" y2="156.5"/></g><g class="trace t-n"><line x1="160.9" y1="64.3" x2="167.1" y2="64.3"/></g><circle class="pt pt-v" cx="219.0" cy="64.3" r="4.5"/><text class="lettre" x="225.6" y="58.9" text-anchor="start">A</text><text class="petit" x="219.0" y="175.6" text-anchor="middle">½</text><text class="petit" x="157.8" y="69.3" text-anchor="end">√3⁄2</text><g class="trace t-n pointille"><line x1="86.2" y1="81.8" x2="86.2" y2="159.6"/></g><g class="trace t-n pointille"><line x1="86.2" y1="81.8" x2="164.0" y2="81.8"/></g><g class="trace t-n"><line x1="86.2" y1="162.7" x2="86.2" y2="156.5"/></g><g class="trace t-n"><line x1="160.9" y1="81.8" x2="167.1" y2="81.8"/></g><circle class="pt pt-v" cx="86.2" cy="81.8" r="4.5"/><text class="lettre" x="76.9" y="78.5" text-anchor="end">B</text><text class="petit" x="86.2" y="175.6" text-anchor="middle">−√2⁄2</text><text class="petit" x="170.2" y="86.8" text-anchor="start">√2⁄2</text><g class="trace t-n pointille"><line x1="68.7" y1="214.6" x2="68.7" y2="159.6"/></g><g class="trace t-n pointille"><line x1="68.7" y1="214.6" x2="164.0" y2="214.6"/></g><g class="trace t-n"><line x1="68.7" y1="162.7" x2="68.7" y2="156.5"/></g><g class="trace t-n"><line x1="160.9" y1="214.6" x2="167.1" y2="214.6"/></g><circle class="pt pt-v" cx="68.7" cy="214.6" r="4.5"/><text class="lettre" x="57.3" y="227.2" text-anchor="end">C</text><text class="petit" x="68.7" y="151.6" text-anchor="middle">−√3⁄2</text><text class="petit" x="170.2" y="219.6" text-anchor="start">−½</text><g class="trace t-n pointille"><line x1="241.8" y1="237.4" x2="241.8" y2="159.6"/></g><g class="trace t-n pointille"><line x1="241.8" y1="237.4" x2="164.0" y2="237.4"/></g><g class="trace t-n"><line x1="241.8" y1="162.7" x2="241.8" y2="156.5"/></g><g class="trace t-n"><line x1="160.9" y1="237.4" x2="167.1" y2="237.4"/></g><circle class="pt pt-v" cx="241.8" cy="237.4" r="4.5"/><text class="lettre" x="251.1" y="252.7" text-anchor="start">D</text><text class="petit" x="241.8" y="151.6" text-anchor="middle">√2⁄2</text><text class="petit" x="157.8" y="242.4" text-anchor="end">−√2⁄2</text></svg></figure>
+    <p>Les points $A$, $B$, $C$ et $D$ sont les images de réels remarquables. Pour chacun : a) donne le réel de $]-\pi\,;\pi]$ dont il est l'image ; b) lis son cosinus et son sinus ; c) donne un autre réel, positif et supérieur à $2\pi$, qui a la même image.</p>
+    <details class="correction">
+      <p>$A$ : $\dfrac{\pi}{3}$ ; $\cos=\dfrac12$, $\sin=\dfrac{\sqrt3}{2}$ ; $\dfrac{7\pi}{3}$. $B$ : $\dfrac{3\pi}{4}$ ; $\cos=-\dfrac{\sqrt2}{2}$, $\sin=\dfrac{\sqrt2}{2}$ ; $\dfrac{11\pi}{4}$. $C$ : $-\dfrac{5\pi}{6}$ ; $\cos=-\dfrac{\sqrt3}{2}$, $\sin=-\dfrac12$ ; $-\dfrac{5\pi}{6}+4\pi=\dfrac{19\pi}{6}$ (ou $\dfrac{7\pi}{6}$, qui n'est pas supérieur à $2\pi$). $D$ : $-\dfrac{\pi}{4}$ ; $\cos=\dfrac{\sqrt2}{2}$, $\sin=-\dfrac{\sqrt2}{2}$ ; $\dfrac{15\pi}{4}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-valeurs-remarquables" data-titre="Les valeurs remarquables" data-niveau="1" data-type="application" data-notions="cossin" data-duree="8" data-calculatrice="non">
+    <p>a) Recopie et complète, sans regarder le cours : $\cos0$, $\cos\dfrac{\pi}{6}$, $\cos\dfrac{\pi}{4}$, $\cos\dfrac{\pi}{3}$, $\cos\dfrac{\pi}{2}$, puis les sinus. b) Place ces cinq points sur un cercle et vérifie que les valeurs sont cohérentes avec leur position. c) Calcule $\cos\dfrac{\pi}{3}+\cos\dfrac{\pi}{6}\times\sin\dfrac{\pi}{3}$.</p>
+    <details class="correction">
+      <p>a) Cosinus : $1$, $\dfrac{\sqrt3}{2}$, $\dfrac{\sqrt2}{2}$, $\dfrac12$, $0$. Sinus : $0$, $\dfrac12$, $\dfrac{\sqrt2}{2}$, $\dfrac{\sqrt3}{2}$, $1$.</p>
+      <p>b) En allant de $I$ vers $J$, l'abscisse descend de $1$ à $0$ et l'ordonnée monte de $0$ à $1$ : c'est bien ce que dit le tableau ($\dfrac{\sqrt3}{2}\approx0{,}87$, $\dfrac{\sqrt2}{2}\approx0{,}71$).</p>
+      <p>c) $\dfrac12+\dfrac{\sqrt3}{2}\times\dfrac{\sqrt3}{2}=\dfrac12+\dfrac34=\dfrac54$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-signe-selon-le-quadrant" data-titre="Le signe selon le quadrant" data-niveau="1" data-type="application" data-notions="cossin" data-duree="6" data-calculatrice="non">
+    <p>Sans calculer, donne le signe de $\cos x$ et de $\sin x$ : a) $x=\dfrac{2\pi}{5}$ · b) $x=\dfrac{4\pi}{5}$ · c) $x=-\dfrac{2\pi}{5}$ · d) $x=\dfrac{7\pi}{5}$ · e) $x=\dfrac{12\pi}{5}$.</p>
+    <details class="indice"><p>Compare $x$ à $\dfrac{\pi}{2}$, $\pi$, $\dfrac{3\pi}{2}$ : dans quel quart de cercle est le point ?</p></details>
+    <details class="correction">
+      <p>a) $0&lt;x&lt;\dfrac{\pi}{2}$ : $\cos&gt;0$, $\sin&gt;0$. b) $\dfrac{\pi}{2}&lt;x&lt;\pi$ : $\cos&lt;0$, $\sin&gt;0$. c) $-\dfrac{\pi}{2}&lt;x&lt;0$ : $\cos&gt;0$, $\sin&lt;0$. d) $\pi&lt;x&lt;\dfrac{3\pi}{2}$ : les deux négatifs. e) $\dfrac{12\pi}{5}=\dfrac{2\pi}{5}+2\pi$ : comme a), les deux positifs.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-virage-de-la-piste" data-titre="Le virage de la piste" data-niveau="1" data-type="probleme" data-notions="radian" data-duree="12" data-calculatrice="oui">
+    <p>Sur une piste d'athlétisme, chaque virage est un demi-cercle. La ligne de course du couloir 1 a un rayon de $36{,}8$ m ; chaque couloir suivant est décalé de $1{,}22$ m vers l'extérieur. Calculatrice autorisée.</p>
+    <p>a) Quelle est la longueur du virage dans le couloir 1 ? Dans le couloir 8 ? b) Sur un 200 m, on court un virage puis une ligne droite. De combien faut-il avancer le départ du couloir 8 par rapport au couloir 1 pour que tout le monde coure 200 m ? c) Un coureur du couloir 1 a parcouru $40$ m dans le virage. De quel angle, en radians puis en degrés, a-t-il tourné autour du centre ?</p>
+    <details class="correction">
+      <p>a) Un demi-tour, c'est $\pi$ rad : $L_1=36{,}8\times\pi\approx115{,}6$ m. Couloir 8 : $R_8=36{,}8+7\times1{,}22=45{,}34$ m, $L_8=45{,}34\pi\approx142{,}4$ m.</p>
+      <p>b) La ligne droite est la même pour tous : la différence vient du virage, $L_8-L_1=\pi\times(45{,}34-36{,}8)=\pi\times8{,}54\approx26{,}8$ m. C'est le décalage des plots de départ qu'on voit sur un 200 m.</p>
+      <p>c) $\theta=\dfrac{L}{R}=\dfrac{40}{36{,}8}\approx1{,}087$ rad, soit $1{,}087\times\dfrac{180}{\pi}\approx62{,}3°$. Un peu plus d'un radian, un peu plus de $60°$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Calculer avec le cercle</h3>
+
+  <article class="exercice" id="ex-cosinus-connaissant-le-sinus" data-titre="Cosinus connaissant le sinus" data-niveau="2" data-type="application" data-notions="cossin" data-duree="10" data-calculatrice="non">
+    <p>a) $\sin x=\dfrac{5}{13}$ et $x\in\left[0\,;\dfrac{\pi}{2}\right]$ : calcule $\cos x$. b) $\cos x=-\dfrac{1}{3}$ et $x\in[\pi\,;2\pi]$ : calcule $\sin x$. c) $\sin x=-\dfrac{\sqrt3}{2}$ et $\cos x&gt;0$ : quel est le réel $x$ de $]-\pi\,;\pi]$ ? d) Peut-on avoir à la fois $\cos x=0{,}6$ et $\sin x=0{,}7$ ?</p>
+    <details class="indice"><p>$\cos^2x+\sin^2x=1$ donne deux valeurs ; l'intervalle (ou le signe donné) choisit.</p></details>
+    <details class="correction">
+      <p>a) $\cos^2x=1-\dfrac{25}{169}=\dfrac{144}{169}$, et $\cos x\ge0$ dans $\left[0\,;\dfrac{\pi}{2}\right]$ : $\cos x=\dfrac{12}{13}$.</p>
+      <p>b) $\sin^2x=1-\dfrac19=\dfrac89$, donc $\sin x=\pm\dfrac{2\sqrt2}{3}$. Pour $x\in[\pi\,;2\pi]$, le point est en dessous de l'axe des abscisses : $\sin x=-\dfrac{2\sqrt2}{3}$.</p>
+      <p>c) Hauteur $-\dfrac{\sqrt3}{2}$ : deux points, $-\dfrac{\pi}{3}$ et $-\dfrac{2\pi}{3}$. Avec $\cos x&gt;0$, c'est $x=-\dfrac{\pi}{3}$.</p>
+      <p>d) $0{,}6^2+0{,}7^2=0{,}36+0{,}49=0{,}85\ne1$ : impossible, le point $(0{,}6\,;0{,}7)$ n'est pas sur le cercle.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-angles-associes" data-titre="Angles associés" data-niveau="2" data-type="application" data-notions="associes" data-duree="12" data-calculatrice="non">
+    <p>a) Exprime en fonction de $\cos x$ et $\sin x$ : $\cos(-x)$, $\sin(\pi+x)$, $\cos(\pi-x)$, $\sin\!\left(\dfrac{\pi}{2}-x\right)$, $\cos(x+2\pi)$, $\sin(x-\pi)$. b) On donne $\cos x=\dfrac25$ et $x\in\left[0\,;\dfrac{\pi}{2}\right]$. Calcule $\sin x$, puis $\cos(\pi-x)$, $\sin(-x)$, $\cos\!\left(\dfrac{\pi}{2}-x\right)$ et $\sin(\pi+x)$.</p>
+    <details class="correction">
+      <p>a) $\cos x$ ; $-\sin x$ ; $-\cos x$ ; $\cos x$ ; $\cos x$ ; $\sin(x-\pi)=\sin(-(\pi-x))=-\sin(\pi-x)=-\sin x$.</p>
+      <p>b) $\sin^2x=1-\dfrac{4}{25}=\dfrac{21}{25}$ et $\sin x\ge0$ : $\sin x=\dfrac{\sqrt{21}}{5}$. Puis $\cos(\pi-x)=-\dfrac25$, $\sin(-x)=-\dfrac{\sqrt{21}}{5}$, $\cos\!\left(\dfrac{\pi}{2}-x\right)=\sin x=\dfrac{\sqrt{21}}{5}$, $\sin(\pi+x)=-\dfrac{\sqrt{21}}{5}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-valeurs-exactes-sur-tout-le-cercle" data-titre="Valeurs exactes sur tout le cercle" data-niveau="2" data-type="application" data-notions="associes cossin" data-duree="12" data-calculatrice="non">
+    <p>Donne les valeurs exactes de : $\cos\dfrac{2\pi}{3}$, $\sin\dfrac{5\pi}{6}$, $\cos\dfrac{7\pi}{4}$, $\sin\!\left(-\dfrac{5\pi}{6}\right)$, $\cos\dfrac{11\pi}{6}$, $\sin\dfrac{13\pi}{4}$, $\cos\!\left(-\dfrac{7\pi}{3}\right)$, $\sin\dfrac{19\pi}{6}$.</p>
+    <details class="indice"><p>Retire les tours, repère le quadrant, cherche l'angle de $\left[0\,;\dfrac{\pi}{2}\right]$ qui a les mêmes valeurs au signe près.</p></details>
+    <details class="correction">
+      <p>$\cos\dfrac{2\pi}{3}=-\cos\dfrac{\pi}{3}=-\dfrac12$. $\sin\dfrac{5\pi}{6}=\sin\dfrac{\pi}{6}=\dfrac12$. $\cos\dfrac{7\pi}{4}=\cos\!\left(-\dfrac{\pi}{4}\right)=\dfrac{\sqrt2}{2}$. $\sin\!\left(-\dfrac{5\pi}{6}\right)=-\sin\dfrac{5\pi}{6}=-\dfrac12$. $\cos\dfrac{11\pi}{6}=\cos\!\left(-\dfrac{\pi}{6}\right)=\dfrac{\sqrt3}{2}$. $\dfrac{13\pi}{4}=\dfrac{5\pi}{4}+2\pi$ et $\dfrac{5\pi}{4}=\pi+\dfrac{\pi}{4}$ : $\sin\dfrac{13\pi}{4}=-\dfrac{\sqrt2}{2}$. $-\dfrac{7\pi}{3}=-\dfrac{\pi}{3}-2\pi$ : $\cos\!\left(-\dfrac{7\pi}{3}\right)=\cos\dfrac{\pi}{3}=\dfrac12$. $\dfrac{19\pi}{6}=\dfrac{7\pi}{6}+2\pi$ et $\dfrac{7\pi}{6}=\pi+\dfrac{\pi}{6}$ : $\sin\dfrac{19\pi}{6}=-\dfrac12$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-reels-dont-le-cosinus-vaut" data-titre="Les réels dont le cosinus vaut…" data-niveau="2" data-type="application" data-notions="associes" data-duree="12" data-calculatrice="non">
+    <p>En lisant le cercle : a) les réels $x$ de $]-\pi\,;\pi]$ tels que $\cos x=\dfrac{\sqrt3}{2}$ ; b) ceux tels que $\sin x=-\dfrac12$ ; c) ceux tels que $\cos x=-1$ ; d) ceux tels que $\sin x=\dfrac{\sqrt2}{2}$, puis les mêmes dans $[0\,;4\pi]$ ; e) existe-t-il un réel tel que $\cos x=\dfrac12$ et $\sin x=\dfrac12$ ?</p>
+    <details class="correction">
+      <p>a) L'abscisse $\dfrac{\sqrt3}{2}$ : $\dfrac{\pi}{6}$ et $-\dfrac{\pi}{6}$. b) La hauteur $-\dfrac12$ : $-\dfrac{\pi}{6}$ et $-\dfrac{5\pi}{6}$. c) Un seul point, $I'$ : $x=\pi$. d) $\dfrac{\pi}{4}$ et $\dfrac{3\pi}{4}$ ; dans $[0\,;4\pi]$ : $\dfrac{\pi}{4}$, $\dfrac{3\pi}{4}$, $\dfrac{9\pi}{4}$, $\dfrac{11\pi}{4}$. e) Non : $\left(\dfrac12\right)^2+\left(\dfrac12\right)^2=\dfrac12\ne1$. Le point $\left(\dfrac12\,;\dfrac12\right)$ est à l'intérieur du cercle.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-grande-roue" data-titre="La grande roue" data-niveau="2" data-type="probleme" data-notions="cossin associes" data-duree="15" data-calculatrice="non">
+    <p>Une grande roue a un rayon de $10$ m et son axe est à $11$ m du sol. La nacelle part du point le plus bas et tourne dans le sens direct d'un angle $x$ (en radians). Sa hauteur est alors $h(x)=11-10\cos x$.</p>
+    <p>a) Explique cette formule à l'aide d'un dessin (où est le centre, où est la nacelle ?). b) Calcule la hauteur pour $x=\dfrac{\pi}{3}$, $\dfrac{\pi}{2}$, $\pi$, $\dfrac{5\pi}{3}$ et $\dfrac{7\pi}{2}$. c) Pour quels angles $x$ de $[0\,;2\pi]$ la nacelle est-elle à $16$ m, à la hauteur du toit d'en face ? d) Et à $6$ m ? e) Quelle est la hauteur maximale, et pour quel angle est-elle atteinte ?</p>
+    <details class="indice"><p>c) $11-10\cos x=16\iff\cos x=-\dfrac12$ : deux points sur le cercle.</p></details>
+    <details class="correction">
+      <p>a) Dans le repère centré sur l'axe, avec $x$ compté depuis le bas, la nacelle est en $(10\sin x\,;-10\cos x)$ : à $x=0$ elle est $10$ m sous l'axe, en bas. Sa hauteur au-dessus du sol est $11+(-10\cos x)=11-10\cos x$.</p>
+      <p>b) $x=\dfrac{\pi}{3}$ : $11-5=6$ m. $x=\dfrac{\pi}{2}$ : $11-0=11$ m (à hauteur de l'axe). $x=\pi$ : $11+10=21$ m, le sommet. $x=\dfrac{5\pi}{3}$ : $\cos\dfrac{5\pi}{3}=\cos\!\left(-\dfrac{\pi}{3}\right)=\dfrac12$, donc $6$ m : la nacelle redescend, symétrique de $\dfrac{\pi}{3}$. $x=\dfrac{7\pi}{2}=\dfrac{3\pi}{2}+2\pi$ : $\cos=0$, $11$ m.</p>
+      <p>c) $\cos x=-\dfrac12\iff x=\dfrac{2\pi}{3}$ ou $x=\dfrac{4\pi}{3}$ : en montant, puis en descendant.</p>
+      <p>d) $\cos x=\dfrac12\iff x=\dfrac{\pi}{3}$ ou $x=\dfrac{5\pi}{3}$.</p>
+      <p>e) $\cos x\ge-1$, donc $h(x)\le11+10=21$ m, atteint quand $\cos x=-1$, soit $x=\pi$ : un demi-tour, tout en haut.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-aiguilles-d-une-horloge" data-titre="Les aiguilles d'une horloge" data-niveau="2" data-type="probleme" data-notions="radian cossin" data-duree="15" data-calculatrice="non">
+    <p>On repère le cadran d'une horloge par un cercle trigonométrique : $I$ est la position « 3 heures » et $J$ la position « midi ». Les aiguilles tournent dans le sens des aiguilles d'une montre, c'est-à-dire dans le sens <strong>indirect</strong>.</p>
+    <p>a) De quel angle, en radians, la grande aiguille tourne-t-elle en une minute ? En $40$ minutes ? b) À $3$ h $40$, quel réel de $]-\pi\,;\pi]$ est associé à la position de la grande aiguille ? Et de la petite ? c) La grande aiguille mesure $10$ cm. Donne les coordonnées exactes de sa pointe à $3$ h $40$. d) Quel est l'angle entre les deux aiguilles à $3$ h $40$, en degrés ?</p>
+    <details class="indice"><p>Midi, c'est $\dfrac{\pi}{2}$. Tourner dans le sens indirect, c'est <strong>retirer</strong> l'angle parcouru.</p></details>
+    <details class="correction">
+      <p>a) Un tour en $60$ min : $\dfrac{2\pi}{60}=\dfrac{\pi}{30}$ rad par minute, dans le sens indirect. En $40$ min : $\dfrac{40\pi}{30}=\dfrac{4\pi}{3}$.</p>
+      <p>b) Grande aiguille : elle part de midi, $\dfrac{\pi}{2}$, et retire $\dfrac{4\pi}{3}$ : $\dfrac{\pi}{2}-\dfrac{4\pi}{3}=-\dfrac{5\pi}{6}$. (Elle pointe le $8$.) Petite aiguille : en $3$ h $40$, soit $220$ min, elle tourne de $\dfrac{220}{720}$ de tour $=\dfrac{11\pi}{18}$ ; position $\dfrac{\pi}{2}-\dfrac{11\pi}{18}=-\dfrac{\pi}{9}$.</p>
+      <p>c) $\left(10\cos\!\left(-\dfrac{5\pi}{6}\right)\,;10\sin\!\left(-\dfrac{5\pi}{6}\right)\right)=\left(-5\sqrt3\,;-5\right)\approx(-8{,}7\,;-5)$ : en bas à gauche, comme le $8$.</p>
+      <p>d) De $-\dfrac{5\pi}{6}$ à $-\dfrac{\pi}{9}$ : $-\dfrac{\pi}{9}+\dfrac{5\pi}{6}=\dfrac{-2\pi+15\pi}{18}=\dfrac{13\pi}{18}$, soit $130°$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-fonction-python-a-completer" data-titre="Une fonction Python à completer" data-niveau="2" data-type="application" data-notions="radian" data-duree="10" data-calculatrice="non">
+    <p>On veut une fonction qui renvoie le réel de $]-\pi\,;\pi]$ ayant la même image que $x$.</p>
+<pre class="code">from math import pi
+
+def principal(x):
+    while x &gt; ...... :
+        x = x - ......
+    while x &lt;= -pi:
+        x = ......
+    return x</pre>
+    <p>a) Complète les pointillés. b) Que renvoie <code>principal(7 * pi / 2)</code> ? Combien de fois la première boucle tourne-t-elle ? c) Pourquoi la condition de la deuxième boucle est-elle <code>&lt;=</code> et non <code>&lt;</code> ? d) Écris une fonction <code>degres(x)</code> qui convertit un réel en radians en degrés.</p>
+    <details class="correction">
+      <p>a) <code>while x &gt; pi:</code> ; <code>x = x - 2 * pi</code> ; <code>x = x + 2 * pi</code>.</p>
+      <p>b) $\dfrac{7\pi}{2}\approx10{,}99&gt;\pi$ : on retire $2\pi$ (reste $\dfrac{3\pi}{2}$, encore $&gt;\pi$), puis encore $2\pi$ : $-\dfrac{\pi}{2}$. Deux tours de boucle, résultat $-\dfrac{\pi}{2}\approx-1{,}571$.</p>
+      <p>c) $-\pi$ n'est pas dans $]-\pi\,;\pi]$ (le crochet est ouvert) ; il faut le ramener à $\pi$. Avec <code>&lt;</code>, <code>principal(-pi)</code> renverrait $-\pi$.</p>
+      <p>d) <code>def degres(x): return x * 180 / pi</code>.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="associes cossin" data-duree="10" data-calculatrice="non">
+    <p>Un élève a demandé à une IA : « Trouve tous les réels $x$ de $]-\pi\,;\pi]$ tels que $\cos x=\dfrac12$. » Voici sa réponse. Trouve les erreurs, puis rédige la bonne réponse.</p>
+    <blockquote class="copie-ia">« On utilise la fonction réciproque du cosinus : $x=\cos^{-1}\!\left(\dfrac12\right)$. La calculatrice donne $\cos^{-1}(0{,}5)=60$, donc $x=60$. Comme le cosinus est une fonction, à une valeur de $\cos x$ correspond une seule valeur de $x$ : la solution est unique. $S=\{60\}$. Vérification : $\cos(60)=0{,}5$ sur la calculatrice, le résultat est correct. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1, l'unité.</strong> $60$ est une mesure en degrés : la calculatrice était en mode degrés. L'énoncé parle de réels, donc de radians : $60°=\dfrac{\pi}{3}$. Et $60$ n'est même pas dans $]-\pi\,;\pi]$. La « vérification » refait la même erreur avec le même réglage : elle ne vérifie rien. Le réel $60$ a pour cosinus $-0{,}95$.</p>
+      <p><strong>Erreur 2, l'unicité.</strong> « Le cosinus est une fonction » dit qu'à chaque $x$ correspond <em>un seul</em> $\cos x$, pas l'inverse. Sur le cercle, l'abscisse $\dfrac12$ est atteinte en <strong>deux</strong> points, $M\!\left(\dfrac{\pi}{3}\right)$ et $M\!\left(-\dfrac{\pi}{3}\right)$, symétriques par rapport à l'axe des abscisses. La touche $\cos^{-1}$ n'en donne qu'un.</p>
+      <p><strong>La bonne réponse.</strong> $S=\left\{-\dfrac{\pi}{3}\,;\dfrac{\pi}{3}\right\}$. Contrôle : $\cos\dfrac{\pi}{3}=\dfrac12$ (triangle équilatéral) et $\cos(-x)=\cos x$.</p>
+      <p>Une réponse peut être fluide, outillée et fausse dès la première ligne. Le réflexe : dessiner le cercle, et se méfier d'une calculatrice dont on n'a pas vérifié le mode — à l'épreuve, il n'y en a pas.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Démontrer et modéliser</h3>
+
+  <article class="exercice" id="ex-demontrer-les-valeurs-remarquables" data-titre="Démontrer les valeurs remarquables" data-niveau="3" data-type="raisonnement" data-notions="cossin" data-duree="20" data-calculatrice="non">
+    <p>Sans regarder le cours, et avec un cercle dessiné : a) montre que $\cos\dfrac{\pi}{4}=\sin\dfrac{\pi}{4}$, puis que $\sin\dfrac{\pi}{4}=\dfrac{\sqrt2}{2}$ ; b) montre que le triangle $OIM$, avec $M=M\!\left(\dfrac{\pi}{3}\right)$, est équilatéral, et déduis-en $\cos\dfrac{\pi}{3}$ ; c) déduis-en $\sin\dfrac{\pi}{3}$ ; d) explique comment obtenir $\cos\dfrac{\pi}{6}$ et $\sin\dfrac{\pi}{6}$ sans nouveau calcul.</p>
+    <details class="indice"><p>a) Deux angles de $45°$ dans un triangle rectangle. b) Un triangle isocèle qui a un angle de $60°$.</p></details>
+    <details class="correction">
+      <p>a) Dans $OHM$ rectangle en $H$, $\widehat{HOM}=45°$ donc $\widehat{OMH}=45°$ : triangle isocèle, $OH=HM$, soit $\cos\dfrac{\pi}{4}=\sin\dfrac{\pi}{4}$. Alors $\cos^2+\sin^2=1$ donne $2\sin^2\dfrac{\pi}{4}=1$, $\sin\dfrac{\pi}{4}=\sqrt{\dfrac12}=\dfrac{\sqrt2}{2}$ (positif dans le premier quadrant).</p>
+      <p>b) $OI=OM=1$ (rayons) : $OIM$ est isocèle en $O$, et $\widehat{IOM}=60°$ ; ses deux autres angles valent donc $\dfrac{180-60}{2}=60°$ : équilatéral. Dans un triangle équilatéral, la hauteur issue de $M$ est aussi la médiane : $H$ est le milieu de $[OI]$, $OH=\dfrac12=\cos\dfrac{\pi}{3}$.</p>
+      <p>c) $\sin^2\dfrac{\pi}{3}=1-\dfrac14=\dfrac34$, et le sinus est positif : $\dfrac{\sqrt3}{2}$.</p>
+      <p>d) $\dfrac{\pi}{6}=\dfrac{\pi}{2}-\dfrac{\pi}{3}$ : le point est le symétrique de $M\!\left(\dfrac{\pi}{3}\right)$ par rapport à la bissectrice, ses coordonnées sont échangées : $\cos\dfrac{\pi}{6}=\dfrac{\sqrt3}{2}$, $\sin\dfrac{\pi}{6}=\dfrac12$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-methode-d-archimede" data-titre="La méthode d'Archimède" data-niveau="3" data-type="probleme" data-notions="radian" data-duree="25" data-calculatrice="oui">
+    <p>Dans le cercle de rayon $1$, on note $s_n$ le côté du polygone régulier inscrit à $n$ côtés. Calculatrice autorisée.</p>
+    <p>a) Pourquoi $s_6=1$ ? Quel est alors le demi-périmètre de l'hexagone, et que dit-il de $\pi$ ? b) Avec la figure du cours, montre que $s_{2n}=\sqrt{2-\sqrt{4-s_n^2}}$. c) Calcule $s_{12}$ et le demi-périmètre du dodécagone. d) Complète la fonction ci-dessous pour qu'elle renvoie la liste des demi-périmètres pour $6$, $12$, $24$, … côtés, jusqu'à $k$ doublements. e) Que renvoie <code>archimede(4)[-1]</code> ? Pourquoi la suite des demi-périmètres est-elle croissante, et vers quoi va-t-elle ?</p>
+<pre class="code">from math import sqrt
+
+def archimede(k):
+    s = 1.0
+    n = 6
+    L = [n * s / 2]
+    for i in range(k):
+        s = ......
+        n = ......
+        L.append(......)
+    return L</pre>
+    <details class="correction">
+      <p>a) Six triangles $OAB$ isocèles d'angle au sommet $\dfrac{2\pi}{6}=\dfrac{\pi}{3}$ : ils sont équilatéraux, donc $AB=1$. Demi-périmètre $\dfrac{6\times1}{2}=3$ : comme l'hexagone est à l'intérieur du cercle, $3&lt;\pi$.</p>
+      <p>b) $H$ milieu de $[AB]$ : $AH=\dfrac{s}{2}$ et, dans $OHA$ rectangle en $H$, $OH=\sqrt{1-\dfrac{s^2}{4}}$. Le nouveau sommet $P$ est sur $(OH)$ à distance $1$ de $O$ : $HP=1-OH$. Dans $AHP$ rectangle en $H$ : $AP^2=\dfrac{s^2}{4}+(1-OH)^2=\dfrac{s^2}{4}+1-2OH+OH^2=\dfrac{s^2}{4}+1-2OH+1-\dfrac{s^2}{4}=2-2OH$. Et $2OH=\sqrt{4-s^2}$.</p>
+      <p>c) $s_{12}=\sqrt{2-\sqrt3}\approx0{,}5176$ ; demi-périmètre $\dfrac{12\times0{,}5176}{2}\approx3{,}106$.</p>
+      <p>d) <code>s = sqrt(2 - sqrt(4 - s*s))</code> ; <code>n = 2 * n</code> ; <code>L.append(n * s / 2)</code>.</p>
+      <p>e) La liste pour $k=4$ finit par $3{,}14103\ldots$ (96 côtés). Chaque doublement ajoute des sommets sur le cercle : le polygone grossit, reste à l'intérieur du cercle, et son demi-périmètre monte vers le demi-périmètre du cercle, $\pi$. Archimède, sans calculatrice, a obtenu $3+\dfrac{10}{71}&lt;\pi&lt;3+\dfrac17$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-point-qui-tourne" data-titre="Le point qui tourne" data-niveau="3" data-type="raisonnement" data-notions="associes cossin" data-duree="20" data-calculatrice="non">
+    <p>Soit $x$ un réel et $M=M(x)$. On note $A$, $B$, $C$ les images de $x+\dfrac{\pi}{2}$, $x+\pi$ et $x+\dfrac{3\pi}{2}$.</p>
+    <p>a) Fais une figure. Quelle est la nature du quadrilatère $MABC$ ? b) Exprime les coordonnées de $A$, $B$ et $C$ en fonction de $\cos x$ et $\sin x$. c) Calcule $\cos x+\cos\!\left(x+\dfrac{\pi}{2}\right)+\cos(x+\pi)+\cos\!\left(x+\dfrac{3\pi}{2}\right)$. d) Pour $x=\dfrac{\pi}{6}$, donne les coordonnées exactes des quatre points. e) Montre que, pour tout réel $x$, $\cos^2\!\left(x+\dfrac{\pi}{2}\right)+\cos^2x=1$.</p>
+    <details class="correction">
+      <p>a) Les quatre points sont à un quart de tour l'un de l'autre sur le cercle : $MABC$ est un carré (ses diagonales $[MB]$ et $[AC]$ sont des diamètres perpendiculaires).</p>
+      <p>b) $A\left(-\sin x\,;\cos x\right)$ (quart de tour), $B(-\cos x\,;-\sin x)$ (symétrique par rapport à $O$), $C(\sin x\,;-\cos x)$ (trois quarts de tour, c'est-à-dire $-\dfrac{\pi}{2}$).</p>
+      <p>c) $\cos x-\sin x-\cos x+\sin x=0$ : les quatre abscisses s'annulent deux à deux.</p>
+      <p>d) $M\!\left(\dfrac{\sqrt3}{2}\,;\dfrac12\right)$, $A\left(-\dfrac12\,;\dfrac{\sqrt3}{2}\right)$, $B\left(-\dfrac{\sqrt3}{2}\,;-\dfrac12\right)$, $C\left(\dfrac12\,;-\dfrac{\sqrt3}{2}\right)$.</p>
+      <p>e) $\cos\!\left(x+\dfrac{\pi}{2}\right)=-\sin x$, donc $\cos^2\!\left(x+\dfrac{\pi}{2}\right)+\cos^2x=\sin^2x+\cos^2x=1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-latitude-et-le-mille-marin" data-titre="La latitude et le mille marin" data-niveau="3" data-type="probleme" data-notions="radian" data-duree="20" data-calculatrice="oui">
+    <p>On assimile la Terre à une sphère de rayon $R=6\,371$ km. La latitude d'un lieu est l'angle, mesuré au centre de la Terre, entre l'équateur et ce lieu, le long de son méridien (un grand cercle de rayon $R$). Calculatrice autorisée.</p>
+    <p>a) Convertis en radians la latitude de Paris, $48{,}9°$ nord, et celle de Marseille, $43{,}3°$ nord. b) Calcule la distance de Paris à l'équateur le long du méridien, puis la distance Paris–Marseille si on les suppose sur le même méridien. c) Le mille marin est la longueur d'un arc de méridien d'une minute d'angle ($\frac{1}{60}$ de degré). Calcule-le en mètres. d) Un avion vole plein sud sur $1\,000$ km : de quel angle, en degrés, sa latitude a-t-elle changé ? e) Un satellite GPS est à $20\,200$ km d'altitude. Quelle est la longueur d'un arc de $1°$ sur son orbite, supposée circulaire ?</p>
+    <details class="correction">
+      <p>a) $48{,}9\times\dfrac{\pi}{180}\approx0{,}8535$ rad ; $43{,}3\times\dfrac{\pi}{180}\approx0{,}7557$ rad.</p>
+      <p>b) $L=R\theta\approx6\,371\times0{,}8535\approx5\,438$ km. Paris–Marseille : $6\,371\times(0{,}8535-0{,}7557)\approx6\,371\times0{,}0977\approx623$ km (à vol d'oiseau, c'est $660$ km : Marseille n'est pas exactement au sud).</p>
+      <p>c) $\dfrac{1}{60}°=\dfrac{\pi}{180\times60}\approx2{,}909\times10^{-4}$ rad, et $6\,371\,000\times2{,}909\times10^{-4}\approx1\,853$ m. Le mille marin officiel vaut $1\,852$ m.</p>
+      <p>d) $\theta=\dfrac{1\,000}{6\,371}\approx0{,}157$ rad $\approx9{,}0°$.</p>
+      <p>e) Rayon de l'orbite $6\,371+20\,200=26\,571$ km ; $1°=\dfrac{\pi}{180}$ rad ; arc $\approx26\,571\times0{,}01745\approx464$ km.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi inventer le radian, alors que les degrés marchent très bien ?</summary>
+      <div><p>Parce que le radian est une <strong>longueur</strong> : sur le cercle de rayon 1, l'angle et l'arc sont le même nombre. Toutes les formules qui mêlent un angle et une longueur ($L=R\theta$, la vitesse d'un point qui tourne, et plus tard les dérivées de sin et cos) ne sont simples qu'en radians. Le degré, lui, est une convention des Babyloniens : 360 parce que c'est proche du nombre de jours de l'année.</p></div></details>
+    <details><summary>$\dfrac{\pi}{3}$, c'est un angle ou un nombre ?</summary>
+      <div><p>Les deux. $\dfrac{\pi}{3}\approx1{,}047$ est un réel comme un autre ; quand on l'enroule sur le cercle, il tombe sur le point d'angle $60°$. C'est le sens de l'enroulement : il fait correspondre à chaque réel un point, donc un angle. On écrit $\cos\dfrac{\pi}{3}$, jamais $\cos\dfrac{\pi}{3}°$.</p></div></details>
+    <details><summary>Pourquoi un point a-t-il plusieurs réels ?</summary>
+      <div><p>Parce que la droite est infinie et le cercle fini : en enroulant, on repasse sur les mêmes points à chaque tour. $\dfrac{\pi}{6}$, $\dfrac{13\pi}{6}$, $-\dfrac{11\pi}{6}$ donnent le même point. Pour en désigner un sans ambiguïté, on prend le réel de $]-\pi\,;\pi]$.</p></div></details>
+    <details><summary>Ma calculatrice dit $\cos60=-0{,}95$. Elle est cassée ?</summary>
+      <div><p>Non, elle est en mode radians : $60$ est alors le réel $60$, presque dix tours. En mode degrés, $\cos60°=0{,}5$. Les deux modes existent ; l'énoncé dit lequel est en jeu (une fraction de $\pi$, c'est des radians). Et à l'épreuve anticipée, pas de calculatrice : le cercle et le tableau des valeurs remarquables suffisent.</p></div></details>
+    <details><summary>Peut-on avoir $\cos x=1{,}2$ ?</summary>
+      <div><p>Jamais : $\cos x$ est l'abscisse d'un point d'un cercle de rayon 1, elle reste entre $-1$ et $1$. Si un calcul te donne un cosinus ou un sinus hors de $[-1\,;1]$, il y a une erreur avant.</p></div></details>
+    <details><summary>Si $\sin x=\dfrac35$, pourquoi n'ai-je pas un seul $\cos x$ ?</summary>
+      <div><p>Parce que deux points du cercle ont la hauteur $\dfrac35$ : l'un à droite (cosinus $\dfrac45$), l'autre à gauche (cosinus $-\dfrac45$). La relation $\cos^2x+\sin^2x=1$ donne le carré, donc les deux candidats ; c'est l'intervalle où se trouve $x$ qui tranche. Sans intervalle, les deux réponses sont possibles.</p></div></details>
+    <details><summary>Qu'est-ce qu'il faut savoir par cœur pour l'épreuve ?</summary>
+      <div><p>Peu de choses : les conversions ($180°=\pi$), les coordonnées de $M\!\left(\dfrac{\pi}{6}\right)$, $M\!\left(\dfrac{\pi}{4}\right)$, $M\!\left(\dfrac{\pi}{3}\right)$, et la relation $\cos^2x+\sin^2x=1$. Tout le reste — les angles associés, les autres valeurs, les signes — se <em>lit</em> sur un cercle que tu dessines en dix secondes au brouillon.</p></div></details>
+    <details><summary>Où sont passées les fonctions cos et sin, leurs courbes ?</summary>
+      <div><p>En terminale. Le programme de 2026 les a retirées de la première : ici, on étudie des <em>nombres</em>, $\cos x$ et $\sin x$ pour un réel $x$ donné, et le cercle. La vague de la sinusoïde que tu vois en remarque est un aperçu, pas un attendu. Le chapitre suivant qui s'en servira est le produit scalaire, avec le cosinus d'un angle entre deux vecteurs.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
