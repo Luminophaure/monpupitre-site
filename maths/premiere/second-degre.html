@@ -1,0 +1,807 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de second-degre.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/premiere/second-degre.source.html
+     Programme : spécialité de première, BO n° 14 du 2 avril 2026, partie « Équations, fonctions
+     polynômes du second degré » (docs/programmes/maths-premiere-generale.md ; inchangée depuis 2019).
+     Les onze pièges viennent de la liste proposée au professeur le 29 octobre 2026, gardée telle
+     quelle pour être testée sur ses élèves. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Second degré · Première</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=a559c329f0">
+<script type="module" src="../../assets/js/site.js?v=a60973fedb"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PXEZELIN.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EZ3C7UK6.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ORND7DME.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BOS7JHTA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-T2ORFUZ4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CRFRSPIA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-DJZP763Z.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Y4MCCTGS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7LGNHQZ3.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QMZR4NH7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UU6WY52H.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LGI6A4EG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CG5YCEWP.js">
+<link rel="modulepreload" href="../../assets/js/labos/second-degre.js?v=c5637b78ed">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MI35G4WU.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/second-degre.js?v=9ab84a146d">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-TB2LNVDJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TLTAELPK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/graphe-GOXNYLJA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-FZCIDXF3.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=9e78aa7141">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="second-degre" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Première spécialité · Algèbre</span>
+  <h1>Second degré</h1>
+  <p class="chapeau">Le jet d'eau d'une lance à incendie, la trajectoire d'un ballon, la distance qu'il faut à une voiture pour s'arrêter, le prix qui rapporte le plus à un commerçant : derrière chacune de ces situations, il y a une expression avec un $x^2$. Ce chapitre t'apprend à lire ces fonctions sous trois formes, à résoudre une équation du second degré, à trouver le signe d'un trinôme, et à choisir la forme qui répond à la question posée.</p>
+  <ul class="objectifs">
+    <li>Reconnaître une fonction polynôme du second degré et sa parabole</li><li>Mettre sous forme canonique et lire le sommet</li><li>Résoudre une équation du second degré avec le discriminant</li><li>Factoriser en choisissant la bonne stratégie</li><li>Étudier le signe et résoudre une inéquation</li><li>Choisir la forme adaptée à un problème</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Un sapeur-pompier dirige sa lance vers un feu.</strong> Le jet part à 1,6 m du sol, monte, puis retombe : sa trajectoire est une parabole. Si $x$ est la distance horizontale en mètres, la hauteur de l'eau est $h(x)=-0{,}05x^2+0{,}7x+1{,}6$. Trois questions se posent sur le terrain. À quelle hauteur passe le jet au-dessus d'un obstacle ? Jusqu'où va-t-il ? Et à quelle distance se placer pour que l'eau tombe sur les flammes ? Chacune se lit sur une forme différente de la même fonction : la forme canonique donne le point le plus haut, 4,05 m à 7 m de distance ; la forme factorisée donne le point de chute, 16 m. C'est tout le chapitre.</p>
+    <p class="discret">Ils s'en servent : les sapeurs-pompiers et les ingénieurs en hydraulique (portée d'un jet), les entraîneurs et analystes sportifs (tir au basket, lancer), les concepteurs de jeux vidéo (trajectoires), les experts en accidentologie (distance d'arrêt), les économistes et les commerçants (prix et recette). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <figure class="figure-svg"><svg viewBox="0 0 460 292" role="img" aria-label="Le jet d'eau d'une lance à incendie. Il part de la lance, à 1,6 m du sol, monte jusqu'à 4,05 m à 7 m de distance, puis retombe au sol à 16 m. La trajectoire est une parabole tournée vers le bas."><g class="trace t-n"><line x1="21.0" y1="247.6" x2="433.4" y2="247.6"/><polygon points="441.2,247.6 428.2,253.4 428.2,241.8"/></g><g class="trace t-n"><line x1="32" y1="269.6" x2="32.0" y2="26.6"/><polygon points="32.0,18.8 37.9,31.8 26.1,31.8"/></g><text class="moyen" x="431.3" y="232.2">x (m)</text><text class="moyen" x="37.5" y="29.8">h (m)</text><g class="trace t-n"><line x1="76" y1="252.9" x2="76" y2="242.3"/></g><text class="petit" x="73.8" y="269.6">2</text><g class="trace t-n"><line x1="120" y1="252.9" x2="120" y2="242.3"/></g><text class="petit" x="117.8" y="269.6">4</text><g class="trace t-n"><line x1="164" y1="252.9" x2="164" y2="242.3"/></g><text class="petit" x="161.8" y="269.6">6</text><g class="trace t-n"><line x1="208" y1="252.9" x2="208" y2="242.3"/></g><text class="petit" x="205.8" y="269.6">8</text><g class="trace t-n"><line x1="252" y1="252.9" x2="252" y2="242.3"/></g><text class="petit" x="249.8" y="269.6">10</text><g class="trace t-n"><line x1="296" y1="252.9" x2="296" y2="242.3"/></g><text class="petit" x="293.8" y="269.6">12</text><g class="trace t-n"><line x1="340" y1="252.9" x2="340" y2="242.3"/></g><text class="petit" x="337.8" y="269.6">14</text><g class="trace t-n"><line x1="384" y1="252.9" x2="384" y2="242.3"/></g><text class="petit" x="381.8" y="269.6">16</text><g class="trace t-n"><line x1="30.7" y1="203.6" x2="33.3" y2="203.6"/></g><text class="petit" x="20.6" y="209.8">1</text><g class="trace t-n"><line x1="30.7" y1="159.6" x2="33.3" y2="159.6"/></g><text class="petit" x="20.6" y="165.8">2</text><g class="trace t-n"><line x1="30.7" y1="115.6" x2="33.3" y2="115.6"/></g><text class="petit" x="20.6" y="121.8">3</text><g class="trace t-n"><line x1="30.7" y1="71.6" x2="33.3" y2="71.6"/></g><text class="petit" x="20.6" y="77.8">4</text><g class="trace t-u"><path d="M32.0,177.2 L33.5,175.2 L34.9,173.1 L36.4,171.1 L37.9,169.1 L39.3,167.2 L40.8,165.2 L42.3,163.3 L43.7,161.4 L45.2,159.5 L46.7,157.6 L48.1,155.8 L49.6,154.0 L51.1,152.2 L52.5,150.4 L54.0,148.6 L55.5,146.8 L56.9,145.1 L58.4,143.4 L59.9,141.7 L61.3,140.0 L62.8,138.4 L64.3,136.8 L65.7,135.1 L67.2,133.6 L68.7,132.0 L70.1,130.4 L71.6,128.9 L73.1,127.4 L74.5,125.9 L76.0,124.4 L77.5,122.9 L78.9,121.5 L80.4,120.1 L81.9,118.7 L83.3,117.3 L84.8,116.0 L86.3,114.6 L87.7,113.3 L89.2,112.0 L90.7,110.7 L92.1,109.4 L93.6,108.2 L95.1,107.0 L96.5,105.8 L98.0,104.6 L99.5,103.4 L100.9,102.3 L102.4,101.2 L103.9,100.1 L105.3,99.0 L106.8,97.9 L108.3,96.9 L109.7,95.8 L111.2,94.8 L112.7,93.8 L114.1,92.9 L115.6,91.9 L117.1,91.0 L118.5,90.1 L120.0,89.2 L121.5,88.3 L122.9,87.5 L124.4,86.6 L125.9,85.8 L127.3,85.0 L128.8,84.3 L130.3,83.5 L131.7,82.8 L133.2,82.1 L134.7,81.4 L136.1,80.7 L137.6,80.0 L139.1,79.4 L140.5,78.8 L142.0,78.2 L143.5,77.6 L144.9,77.1 L146.4,76.5 L147.9,76.0 L149.3,75.5 L150.8,75.0 L152.3,74.6 L153.7,74.1 L155.2,73.7 L156.7,73.3 L158.1,72.9 L159.6,72.6 L161.1,72.2 L162.5,71.9 L164.0,71.6 L165.5,71.3 L166.9,71.1 L168.4,70.8 L169.9,70.6 L171.3,70.4 L172.8,70.2 L174.3,70.0 L175.7,69.9 L177.2,69.8 L178.7,69.6 L180.1,69.6 L181.6,69.5 L183.1,69.4 L184.5,69.4 L186.0,69.4 L187.5,69.4 L188.9,69.4 L190.4,69.5 L191.9,69.6 L193.3,69.6 L194.8,69.8 L196.3,69.9 L197.7,70.0 L199.2,70.2 L200.7,70.4 L202.1,70.6 L203.6,70.8 L205.1,71.1 L206.5,71.3 L208.0,71.6 L209.5,71.9 L210.9,72.2 L212.4,72.6 L213.9,72.9 L215.3,73.3 L216.8,73.7 L218.3,74.1 L219.7,74.6 L221.2,75.0 L222.7,75.5 L224.1,76.0 L225.6,76.5 L227.1,77.1 L228.5,77.6 L230.0,78.2 L231.5,78.8 L232.9,79.4 L234.4,80.0 L235.9,80.7 L237.3,81.4 L238.8,82.1 L240.3,82.8 L241.7,83.5 L243.2,84.3 L244.7,85.0 L246.1,85.8 L247.6,86.6 L249.1,87.5 L250.5,88.3 L252.0,89.2 L253.5,90.1 L254.9,91.0 L256.4,91.9 L257.9,92.9 L259.3,93.8 L260.8,94.8 L262.3,95.8 L263.7,96.9 L265.2,97.9 L266.7,99.0 L268.1,100.1 L269.6,101.2 L271.1,102.3 L272.5,103.4 L274.0,104.6 L275.5,105.8 L276.9,107.0 L278.4,108.2 L279.9,109.4 L281.3,110.7 L282.8,112.0 L284.3,113.3 L285.7,114.6 L287.2,116.0 L288.7,117.3 L290.1,118.7 L291.6,120.1 L293.1,121.5 L294.5,122.9 L296.0,124.4 L297.5,125.9 L298.9,127.4 L300.4,128.9 L301.9,130.4 L303.3,132.0 L304.8,133.6 L306.3,135.1 L307.7,136.8 L309.2,138.4 L310.7,140.0 L312.1,141.7 L313.6,143.4 L315.1,145.1 L316.5,146.8 L318.0,148.6 L319.5,150.4 L320.9,152.2 L322.4,154.0 L323.9,155.8 L325.3,157.6 L326.8,159.5 L328.3,161.4 L329.7,163.3 L331.2,165.2 L332.7,167.2 L334.1,169.1 L335.6,171.1 L337.1,173.1 L338.5,175.2 L340.0,177.2 L341.5,179.3 L342.9,181.3 L344.4,183.4 L345.9,185.6 L347.3,187.7 L348.8,189.9 L350.3,192.1 L351.7,194.3 L353.2,196.5 L354.7,198.7 L356.1,201.0 L357.6,203.2 L359.1,205.5 L360.5,207.9 L362.0,210.2 L363.5,212.6 L364.9,214.9 L366.4,217.3 L367.9,219.7 L369.3,222.2 L370.8,224.6 L372.3,227.1 L373.7,229.6 L375.2,232.1 L376.7,234.6 L378.1,237.2 L379.6,239.8 L381.1,242.4 L382.5,245.0 L384.0,247.6"/></g><rect class="forme-4" x="18.8" y="170.6" width="19.8" height="13.2"/><g class="trace t-n"><line x1="25.4" y1="247.6" x2="25.4" y2="183.8"/></g><circle class="pt pt-u" cx="32" cy="177.2" r="4.5"/><text class="petit" x="45.2" y="201.4">h(0) = 1,6</text><g class="trace t-v pointille"><line x1="186" y1="247.6" x2="186" y2="69.4"/></g><circle class="pt pt-v" cx="186" cy="69.4" r="4.5"/><text class="petit" x="192.6" y="54.0">S(7 ; 4,05) : le plus haut</text><circle class="pt pt-v" cx="384" cy="247.6" r="4.5"/><text class="petit" x="256.4" y="227.8">h(16) = 0 : le sol</text></svg><figcaption>Le jet d'eau de la lance : il part de $h(0)=1{,}6$ m, culmine au sommet $S(7\,;4{,}05)$ et retombe au sol en $x=16$, là où $h(16)=0$. Une seule fonction, trois questions.</figcaption></figure>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-forme">1. Une fonction polynôme du second degré</h3>
+
+  <div class="bloc definition" data-titre="Fonction polynôme du second degré">
+    <p>Une <strong>fonction polynôme du second degré</strong> est une fonction $f$ définie sur $\mathbb{R}$ par</p>
+    $$f(x)=ax^2+bx+c,$$
+    <p>où $a$, $b$ et $c$ sont des réels fixés, avec <strong>$a\ne0$</strong>. Les nombres $a$, $b$, $c$ sont les <strong>coefficients</strong> ; cette écriture est la <strong>forme développée</strong> (réduite). On dit aussi un <strong>trinôme</strong>.</p>
+    <ul>
+      <li>$f(x)=2x^2-3x+1$ : $a=2$, $b=-3$, $c=1$.</li>
+      <li>$g(x)=-x^2+4$ : $a=-1$, $b=0$, $c=4$.</li>
+      <li>$h(x)=3x-x^2$ : les termes sont dans le désordre ; $a=-1$, $b=3$, $c=0$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="La parabole">
+    <p>La courbe d'une fonction polynôme du second degré est une <strong>parabole</strong>. Si $a&gt;0$, elle est tournée vers le haut ; si $a&lt;0$, elle est tournée vers le bas. Elle coupe l'axe des ordonnées au point $(0\,;c)$, puisque $f(0)=c$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 470 290" role="img" aria-label="Deux paraboles. À gauche, a positif : la courbe est tournée vers le haut, son sommet est le point le plus bas. À droite, a négatif : la courbe est tournée vers le bas, son sommet est le point le plus haut."><g class="trace t-n"><line x1="40" y1="214.0" x2="224.2" y2="214.0"/><polygon points="232.0,214.0 219.0,219.8 219.0,208.2"/></g><g class="trace t-n"><line x1="130" y1="232.0" x2="130.0" y2="77.8"/><polygon points="130.0,70.0 135.8,83.0 124.2,83.0"/></g><g class="trace t-u"><path d="M49.0,89.6 L49.7,91.5 L50.4,93.3 L51.0,95.0 L51.7,96.8 L52.4,98.6 L53.1,100.3 L53.7,102.0 L54.4,103.7 L55.1,105.4 L55.8,107.1 L56.4,108.8 L57.1,110.4 L57.8,112.1 L58.5,113.7 L59.1,115.3 L59.8,116.9 L60.5,118.4 L61.2,120.0 L61.8,121.5 L62.5,123.1 L63.2,124.6 L63.8,126.1 L64.5,127.6 L65.2,129.0 L65.9,130.5 L66.5,131.9 L67.2,133.3 L67.9,134.7 L68.6,136.1 L69.2,137.5 L69.9,138.8 L70.6,140.2 L71.3,141.5 L72.0,142.8 L72.6,144.1 L73.3,145.4 L74.0,146.7 L74.7,147.9 L75.3,149.2 L76.0,150.4 L76.7,151.6 L77.4,152.8 L78.0,154.0 L78.7,155.1 L79.4,156.3 L80.0,157.4 L80.7,158.5 L81.4,159.6 L82.1,160.7 L82.8,161.8 L83.4,162.8 L84.1,163.9 L84.8,164.9 L85.5,165.9 L86.1,166.9 L86.8,167.9 L87.5,168.9 L88.2,169.8 L88.8,170.7 L89.5,171.7 L90.2,172.6 L90.9,173.5 L91.5,174.3 L92.2,175.2 L92.9,176.0 L93.6,176.9 L94.2,177.7 L94.9,178.5 L95.6,179.2 L96.2,180.0 L96.9,180.8 L97.6,181.5 L98.3,182.2 L98.9,182.9 L99.6,183.6 L100.3,184.3 L101.0,185.0 L101.7,185.6 L102.3,186.2 L103.0,186.8 L103.7,187.4 L104.3,188.0 L105.0,188.6 L105.7,189.2 L106.4,189.7 L107.0,190.2 L107.7,190.7 L108.4,191.2 L109.1,191.7 L109.8,192.2 L110.4,192.6 L111.1,193.0 L111.8,193.5 L112.5,193.9 L113.1,194.3 L113.8,194.6 L114.5,195.0 L115.1,195.3 L115.8,195.7 L116.5,196.0 L117.2,196.3 L117.9,196.5 L118.5,196.8 L119.2,197.1 L119.9,197.3 L120.5,197.5 L121.2,197.7 L121.9,197.9 L122.6,198.1 L123.2,198.2 L123.9,198.4 L124.6,198.5 L125.3,198.6 L125.9,198.7 L126.6,198.8 L127.3,198.9 L128.0,198.9 L128.7,199.0 L129.3,199.0 L130.0,199.0 L130.7,199.0 L131.3,199.0 L132.0,198.9 L132.7,198.9 L133.4,198.8 L134.1,198.7 L134.7,198.6 L135.4,198.5 L136.1,198.4 L136.8,198.2 L137.4,198.1 L138.1,197.9 L138.8,197.7 L139.4,197.5 L140.1,197.3 L140.8,197.1 L141.5,196.8 L142.1,196.5 L142.8,196.3 L143.5,196.0 L144.2,195.7 L144.8,195.3 L145.5,195.0 L146.2,194.6 L146.9,194.3 L147.6,193.9 L148.2,193.5 L148.9,193.0 L149.6,192.6 L150.2,192.2 L150.9,191.7 L151.6,191.2 L152.3,190.7 L153.0,190.2 L153.6,189.7 L154.3,189.2 L155.0,188.6 L155.7,188.0 L156.3,187.4 L157.0,186.8 L157.7,186.2 L158.4,185.6 L159.0,185.0 L159.7,184.3 L160.4,183.6 L161.1,182.9 L161.7,182.2 L162.4,181.5 L163.1,180.8 L163.8,180.0 L164.4,179.2 L165.1,178.5 L165.8,177.7 L166.4,176.9 L167.1,176.0 L167.8,175.2 L168.5,174.3 L169.1,173.5 L169.8,172.6 L170.5,171.7 L171.2,170.7 L171.9,169.8 L172.5,168.9 L173.2,167.9 L173.9,166.9 L174.6,165.9 L175.2,164.9 L175.9,163.9 L176.6,162.8 L177.2,161.8 L177.9,160.7 L178.6,159.6 L179.3,158.5 L179.9,157.4 L180.6,156.3 L181.3,155.1 L182.0,154.0 L182.7,152.8 L183.3,151.6 L184.0,150.4 L184.7,149.2 L185.4,147.9 L186.0,146.7 L186.7,145.4 L187.4,144.1 L188.1,142.8 L188.7,141.5 L189.4,140.2 L190.1,138.8 L190.7,137.5 L191.4,136.1 L192.1,134.7 L192.8,133.3 L193.5,131.9 L194.1,130.5 L194.8,129.0 L195.5,127.6 L196.2,126.1 L196.8,124.6 L197.5,123.1 L198.2,121.5 L198.9,120.0 L199.5,118.4 L200.2,116.9 L200.9,115.3 L201.5,113.7 L202.2,112.1 L202.9,110.4 L203.6,108.8 L204.2,107.1 L204.9,105.4 L205.6,103.7 L206.3,102.0 L207.0,100.3 L207.6,98.6 L208.3,96.8 L209.0,95.0 L209.7,93.3 L210.3,91.5 L211.0,89.6"/></g><circle class="pt pt-u" cx="130" cy="199.0" r="4.5"/><text class="lettre" x="137.5" y="209.5">S</text><text class="lettre" x="46.0" y="28.0">a > 0</text><text class="petit" x="46.0" y="47.5">tournée vers le haut</text><text class="petit" x="46.0" y="62.5">le sommet est un minimum</text><g class="trace t-n"><line x1="256.0" y1="214.0" x2="440.2" y2="214.0"/><polygon points="448.0,214.0 435.0,219.8 435.0,208.2"/></g><g class="trace t-n"><line x1="352.0" y1="232.0" x2="352.0" y2="53.8"/><polygon points="352.0,46.0 357.9,59.0 346.1,59.0"/></g><g class="trace t-v"><path d="M265.0,190.2 L265.7,188.1 L266.4,186.0 L267.2,183.9 L267.9,181.9 L268.6,179.9 L269.3,177.9 L270.1,175.9 L270.8,173.9 L271.5,171.9 L272.2,170.0 L273.0,168.1 L273.7,166.2 L274.4,164.3 L275.2,162.4 L275.9,160.6 L276.6,158.8 L277.3,156.9 L278.0,155.1 L278.8,153.4 L279.5,151.6 L280.2,149.9 L280.9,148.1 L281.7,146.4 L282.4,144.7 L283.1,143.1 L283.9,141.4 L284.6,139.8 L285.3,138.1 L286.0,136.5 L286.8,135.0 L287.5,133.4 L288.2,131.8 L288.9,130.3 L289.7,128.8 L290.4,127.3 L291.1,125.8 L291.8,124.4 L292.6,122.9 L293.3,121.5 L294.0,120.1 L294.7,118.7 L295.5,117.3 L296.2,115.9 L296.9,114.6 L297.6,113.3 L298.3,112.0 L299.1,110.7 L299.8,109.4 L300.5,108.2 L301.2,106.9 L302.0,105.7 L302.7,104.5 L303.4,103.3 L304.1,102.2 L304.9,101.0 L305.6,99.9 L306.3,98.8 L307.1,97.7 L307.8,96.6 L308.5,95.5 L309.2,94.5 L309.9,93.5 L310.7,92.5 L311.4,91.5 L312.1,90.5 L312.9,89.5 L313.6,88.6 L314.3,87.7 L315.0,86.8 L315.8,85.9 L316.5,85.0 L317.2,84.2 L317.9,83.4 L318.7,82.5 L319.4,81.7 L320.1,81.0 L320.8,80.2 L321.6,79.5 L322.3,78.7 L323.0,78.0 L323.7,77.3 L324.5,76.7 L325.2,76.0 L325.9,75.4 L326.6,74.7 L327.4,74.1 L328.1,73.5 L328.8,73.0 L329.5,72.4 L330.2,71.9 L331.0,71.4 L331.7,70.9 L332.4,70.4 L333.1,69.9 L333.9,69.5 L334.6,69.0 L335.3,68.6 L336.1,68.2 L336.8,67.9 L337.5,67.5 L338.2,67.2 L338.9,66.8 L339.7,66.5 L340.4,66.2 L341.1,66.0 L341.9,65.7 L342.6,65.5 L343.3,65.3 L344.0,65.1 L344.8,64.9 L345.5,64.7 L346.2,64.6 L346.9,64.4 L347.7,64.3 L348.4,64.2 L349.1,64.1 L349.8,64.1 L350.6,64.0 L351.3,64.0 L352.0,64.0 L352.7,64.0 L353.5,64.0 L354.2,64.1 L354.9,64.1 L355.6,64.2 L356.4,64.3 L357.1,64.4 L357.8,64.6 L358.5,64.7 L359.2,64.9 L360.0,65.1 L360.7,65.3 L361.4,65.5 L362.1,65.7 L362.9,66.0 L363.6,66.2 L364.3,66.5 L365.1,66.8 L365.8,67.2 L366.5,67.5 L367.2,67.9 L367.9,68.2 L368.7,68.6 L369.4,69.0 L370.1,69.5 L370.9,69.9 L371.6,70.4 L372.3,70.9 L373.0,71.4 L373.8,71.9 L374.5,72.4 L375.2,73.0 L375.9,73.5 L376.7,74.1 L377.4,74.7 L378.1,75.4 L378.8,76.0 L379.6,76.7 L380.3,77.3 L381.0,78.0 L381.7,78.7 L382.5,79.5 L383.2,80.2 L383.9,81.0 L384.6,81.7 L385.4,82.5 L386.1,83.4 L386.8,84.2 L387.5,85.0 L388.2,85.9 L389.0,86.8 L389.7,87.7 L390.4,88.6 L391.2,89.5 L391.9,90.5 L392.6,91.5 L393.3,92.5 L394.0,93.5 L394.8,94.5 L395.5,95.5 L396.2,96.6 L396.9,97.7 L397.7,98.8 L398.4,99.9 L399.1,101.0 L399.9,102.2 L400.6,103.3 L401.3,104.5 L402.0,105.7 L402.8,106.9 L403.5,108.2 L404.2,109.4 L404.9,110.7 L405.6,112.0 L406.4,113.3 L407.1,114.6 L407.8,115.9 L408.6,117.3 L409.3,118.7 L410.0,120.1 L410.7,121.5 L411.5,122.9 L412.2,124.4 L412.9,125.8 L413.6,127.3 L414.4,128.8 L415.1,130.3 L415.8,131.8 L416.5,133.4 L417.3,135.0 L418.0,136.5 L418.7,138.1 L419.4,139.8 L420.1,141.4 L420.9,143.1 L421.6,144.7 L422.3,146.4 L423.1,148.1 L423.8,149.9 L424.5,151.6 L425.2,153.4 L425.9,155.1 L426.7,156.9 L427.4,158.8 L428.1,160.6 L428.9,162.4 L429.6,164.3 L430.3,166.2 L431.0,168.1 L431.8,170.0 L432.5,171.9 L433.2,173.9 L433.9,175.9 L434.7,177.9 L435.4,179.9 L436.1,181.9 L436.8,183.9 L437.6,186.0 L438.3,188.1 L439.0,190.2"/></g><circle class="pt pt-v" cx="352.0" cy="64.0" r="4.5"/><text class="lettre" x="359.5" y="58.0">S</text><text class="lettre" x="262.0" y="235.0">a < 0</text><text class="petit" x="262.0" y="254.5">tournée vers le bas</text><text class="petit" x="262.0" y="269.5">le sommet est un maximum</text></svg><figcaption>Le signe de $a$ décide de l'allure : vers le haut si $a&gt;0$, vers le bas si $a&lt;0$. Dans les deux cas, le point $S$ est le sommet.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Second degré, ou pas ?">
+    <ul>
+      <li>$(x-1)(x+4)=x^2+3x-4$ : oui, $a=1$, $b=3$, $c=-4$. Il faut développer pour lire les coefficients.</li>
+      <li>$(x+2)^2-x^2=x^2+4x+4-x^2=4x+4$ : non. Les $x^2$ s'annulent, c'est une fonction affine.</li>
+      <li>$(2x-1)^2=4x^2-4x+1$ : oui, $a=4$.</li>
+      <li>$\dfrac{3}{x^2}$ : non, ce n'est pas un polynôme ($x$ est au dénominateur).</li>
+    </ul>
+  </div>
+
+  <figure class="graphe" data-f="x^2-2x-3" data-nom="f" data-fenetre="-3 5 -5 6" data-interactif="les-deux" data-tableau="-2 4">
+    <figcaption>$f(x)=x^2-2x-3$ : déplace le curseur. Les deux points où la courbe coupe l'axe des abscisses sont les <strong>racines</strong> de $f$ ; le point le plus bas est son <strong>sommet</strong>. Tout le chapitre tourne autour de ces trois points.</figcaption>
+  </figure>
+
+  <div class="bloc piege" data-titre="a, b, c : lis bien">
+    <p>Dans $f(x)=5-3x+2x^2$, $a=2$, $b=-3$ et $c=5$. Le coefficient $a$ est toujours celui de $x^2$, même écrit en dernier ; $b$ garde son signe. Et si $a=0$, il reste $bx+c$ : ce n'est plus du second degré, les formules du chapitre ne s'appliquent pas.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-canonique">2. La forme canonique</h3>
+
+  <div class="bloc propriete" data-titre="Forme canonique">
+    <p>Toute fonction polynôme du second degré $f(x)=ax^2+bx+c$ peut s'écrire</p>
+    $$f(x)=a(x-\alpha)^2+\beta,\quad\text{avec }\alpha=-\dfrac{b}{2a}\text{ et }\beta=f(\alpha).$$
+    <p>C'est sa <strong>forme canonique</strong>. Le point $S(\alpha\,;\beta)$ est le <strong>sommet</strong> de la parabole, et la droite verticale $x=\alpha$ est son axe de symétrie. La démonstration est dans la partie 3 : elle sert aussi à résoudre l'équation.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Mettre sous forme canonique">
+    <ol class="etapes">
+      <li><span>Je lis $a$ et $b$, et je calcule $\alpha=-\dfrac{b}{2a}$. Attention au signe : si $b$ est négatif, $-b$ est positif.</span></li>
+      <li><span>Je calcule $\beta=f(\alpha)$ en remplaçant $x$ par $\alpha$ dans la forme développée.</span></li>
+      <li><span>J'écris $f(x)=a(x-\alpha)^2+\beta$, en gardant le $a$ devant la parenthèse.</span></li>
+      <li><span>Je vérifie en développant : je dois retomber sur $ax^2+bx+c$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Mettre $f(x)=2x^2-12x+10$ sous forme canonique.</p>
+      <ol class="pas">
+        <li><strong>$\alpha$.</strong> $a=2$ et $b=-12$ : $\alpha=-\dfrac{-12}{2\times2}=\dfrac{12}{4}=3$.</li>
+        <li><strong>$\beta$.</strong> $\beta=f(3)=2\times9-12\times3+10=18-36+10=-8$.</li>
+        <li><strong>La forme canonique.</strong> $f(x)=2(x-3)^2-8$.</li>
+        <li><strong>Vérification.</strong> $2(x-3)^2-8=2(x^2-6x+9)-8=2x^2-12x+18-8=2x^2-12x+10$. C'est bien $f(x)$. Tu peux refaire ce genre de vérification ligne par ligne avec le tuteur, dans l'onglet Exercices.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc remarque" data-titre="Compléter le carré">
+      <p>Une autre façon d'y arriver, qui explique le mot « canonique » : $x^2+6x+5=(x^2+6x+9)-9+5=(x+3)^2-4$. On a ajouté le $9$ qui manque pour faire un carré, puis on l'a retiré. Quand $a\ne1$, on met d'abord $a$ en facteur : $2x^2-12x+10=2(x^2-6x+5)=2\big[(x-3)^2-9+5\big]=2(x-3)^2-8$.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 395 260" role="img" aria-label="Un carré de côté x, un rectangle de côtés 3 et x collé à sa droite, un autre collé en dessous : ensemble, ils forment x² + 6x. Il manque un petit carré de côté 3 dans le coin pour compléter le grand carré de côté x + 3."><rect class="forme" x="40" y="34.0" width="120" height="120.0"/><rect class="forme-3" x="160" y="34.0" width="60" height="120.0"/><rect class="forme-3" x="40" y="154.0" width="120" height="60.0"/><g class="trace t-v pointille"><line x1="160" y1="214.0" x2="220" y2="214.0"/></g><g class="trace t-v pointille"><line x1="220" y1="214.0" x2="220" y2="154.0"/></g><text class="lettre" x="91.0" y="100.0">x²</text><text class="lettre" x="178.0" y="100.0">3x</text><text class="lettre" x="91.0" y="190.0">3x</text><text class="moyen" x="170.5" y="190.0">9 ?</text><text class="moyen" x="95.5" y="26.5">x</text><text class="moyen" x="184.0" y="26.5">3</text><text class="moyen" x="23.5" y="97.0">x</text><text class="moyen" x="23.5" y="187.0">3</text><text class="lettre" x="250" y="76.0">x² + 6x</text><text class="lettre" x="250" y="97.0">= (x + 3)² − 9</text><text class="petit" x="250" y="124.0">le grand carré, moins</text><text class="petit" x="250" y="139.0">le coin qui manque</text></svg><figcaption>$x^2+6x$, c'est un carré de côté $x$ et deux rectangles $3\times x$. Pour faire un grand carré de côté $x+3$, il manque le coin $3\times3=9$ : $x^2+6x=(x+3)^2-9$.</figcaption></figure>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le sommet et les variations">
+    <p>Comme $(x-\alpha)^2\ge0$ pour tout $x$ :</p>
+    <ul>
+      <li>si $a&gt;0$, $f(x)=a(x-\alpha)^2+\beta\ge\beta$ : $f$ admet un <strong>minimum</strong>, égal à $\beta$, atteint en $x=\alpha$. Elle est décroissante sur $]-\infty\,;\alpha]$ puis croissante sur $[\alpha\,;+\infty[$ ;</li>
+      <li>si $a&lt;0$, $f(x)\le\beta$ : $f$ admet un <strong>maximum</strong>, égal à $\beta$, atteint en $x=\alpha$. Elle est croissante puis décroissante.</li>
+    </ul>
+    <div class="colonnes">
+      <div class="defile"><table class="valeurs"><tr><th>$x$</th><td>$-\infty$</td><td></td><td>$\alpha$</td><td></td><td>$+\infty$</td></tr><tr><th>$f$, $a&gt;0$</th><td></td><td>↘</td><td>$\beta$</td><td>↗</td><td></td></tr></table></div>
+      <div class="defile"><table class="valeurs"><tr><th>$x$</th><td>$-\infty$</td><td></td><td>$\alpha$</td><td></td><td>$+\infty$</td></tr><tr><th>$f$, $a&lt;0$</th><td></td><td>↗</td><td>$\beta$</td><td>↘</td><td></td></tr></table></div>
+    </div>
+    <p>Le chapitre « Dérivation » redémontrera ces variations avec un autre outil. Ici, le carré suffit.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 394 326" role="img" aria-label="La parabole de f(x) = 0,5 (x − 2)² − 1 dans un repère. Son sommet S est en (2 ; −1) ; l'axe de symétrie, en pointillés, est la droite verticale x = 2. Deux points de même hauteur, à gauche et à droite de l'axe, sont marqués."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="316"/><line x1="44" y1="10" x2="44" y2="316"/><line x1="78" y1="10" x2="78" y2="316"/><line x1="112" y1="10" x2="112" y2="316"/><line x1="146" y1="10" x2="146" y2="316"/><line x1="180" y1="10" x2="180" y2="316"/><line x1="214" y1="10" x2="214" y2="316"/><line x1="248" y1="10" x2="248" y2="316"/><line x1="282" y1="10" x2="282" y2="316"/><line x1="316" y1="10" x2="316" y2="316"/><line x1="350" y1="10" x2="350" y2="316"/><line x1="384" y1="10" x2="384" y2="316"/><line x1="10" y1="316" x2="384" y2="316"/><line x1="10" y1="282" x2="384" y2="282"/><line x1="10" y1="248" x2="384" y2="248"/><line x1="10" y1="214" x2="384" y2="214"/><line x1="10" y1="180" x2="384" y2="180"/><line x1="10" y1="146" x2="384" y2="146"/><line x1="10" y1="112" x2="384" y2="112"/><line x1="10" y1="78" x2="384" y2="78"/><line x1="10" y1="44" x2="384" y2="44"/><line x1="10" y1="10" x2="384" y2="10"/></g><g class="trace t-n"><line x1="10" y1="214" x2="369.4" y2="214.0"/><polygon points="377.2,214.0 364.2,219.8 364.2,208.2"/></g><g class="trace t-n"><line x1="112" y1="309.2" x2="112.0" y2="24.6"/><polygon points="112.0,16.8 117.8,29.8 106.2,29.8"/></g><text class="moyen" x="361.9" y="202.1">x</text><text class="moyen" x="120.5" y="25.3">y</text><g class="trace t-n"><line x1="44" y1="218.1" x2="44" y2="209.9"/></g><text class="petit" x="36.5" y="231.0">−2</text><g class="trace t-n"><line x1="78" y1="218.1" x2="78" y2="209.9"/></g><text class="petit" x="70.5" y="231.0">−1</text><g class="trace t-n"><line x1="146" y1="218.1" x2="146" y2="209.9"/></g><text class="petit" x="142.6" y="231.0">1</text><g class="trace t-n"><line x1="180" y1="218.1" x2="180" y2="209.9"/></g><text class="petit" x="176.6" y="231.0">2</text><g class="trace t-n"><line x1="214" y1="218.1" x2="214" y2="209.9"/></g><text class="petit" x="210.6" y="231.0">3</text><g class="trace t-n"><line x1="248" y1="218.1" x2="248" y2="209.9"/></g><text class="petit" x="244.6" y="231.0">4</text><g class="trace t-n"><line x1="282" y1="218.1" x2="282" y2="209.9"/></g><text class="petit" x="278.6" y="231.0">5</text><g class="trace t-n"><line x1="316" y1="218.1" x2="316" y2="209.9"/></g><text class="petit" x="312.6" y="231.0">6</text><g class="trace t-n"><line x1="350" y1="218.1" x2="350" y2="209.9"/></g><text class="petit" x="346.6" y="231.0">7</text><g class="trace t-n"><line x1="107.9" y1="282" x2="116.1" y2="282"/></g><text class="petit" x="86.8" y="286.8">−2</text><g class="trace t-n"><line x1="107.9" y1="248" x2="116.1" y2="248"/></g><text class="petit" x="86.8" y="252.8">−1</text><g class="trace t-n"><line x1="107.9" y1="180" x2="116.1" y2="180"/></g><text class="petit" x="94.3" y="184.8">1</text><g class="trace t-n"><line x1="107.9" y1="146" x2="116.1" y2="146"/></g><text class="petit" x="94.3" y="150.8">2</text><g class="trace t-n"><line x1="107.9" y1="112" x2="116.1" y2="112"/></g><text class="petit" x="94.3" y="116.8">3</text><g class="trace t-n"><line x1="107.9" y1="78" x2="116.1" y2="78"/></g><text class="petit" x="94.3" y="82.8">4</text><g class="trace t-n"><line x1="107.9" y1="44" x2="116.1" y2="44"/></g><text class="petit" x="94.3" y="48.8">5</text><g class="trace t-u"><path d="M61.0,39.8 L62.0,43.2 L63.0,46.6 L64.0,50.0 L65.0,53.4 L66.0,56.7 L67.0,60.1 L67.9,63.3 L68.9,66.6 L69.9,69.8 L70.9,73.0 L71.9,76.2 L72.9,79.3 L73.9,82.4 L74.9,85.5 L75.9,88.6 L76.9,91.6 L77.9,94.6 L78.8,97.5 L79.8,100.5 L80.8,103.4 L81.8,106.3 L82.8,109.1 L83.8,111.9 L84.8,114.7 L85.8,117.5 L86.8,120.2 L87.8,122.9 L88.8,125.6 L89.8,128.2 L90.8,130.9 L91.7,133.4 L92.7,136.0 L93.7,138.5 L94.7,141.0 L95.7,143.5 L96.7,146.0 L97.7,148.4 L98.7,150.8 L99.7,153.1 L100.7,155.4 L101.7,157.7 L102.7,160.0 L103.6,162.3 L104.6,164.5 L105.6,166.7 L106.6,168.8 L107.6,170.9 L108.6,173.0 L109.6,175.1 L110.6,177.1 L111.6,179.1 L112.6,181.1 L113.6,183.1 L114.6,185.0 L115.5,186.9 L116.5,188.8 L117.5,190.6 L118.5,192.4 L119.5,194.2 L120.5,195.9 L121.5,197.7 L122.5,199.4 L123.5,201.0 L124.5,202.6 L125.5,204.3 L126.4,205.8 L127.4,207.4 L128.4,208.9 L129.4,210.4 L130.4,211.8 L131.4,213.3 L132.4,214.7 L133.4,216.1 L134.4,217.4 L135.4,218.7 L136.4,220.0 L137.4,221.3 L138.3,222.5 L139.3,223.7 L140.3,224.9 L141.3,226.0 L142.3,227.1 L143.3,228.2 L144.3,229.3 L145.3,230.3 L146.3,231.3 L147.3,232.3 L148.3,233.2 L149.3,234.1 L150.2,235.0 L151.2,235.8 L152.2,236.7 L153.2,237.5 L154.2,238.2 L155.2,239.0 L156.2,239.7 L157.2,240.3 L158.2,241.0 L159.2,241.6 L160.2,242.2 L161.2,242.8 L162.1,243.3 L163.1,243.8 L164.1,244.3 L165.1,244.7 L166.1,245.2 L167.1,245.6 L168.1,245.9 L169.1,246.3 L170.1,246.6 L171.1,246.8 L172.1,247.1 L173.1,247.3 L174.1,247.5 L175.0,247.6 L176.0,247.8 L177.0,247.9 L178.0,247.9 L179.0,248.0 L180.0,248.0 L181.0,248.0 L182.0,247.9 L183.0,247.9 L184.0,247.8 L185.0,247.6 L185.9,247.5 L186.9,247.3 L187.9,247.1 L188.9,246.8 L189.9,246.6 L190.9,246.3 L191.9,245.9 L192.9,245.6 L193.9,245.2 L194.9,244.7 L195.9,244.3 L196.9,243.8 L197.9,243.3 L198.8,242.8 L199.8,242.2 L200.8,241.6 L201.8,241.0 L202.8,240.3 L203.8,239.7 L204.8,239.0 L205.8,238.2 L206.8,237.5 L207.8,236.7 L208.8,235.8 L209.8,235.0 L210.7,234.1 L211.7,233.2 L212.7,232.3 L213.7,231.3 L214.7,230.3 L215.7,229.3 L216.7,228.2 L217.7,227.1 L218.7,226.0 L219.7,224.9 L220.7,223.7 L221.6,222.5 L222.6,221.3 L223.6,220.0 L224.6,218.7 L225.6,217.4 L226.6,216.1 L227.6,214.7 L228.6,213.3 L229.6,211.8 L230.6,210.4 L231.6,208.9 L232.6,207.4 L233.6,205.8 L234.5,204.3 L235.5,202.6 L236.5,201.0 L237.5,199.4 L238.5,197.7 L239.5,195.9 L240.5,194.2 L241.5,192.4 L242.5,190.6 L243.5,188.8 L244.5,186.9 L245.4,185.0 L246.4,183.1 L247.4,181.1 L248.4,179.1 L249.4,177.1 L250.4,175.1 L251.4,173.0 L252.4,170.9 L253.4,168.8 L254.4,166.7 L255.4,164.5 L256.4,162.3 L257.4,160.0 L258.3,157.7 L259.3,155.4 L260.3,153.1 L261.3,150.8 L262.3,148.4 L263.3,146.0 L264.3,143.5 L265.3,141.0 L266.3,138.5 L267.3,136.0 L268.3,133.4 L269.2,130.9 L270.2,128.2 L271.2,125.6 L272.2,122.9 L273.2,120.2 L274.2,117.5 L275.2,114.7 L276.2,111.9 L277.2,109.1 L278.2,106.3 L279.2,103.4 L280.2,100.5 L281.1,97.5 L282.1,94.6 L283.1,91.6 L284.1,88.6 L285.1,85.5 L286.1,82.4 L287.1,79.3 L288.1,76.2 L289.1,73.0 L290.1,69.8 L291.1,66.6 L292.1,63.3 L293.0,60.1 L294.0,56.7 L295.0,53.4 L296.0,50.0 L297.0,46.6 L298.0,43.2 L299.0,39.8"/></g><g class="trace t-v pointille"><line x1="180" y1="309.2" x2="180" y2="23.6"/></g><circle class="pt pt-v" cx="180" cy="248" r="4.5"/><text class="lettre" x="188.5" y="266.7">S(α ; β)</text><text class="moyen" x="186.8" y="33.8">x = α</text><circle class="pt pt-u" cx="112" cy="180" r="4.5"/><circle class="pt pt-u" cx="248" cy="180" r="4.5"/><g class="trace t-n pointille"><line x1="112" y1="180" x2="248" y2="180"/></g><text class="petit" x="67.8" y="171.5">f(0)</text><text class="petit" x="254.8" y="171.5">f(4)</text><text class="petit" x="261.6" y="276.9">f(x) = 0,5(x − 2)² − 1</text></svg><figcaption>$f(x)=0{,}5(x-2)^2-1$ : le sommet $S(2\,;-1)$ se lit directement sur la forme canonique, et la courbe est symétrique par rapport à la droite $x=2$ : $f(0)=f(4)$.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Le point le plus haut du jet">
+    <p>$h(x)=-0{,}05x^2+0{,}7x+1{,}6$. Ici $a=-0{,}05$ et $b=0{,}7$ : $\alpha=-\dfrac{0{,}7}{2\times(-0{,}05)}=-\dfrac{0{,}7}{-0{,}1}=7$, puis $\beta=h(7)=-0{,}05\times49+0{,}7\times7+1{,}6=-2{,}45+4{,}9+1{,}6=4{,}05$.</p>
+    <p>Donc $h(x)=-0{,}05(x-7)^2+4{,}05$. Comme $a&lt;0$, le sommet est un maximum : le jet culmine à <strong>4,05 m</strong>, à 7 m de la lance. Un obstacle de 4,5 m de haut placé à 7 m ? Le jet passe dessous.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Le signe de α, et β qui n'est pas c">
+    <p>$f(x)=(x-3)^2+1$ : $\alpha=3$, pas $-3$. Le carré $(x-\alpha)^2$ s'annule en $x=\alpha$ ; pour $(x+2)^2-5$, c'est $\alpha=-2$. Et $\beta$ est l'ordonnée du <strong>sommet</strong>, pas l'ordonnée à l'origine : ici $f(0)=10$, alors que le sommet est à la hauteur $1$.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-equation">3. Résoudre $ax^2+bx+c=0$</h3>
+
+  <div class="bloc definition" data-titre="Racine, discriminant">
+    <ul>
+      <li>Une <strong>racine</strong> de $f$ (ou de l'équation $f(x)=0$) est un réel $x$ tel que $f(x)=0$. Sur la parabole, c'est une abscisse où la courbe coupe l'axe des abscisses. Rien à voir avec une racine carrée.</li>
+      <li>Le <strong>discriminant</strong> du trinôme $ax^2+bx+c$ est le nombre $\Delta=b^2-4ac$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Les solutions de l'équation du second degré">
+    <p>Soit $\Delta=b^2-4ac$ le discriminant de $ax^2+bx+c$, avec $a\ne0$.</p>
+    <ul>
+      <li>Si $\Delta&gt;0$, l'équation a <strong>deux solutions</strong> : $x_1=\dfrac{-b-\sqrt{\Delta}}{2a}$ et $x_2=\dfrac{-b+\sqrt{\Delta}}{2a}$.</li>
+      <li>Si $\Delta=0$, elle a <strong>une seule solution</strong>, dite racine double : $x_0=-\dfrac{b}{2a}$.</li>
+      <li>Si $\Delta&lt;0$, elle n'a <strong>aucune solution</strong> réelle.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 533 214" role="img" aria-label="Trois paraboles tournées vers le haut. À gauche, discriminant positif : la courbe coupe l'axe des abscisses en deux points, x1 et x2. Au milieu, discriminant nul : elle touche l'axe en un seul point, x0. À droite, discriminant négatif : elle reste au-dessus de l'axe, sans le toucher."><g class="trace t-n"><line x1="28.9" y1="134.2" x2="172.3" y2="134.2"/><polygon points="180.1,134.2 167.1,140.0 167.1,128.3"/></g><g class="trace t-u"><path d="M38.4,85.6 L38.9,87.2 L39.5,88.8 L40.0,90.4 L40.6,91.9 L41.1,93.5 L41.7,95.0 L42.2,96.6 L42.8,98.1 L43.3,99.6 L43.9,101.1 L44.4,102.6 L45.0,104.0 L45.5,105.5 L46.1,106.9 L46.6,108.4 L47.2,109.8 L47.7,111.2 L48.3,112.5 L48.8,113.9 L49.4,115.3 L49.9,116.6 L50.5,117.9 L51.0,119.3 L51.6,120.6 L52.1,121.9 L52.7,123.1 L53.2,124.4 L53.8,125.6 L54.3,126.9 L54.9,128.1 L55.4,129.3 L56.0,130.5 L56.5,131.7 L57.1,132.9 L57.6,134.0 L58.2,135.2 L58.7,136.3 L59.3,137.4 L59.8,138.5 L60.4,139.6 L61.0,140.7 L61.5,141.7 L62.1,142.8 L62.6,143.8 L63.2,144.8 L63.7,145.8 L64.3,146.8 L64.8,147.8 L65.4,148.8 L65.9,149.7 L66.5,150.6 L67.0,151.6 L67.6,152.5 L68.1,153.4 L68.7,154.3 L69.2,155.1 L69.8,156.0 L70.3,156.8 L70.9,157.7 L71.4,158.5 L72.0,159.3 L72.5,160.1 L73.1,160.9 L73.6,161.6 L74.2,162.4 L74.7,163.1 L75.3,163.8 L75.8,164.5 L76.4,165.2 L76.9,165.9 L77.5,166.6 L78.0,167.2 L78.6,167.9 L79.1,168.5 L79.7,169.1 L80.2,169.7 L80.8,170.3 L81.3,170.9 L81.9,171.4 L82.5,172.0 L83.0,172.5 L83.6,173.0 L84.1,173.6 L84.7,174.0 L85.2,174.5 L85.8,175.0 L86.3,175.4 L86.9,175.9 L87.4,176.3 L88.0,176.7 L88.5,177.1 L89.1,177.5 L89.6,177.9 L90.2,178.2 L90.7,178.6 L91.3,178.9 L91.8,179.2 L92.4,179.5 L92.9,179.8 L93.5,180.1 L94.0,180.4 L94.6,180.6 L95.1,180.8 L95.7,181.1 L96.2,181.3 L96.8,181.5 L97.3,181.7 L97.9,181.8 L98.4,182.0 L99.0,182.1 L99.5,182.3 L100.1,182.4 L100.6,182.5 L101.2,182.6 L101.7,182.6 L102.3,182.7 L102.8,182.7 L103.4,182.8 L103.9,182.8 L104.5,182.8 L105.1,182.8 L105.6,182.8 L106.2,182.7 L106.7,182.7 L107.3,182.6 L107.8,182.6 L108.4,182.5 L108.9,182.4 L109.5,182.3 L110.0,182.1 L110.6,182.0 L111.1,181.8 L111.7,181.7 L112.2,181.5 L112.8,181.3 L113.3,181.1 L113.9,180.8 L114.4,180.6 L115.0,180.4 L115.5,180.1 L116.1,179.8 L116.6,179.5 L117.2,179.2 L117.7,178.9 L118.3,178.6 L118.8,178.2 L119.4,177.9 L119.9,177.5 L120.5,177.1 L121.0,176.7 L121.6,176.3 L122.1,175.9 L122.7,175.4 L123.2,175.0 L123.8,174.5 L124.3,174.0 L124.9,173.6 L125.4,173.0 L126.0,172.5 L126.5,172.0 L127.1,171.4 L127.7,170.9 L128.2,170.3 L128.8,169.7 L129.3,169.1 L129.9,168.5 L130.4,167.9 L131.0,167.2 L131.5,166.6 L132.1,165.9 L132.6,165.2 L133.2,164.5 L133.7,163.8 L134.3,163.1 L134.8,162.4 L135.4,161.6 L135.9,160.9 L136.5,160.1 L137.0,159.3 L137.6,158.5 L138.1,157.7 L138.7,156.8 L139.2,156.0 L139.8,155.1 L140.3,154.3 L140.9,153.4 L141.4,152.5 L142.0,151.6 L142.5,150.6 L143.1,149.7 L143.6,148.8 L144.2,147.8 L144.7,146.8 L145.3,145.8 L145.8,144.8 L146.4,143.8 L146.9,142.8 L147.5,141.7 L148.0,140.7 L148.6,139.6 L149.2,138.5 L149.7,137.4 L150.3,136.3 L150.8,135.2 L151.4,134.0 L151.9,132.9 L152.5,131.7 L153.0,130.5 L153.6,129.3 L154.1,128.1 L154.7,126.9 L155.2,125.6 L155.8,124.4 L156.3,123.1 L156.9,121.9 L157.4,120.6 L158.0,119.3 L158.5,117.9 L159.1,116.6 L159.6,115.3 L160.2,113.9 L160.7,112.5 L161.3,111.2 L161.8,109.8 L162.4,108.4 L162.9,106.9 L163.5,105.5 L164.0,104.0 L164.6,102.6 L165.1,101.1 L165.7,99.6 L166.2,98.1 L166.8,96.6 L167.3,95.0 L167.9,93.5 L168.4,91.9 L169.0,90.4 L169.5,88.8 L170.1,87.2 L170.7,85.6"/></g><circle class="pt pt-v" cx="57.7" cy="134.2" r="4.5"/><text class="moyen" x="49.6" y="153.1">x₁</text><circle class="pt pt-v" cx="151.3" cy="134.2" r="4.5"/><text class="moyen" x="143.2" y="153.1">x₂</text><text class="moyen" x="31.6" y="23.5">Δ > 0 : deux racines</text><g class="trace t-n"><line x1="196.3" y1="134.2" x2="339.7" y2="134.2"/><polygon points="347.5,134.2 334.5,140.0 334.5,128.3"/></g><g class="trace t-u"><path d="M205.8,37.0 L206.3,38.6 L206.9,40.2 L207.4,41.8 L208.0,43.3 L208.5,44.9 L209.1,46.4 L209.6,48.0 L210.2,49.5 L210.7,51.0 L211.3,52.5 L211.8,54.0 L212.4,55.4 L212.9,56.9 L213.5,58.3 L214.0,59.8 L214.6,61.2 L215.1,62.6 L215.7,63.9 L216.2,65.3 L216.8,66.7 L217.3,68.0 L217.9,69.3 L218.4,70.7 L219.0,72.0 L219.5,73.3 L220.1,74.5 L220.6,75.8 L221.2,77.0 L221.7,78.3 L222.3,79.5 L222.8,80.7 L223.4,81.9 L223.9,83.1 L224.5,84.3 L225.0,85.4 L225.6,86.6 L226.1,87.7 L226.7,88.8 L227.2,89.9 L227.8,91.0 L228.4,92.1 L228.9,93.1 L229.5,94.2 L230.0,95.2 L230.6,96.2 L231.1,97.2 L231.7,98.2 L232.2,99.2 L232.8,100.2 L233.3,101.1 L233.9,102.0 L234.4,103.0 L235.0,103.9 L235.5,104.8 L236.1,105.7 L236.6,106.5 L237.2,107.4 L237.7,108.2 L238.3,109.1 L238.8,109.9 L239.4,110.7 L239.9,111.5 L240.5,112.3 L241.0,113.0 L241.6,113.8 L242.1,114.5 L242.7,115.2 L243.2,115.9 L243.8,116.6 L244.3,117.3 L244.9,118.0 L245.4,118.6 L246.0,119.3 L246.5,119.9 L247.1,120.5 L247.6,121.1 L248.2,121.7 L248.7,122.3 L249.3,122.8 L249.8,123.4 L250.4,123.9 L251.0,124.4 L251.5,125.0 L252.1,125.4 L252.6,125.9 L253.2,126.4 L253.7,126.8 L254.3,127.3 L254.8,127.7 L255.4,128.1 L255.9,128.5 L256.5,128.9 L257.0,129.3 L257.6,129.6 L258.1,130.0 L258.7,130.3 L259.2,130.6 L259.8,130.9 L260.3,131.2 L260.9,131.5 L261.4,131.8 L262.0,132.0 L262.5,132.2 L263.1,132.5 L263.6,132.7 L264.2,132.9 L264.7,133.1 L265.3,133.2 L265.8,133.4 L266.4,133.5 L266.9,133.7 L267.5,133.8 L268.0,133.9 L268.6,134.0 L269.1,134.0 L269.7,134.1 L270.2,134.1 L270.8,134.2 L271.3,134.2 L271.9,134.2 L272.5,134.2 L273.0,134.2 L273.6,134.1 L274.1,134.1 L274.7,134.0 L275.2,134.0 L275.8,133.9 L276.3,133.8 L276.9,133.7 L277.4,133.5 L278.0,133.4 L278.5,133.2 L279.1,133.1 L279.6,132.9 L280.2,132.7 L280.7,132.5 L281.3,132.2 L281.8,132.0 L282.4,131.8 L282.9,131.5 L283.5,131.2 L284.0,130.9 L284.6,130.6 L285.1,130.3 L285.7,130.0 L286.2,129.6 L286.8,129.3 L287.3,128.9 L287.9,128.5 L288.4,128.1 L289.0,127.7 L289.5,127.3 L290.1,126.8 L290.6,126.4 L291.2,125.9 L291.7,125.4 L292.3,125.0 L292.8,124.4 L293.4,123.9 L293.9,123.4 L294.5,122.8 L295.1,122.3 L295.6,121.7 L296.2,121.1 L296.7,120.5 L297.3,119.9 L297.8,119.3 L298.4,118.6 L298.9,118.0 L299.5,117.3 L300.0,116.6 L300.6,115.9 L301.1,115.2 L301.7,114.5 L302.2,113.8 L302.8,113.0 L303.3,112.3 L303.9,111.5 L304.4,110.7 L305.0,109.9 L305.5,109.1 L306.1,108.2 L306.6,107.4 L307.2,106.5 L307.7,105.7 L308.3,104.8 L308.8,103.9 L309.4,103.0 L309.9,102.0 L310.5,101.1 L311.0,100.2 L311.6,99.2 L312.1,98.2 L312.7,97.2 L313.2,96.2 L313.8,95.2 L314.3,94.2 L314.9,93.1 L315.4,92.1 L316.0,91.0 L316.6,89.9 L317.1,88.8 L317.7,87.7 L318.2,86.6 L318.8,85.4 L319.3,84.3 L319.9,83.1 L320.4,81.9 L321.0,80.7 L321.5,79.5 L322.1,78.3 L322.6,77.0 L323.2,75.8 L323.7,74.5 L324.3,73.3 L324.8,72.0 L325.4,70.7 L325.9,69.3 L326.5,68.0 L327.0,66.7 L327.6,65.3 L328.1,63.9 L328.7,62.6 L329.2,61.2 L329.8,59.8 L330.3,58.3 L330.9,56.9 L331.4,55.4 L332.0,54.0 L332.5,52.5 L333.1,51.0 L333.6,49.5 L334.2,48.0 L334.7,46.4 L335.3,44.9 L335.8,43.3 L336.4,41.8 L336.9,40.2 L337.5,38.6 L338.1,37.0"/></g><circle class="pt pt-v" cx="271.9" cy="134.2" r="4.5"/><text class="moyen" x="263.8" y="153.1">x₀</text><text class="moyen" x="199.0" y="23.5">Δ = 0 : une racine</text><g class="trace t-n"><line x1="363.7" y1="134.2" x2="507.1" y2="134.2"/><polygon points="514.9,134.2 501.9,140.0 501.9,128.3"/></g><g class="trace t-u"><path d="M373.1,4.6 L373.7,6.2 L374.3,7.8 L374.8,9.4 L375.4,10.9 L375.9,12.5 L376.5,14.0 L377.0,15.6 L377.6,17.1 L378.1,18.6 L378.7,20.1 L379.2,21.6 L379.8,23.0 L380.3,24.5 L380.9,25.9 L381.4,27.4 L382.0,28.8 L382.5,30.2 L383.1,31.5 L383.6,32.9 L384.2,34.3 L384.7,35.6 L385.3,36.9 L385.8,38.3 L386.4,39.6 L386.9,40.9 L387.5,42.1 L388.0,43.4 L388.6,44.6 L389.1,45.9 L389.7,47.1 L390.2,48.3 L390.8,49.5 L391.3,50.7 L391.9,51.9 L392.4,53.0 L393.0,54.2 L393.5,55.3 L394.1,56.4 L394.6,57.5 L395.2,58.6 L395.8,59.7 L396.3,60.7 L396.9,61.8 L397.4,62.8 L398.0,63.8 L398.5,64.8 L399.1,65.8 L399.6,66.8 L400.2,67.8 L400.7,68.7 L401.3,69.6 L401.8,70.6 L402.4,71.5 L402.9,72.4 L403.5,73.3 L404.0,74.1 L404.6,75.0 L405.1,75.8 L405.7,76.7 L406.2,77.5 L406.8,78.3 L407.3,79.1 L407.9,79.9 L408.4,80.6 L409.0,81.4 L409.5,82.1 L410.1,82.8 L410.6,83.5 L411.2,84.2 L411.7,84.9 L412.3,85.6 L412.8,86.2 L413.4,86.9 L413.9,87.5 L414.5,88.1 L415.0,88.7 L415.6,89.3 L416.1,89.9 L416.7,90.4 L417.2,91.0 L417.8,91.5 L418.4,92.0 L418.9,92.6 L419.5,93.0 L420.0,93.5 L420.6,94.0 L421.1,94.4 L421.7,94.9 L422.2,95.3 L422.8,95.7 L423.3,96.1 L423.9,96.5 L424.4,96.9 L425.0,97.2 L425.5,97.6 L426.1,97.9 L426.6,98.2 L427.2,98.5 L427.7,98.8 L428.3,99.1 L428.8,99.4 L429.4,99.6 L429.9,99.8 L430.5,100.1 L431.0,100.3 L431.6,100.5 L432.1,100.7 L432.7,100.8 L433.2,101.0 L433.8,101.1 L434.3,101.3 L434.9,101.4 L435.4,101.5 L436.0,101.6 L436.5,101.6 L437.1,101.7 L437.6,101.7 L438.2,101.8 L438.7,101.8 L439.3,101.8 L439.9,101.8 L440.4,101.8 L441.0,101.7 L441.5,101.7 L442.1,101.6 L442.6,101.6 L443.2,101.5 L443.7,101.4 L444.3,101.3 L444.8,101.1 L445.4,101.0 L445.9,100.8 L446.5,100.7 L447.0,100.5 L447.6,100.3 L448.1,100.1 L448.7,99.8 L449.2,99.6 L449.8,99.4 L450.3,99.1 L450.9,98.8 L451.4,98.5 L452.0,98.2 L452.5,97.9 L453.1,97.6 L453.6,97.2 L454.2,96.9 L454.7,96.5 L455.3,96.1 L455.8,95.7 L456.4,95.3 L456.9,94.9 L457.5,94.4 L458.0,94.0 L458.6,93.5 L459.1,93.0 L459.7,92.6 L460.2,92.0 L460.8,91.5 L461.4,91.0 L461.9,90.4 L462.5,89.9 L463.0,89.3 L463.6,88.7 L464.1,88.1 L464.7,87.5 L465.2,86.9 L465.8,86.2 L466.3,85.6 L466.9,84.9 L467.4,84.2 L468.0,83.5 L468.5,82.8 L469.1,82.1 L469.6,81.4 L470.2,80.6 L470.7,79.9 L471.3,79.1 L471.8,78.3 L472.4,77.5 L472.9,76.7 L473.5,75.8 L474.0,75.0 L474.6,74.1 L475.1,73.3 L475.7,72.4 L476.2,71.5 L476.8,70.6 L477.3,69.6 L477.9,68.7 L478.4,67.8 L479.0,66.8 L479.5,65.8 L480.1,64.8 L480.6,63.8 L481.2,62.8 L481.7,61.8 L482.3,60.7 L482.8,59.7 L483.4,58.6 L484.0,57.5 L484.5,56.4 L485.1,55.3 L485.6,54.2 L486.2,53.0 L486.7,51.9 L487.3,50.7 L487.8,49.5 L488.4,48.3 L488.9,47.1 L489.5,45.9 L490.0,44.6 L490.6,43.4 L491.1,42.1 L491.7,40.9 L492.2,39.6 L492.8,38.3 L493.3,36.9 L493.9,35.6 L494.4,34.3 L495.0,32.9 L495.5,31.5 L496.1,30.2 L496.6,28.8 L497.2,27.4 L497.7,25.9 L498.3,24.5 L498.8,23.0 L499.4,21.6 L499.9,20.1 L500.5,18.6 L501.0,17.1 L501.6,15.6 L502.1,14.0 L502.7,12.5 L503.2,10.9 L503.8,9.4 L504.3,7.8 L504.9,6.2 L505.5,4.6"/></g><text class="moyen" x="366.4" y="23.5">Δ < 0 : aucune</text></svg><figcaption>Le signe de $\Delta$ dit combien de fois la parabole coupe l'axe des abscisses : deux fois, une fois (elle le touche), ou jamais.</figcaption></figure>
+
+  <div class="bloc theoreme" data-titre="Démonstration, au programme">
+    <div class="deroule">
+      <p class="consigne"><strong>Pourquoi ces formules ?</strong> Le raisonnement part de la forme canonique. Essaie de le refaire avant de dévoiler chaque étape : c'est la démonstration exigible de ce chapitre.</p>
+      <ol class="pas">
+        <li><strong>La forme canonique.</strong> On met $a$ en facteur : $f(x)=a\left[x^2+\dfrac{b}{a}x+\dfrac{c}{a}\right]$. Or $x^2+\dfrac{b}{a}x=\left(x+\dfrac{b}{2a}\right)^2-\dfrac{b^2}{4a^2}$ (on complète le carré). Donc $f(x)=a\left[\left(x+\dfrac{b}{2a}\right)^2-\dfrac{b^2-4ac}{4a^2}\right]=a\left(x+\dfrac{b}{2a}\right)^2-\dfrac{\Delta}{4a}$. Au passage : $\alpha=-\dfrac{b}{2a}$ et $\beta=-\dfrac{\Delta}{4a}$.</li>
+        <li><strong>L'équation.</strong> Comme $a\ne0$ : $f(x)=0\iff a\left(x+\dfrac{b}{2a}\right)^2=\dfrac{\Delta}{4a}\iff\left(x+\dfrac{b}{2a}\right)^2=\dfrac{\Delta}{4a^2}$.</li>
+        <li><strong>Si $\Delta&lt;0$.</strong> Le membre de droite est strictement négatif, et un carré ne l'est jamais : aucune solution.</li>
+        <li><strong>Si $\Delta=0$.</strong> $\left(x+\dfrac{b}{2a}\right)^2=0\iff x+\dfrac{b}{2a}=0\iff x=-\dfrac{b}{2a}$ : une seule solution.</li>
+        <li><strong>Si $\Delta&gt;0$.</strong> $\dfrac{\Delta}{4a^2}=\left(\dfrac{\sqrt{\Delta}}{2a}\right)^2$, donc $x+\dfrac{b}{2a}=\dfrac{\sqrt{\Delta}}{2a}$ ou $x+\dfrac{b}{2a}=-\dfrac{\sqrt{\Delta}}{2a}$, c'est-à-dire $x=\dfrac{-b+\sqrt{\Delta}}{2a}$ ou $x=\dfrac{-b-\sqrt{\Delta}}{2a}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Résoudre une équation du second degré">
+    <ol class="etapes">
+      <li><span>Je mets tout du même côté : $ax^2+bx+c=0$, et je lis $a$, $b$, $c$ <strong>avec leurs signes</strong>.</span></li>
+      <li><span>Je calcule $\Delta=b^2-4ac$ en écrivant le calcul : $b^2$ est toujours positif, et $-4ac$ peut être positif.</span></li>
+      <li><span>Je regarde le signe de $\Delta$ : deux, une ou zéro solution.</span></li>
+      <li><span>Si $\Delta\ge0$, j'écris les solutions avec $2a$ au dénominateur de <strong>tout</strong>, puis je simplifie.</span></li>
+      <li><span>Je vérifie : je remplace une solution dans l'équation, ou je contrôle la somme $-\dfrac{b}{a}$ et le produit $\dfrac{c}{a}$ (partie 4).</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Résoudre $2x^2-5x-3=0$.</p>
+      <ol class="pas">
+        <li><strong>Les coefficients.</strong> $a=2$, $b=-5$, $c=-3$.</li>
+        <li><strong>Le discriminant.</strong> $\Delta=(-5)^2-4\times2\times(-3)=25+24=49$.</li>
+        <li><strong>Le signe.</strong> $\Delta&gt;0$ : deux solutions, et $\sqrt{49}=7$.</li>
+        <li><strong>Les solutions.</strong> $x_1=\dfrac{-(-5)-7}{2\times2}=\dfrac{5-7}{4}=-\dfrac{1}{2}$ et $x_2=\dfrac{5+7}{4}=3$.</li>
+        <li><strong>Vérification.</strong> $2\times3^2-5\times3-3=18-15-3=0$. Et $x_1+x_2=\dfrac{5}{2}=-\dfrac{b}{a}$. $S=\left\{-\dfrac{1}{2}\,;3\right\}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Les deux autres cas">
+    <ul>
+      <li>$x^2-6x+9=0$ : $\Delta=36-36=0$, une solution $x_0=\dfrac{6}{2}=3$. Normal : $x^2-6x+9=(x-3)^2$.</li>
+      <li>$x^2+x+1=0$ : $\Delta=1-4=-3&lt;0$, aucune solution. La parabole reste au-dessus de l'axe.</li>
+    </ul>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pas toujours besoin de Δ">
+    <ul>
+      <li>$x^2=9$ : $x=3$ <strong>ou</strong> $x=-3$. Deux solutions, sans discriminant.</li>
+      <li>$x^2-5x=0$ : $x(x-5)=0$, donc $x=0$ ou $x=5$. On factorise, on ne divise pas par $x$.</li>
+      <li>$(x-1)(x+4)=0$ : un produit nul, $x=1$ ou $x=-4$.</li>
+      <li>$(x+2)^2=x^2+10$ : en développant, $x^2+4x+4=x^2+10$, les $x^2$ s'annulent : $4x=6$. Ce n'était pas du second degré.</li>
+    </ul>
+    <p>Sans calculatrice à l'épreuve anticipée, ces réflexes font gagner du temps : le discriminant est l'outil général, pas le premier réflexe.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Les trois erreurs de la formule">
+    <ul>
+      <li><strong>Le signe de $b$.</strong> Avec $b=-5$, la formule commence par $-b=+5$. Écris $-(-5)$ avant de simplifier.</li>
+      <li><strong>Le $2a$ divise tout.</strong> $\dfrac{-b\pm\sqrt{\Delta}}{2a}$ : le trait de fraction passe sous $-b$ aussi. Et avec $a=2$, le dénominateur vaut $4$, pas $2$.</li>
+      <li><strong>Tout d'un côté d'abord.</strong> Pour $2x^2=3x+5$, les coefficients sont ceux de $2x^2-3x-5=0$ : $b=-3$ et $c=-5$.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-factoriser">4. Factoriser, et choisir sa stratégie</h3>
+
+  <div class="bloc propriete" data-titre="Forme factorisée">
+    <ul>
+      <li>Si $\Delta&gt;0$, avec les racines $x_1$ et $x_2$ : $f(x)=a(x-x_1)(x-x_2)$.</li>
+      <li>Si $\Delta=0$ : $f(x)=a(x-x_0)^2$.</li>
+      <li>Si $\Delta&lt;0$ : pas de factorisation en produit de facteurs du premier degré.</li>
+    </ul>
+    <p>Le coefficient $a$ reste devant le produit : $2x^2-10x+12=2(x-2)(x-3)$, pas $(x-2)(x-3)$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Somme et produit des racines">
+    <p>Si le trinôme $ax^2+bx+c$ a deux racines $x_1$ et $x_2$ (éventuellement égales), alors</p>
+    $$x_1+x_2=-\dfrac{b}{a}\qquad\text{et}\qquad x_1x_2=\dfrac{c}{a}.$$
+    <p>En effet, $a(x-x_1)(x-x_2)=ax^2-a(x_1+x_2)x+ax_1x_2$ : on compare avec $ax^2+bx+c$. C'est ce qui permet, connaissant une racine, de trouver l'autre sans calcul, et de vérifier une résolution.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Factoriser : quatre stratégies, dans cet ordre">
+    <ol class="etapes">
+      <li><span><strong>Une racine évidente ?</strong> Je teste $0$, $1$, $-1$, $2$, $-2$. Si $f(x_1)=0$, l'autre racine vient du produit $x_1x_2=\dfrac{c}{a}$ ou de la somme.</span></li>
+      <li><span><strong>Somme et produit.</strong> Je cherche deux nombres dont la somme est $-\dfrac{b}{a}$ et le produit $\dfrac{c}{a}$ : ce sont les racines.</span></li>
+      <li><span><strong>Une identité remarquable.</strong> $x^2-25=(x-5)(x+5)$ ; $x^2+6x+9=(x+3)^2$ ; ou, depuis la forme canonique, $(x-3)^2-4=(x-3-2)(x-3+2)$.</span></li>
+      <li><span><strong>Les formules.</strong> Sinon : $\Delta$, les racines, puis $a(x-x_1)(x-x_2)$.</span></li>
+      <li><span>Dans tous les cas, je vérifie en développant.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Factoriser $f(x)=x^2-5x+6$, puis $g(x)=x^2-4x-5$.</p>
+      <ol class="pas">
+        <li><strong>$f$, racine évidente.</strong> $f(2)=4-10+6=0$ : $2$ est une racine.</li>
+        <li><strong>$f$, le produit.</strong> $x_1x_2=\dfrac{c}{a}=6$, donc $x_2=3$. Contrôle : $2+3=5=-\dfrac{b}{a}$. Ainsi $f(x)=(x-2)(x-3)$.</li>
+        <li><strong>$g$, la forme canonique.</strong> $\alpha=2$, $\beta=g(2)=4-8-5=-9$ : $g(x)=(x-2)^2-9$.</li>
+        <li><strong>$g$, l'identité.</strong> $(x-2)^2-3^2=(x-2-3)(x-2+3)=(x-5)(x+1)$. Vérification : $x^2+x-5x-5=x^2-4x-5$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="La fonction qui s'annule en deux réels donnés">
+      <p>On cherche $f$ qui s'annule en $-1$ et en $4$, avec $f(0)=8$. Toute fonction $f(x)=a(x+1)(x-4)$ avec $a\ne0$ s'annule en $-1$ et $4$ : il y en a une infinité. La condition $f(0)=8$ choisit $a$ : $f(0)=a\times1\times(-4)=-4a=8$, donc $a=-2$, et $f(x)=-2(x+1)(x-4)=-2x^2+6x+8$.</p>
+    </div>
+    <div class="bloc exemple" data-titre="Deux nombres de somme s et de produit p">
+      <p>Deux nombres dont la somme est $7$ et le produit $10$ sont les racines de $x^2-7x+10=0$ (le trinôme $x^2-sx+p$). $\Delta=49-40=9$, $x=\dfrac{7\pm3}{2}$ : ce sont $2$ et $5$. Avec une somme $2$ et un produit $5$ : $x^2-2x+5$, $\Delta=-16$, il n'existe pas de tels réels.</p>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Le a qui disparaît">
+    <p>$2x^2-10x+12$ a pour racines $2$ et $3$. Mais $(x-2)(x-3)=x^2-5x+6$, qui n'est pas $2x^2-10x+12$ : il faut $2(x-2)(x-3)$. Même piège pour la somme et le produit quand $a\ne1$ : la somme est $-\dfrac{b}{a}$ et le produit $\dfrac{c}{a}$, pas $-b$ et $c$.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-signe">5. Le signe d'un trinôme</h3>
+
+  <div class="bloc theoreme" data-titre="Le signe de ax² + bx + c">
+    <ul>
+      <li>Si $\Delta&lt;0$ : $f(x)$ a le <strong>signe de $a$</strong> pour tout réel $x$.</li>
+      <li>Si $\Delta=0$ : $f(x)$ a le signe de $a$ pour tout $x\ne x_0$, et $f(x_0)=0$.</li>
+      <li>Si $\Delta&gt;0$ : $f(x)$ a le signe de $a$ <strong>à l'extérieur</strong> des racines, le signe de $-a$ <strong>entre</strong> les racines, et s'annule aux racines.</li>
+    </ul>
+    <p>À retenir : <strong>signe de $a$ dehors, signe contraire entre les racines.</strong></p>
+    <div class="defile"><table class="valeurs"><tr><th>$x$</th><td>$-\infty$</td><td></td><td>$x_1$</td><td></td><td>$x_2$</td><td></td><td>$+\infty$</td></tr><tr><th>$f(x)$, $a&gt;0$</th><td></td><td>$+$</td><td>$0$</td><td>$-$</td><td>$0$</td><td>$+$</td><td></td></tr><tr><th>$f(x)$, $a&lt;0$</th><td></td><td>$-$</td><td>$0$</td><td>$+$</td><td>$0$</td><td>$-$</td><td></td></tr></table></div>
+  </div>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 524 244" role="img" aria-label="Deux paraboles avec leurs racines x1 et x2. À gauche, a positif : la courbe est au-dessus de l'axe à l'extérieur des racines, où le signe de f est plus, et en dessous entre les racines, où le signe est moins. À droite, a négatif : c'est l'inverse, moins à l'extérieur, plus entre les racines."><polygon class="t-w plein op-30" points="40.8,27.4 41.5,29.6 42.1,31.8 42.8,34.0 43.4,36.1 44.1,38.3 44.7,40.4 45.4,42.5 46.0,44.6 46.7,46.7 47.3,48.8 48.0,50.9 48.6,52.9 49.3,54.9 49.9,57.0 50.6,59.0 51.3,61.0 51.9,62.9 52.6,64.9 53.2,66.8 53.9,68.7 54.5,70.6 55.2,72.5 55.8,74.4 56.5,76.3 57.1,78.1 57.8,80.0 58.4,81.8 59.1,83.6 59.7,85.4 60.4,87.1 61.1,88.9 61.7,90.6 62.4,92.4 63.0,94.1 63.7,95.8 64.3,97.4 65.0,99.1 65.6,100.8 66.3,102.4 66.9,104.0 67.6,105.6 68.2,107.2 68.9,108.8 69.5,110.3 70.2,111.9 70.9,113.4 71.5,114.9 72.2,116.4 72.8,117.9 73.5,119.4 74.1,120.8 74.8,122.3 75.4,123.7 76.1,125.1 76.7,126.5 77.4,127.9 78.0,129.2 78.7,130.6 79.3,131.9 80.0,133.2 80.0,133.2 40.8,133.2"/><polygon class="t-w plein op-30" points="192.0,133.2 192.7,131.9 193.3,130.6 194.0,129.2 194.6,127.9 195.3,126.5 195.9,125.1 196.6,123.7 197.2,122.3 197.9,120.8 198.5,119.4 199.2,117.9 199.8,116.4 200.5,114.9 201.1,113.4 201.8,111.9 202.5,110.3 203.1,108.8 203.8,107.2 204.4,105.6 205.1,104.0 205.7,102.4 206.4,100.8 207.0,99.1 207.7,97.4 208.3,95.8 209.0,94.1 209.6,92.4 210.3,90.6 210.9,88.9 211.6,87.1 212.3,85.4 212.9,83.6 213.6,81.8 214.2,80.0 214.9,78.1 215.5,76.3 216.2,74.4 216.8,72.5 217.5,70.6 218.1,68.7 218.8,66.8 219.4,64.9 220.1,62.9 220.7,61.0 221.4,59.0 222.1,57.0 222.7,54.9 223.4,52.9 224.0,50.9 224.7,48.8 225.3,46.7 226.0,44.6 226.6,42.5 227.3,40.4 227.9,38.3 228.6,36.1 229.2,34.0 229.9,31.8 230.5,29.6 231.2,27.4 231.2,133.2 192.0,133.2"/><polygon class="t-v plein op-30" points="80.0,133.2 81.9,136.9 83.7,140.4 85.6,143.8 87.5,147.1 89.3,150.3 91.2,153.4 93.1,156.3 94.9,159.1 96.8,161.8 98.7,164.3 100.5,166.7 102.4,169.0 104.3,171.2 106.1,173.3 108.0,175.2 109.9,177.0 111.7,178.7 113.6,180.2 115.5,181.7 117.3,183.0 119.2,184.2 121.1,185.2 122.9,186.2 124.8,187.0 126.7,187.6 128.5,188.2 130.4,188.6 132.3,189.0 134.1,189.1 136.0,189.2 137.9,189.1 139.7,189.0 141.6,188.6 143.5,188.2 145.3,187.6 147.2,187.0 149.1,186.2 150.9,185.2 152.8,184.2 154.7,183.0 156.5,181.7 158.4,180.2 160.3,178.7 162.1,177.0 164.0,175.2 165.9,173.3 167.7,171.2 169.6,169.0 171.5,166.7 173.3,164.3 175.2,161.8 177.1,159.1 178.9,156.3 180.8,153.4 182.7,150.3 184.5,147.1 186.4,143.8 188.3,140.4 190.1,136.9 192.0,133.2"/><g class="trace t-n"><line x1="15.6" y1="133.2" x2="251.4" y2="133.2"/><polygon points="259.2,133.2 246.2,139.0 246.2,127.3"/></g><g class="trace t-u"><path d="M40.8,27.4 L41.6,30.0 L42.4,32.7 L43.2,35.4 L44.0,38.0 L44.8,40.6 L45.6,43.1 L46.4,45.7 L47.1,48.2 L47.9,50.7 L48.7,53.2 L49.5,55.7 L50.3,58.1 L51.1,60.5 L51.9,62.9 L52.7,65.3 L53.5,67.6 L54.3,70.0 L55.1,72.3 L55.9,74.6 L56.7,76.8 L57.5,79.0 L58.3,81.3 L59.0,83.5 L59.8,85.6 L60.6,87.8 L61.4,89.9 L62.2,92.0 L63.0,94.1 L63.8,96.1 L64.6,98.2 L65.4,100.2 L66.2,102.2 L67.0,104.1 L67.8,106.1 L68.6,108.0 L69.4,109.9 L70.2,111.8 L70.9,113.6 L71.7,115.5 L72.5,117.3 L73.3,119.1 L74.1,120.8 L74.9,122.6 L75.7,124.3 L76.5,126.0 L77.3,127.7 L78.1,129.3 L78.9,130.9 L79.7,132.5 L80.5,134.1 L81.3,135.7 L82.1,137.2 L82.8,138.7 L83.6,140.2 L84.4,141.7 L85.2,143.2 L86.0,144.6 L86.8,146.0 L87.6,147.4 L88.4,148.7 L89.2,150.1 L90.0,151.4 L90.8,152.7 L91.6,154.0 L92.4,155.2 L93.2,156.4 L94.0,157.6 L94.7,158.8 L95.5,160.0 L96.3,161.1 L97.1,162.2 L97.9,163.3 L98.7,164.4 L99.5,165.4 L100.3,166.4 L101.1,167.4 L101.9,168.4 L102.7,169.4 L103.5,170.3 L104.3,171.2 L105.1,172.1 L105.9,173.0 L106.6,173.8 L107.4,174.6 L108.2,175.4 L109.0,176.2 L109.8,177.0 L110.6,177.7 L111.4,178.4 L112.2,179.1 L113.0,179.7 L113.8,180.4 L114.6,181.0 L115.4,181.6 L116.2,182.2 L117.0,182.7 L117.8,183.3 L118.5,183.8 L119.3,184.2 L120.1,184.7 L120.9,185.1 L121.7,185.6 L122.5,186.0 L123.3,186.3 L124.1,186.7 L124.9,187.0 L125.7,187.3 L126.5,187.6 L127.3,187.8 L128.1,188.1 L128.9,188.3 L129.7,188.5 L130.4,188.6 L131.2,188.8 L132.0,188.9 L132.8,189.0 L133.6,189.1 L134.4,189.2 L135.2,189.2 L136.0,189.2 L136.8,189.2 L137.6,189.2 L138.4,189.1 L139.2,189.0 L140.0,188.9 L140.8,188.8 L141.6,188.6 L142.3,188.5 L143.1,188.3 L143.9,188.1 L144.7,187.8 L145.5,187.6 L146.3,187.3 L147.1,187.0 L147.9,186.7 L148.7,186.3 L149.5,186.0 L150.3,185.6 L151.1,185.1 L151.9,184.7 L152.7,184.2 L153.5,183.8 L154.2,183.3 L155.0,182.7 L155.8,182.2 L156.6,181.6 L157.4,181.0 L158.2,180.4 L159.0,179.7 L159.8,179.1 L160.6,178.4 L161.4,177.7 L162.2,177.0 L163.0,176.2 L163.8,175.4 L164.6,174.6 L165.4,173.8 L166.1,173.0 L166.9,172.1 L167.7,171.2 L168.5,170.3 L169.3,169.4 L170.1,168.4 L170.9,167.4 L171.7,166.4 L172.5,165.4 L173.3,164.4 L174.1,163.3 L174.9,162.2 L175.7,161.1 L176.5,160.0 L177.3,158.8 L178.0,157.6 L178.8,156.4 L179.6,155.2 L180.4,154.0 L181.2,152.7 L182.0,151.4 L182.8,150.1 L183.6,148.7 L184.4,147.4 L185.2,146.0 L186.0,144.6 L186.8,143.2 L187.6,141.7 L188.4,140.2 L189.2,138.7 L189.9,137.2 L190.7,135.7 L191.5,134.1 L192.3,132.5 L193.1,130.9 L193.9,129.3 L194.7,127.7 L195.5,126.0 L196.3,124.3 L197.1,122.6 L197.9,120.8 L198.7,119.1 L199.5,117.3 L200.3,115.5 L201.1,113.6 L201.8,111.8 L202.6,109.9 L203.4,108.0 L204.2,106.1 L205.0,104.1 L205.8,102.2 L206.6,100.2 L207.4,98.2 L208.2,96.1 L209.0,94.1 L209.8,92.0 L210.6,89.9 L211.4,87.8 L212.2,85.6 L213.0,83.5 L213.7,81.3 L214.5,79.0 L215.3,76.8 L216.1,74.6 L216.9,72.3 L217.7,70.0 L218.5,67.6 L219.3,65.3 L220.1,62.9 L220.9,60.5 L221.7,58.1 L222.5,55.7 L223.3,53.2 L224.1,50.7 L224.9,48.2 L225.6,45.7 L226.4,43.1 L227.2,40.6 L228.0,38.0 L228.8,35.4 L229.6,32.7 L230.4,30.0 L231.2,27.4"/></g><circle class="pt pt-v" cx="80.0" cy="133.2" r="4.5"/><circle class="pt pt-v" cx="192.0" cy="133.2" r="4.5"/><text class="moyen" x="71.6" y="120.6">x₁</text><text class="moyen" x="183.6" y="120.6">x₂</text><text class="lettre" x="49.2" y="112.2">+</text><text class="lettre" x="131.8" y="154.2">−</text><text class="lettre" x="208.8" y="112.2">+</text><text class="moyen" x="15.6" y="21.2">a > 0 : signe de a dehors</text><polygon class="t-v plein op-30" points="298.4,220.6 299.0,218.8 299.5,217.0 300.1,215.2 300.6,213.5 301.2,211.7 301.8,210.0 302.3,208.3 302.9,206.6 303.4,204.9 304.0,203.2 304.6,201.5 305.1,199.9 305.7,198.2 306.2,196.6 306.8,194.9 307.4,193.3 307.9,191.7 308.5,190.1 309.0,188.5 309.6,187.0 310.2,185.4 310.7,183.8 311.3,182.3 311.8,180.8 312.4,179.3 313.0,177.8 313.5,176.3 314.1,174.8 314.6,173.3 315.2,171.8 315.8,170.4 316.3,169.0 316.9,167.5 317.4,166.1 318.0,164.7 318.6,163.3 319.1,161.9 319.7,160.6 320.2,159.2 320.8,157.8 321.4,156.5 321.9,155.2 322.5,153.9 323.0,152.6 323.6,151.3 324.2,150.0 324.7,148.7 325.3,147.4 325.8,146.2 326.4,145.0 327.0,143.7 327.5,142.5 328.1,141.3 328.6,140.1 329.2,138.9 329.8,137.8 330.3,136.6 330.9,135.5 331.4,134.3 332.0,133.2 332.0,133.2 298.4,133.2"/><polygon class="t-v plein op-30" points="444.0,133.2 444.6,134.3 445.1,135.5 445.7,136.6 446.2,137.8 446.8,138.9 447.4,140.1 447.9,141.3 448.5,142.5 449.0,143.7 449.6,145.0 450.2,146.2 450.7,147.4 451.3,148.7 451.8,150.0 452.4,151.3 453.0,152.6 453.5,153.9 454.1,155.2 454.6,156.5 455.2,157.8 455.8,159.2 456.3,160.6 456.9,161.9 457.4,163.3 458.0,164.7 458.6,166.1 459.1,167.5 459.7,169.0 460.2,170.4 460.8,171.8 461.4,173.3 461.9,174.8 462.5,176.3 463.0,177.8 463.6,179.3 464.2,180.8 464.7,182.3 465.3,183.8 465.8,185.4 466.4,187.0 467.0,188.5 467.5,190.1 468.1,191.7 468.6,193.3 469.2,194.9 469.8,196.6 470.3,198.2 470.9,199.9 471.4,201.5 472.0,203.2 472.6,204.9 473.1,206.6 473.7,208.3 474.2,210.0 474.8,211.7 475.4,213.5 475.9,215.2 476.5,217.0 477.0,218.8 477.6,220.6 477.6,133.2 444.0,133.2"/><polygon class="t-w plein op-30" points="332.0,133.2 333.9,129.5 335.7,126.0 337.6,122.6 339.5,119.3 341.3,116.1 343.2,113.0 345.1,110.1 346.9,107.3 348.8,104.6 350.7,102.1 352.5,99.7 354.4,97.4 356.3,95.2 358.1,93.1 360.0,91.2 361.9,89.4 363.7,87.7 365.6,86.2 367.5,84.7 369.3,83.4 371.2,82.2 373.1,81.2 374.9,80.2 376.8,79.4 378.7,78.8 380.5,78.2 382.4,77.8 384.3,77.4 386.1,77.3 388.0,77.2 389.9,77.3 391.7,77.4 393.6,77.8 395.5,78.2 397.3,78.8 399.2,79.4 401.1,80.2 402.9,81.2 404.8,82.2 406.7,83.4 408.5,84.7 410.4,86.2 412.3,87.7 414.1,89.4 416.0,91.2 417.9,93.1 419.7,95.2 421.6,97.4 423.5,99.7 425.3,102.1 427.2,104.6 429.1,107.3 430.9,110.1 432.8,113.0 434.7,116.1 436.5,119.3 438.4,122.6 440.3,126.0 442.1,129.5 444.0,133.2"/><g class="trace t-n"><line x1="267.6" y1="133.2" x2="503.4" y2="133.2"/><polygon points="511.2,133.2 498.2,139.0 498.2,127.3"/></g><g class="trace t-u"><path d="M298.4,220.6 L299.1,218.2 L299.9,215.8 L300.6,213.5 L301.4,211.2 L302.1,208.9 L302.9,206.6 L303.6,204.3 L304.4,202.1 L305.1,199.9 L305.9,197.7 L306.6,195.5 L307.4,193.3 L308.1,191.2 L308.9,189.1 L309.6,187.0 L310.3,184.9 L311.1,182.8 L311.8,180.8 L312.6,178.8 L313.3,176.8 L314.1,174.8 L314.8,172.8 L315.6,170.9 L316.3,169.0 L317.1,167.0 L317.8,165.2 L318.6,163.3 L319.3,161.5 L320.1,159.6 L320.8,157.8 L321.5,156.1 L322.3,154.3 L323.0,152.6 L323.8,150.8 L324.5,149.1 L325.3,147.4 L326.0,145.8 L326.8,144.1 L327.5,142.5 L328.3,140.9 L329.0,139.3 L329.8,137.8 L330.5,136.2 L331.3,134.7 L332.0,133.2 L332.7,131.7 L333.5,130.3 L334.2,128.8 L335.0,127.4 L335.7,126.0 L336.5,124.6 L337.2,123.2 L338.0,121.9 L338.7,120.6 L339.5,119.3 L340.2,118.0 L341.0,116.7 L341.7,115.5 L342.5,114.2 L343.2,113.0 L343.9,111.9 L344.7,110.7 L345.4,109.5 L346.2,108.4 L346.9,107.3 L347.7,106.2 L348.4,105.2 L349.2,104.1 L349.9,103.1 L350.7,102.1 L351.4,101.1 L352.2,100.1 L352.9,99.2 L353.7,98.3 L354.4,97.4 L355.1,96.5 L355.9,95.6 L356.6,94.8 L357.4,93.9 L358.1,93.1 L358.9,92.3 L359.6,91.6 L360.4,90.8 L361.1,90.1 L361.9,89.4 L362.6,88.7 L363.4,88.0 L364.1,87.4 L364.9,86.8 L365.6,86.2 L366.3,85.6 L367.1,85.0 L367.8,84.5 L368.6,83.9 L369.3,83.4 L370.1,82.9 L370.8,82.5 L371.6,82.0 L372.3,81.6 L373.1,81.2 L373.8,80.8 L374.6,80.4 L375.3,80.1 L376.1,79.7 L376.8,79.4 L377.5,79.2 L378.3,78.9 L379.0,78.6 L379.8,78.4 L380.5,78.2 L381.3,78.0 L382.0,77.8 L382.8,77.7 L383.5,77.6 L384.3,77.4 L385.0,77.4 L385.8,77.3 L386.5,77.2 L387.3,77.2 L388.0,77.2 L388.7,77.2 L389.5,77.2 L390.2,77.3 L391.0,77.4 L391.7,77.4 L392.5,77.6 L393.2,77.7 L394.0,77.8 L394.7,78.0 L395.5,78.2 L396.2,78.4 L397.0,78.6 L397.7,78.9 L398.5,79.2 L399.2,79.4 L399.9,79.7 L400.7,80.1 L401.4,80.4 L402.2,80.8 L402.9,81.2 L403.7,81.6 L404.4,82.0 L405.2,82.5 L405.9,82.9 L406.7,83.4 L407.4,83.9 L408.2,84.5 L408.9,85.0 L409.7,85.6 L410.4,86.2 L411.1,86.8 L411.9,87.4 L412.6,88.0 L413.4,88.7 L414.1,89.4 L414.9,90.1 L415.6,90.8 L416.4,91.6 L417.1,92.3 L417.9,93.1 L418.6,93.9 L419.4,94.8 L420.1,95.6 L420.9,96.5 L421.6,97.4 L422.3,98.3 L423.1,99.2 L423.8,100.1 L424.6,101.1 L425.3,102.1 L426.1,103.1 L426.8,104.1 L427.6,105.2 L428.3,106.2 L429.1,107.3 L429.8,108.4 L430.6,109.5 L431.3,110.7 L432.1,111.9 L432.8,113.0 L433.5,114.2 L434.3,115.5 L435.0,116.7 L435.8,118.0 L436.5,119.3 L437.3,120.6 L438.0,121.9 L438.8,123.2 L439.5,124.6 L440.3,126.0 L441.0,127.4 L441.8,128.8 L442.5,130.3 L443.3,131.7 L444.0,133.2 L444.7,134.7 L445.5,136.2 L446.2,137.8 L447.0,139.3 L447.7,140.9 L448.5,142.5 L449.2,144.1 L450.0,145.8 L450.7,147.4 L451.5,149.1 L452.2,150.8 L453.0,152.6 L453.7,154.3 L454.5,156.1 L455.2,157.8 L455.9,159.6 L456.7,161.5 L457.4,163.3 L458.2,165.2 L458.9,167.0 L459.7,169.0 L460.4,170.9 L461.2,172.8 L461.9,174.8 L462.7,176.8 L463.4,178.8 L464.2,180.8 L464.9,182.8 L465.7,184.9 L466.4,187.0 L467.1,189.1 L467.9,191.2 L468.6,193.3 L469.4,195.5 L470.1,197.7 L470.9,199.9 L471.6,202.1 L472.4,204.3 L473.1,206.6 L473.9,208.9 L474.6,211.2 L475.4,213.5 L476.1,215.8 L476.9,218.2 L477.6,220.6"/></g><circle class="pt pt-v" cx="332.0" cy="133.2" r="4.5"/><circle class="pt pt-v" cx="444.0" cy="133.2" r="4.5"/><text class="moyen" x="323.6" y="151.4">x₁</text><text class="moyen" x="435.6" y="151.4">x₂</text><text class="lettre" x="305.4" y="162.6">−</text><text class="lettre" x="383.8" y="112.2">+</text><text class="lettre" x="462.2" y="162.6">−</text><text class="moyen" x="273.2" y="21.2">a < 0 : signe de a dehors</text></svg><figcaption>Au-dessus de l'axe, $f(x)&gt;0$ ; en dessous, $f(x)&lt;0$. La parabole ne change de côté qu'aux racines : dehors, elle est du côté que $a$ impose.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Pourquoi ?">
+    <p>Si $\Delta&gt;0$, on écrit $f(x)=a(x-x_1)(x-x_2)$ et on fait le tableau de signes des deux facteurs : le produit $(x-x_1)(x-x_2)$ est positif à l'extérieur des racines, négatif entre ; on multiplie par $a$. Si $\Delta&lt;0$, la forme canonique $f(x)=a\left[\left(x+\dfrac{b}{2a}\right)^2-\dfrac{\Delta}{4a^2}\right]$ a un crochet strictement positif (un carré, moins un nombre négatif) : $f(x)$ a le signe de $a$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Résoudre une inéquation du second degré">
+    <ol class="etapes">
+      <li><span>Je mets tout du même côté, avec $0$ à droite : $f(x)\ge0$, $f(x)&lt;0$…</span></li>
+      <li><span>Je cherche les racines de $f$ : $\Delta$, une racine évidente, ou une forme déjà factorisée.</span></li>
+      <li><span>Je dresse le tableau de signes : signe de $a$ à l'extérieur, signe contraire entre les racines.</span></li>
+      <li><span>Je lis l'ensemble des solutions sur le tableau et je l'écris avec des intervalles. Les racines en font partie pour $\ge$ et $\le$, pas pour $&gt;$ et $&lt;$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Résoudre $-x^2+2x+3&gt;0$.</p>
+      <ol class="pas">
+        <li><strong>La fonction.</strong> $f(x)=-x^2+2x+3$, avec $a=-1&lt;0$.</li>
+        <li><strong>Les racines.</strong> $\Delta=4+12=16$. $x=\dfrac{-2\pm4}{-2}$ : $x_1=\dfrac{-2-4}{-2}=3$ et $x_2=\dfrac{-2+4}{-2}=-1$. Les racines sont $-1$ et $3$.</li>
+        <li><strong>Le tableau.</strong> $a&lt;0$ : $f(x)$ est négatif à l'extérieur, positif entre $-1$ et $3$.</li>
+        <li><strong>Conclusion.</strong> $f(x)&gt;0\iff x\in\,]-1\,;3[$. L'inégalité est stricte : les racines sont exclues.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Quand Δ est négatif">
+    <p>$x^2+2x+5&gt;0$ : $\Delta=4-20=-16&lt;0$ et $a=1&gt;0$, donc $x^2+2x+5&gt;0$ pour tout $x$. L'ensemble des solutions est $\mathbb{R}$ tout entier. Et l'inéquation $x^2+2x+5&lt;0$, elle, n'a aucune solution. Le signe de $\Delta$ ne dit rien sur le signe de $f$ : c'est $a$ qui parle.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Une inéquation n'est pas une équation">
+    <p>$x^2&lt;9$ ne donne pas $x&lt;3$ : les solutions sont $]-3\,;3[$, et $x=-5$ n'en fait pas partie ($25&gt;9$). On revient toujours au signe du trinôme $x^2-9$. Autre erreur : mettre le signe de $a$ <strong>entre</strong> les racines. Regarde la parabole : entre ses racines, elle est de l'autre côté de l'axe.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-choisir">6. Choisir la bonne forme</h3>
+
+  <div class="bloc propriete" data-titre="Trois formes, trois lectures">
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Forme</th><th>Ce qu'on y lit sans calcul</th><th>Quand l'utiliser</th></tr></thead>
+      <tbody>
+        <tr><td><strong>développée</strong> $ax^2+bx+c$</td><td>le signe de $a$ (l'allure), $c=f(0)$, les coefficients pour $\Delta$</td><td>calculer $f(0)$, résoudre $f(x)=0$ par $\Delta$, repartir d'une expression développée</td></tr>
+        <tr><td><strong>canonique</strong> $a(x-\alpha)^2+\beta$</td><td>le sommet $S(\alpha\,;\beta)$ : l'extremum et où il est atteint, les variations</td><td>optimiser (maximum, minimum), tracer la parabole, résoudre $f(x)=\beta$</td></tr>
+        <tr><td><strong>factorisée</strong> $a(x-x_1)(x-x_2)$</td><td>les racines, le signe de $f$</td><td>résoudre $f(x)=0$, étudier le signe, résoudre une inéquation</td></tr>
+      </tbody>
+    </table></div>
+    <p>C'est une capacité du programme à part entière : devant un problème, choisir la forme qui répond à la question, et passer de l'une à l'autre.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Résoudre un problème d'optimisation">
+    <ol class="etapes">
+      <li><span>Je nomme la variable $x$ et je précise entre quelles valeurs elle peut varier : une longueur est positive, un prix aussi.</span></li>
+      <li><span>J'exprime la grandeur à optimiser en fonction de $x$, et je développe pour reconnaître $ax^2+bx+c$.</span></li>
+      <li><span>Je passe à la forme canonique : $\alpha=-\dfrac{b}{2a}$ et $\beta=f(\alpha)$. Le sommet donne l'extremum.</span></li>
+      <li><span>Je vérifie que $\alpha$ est dans le domaine, et je conclus avec <strong>deux</strong> nombres : où ($x=\alpha$) et combien ($f(\alpha)$).</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> On a 40 m de grillage pour fermer un enclos rectangulaire adossé à un mur (le mur ne demande pas de grillage). Quelles dimensions donnent la plus grande aire ?</p>
+      <ol class="pas">
+        <li><strong>La variable.</strong> $x$ est la largeur, en mètres, de chacun des deux côtés perpendiculaires au mur. Le troisième côté mesure $40-2x$, et il doit être positif : $0&lt;x&lt;20$.</li>
+        <li><strong>L'aire.</strong> $A(x)=x(40-2x)=-2x^2+40x$ : second degré, $a=-2$, $b=40$, $c=0$.</li>
+        <li><strong>Le sommet.</strong> $\alpha=-\dfrac{40}{2\times(-2)}=10$ et $\beta=A(10)=10\times20=200$. Donc $A(x)=-2(x-10)^2+200$.</li>
+        <li><strong>Conclusion.</strong> $a&lt;0$ : c'est un maximum, et $10$ est bien entre $0$ et $20$. L'aire maximale est $200$ m², pour un enclos de $10$ m sur $20$ m.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg petite"><svg viewBox="0 0 380 206" role="img" aria-label="Vu de dessus : un mur en haut, et un enclos rectangulaire appuyé contre lui. Les deux côtés perpendiculaires au mur mesurent x, le côté opposé au mur mesure 40 moins 2x. Le mur ne consomme pas de grillage."><rect class="fond-grid" x="22.0" y="25.0" width="336.0" height="15.0"/><text class="petit" x="169.0" y="35.5">le mur</text><polygon class="forme" points="100,40.0 280,40.0 280,154.0 100,154.0"/><g class="trace t-n"><line x1="82.0" y1="97.0" x2="82.0" y2="47.8"/><polygon points="82.0,40.0 87.8,53.0 76.2,53.0"/></g><g class="trace t-n"><line x1="82.0" y1="97.0" x2="82.0" y2="146.2"/><polygon points="82.0,154.0 76.2,141.0 87.8,141.0"/></g><text class="moyen" x="64.0" y="101.0">x</text><g class="trace t-n"><line x1="298.0" y1="97.0" x2="298.0" y2="47.8"/><polygon points="298.0,40.0 303.9,53.0 292.1,53.0"/></g><g class="trace t-n"><line x1="298.0" y1="97.0" x2="298.0" y2="146.2"/><polygon points="298.0,154.0 292.1,141.0 303.9,141.0"/></g><text class="moyen" x="312.0" y="101.0">x</text><g class="trace t-n"><line x1="190.0" y1="172.0" x2="107.8" y2="172.0"/><polygon points="100.0,172.0 113.0,166.2 113.0,177.8"/></g><g class="trace t-n"><line x1="190.0" y1="172.0" x2="272.2" y2="172.0"/><polygon points="280.0,172.0 267.0,177.8 267.0,166.2"/></g><text class="moyen" x="190.0" y="192.0">40 − 2x</text><text class="moyen" x="133.0" y="100.0">aire = x(40 − 2x)</text></svg><figcaption>Le mur économise un côté : les trois côtés grillagés mesurent $x$, $x$ et $40-2x$.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Le jet, forme factorisée">
+    <p>$h(x)=-0{,}05x^2+0{,}7x+1{,}6$. Où l'eau touche-t-elle le sol ? On résout $h(x)=0$ : $\Delta=0{,}49+0{,}32=0{,}81$ et $\sqrt{0{,}81}=0{,}9$, d'où $x=\dfrac{-0{,}7\pm0{,}9}{-0{,}1}$ : $-2$ ou $16$. Ainsi $h(x)=-0{,}05(x+2)(x-16)$. La racine $-2$ est derrière la lance, hors du domaine : l'eau tombe à <strong>16 m</strong>. Pour arroser un foyer, le pompier se place à cette distance, ou incline la lance.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-python">7. Les racines en Python</h3>
+  <p>Le programme de première demande d'écrire des <strong>fonctions</strong> et de manipuler des <strong>listes</strong>. Une fonction qui renvoie les racines dans une liste est l'exemple idéal : la liste est vide, a un élément, ou en a deux.</p>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Une fonction qui renvoie les racines">
+<pre class="code">from math import sqrt
+
+def racines(a, b, c):
+    delta = b**2 - 4*a*c
+    if delta &lt; 0:
+        return []
+    if delta == 0:
+        return [-b / (2*a)]
+    r = sqrt(delta)
+    return [(-b - r) / (2*a), (-b + r) / (2*a)]</pre>
+      <p><code>racines(2, -5, -3)</code> renvoie <code>[-0.5, 3.0]</code> ; <code>racines(1, 2, 5)</code> renvoie <code>[]</code>. Le nombre de racines est <code>len(racines(a, b, c))</code>.</p>
+    </div>
+    <div class="bloc remarque" data-titre="Deux pièges de Python">
+      <ul>
+        <li><strong>La priorité des opérateurs.</strong> Avec <code>b = -5</code>, <code>b**2</code> vaut $25$. Mais tapé à la main, <code>-5**2</code> vaut $-25$ : Python calcule le carré avant le signe. Le piège du signe de $b$ existe aussi en Python.</li>
+        <li><strong>Les nombres à virgule.</strong> <code>delta == 0</code> peut rater de peu avec des décimaux (par exemple $0{,}1$, que l'ordinateur ne stocke pas exactement). Avec des entiers, aucun souci.</li>
+      </ul>
+      <p>À l'épreuve anticipée, on te demandera de compléter ou d'interpréter une telle fonction, pas de calculer $\sqrt{3456}$ de tête.</p>
+    </div>
+  </div>
+
+  <!-- ===== Les pièges ===== -->
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les onze erreurs que tout le monde fait">
+    <ol>
+      <li><strong>$(x+5)^2=x^2+25$.</strong> Non : $(x+5)^2=x^2+10x+25$. Le double produit s'oublie à chaque fois qu'on va vite.</li>
+      <li><strong>Le signe de $b$ dans $-b\pm\sqrt{\Delta}$.</strong> Avec $b=-5$, le numérateur commence par $+5$. Et le $2a$ divise toute l'expression, pas seulement $\sqrt{\Delta}$.</li>
+      <li><strong>$\Delta&lt;0$ lu comme « $f$ est négative ».</strong> $\Delta&lt;0$ veut dire : pas de racine. Le signe de $f$ est alors celui de $a$, qui peut être positif.</li>
+      <li><strong>Le signe de $a$ entre les racines.</strong> Entre les racines, le trinôme a le signe contraire de $a$. Signe de $a$ dehors.</li>
+      <li><strong>$x^2=9$ donc $x=3$.</strong> Il manque $-3$. Et $x^2-5x=0$ ne se résout pas en divisant par $x$ : on perdrait la solution $0$.</li>
+      <li><strong>$f(x)=(x-3)^2+1$ donc $\alpha=-3$.</strong> Non : $(x-\alpha)^2$ s'annule en $x=\alpha$, le sommet est en $(3\,;1)$.</li>
+      <li><strong>$x^2&lt;9$ donc $x&lt;3$.</strong> Une inéquation du second degré se résout par le signe du trinôme : $x^2-9&lt;0\iff-3&lt;x&lt;3$.</li>
+      <li><strong>Somme et produit sans le $a$.</strong> Pour $2x^2-10x+12$, la somme des racines est $-\dfrac{b}{a}=5$ et le produit $\dfrac{c}{a}=6$, pas $10$ et $12$.</li>
+      <li><strong>$\Delta$ mal calculé.</strong> $(-5)^2=25$, jamais $-25$ ; $-4ac$ est positif quand $a$ et $c$ sont de signes contraires ; et $\Delta$ ne se calcule qu'après avoir tout mis d'un côté.</li>
+      <li><strong>La factorisation sans le $a$.</strong> $2x^2-10x+12=2(x-2)(x-3)$ : le $2$ reste devant.</li>
+      <li><strong>Répondre $x$ quand on demande le maximum.</strong> Le maximum, c'est la <strong>valeur</strong> $f(\alpha)$ ; $\alpha$ dit <strong>où</strong> il est atteint. Un problème d'optimisation demande souvent les deux.</li>
+    </ol>
+  </div>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="La forme canonique en cinq minutes"></div>
+    <div class="video" data-titre="Résoudre une équation du second degré"></div>
+    <div class="video" data-titre="Le signe d'un trinôme et les inéquations"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, chacun avec ses défis. Commence par la parabole sur mesure : c'est là qu'on sent ce que font $a$, $\alpha$ et $\beta$. Puis fais apparaître et disparaître les racines, et termine par l'enclos, un vrai problème d'optimisation.</p>
+
+  <div class="labo" data-labo="second-degre" data-outil="mesure"></div>
+  <div class="labo" data-labo="second-degre" data-outil="racines"></div>
+  <div class="labo" data-labo="second-degre" data-outil="enclos"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, dans toutes les catégories du chapitre, et dessine des paraboles au hasard à lire ; le bilan de fin de partie te dit quoi retravailler. Le quiz vérifie les réflexes du cours. Ni l'un ni l'autre ne demande de calculatrice : c'est le format de l'épreuve anticipée.</p>
+
+  <div class="jeu" data-generateurs="second-degre" data-questions="12" data-titre="Le défi du second degré"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>$f(x)=4-3x+2x^2$. Les coefficients sont…</p>
+      <ul class="choix"><li class="bon">$a=2$, $b=-3$, $c=4$</li><li>$a=4$, $b=-3$, $c=2$</li><li>$a=2$, $b=3$, $c=4$</li><li>$a=4$, $b=3$, $c=2$</li></ul>
+      <div class="explication">$a$ est le coefficient de $x^2$, même écrit en dernier, et $b$ garde son signe : $b=-3$.</div>
+    </div>
+    <div class="question" data-reponse="16">
+      <p>Calcule le discriminant de $x^2-6x+5$.</p>
+      <div class="explication">$\Delta=(-6)^2-4\times1\times5=36-20=16$.</div>
+    </div>
+    <div class="question">
+      <p>La forme canonique de $x^2-6x+5$ est…</p>
+      <ul class="choix"><li class="bon">$(x-3)^2-4$</li><li>$(x+3)^2-4$</li><li>$(x-3)^2+5$</li><li>$(x-6)^2-31$</li></ul>
+      <div class="explication">$\alpha=-\dfrac{-6}{2}=3$ et $\beta=f(3)=9-18+5=-4$. Vérification : $(x-3)^2-4=x^2-6x+9-4$.</div>
+    </div>
+    <div class="question">
+      <p>Les solutions de $x^2-x-6=0$ sont…</p>
+      <ul class="choix"><li class="bon">$-2$ et $3$</li><li>$2$ et $-3$</li><li>$3$ seulement</li><li>$-2$ et $-3$</li></ul>
+      <div class="explication">Somme $1$ et produit $-6$ : $-2$ et $3$. Ou $\Delta=1+24=25$, $x=\dfrac{1\pm5}{2}$.</div>
+    </div>
+    <div class="question">
+      <p>L'ensemble des solutions de $x^2=16$ est…</p>
+      <ul class="choix"><li class="bon">$\{-4\,;4\}$</li><li>$\{4\}$</li><li>$\{8\}$</li><li>$\{-8\,;8\}$</li></ul>
+      <div class="explication">$(-4)^2=16$ aussi : deux solutions. Oublier la négative est le piège n° 5.</div>
+    </div>
+    <div class="question">
+      <p>$f(x)=(x-1)(x+5)$. Pour $x$ dans $]-5\,;1[$, $f(x)$ est…</p>
+      <ul class="choix"><li class="bon">strictement négatif</li><li>strictement positif</li><li>nul</li><li>tantôt positif, tantôt négatif</li></ul>
+      <div class="explication">Les racines sont $-5$ et $1$, et $a=1&gt;0$ : signe de $a$ dehors, signe contraire entre. Entre $-5$ et $1$, $f(x)&lt;0$.</div>
+    </div>
+    <div class="question">
+      <p>Le sommet de la parabole de $g(x)=-2(x+4)^2+3$ est…</p>
+      <ul class="choix"><li class="bon">$(-4\,;3)$</li><li>$(4\,;3)$</li><li>$(3\,;-4)$</li><li>$(-4\,;-3)$</li></ul>
+      <div class="explication">$(x+4)^2=(x-(-4))^2$ : $\alpha=-4$ et $\beta=3$. Comme $a=-2&lt;0$, c'est un maximum.</div>
+    </div>
+    <div class="question">
+      <p>« Si $\Delta&lt;0$, alors $f(x)&lt;0$ pour tout $x$. »</p>
+      <ul class="choix"><li class="bon">Faux : $f(x)$ a le signe de $a$</li><li>Vrai</li><li>Faux : $f(x)&gt;0$ pour tout $x$</li></ul>
+      <div class="explication">$\Delta&lt;0$ signifie « pas de racine » : la parabole ne traverse jamais l'axe, elle reste du côté de $a$. Pour $x^2+1$, $\Delta=-4$ et $f$ est toujours positive.</div>
+    </div>
+    <div class="question">
+      <p>$2x^2-8x+6$ se factorise en…</p>
+      <ul class="choix"><li class="bon">$2(x-1)(x-3)$</li><li>$(x-1)(x-3)$</li><li>$2(x+1)(x+3)$</li><li>$(2x-1)(x-3)$</li></ul>
+      <div class="explication">Racine évidente $1$ ($2-8+6=0$), produit $\dfrac{c}{a}=3$, donc l'autre racine est $3$. Et le $2$ reste devant.</div>
+    </div>
+    <div class="question">
+      <p>$f$ est polynôme du second degré, s'annule en $1$ et en $4$, et $f(0)=8$. Alors $f(x)=$…</p>
+      <ul class="choix"><li class="bon">$2(x-1)(x-4)$</li><li>$(x-1)(x-4)$</li><li>$8(x-1)(x-4)$</li><li>$-2(x-1)(x-4)$</li></ul>
+      <div class="explication">$f(x)=a(x-1)(x-4)$ et $f(0)=a\times(-1)\times(-4)=4a=8$, donc $a=2$.</div>
+    </div>
+    <div class="question" data-reponse="4">
+      <p>Sans les calculer, donne la somme des deux solutions de $3x^2-12x+7=0$.</p>
+      <div class="explication">$\Delta=144-84=60&gt;0$, il y a bien deux solutions, et leur somme vaut $-\dfrac{b}{a}=\dfrac{12}{3}=4$.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Ici, pas de correction à ouvrir : tu écris ton calcul ligne par ligne, et le vérificateur te dit si chaque ligne est juste. Écris <code>x^2</code> ou <code>x²</code> pour $x^2$, et <code>(x-3)^2</code> pour un carré. Si tu bloques, demande un indice, mais essaie d'abord seul : la réussite sans aide compte le plus.</p>
+
+  <article class="exercice" id="ex-developper-une-forme-canonique" data-titre="Développer une forme canonique" data-niveau="1" data-type="guide" data-notions="trinome developper" data-duree="5" data-calculatrice="non">
+    <p>$f(x)=(x-3)^2-4$ est la forme canonique d'un trinôme. Retrouve sa forme développée.</p>
+    <div class="tuteur" data-tuteur="expression" data-id="sd-canonique" data-depart="(x-3)^2-4" data-consigne="Développe et réduis :"></div>
+  </article>
+
+  <article class="exercice" id="ex-developper-une-forme-factorisee" data-titre="Développer une forme factorisée" data-niveau="1" data-type="guide" data-notions="trinome developper" data-duree="5" data-calculatrice="non">
+    <p>$g(x)=(2x+1)(x-3)$ est une forme factorisée. Retrouve sa forme développée : tu liras alors $a$, $b$ et $c$.</p>
+    <div class="tuteur" data-tuteur="expression" data-id="sd-factorisee" data-depart="(2x+1)(x-3)" data-consigne="Développe et réduis :"></div>
+  </article>
+
+  <article class="exercice" id="ex-factoriser-avec-une-racine-evidente" data-titre="Factoriser avec une racine évidente" data-niveau="1" data-type="guide" data-notions="discriminant factoriser" data-duree="6" data-calculatrice="non">
+    <p>$2$ est une racine évidente de $x^2-5x+6$ : vérifie-le. Trouve l'autre racine avec le produit, puis écris la forme factorisée.</p>
+    <div class="tuteur" data-tuteur="factoriser" data-id="sd-racine" data-depart="x^2-5x+6" data-consigne="Factorise :"></div>
+  </article>
+
+  <article class="exercice" id="ex-factoriser-avec-une-identite-remarquable" data-titre="Factoriser avec une identité remarquable" data-niveau="2" data-type="guide" data-notions="discriminant factoriser" data-duree="6" data-calculatrice="non">
+    <p>$(x-3)^2-4$ est une différence de deux carrés. Factorise avec $A^2-B^2=(A-B)(A+B)$, puis simplifie chaque facteur.</p>
+    <div class="tuteur" data-tuteur="factoriser" data-id="sd-identite" data-depart="(x-3)^2-4" data-consigne="Factorise :"></div>
+  </article>
+
+  <article class="exercice" id="ex-une-equation-sans-second-degre" data-titre="Une équation sans second degré" data-niveau="1" data-type="guide" data-notions="equation developper" data-duree="6" data-calculatrice="non">
+    <p>Résous $(x+2)^2=x^2+10$. Développe d'abord le membre de gauche, et regarde ce que deviennent les $x^2$.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="sd-pas-second-degre" data-depart="(x+2)^2=x^2+10" data-consigne="Résous :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ reconnaître et calculer, ★★ signe, forme et modélisation, ★★★ problèmes et démonstrations. Rédige ta réponse avant d'ouvrir la correction. Quand un exercice demande la calculatrice, l'énoncé le dit ; sinon, fais sans, comme à l'épreuve.</p>
+
+  <h3>Niveau 1 · Reconnaître et calculer</h3>
+
+  <article class="exercice" id="ex-les-coefficients" data-titre="Les coefficients" data-niveau="1" data-type="application" data-notions="trinome developper" data-duree="6" data-calculatrice="non">
+    <p>Pour chaque fonction, dis si elle est polynôme du second degré et, si oui, donne $a$, $b$ et $c$.</p>
+    <p>a) $f(x)=3x^2-2x+7$ · b) $g(x)=5x-x^2$ · c) $h(x)=(x-2)(x+6)$ · d) $k(x)=(x+1)^2-x^2$ · e) $m(x)=2x^2$ · f) $p(x)=\dfrac{4}{x^2}+1$</p>
+    <details class="indice"><p>Développe d'abord ce qui est entre parenthèses ; ensuite seulement, lis les coefficients.</p></details>
+    <details class="correction">
+      <p>a) Oui : $a=3$, $b=-2$, $c=7$. b) Oui, dans le désordre : $a=-1$, $b=5$, $c=0$. c) $(x-2)(x+6)=x^2+4x-12$ : oui, $a=1$, $b=4$, $c=-12$. d) $x^2+2x+1-x^2=2x+1$ : non, les $x^2$ s'annulent, c'est une fonction affine. e) Oui : $a=2$, $b=0$, $c=0$. f) Non : $\dfrac{4}{x^2}$ n'est pas un polynôme, $x$ est au dénominateur.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-discriminant-et-conclusion" data-titre="Discriminant et conclusion" data-niveau="1" data-type="application" data-notions="discriminant" data-duree="8" data-calculatrice="non">
+    <p>Calcule le discriminant et dis combien l'équation a de solutions, sans les calculer.</p>
+    <p>a) $x^2-6x+5=0$ · b) $2x^2+3x+4=0$ · c) $4x^2-4x+1=0$ · d) $-x^2+2x+8=0$ · e) $x^2-7=0$</p>
+    <details class="indice"><p>Écris chaque calcul avec les parenthèses : $(-6)^2-4\times1\times5$. Le carré de $b$ est toujours positif.</p></details>
+    <details class="correction">
+      <p>a) $\Delta=36-20=16&gt;0$ : deux solutions. b) $\Delta=9-32=-23&lt;0$ : aucune. c) $\Delta=16-16=0$ : une seule (racine double). d) $\Delta=4-4\times(-1)\times8=4+32=36$ : deux. Le $-4ac$ est positif quand $a$ et $c$ sont de signes contraires. e) $b=0$ : $\Delta=0-4\times1\times(-7)=28&gt;0$ : deux solutions ($\sqrt7$ et $-\sqrt7$).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-trois-equations-un-cas-chacune" data-titre="Trois équations, un cas chacune" data-niveau="1" data-type="application" data-notions="discriminant" data-duree="12" data-calculatrice="non">
+    <p>Résous chaque équation.</p>
+    <p>a) $x^2-6x+5=0$ · b) $4x^2-4x+1=0$ · c) $2x^2+3x+4=0$ · d) $3x^2+5x-2=0$</p>
+    <details class="correction">
+      <p>a) $\Delta=16$, $\sqrt{16}=4$ : $x=\dfrac{6\pm4}{2}$, soit $x_1=1$ et $x_2=5$. $S=\{1\,;5\}$.</p>
+      <p>b) $\Delta=0$ : $x_0=\dfrac{4}{8}=\dfrac12$. $S=\left\{\dfrac12\right\}$. (C'est $(2x-1)^2=0$.)</p>
+      <p>c) $\Delta=-23&lt;0$ : $S=\varnothing$.</p>
+      <p>d) $\Delta=25-4\times3\times(-2)=25+24=49$ : $x=\dfrac{-5\pm7}{6}$, soit $x_1=-2$ et $x_2=\dfrac{2}{6}=\dfrac13$. Vérification : $3\times4-10-2=0$. $S=\left\{-2\,;\dfrac13\right\}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-de-la-forme-canonique-au-sommet" data-titre="De la forme canonique au sommet" data-niveau="1" data-type="application" data-notions="trinome" data-duree="8" data-calculatrice="non">
+    <p>Chaque fonction est donnée sous forme canonique. Donne le sommet de sa parabole, dis si c'est un maximum ou un minimum, et dresse le tableau de variations.</p>
+    <p>a) $f(x)=(x-3)^2+1$ · b) $g(x)=-2(x+1)^2+5$ · c) $h(x)=3(x-0{,}5)^2$ · d) $k(x)=4-(x+2)^2$</p>
+    <details class="indice"><p>$(x-\alpha)^2$ s'annule en $x=\alpha$ : pour $(x+1)^2$, c'est en $x=-1$.</p></details>
+    <details class="correction">
+      <p>a) $\alpha=3$, $\beta=1$, $a=1&gt;0$ : minimum $1$ atteint en $3$ ; $f$ décroît sur $]-\infty\,;3]$ et croît sur $[3\,;+\infty[$.</p>
+      <p>b) Sommet $(-1\,;5)$, $a=-2&lt;0$ : maximum $5$ en $-1$ ; $g$ croît puis décroît.</p>
+      <p>c) Sommet $(0{,}5\,;0)$, minimum $0$ : la parabole touche l'axe en $0{,}5$.</p>
+      <p>d) $k(x)=-(x+2)^2+4$ : sommet $(-2\,;4)$, maximum $4$ en $-2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-racine-evidente" data-titre="Racine évidente" data-niveau="1" data-type="application" data-notions="discriminant factoriser" data-duree="8" data-calculatrice="non">
+    <p>Pour chaque trinôme, trouve une racine évidente parmi $-2$, $-1$, $0$, $1$, $2$, puis l'autre racine avec le produit ou la somme, et écris la forme factorisée.</p>
+    <p>a) $x^2-7x+10$ · b) $x^2+3x-4$ · c) $2x^2-3x+1$ · d) $x^2-4x$</p>
+    <details class="correction">
+      <p>a) $f(2)=4-14+10=0$. Produit $10$, donc l'autre racine est $5$ (somme $7$, ça colle). $(x-2)(x-5)$.</p>
+      <p>b) $f(1)=1+3-4=0$. Produit $-4$ : l'autre racine est $-4$. $(x-1)(x+4)$.</p>
+      <p>c) $f(1)=2-3+1=0$. Produit $\dfrac{c}{a}=\dfrac12$ : l'autre racine est $\dfrac12$. $2(x-1)\left(x-\dfrac12\right)=(x-1)(2x-1)$. Le $2$ ne disparaît pas.</p>
+      <p>d) Racine $0$, et $x^2-4x=x(x-4)$ : l'autre racine est $4$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-lire-une-parabole" data-titre="Lire une parabole" data-niveau="1" data-type="application" data-notions="trinome courbe" data-duree="8" data-calculatrice="non">
+    <figure class="figure-svg"><svg viewBox="0 0 360 326" role="img" aria-label="Une parabole tournée vers le bas dans un repère gradué. Elle coupe l'axe des abscisses en −1 et en 3, passe par (0 ; 3), et son sommet est en (1 ; 4)."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="316"/><line x1="44" y1="10" x2="44" y2="316"/><line x1="78" y1="10" x2="78" y2="316"/><line x1="112" y1="10" x2="112" y2="316"/><line x1="146" y1="10" x2="146" y2="316"/><line x1="180" y1="10" x2="180" y2="316"/><line x1="214" y1="10" x2="214" y2="316"/><line x1="248" y1="10" x2="248" y2="316"/><line x1="282" y1="10" x2="282" y2="316"/><line x1="316" y1="10" x2="316" y2="316"/><line x1="350" y1="10" x2="350" y2="316"/><line x1="10" y1="316" x2="350" y2="316"/><line x1="10" y1="282" x2="350" y2="282"/><line x1="10" y1="248" x2="350" y2="248"/><line x1="10" y1="214" x2="350" y2="214"/><line x1="10" y1="180" x2="350" y2="180"/><line x1="10" y1="146" x2="350" y2="146"/><line x1="10" y1="112" x2="350" y2="112"/><line x1="10" y1="78" x2="350" y2="78"/><line x1="10" y1="44" x2="350" y2="44"/><line x1="10" y1="10" x2="350" y2="10"/></g><g class="trace t-n"><line x1="16.8" y1="214" x2="335.4" y2="214.0"/><polygon points="343.2,214.0 330.2,219.8 330.2,208.2"/></g><g class="trace t-n"><line x1="146" y1="309.2" x2="146.0" y2="24.6"/><polygon points="146.0,16.8 151.8,29.8 140.2,29.8"/></g><text class="moyen" x="327.9" y="202.1">x</text><text class="moyen" x="154.5" y="25.3">y</text><g class="trace t-n"><line x1="44" y1="218.1" x2="44" y2="209.9"/></g><text class="petit" x="36.5" y="231.0">−3</text><g class="trace t-n"><line x1="78" y1="218.1" x2="78" y2="209.9"/></g><text class="petit" x="70.5" y="231.0">−2</text><g class="trace t-n"><line x1="112" y1="218.1" x2="112" y2="209.9"/></g><text class="petit" x="104.5" y="231.0">−1</text><g class="trace t-n"><line x1="180" y1="218.1" x2="180" y2="209.9"/></g><text class="petit" x="176.6" y="231.0">1</text><g class="trace t-n"><line x1="214" y1="218.1" x2="214" y2="209.9"/></g><text class="petit" x="210.6" y="231.0">2</text><g class="trace t-n"><line x1="248" y1="218.1" x2="248" y2="209.9"/></g><text class="petit" x="244.6" y="231.0">3</text><g class="trace t-n"><line x1="282" y1="218.1" x2="282" y2="209.9"/></g><text class="petit" x="278.6" y="231.0">4</text><g class="trace t-n"><line x1="316" y1="218.1" x2="316" y2="209.9"/></g><text class="petit" x="312.6" y="231.0">5</text><g class="trace t-n"><line x1="141.9" y1="282" x2="150.1" y2="282"/></g><text class="petit" x="120.8" y="286.8">−2</text><g class="trace t-n"><line x1="141.9" y1="248" x2="150.1" y2="248"/></g><text class="petit" x="120.8" y="252.8">−1</text><g class="trace t-n"><line x1="141.9" y1="180" x2="150.1" y2="180"/></g><text class="petit" x="128.3" y="184.8">1</text><g class="trace t-n"><line x1="141.9" y1="146" x2="150.1" y2="146"/></g><text class="petit" x="128.3" y="150.8">2</text><g class="trace t-n"><line x1="141.9" y1="112" x2="150.1" y2="112"/></g><text class="petit" x="128.3" y="116.8">3</text><g class="trace t-n"><line x1="141.9" y1="78" x2="150.1" y2="78"/></g><text class="petit" x="128.3" y="82.8">4</text><g class="trace t-n"><line x1="141.9" y1="44" x2="150.1" y2="44"/></g><text class="petit" x="128.3" y="48.8">5</text><g class="trace t-u"><path d="M93.3,299.1 L94.0,295.4 L94.7,291.8 L95.5,288.2 L96.2,284.6 L96.9,281.0 L97.6,277.5 L98.4,274.0 L99.1,270.6 L99.8,267.2 L100.5,263.8 L101.2,260.4 L102.0,257.1 L102.7,253.8 L103.4,250.5 L104.1,247.3 L104.9,244.1 L105.6,240.9 L106.3,237.7 L107.0,234.6 L107.8,231.5 L108.5,228.5 L109.2,225.5 L109.9,222.5 L110.6,219.5 L111.4,216.6 L112.1,213.7 L112.8,210.8 L113.5,207.9 L114.3,205.1 L115.0,202.4 L115.7,199.6 L116.4,196.9 L117.1,194.2 L117.9,191.6 L118.6,188.9 L119.3,186.3 L120.0,183.8 L120.8,181.2 L121.5,178.7 L122.2,176.3 L122.9,173.8 L123.6,171.4 L124.4,169.0 L125.1,166.7 L125.8,164.4 L126.5,162.1 L127.3,159.8 L128.0,157.6 L128.7,155.4 L129.4,153.2 L130.1,151.1 L130.9,149.0 L131.6,146.9 L132.3,144.9 L133.0,142.9 L133.8,140.9 L134.5,138.9 L135.2,137.0 L135.9,135.1 L136.6,133.3 L137.4,131.4 L138.1,129.6 L138.8,127.9 L139.5,126.1 L140.3,124.4 L141.0,122.8 L141.7,121.1 L142.4,119.5 L143.2,117.9 L143.9,116.4 L144.6,114.9 L145.3,113.4 L146.0,111.9 L146.8,110.5 L147.5,109.1 L148.2,107.7 L148.9,106.4 L149.7,105.1 L150.4,103.8 L151.1,102.6 L151.8,101.4 L152.5,100.2 L153.3,99.0 L154.0,97.9 L154.7,96.8 L155.4,95.7 L156.2,94.7 L156.9,93.7 L157.6,92.8 L158.3,91.8 L159.0,90.9 L159.8,90.0 L160.5,89.2 L161.2,88.4 L161.9,87.6 L162.7,86.8 L163.4,86.1 L164.1,85.4 L164.8,84.8 L165.5,84.1 L166.3,83.5 L167.0,83.0 L167.7,82.4 L168.4,81.9 L169.2,81.5 L169.9,81.0 L170.6,80.6 L171.3,80.2 L172.1,79.9 L172.8,79.5 L173.5,79.2 L174.2,79.0 L174.9,78.8 L175.7,78.6 L176.4,78.4 L177.1,78.2 L177.8,78.1 L178.6,78.1 L179.3,78.0 L180.0,78.0 L180.7,78.0 L181.4,78.1 L182.2,78.1 L182.9,78.2 L183.6,78.4 L184.3,78.6 L185.1,78.8 L185.8,79.0 L186.5,79.2 L187.2,79.5 L187.9,79.9 L188.7,80.2 L189.4,80.6 L190.1,81.0 L190.8,81.5 L191.6,81.9 L192.3,82.4 L193.0,83.0 L193.7,83.5 L194.4,84.1 L195.2,84.8 L195.9,85.4 L196.6,86.1 L197.3,86.8 L198.1,87.6 L198.8,88.4 L199.5,89.2 L200.2,90.0 L201.0,90.9 L201.7,91.8 L202.4,92.8 L203.1,93.7 L203.8,94.7 L204.6,95.7 L205.3,96.8 L206.0,97.9 L206.7,99.0 L207.5,100.2 L208.2,101.4 L208.9,102.6 L209.6,103.8 L210.3,105.1 L211.1,106.4 L211.8,107.7 L212.5,109.1 L213.2,110.5 L214.0,111.9 L214.7,113.4 L215.4,114.9 L216.1,116.4 L216.8,117.9 L217.6,119.5 L218.3,121.1 L219.0,122.8 L219.7,124.4 L220.5,126.1 L221.2,127.9 L221.9,129.6 L222.6,131.4 L223.3,133.3 L224.1,135.1 L224.8,137.0 L225.5,138.9 L226.2,140.9 L227.0,142.9 L227.7,144.9 L228.4,146.9 L229.1,149.0 L229.9,151.1 L230.6,153.2 L231.3,155.4 L232.0,157.6 L232.7,159.8 L233.5,162.1 L234.2,164.4 L234.9,166.7 L235.6,169.0 L236.4,171.4 L237.1,173.8 L237.8,176.3 L238.5,178.7 L239.2,181.2 L240.0,183.8 L240.7,186.3 L241.4,188.9 L242.1,191.6 L242.9,194.2 L243.6,196.9 L244.3,199.6 L245.0,202.4 L245.7,205.1 L246.5,207.9 L247.2,210.8 L247.9,213.7 L248.6,216.6 L249.4,219.5 L250.1,222.5 L250.8,225.5 L251.5,228.5 L252.2,231.5 L253.0,234.6 L253.7,237.7 L254.4,240.9 L255.1,244.1 L255.9,247.3 L256.6,250.5 L257.3,253.8 L258.0,257.1 L258.8,260.4 L259.5,263.8 L260.2,267.2 L260.9,270.6 L261.6,274.0 L262.4,277.5 L263.1,281.0 L263.8,284.6 L264.5,288.2 L265.3,291.8 L266.0,295.4 L266.7,299.1"/></g><text class="moyen" x="278.6" y="91.6">y = f(x)</text></svg></figure>
+    <p>La courbe représente une fonction polynôme du second degré $f$. Lis sur la figure : a) le signe de $a$ ; b) les racines ; c) $f(0)$ ; d) le sommet, et le maximum de $f$ ; e) le signe de $f(x)$ selon $x$. f) Écris $f$ sous forme factorisée, puis sous forme développée.</p>
+    <details class="correction">
+      <p>a) Tournée vers le bas : $a&lt;0$. b) $-1$ et $3$. c) $f(0)=3$. d) $S(1\,;4)$ : le maximum vaut $4$, atteint en $x=1$. L'axe $x=1$ est bien au milieu des racines : $\dfrac{-1+3}{2}=1$. e) $f(x)&gt;0$ sur $]-1\,;3[$, $f(x)&lt;0$ sur $]-\infty\,;-1[$ et sur $]3\,;+\infty[$. f) $f(x)=a(x+1)(x-3)$ et $f(0)=a\times1\times(-3)=-3a=3$, donc $a=-1$ : $f(x)=-(x+1)(x-3)=-x^2+2x+3$. Contrôle : $f(1)=-1+2+3=4$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-equation-qui-n-en-est-pas-une" data-titre="L'équation qui n'en est pas une" data-niveau="1" data-type="application" data-notions="equation developper" data-duree="8" data-calculatrice="non">
+    <p>Résous, sans discriminant.</p>
+    <p>a) $(x+3)^2=x^2+21$ · b) $(2x-1)^2=(2x+3)(2x-5)$ · c) $x^2=25$ · d) $3x^2=12x$</p>
+    <details class="indice"><p>Développe les deux membres : les $x^2$ sont-ils encore là ?</p></details>
+    <details class="correction">
+      <p>a) $x^2+6x+9=x^2+21\iff6x=12\iff x=2$. Premier degré.</p>
+      <p>b) $4x^2-4x+1=4x^2-4x-15\iff1=-15$ : impossible, $S=\varnothing$.</p>
+      <p>c) $x=5$ ou $x=-5$ : deux solutions, pas une.</p>
+      <p>d) $3x^2-12x=0\iff3x(x-4)=0\iff x=0$ ou $x=4$. En divisant par $x$, on aurait perdu la solution $0$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Signe, forme et modélisation</h3>
+
+  <article class="exercice" id="ex-mettre-sous-forme-canonique" data-titre="Mettre sous forme canonique" data-niveau="2" data-type="application" data-notions="trinome" data-duree="12" data-calculatrice="non">
+    <p>Mets chaque fonction sous forme canonique, puis donne son sommet et son extremum.</p>
+    <p>a) $f(x)=x^2+6x+5$ · b) $g(x)=x^2-8x+3$ · c) $h(x)=3x^2+6x-1$ · d) $k(x)=-x^2+4x+1$</p>
+    <details class="indice"><p>$\alpha=-\dfrac{b}{2a}$ d'abord ; $\beta=f(\alpha)$ ensuite, en remplaçant $x$ par $\alpha$ dans l'expression de départ.</p></details>
+    <details class="correction">
+      <p>a) $\alpha=-3$, $\beta=9-18+5=-4$ : $f(x)=(x+3)^2-4$, minimum $-4$ en $-3$.</p>
+      <p>b) $\alpha=4$, $\beta=16-32+3=-13$ : $g(x)=(x-4)^2-13$, minimum $-13$ en $4$.</p>
+      <p>c) $\alpha=-\dfrac{6}{6}=-1$, $\beta=3-6-1=-4$ : $h(x)=3(x+1)^2-4$, minimum $-4$ en $-1$.</p>
+      <p>d) $\alpha=-\dfrac{4}{-2}=2$, $\beta=-4+8+1=5$ : $k(x)=-(x-2)^2+5$, maximum $5$ en $2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-tableau-de-signes-et-inequation" data-titre="Tableau de signes et inéquation" data-niveau="2" data-type="application" data-notions="signe2" data-duree="12" data-calculatrice="non">
+    <p>Résous chaque inéquation à l'aide d'un tableau de signes.</p>
+    <p>a) $x^2-5x+4\le0$ · b) $-2x^2+3x+2&lt;0$ · c) $x^2+4x+7&gt;0$ · d) $(x-2)(3-x)\ge0$ · e) $x^2\ge2x+8$</p>
+    <details class="correction">
+      <p>a) Racines $1$ et $4$ (somme $5$, produit $4$), $a&gt;0$ : négatif entre les racines. $S=[1\,;4]$.</p>
+      <p>b) $\Delta=9+16=25$, $x=\dfrac{-3\pm5}{-4}$ : $x_1=-\dfrac12$ et $x_2=2$. $a=-2&lt;0$ : négatif à l'extérieur. $S=\left]-\infty\,;-\dfrac12\right[\cup\,]2\,;+\infty[$.</p>
+      <p>c) $\Delta=16-28=-12&lt;0$ et $a&gt;0$ : toujours strictement positif. $S=\mathbb{R}$.</p>
+      <p>d) Racines $2$ et $3$. Le produit $(x-2)(3-x)$ vaut $-(x-2)(x-3)$ : $a=-1$, positif entre les racines. $S=[2\,;3]$.</p>
+      <p>e) $x^2-2x-8\ge0$ : racines $-2$ et $4$ (somme $2$, produit $-8$), $a&gt;0$. $S=\,]-\infty\,;-2]\cup[4\,;+\infty[$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-somme-et-produit" data-titre="Somme et produit" data-niveau="2" data-type="application" data-notions="discriminant" data-duree="10" data-calculatrice="non">
+    <p>a) $3$ est racine de $x^2-8x+15$ : trouve l'autre sans calculer $\Delta$. b) $-2$ est racine de $2x^2+3x-2$ : trouve l'autre. c) Trouve deux nombres dont la somme est $11$ et le produit $28$. d) Existe-t-il deux réels de somme $4$ et de produit $5$ ?</p>
+    <details class="correction">
+      <p>a) Produit $15$ : l'autre racine est $5$. Contrôle : somme $8=-\dfrac{b}{a}$.</p>
+      <p>b) Produit $\dfrac{c}{a}=-1$ : l'autre racine est $\dfrac{-1}{-2}=\dfrac12$. Contrôle : $-2+\dfrac12=-\dfrac32=-\dfrac{b}{a}$.</p>
+      <p>c) Ce sont les racines de $x^2-11x+28$ : $\Delta=121-112=9$, $x=\dfrac{11\pm3}{2}$ : $4$ et $7$.</p>
+      <p>d) Racines de $x^2-4x+5$ : $\Delta=16-20=-4&lt;0$. Non, ces deux réels n'existent pas.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-fonction-qui-s-annule-en-deux-reels" data-titre="La fonction qui s'annule en deux réels" data-niveau="2" data-type="raisonnement" data-notions="discriminant trinome factoriser" data-duree="12" data-calculatrice="non">
+    <p>a) Écris toutes les fonctions polynômes du second degré qui s'annulent en $-1$ et en $4$. b) Parmi elles, laquelle vérifie $f(0)=8$ ? Donne sa forme développée. c) Laquelle a un maximum égal à $5$ ? d) En existe-t-il une dont la parabole passe par le point $(-1\,;2)$ ?</p>
+    <details class="correction">
+      <p>a) $f(x)=a(x+1)(x-4)$, avec $a$ réel non nul : une infinité, une par valeur de $a$.</p>
+      <p>b) $f(0)=a\times1\times(-4)=-4a=8$, donc $a=-2$ : $f(x)=-2(x+1)(x-4)=-2x^2+6x+8$.</p>
+      <p>c) Le sommet est au milieu des racines, en $\alpha=\dfrac{-1+4}{2}=\dfrac32$. $f\left(\dfrac32\right)=a\times\dfrac52\times\left(-\dfrac52\right)=-\dfrac{25a}{4}=5$, donc $a=-\dfrac45$ (et $a&lt;0$ : c'est bien un maximum).</p>
+      <p>d) Non : toutes vérifient $f(-1)=0$, aucune ne peut donner $f(-1)=2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-choisir-la-bonne-forme" data-titre="Choisir la bonne forme" data-niveau="2" data-type="application" data-notions="trinome" data-duree="12" data-calculatrice="non">
+    <p>On donne les trois formes d'une même fonction : $f(x)=2x^2-4x-6=2(x-1)^2-8=2(x+1)(x-3)$. Pour chaque question, choisis la forme qui répond le plus vite, et réponds.</p>
+    <p>a) $f(0)$ · b) les solutions de $f(x)=0$ · c) le minimum de $f$ et où il est atteint · d) le signe de $f(5)$ et de $f(2)$ · e) les solutions de $f(x)=-8$ · f) les solutions de $f(x)=-6$</p>
+    <details class="correction">
+      <p>a) Développée : $f(0)=c=-6$. b) Factorisée : $-1$ et $3$. c) Canonique : minimum $-8$, atteint en $x=1$. d) Factorisée : $5$ est hors des racines, $f(5)&gt;0$ ; $2$ est entre, $f(2)&lt;0$. e) Canonique : $2(x-1)^2-8=-8\iff(x-1)^2=0\iff x=1$. f) Développée : $2x^2-4x-6=-6\iff2x^2-4x=0\iff2x(x-2)=0\iff x=0$ ou $x=2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-distance-d-arret" data-titre="La distance d'arrêt" data-niveau="2" data-type="probleme" data-notions="discriminant" data-duree="15" data-calculatrice="oui">
+    <p>Sur route sèche, la distance d'arrêt d'une voiture qui roule à $v$ m/s est environ $d(v)=v+\dfrac{v^2}{16}$ : une seconde de réaction, puis un freinage à $8$ m/s². Calculatrice autorisée.</p>
+    <p>a) Calcule $d$ pour $50$ km/h, soit $v\approx13{,}9$ m/s. b) Un obstacle est à $50$ m. À quelle vitesse maximale, en km/h, peut-on rouler pour s'arrêter avant ? c) Même question sur route mouillée, où $d(v)=v+\dfrac{v^2}{8}$.</p>
+    <details class="indice"><p>Écris l'équation $d(v)=50$, multiplie tout par $16$, puis calcule $\Delta$. Une seule des deux racines a un sens.</p></details>
+    <details class="correction">
+      <p>a) $d(13{,}9)=13{,}9+\dfrac{193{,}2}{16}\approx13{,}9+12{,}1\approx26$ m.</p>
+      <p>b) $v+\dfrac{v^2}{16}=50\iff v^2+16v-800=0$. $\Delta=256+3\,200=3\,456$, $\sqrt{3\,456}\approx58{,}8$. $v=\dfrac{-16+58{,}8}{2}\approx21{,}4$ m/s ; l'autre racine est négative, sans sens ici. $21{,}4\times3{,}6\approx77$ km/h.</p>
+      <p>c) $v^2+8v-400=0$, $\Delta=64+1\,600=1\,664$, $\sqrt{1\,664}\approx40{,}8$, $v\approx16{,}4$ m/s, soit environ $59$ km/h. De 77 à 59 km/h : c'est pour cela que la vitesse autorisée baisse par temps de pluie.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-jet-d-eau" data-titre="Le jet d'eau" data-niveau="2" data-type="probleme" data-notions="trinome discriminant" data-duree="15" data-calculatrice="non">
+    <p>La hauteur du jet de la lance, en mètres, à la distance horizontale $x$ (en mètres) est $h(x)=-0{,}05x^2+0{,}7x+1{,}6$.</p>
+    <p>a) Vérifie que $h(x)=-0{,}05(x-7)^2+4{,}05$ et que $h(x)=-0{,}05(x+2)(x-16)$. b) Quelle est la hauteur maximale du jet, et à quelle distance ? c) Où l'eau touche-t-elle le sol ? d) Un mur de $3$ m de haut se dresse à $12$ m de la lance : le jet passe-t-il au-dessus ? e) Sur quelle longueur le jet est-il à plus de $4$ m du sol ?</p>
+    <details class="correction">
+      <p>a) $-0{,}05(x-7)^2+4{,}05=-0{,}05(x^2-14x+49)+4{,}05=-0{,}05x^2+0{,}7x-2{,}45+4{,}05=h(x)$. Et $-0{,}05(x+2)(x-16)=-0{,}05(x^2-14x-32)=-0{,}05x^2+0{,}7x+1{,}6=h(x)$.</p>
+      <p>b) Forme canonique : maximum $4{,}05$ m, à $7$ m de la lance.</p>
+      <p>c) Forme factorisée : $h(x)=0$ pour $x=-2$ ou $x=16$. L'eau touche le sol à $16$ m ($-2$ est derrière la lance).</p>
+      <p>d) $h(12)=-0{,}05\times144+8{,}4+1{,}6=-7{,}2+10=2{,}8$ m. Non : $2{,}8&lt;3$, l'eau frappe le mur.</p>
+      <p>e) $h(x)&gt;4\iff-0{,}05(x-7)^2+4{,}05&gt;4\iff(x-7)^2&lt;1\iff-1&lt;x-7&lt;1\iff6&lt;x&lt;8$. Sur $2$ m, entre $6$ et $8$ m de la lance.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-fonction-python-a-completer" data-titre="Une fonction Python à compléter" data-niveau="2" data-type="application" data-notions="discriminant" data-duree="10" data-calculatrice="non">
+    <p>Complète les pointillés, puis réponds.</p>
+<pre class="code">from math import sqrt
+
+def nb_racines(a, b, c):
+    delta = ..........
+    if delta ... 0:
+        return 0
+    if delta == 0:
+        return ...
+    return 2
+
+def racines(a, b, c):
+    L = []
+    delta = b**2 - 4*a*c
+    if delta &gt;= 0:
+        L.append((-b - sqrt(delta)) / (2*a))
+    if delta &gt; 0:
+        L.append(..........)
+    return L</pre>
+    <p>a) Complète les quatre pointillés. b) Que renvoient <code>racines(1, -3, 2)</code> et <code>racines(1, 2, 1)</code> ? c) Pourquoi la première condition de <code>racines</code> est-elle <code>&gt;=</code> et la seconde <code>&gt;</code> ?</p>
+    <details class="correction">
+      <p>a) <code>delta = b**2 - 4*a*c</code> ; <code>if delta &lt; 0</code> ; <code>return 1</code> ; <code>L.append((-b + sqrt(delta)) / (2*a))</code>.</p>
+      <p>b) Pour $x^2-3x+2$ : $\Delta=1$, la liste est <code>[1.0, 2.0]</code>. Pour $x^2+2x+1$ : $\Delta=0$, la liste est <code>[-1.0]</code>, un seul élément.</p>
+      <p>c) Quand $\Delta=0$, la première condition ajoute l'unique racine $-\dfrac{b}{2a}$ ; la seconde, avec <code>&gt;</code>, ne la répète pas. Avec <code>&gt;=</code> aux deux endroits, la racine double apparaîtrait deux fois.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="signe2 discriminant" data-duree="10" data-calculatrice="non">
+    <p>Un élève a demandé à une IA de résoudre l'inéquation $x^2+2x+5&gt;0$. Voici sa réponse. Trouve les erreurs, puis rédige la bonne réponse.</p>
+    <blockquote class="copie-ia">« On calcule le discriminant : $\Delta=2^2-4\times1\times5=4-20=-16$. Comme $\Delta&lt;0$, le trinôme n'a pas de racine : l'équation $x^2+2x+5=0$ n'a pas de solution. L'inéquation $x^2+2x+5&gt;0$ n'en a donc pas non plus : $S=\varnothing$. Vérification : $\Delta$ est négatif, donc la fonction est négative, ce qui confirme qu'elle n'est jamais strictement positive. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1, le passage de l'équation à l'inéquation.</strong> « Pas de racine » veut dire que la parabole ne coupe jamais l'axe des abscisses. Elle est donc entièrement d'un côté de l'axe : soit toujours au-dessus, soit toujours en dessous. Une inéquation sans racine a ou bien toutes les solutions, ou bien aucune ; il reste à savoir de quel côté on est.</p>
+      <p><strong>Erreur 2, la « vérification ».</strong> Le signe de $\Delta$ n'est pas le signe de $f$. Quand $\Delta&lt;0$, $f(x)$ a le signe de $a$, et ici $a=1&gt;0$. L'IA a pris $\Delta&lt;0$ pour « $f&lt;0$ » : c'est le piège n° 3, et une vérification qui ne vérifie rien.</p>
+      <p><strong>La bonne réponse.</strong> $\Delta=-16&lt;0$ et $a=1&gt;0$, donc $x^2+2x+5&gt;0$ pour tout réel $x$ : $S=\mathbb{R}$. Un vrai contrôle : $f(-1)=1-2+5=4&gt;0$ ; ou la forme canonique $f(x)=(x+1)^2+4\ge4&gt;0$.</p>
+      <p>Une réponse fluide, logique en apparence et sûre d'elle peut être fausse dès la troisième ligne. Le réflexe : tester une valeur, ou dessiner la parabole.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Problèmes et démonstrations</h3>
+
+  <article class="exercice" id="ex-l-enclos" data-titre="L'enclos" data-niveau="3" data-type="probleme" data-notions="trinome signe2" data-duree="20" data-calculatrice="non">
+    <p>Un éleveur dispose de $40$ m de grillage pour fermer un enclos rectangulaire adossé à un mur ; le côté le long du mur n'a pas besoin de grillage. On note $x$ la largeur, en mètres, des deux côtés perpendiculaires au mur.</p>
+    <p>a) Exprime la longueur du troisième côté en fonction de $x$. Entre quelles valeurs $x$ peut-il varier ? b) Montre que l'aire de l'enclos est $A(x)=-2x^2+40x$. c) Mets $A(x)$ sous forme canonique et déduis-en l'aire maximale et les dimensions de l'enclos. d) Pour quelles largeurs l'aire est-elle d'au moins $150$ m² ? e) Reprends la question c) avec $60$ m de grillage.</p>
+    <details class="indice"><p>d) « Au moins $150$ m² », c'est $A(x)\ge150$ : une inéquation du second degré. Mets tout du même côté.</p></details>
+    <details class="correction">
+      <p>a) $40-2x$ ; il faut $x&gt;0$ et $40-2x&gt;0$, donc $0&lt;x&lt;20$.</p>
+      <p>b) $A(x)=x(40-2x)=40x-2x^2$.</p>
+      <p>c) $\alpha=-\dfrac{40}{-4}=10$, $\beta=A(10)=200$ : $A(x)=-2(x-10)^2+200$. $a&lt;0$ : maximum $200$ m² pour $x=10$, un enclos de $10$ m sur $20$ m.</p>
+      <p>d) $-2x^2+40x\ge150\iff-2x^2+40x-150\ge0\iff x^2-20x+75\le0$ (on divise par $-2$, le sens change). Racines : somme $20$, produit $75$, soit $5$ et $15$. Entre les racines pour $a&gt;0$ : $5\le x\le15$.</p>
+      <p>e) $A(x)=x(60-2x)=-2x^2+60x=-2(x-15)^2+450$ : $450$ m² pour $x=15$ (un enclos de $15$ m sur $30$ m).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-prix-qui-rapporte-le-plus" data-titre="Le prix qui rapporte le plus" data-niveau="3" data-type="probleme" data-notions="trinome signe2" data-duree="20" data-calculatrice="non">
+    <p>Un lycée vend des gourdes pour financer un voyage. Le nombre de gourdes vendues dépend du prix $p$ (en euros) : $q(p)=300-10p$, pour $0\le p\le30$. Chaque gourde coûte $5$ € à l'achat.</p>
+    <p>a) La recette est $R(p)=p\times q(p)$. Donne sa forme développée, puis le prix qui la rend maximale et la recette correspondante. b) Le bénéfice est $B(p)=(p-5)\times q(p)$. Donne ses formes développée et factorisée. Pour quels prix le bénéfice est-il strictement positif ? c) Quel prix rend le bénéfice maximal, et combien vaut-il ? d) Pourquoi le prix de la recette maximale n'est-il pas celui du bénéfice maximal ?</p>
+    <details class="correction">
+      <p>a) $R(p)=-10p^2+300p$. $\alpha=-\dfrac{300}{-20}=15$ et $R(15)=15\times150=2\,250$ : la recette est maximale, $2\,250$ €, pour un prix de $15$ €.</p>
+      <p>b) $B(p)=(p-5)(300-10p)=-10p^2+350p-1\,500$. Forme factorisée : $B(p)=-10(p-5)(p-30)$. $a=-10&lt;0$, positif entre les racines : $B(p)&gt;0\iff5&lt;p&lt;30$. En dessous de $5$ €, on vend à perte ; à $30$ €, plus personne n'achète.</p>
+      <p>c) $\alpha=\dfrac{5+30}{2}=17{,}5$ et $B(17{,}5)=-10\times12{,}5\times(-12{,}5)=1\,562{,}5$ € : le bénéfice est maximal pour un prix de $17{,}50$ €.</p>
+      <p>d) Le coût d'achat déplace l'optimum : vendre un peu plus cher fait perdre des ventes, mais chaque vente rapporte davantage une fois les $5$ € déduits. La recette ignore ce coût ; le bénéfice le compte.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-demontrer-les-formules-des-racines" data-titre="Démontrer les formules des racines" data-niveau="3" data-type="raisonnement" data-notions="discriminant trinome" data-duree="20" data-calculatrice="non">
+    <p>Soit $f(x)=ax^2+bx+c$ avec $a\ne0$, et $\Delta=b^2-4ac$. Refais la démonstration du cours, sans la regarder.</p>
+    <p>a) Montre que $f(x)=a\left[\left(x+\dfrac{b}{2a}\right)^2-\dfrac{\Delta}{4a^2}\right]$. b) Déduis-en la forme canonique : exprime $\alpha$ et $\beta$ en fonction de $a$, $b$, $\Delta$. c) Résous $f(x)=0$ selon le signe de $\Delta$. d) Quand $\Delta&gt;0$, calcule $x_1+x_2$ et $x_1x_2$ à partir des formules.</p>
+    <details class="indice"><p>a) Mets $a$ en facteur, puis complète le carré : $x^2+\dfrac{b}{a}x=\left(x+\dfrac{b}{2a}\right)^2-\left(\dfrac{b}{2a}\right)^2$.</p></details>
+    <details class="correction">
+      <p>a) $f(x)=a\left[x^2+\dfrac{b}{a}x+\dfrac{c}{a}\right]=a\left[\left(x+\dfrac{b}{2a}\right)^2-\dfrac{b^2}{4a^2}+\dfrac{c}{a}\right]=a\left[\left(x+\dfrac{b}{2a}\right)^2-\dfrac{b^2-4ac}{4a^2}\right]$, car $\dfrac{c}{a}=\dfrac{4ac}{4a^2}$.</p>
+      <p>b) $f(x)=a\left(x+\dfrac{b}{2a}\right)^2-\dfrac{\Delta}{4a}$ : $\alpha=-\dfrac{b}{2a}$ et $\beta=-\dfrac{\Delta}{4a}$.</p>
+      <p>c) $f(x)=0\iff\left(x+\dfrac{b}{2a}\right)^2=\dfrac{\Delta}{4a^2}$. Si $\Delta&lt;0$, un carré ne peut pas être négatif : aucune solution. Si $\Delta=0$ : $x=-\dfrac{b}{2a}$. Si $\Delta&gt;0$ : $x+\dfrac{b}{2a}=\pm\dfrac{\sqrt{\Delta}}{2a}$, d'où $x=\dfrac{-b\pm\sqrt{\Delta}}{2a}$.</p>
+      <p>d) $x_1+x_2=\dfrac{-b-\sqrt{\Delta}-b+\sqrt{\Delta}}{2a}=\dfrac{-2b}{2a}=-\dfrac{b}{a}$. $x_1x_2=\dfrac{(-b-\sqrt{\Delta})(-b+\sqrt{\Delta})}{4a^2}=\dfrac{b^2-\Delta}{4a^2}=\dfrac{4ac}{4a^2}=\dfrac{c}{a}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-equation-avec-un-parametre" data-titre="Une équation avec un paramètre" data-niveau="3" data-type="raisonnement" data-notions="discriminant signe2" data-duree="15" data-calculatrice="non">
+    <p>Soit $m$ un réel. On considère l'équation $(E)$ : $x^2+mx+4=0$.</p>
+    <p>a) Exprime le discriminant en fonction de $m$. b) Pour quelles valeurs de $m$ l'équation a-t-elle exactement une solution ? Laquelle, dans chaque cas ? c) Pour quelles valeurs de $m$ a-t-elle deux solutions ? aucune ? d) Pour $m=5$, résous $(E)$ et contrôle avec la somme et le produit. e) Montre que, lorsque $(E)$ a deux solutions, elles sont de même signe.</p>
+    <details class="correction">
+      <p>a) $\Delta=m^2-16$.</p>
+      <p>b) $\Delta=0\iff m^2=16\iff m=4$ ou $m=-4$. Pour $m=4$ : $x_0=-\dfrac{4}{2}=-2$ (l'équation est $(x+2)^2=0$). Pour $m=-4$ : $x_0=2$.</p>
+      <p>c) Deux solutions si $m^2-16&gt;0$, c'est-à-dire $m&lt;-4$ ou $m&gt;4$ (le signe du trinôme $m^2-16$, de racines $-4$ et $4$). Aucune si $-4&lt;m&lt;4$.</p>
+      <p>d) $\Delta=25-16=9$ : $x=\dfrac{-5\pm3}{2}$, soit $-4$ et $-1$. Somme $-5=-m$, produit $4$ : juste.</p>
+      <p>e) Le produit des solutions vaut $\dfrac{c}{a}=4&gt;0$ : elles sont de même signe (et ce signe est celui de leur somme, $-m$).</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi impose-t-on $a\ne0$ ?</summary>
+      <div><p>Si $a=0$, il reste $bx+c$ : une fonction affine, dont la courbe est une droite. Toutes les formules du chapitre divisent par $a$ ou par $2a$ : elles n'auraient plus de sens. Quand un énoncé contient un paramètre, vérifie toujours que le coefficient de $x^2$ n'est pas nul avant d'utiliser $\Delta$.</p></div></details>
+    <details><summary>À quoi sert la forme canonique, si on a les formules ?</summary>
+      <div><p>Les formules donnent les racines ; la forme canonique donne le sommet, c'est-à-dire le maximum ou le minimum, et les variations. Pour un problème d'optimisation, c'est elle qu'il faut. Et c'est aussi elle qui démontre les formules : c'est la clé de voûte du chapitre.</p></div></details>
+    <details><summary>Δ négatif : vraiment aucune solution ?</summary>
+      <div><p>Aucune solution <strong>réelle</strong> : aucun nombre de la droite des réels ne convient, et la parabole ne coupe pas l'axe. En terminale, l'option « mathématiques expertes » invente de nouveaux nombres, les complexes, pour lesquels ces équations ont des solutions. En première, la réponse est $S=\varnothing$, et c'est une réponse complète.</p></div></details>
+    <details><summary>Faut-il toujours calculer Δ ?</summary>
+      <div><p>Non. $x^2=9$, $x(x-5)=0$, $(x-1)(x+4)=0$ se résolvent de tête. Une racine évidente ou la somme et le produit vont souvent plus vite. Le discriminant est l'outil général, celui qui marche toujours : garde-le pour quand les autres ne marchent pas, surtout sans calculatrice.</p></div></details>
+    <details><summary>Comment retenir le signe d'un trinôme ?</summary>
+      <div><p>Dessine la parabole. Si $a&gt;0$, elle est tournée vers le haut : au-dessus de l'axe loin des racines, en dessous entre elles. « Signe de $a$ dehors, signe contraire entre les racines. » Si tu hésites, remplace $x$ par un nombre : $f(0)=c$ est souvent le plus rapide.</p></div></details>
+    <details><summary>D'où vient $\alpha=-\dfrac{b}{2a}$ ?</summary>
+      <div><p>De la forme canonique : en complétant le carré, $ax^2+bx+c=a\left(x+\dfrac{b}{2a}\right)^2-\dfrac{\Delta}{4a}$, et le carré s'annule en $x=-\dfrac{b}{2a}$. Autre façon de le voir : quand il y a deux racines, le sommet est au milieu, et $\dfrac{x_1+x_2}{2}=-\dfrac{b}{2a}$.</p></div></details>
+    <details><summary>Le sommet et l'axe de symétrie sont-ils au programme ?</summary>
+      <div><p>Le programme de 2026 a retiré « axe de symétrie et sommet » de la géométrie repérée. Mais la forme canonique $a(x-\alpha)^2+\beta$ y est toujours, et $(\alpha\,;\beta)$ <em>est</em> le sommet : tu le lis sur la forme canonique, tu constates la symétrie, sans formule à part à apprendre.</p></div></details>
+    <details><summary>« Racine » et « racine carrée », c'est pareil ?</summary>
+      <div><p>Non. Une racine d'une équation est une solution, un nombre qui l'annule. La racine carrée de $\Delta$ est l'opération $\sqrt{\ }$. Le mot est le même par hasard : $-\dfrac12$ est une racine de $2x^2-5x-3$, et il n'a rien d'une racine carrée.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
