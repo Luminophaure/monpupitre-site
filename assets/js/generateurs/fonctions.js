@@ -1,1 +1,91 @@
-import{hasard,melanger,prendre}from"../chunks/chunk-MMDKQFWI.js";import{fmt,par,racinesNoeuds}from"../chunks/chunk-TLTAELPK.js";var X=v=>'<span class="vx">'+v+"</span>",Y=v=>'<span class="vy">'+v+"</span>",qcm=(bonne,autres)=>{let choix=melanger([bonne,...autres.filter((v,i,t)=>v!==bonne&&t.indexOf(v)===i)]);return{type:"qcm",choix,reponse:choix.indexOf(bonne)}};function poly(co,v){let T=[[co[0],v===void 0?"x²":par(v)+"²"],[co[1],v===void 0?"x":par(v)],[co[2],""]],s="";return T.forEach(([k,corps])=>{if(k===0)return;let a=Math.abs(k),mag=corps?a===1?"":v===void 0?fmt(a):fmt(a)+"×":fmt(a);s+=s===""?(k<0?"−":"")+mag+corps:(k<0?" − ":" + ")+mag+corps}),s||"0"}var val=(co,x)=>co[0]*x*x+co[1]*x+co[2];function polyHasard(){let t=hasard(0,2);if(t===0){let a=0;for(;!a;)a=hasard(-3,3);return[0,a,hasard(-5,5)]}return t===1?[1,hasard(-4,4),hasard(-5,5)]:[prendre([-2,-1,2,3]),0,hasard(-5,5)]}function courbeHasard(){let y=hasard(-2,2),n=[];for(let x=-4;x<=4;x++){n.push([x,y]);let s=prendre([-2,-1,1,2]);(y+s>4||y+s<-4)&&(s=-s),y+=s}return n}var CADRE={xmin:-4.6,xmax:4.6,ymin:-5,ymax:5},ensemble=a=>{let t=a.map(fmt);return t.length?t.length===1?t[0]:t.slice(0,-1).join(", ")+" et "+t[t.length-1]:"aucun"},types={"calcul-image"(){let co=polyHasard(),a=hasard(-4,4),v=val(co,a);return{enonce:'Soit f(x) = <span class="m">'+poly(co)+"</span>. Calcule l'image de "+X(fmt(a))+".",type:"nombre",reponse:v,explication:'<span class="m">f('+X(fmt(a))+") = "+poly(co,a)+" = "+Y(fmt(v))+"</span><br>On remplace x par "+fmt(a)+(a<0?", entre parenthèses car il est négatif.":".")}},"lecture-image"(){let n=courbeHasard(),a=hasard(-4,4),v=n[a+4][1];return{enonce:"Voici la courbe de f. Lis l'image de "+X(fmt(a))+".",type:"nombre",reponse:v,graphe:Object.assign({noeuds:n},CADRE),grapheApres:Object.assign({noeuds:n,point:{x:a,y:v}},CADRE),explication:"On part de "+fmt(a)+" sur l'axe des abscisses, on va verticalement jusqu'à la courbe, puis on lit l'ordonnée : f("+fmt(a)+") = "+Y(fmt(v))+"."}},"compter-antecedents"(){let n,k,r;do n=courbeHasard(),k=hasard(-3,3),r=racinesNoeuds(n,k);while(r.length>4);let q=qcm(String(r.length),["0","1","2","3","4"]);return q.choix=["0","1","2","3","4"],q.reponse=r.length,Object.assign(q,{enonce:"Combien le nombre "+Y(fmt(k))+" a-t-il d'antécédents par f ?",graphe:Object.assign({noeuds:n},CADRE),grapheApres:Object.assign({noeuds:n,horizontale:k,racines:r},CADRE),explication:"On trace la droite horizontale y = "+fmt(k)+" et on compte les points d'intersection avec la courbe : "+r.length+(r.length?" (abscisses : "+ensemble(r)+").":", donc aucun antécédent.")})},tableau(){let xs=[-3,-2,-1,0,1,2,3],vs=xs.map(()=>hasard(-3,4)),tab='<div class="defile"><table class="valeurs"><tr><th>x</th>'+xs.map(x=>"<td>"+fmt(x)+"</td>").join("")+"</tr><tr><th>f(x)</th>"+vs.map(v=>"<td>"+fmt(v)+"</td>").join("")+"</tr></table></div>";if(Math.random()<.4){let i=hasard(0,6);return{enonce:"D'après le tableau, quelle est l'image de "+X(fmt(xs[i]))+" ?",media:tab,type:"nombre",reponse:vs[i],explication:"On cherche "+fmt(xs[i])+" dans la ligne des x et on lit <strong>en dessous</strong> : "+Y(fmt(vs[i]))+"."}}let b=prendre(vs),bons=ensemble(xs.filter((x,i)=>vs[i]===b)),autres=["aucun"];b>=-3&&b<=3&&autres.push(ensemble([vs[b+3]]));let g=0;for(;autres.length<6&&g++<40;)autres.push(ensemble(melanger(xs.slice()).slice(0,hasard(1,2)).sort((p,q2)=>p-q2)));let distracteurs=[...new Set(autres)].filter(v=>v!==bons).slice(0,3),q=qcm(bons,distracteurs);return Object.assign(q,{enonce:"D'après le tableau, quels sont les antécédents de "+Y(fmt(b))+" ?",media:tab,explication:"On cherche "+fmt(b)+" dans la ligne f(x) et on lit <strong>au-dessus</strong> : "+X(bons)+"."+(b>=-3&&b<=3?" À ne pas confondre avec l'image de "+fmt(b)+", qui vaut "+fmt(vs[b+3])+".":"")})},"point-courbe"(){let co=polyHasard(),p=hasard(-3,3),fp=val(co,p),A,ok,r=Math.random();r<.45?(A=[p,fp],ok=!0):r<.75||fp===p?(A=[p,fp+prendre([-2,-1,1,2])],ok=!1):(A=[fp,p],ok=!1);let fA=val(co,A[0]);return{enonce:'Soit f(x) = <span class="m">'+poly(co)+"</span>. Le point A("+X(fmt(A[0]))+" ; "+Y(fmt(A[1]))+") est-il sur la courbe de f ?",type:"qcm",choix:["Oui","Non"],reponse:ok?0:1,explication:`On calcule l'image de l'abscisse de A : <span class="m">f(`+fmt(A[0])+") = "+poly(co,A[0])+" = "+fmt(fA)+"</span>. "+(ok?"C'est bien l'ordonnée de A : A est sur la courbe.":"Ce n'est pas "+fmt(A[1])+", donc A n'est pas sur la courbe."+(A[0]===fp&&A[1]===p?" Piège : les coordonnées étaient inversées.":""))}},vocabulaire(){let a=hasard(-5,5),b=hasard(-5,5);for(;b===a;)b=hasard(-5,5);let A=fmt(a),B=fmt(b),t=hasard(0,2);return t===0?Object.assign(qcm("l'image de "+A+" est "+B,["l'image de "+B+" est "+A,A+" est l'image de "+B,B+" est un antécédent de "+A]),{enonce:'<span class="m">f('+A+") = "+B+"</span> signifie :",explication:"Dans f("+X(A)+") = "+Y(B)+", "+X(A)+" entre (antécédent) et "+Y(B)+" sort (image)."}):t===1?Object.assign(qcm("f("+A+") = "+B,["f("+B+") = "+A,A+" est l'image de "+B,B+" est un antécédent de "+A]),{enonce:"Le point M("+A+" ; "+B+") est sur la courbe de f. Donc :",explication:"Un point de la courbe a pour coordonnées ("+X("x")+" ; "+Y("f(x)")+"), donc f("+A+") = "+B+"."}):Object.assign(qcm("f("+A+") = "+B,["f("+B+") = "+A,"f(x) = "+A,"f("+A+") = f("+B+")"]),{enonce:"« "+A+" est un antécédent de "+B+" par f » s'écrit :",explication:"L'antécédent est ce qui entre dans f : "+X(A)+" entre, "+Y(B)+" sort. Donc f("+A+") = "+B+"."})},"antecedent-calcul"(){let a=0;for(;!a;)a=hasard(-4,4);let b=hasard(-6,6),x0=hasard(-4,4),k=a*x0+b,co=[0,a,b];return{enonce:'Soit f(x) = <span class="m">'+poly(co)+"</span>. Trouve l'antécédent de "+Y(fmt(k))+".",type:"nombre",reponse:x0,explication:"On résout f(x) = "+fmt(k)+' : <span class="m">'+poly(co)+" = "+fmt(k)+" ⇔ "+(a===1?"":a===-1?"−":fmt(a))+"x = "+fmt(k-b)+" ⇔ x = "+X(fmt(x0))+"</span>."}}};window.GENERATEURS=window.GENERATEURS||{};window.GENERATEURS.fonctions={types,categories:{"calcul-image":"Calcul d'une image","lecture-image":"Lecture graphique","compter-antecedents":"Lecture graphique",tableau:"Tableau de valeurs","point-courbe":"Point sur la courbe",vocabulaire:"Vocabulaire","antecedent-calcul":"Antécédent par le calcul"},ordre:["calcul-image","calcul-image","lecture-image","lecture-image","compter-antecedents","tableau","tableau","point-courbe","vocabulaire","antecedent-calcul"]};
+/* =====================================================================
+   GÉNÉRATEURS — chapitre « Notion de fonction » (seconde)
+   Chaque type est une fonction qui renvoie UNE question nouvelle :
+     { enonce, type:'nombre'|'qcm', reponse, choix, explication,
+       graphe, grapheApres, media, categorie }
+   - type 'nombre' : reponse = la valeur attendue
+   - type 'qcm'    : choix = liste de textes, reponse = indice du bon choix
+   Pour un nouveau chapitre : copie ce fichier, renomme-le, change le nom
+   en bas (GENERATEURS["..."]) et écris tes propres types.
+   ===================================================================== */
+(function(){
+"use strict";
+const G=window.Graphe, fmt=G.fmt, par=G.par;
+const X=v=>'<span class="vx">'+v+'</span>', Y=v=>'<span class="vy">'+v+'</span>';
+const hasard=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const prendre=a=>a[Math.floor(Math.random()*a.length)];
+const melanger=a=>{ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const qcm=(bonne,autres)=>{ const choix=melanger([bonne,...autres.filter((v,i,t)=>v!==bonne&&t.indexOf(v)===i)]); return {type:'qcm',choix,reponse:choix.indexOf(bonne)}; };
+
+/* polynôme [a,b,c] = ax² + bx + c ; v défini → on remplace x par v */
+function poly(co,v){
+  const T=[[co[0],v===undefined?'x²':par(v)+'²'],[co[1],v===undefined?'x':par(v)],[co[2],'']]; let s='';
+  T.forEach(([k,corps])=>{ if(k===0) return; const a=Math.abs(k);
+    const mag= corps ? (a===1?'':(v===undefined?fmt(a):fmt(a)+'×')) : fmt(a);
+    s+= s==='' ? (k<0?'−':'')+mag+corps : (k<0?' − ':' + ')+mag+corps; });
+  return s||'0';
+}
+const val=(co,x)=>co[0]*x*x+co[1]*x+co[2];
+function polyHasard(){ const t=hasard(0,2);
+  if(t===0){ let a=0; while(!a) a=hasard(-3,3); return [0,a,hasard(-5,5)]; }
+  if(t===1) return [1,hasard(-4,4),hasard(-5,5)];
+  return [prendre([-2,-1,2,3]),0,hasard(-5,5)]; }
+function courbeHasard(){ let y=hasard(-2,2); const n=[];
+  for(let x=-4;x<=4;x++){ n.push([x,y]); let s=prendre([-2,-1,1,2]); if(y+s>4||y+s<-4) s=-s; y+=s; } return n; }
+const CADRE={xmin:-4.6,xmax:4.6,ymin:-5,ymax:5};
+const ensemble=a=>{ const t=a.map(fmt); if(!t.length) return 'aucun'; return t.length===1?t[0]:t.slice(0,-1).join(', ')+' et '+t[t.length-1]; };
+
+const types={
+  'calcul-image'(){ const co=polyHasard(), a=hasard(-4,4), v=val(co,a);
+    return {enonce:'Soit f(x) = <span class="m">'+poly(co)+'</span>. Calcule l\'image de '+X(fmt(a))+'.', type:'nombre', reponse:v,
+      explication:'<span class="m">f('+X(fmt(a))+') = '+poly(co,a)+' = '+Y(fmt(v))+'</span><br>On remplace x par '+fmt(a)+(a<0?', entre parenthèses car il est négatif.':'.')}; },
+
+  'lecture-image'(){ const n=courbeHasard(), a=hasard(-4,4), v=n[a+4][1];
+    return {enonce:'Voici la courbe de f. Lis l\'image de '+X(fmt(a))+'.', type:'nombre', reponse:v, graphe:Object.assign({noeuds:n},CADRE),
+      grapheApres:Object.assign({noeuds:n,point:{x:a,y:v}},CADRE),
+      explication:'On part de '+fmt(a)+' sur l\'axe des abscisses, on va verticalement jusqu\'à la courbe, puis on lit l\'ordonnée : f('+fmt(a)+') = '+Y(fmt(v))+'.'}; },
+
+  'compter-antecedents'(){ let n,k,r; do{ n=courbeHasard(); k=hasard(-3,3); r=G.racinesNoeuds(n,k); }while(r.length>4);
+    const q=qcm(String(r.length),['0','1','2','3','4']); q.choix=['0','1','2','3','4']; q.reponse=r.length;
+    return Object.assign(q,{enonce:'Combien le nombre '+Y(fmt(k))+' a-t-il d\'antécédents par f ?', graphe:Object.assign({noeuds:n},CADRE),
+      grapheApres:Object.assign({noeuds:n,horizontale:k,racines:r},CADRE),
+      explication:'On trace la droite horizontale y = '+fmt(k)+' et on compte les points d\'intersection avec la courbe : '+r.length+(r.length?' (abscisses : '+ensemble(r)+').':', donc aucun antécédent.')}); },
+
+  'tableau'(){ const xs=[-3,-2,-1,0,1,2,3], vs=xs.map(()=>hasard(-3,4));
+    const tab='<div class="defile"><table class="valeurs"><tr><th>x</th>'+xs.map(x=>'<td>'+fmt(x)+'</td>').join('')+'</tr><tr><th>f(x)</th>'+vs.map(v=>'<td>'+fmt(v)+'</td>').join('')+'</tr></table></div>';
+    if(Math.random()<.4){ const i=hasard(0,6);
+      return {enonce:'D\'après le tableau, quelle est l\'image de '+X(fmt(xs[i]))+' ?', media:tab, type:'nombre', reponse:vs[i], explication:'On cherche '+fmt(xs[i])+' dans la ligne des x et on lit <strong>en dessous</strong> : '+Y(fmt(vs[i]))+'.'}; }
+    const b=prendre(vs), bons=ensemble(xs.filter((x,i)=>vs[i]===b));
+    const autres=['aucun']; if(b>=-3&&b<=3) autres.push(ensemble([vs[b+3]]));
+    let g=0; while(autres.length<6&&g++<40) autres.push(ensemble(melanger(xs.slice()).slice(0,hasard(1,2)).sort((p,q)=>p-q)));
+    const q=qcm(bons,autres); q.choix=q.choix.slice(0,4); if(q.reponse>3){ q.choix[3]=bons; q.reponse=3; }
+    return Object.assign(q,{enonce:'D\'après le tableau, quels sont les antécédents de '+Y(fmt(b))+' ?', media:tab,
+      explication:'On cherche '+fmt(b)+' dans la ligne f(x) et on lit <strong>au-dessus</strong> : '+X(bons)+'.'+(b>=-3&&b<=3?' À ne pas confondre avec l\'image de '+fmt(b)+', qui vaut '+fmt(vs[b+3])+'.':'')}); },
+
+  'point-courbe'(){ const co=polyHasard(), p=hasard(-3,3), fp=val(co,p); let A, ok; const r=Math.random();
+    if(r<.45){A=[p,fp];ok=true;} else if(r<.75||fp===p){A=[p,fp+prendre([-2,-1,1,2])];ok=false;} else {A=[fp,p];ok=false;}
+    const fA=val(co,A[0]);
+    return {enonce:'Soit f(x) = <span class="m">'+poly(co)+'</span>. Le point A('+X(fmt(A[0]))+' ; '+Y(fmt(A[1]))+') est-il sur la courbe de f ?', type:'qcm', choix:['Oui','Non'], reponse:ok?0:1,
+      explication:'On calcule l\'image de l\'abscisse de A : <span class="m">f('+fmt(A[0])+') = '+poly(co,A[0])+' = '+fmt(fA)+'</span>. '+(ok?'C\'est bien l\'ordonnée de A : A est sur la courbe.':'Ce n\'est pas '+fmt(A[1])+', donc A n\'est pas sur la courbe.'+(A[0]===fp&&A[1]===p?' Piège : les coordonnées étaient inversées.':''))}; },
+
+  'vocabulaire'(){ const a=hasard(-5,5); let b=hasard(-5,5); while(b===a) b=hasard(-5,5); const A=fmt(a),B=fmt(b); const t=hasard(0,2);
+    if(t===0) return Object.assign(qcm('l\'image de '+A+' est '+B,['l\'image de '+B+' est '+A,A+' est l\'image de '+B,B+' est un antécédent de '+A]),
+      {enonce:'<span class="m">f('+A+') = '+B+'</span> signifie :', explication:'Dans f('+X(A)+') = '+Y(B)+', '+X(A)+' entre (antécédent) et '+Y(B)+' sort (image).'});
+    if(t===1) return Object.assign(qcm('f('+A+') = '+B,['f('+B+') = '+A,A+' est l\'image de '+B,B+' est un antécédent de '+A]),
+      {enonce:'Le point M('+A+' ; '+B+') est sur la courbe de f. Donc :', explication:'Un point de la courbe a pour coordonnées ('+X('x')+' ; '+Y('f(x)')+'), donc f('+A+') = '+B+'.'});
+    return Object.assign(qcm('f('+A+') = '+B,['f('+B+') = '+A,'f(x) = '+A,'f('+A+') = f('+B+')']),
+      {enonce:'« '+A+' est un antécédent de '+B+' par f » s\'écrit :', explication:'L\'antécédent est ce qui entre dans f : '+X(A)+' entre, '+Y(B)+' sort. Donc f('+A+') = '+B+'.'}); },
+
+  'antecedent-calcul'(){ let a=0; while(!a) a=hasard(-4,4); const b=hasard(-6,6), x0=hasard(-4,4), k=a*x0+b, co=[0,a,b];
+    return {enonce:'Soit f(x) = <span class="m">'+poly(co)+'</span>. Trouve l\'antécédent de '+Y(fmt(k))+'.', type:'nombre', reponse:x0,
+      explication:'On résout f(x) = '+fmt(k)+' : <span class="m">'+poly(co)+' = '+fmt(k)+' ⇔ '+(a===1?'':a===-1?'−':fmt(a))+'x = '+fmt(k-b)+' ⇔ x = '+X(fmt(x0))+'</span>.'}; },
+};
+
+window.GENERATEURS=window.GENERATEURS||{};
+window.GENERATEURS['fonctions']={
+  types,
+  categories:{'calcul-image':'Calcul d\'une image','lecture-image':'Lecture graphique','compter-antecedents':'Lecture graphique','tableau':'Tableau de valeurs','point-courbe':'Point sur la courbe','vocabulaire':'Vocabulaire','antecedent-calcul':'Antécédent par le calcul'},
+  // ordre de pioche : un type présent deux fois sort deux fois plus souvent
+  ordre:['calcul-image','calcul-image','lecture-image','lecture-image','compter-antecedents','tableau','tableau','point-courbe','vocabulaire','antecedent-calcul'],
+};
+})();

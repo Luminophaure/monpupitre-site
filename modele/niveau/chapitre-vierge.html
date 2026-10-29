@@ -10,10 +10,10 @@
        (exemples : maths/seconde/fonctions.html, qui n'utilise que des graphes interactifs)
   2. Change le <title>, data-matiere et data-chapitre (les mêmes "id" que dans
      assets/js/chapitres.js), et le nombre de ../ des deux chemins vers assets/.
-  3. Déclare le chapitre dans les deux manifestes :
-     · assets/js/chapitres.js   la ligne du chapitre, avec  fichier: "..." ; dessous,
-                                generateur: "fichier" et labos: [["outil", "titre"], …],
-                                et l'id du chapitre dans un thème de la matière (themes:)
+  3. Déclare le chapitre dans les trois manifestes :
+     · assets/js/chapitres.js   la ligne du chapitre, avec  fichier: "..."
+     · assets/js/portes.js      LABOS (titres des labos), GENERATEURS (chapitre → fichier),
+                                THEMES de la matière
      · assets/js/notions.js     les notions et leurs liens, si la matière en a
   4. Remplis les cinq sections ci-dessous, dans cet ordre : les onglets se fabriquent
      tout seuls à partir des <h2>. Supprime une section dont tu n'as pas besoin.
@@ -28,33 +28,8 @@
 <meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
 <title>TITRE DU CHAPITRE · Seconde</title>
-<link rel="stylesheet" href="../../assets/css/site.css?v=a559c329f0">
-<script type="module" src="../../assets/js/site.js?v=a60973fedb"></script>
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-PXEZELIN.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-EZ3C7UK6.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-ORND7DME.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-BOS7JHTA.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-T2ORFUZ4.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-CRFRSPIA.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-DJZP763Z.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-Y4MCCTGS.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-7LGNHQZ3.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-QMZR4NH7.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-UU6WY52H.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-LGI6A4EG.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-CG5YCEWP.js">
-<link rel="modulepreload" href="../../assets/js/chunks/quiz-TB2LNVDJ.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
-<link rel="modulepreload" href="../../assets/js/chunks/chunk-TLTAELPK.js">
-<link rel="modulepreload" href="../../assets/js/chunks/graphe-GOXNYLJA.js">
-<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=9e78aa7141">
-<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
-<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+<link rel="stylesheet" href="../../assets/css/site.css?v=79d7a08a23">
+<script src="../../assets/js/site.js?v=c67cae9763" defer></script>
 </head>
 <body data-matiere="ID-DE-LA-MATIERE" data-chapitre="ID-DU-CHAPITRE" data-mise-en-page="classeur">
 <main class="chapitre">
@@ -158,7 +133,7 @@
   <p>Une phrase qui dit ce qu'on va manipuler, et dans quel ordre.</p>
 
   <!-- Chaque labo a besoin d'un outil déclaré dans assets/js/labos/NOM.js
-       (window.LABOS.NOM = {outil1, outil2}) et de sa ligne labos: dans chapitres.js.
+       (window.LABOS.NOM = {outil1, outil2}) et d'une ligne dans LABOS, dans portes.js.
        Décommenter après avoir remplacé NOM, sinon le fichier n'existe pas.
   <div class="labo" data-labo="NOM" data-outil="outil1"></div>
   -->

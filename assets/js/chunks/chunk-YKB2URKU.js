@@ -1,1 +1,0 @@
-var SONS_COMPAGNON={chaton:"ronron","chat-tigre":"ronron","chat-noir":"ronron","chat-gris":"ronron",lionceau:"ronron",perruche:"pepie",chien:"gemit",lapin:"couine",renard:"couine",panda:"couine",dinosaure:"grogne",dragon:"grogne","peluche-elephant":"pouic","peluche-girafe":"pouic","peluche-tigre":"pouic"};export{SONS_COMPAGNON};

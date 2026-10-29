@@ -1,1 +1,0 @@
-function page(body){if(location.hash==="#parler"){let t=document.getElementById("parler");t&&setTimeout(()=>t.scrollIntoView({block:"start"}),100)}let q=location.hash&&document.getElementById(location.hash.slice(1));q&&q.tagName==="DETAILS"&&(q.open=!0,setTimeout(()=>q.scrollIntoView({block:"center"}),100))}export{page};
