@@ -1,0 +1,632 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de thales.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/troisieme/thales.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Théorème de Thalès · Troisième</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=94d9a4b19f">
+<script type="module" src="../../assets/js/site.js?v=f28b488101"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PXEZELIN.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EW3VPXCF.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-6SIXHC4M.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-J4KYKKR4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5TXUVUBI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CRFRSPIA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EKWSWDWZ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Y4MCCTGS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-GRMFPISJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QMZR4NH7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BABTZ44E.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LGI6A4EG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CG5YCEWP.js">
+<link rel="modulepreload" href="../../assets/js/labos/thales-3.js?v=5ff1832316">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MI35G4WU.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/thales-3.js?v=1dd388b334">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-2VOPAQUB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TLTAELPK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-HYPM6EK3.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=9e78aa7141">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="thales-3" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Troisième · Espace et géométrie</span>
+  <h1>Théorème de Thalès</h1>
+  <p class="chapeau">Mesurer la hauteur d'un arbre sans y monter, la largeur d'une rivière sans la traverser : un bâton, une ombre et un théorème vieux de 2 600 ans y arrivent. Dès que deux droites parallèles coupent deux droites qui se croisent, les longueurs sont <strong>proportionnelles</strong>. Tu vas apprendre à écrire ces rapports, à calculer une longueur, et à prouver que deux droites sont parallèles — ou qu'elles ne le sont pas.</p>
+  <ul class="objectifs">
+    <li>Reconnaître les deux configurations</li><li>Écrire les trois rapports égaux</li><li>Calculer une longueur</li><li>Prouver que deux droites sont parallèles</li><li>Prouver qu'elles ne le sont pas</li><li>Relier Thalès et la proportionnalité</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Comment mesurer un arbre de 12 mètres avec un bâton d'un mètre ?</strong> Un forestier plante son bâton au bout de l'ombre de l'arbre, bien droit. Il mesure l'ombre du bâton et l'ombre de l'arbre, et c'est tout : les rayons du Soleil sont parallèles, les deux ombres et les deux hauteurs sont <em>proportionnelles</em>. La légende dit que Thalès de Milet, il y a 2 600 ans, a mesuré ainsi la hauteur de la grande pyramide d'Égypte. Le labo « La hauteur de l'arbre » te fait refaire la mesure.</p>
+    <p class="discret">Ils s'en servent : les géomètres-topographes (mesurer ce qu'on ne peut pas atteindre), les forestiers (estimer le bois d'un arbre sur pied), les architectes et les dessinateurs (les plans à l'échelle), les archéologues (relever un site), les photographes (le sténopé, une chambre noire). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-rappels">1. Ce qu'il faut avoir sous la main</h3>
+
+  <div class="bloc definition" data-titre="Les notations de la géométrie">
+    <ul>
+      <li>$AB$ : la <strong>longueur</strong> du segment, un nombre avec une unité ($AB = 5$ cm) ;</li>
+      <li>$[AB]$ : le <strong>segment</strong>, de $A$ à $B$ ; $(AB)$ : la <strong>droite</strong>, qui continue des deux côtés ;</li>
+      <li>$M \in [AB]$ : le point $M$ est sur le segment, <em>entre</em> $A$ et $B$ ;</li>
+      <li>$(MN) \parallel (BC)$ : les droites sont parallèles ; $(MN) \nparallel (BC)$ : elles ne le sont pas.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le produit en croix">
+    <p>Deux quotients sont égaux quand leurs produits en croix sont égaux :</p>
+    $$ \frac{a}{b}=\frac{c}{d} \quad\Longleftrightarrow\quad a\times d = b\times c \qquad (b\neq 0,\ d\neq 0) $$
+    <p>C'est ce qui permet de trouver un nombre qui manque. Par exemple, si $\dfrac{x}{7{,}5}=\dfrac{4}{6}$, alors $6x = 4\times 7{,}5 = 30$, donc $x = 30\div 6 = 5$.</p>
+    <p>Une égalité de quotients <strong>se retourne</strong> : si $\dfrac{a}{b}=\dfrac{c}{d}$, alors $\dfrac{b}{a}=\dfrac{d}{c}$. Utile quand le nombre cherché est en bas.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Un tableau de proportionnalité">
+    <p>Dire que $\dfrac{4}{6}=\dfrac{5}{7{,}5}$, c'est dire que le tableau ci-dessous est un tableau de proportionnalité : on passe de la première ligne à la seconde en multipliant par $1{,}5$, et d'une colonne à l'autre par $1{,}25$.</p>
+    <div class="defile"><table class="simple">
+      <tbody>
+        <tr><th>Petit triangle</th><td>$4$</td><td>$5$</td></tr>
+        <tr><th>Grand triangle</th><td>$6$</td><td>$7{,}5$</td></tr>
+      </tbody>
+    </table></div>
+    <p>Le théorème de Thalès, c'est exactement ça : un tableau de proportionnalité caché dans une figure.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-configurations">2. Les deux configurations de Thalès</h3>
+
+  <div class="bloc definition" data-titre="Une configuration de Thalès">
+    <p>Il faut <strong>deux droites qui se coupent</strong> en un point $A$, et <strong>deux droites parallèles</strong> qui les traversent. On nomme $M$ et $B$ les points de la première droite, $N$ et $C$ ceux de la seconde, avec $(MN)\parallel(BC)$.</p>
+    <p>Selon la place de $A$, la figure prend l'une des deux formes ci-dessous. Dans les deux, il y a <strong>deux triangles</strong> : le grand $ABC$ et le petit $AMN$, qui ont le même sommet $A$.</p>
+  </div>
+
+  <div class="colonnes">
+    <figure class="figure-svg"><svg viewBox="0 0 362 248" role="img" aria-label="La configuration des triangles emboîtés : les droites (AB) et (AC) se coupent en A ; M est sur [AB], N sur [AC], et (MN) est parallèle à (BC). Le petit triangle AMN est à l'intérieur du grand triangle ABC."><polygon class="forme" points="101.2,25.2 25.2,222.8 336.8,222.8"/><polygon class="forme forme-image" points="101.2,25.2 59.4,133.9 230.8,133.9"/><g class="trace t-n"><line x1="108.0" y1="7.5" x2="18.4" y2="240.5"/></g><g class="trace t-n"><line x1="86.6" y1="13.0" x2="351.4" y2="235.0"/></g><g class="trace t-u"><line x1="59.4" y1="133.9" x2="230.8" y2="133.9"/></g><g class="trace t-u"><line x1="25.2" y1="222.8" x2="336.8" y2="222.8"/></g><g class="trace t-u ep-2-5"><path d="M174.0,229.8 L181.0,222.8 L174.0,215.8"/></g><g class="trace t-u ep-2-5"><path d="M138.1,140.9 L145.1,133.9 L138.1,126.9"/></g><circle class="pt " cx="25.2" cy="222.8" r="4.5"/><text class="lettre" x="3.2" y="232.8">B</text><circle class="pt " cx="336.8" cy="222.8" r="4.5"/><text class="lettre" x="344.8" y="232.8">C</text><circle class="pt " cx="101.2" cy="25.2" r="4.5"/><text class="lettre" x="93.2" y="23.2">A</text><circle class="pt pt-u" cx="59.4" cy="133.9" r="4.5"/><text class="lettre" x="35.4" y="143.9">M</text><circle class="pt pt-u" cx="230.8" cy="133.9" r="4.5"/><text class="lettre" x="238.8" y="143.9">N</text><text class="moyen halo" x="260.8" y="78.4" text-anchor="middle">(MN) ∥ (BC)</text></svg><figcaption><strong>Les triangles emboîtés</strong> : $M$ est entre $A$ et $B$, $N$ entre $A$ et $C$. Le petit triangle est à l'intérieur du grand. C'est la configuration vue en 4ᵉ.</figcaption></figure>
+    <figure class="figure-svg"><svg viewBox="0 0 381 198" role="img" aria-label="La configuration dite du papillon : les droites (BM) et (CN) se coupent en A ; B et C sont d'un côté de A, M et N de l'autre, et (MN) est parallèle à (BC). Les deux triangles AMN et ABC se touchent par leur sommet A, comme les deux ailes d'un papillon."><polygon class="forme" points="184.8,89.8 32.8,177.2 348.2,177.2"/><polygon class="forme forme-image" points="184.8,89.8 268.4,41.7 94.9,41.7"/><g class="trace t-n"><line x1="281.6" y1="34.2" x2="19.6" y2="184.8"/></g><g class="trace t-n"><line x1="81.5" y1="34.6" x2="361.6" y2="184.4"/></g><g class="trace t-u"><line x1="268.4" y1="41.7" x2="94.9" y2="41.7"/></g><g class="trace t-u"><line x1="32.8" y1="177.2" x2="348.2" y2="177.2"/></g><g class="trace t-u ep-2-5"><path d="M183.5,184.2 L190.5,177.2 L183.5,170.2"/></g><g class="trace t-u ep-2-5"><path d="M174.6,48.7 L181.6,41.7 L174.6,34.7"/></g><circle class="pt " cx="32.8" cy="177.2" r="4.5"/><text class="lettre" x="10.8" y="187.2">B</text><circle class="pt " cx="348.2" cy="177.2" r="4.5"/><text class="lettre" x="356.2" y="187.2">C</text><circle class="pt " cx="184.8" cy="89.8" r="4.5"/><text class="lettre" x="194.8" y="91.8">A</text><circle class="pt pt-u" cx="268.4" cy="41.7" r="4.5"/><text class="lettre" x="274.4" y="41.7">M</text><circle class="pt pt-u" cx="94.9" cy="41.7" r="4.5"/><text class="lettre" x="70.9" y="41.7">N</text><text class="moyen halo" x="190.5" y="17.6" text-anchor="middle">(MN) ∥ (BC)</text></svg><figcaption><strong>Le papillon</strong> : $A$ est entre $B$ et $M$, et entre $C$ et $N$. Les deux triangles se touchent par leur pointe, comme deux ailes. C'est la nouveauté de 3ᵉ.</figcaption></figure>
+  </div>
+
+  <div class="bloc piege" data-titre="Trois lettres sur chaque droite, le sommet en premier">
+    <p>Sur la droite de $B$ : les points $A$, $M$, $B$. Sur la droite de $C$ : les points $A$, $N$, $C$. Le point commun $A$ s'écrit <strong>en premier</strong> dans chaque longueur ($AM$, $AB$, $AN$, $AC$). C'est ce qui évite de mélanger les rapports plus tard. Prends l'habitude de repérer ces deux « trios » avant tout calcul, surtout dans le papillon, où les lettres sont dispersées.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-theoreme">3. Le théorème de Thalès</h3>
+
+  <div class="bloc theoreme" data-titre="Théorème de Thalès">
+    <p>Soit deux droites $(BM)$ et $(CN)$ qui se coupent en $A$. <strong>Si $(MN)\parallel(BC)$</strong>, alors</p>
+    $$ \frac{AM}{AB}=\frac{AN}{AC}=\frac{MN}{BC}. $$
+    <p>Les trois rapports sont égaux, et chacun compare un côté du petit triangle $AMN$ au côté du grand triangle $ABC$ qui lui <em>correspond</em> : celui qui est sur la même droite, ou qui lui est parallèle.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 362 270" role="img" aria-label="Les triangles emboîtés ABC et AMN : AM en face de AB sur la même droite, AN en face de AC, et MN en face de BC, les deux parallèles. Les trois rapports AM/AB, AN/AC et MN/BC sont égaux."><polygon class="forme" points="101.2,25.2 25.2,222.8 336.8,222.8"/><polygon class="forme forme-image" points="101.2,25.2 59.4,133.9 230.8,133.9"/><g class="trace t-n"><line x1="101.2" y1="25.2" x2="25.2" y2="222.8"/></g><g class="trace t-n"><line x1="101.2" y1="25.2" x2="336.8" y2="222.8"/></g><g class="trace t-u ep-4"><line x1="59.4" y1="133.9" x2="230.8" y2="133.9"/></g><g class="trace t-u"><line x1="25.2" y1="222.8" x2="336.8" y2="222.8"/></g><g class="trace t-u ep-2-5"><path d="M174.0,229.8 L181.0,222.8 L174.0,215.8"/></g><g class="trace t-u ep-2-5"><path d="M138.1,140.9 L145.1,133.9 L138.1,126.9"/></g><circle class="pt " cx="25.2" cy="222.8" r="4.5"/><text class="lettre" x="3.2" y="232.8">B</text><circle class="pt " cx="336.8" cy="222.8" r="4.5"/><text class="lettre" x="344.8" y="232.8">C</text><circle class="pt " cx="101.2" cy="25.2" r="4.5"/><text class="lettre" x="93.2" y="23.2">A</text><circle class="pt pt-u" cx="59.4" cy="133.9" r="4.5"/><text class="lettre" x="35.4" y="143.9">M</text><circle class="pt pt-u" cx="230.8" cy="133.9" r="4.5"/><text class="lettre" x="238.8" y="143.9">N</text><g class="trace t-v ep-4"><line x1="101.2" y1="25.2" x2="59.4" y2="133.9"/></g><g class="trace t-w ep-4"><line x1="101.2" y1="25.2" x2="230.8" y2="133.9"/></g><text class="moyen halo" x="63.5" y="78.0" text-anchor="middle">AM</text><text class="moyen halo" x="-0.6" y="166.8" text-anchor="middle">AB</text><text class="moyen halo" x="177.6" y="70.7" text-anchor="middle">AN</text><text class="moyen halo" x="313.4" y="148.1" text-anchor="middle">AC</text><text class="moyen halo" x="145.1" y="154.9" text-anchor="middle">MN</text><text class="moyen halo" x="181.0" y="245.8" text-anchor="middle">BC</text></svg><figcaption>Trois côtés du petit triangle, trois côtés du grand : $AM$ en face de $AB$ (même droite), $AN$ en face de $AC$ (même droite), $MN$ en face de $BC$ (les parallèles).</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Petit sur grand : le rapport de réduction">
+    <p>Les trois rapports ont la même valeur, qu'on note souvent $k$. Le petit triangle est une <strong>réduction</strong> du grand de rapport $k$ : toutes ses longueurs sont celles du grand, multipliées par $k$. Les deux triangles ont les mêmes angles : on dit qu'ils sont <strong>semblables</strong>. Plus tard dans l'année, tu verras que le petit est l'image du grand par une <strong>homothétie</strong> de centre $A$.</p>
+    <p>$k$ n'est pas forcément plus petit que $1$ : dans le papillon, $A$ n'est pas forcément « au milieu », et dans les triangles emboîtés, $M$ peut être au-delà de $B$ et $N$ au-delà de $C$ (les points restent dans le même ordre : $A, B, M$ et $A, C, N$). Alors $AMN$ est plus grand que $ABC$, $k &gt; 1$, et le théorème ne change pas.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Lire la figure, écrire les rapports">
+    <p>Sur une figure de Thalès où $AM = 2$ cm et $AB = 5$ cm, le rapport vaut $\dfrac{AM}{AB}=\dfrac{2}{5}=0{,}4$. Sans rien calculer d'autre, on sait déjà que $AN = 0{,}4\times AC$ et que $MN = 0{,}4\times BC$ : le petit triangle fait les $\dfrac{2}{5}$ du grand.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-calculer">4. Calculer une longueur</h3>
+
+  <div class="bloc methode" data-titre="Calculer une longueur avec le théorème de Thalès">
+    <ol class="etapes">
+      <li><span>Je repère la configuration : le point commun $A$, les deux droites qui s'y coupent, et les deux parallèles (dites par l'énoncé ou codées sur la figure). Je nomme les deux trios : $A, M, B$ et $A, N, C$.</span></li>
+      <li><span>J'écris les hypothèses : « Les droites $(BM)$ et $(CN)$ se coupent en $A$, et $(MN)\parallel(BC)$. »</span></li>
+      <li><span>J'écris « D'après le théorème de Thalès : » puis les trois rapports, le petit triangle en haut, le grand en bas, le sommet $A$ en premier.</span></li>
+      <li><span>Je garde l'égalité de deux rapports qui contient la longueur cherchée et trois longueurs connues. Si la longueur cherchée est en bas, je retourne les deux rapports pour la mettre en haut.</span></li>
+      <li><span>Je remplace par les valeurs, je fais le produit en croix, et je conclus par une phrase avec l'unité.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice (triangles emboîtés).</strong> Sur la figure ci-dessous, $(MN)\parallel(BC)$, $AM = 4$ cm, $AB = 6$ cm, $AC = 7{,}5$ cm et $MN = 3$ cm. Calculer $AN$, puis $BC$.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 514 270" role="img" aria-label="Triangles emboîtés avec les mesures : AM = 4 cm, AB = 6 cm, AC = 7,5 cm, MN = 3 cm. On cherche AN et BC."><polygon class="forme" points="177.2,25.2 101.2,222.8 412.8,222.8"/><polygon class="forme forme-image" points="177.2,25.2 126.5,156.9 334.3,156.9"/><g class="trace t-n"><line x1="177.2" y1="25.2" x2="101.2" y2="222.8"/></g><g class="trace t-n"><line x1="177.2" y1="25.2" x2="412.8" y2="222.8"/></g><g class="trace t-u"><line x1="126.5" y1="156.9" x2="334.3" y2="156.9"/></g><g class="trace t-u"><line x1="101.2" y1="222.8" x2="412.8" y2="222.8"/></g><g class="trace t-u ep-2-5"><path d="M250.0,229.8 L257.0,222.8 L250.0,215.8"/></g><g class="trace t-u ep-2-5"><path d="M223.4,163.9 L230.4,156.9 L223.4,149.9"/></g><circle class="pt " cx="101.2" cy="222.8" r="4.5"/><text class="lettre" x="79.2" y="232.8">B</text><circle class="pt " cx="412.8" cy="222.8" r="4.5"/><text class="lettre" x="420.8" y="232.8">C</text><circle class="pt " cx="177.2" cy="25.2" r="4.5"/><text class="lettre" x="169.2" y="23.2">A</text><circle class="pt pt-u" cx="126.5" cy="156.9" r="4.5"/><text class="lettre" x="102.5" y="166.9">M</text><circle class="pt pt-u" cx="334.3" cy="156.9" r="4.5"/><text class="lettre" x="342.3" y="166.9">N</text><text class="moyen halo" x="133.2" y="88.9" text-anchor="middle">4 cm</text><text class="moyen halo" x="70.9" y="195.4" text-anchor="middle">AB = 6 cm</text><text class="moyen halo" x="271.1" y="77.7" text-anchor="middle">AN = ?</text><text class="moyen halo" x="419.5" y="176.0" text-anchor="middle">AC = 7,5 cm</text><text class="moyen halo" x="230.4" y="177.9" text-anchor="middle">3 cm</text><text class="moyen halo" x="257.0" y="247.8" text-anchor="middle">BC = ?</text></svg><figcaption>Les deux trios : $A, M, B$ sur une droite, $A, N, C$ sur l'autre. La figure n'est pas à l'échelle : seuls les nombres comptent.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>Les hypothèses.</strong> Les droites $(BM)$ et $(CN)$ se coupent en $A$, et $(MN)\parallel(BC)$.</li>
+        <li><strong>Les trois rapports.</strong> D'après le théorème de Thalès : $\dfrac{AM}{AB}=\dfrac{AN}{AC}=\dfrac{MN}{BC}$, soit $\dfrac{4}{6}=\dfrac{AN}{7{,}5}=\dfrac{3}{BC}$.</li>
+        <li><strong>$AN$ est en haut : produit en croix.</strong> $\dfrac{4}{6}=\dfrac{AN}{7{,}5}$ donne $6\times AN = 4\times 7{,}5 = 30$, donc $AN = \dfrac{30}{6} = 5$ cm.</li>
+        <li><strong>$BC$ est en bas : je retourne.</strong> $\dfrac{4}{6}=\dfrac{3}{BC}$ devient $\dfrac{6}{4}=\dfrac{BC}{3}$, donc $BC=\dfrac{6\times 3}{4}=\dfrac{18}{4}=4{,}5$ cm.</li>
+        <li><strong>Je vérifie.</strong> $\dfrac{3}{4{,}5}=\dfrac{30}{45}=\dfrac{2}{3}$ et $\dfrac{4}{6}=\dfrac{2}{3}$ : les rapports sont bien égaux. Le petit triangle fait les deux tiers du grand.</li>
+      </ol>
+    </div>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice (papillon).</strong> Sur la figure ci-dessous, $(MN)\parallel(BC)$, $AB = 6$ cm, $AC = 8$ cm, $BC = 7$ cm et $AM = 4{,}5$ cm. Calculer $AN$ et $MN$.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 381 221" role="img" aria-label="Configuration papillon avec les mesures : AB = 6 cm, AC = 8 cm, BC = 7 cm, AM = 4,5 cm. On cherche AN et MN."><polygon class="forme" points="184.8,89.8 32.8,177.2 348.2,177.2"/><polygon class="forme forme-image" points="184.8,89.8 298.8,24.2 62.2,24.2"/><g class="trace t-n"><line x1="298.8" y1="24.2" x2="32.8" y2="177.2"/></g><g class="trace t-n"><line x1="62.2" y1="24.2" x2="348.2" y2="177.2"/></g><g class="trace t-u"><line x1="298.8" y1="24.2" x2="62.2" y2="24.2"/></g><g class="trace t-u"><line x1="32.8" y1="177.2" x2="348.2" y2="177.2"/></g><g class="trace t-u ep-2-5"><path d="M183.5,184.2 L190.5,177.2 L183.5,170.2"/></g><g class="trace t-u ep-2-5"><path d="M173.5,31.2 L180.5,24.2 L173.5,17.2"/></g><circle class="pt " cx="32.8" cy="177.2" r="4.5"/><text class="lettre" x="10.8" y="187.2">B</text><circle class="pt " cx="348.2" cy="177.2" r="4.5"/><text class="lettre" x="356.2" y="187.2">C</text><circle class="pt " cx="184.8" cy="89.8" r="4.5"/><text class="lettre" x="194.8" y="91.8">A</text><circle class="pt pt-u" cx="298.8" cy="24.2" r="4.5"/><text class="lettre" x="304.8" y="24.2">M</text><circle class="pt pt-u" cx="62.2" cy="24.2" r="4.5"/><text class="lettre" x="38.2" y="24.2">N</text><text class="moyen halo" x="98.8" y="121.2" text-anchor="middle">6 cm</text><text class="moyen halo" x="275.9" y="120.9" text-anchor="middle">8 cm</text><text class="moyen halo" x="252.8" y="81.1" text-anchor="middle">4,5 cm</text><text class="moyen halo" x="113.1" y="81.4" text-anchor="middle">AN = ?</text><text class="moyen halo" x="190.5" y="200.2" text-anchor="middle">7 cm</text><text class="moyen halo" x="184.8" y="38.5" text-anchor="middle">MN = ?</text></svg><figcaption>Dans le papillon, $AM$ se mesure de $A$ à $M$, et $AB$ de $A$ à $B$ : de part et d'autre de $A$.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>Les hypothèses.</strong> Les droites $(BM)$ et $(CN)$ se coupent en $A$, et $(MN)\parallel(BC)$.</li>
+        <li><strong>Les trois rapports.</strong> D'après le théorème de Thalès : $\dfrac{AM}{AB}=\dfrac{AN}{AC}=\dfrac{MN}{BC}$, soit $\dfrac{4{,}5}{6}=\dfrac{AN}{8}=\dfrac{MN}{7}$.</li>
+        <li><strong>Le rapport.</strong> $\dfrac{4{,}5}{6}=\dfrac{45}{60}=\dfrac{3}{4}=0{,}75$ : le triangle $AMN$ fait les trois quarts de $ABC$.</li>
+        <li><strong>Les deux longueurs.</strong> $AN = 0{,}75\times 8 = 6$ cm et $MN = 0{,}75\times 7 = 5{,}25$ cm. (Par le produit en croix : $AN=\dfrac{4{,}5\times 8}{6}=\dfrac{36}{6}=6$ et $MN=\dfrac{4{,}5\times 7}{6}=\dfrac{31{,}5}{6}=5{,}25$.)</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Les rapports mélangés">
+    <ul>
+      <li>$\dfrac{AM}{AB}=\dfrac{AC}{AN}$ est <strong>faux</strong> : dans un rapport, le petit triangle est en haut ; dans l'autre, il serait en bas. Chaque rapport s'écrit <em>petit sur grand</em>, ou chaque rapport <em>grand sur petit</em>, mais pas l'un et l'autre.</li>
+      <li>$\dfrac{AM}{MB}=\dfrac{MN}{BC}$ est <strong>faux</strong> aussi : $MB$ n'est le côté d'aucun des deux triangles. Avec $AM = 2$ et $MB = 3$, on a $AB = 5$ : le rapport est $\dfrac{2}{5}$, pas $\dfrac{2}{3}$.</li>
+    </ul>
+    <p>Le réflexe : les deux longueurs d'un rapport partent toutes les deux de $A$ (ou sont les deux parallèles).</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Dans le papillon, les longueurs partent de A">
+    <p>$AM$ est la distance de $A$ à $M$ — pas la distance de $M$ à $B$, ni l'écart entre les deux parallèles. Quand l'énoncé donne $MB$ et $AB$ dans un papillon, $AM = MB - AB$ : on soustrait, parce que $A$ est <em>entre</em> $M$ et $B$. Dans les triangles emboîtés, c'est l'inverse : $AB = AM + MB$.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-reciproque">5. Prouver que deux droites sont parallèles : la réciproque</h3>
+
+  <div class="bloc theoreme" data-titre="Réciproque du théorème de Thalès">
+    <p>Soit deux droites $(BM)$ et $(CN)$ qui se coupent en $A$. Si les points $A, M, B$ et les points $A, N, C$ sont alignés <strong>dans le même ordre</strong>, et si</p>
+    $$ \frac{AM}{AB}=\frac{AN}{AC}, $$
+    <p>alors $(MN)\parallel(BC)$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 381 198" role="img" aria-label="Deux dessins côte à côte. À gauche, des triangles emboîtés : en partant de A, on rencontre M puis B sur une droite, N puis C sur l'autre. À droite, un papillon : B puis A puis M sur une droite, C puis A puis N sur l'autre. Dans les deux cas, les points sont « dans le même ordre »."><polygon class="forme" points="70.8,32.8 25.2,169.6 169.6,169.6"/><polygon class="forme forme-image" points="70.8,32.8 48.0,101.2 120.2,101.2"/><g class="trace t-n"><line x1="70.8" y1="32.8" x2="25.2" y2="169.6"/></g><g class="trace t-n"><line x1="70.8" y1="32.8" x2="169.6" y2="169.6"/></g><g class="trace t-u"><line x1="48.0" y1="101.2" x2="120.2" y2="101.2"/></g><g class="trace t-u"><line x1="25.2" y1="169.6" x2="169.6" y2="169.6"/></g><g class="trace t-u ep-2-5"><path d="M90.4,176.6 L97.4,169.6 L90.4,162.6"/></g><g class="trace t-u ep-2-5"><path d="M77.1,108.2 L84.1,101.2 L77.1,94.2"/></g><circle class="pt " cx="25.2" cy="169.6" r="4.5"/><text class="lettre" x="3.2" y="179.6">B</text><circle class="pt " cx="169.6" cy="169.6" r="4.5"/><text class="lettre" x="177.6" y="179.6">C</text><circle class="pt " cx="70.8" cy="32.8" r="4.5"/><text class="lettre" x="62.8" y="30.8">A</text><circle class="pt pt-u" cx="48.0" cy="101.2" r="4.5"/><text class="lettre" x="24.0" y="111.2">M</text><circle class="pt pt-u" cx="120.2" cy="101.2" r="4.5"/><text class="lettre" x="128.2" y="111.2">N</text><text class="moyen halo" x="97.4" y="182.8" text-anchor="middle">A, M, B · A, N, C</text><polygon class="forme" points="283.6,93.6 211.4,169.6 359.6,169.6"/><polygon class="forme forme-image" points="283.6,93.6 326.9,48.0 238.0,48.0"/><g class="trace t-n"><line x1="326.9" y1="48.0" x2="211.4" y2="169.6"/></g><g class="trace t-n"><line x1="238.0" y1="48.0" x2="359.6" y2="169.6"/></g><g class="trace t-u"><line x1="326.9" y1="48.0" x2="238.0" y2="48.0"/></g><g class="trace t-u"><line x1="211.4" y1="169.6" x2="359.6" y2="169.6"/></g><g class="trace t-u ep-2-5"><path d="M278.5,176.6 L285.5,169.6 L278.5,162.6"/></g><g class="trace t-u ep-2-5"><path d="M275.4,55.0 L282.4,48.0 L275.4,41.0"/></g><circle class="pt " cx="211.4" cy="169.6" r="4.5"/><text class="lettre" x="189.4" y="179.6">B</text><circle class="pt " cx="359.6" cy="169.6" r="4.5"/><text class="lettre" x="367.6" y="179.6">C</text><circle class="pt " cx="283.6" cy="93.6" r="4.5"/><text class="lettre" x="293.6" y="95.6">A</text><circle class="pt pt-u" cx="326.9" cy="48.0" r="4.5"/><text class="lettre" x="332.9" y="48.0">M</text><circle class="pt pt-u" cx="238.0" cy="48.0" r="4.5"/><text class="lettre" x="214.0" y="48.0">N</text><text class="moyen halo" x="283.6" y="182.8" text-anchor="middle">B, A, M · C, A, N</text></svg><figcaption>« Dans le même ordre » : en partant de $A$, soit on rencontre $M$ puis $B$ et $N$ puis $C$ (emboîtés), soit $A$ est entre $B$ et $M$ et entre $C$ et $N$ (papillon). Les deux droites doivent raconter la même histoire.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Montrer que deux droites sont parallèles">
+    <ol class="etapes">
+      <li><span>Je vérifie que les points sont dans le même ordre sur les deux droites, et je l'écris : « Les points $A, M, B$ et $A, N, C$ sont alignés dans le même ordre. »</span></li>
+      <li><span>Je calcule <em>séparément</em> les deux rapports $\dfrac{AM}{AB}$ et $\dfrac{AN}{AC}$, en fractions simplifiées ou en nombres décimaux exacts.</span></li>
+      <li><span>S'ils sont égaux, j'écris : « $\dfrac{AM}{AB}=\dfrac{AN}{AC}$, donc d'après la réciproque du théorème de Thalès, $(MN)\parallel(BC)$. »</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Sur la figure ci-dessous, $AM = 3$ cm, $AB = 4{,}5$ cm, $AN = 4$ cm et $AC = 6$ cm. Les droites $(MN)$ et $(BC)$ sont-elles parallèles ?</p>
+      <figure class="figure-svg"><svg viewBox="0 0 514 248" role="img" aria-label="Un triangle ABC, M sur [AB] et N sur [AC], sans codage de parallèles : AM = 3 cm, AB = 4,5 cm, AN = 4 cm, AC = 6 cm. La question : (MN) est-elle parallèle à (BC) ?"><polygon class="forme" points="177.2,25.2 101.2,222.8 412.8,222.8"/><g class="trace t-n"><line x1="177.2" y1="25.2" x2="101.2" y2="222.8"/></g><g class="trace t-n"><line x1="177.2" y1="25.2" x2="412.8" y2="222.8"/></g><g class="trace t-n"><line x1="101.2" y1="222.8" x2="412.8" y2="222.8"/></g><g class="trace t-v"><line x1="126.5" y1="156.9" x2="334.3" y2="156.9"/></g><circle class="pt " cx="101.2" cy="222.8" r="4.5"/><text class="lettre" x="79.2" y="232.8">B</text><circle class="pt " cx="412.8" cy="222.8" r="4.5"/><text class="lettre" x="420.8" y="232.8">C</text><circle class="pt " cx="177.2" cy="25.2" r="4.5"/><text class="lettre" x="169.2" y="23.2">A</text><circle class="pt pt-v" cx="126.5" cy="156.9" r="4.5"/><text class="lettre" x="102.5" y="166.9">M</text><circle class="pt pt-v" cx="334.3" cy="156.9" r="4.5"/><text class="lettre" x="342.3" y="166.9">N</text><text class="moyen halo" x="133.2" y="88.9" text-anchor="middle">3 cm</text><text class="moyen halo" x="67.1" y="193.9" text-anchor="middle">AB = 4,5 cm</text><text class="moyen halo" x="268.5" y="80.8" text-anchor="middle">4 cm</text><text class="moyen halo" x="416.9" y="179.0" text-anchor="middle">AC = 6 cm</text><text class="moyen halo" x="257.0" y="190.5" text-anchor="middle">(MN) ∥ (BC) ?</text></svg><figcaption>Aucun codage de parallèles : c'est justement ce qu'il faut prouver. Le dessin ne compte pas, seuls les nombres comptent.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>L'ordre des points.</strong> $M\in[AB]$ et $N\in[AC]$ : les points $A, M, B$ et $A, N, C$ sont alignés dans le même ordre.</li>
+        <li><strong>Les deux rapports, à part.</strong> $\dfrac{AM}{AB}=\dfrac{3}{4{,}5}=\dfrac{30}{45}=\dfrac{2}{3}$ et $\dfrac{AN}{AC}=\dfrac{4}{6}=\dfrac{2}{3}$.</li>
+        <li><strong>Conclusion.</strong> $\dfrac{AM}{AB}=\dfrac{AN}{AC}$ ; d'après la réciproque du théorème de Thalès, $(MN)\parallel(BC)$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Des rapports égaux ne suffisent pas : l'ordre des points">
+    <figure class="figure-svg"><svg viewBox="0 0 381 198" role="img" aria-label="Les droites (AB) et (AC) se coupent en A. M est sur le segment [AB], entre A et B ; N est sur la droite (AC) mais de l'autre côté de A. AM/AB = AN/AC = 1/2, et pourtant (MN) n'est pas parallèle à (BC) : les points ne sont pas dans le même ordre."><polygon class="forme" points="184.8,89.8 32.8,177.2 348.2,177.2"/><g class="trace t-n"><line x1="22.9" y1="182.9" x2="194.7" y2="84.1"/></g><g class="trace t-n"><line x1="93.0" y1="40.7" x2="358.3" y2="182.6"/></g><g class="trace t-u"><line x1="32.8" y1="177.2" x2="348.2" y2="177.2"/></g><g class="trace t-ko"><line x1="108.8" y1="133.5" x2="103.1" y2="46.1"/></g><g class="trace t-u ep-2-5"><path d="M183.5,184.2 L190.5,177.2 L183.5,170.2"/></g><circle class="pt " cx="184.8" cy="89.8" r="4.5"/><text class="lettre" x="194.8" y="93.8">A</text><circle class="pt " cx="32.8" cy="177.2" r="4.5"/><text class="lettre" x="10.8" y="187.2">B</text><circle class="pt " cx="348.2" cy="177.2" r="4.5"/><text class="lettre" x="356.2" y="187.2">C</text><circle class="pt pt-v" cx="108.8" cy="133.5" r="4.5"/><text class="lettre" x="84.8" y="141.5">M</text><circle class="pt pt-v" cx="103.1" cy="46.1" r="4.5"/><text class="lettre" x="79.1" y="46.1">N</text><text class="moyen halo" x="283.6" y="40.4" text-anchor="middle">AM/AB = AN/AC = 1/2</text><text class="moyen halo" x="283.6" y="63.2" text-anchor="middle">et pourtant (MN) ∦ (BC)</text></svg><figcaption>$M$ est entre $A$ et $B$, mais $N$ est de l'autre côté de $A$. Les rapports valent tous les deux $\dfrac12$… et $(MN)$ coupe $(BC)$.</figcaption></figure>
+    <p>La réciproque a <strong>deux hypothèses</strong> : l'égalité des rapports <em>et</em> l'ordre des points. Sur la figure, $\dfrac{AM}{AB}=\dfrac{AN}{AC}=\dfrac12$, et pourtant les droites ne sont pas parallèles, parce que $M$ et $N$ ne sont pas « du même côté » de $A$. Une copie qui oublie l'ordre des points perd la moitié des points de la question, même quand la conclusion est juste.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-contraposee">6. Prouver que deux droites ne sont pas parallèles</h3>
+
+  <div class="bloc propriete" data-titre="La contraposée du théorème de Thalès">
+    <p>Soit deux droites $(BM)$ et $(CN)$ qui se coupent en $A$. <strong>Si $\dfrac{AM}{AB}\neq\dfrac{AN}{AC}$, alors $(MN)$ et $(BC)$ ne sont pas parallèles.</strong></p>
+    <p>C'est le théorème lu à l'envers : si les droites étaient parallèles, les rapports seraient égaux ; ils ne le sont pas, donc les droites ne le sont pas. Ici, <strong>pas besoin de l'ordre des points</strong> : le théorème s'applique dans toutes les configurations.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Montrer que deux droites ne sont pas parallèles">
+    <ol class="etapes">
+      <li><span>Je calcule séparément $\dfrac{AM}{AB}$ et $\dfrac{AN}{AC}$.</span></li>
+      <li><span>Je constate qu'ils sont différents, en comparant des fractions irréductibles ou des décimaux exacts — pas des valeurs arrondies.</span></li>
+      <li><span>J'écris : « Si $(MN)$ et $(BC)$ étaient parallèles, d'après le théorème de Thalès on aurait $\dfrac{AM}{AB}=\dfrac{AN}{AC}$. Or ce n'est pas le cas. Donc $(MN)$ et $(BC)$ ne sont pas parallèles. »</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> $M\in[AB]$, $N\in[AC]$, $AM = 3$ cm, $AB = 5$ cm, $AN = 4$ cm, $AC = 6$ cm. Montrer que $(MN)$ et $(BC)$ ne sont pas parallèles.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 514 248" role="img" aria-label="Un triangle ABC, M sur [AB] et N sur [AC] : AM = 3 cm, AB = 5 cm, AN = 4 cm, AC = 6 cm. Les rapports 3/5 et 4/6 ne sont pas égaux : (MN) n'est pas parallèle à (BC), et la figure le montre à peine."><polygon class="forme" points="177.2,25.2 101.2,222.8 412.8,222.8"/><g class="trace t-n"><line x1="177.2" y1="25.2" x2="101.2" y2="222.8"/></g><g class="trace t-n"><line x1="177.2" y1="25.2" x2="412.8" y2="222.8"/></g><g class="trace t-n"><line x1="101.2" y1="222.8" x2="412.8" y2="222.8"/></g><g class="trace t-ko"><line x1="131.6" y1="143.8" x2="334.3" y2="156.9"/></g><circle class="pt " cx="101.2" cy="222.8" r="4.5"/><text class="lettre" x="79.2" y="232.8">B</text><circle class="pt " cx="412.8" cy="222.8" r="4.5"/><text class="lettre" x="420.8" y="232.8">C</text><circle class="pt " cx="177.2" cy="25.2" r="4.5"/><text class="lettre" x="169.2" y="23.2">A</text><circle class="pt pt-v" cx="131.6" cy="143.8" r="4.5"/><text class="lettre" x="107.6" y="153.8">M</text><circle class="pt pt-v" cx="334.3" cy="156.9" r="4.5"/><text class="lettre" x="342.3" y="166.9">N</text><text class="moyen halo" x="135.7" y="82.3" text-anchor="middle">3 cm</text><text class="moyen halo" x="72.3" y="191.8" text-anchor="middle">AB = 5 cm</text><text class="moyen halo" x="268.5" y="80.8" text-anchor="middle">4 cm</text><text class="moyen halo" x="416.9" y="179.0" text-anchor="middle">AC = 6 cm</text></svg><figcaption>À l'œil, on dirait des parallèles. C'est pour ça qu'on calcule.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>Les deux rapports.</strong> $\dfrac{AM}{AB}=\dfrac{3}{5}=0{,}6$ et $\dfrac{AN}{AC}=\dfrac{4}{6}=\dfrac{2}{3}$, qui n'est pas un nombre décimal ($0{,}666\ldots$).</li>
+        <li><strong>Ils sont différents.</strong> $\dfrac{3}{5}=\dfrac{9}{15}$ et $\dfrac{2}{3}=\dfrac{10}{15}$ : $\dfrac{9}{15}\neq\dfrac{10}{15}$.</li>
+        <li><strong>Conclusion.</strong> Si $(MN)$ et $(BC)$ étaient parallèles, le théorème de Thalès donnerait $\dfrac{AM}{AB}=\dfrac{AN}{AC}$. Or $\dfrac{3}{5}\neq\dfrac{4}{6}$. Donc $(MN)$ et $(BC)$ ne sont pas parallèles.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Presque égaux, ce n'est pas égal">
+    <p>$0{,}667$ et $0{,}66$ se ressemblent : ce sont pourtant deux nombres différents, et des droites qui « ont l'air parallèles » ne le sont pas pour autant. Pour comparer deux rapports, on garde des <strong>fractions</strong> ou des décimaux <strong>exacts</strong> ; on n'arrondit pas avant d'avoir comparé. Et une figure n'est jamais une preuve : les sujets le précisent souvent, « la figure n'est pas à l'échelle ».</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Théorème, réciproque ou contraposée ?">
+    <ul>
+      <li>On <strong>connaît</strong> les parallèles et on cherche une longueur : le <strong>théorème</strong>.</li>
+      <li>On veut <strong>prouver</strong> que deux droites sont parallèles : la <strong>réciproque</strong> (avec l'ordre des points).</li>
+      <li>On veut prouver qu'elles ne le sont <strong>pas</strong> : la <strong>contraposée</strong> (le théorème lu à l'envers).</li>
+    </ul>
+    <p>Utiliser la réciproque pour calculer une longueur, ou le théorème pour prouver un parallélisme, c'est se tromper d'outil : la copie dit une chose vraie avec une justification fausse.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-proportionnalite">7. Thalès et la proportionnalité</h3>
+
+  <div class="bloc propriete" data-titre="Agrandir, réduire">
+    <p>Dans une configuration de Thalès de rapport $k=\dfrac{AM}{AB}$, le triangle $AMN$ est une <strong>réduction</strong> (si $k&lt;1$) ou un <strong>agrandissement</strong> (si $k&gt;1$) du triangle $ABC$ : chaque longueur du grand, multipliée par $k$, donne la longueur du petit qui lui correspond. Les longueurs sont <strong>proportionnelles</strong>, avec $k$ pour coefficient.</p>
+  </div>
+
+  <div class="colonnes">
+    <figure class="figure-svg"><svg viewBox="0 0 324 255" role="img" aria-label="Un repère : la droite qui passe par l'origine O et par les points M (2 ; 1,5) et N (6 ; 4,5). Les segments verticaux [MP] et [NQ] tombent sur l'axe des abscisses en P (2 ; 0) et Q (6 ; 0) : ils sont parallèles, et les triangles OPM et OQN sont emboîtés."><g class="quadrillage"><line x1="34.0" y1="222.0" x2="34.0" y2="22.0"/><line x1="74.0" y1="222.0" x2="74.0" y2="22.0"/><line x1="114.0" y1="222.0" x2="114.0" y2="22.0"/><line x1="154.0" y1="222.0" x2="154.0" y2="22.0"/><line x1="194.0" y1="222.0" x2="194.0" y2="22.0"/><line x1="234.0" y1="222.0" x2="234.0" y2="22.0"/><line x1="274.0" y1="222.0" x2="274.0" y2="22.0"/><line x1="34.0" y1="222.0" x2="298.0" y2="222.0"/><line x1="34.0" y1="182.0" x2="298.0" y2="182.0"/><line x1="34.0" y1="142.0" x2="298.0" y2="142.0"/><line x1="34.0" y1="102.0" x2="298.0" y2="102.0"/><line x1="34.0" y1="62.0" x2="298.0" y2="62.0"/><line x1="34.0" y1="22.0" x2="298.0" y2="22.0"/></g><g class="trace t-n"><line x1="10.0" y1="222.0" x2="302.2" y2="222.0"/><polygon points="310.0,222.0 297.0,227.8 297.0,216.2"/></g><g class="trace t-n"><line x1="34.0" y1="246.0" x2="34.0" y2="21.8"/><polygon points="34.0,14.0 39.9,27.0 28.1,27.0"/></g><polygon class="forme" points="34.0,222.0 274.0,222.0 274.0,42.0"/><polygon class="forme forme-image" points="34.0,222.0 114.0,222.0 114.0,162.0"/><g class="trace t-v"><line x1="24.4" y1="229.2" x2="283.6" y2="34.8"/></g><g class="trace t-u"><line x1="114.0" y1="222.0" x2="114.0" y2="162.0"/></g><g class="trace t-u"><line x1="274.0" y1="222.0" x2="274.0" y2="42.0"/></g><g class="trace t-u ep-2-5"><path d="M121.0,199.0 L114.0,192.0 L107.0,199.0"/></g><g class="trace t-u ep-2-5"><path d="M281.0,139.0 L274.0,132.0 L267.0,139.0"/></g><circle class="pt " cx="34.0" cy="222.0" r="4.5"/><text class="lettre" x="16.0" y="246.0">O</text><circle class="pt " cx="114.0" cy="222.0" r="4.5"/><circle class="pt " cx="274.0" cy="222.0" r="4.5"/><text class="lettre halo" x="121.0" y="216.0" text-anchor="start">P</text><text class="lettre halo" x="281.0" y="216.0" text-anchor="start">Q</text><circle class="pt pt-u" cx="114.0" cy="162.0" r="4.5"/><text class="lettre" x="92.0" y="164.0">M</text><circle class="pt pt-u" cx="274.0" cy="42.0" r="4.5"/><text class="lettre" x="284.0" y="44.0">N</text><text class="petit" x="74.0" y="240.0" text-anchor="middle">1</text><text class="petit" x="114.0" y="240.0" text-anchor="middle">2</text><text class="petit" x="154.0" y="240.0" text-anchor="middle">3</text><text class="petit" x="194.0" y="240.0" text-anchor="middle">4</text><text class="petit" x="234.0" y="240.0" text-anchor="middle">5</text><text class="petit" x="274.0" y="240.0" text-anchor="middle">6</text><text class="petit" x="29.2" y="187.0" text-anchor="end">1</text><text class="petit" x="29.2" y="147.0" text-anchor="end">2</text><text class="petit" x="29.2" y="107.0" text-anchor="end">3</text><text class="petit" x="29.2" y="67.0" text-anchor="end">4</text><text class="petit" x="29.2" y="27.0" text-anchor="end">5</text><text class="moyen halo" x="278.0" y="26.0" text-anchor="end">y = 0,75 x</text></svg><figcaption>La droite $y = 0{,}75\,x$ passe par $O$. Les segments $[PM]$ et $[QN]$ sont verticaux, donc parallèles : $OPM$ et $OQN$ sont des triangles emboîtés.</figcaption></figure>
+    <div class="bloc exemple" data-titre="Un graphique de proportionnalité est une figure de Thalès">
+      <p>Sur la figure, $\dfrac{OP}{OQ}=\dfrac{2}{6}=\dfrac13$ et $\dfrac{PM}{QN}=\dfrac{1{,}5}{4{,}5}=\dfrac13$ : c'est le théorème de Thalès dans le triangle $OQN$. Lu autrement : $\dfrac{PM}{OP}=\dfrac{1{,}5}{2}=0{,}75$ et $\dfrac{QN}{OQ}=\dfrac{4{,}5}{6}=0{,}75$, le même coefficient pour tous les points de la droite. C'est pour cela qu'une situation de proportionnalité se représente par une <strong>droite qui passe par l'origine</strong>.</p>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Et les aires ?">
+    <p>Si les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$ (deux dimensions) et les volumes par $k^3$. Un triangle réduit de moitié a une aire quatre fois plus petite. Ce sera au programme du chapitre sur les homothéties.</p>
+  </div>
+
+  <!-- ===== pièges ===== -->
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait un jour">
+    <ul>
+      <li><strong>Les rapports dans le mauvais ordre</strong> ($\frac{AM}{AB}=\frac{AC}{AN}$). Petit sur grand, dans chaque rapport.</li>
+      <li><strong>$MB$ à la place de $AB$</strong> ($\frac{AM}{MB}=\frac{MN}{BC}$). Les deux longueurs d'un rapport partent de $A$. $MB$ n'est le côté d'aucun des deux triangles.</li>
+      <li><strong>Thalès sans parallèles.</strong> Deux droites qui « ont l'air parallèles » sur la figure ne donnent aucun droit d'écrire les rapports. L'hypothèse s'écrit avant le calcul : « $(MN)\parallel(BC)$ », donnée par l'énoncé ou prouvée.</li>
+      <li><strong>Dans le papillon, la mauvaise longueur.</strong> $AM$ va de $A$ à $M$ ; ce n'est ni $MB$ ni l'écart entre les parallèles.</li>
+      <li><strong>Le produit en croix mal posé</strong> : multiplier les deux numérateurs, ou laisser l'inconnue en bas et « diviser à l'envers ». On retourne les deux rapports pour mettre l'inconnue en haut.</li>
+      <li><strong>Le raisonnement additif</strong> : « $AM = AB - 3$, donc $MN = BC - 3$ ». Thalès multiplie, il n'ajoute pas. Si $AB$ est réduit de moitié, $BC$ aussi.</li>
+      <li><strong>La réciproque sans l'ordre des points.</strong> Des rapports égaux ne suffisent pas : il faut écrire que $A, M, B$ et $A, N, C$ sont alignés dans le même ordre.</li>
+      <li><strong>Conclure sur des arrondis</strong> : $0{,}667$ et $0{,}66$ ne sont pas égaux. Des fractions, ou des décimaux exacts.</li>
+      <li><strong>Les unités mélangées</strong> : une ombre en mètres et un bâton en centimètres dans le même rapport. Tout dans la même unité, et l'unité dans la conclusion.</li>
+      <li><strong>Théorème et réciproque confondus.</strong> Pour calculer : le théorème. Pour prouver des parallèles : la réciproque. Pour prouver qu'elles ne le sont pas : la contraposée.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Thalès : les deux configurations et les trois rapports"></div>
+    <div class="video" data-titre="La réciproque et la contraposée"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, dans l'ordre : d'abord <strong>rendre deux droites parallèles</strong> en jouant sur les rapports (et voir ce qui se passe quand les points ne sont pas dans le même ordre), puis <strong>mesurer un arbre</strong> avec son ombre, et enfin fabriquer une <strong>chambre noire</strong>, un papillon de lumière. Chaque labo a un défi : c'est le défi qui compte.</p>
+  <div class="labo" data-labo="thales-3" data-outil="paralleles"></div>
+  <div class="labo" data-labo="thales-3" data-outil="ombre"></div>
+  <div class="labo" data-labo="thales-3" data-outil="chambre"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des figures au hasard : reconnaître la configuration, écrire les bons rapports, calculer une longueur, décider si deux droites sont parallèles. Le quiz reprend les réflexes du cours. Le contrôle blanc s'ajoute en bas.</p>
+
+  <div class="jeu" data-generateurs="thales-3" data-questions="10" data-titre="Le défi de Thalès"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Dans une configuration de Thalès avec les trios $A, M, B$ et $A, N, C$, les deux droites parallèles sont…</p>
+      <ul class="choix">
+        <li class="bon">$(MN)$ et $(BC)$</li><li>$(AB)$ et $(AC)$</li><li>$(AM)$ et $(AN)$</li>
+      </ul>
+      <div class="explication">$(AB)$ et $(AC)$ sont les deux droites qui se coupent en $A$ (et $(AM)$ est la même droite que $(AB)$). Les parallèles sont les deux « traverses » : $(MN)$ et $(BC)$.</div>
+    </div>
+    <div class="question">
+      <p>Le théorème de Thalès (pas sa réciproque) sert à…</p>
+      <ul class="choix">
+        <li class="bon">calculer une longueur quand on sait que deux droites sont parallèles</li><li>prouver que deux droites sont parallèles</li><li>calculer un angle</li>
+      </ul>
+      <div class="explication">Le théorème part des parallèles et donne des rapports égaux : on s'en sert pour calculer. Prouver un parallélisme, c'est la réciproque. Les angles, c'est la trigonométrie.</div>
+    </div>
+    <div class="question" data-reponse="4">
+      <p>$M\in[AB]$, $N\in[AC]$, $(MN)\parallel(BC)$, $AM = 3$ cm, $AB = 9$ cm, $AC = 12$ cm. Combien vaut $AN$, en cm ?</p>
+      <div class="explication">$\dfrac{AM}{AB}=\dfrac{AN}{AC}$ : $\dfrac{3}{9}=\dfrac{AN}{12}$, donc $AN=\dfrac{3\times12}{9}=4$ cm. Le petit triangle fait le tiers du grand.</div>
+    </div>
+    <div class="question">
+      <p>Dans les triangles emboîtés $ABC$ et $AMN$, quelle égalité est juste ?</p>
+      <ul class="choix">
+        <li class="bon">$\dfrac{AM}{AB}=\dfrac{MN}{BC}$</li><li>$\dfrac{AM}{MB}=\dfrac{MN}{BC}$</li><li>$\dfrac{AM}{AB}=\dfrac{BC}{MN}$</li>
+      </ul>
+      <div class="explication">Petit sur grand, et les deux longueurs d'un rapport partent de $A$ (ou sont les deux parallèles). $MB$ n'est le côté d'aucun triangle, et $\frac{BC}{MN}$ est grand sur petit.</div>
+    </div>
+    <div class="question" data-reponse="7,5">
+      <p>$(MN)\parallel(BC)$, $AM = 2$ cm, $AB = 5$ cm, $MN = 3$ cm. Combien vaut $BC$, en cm ?</p>
+      <div class="explication">$\dfrac{AM}{AB}=\dfrac{MN}{BC}$ : $\dfrac25=\dfrac{3}{BC}$. On retourne : $\dfrac52=\dfrac{BC}{3}$, donc $BC=\dfrac{5\times3}{2}=7{,}5$ cm.</div>
+    </div>
+    <div class="question">
+      <p>Les points $A, M, B$ et $A, N, C$ sont alignés dans le même ordre, et $\dfrac{AM}{AB}=\dfrac{AN}{AC}$. On conclut que $(MN)\parallel(BC)$ d'après…</p>
+      <ul class="choix">
+        <li class="bon">la réciproque du théorème de Thalès</li><li>le théorème de Thalès</li><li>la contraposée du théorème de Thalès</li>
+      </ul>
+      <div class="explication">Des rapports égaux et l'ordre des points, vers des parallèles : c'est la réciproque. Le théorème va dans l'autre sens, et la contraposée sert à prouver que des droites ne sont pas parallèles.</div>
+    </div>
+    <div class="question">
+      <p>$M\in[AB]$, $N\in[AC]$, $AM = 3$, $AB = 5$, $AN = 4$, $AC = 6$. Les droites $(MN)$ et $(BC)$ sont…</p>
+      <ul class="choix">
+        <li class="bon">pas parallèles : $\dfrac35\neq\dfrac46$</li><li>parallèles : les rapports sont presque égaux</li><li>on ne peut pas savoir</li>
+      </ul>
+      <div class="explication">$\dfrac35=0{,}6$ et $\dfrac46=0{,}666\ldots$ : deux nombres différents. D'après la contraposée du théorème de Thalès, les droites ne sont pas parallèles. « Presque égal » n'est pas « égal ».</div>
+    </div>
+    <div class="question">
+      <p>Dans un papillon de sommet $A$, la longueur $AM$ se mesure…</p>
+      <ul class="choix">
+        <li class="bon">de $A$ à $M$</li><li>entre les deux droites parallèles</li><li>de $M$ à $B$</li>
+      </ul>
+      <div class="explication">Toujours de $A$ au point. Dans le papillon, $A$ est entre $M$ et $B$ : $MB = AM + AB$, et $AM$ est l'une des deux parts.</div>
+    </div>
+    <div class="question" data-reponse="9">
+      <p>Un bâton de $1{,}5$ m, planté au bout de l'ombre d'un arbre, a une ombre de $2$ m ; l'ombre de l'arbre mesure $12$ m. Quelle est la hauteur de l'arbre, en mètres ?</p>
+      <div class="explication">Les triangles (bâton, ombre) et (arbre, ombre) sont emboîtés, de sommet le bout des ombres. $\dfrac{2}{12}=\dfrac{1{,}5}{h}$, donc $h=\dfrac{1{,}5\times12}{2}=9$ m. L'arbre est six fois plus grand que le bâton, comme son ombre.</div>
+    </div>
+    <div class="question">
+      <p>$M$ est entre $A$ et $B$ ; $N$ est sur la droite $(AC)$ mais de l'autre côté de $A$. On calcule $\dfrac{AM}{AB}=\dfrac{AN}{AC}$. Que peut-on conclure ?</p>
+      <ul class="choix">
+        <li class="bon">Rien avec la réciproque : les points ne sont pas dans le même ordre</li><li>$(MN)\parallel(BC)$</li><li>$(MN)\parallel(BC)$ si on retourne les rapports</li>
+      </ul>
+      <div class="explication">La réciproque a deux hypothèses : l'égalité des rapports <em>et</em> le même ordre des points. Ici le second manque, et la figure le montre : $(MN)$ coupe $(BC)$.</div>
+    </div>
+    <div class="question">
+      <p>Deux calculs exacts donnent $\dfrac{AM}{AB}=\dfrac{2}{3}$ et $\dfrac{AN}{AC}=\dfrac{33}{50}$. Les droites $(MN)$ et $(BC)$ sont-elles parallèles ?</p>
+      <ul class="choix">
+        <li class="bon">Non : $\dfrac23\neq\dfrac{33}{50}$, même si $0{,}667\approx0{,}66$</li><li>Oui, à l'arrondi près</li><li>On ne peut rien dire sans la figure</li>
+      </ul>
+      <div class="explication">$\dfrac23=\dfrac{100}{150}$ et $\dfrac{33}{50}=\dfrac{99}{150}$ : différents. Par la contraposée, pas parallèles. Les arrondis masquent la différence ; les fractions la montrent.</div>
+    </div>
+    <div class="question" data-reponse="0,75|3/4">
+      <p>$AM = 6$ cm et $AB = 8$ cm. Quel est le rapport de réduction $k=\dfrac{AM}{AB}$ ? (en fraction ou en décimal)</p>
+      <div class="explication">$k=\dfrac{6}{8}=\dfrac34=0{,}75$ : chaque longueur du petit triangle vaut les trois quarts de celle du grand.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Pas de correction à ouvrir : la proportion est déjà écrite, avec l'inconnue en haut, et tu la résous ligne par ligne. Le vérificateur te dit si chaque ligne est juste. Écris <code>x/7,5</code> pour $\dfrac{x}{7{,}5}$ et <code>4*7,5</code> pour $4\times7{,}5$. Si tu bloques, demande un indice, mais cherche d'abord seul.</p>
+
+  <article class="exercice" id="ex-l-inconnue-en-haut" data-titre="L'inconnue en haut" data-niveau="1" data-type="guide" data-notions="thales equation" data-duree="5" data-calculatrice="non">
+    <p>Triangles emboîtés, $(MN)\parallel(BC)$ : $AM = x$, $AB = 7{,}5$ cm, $AN = 4$ cm, $AC = 6$ cm. Le théorème de Thalès donne $\dfrac{AM}{AB}=\dfrac{AN}{AC}$. Résous.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="thales-num" data-depart="x/7,5=4/6" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-un-papillon-a-resoudre" data-titre="Un papillon à résoudre" data-niveau="1" data-type="guide" data-notions="thales equation" data-duree="5" data-calculatrice="non">
+    <p>Papillon de sommet $A$, $(MN)\parallel(BC)$ : $AN = x$, $AC = 8$ cm, $AM = 4{,}5$ cm, $AB = 6$ cm. On a écrit $\dfrac{AN}{AC}=\dfrac{AM}{AB}$. Résous.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="thales-papillon" data-depart="x/8=4,5/6" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-le-produit-en-croix-est-pose" data-titre="Le produit en croix est posé" data-niveau="1" data-type="guide" data-notions="thales equation" data-duree="4" data-calculatrice="non">
+    <p>$\dfrac{AM}{AB}=\dfrac{MN}{BC}$ avec $AM=4$, $AB=6$, $MN=3$ et $BC=x$ : l'inconnue était en bas, on a retourné les rapports et fait le produit en croix : $4x=3\times6$. Finis le calcul.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="thales-croix" data-depart="4x=3*6" data-consigne="Résous :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ reconnaître et calculer, ★★ des situations et des preuves, ★★★ des problèmes complets. Rédige ta réponse avant d'ouvrir la correction : les hypothèses, le théorème nommé, le calcul, la phrase de conclusion avec l'unité. Quand l'exercice demande la calculatrice, l'énoncé le dit ; sinon, fais sans, comme dans la première partie du brevet.</p>
+
+  <h3>Niveau 1 · Reconnaître et calculer</h3>
+
+  <article class="exercice" id="ex-le-produit-en-croix" data-titre="Le produit en croix" data-niveau="1" data-type="application" data-notions="thales equation" data-duree="6" data-calculatrice="non">
+    <p>Trouve le nombre qui manque dans chaque égalité.</p>
+    <p>a) $\dfrac{x}{6}=\dfrac{5}{4}$ · b) $\dfrac{3}{x}=\dfrac{6}{10}$ · c) $\dfrac{7}{5}=\dfrac{x}{2}$ · d) $\dfrac{9}{x}=\dfrac{12}{8}$</p>
+    <details class="indice"><p>Quand $x$ est en bas, retourne les deux fractions : $\dfrac{3}{x}=\dfrac{6}{10}$ devient $\dfrac{x}{3}=\dfrac{10}{6}$.</p></details>
+    <details class="correction">
+      <p>a) $4x=6\times5=30$, donc $x=\dfrac{30}{4}=7{,}5$.</p>
+      <p>b) On retourne : $\dfrac{x}{3}=\dfrac{10}{6}$, donc $x=\dfrac{3\times10}{6}=5$. (Vérification : $\dfrac35=0{,}6=\dfrac{6}{10}$.)</p>
+      <p>c) $5x=7\times2=14$, donc $x=\dfrac{14}{5}=2{,}8$.</p>
+      <p>d) On retourne : $\dfrac{x}{9}=\dfrac{8}{12}$, donc $x=\dfrac{9\times8}{12}=\dfrac{72}{12}=6$. (Vérification : $\dfrac96=1{,}5=\dfrac{12}{8}$.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-ecrire-les-rapports" data-titre="Écrire les rapports" data-niveau="1" data-type="application" data-notions="thales" data-duree="6" data-calculatrice="non">
+    <p>Les droites $(KM)$ et $(LN)$ se coupent en $O$ ; $K\in[OM]$, $L\in[ON]$ et $(KL)\parallel(MN)$.</p>
+    <p>1. Fais une figure à main levée et nomme les deux triangles.<br>2. Écris les trois rapports égaux donnés par le théorème de Thalès.<br>3. $OK = 3$ cm et $OM = 8$ cm : quel est le rapport de réduction ? Combien vaut $KL$ si $MN = 12$ cm ?</p>
+    <details class="indice"><p>Le sommet commun est $O$ : chaque longueur d'un rapport commence par $O$, sauf celles des deux parallèles.</p></details>
+    <details class="correction">
+      <p>1. Les triangles emboîtés sont $OMN$ (le grand) et $OKL$ (le petit) ; les trios sont $O, K, M$ et $O, L, N$.</p>
+      <p>2. D'après le théorème de Thalès, $\dfrac{OK}{OM}=\dfrac{OL}{ON}=\dfrac{KL}{MN}$.</p>
+      <p>3. $k=\dfrac{OK}{OM}=\dfrac38=0{,}375$. Alors $\dfrac{KL}{MN}=\dfrac38$, donc $KL=\dfrac{3\times12}{8}=\dfrac{36}{8}=4{,}5$ cm.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-triangles-emboites" data-titre="Triangles emboîtés" data-niveau="1" data-type="application" data-notions="thales" data-duree="10" data-calculatrice="non">
+    <p>Dans le triangle $ABC$, $M\in[AB]$ et $N\in[AC]$ avec $(MN)\parallel(BC)$. On donne $AB = 10$ cm, $AC = 8$ cm, $BC = 6$ cm et $AM = 4$ cm. Calcule $AN$ et $MN$.</p>
+    <details class="indice"><p>Calcule d'abord le rapport $\dfrac{AM}{AB}$ : c'est lui qui donne tout le reste.</p></details>
+    <details class="correction">
+      <p>Les droites $(BM)$ et $(CN)$ se coupent en $A$, et $(MN)\parallel(BC)$. D'après le théorème de Thalès : $\dfrac{AM}{AB}=\dfrac{AN}{AC}=\dfrac{MN}{BC}$, soit $\dfrac{4}{10}=\dfrac{AN}{8}=\dfrac{MN}{6}$.</p>
+      <p>Le rapport vaut $\dfrac{4}{10}=0{,}4$. Donc $AN=0{,}4\times8=3{,}2$ cm et $MN=0{,}4\times6=2{,}4$ cm.</p>
+      <p>Par le produit en croix, c'est pareil : $AN=\dfrac{4\times8}{10}=3{,}2$ et $MN=\dfrac{4\times6}{10}=2{,}4$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-papillon" data-titre="Le papillon" data-niveau="1" data-type="application" data-notions="thales" data-duree="10" data-calculatrice="non">
+    <p>Les droites $(BM)$ et $(CN)$ se coupent en $A$, avec $A$ entre $B$ et $M$, et $A$ entre $C$ et $N$ ; $(MN)\parallel(BC)$. On donne $AB = 9$ cm, $AC = 6$ cm, $BC = 7{,}5$ cm et $AN = 4$ cm. Calcule $AM$ et $MN$.</p>
+    <details class="indice"><p>Fais la figure : $A$ au milieu, $B$ et $C$ d'un côté, $M$ et $N$ de l'autre. Le rapport connu est $\dfrac{AN}{AC}$.</p></details>
+    <details class="correction">
+      <p>Les droites $(BM)$ et $(CN)$ se coupent en $A$, et $(MN)\parallel(BC)$. D'après le théorème de Thalès : $\dfrac{AM}{AB}=\dfrac{AN}{AC}=\dfrac{MN}{BC}$, soit $\dfrac{AM}{9}=\dfrac{4}{6}=\dfrac{MN}{7{,}5}$.</p>
+      <p>$\dfrac46=\dfrac23$. Donc $AM=\dfrac{2}{3}\times9=6$ cm et $MN=\dfrac23\times7{,}5=5$ cm.</p>
+      <p>Le triangle $AMN$ fait les deux tiers de $ABC$, de l'autre côté de $A$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-inconnue-en-bas" data-titre="L'inconnue en bas" data-niveau="1" data-type="application" data-notions="thales" data-duree="10" data-calculatrice="non">
+    <p>Dans le triangle $ABC$, $M\in[AB]$, $N\in[AC]$ et $(MN)\parallel(BC)$. On donne $AM = 6$ cm, $AN = 4{,}8$ cm, $AC = 7{,}2$ cm et $MN = 5$ cm. Calcule $AB$, puis $BC$.</p>
+    <details class="indice"><p>Les longueurs cherchées sont au dénominateur. Retourne les trois rapports : grand sur petit, c'est permis tant que les trois sont retournés.</p></details>
+    <details class="correction">
+      <p>D'après le théorème de Thalès ($(BM)$ et $(CN)$ sécantes en $A$, $(MN)\parallel(BC)$) : $\dfrac{AM}{AB}=\dfrac{AN}{AC}=\dfrac{MN}{BC}$, soit $\dfrac{6}{AB}=\dfrac{4{,}8}{7{,}2}=\dfrac{5}{BC}$.</p>
+      <p>Retournés : $\dfrac{AB}{6}=\dfrac{7{,}2}{4{,}8}=\dfrac{BC}{5}$. Or $\dfrac{7{,}2}{4{,}8}=\dfrac{72}{48}=\dfrac32=1{,}5$.</p>
+      <p>Donc $AB=1{,}5\times6=9$ cm et $BC=1{,}5\times5=7{,}5$ cm. Vérification : $\dfrac{6}{9}=\dfrac23$ et $\dfrac{4{,}8}{7{,}2}=\dfrac23$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-vrai-ou-faux" data-titre="Vrai ou faux" data-niveau="1" data-type="raisonnement" data-notions="thales reciproque-thales" data-duree="8" data-calculatrice="non">
+    <p>Vrai ou faux ? Justifie en une phrase, ou par un exemple avec des nombres.</p>
+    <p>a) Pour appliquer le théorème de Thalès, il faut deux droites parallèles.<br>b) Dans les triangles emboîtés, $\dfrac{AM}{MB}=\dfrac{MN}{BC}$.<br>c) Si $\dfrac{AM}{AB}=\dfrac{AN}{AC}$, alors $(MN)\parallel(BC)$, quelle que soit la position des points.<br>d) Si $\dfrac{AM}{AB}\neq\dfrac{AN}{AC}$, alors $(MN)$ et $(BC)$ ne sont pas parallèles, quelle que soit la position des points.<br>e) Dans un papillon, $AM$ se mesure de $M$ à $B$.</p>
+    <details class="correction">
+      <p>a) <strong>Vrai</strong> : c'est l'hypothèse du théorème. Sans parallèles, les rapports n'ont aucune raison d'être égaux.</p>
+      <p>b) <strong>Faux</strong>. Avec $AM = 2$ et $MB = 3$ : $AB = 5$, donc $\dfrac{MN}{BC}=\dfrac{AM}{AB}=\dfrac25$, alors que $\dfrac{AM}{MB}=\dfrac23$.</p>
+      <p>c) <strong>Faux</strong> : la réciproque exige aussi que les points soient dans le même ordre. Voir le piège « l'ordre des points » du cours.</p>
+      <p>d) <strong>Vrai</strong> : c'est la contraposée du théorème, qui vaut dans toutes les configurations.</p>
+      <p>e) <strong>Faux</strong> : $AM$ se mesure de $A$ à $M$. Dans le papillon, $A$ est entre $M$ et $B$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Des situations et des preuves</h3>
+
+  <article class="exercice" id="ex-la-hauteur-de-l-arbre" data-titre="La hauteur de l'arbre" data-niveau="2" data-type="probleme" data-notions="thales" data-duree="12" data-calculatrice="oui">
+    <p>Pour mesurer un arbre, on plante un bâton $[BH]$ de $1{,}20$ m, bien vertical, de façon que le bout de son ombre coïncide avec le bout $S$ de l'ombre de l'arbre (figure ci-dessous). L'ombre du bâton mesure $SB = 1{,}60$ m ; l'ombre de l'arbre, du bout $S$ au pied $P$ de l'arbre, mesure $SP = 9{,}60$ m.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 428 251" role="img" aria-label="Un arbre et un bâton au soleil. Le bâton est planté de façon que le bout de son ombre coïncide avec le bout S de l'ombre de l'arbre. Le rayon de soleil qui passe par la cime T de l'arbre et le haut H du bâton arrive en S : les triangles SPT (l'arbre) et SBH (le bâton) sont emboîtés."><g class="trace t-n"><line x1="10" y1="203.8" x2="418" y2="203.8"/></g><rect class="fond-grid" x="30.4" y="203.8" width="346.8" height="14.3"/><rect class="paroi" x="372.2" y="84.8" width="10" height="119.0" rx="3"/><circle class="forme forme-image" cx="377.2" cy="71.2" r="35.7"/><g class="trace t-ink ep-4"><line x1="125.6" y1="203.8" x2="125.6" y2="158.1"/></g><polygon class="forme op-30" points="30.4,203.8 377.2,203.8 377.2,37.2"/><g class="trace t-v"><line x1="21.2" y1="208.2" x2="386.4" y2="32.8"/></g><g class="trace t-u"><line x1="377.2" y1="37.2" x2="377.2" y2="203.8"/></g><g class="trace t-u"><line x1="125.6" y1="158.1" x2="125.6" y2="203.8"/></g><g class="trace t-u ep-2-5"><path d="M132.6,187.9 L125.6,180.9 L118.6,187.9"/></g><g class="trace t-u ep-2-5"><path d="M384.2,152.5 L377.2,145.5 L370.2,152.5"/></g><g class="trace t-n fin"><path d="M366.3,203.8 L366.3,192.9 L377.2,192.9"/></g><g class="trace t-n fin"><path d="M114.7,203.8 L114.7,192.9 L125.6,192.9"/></g><circle class="pt " cx="30.4" cy="203.8" r="4.5"/><text class="lettre" x="18.4" y="229.8">S</text><circle class="pt " cx="125.6" cy="203.8" r="4.5"/><text class="lettre" x="121.6" y="231.8">B</text><circle class="pt " cx="377.2" cy="203.8" r="4.5"/><text class="lettre" x="385.2" y="229.8">P</text><circle class="pt pt-u" cx="125.6" cy="158.1" r="4.5"/><text class="lettre" x="103.6" y="158.1">H</text><circle class="pt pt-u" cx="377.2" cy="37.2" r="4.5"/><text class="lettre" x="387.2" y="39.2">T</text><circle class="t-sc-jaune plein" cx="404.4" cy="16.8" r="18"/><text class="petit" x="268.4" y="37.2" text-anchor="middle">les rayons du Soleil</text><text class="petit" x="241.2" y="190.2" text-anchor="middle">l'ombre de l'arbre : [SP]</text></svg><figcaption>Le même rayon de soleil passe par la cime $T$, le haut $H$ du bâton et le point $S$.</figcaption></figure>
+    <p>1. Pourquoi les droites $(BH)$ et $(PT)$ sont-elles parallèles ?<br>2. Nomme la configuration de Thalès et ses deux trios de points.<br>3. Calcule la hauteur $PT$ de l'arbre.<br>4. Pourquoi faut-il faire les deux mesures d'ombre au même moment ?</p>
+    <details class="indice"><p>Le sommet commun n'est pas le pied de l'arbre : c'est $S$, le bout des ombres.</p></details>
+    <details class="correction">
+      <p>1. Le bâton et l'arbre sont tous les deux verticaux, donc perpendiculaires au sol : deux droites perpendiculaires à une même droite sont parallèles.</p>
+      <p>2. Les droites $(SP)$ et $(ST)$ se coupent en $S$ ; les trios sont $S, B, P$ et $S, H, T$ ; $(BH)\parallel(PT)$. Les triangles $SBH$ et $SPT$ sont emboîtés.</p>
+      <p>3. D'après le théorème de Thalès, $\dfrac{SB}{SP}=\dfrac{SH}{ST}=\dfrac{BH}{PT}$, soit $\dfrac{1{,}60}{9{,}60}=\dfrac{1{,}20}{PT}$. On retourne : $\dfrac{9{,}60}{1{,}60}=\dfrac{PT}{1{,}20}$, donc $PT=\dfrac{9{,}60\times1{,}20}{1{,}60}=\dfrac{11{,}52}{1{,}60}=7{,}2$ m. L'arbre mesure $7{,}20$ m. (Le rapport $\dfrac{1{,}6}{9{,}6}=\dfrac16$ : l'arbre est six fois plus grand que le bâton, comme son ombre.)</p>
+      <p>4. Le Soleil se déplace : les ombres s'allongent ou raccourcissent au fil des minutes. Les deux triangles ne sont « emboîtés » que si les deux ombres sont prises au même instant, avec les mêmes rayons.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-echelle-contre-le-mur" data-titre="L'échelle contre le mur" data-niveau="2" data-type="probleme" data-notions="thales" data-duree="12" data-calculatrice="oui">
+    <p>Une échelle $[AC]$ de $4{,}50$ m est appuyée contre un mur vertical. Son pied $A$ est au sol, à $AD = 2{,}70$ m du pied $D$ du mur, et son sommet $C$ touche le mur à $DC = 3{,}60$ m de hauteur. Un barreau $[MN]$, horizontal, est fixé sur l'échelle au point $M$ tel que $AM = 1{,}50$ m ; $N$ est le point du mur en face.</p>
+    <p>1. Fais une figure. Pourquoi $(MN)\parallel(AD)$ ?<br>2. Quel est le sommet commun des deux triangles emboîtés ? Calcule $CM$.<br>3. À quelle hauteur au-dessus du sol est le barreau ?<br>4. Quelle est la longueur $MN$ du barreau au mur ?</p>
+    <details class="indice"><p>Le barreau est horizontal comme le sol. Le sommet commun des deux triangles est en haut de l'échelle, en $C$ : les longueurs des rapports partent de $C$.</p></details>
+    <details class="correction">
+      <p>1. Le barreau et le sol sont tous les deux horizontaux : $(MN)\parallel(AD)$.</p>
+      <p>2. Les droites $(AM)$ et $(DN)$ se coupent en $C$ : les trios sont $C, M, A$ et $C, N, D$, et les triangles $CMN$ et $CAD$ sont emboîtés. $CM = CA - AM = 4{,}50-1{,}50 = 3$ m.</p>
+      <p>3. D'après le théorème de Thalès, $\dfrac{CM}{CA}=\dfrac{CN}{CD}=\dfrac{MN}{AD}$, soit $\dfrac{3}{4{,}5}=\dfrac{CN}{3{,}6}$. Le rapport vaut $\dfrac{3}{4{,}5}=\dfrac23$, donc $CN=\dfrac23\times3{,}6=2{,}4$ m. Le barreau est à $DN = DC - CN = 3{,}6-2{,}4=1{,}2$ m au-dessus du sol.</p>
+      <p>4. $MN=\dfrac23\times AD=\dfrac23\times2{,}7=1{,}8$ m. (Au passage, $2{,}7^2+3{,}6^2=7{,}29+12{,}96=20{,}25=4{,}5^2$ : l'échelle, le sol et le mur forment bien un triangle rectangle, Pythagore est d'accord.)</p>
+      <p>L'erreur classique : prendre $AM = 1{,}5$ pour le rapport, alors que le sommet commun est $C$. Le rapport $\dfrac{CM}{CA}$ vaut $\dfrac23$ ; $\dfrac{AM}{AC}$ vaudrait $\dfrac13$, et ce n'est pas lui qui apparaît dans Thalès.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-chambre-noire" data-titre="La chambre noire" data-niveau="2" data-type="probleme" data-notions="thales" data-duree="12" data-calculatrice="oui">
+    <p>Une chambre noire est une boîte fermée, percée d'un petit trou $A$ sur une face. Les rayons qui viennent d'un objet $[BC]$ passent par le trou et forment, sur la face opposée, une image $[MN]$ renversée (voir la figure du labo). La boîte a $24$ cm de profondeur (du trou au fond).</p>
+    <figure class="figure-svg"><svg viewBox="0 0 452 200" role="img" aria-label="Une chambre noire : une boîte fermée percée d'un petit trou A sur sa face gauche. Devant la boîte, un objet BC debout. Les rayons venant de B et de C passent par le trou et dessinent au fond de la boîte une image NM renversée. Les triangles ABC et AMN forment un papillon de sommet A."><rect class="bande" x="262.0" y="31.6" width="158.4" height="136.8"/><g class="trace t-ink"><line x1="262.0" y1="168.4" x2="420.4" y2="168.4"/></g><g class="trace t-ink ep-4"><line x1="420.4" y1="168.4" x2="420.4" y2="31.6"/></g><g class="trace t-ink"><line x1="420.4" y1="31.6" x2="262.0" y2="31.6"/></g><g class="trace t-ink"><line x1="262.0" y1="168.4" x2="262.0" y2="105.0"/></g><g class="trace t-ink"><line x1="262.0" y1="95.0" x2="262.0" y2="31.6"/></g><g class="trace t-n"><line x1="49.6" y1="143.2" x2="85.6" y2="143.2"/></g><g class="trace t-v ep-6"><line x1="67.6" y1="143.2" x2="67.6" y2="49.6"/></g><polygon class="forme op-30" points="262.0,100.0 67.6,49.6 67.6,143.2"/><polygon class="forme forme-image op-50" points="262.0,100.0 420.4,141.1 420.4,64.8"/><g class="trace t-sc-jaune"><line x1="67.6" y1="49.6" x2="420.4" y2="141.1"/></g><g class="trace t-sc-jaune"><line x1="67.6" y1="143.2" x2="420.4" y2="64.8"/></g><g class="trace t-v ep-6"><line x1="420.4" y1="141.1" x2="420.4" y2="64.8"/></g><g class="trace t-u ep-2-5"><path d="M74.6,84.7 L67.6,77.7 L60.6,84.7"/></g><g class="trace t-u ep-2-5"><path d="M427.4,109.9 L420.4,102.9 L413.4,109.9"/></g><circle class="pt " cx="262.0" cy="100.0" r="4.5"/><text class="lettre" x="254.0" y="94.0">A</text><circle class="pt " cx="67.6" cy="49.6" r="4.5"/><text class="lettre" x="45.6" y="51.6">B</text><circle class="pt " cx="67.6" cy="143.2" r="4.5"/><text class="lettre" x="45.6" y="163.2">C</text><circle class="pt pt-v" cx="420.4" cy="141.1" r="4.5"/><text class="lettre" x="428.4" y="163.1">M</text><circle class="pt pt-v" cx="420.4" cy="64.8" r="4.5"/><text class="lettre" x="428.4" y="68.8">N</text><text class="petit" x="67.6" y="177.4" text-anchor="middle">l'objet</text><text class="petit" x="341.2" y="20.8" text-anchor="middle">la boîte, le trou en A</text><text class="petit" x="388.0" y="155.8" text-anchor="end">l'image, renversée</text></svg><figcaption>Les deux triangles $ABC$ et $AMN$ forment un papillon de sommet $A$, le trou.</figcaption></figure>
+    <p>1. Un arbre de $6$ m de haut se trouve à $15$ m du trou. Quelle est la hauteur de son image, en cm ?<br>2. À quelle distance du trou une personne de $1{,}80$ m doit-elle se tenir pour que son image mesure $3{,}6$ cm ?</p>
+    <details class="indice"><p>Mets tout dans la même unité avant d'écrire les rapports : $24$ cm, c'est $0{,}24$ m.</p></details>
+    <details class="correction">
+      <p>Les droites $(BM)$ et $(CN)$ se coupent en $A$, et $(MN)\parallel(BC)$ (l'objet et le fond de la boîte sont verticaux). D'après le théorème de Thalès, $\dfrac{AM}{AB}=\dfrac{MN}{BC}$. Et comme le trou $A$ n'est pas à la hauteur de $B$, $AB$ est une longueur oblique ; mais le rapport $\dfrac{AM}{AB}$ est égal au rapport $\dfrac{\text{profondeur de la boîte}}{\text{distance de l'objet au trou}}$ (Thalès encore, avec l'horizontale qui passe par $A$). C'est ce rapport-là qu'on utilise.</p>
+      <p>1. $\dfrac{0{,}24}{15}=\dfrac{MN}{6}$, donc $MN=\dfrac{0{,}24\times6}{15}=\dfrac{1{,}44}{15}=0{,}096$ m $=9{,}6$ cm.</p>
+      <p>2. $\dfrac{0{,}24}{AB}=\dfrac{0{,}036}{1{,}80}=0{,}02$. On retourne : $\dfrac{AB}{0{,}24}=\dfrac{1{,}80}{0{,}036}=50$, donc $AB=50\times0{,}24=12$ m. La personne doit se tenir à $12$ m du trou.</p>
+      <p>À retenir : plus l'objet est loin, plus l'image est petite ; c'est le rapport $\dfrac{\text{profondeur}}{\text{distance}}$ qui décide.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-paralleles-ou-pas" data-titre="Parallèles ou pas ?" data-niveau="2" data-type="raisonnement" data-notions="reciproque-thales" data-duree="12" data-calculatrice="non">
+    <p>Dans chaque cas, $M\in[AB]$ et $N\in[AC]$. Les droites $(MN)$ et $(BC)$ sont-elles parallèles ? Rédige la preuve.</p>
+    <p>a) $AM = 4{,}5$ cm, $AB = 7{,}5$ cm, $AN = 3$ cm, $AC = 5$ cm.<br>b) $AM = 5$ cm, $AB = 8$ cm, $AN = 4$ cm, $AC = 6{,}5$ cm.</p>
+    <details class="indice"><p>Calcule les deux rapports l'un après l'autre, et compare-les en fractions : $\dfrac{4{,}5}{7{,}5}=\dfrac{45}{75}$.</p></details>
+    <details class="correction">
+      <p>a) Les points $A, M, B$ et $A, N, C$ sont alignés dans le même ordre. $\dfrac{AM}{AB}=\dfrac{4{,}5}{7{,}5}=\dfrac{45}{75}=\dfrac35$ et $\dfrac{AN}{AC}=\dfrac35$. Les rapports sont égaux : d'après la réciproque du théorème de Thalès, $(MN)\parallel(BC)$.</p>
+      <p>b) $\dfrac{AM}{AB}=\dfrac58=0{,}625$ et $\dfrac{AN}{AC}=\dfrac{4}{6{,}5}=\dfrac{8}{13}$, qui n'est pas décimal ($0{,}615\ldots$). $\dfrac58=\dfrac{65}{104}$ et $\dfrac{8}{13}=\dfrac{64}{104}$ : différents. Si $(MN)$ et $(BC)$ étaient parallèles, le théorème de Thalès donnerait $\dfrac{AM}{AB}=\dfrac{AN}{AC}$ ; ce n'est pas le cas, donc elles ne sont pas parallèles.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-reciproque-et-l-ordre-des-points" data-titre="La réciproque et l'ordre des points" data-niveau="2" data-type="raisonnement" data-notions="reciproque-thales" data-duree="10" data-calculatrice="non">
+    <p>Les droites $(BM)$ et $(CN)$ se coupent en $A$. Le point $A$ est entre $B$ et $M$, mais $N$ est entre $A$ et $C$. On donne $AM = 3$ cm, $AB = 6$ cm, $AN = 2{,}5$ cm et $AC = 5$ cm.</p>
+    <p>1. Fais une figure.<br>2. Calcule $\dfrac{AM}{AB}$ et $\dfrac{AN}{AC}$.<br>3. Un élève conclut : « Les rapports sont égaux, donc $(MN)\parallel(BC)$. » Qu'en penses-tu ?</p>
+    <details class="correction">
+      <p>2. $\dfrac{AM}{AB}=\dfrac36=\dfrac12$ et $\dfrac{AN}{AC}=\dfrac{2{,}5}{5}=\dfrac12$.</p>
+      <p>3. L'élève oublie une hypothèse. Sur la droite de $B$, les points sont dans l'ordre $B, A, M$ ($A$ au milieu) ; sur la droite de $C$, dans l'ordre $A, N, C$ ($N$ au milieu). Ce n'est pas le même ordre : la réciproque du théorème de Thalès ne s'applique pas, et on ne peut pas conclure. Sur la figure, $(MN)$ coupe d'ailleurs $(BC)$.</p>
+      <p><em>Pour aller plus loin.</em> La parallèle à $(BC)$ qui passe par $M$ coupe $(AC)$ en un point $N'$ de l'autre côté de $A$ (un vrai papillon), avec $AN' = \dfrac12\times AC=2{,}5$ cm. $N'$ est à la même distance de $A$ que $N$, mais de l'autre côté : $N'\neq N$. Comme il n'y a qu'une parallèle à $(BC)$ passant par $M$, $(MN)$ n'est pas celle-là.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-plan-a-l-echelle" data-titre="Le plan à l'échelle" data-niveau="2" data-type="probleme" data-notions="thales" data-duree="10" data-calculatrice="oui">
+    <p>Un jardin triangulaire $ABC$ est dessiné sur un plan à l'échelle $\dfrac{1}{250}$. Sur le plan, $AB = 6$ cm et $BC = 5$ cm. Un massif triangulaire $AMN$ occupe un coin du jardin : $M\in[AB]$, $N\in[AC]$, $(MN)\parallel(BC)$, et sur le plan $AM = 2{,}4$ cm.</p>
+    <p>1. Quelle est la longueur réelle $AB$, en mètres ?<br>2. Calcule $MN$ sur le plan, puis en réalité.<br>3. Le rapport $\dfrac{AM}{AB}$ est-il le même sur le plan et dans la réalité ? Explique.</p>
+    <details class="indice"><p>Échelle $\dfrac{1}{250}$ : $1$ cm sur le plan représente $250$ cm en réalité.</p></details>
+    <details class="correction">
+      <p>1. $AB=6\times250=1\,500$ cm $=15$ m.</p>
+      <p>2. D'après le théorème de Thalès dans la configuration $A, M, B$ / $A, N, C$ avec $(MN)\parallel(BC)$ : $\dfrac{AM}{AB}=\dfrac{MN}{BC}$, soit $\dfrac{2{,}4}{6}=\dfrac{MN}{5}$. Le rapport vaut $0{,}4$, donc $MN=0{,}4\times5=2$ cm sur le plan, et $2\times250=500$ cm $=5$ m en réalité.</p>
+      <p>3. Oui. L'échelle multiplie toutes les longueurs par le même nombre ($250$) : $\dfrac{AM_{\text{réel}}}{AB_{\text{réel}}}=\dfrac{250\times2{,}4}{250\times6}=\dfrac{2{,}4}{6}=0{,}4$. Un rapport de longueurs ne dépend pas de l'échelle, ni de l'unité : c'est ce qui rend Thalès utilisable sur un plan comme sur le terrain.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="thales" data-duree="12" data-calculatrice="non">
+    <p>Dans le triangle $ABC$, $M\in[AB]$, $N\in[AC]$ et $(MN)\parallel(BC)$. On donne $AM = 4$ cm, $MB = 6$ cm et $BC = 15$ cm. Un élève a demandé à une IA de calculer $MN$. Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« Les droites $(MN)$ et $(BC)$ sont parallèles, on peut donc appliquer le théorème de Thalès dans le triangle $ABC$ : $\dfrac{AM}{MB}=\dfrac{AN}{NC}=\dfrac{MN}{BC}$. On connaît $AM = 4$, $MB = 6$ et $BC = 15$. Donc $\dfrac{4}{6}=\dfrac{MN}{15}$, d'où $MN=\dfrac{4\times15}{6}=10$ cm. Le segment $[MN]$ mesure donc $10$ cm, ce qui est cohérent puisqu'il est plus court que $[BC]$. »</blockquote>
+    <details class="indice"><p>Relis les trois rapports de l'IA : lesquels sont des côtés des triangles $AMN$ et $ABC$ ?</p></details>
+    <details class="correction">
+      <p><strong>Erreur 1 : les rapports.</strong> Le théorème de Thalès compare les côtés du petit triangle $AMN$ à ceux du grand $ABC$ : $\dfrac{AM}{AB}=\dfrac{AN}{AC}=\dfrac{MN}{BC}$. $MB$ et $NC$ ne sont les côtés d'aucun des deux triangles. (Il est vrai que $\dfrac{AM}{MB}=\dfrac{AN}{NC}$ — l'exercice « Pourquoi $\frac{AM}{MB}=\frac{AN}{NC}$ aussi ? » le montre — mais ce rapport-là ne vaut pas $\dfrac{MN}{BC}$.)</p>
+      <p><strong>Erreur 2 : la longueur oubliée.</strong> $AB = AM + MB = 4+6 = 10$ cm, et c'est $AB$ qu'il faut dans le rapport, pas $MB$.</p>
+      <p><strong>Erreur 3 : la vérification qui ne vérifie rien.</strong> « Plus court que $BC$ » est vrai pour n'importe quelle réponse entre $0$ et $15$. Un vrai contrôle : le rapport $\dfrac{AM}{AB}=\dfrac{4}{10}=0{,}4$, donc $MN$ doit faire $40\,\%$ de $BC$, pas les deux tiers.</p>
+      <p><strong>La réponse correcte.</strong> $(BM)$ et $(CN)$ se coupent en $A$, $(MN)\parallel(BC)$ ; d'après le théorème de Thalès, $\dfrac{AM}{AB}=\dfrac{MN}{BC}$, soit $\dfrac{4}{10}=\dfrac{MN}{15}$, donc $MN=\dfrac{4\times15}{10}=6$ cm.</p>
+      <p>Une réponse fluide, un « donc » à chaque ligne, et faux dès les rapports. Le réflexe : vérifier que chaque longueur d'un rapport part bien de $A$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Des problèmes complets</h3>
+
+  <article class="exercice" id="ex-la-charpente" data-titre="La charpente" data-niveau="3" data-type="probleme" data-notions="thales" data-duree="20" data-calculatrice="oui" data-source="Dans l'esprit des exercices de charpente des sujets du DNB (partie 2)">
+    <p>Le pignon d'un toit est un triangle $SBC$ : $B$ et $C$ sont au sol, $S$ est le sommet, et $H$ est le milieu de $[BC]$, avec $(SH)$ perpendiculaire à $(BC)$. On donne $BC = 8$ m et $SH = 3$ m. Un charpentier fixe une poutre horizontale $[MN]$, avec $M\in[SB]$ et $N\in[SC]$, à $1{,}20$ m au-dessus du sol ; elle coupe $[SH]$ en $K$.</p>
+    <p>1. Calcule $SB$. Que vaut $SC$ ?<br>2. Pourquoi $(MN)\parallel(BC)$ ? Que vaut $SK$ ?<br>3. Calcule la longueur $MN$ de la poutre.<br>4. Calcule $SM$. Les poutres sont vendues par longueurs de $3$ m : combien faut-il en acheter pour $[MN]$, $[MB]$ et $[NC]$ ?</p>
+    <details class="indice"><p>1. $SHB$ est un triangle rectangle en $H$, et $HB = \dfrac{BC}{2}$. 2. Le sommet commun des triangles emboîtés est $S$ : les rapports utilisent $SK$ et $SH$, pas la hauteur au-dessus du sol.</p></details>
+    <details class="correction">
+      <p>1. $HB=4$ m. Dans le triangle $SHB$ rectangle en $H$, d'après le théorème de Pythagore : $SB^2=SH^2+HB^2=9+16=25$, donc $SB=5$ m. Par symétrie ($H$ milieu, $(SH)\perp(BC)$), $SC = 5$ m.</p>
+      <p>2. La poutre est horizontale comme le sol : $(MN)\parallel(BC)$. $K$ est à $1{,}20$ m au-dessus de $H$, donc $SK = SH - HK = 3-1{,}2=1{,}8$ m.</p>
+      <p>3. Les droites $(SB)$ et $(SH)$ se coupent en $S$ ; $M\in[SB]$, $K\in[SH]$ et $(MK)\parallel(BH)$ (toutes deux horizontales). D'après le théorème de Thalès dans les triangles $SMK$ et $SBH$ : $\dfrac{SK}{SH}=\dfrac{MK}{BH}=\dfrac{SM}{SB}$, soit $\dfrac{1{,}8}{3}=0{,}6$. Donc $MK=0{,}6\times4=2{,}4$ m, et de même $KN=2{,}4$ m : $MN=4{,}8$ m.</p>
+      <p>4. $SM=0{,}6\times5=3$ m, donc $MB=5-3=2$ m, et $NC=2$ m aussi. Il faut $4{,}8+2+2=8{,}8$ m de bois en tout. Avec des longueurs de $3$ m : $[MN]$ demande deux poutres mises bout à bout ($4{,}8&gt;3$), et $[MB]$ comme $[NC]$ tient dans une poutre, mais pas les deux dans la même ($2+2=4&gt;3$). Il faut donc $4$ poutres, soit $12$ m achetés pour $8{,}8$ m posés.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-largeur-de-la-riviere" data-titre="La largeur de la rivière" data-niveau="3" data-type="probleme" data-notions="thales" data-duree="18" data-calculatrice="oui">
+    <p>Pour mesurer la largeur d'une rivière sans la traverser, un géomètre repère un arbre $T$ sur la rive d'en face, juste en face d'un point $A$ de sa rive ($(AT)$ est perpendiculaire à la rive). Il marche le long de sa rive, droite, sur $24$ m jusqu'à un point $B$ où il plante un piquet, puis continue sur $8$ m jusqu'à $C$. De $C$, il s'éloigne de la rivière perpendiculairement à la rive, jusqu'au point $D$ d'où le piquet $B$ cache exactement l'arbre $T$ : $D$, $B$ et $T$ sont alignés. Il mesure $CD = 6$ m.</p>
+    <p>1. Fais un schéma vu de dessus, avec les deux rives.<br>2. Pourquoi $(AT)\parallel(CD)$ ? Quelle est la configuration de Thalès, et quel est son sommet ?<br>3. Calcule la largeur $AT$ de la rivière.<br>4. Le géomètre s'est trompé de $1$ m sur $CD$ (en réalité $7$ m). De combien s'est-il trompé sur la largeur ?</p>
+    <details class="indice"><p>Le point commun des deux triangles est $B$ : les droites $(AC)$ et $(TD)$ s'y coupent. $A$ et $T$ sont d'un côté de $B$, $C$ et $D$ de l'autre : un papillon.</p></details>
+    <details class="correction">
+      <p>2. $(AT)$ et $(CD)$ sont toutes deux perpendiculaires à la rive $(AC)$, donc parallèles. Les droites $(AC)$ et $(TD)$ se coupent en $B$, avec $B$ entre $A$ et $C$ et entre $T$ et $D$ : un papillon de sommet $B$, triangles $BAT$ et $BCD$.</p>
+      <p>3. D'après le théorème de Thalès, $\dfrac{BA}{BC}=\dfrac{BT}{BD}=\dfrac{AT}{CD}$, soit $\dfrac{24}{8}=\dfrac{AT}{6}$. Le rapport vaut $3$ : le triangle du côté de la rivière est trois fois plus grand. Donc $AT=3\times6=18$ m. La rivière mesure $18$ m de large.</p>
+      <p>4. Avec $CD=7$ m, $AT=3\times7=21$ m : une erreur de $1$ m sur $CD$ devient une erreur de $3$ m sur la largeur, parce que le rapport multiplie tout par $3$. Pour être précis, le géomètre a intérêt à prendre $BC$ grand : plus le petit triangle est grand, moins les erreurs de mesure comptent.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-pourquoi-am-sur-mb-aussi" data-titre="Pourquoi AM/MB = AN/NC aussi ?" data-niveau="3" data-type="raisonnement" data-notions="thales" data-duree="15" data-calculatrice="non">
+    <p>Dans les triangles emboîtés ($M\in[AB]$, $N\in[AC]$, $(MN)\parallel(BC)$), le théorème de Thalès dit que $\dfrac{AM}{AB}=\dfrac{AN}{AC}$. Beaucoup d'élèves écrivent plutôt $\dfrac{AM}{MB}=\dfrac{AN}{NC}$. Cette égalité-là est vraie aussi — mais ce n'est pas celle du théorème, et le troisième rapport $\dfrac{MN}{BC}$ ne lui est pas égal.</p>
+    <p>1. Avec $AM = 2$, $AB = 5$ et $AC = 10$ : calcule $AN$, puis $MB$ et $NC$, et vérifie que $\dfrac{AM}{MB}=\dfrac{AN}{NC}$. Que vaut $\dfrac{MN}{BC}$ ?<br>2. En général : on note $k=\dfrac{AM}{AB}=\dfrac{AN}{AC}$. Exprime $MB$ en fonction de $k$ et $AB$, puis $NC$ en fonction de $k$ et $AC$.<br>3. Montre que $\dfrac{AM}{MB}=\dfrac{AN}{NC}=\dfrac{k}{1-k}$. Pourquoi ce rapport n'est-il pas égal à $\dfrac{MN}{BC}$ ?</p>
+    <details class="indice"><p>2. $MB = AB - AM$, et $AM = k\times AB$ : factorise $AB$.</p></details>
+    <details class="correction">
+      <p>1. $\dfrac{AM}{AB}=\dfrac25$, donc $AN=\dfrac25\times10=4$. $MB=5-2=3$ et $NC=10-4=6$. $\dfrac{AM}{MB}=\dfrac23$ et $\dfrac{AN}{NC}=\dfrac46=\dfrac23$ : égaux. Mais $\dfrac{MN}{BC}=\dfrac{AM}{AB}=\dfrac25\neq\dfrac23$.</p>
+      <p>2. $AM=k\,AB$, donc $MB=AB-k\,AB=(1-k)\,AB$. De même $NC=AC-k\,AC=(1-k)\,AC$.</p>
+      <p>3. $\dfrac{AM}{MB}=\dfrac{k\,AB}{(1-k)\,AB}=\dfrac{k}{1-k}$ et $\dfrac{AN}{NC}=\dfrac{k\,AC}{(1-k)\,AC}=\dfrac{k}{1-k}$ : les deux rapports sont égaux, c'est une <em>conséquence</em> du théorème. Mais $\dfrac{MN}{BC}=k$, et $k\neq\dfrac{k}{1-k}$ dès que $k\neq0$ (il faudrait $1-k=1$). C'est pour ça que $\dfrac{AM}{MB}=\dfrac{MN}{BC}$ est faux : avec $k=\dfrac25$, $\dfrac{k}{1-k}=\dfrac23$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-thales-et-la-droite-y-kx" data-titre="Thalès et la droite y = kx" data-niveau="3" data-type="raisonnement" data-notions="thales" data-duree="15" data-calculatrice="non">
+    <p>Dans un repère, on place $O$ l'origine, $M(2\,;1{,}5)$ et $N(6\,;4{,}5)$, qui sont sur la droite d'équation $y = 0{,}75\,x$. On note $P(2\,;0)$ et $Q(6\,;0)$ (figure du cours, partie 7).</p>
+    <p>1. Pourquoi les droites $(PM)$ et $(QN)$ sont-elles parallèles ?<br>2. Écris le théorème de Thalès dans le triangle $OQN$ et vérifie-le avec les coordonnées.<br>3. Montre que $\dfrac{PM}{OP}=\dfrac{QN}{OQ}$. À quoi correspond ce nombre pour la droite ?<br>4. Un point $R$ d'abscisse $10$ est sur la même droite. Quelle est son ordonnée ? Justifie avec Thalès, sans utiliser l'équation.</p>
+    <details class="correction">
+      <p>1. $(PM)$ et $(QN)$ sont toutes deux verticales (parallèles à l'axe des ordonnées), donc parallèles entre elles.</p>
+      <p>2. Les droites $(OQ)$ et $(ON)$ se coupent en $O$ ; $P\in[OQ]$, $M\in[ON]$ et $(PM)\parallel(QN)$. D'après le théorème de Thalès, $\dfrac{OP}{OQ}=\dfrac{OM}{ON}=\dfrac{PM}{QN}$. Avec les coordonnées : $\dfrac{OP}{OQ}=\dfrac26=\dfrac13$ et $\dfrac{PM}{QN}=\dfrac{1{,}5}{4{,}5}=\dfrac13$. Égaux.</p>
+      <p>3. De $\dfrac{OP}{OQ}=\dfrac{PM}{QN}$, par produit en croix $OP\times QN=OQ\times PM$, donc $\dfrac{PM}{OP}=\dfrac{QN}{OQ}$ : $\dfrac{1{,}5}{2}=\dfrac{4{,}5}{6}=0{,}75$. C'est le coefficient de proportionnalité, le nombre qui multiplie $x$ dans $y=0{,}75\,x$ (en seconde, on l'appellera le coefficient directeur).</p>
+      <p>4. Avec $S(10\,;0)$, le triangle $OSR$ est emboîté avec $OQN$ (les verticales sont parallèles) : $\dfrac{SR}{QN}=\dfrac{OS}{OQ}=\dfrac{10}{6}=\dfrac53$, donc $SR=\dfrac53\times4{,}5=7{,}5$. L'ordonnée de $R$ est $7{,}5$ — et $0{,}75\times10=7{,}5$, ça colle.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi « petit sur grand » ? Est-ce qu'on peut écrire « grand sur petit » ?</summary>
+      <div><p>On peut, à condition de retourner <em>les trois</em> rapports : $\dfrac{AB}{AM}=\dfrac{AC}{AN}=\dfrac{BC}{MN}$ est aussi vrai. Ce qui est interdit, c'est de mélanger : un rapport petit sur grand et un autre grand sur petit. « Petit sur grand » est une habitude qui évite ce mélange, et qui donne le rapport de réduction $k$ directement.</p></div></details>
+    <details><summary>Est-ce que je peux écrire $\dfrac{AM}{MB}=\dfrac{AN}{NC}$ ?</summary>
+      <div><p>Cette égalité est vraie, mais ce n'est pas le théorème de Thalès, et elle ne vaut pas $\dfrac{MN}{BC}$ : c'est le piège le plus fréquent. Dans une copie, écris les rapports du théorème ($AM$, $AB$, $AN$, $AC$ partent tous de $A$). L'exercice « Pourquoi $\frac{AM}{MB}=\frac{AN}{NC}$ aussi ? » explique d'où vient l'autre égalité.</p></div></details>
+    <details><summary>Et si l'énoncé ne dit pas que les droites sont parallèles ?</summary>
+      <div><p>Alors tu n'as pas le droit d'appliquer le théorème. Soit c'est à toi de le prouver (la réciproque, avec l'ordre des points), soit c'est une donnée cachée : « le barreau est horizontal comme le sol », « l'arbre et le bâton sont verticaux », « deux droites perpendiculaires à une même troisième ». Écris cette justification avant les rapports.</p></div></details>
+    <details><summary>Le papillon, c'est vraiment un autre théorème ?</summary>
+      <div><p>Non : c'est le même théorème, dans une autre figure. Ce qui change, c'est la position de $A$ — entre $B$ et $M$, entre $C$ et $N$ — donc la manière de lire les longueurs : $AM$ part de $A$ et va de l'autre côté. Les rapports s'écrivent exactement pareil.</p></div></details>
+    <details><summary>Théorème ou réciproque : comment je sais lequel utiliser ?</summary>
+      <div><p>Regarde ce qu'on te donne et ce qu'on te demande. On te donne des parallèles et on te demande une longueur : le théorème. On te donne des longueurs et on te demande si les droites sont parallèles : la réciproque (si les rapports sont égaux) ou la contraposée (s'ils ne le sont pas). Le piège « Théorème, réciproque ou contraposée ? » du cours résume les trois cas.</p></div></details>
+    <details><summary>Les rapports donnent $0{,}667$ et $0{,}66$ : c'est parallèle ou pas ?</summary>
+      <div><p>Pas parallèle : deux nombres différents sont différents, même s'ils sont proches. Compare des fractions ($\frac23$ et $\frac{33}{50}$) ou des décimaux exacts. Si tes rapports viennent de <em>mesures</em> sur une vraie figure, c'est autre chose : une mesure a toujours une petite erreur, et on ne peut jamais prouver un parallélisme en mesurant — seulement en calculant à partir de longueurs données.</p></div></details>
+    <details><summary>Pourquoi ce théorème porte le nom de Thalès ?</summary>
+      <div><p>Thalès de Milet (vers 600 avant J.-C.) est un des premiers mathématiciens grecs connus ; la tradition lui attribue la mesure de la grande pyramide par son ombre. Le nom est français : ailleurs, le même résultat s'appelle <em>intercept theorem</em> ou <em>Strahlensatz</em> (« théorème des rayons »), et en Angleterre, le « théorème de Thalès » désigne tout autre chose, un triangle inscrit dans un demi-cercle. Les mathématiques sont universelles, leurs noms ne le sont pas.</p></div></details>
+    <details><summary>Qu'est-ce qui tombe au brevet ?</summary>
+      <div><p>Dans la première partie (20 minutes, sans calculatrice), un calcul direct de longueur sur une figure donnée, à réponse courte : d'où l'importance des rapports simples et du produit en croix de tête. Dans la seconde partie (avec calculatrice), un problème rédigé — un toit, une rampe, une ombre, un plan — où l'on attend les hypothèses, le théorème nommé, le calcul et la conclusion avec l'unité, et souvent la réciproque ou la contraposée pour une question de parallélisme. Toutes les réponses doivent être justifiées.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
