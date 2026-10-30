@@ -1,0 +1,723 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de son-doppler.figures.py.
+     Fabriquer la page : python3 outils/figures.py physique-chimie/terminale/son-doppler.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Intensité sonore et effet Doppler · Terminale</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=a7785cb6dc">
+<script type="module" src="../../assets/js/site.js?v=ae36b95fd2"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PXEZELIN.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-AU4D4O25.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LIYU2XEQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7NV4XWSG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-O6NSZ424.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-X2YVXN7R.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CRFRSPIA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KAUE7PLB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QVEG22ZG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Y4MCCTGS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-2Z4VTVNZ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QMZR4NH7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-SJUH4MRB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VQP4UP66.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LGI6A4EG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CG5YCEWP.js">
+<link rel="modulepreload" href="../../assets/js/labos/son-doppler.js?v=625b68756f">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MI35G4WU.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/son-doppler.js?v=981c4919ff">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-HKHGCDLA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TLTAELPK.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=9e78aa7141">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="physique-chimie" data-chapitre="son-doppler" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Terminale spécialité physique-chimie · Ondes et signaux</span>
+  <h1>Intensité sonore et effet Doppler</h1>
+  <p class="chapeau">Un concert te laisse les oreilles qui sifflent ; la sirène d'une ambulance change de note au moment où elle te dépasse. Deux propriétés du son : la <strong>puissance</strong> qu'il transporte, qu'on compte en décibels, et sa <strong>fréquence</strong>, que le mouvement de la source décale. Ce chapitre apprend à calculer les deux, et à en tirer une vitesse.</p>
+  <ul class="objectifs">
+    <li>Calculer un niveau d'intensité sonore</li><li>Passer des décibels à l'intensité</li><li>Prévoir une atténuation</li><li>Décrire l'effet Doppler</li><li>Établir le décalage Doppler</li><li>Déterminer une vitesse</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Le même chapitre sert dans quatre métiers très différents.</strong> Le son qui abîme l'oreille, la fréquence qui change quand la source bouge : ouvre la situation qui te parle.</p>
+    <details>
+      <summary>Au concert : 102 décibels, pas un de plus</summary>
+      <p>Samedi soir, salle de 1 500 places. Sur l'écran de la console, un chiffre : 101 dB(A), la moyenne des quinze dernières minutes. La loi interdit de dépasser 102 dB(A) en tout point accessible au public, et oblige la salle à offrir des bouchons d'oreille. Pourquoi 102 et pas 120 ? Parce que les décibels trompent : 3 dB de plus, c'est déjà deux fois plus d'énergie qui entre dans l'oreille, et 120 dB en apporteraient plus de soixante fois plus que 102.</p>
+      <p class="discret">Ils s'en servent : les audioprothésistes (mesurer une perte d'audition, régler un appareil), les acousticiens (isoler une salle, un logement), les ingénieurs du son (tenir le niveau d'un concert).</p>
+    </details>
+    <details>
+      <summary>À l'hôpital : entendre le sang circuler</summary>
+      <p>La sonde d'échographie envoie des ultrasons dans le cou du patient. Les globules rouges qui filent dans l'artère carotide les renvoient avec une fréquence légèrement décalée. L'appareil mesure ce décalage, en déduit la vitesse du sang, et le rend audible : un souffle régulier, qui s'aiguise là où l'artère se rétrécit.</p>
+      <p class="discret">Ils s'en servent : les manipulateurs en électroradiologie médicale, les médecins vasculaires et les cardiologues.</p>
+    </details>
+    <details>
+      <summary>Au bord de la route : le radar qui lit ta vitesse</summary>
+      <p>À l'entrée du village, le panneau affiche « 48 – merci ». Le radar pédagogique envoie une onde radio vers la voiture ; l'onde revient décalée de quelques milliers de hertz sur 24 milliards. Ce décalage, proportionnel à la vitesse, suffit à l'afficher en une fraction de seconde.</p>
+      <p class="discret">Ils s'en servent : les techniciens en métrologie et en contrôle-mesure, les ingénieurs en électronique, les techniciens de la sécurité routière.</p>
+    </details>
+    <details>
+      <summary>Dans le ciel : les galaxies qui s'éloignent</summary>
+      <p>Dans la lumière d'une galaxie lointaine, les raies de l'hydrogène ne sont pas à leur place : elles sont décalées vers le rouge. La galaxie s'éloigne de nous. Presque toutes le font, et c'est ainsi qu'on a compris que l'Univers est en expansion. Notre voisine Andromède, elle, se rapproche : ses raies glissent vers le bleu.</p>
+      <p class="discret">Ils s'en servent : les astrophysiciens, les ingénieurs des observatoires et des télescopes spatiaux.</p>
+    </details>
+    <p class="discret">Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <div class="bloc remarque" data-titre="Rappel de seconde : le son">
+    <p>Le son est une <strong>onde mécanique</strong> : une vibration qui se propage de proche en proche dans un milieu matériel (air, eau, os), jamais dans le vide. Sa célérité ne dépend que du milieu : environ $340$ m·s⁻¹ dans l'air ($343$ m·s⁻¹ à $20$ °C), $1\,500$ m·s⁻¹ dans l'eau et les tissus mous.</p>
+    <p>La <strong>fréquence</strong> $f$ (en Hz) fixe la hauteur : plus elle est grande, plus le son est aigu. L'oreille humaine entend de $20$ Hz à $20\,000$ Hz environ. L'<strong>amplitude</strong> fixe la force du son : c'est elle que ce chapitre traduit en intensité, puis en décibels.</p>
+  </div>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-intensite">1. L'intensité sonore</h3>
+
+  <div class="bloc definition" data-titre="Intensité sonore">
+    <p>Une onde sonore transporte de l'énergie. L'<strong>intensité sonore</strong> $I$ est la puissance que reçoit une surface de $1$ m² placée perpendiculairement à la propagation :</p>
+    <p class="formule">$I = \dfrac{P}{S}$</p>
+    <ul>
+      <li>$I$ en watts par mètre carré (W·m⁻²) ;</li>
+      <li>$P$ : puissance reçue, en watts (W) ;</li>
+      <li>$S$ : aire de la surface, en m².</li>
+    </ul>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Une source qui émet dans toutes les directions">
+      <p>Une source ponctuelle de puissance $P$ émet de façon identique dans toutes les directions. À la distance $d$, cette puissance s'étale sur une sphère d'aire $4\pi d^2$ :</p>
+      <p class="formule">$I = \dfrac{P}{4\pi d^2}$</p>
+      <p>L'intensité est <strong>inversement proportionnelle au carré de la distance</strong>. Distance doublée : intensité divisée par $4$. Distance multipliée par $10$ : intensité divisée par $100$. C'est l'<strong>atténuation géométrique</strong> : rien n'est perdu, la même puissance couvre seulement une surface plus grande.</p>
+      <p>L'expression est souvent rappelée dans les sujets. Ce qu'il faut retenir : $I$ varie comme $\dfrac{1}{d^2}$.</p>
+    </div>
+    <figure class="figure-svg"><svg viewBox="0 0 520 270" role="img" aria-label="Une source ponctuelle et deux portions de sphères, à la distance d et à la distance 2d. Le même cône de rayons traverse une surface S à la distance d et une surface quatre fois plus grande à la distance 2d."><g class="trace t-n pointille"><path d="M184.2,208.1 L186.6,204.0 L189.0,199.9 L191.2,195.7 L193.3,191.5 L195.3,187.1 L197.2,182.8 L198.9,178.4 L200.5,173.9 L202.0,169.4 L203.4,164.9 L204.7,160.3 L205.8,155.7 L206.8,151.0 L207.6,146.4 L208.3,141.7 L208.9,136.9 L209.4,132.2 L209.7,127.5 L209.9,122.7 L210.0,118.0 L209.9,113.3 L209.7,108.5 L209.4,103.8 L208.9,99.1 L208.3,94.3 L207.6,89.6 L206.8,85.0 L205.8,80.3 L204.7,75.7 L203.4,71.1 L202.0,66.6 L200.5,62.1 L198.9,57.6 L197.2,53.2 L195.3,48.9 L193.3,44.5 L191.2,40.3 L189.0,36.1 L186.6,32.0 L184.2,27.9"/></g><g class="trace t-n pointille"><path d="M328.3,298.2 L333.3,290.1 L337.9,281.8 L342.4,273.4 L346.6,264.9 L350.6,256.3 L354.3,247.6 L357.8,238.7 L361.1,229.8 L364.1,220.8 L366.8,211.7 L369.3,202.6 L371.6,193.3 L373.5,184.0 L375.2,174.7 L376.7,165.3 L377.9,155.9 L378.8,146.5 L379.5,137.0 L379.9,127.5 L380.0,118.0 L379.9,108.5 L379.5,99.0 L378.8,89.5 L377.9,80.1 L376.7,70.7 L375.2,61.3 L373.5,52.0 L371.6,42.7 L369.3,33.4 L366.8,24.3 L364.1,15.2 L361.1,6.2 L357.8,-2.7 L354.3,-11.6 L350.6,-20.3 L346.6,-28.9 L342.4,-37.4 L337.9,-45.8 L333.3,-54.1 L328.3,-62.2"/></g><g class="trace t-n fin"><line x1="40" y1="118" x2="374.8" y2="177.0"/></g><g class="trace t-n fin"><line x1="40" y1="118" x2="374.8" y2="59.0"/></g><g class="trace t-u ep-6"><path d="M207.4,147.5 L208.2,142.6 L208.9,137.7 L209.4,132.8 L209.7,127.9 L209.9,122.9 L210.0,118.0 L209.9,113.1 L209.7,108.1 L209.4,103.2 L208.9,98.3 L208.2,93.4 L207.4,88.5"/></g><g class="trace t-u ep-6"><path d="M374.8,177.0 L376.4,167.3 L377.7,157.5 L378.7,147.6 L379.4,137.8 L379.9,127.9 L380.0,118.0 L379.9,108.1 L379.4,98.2 L378.7,88.4 L377.7,78.5 L376.4,68.7 L374.8,59.0"/></g><circle class="plein t-v" cx="40" cy="118" r="7"/><text class="note" x="40" y="144" text-anchor="middle">source</text><text class="note halo" x="220" y="116">surface S</text><text class="note halo" x="220" y="134">intensité I</text><text class="note" x="390" y="116">surface 4S</text><text class="note" x="390" y="134">intensité I/4</text><g class="trace t-n fin"><line x1="46.0" y1="214.0" x2="204.0" y2="214.0"/></g><polygon class="plein t-n" points="40.0,214.0 49.0,210.0 49.0,218.0"/><polygon class="plein t-n" points="210.0,214.0 201.0,210.0 201.0,218.0"/><text class="note halo" x="125.0" y="207.0" text-anchor="middle">d</text><g class="trace t-n fin"><line x1="46.0" y1="240.0" x2="374.0" y2="240.0"/></g><polygon class="plein t-n" points="40.0,240.0 49.0,236.0 49.0,244.0"/><polygon class="plein t-n" points="380.0,240.0 371.0,236.0 371.0,244.0"/><text class="note halo" x="210.0" y="233.0" text-anchor="middle">2d</text></svg><figcaption>À une distance double, la même puissance traverse une surface quatre fois plus grande : chaque mètre carré en reçoit quatre fois moins.</figcaption></figure>
+  </div>
+
+  <div class="bloc exemple" data-titre="Des ordres de grandeur très différents">
+    <p>Le son le plus faible que l'oreille perçoit à $1\,000$ Hz a une intensité d'environ $10^{-12}$ W·m⁻². Une conversation, environ $10^{-6}$ W·m⁻². Le son devient douloureux vers $1$ W·m⁻². Entre le plus faible et le plus fort, il y a <strong>un facteur mille milliards</strong>. Aucune graduation ordinaire ne loge ces nombres : c'est pour cela qu'on passe aux décibels.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-niveau">2. Le niveau d'intensité sonore</h3>
+
+  <div class="bloc definition" data-titre="Niveau d'intensité sonore">
+    <p>Le <strong>niveau d'intensité sonore</strong> $L$ compare l'intensité $I$ à une intensité de référence $I_0$ :</p>
+    <p class="formule">$L = 10\log\left(\dfrac{I}{I_0}\right)$ &nbsp; avec &nbsp; $I_0 = 1{,}0\times10^{-12}$ W·m⁻²</p>
+    <ul>
+      <li>$L$ en <strong>décibels</strong> (dB) ;</li>
+      <li>$I$ et $I_0$ dans la même unité (W·m⁻²) ; $I_0$ est l'<strong>intensité sonore de référence</strong>, proche du seuil d'audibilité à $1\,000$ Hz ;</li>
+      <li>$\log$ est le <strong>logarithme décimal</strong> : la touche « log » de la calculatrice, pas « ln ».</li>
+    </ul>
+    <p>Dans l'autre sens, la fonction réciproque donne l'intensité : $I = I_0\times10^{L/10}$.</p>
+  </div>
+
+  <div class="colonnes">
+    <figure class="figure-svg"><svg viewBox="0 0 500 400" role="img" aria-label="L'échelle des niveaux d'intensité sonore, de 0 à 130 décibels, avec l'intensité correspondante de 10 puissance moins 12 à 10 watts par mètre carré, et des repères : seuil d'audibilité, chuchotement, conversation, rue, tondeuse, concert, seuil de douleur. La zone au-dessus de 80 décibels est marquée comme risquée."><rect class="plein t-w op-70" x="98" y="160.0" width="24" height="192.0"/><rect class="plein t-sc-jaune op-70" x="98" y="112.0" width="24" height="48.0"/><rect class="plein t-chaud op-70" x="98" y="64.0" width="24" height="48.0"/><rect class="plein t-ko op-70" x="98" y="40.0" width="24" height="24.0"/><rect class="contour t-ink" x="98" y="40.0" width="24" height="312.0"/><text class="petit" x="90" y="22" text-anchor="end">L (dB)</text><text class="petit" x="130" y="22">I (W·m⁻²)</text><line class="axe-trait" x1="93" y1="352.0" x2="98" y2="352.0"/><text class="petit" x="90" y="357.0" text-anchor="end">0</text><text class="petit" x="130" y="357.0">10⁻¹²</text><line class="axe-trait" x1="93" y1="328.0" x2="98" y2="328.0"/><text class="petit" x="90" y="333.0" text-anchor="end">10</text><text class="petit" x="130" y="333.0">10⁻¹¹</text><line class="axe-trait" x1="93" y1="304.0" x2="98" y2="304.0"/><text class="petit" x="90" y="309.0" text-anchor="end">20</text><text class="petit" x="130" y="309.0">10⁻¹⁰</text><line class="axe-trait" x1="93" y1="280.0" x2="98" y2="280.0"/><text class="petit" x="90" y="285.0" text-anchor="end">30</text><text class="petit" x="130" y="285.0">10⁻⁹</text><line class="axe-trait" x1="93" y1="256.0" x2="98" y2="256.0"/><text class="petit" x="90" y="261.0" text-anchor="end">40</text><text class="petit" x="130" y="261.0">10⁻⁸</text><line class="axe-trait" x1="93" y1="232.0" x2="98" y2="232.0"/><text class="petit" x="90" y="237.0" text-anchor="end">50</text><text class="petit" x="130" y="237.0">10⁻⁷</text><line class="axe-trait" x1="93" y1="208.0" x2="98" y2="208.0"/><text class="petit" x="90" y="213.0" text-anchor="end">60</text><text class="petit" x="130" y="213.0">10⁻⁶</text><line class="axe-trait" x1="93" y1="184.0" x2="98" y2="184.0"/><text class="petit" x="90" y="189.0" text-anchor="end">70</text><text class="petit" x="130" y="189.0">10⁻⁵</text><line class="axe-trait" x1="93" y1="160.0" x2="98" y2="160.0"/><text class="petit" x="90" y="165.0" text-anchor="end">80</text><text class="petit" x="130" y="165.0">10⁻⁴</text><line class="axe-trait" x1="93" y1="136.0" x2="98" y2="136.0"/><text class="petit" x="90" y="141.0" text-anchor="end">90</text><text class="petit" x="130" y="141.0">10⁻³</text><line class="axe-trait" x1="93" y1="112.0" x2="98" y2="112.0"/><text class="petit" x="90" y="117.0" text-anchor="end">100</text><text class="petit" x="130" y="117.0">10⁻²</text><line class="axe-trait" x1="93" y1="88.0" x2="98" y2="88.0"/><text class="petit" x="90" y="93.0" text-anchor="end">110</text><text class="petit" x="130" y="93.0">10⁻¹</text><line class="axe-trait" x1="93" y1="64.0" x2="98" y2="64.0"/><text class="petit" x="90" y="69.0" text-anchor="end">120</text><text class="petit" x="130" y="69.0">1</text><line class="axe-trait" x1="93" y1="40.0" x2="98" y2="40.0"/><text class="petit" x="90" y="45.0" text-anchor="end">130</text><text class="petit" x="130" y="45.0">10¹</text><g class="trace t-n fin"><line x1="174" y1="352.0" x2="192" y2="352.0"/></g><text class="note" x="198" y="357.0">0 dB : seuil d'audibilité</text><g class="trace t-n fin"><line x1="174" y1="280.0" x2="192" y2="280.0"/></g><text class="note" x="198" y="285.0">30 dB : chuchotement</text><g class="trace t-n fin"><line x1="174" y1="208.0" x2="192" y2="208.0"/></g><text class="note" x="198" y="213.0">60 dB : conversation</text><g class="trace t-n fin"><line x1="174" y1="160.0" x2="192" y2="160.0"/></g><text class="note" x="198" y="165.0">80 dB : rue très passante : risque si prolongé</text><g class="trace t-n fin"><line x1="174" y1="136.0" x2="192" y2="136.0"/></g><text class="note" x="198" y="141.0">90 dB : tondeuse à gazon</text><g class="trace t-n fin"><line x1="174" y1="112.0" x2="192" y2="112.0"/></g><text class="note" x="198" y="117.0">100 dB : concert, discothèque</text><g class="trace t-n fin"><line x1="174" y1="64.0" x2="192" y2="64.0"/></g><text class="note" x="198" y="69.0">120 dB : seuil de douleur</text><g class="trace t-n fin"><line x1="174" y1="40.0" x2="192" y2="40.0"/></g><text class="note" x="198" y="45.0">130 dB : réacteur d'avion, tout près</text></svg><figcaption>L'échelle des décibels. Chaque graduation de $10$ dB multiplie l'intensité par $10$. Le danger ne dépend pas que du niveau : il dépend aussi de la durée d'exposition.</figcaption></figure>
+    <div class="bloc propriete" data-titre="Ce que valent les décibels">
+      <ul>
+        <li>Intensité multipliée par $10$ : niveau <strong>augmenté de $10$ dB</strong>. Par $100$ : $+20$ dB. Par $1\,000$ : $+30$ dB.</li>
+        <li>Intensité multipliée par $2$ : niveau augmenté de $10\log 2\approx3$ dB. Divisée par $2$ : $-3$ dB.</li>
+        <li>Des sources indépendantes (deux machines, deux voix) : leurs <strong>intensités s'additionnent</strong>, jamais leurs niveaux. $N$ sources identiques de niveau $L_1$ chacune donnent $L_N = L_1 + 10\log N$. Deux enceintes qui jouent la même musique sont, elles, synchrones : elles peuvent interférer, et l'énoncé précise alors qu'on additionne les intensités.</li>
+        <li>$L = 0$ dB ne veut pas dire « aucun son » : c'est $I = I_0$, le son le plus faible qu'on entend.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer un niveau, retrouver une intensité">
+    <ol class="etapes">
+      <li><span>J'écris l'intensité en W·m⁻², en écriture scientifique.</span></li>
+      <li><span>Je calcule $\dfrac{I}{I_0}$, puis $L = 10\log\dfrac{I}{I_0}$ à la touche « log ».</span></li>
+      <li><span>Dans l'autre sens : $I = I_0\times10^{L/10}$ (touche « 10<sup>x</sup> »).</span></li>
+      <li><span>Je vérifie avec l'échelle des décibels : le résultat doit être plausible.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Dans une salle de classe agitée, l'intensité sonore vaut $I = 3{,}2\times10^{-6}$ W·m⁻². Calculer le niveau $L$. Puis, près d'une machine, un sonomètre affiche $85$ dB : quelle est l'intensité ?</p>
+      <ol class="pas">
+        <li><strong>Le rapport.</strong> $\dfrac{I}{I_0}=\dfrac{3{,}2\times10^{-6}}{1{,}0\times10^{-12}}=3{,}2\times10^{6}$.</li>
+        <li><strong>Le niveau.</strong> $L=10\log(3{,}2\times10^{6})=10\times6{,}5=65$ dB. Plausible : un peu plus qu'une conversation.</li>
+        <li><strong>La réciproque.</strong> $I=I_0\times10^{L/10}=1{,}0\times10^{-12}\times10^{8{,}5}=3{,}2\times10^{-4}$ W·m⁻².</li>
+        <li><strong>Comparer.</strong> $85-65=20$ dB d'écart : la machine est $10^2=100$ fois plus intense que la classe. Vérification : $\dfrac{3{,}2\times10^{-4}}{3{,}2\times10^{-6}}=100$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Combiner plusieurs sources">
+    <ol class="etapes">
+      <li><span>Je convertis chaque niveau en intensité : $I_k = I_0\times10^{L_k/10}$.</span></li>
+      <li><span>J'additionne les intensités.</span></li>
+      <li><span>Je reviens au niveau : $L = 10\log\dfrac{I_1+I_2+\dots}{I_0}$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> À un poste de travail, une machine produit seule $80$ dB, une autre seule $85$ dB. Quel niveau quand les deux tournent ?</p>
+      <ol class="pas">
+        <li><strong>Les intensités.</strong> $I_1=10^{-12}\times10^{8{,}0}=1{,}0\times10^{-4}$ W·m⁻² et $I_2=10^{-12}\times10^{8{,}5}=3{,}2\times10^{-4}$ W·m⁻².</li>
+        <li><strong>La somme.</strong> $I=I_1+I_2=4{,}2\times10^{-4}$ W·m⁻².</li>
+        <li><strong>Le niveau.</strong> $L=10\log\dfrac{4{,}2\times10^{-4}}{1{,}0\times10^{-12}}=10\log(4{,}2\times10^{8})=86$ dB.</li>
+        <li><strong>Le sens.</strong> Pas $165$ dB : à peine plus que la machine la plus bruyante seule. La plus faible pèse peu, car elle est trois fois moins intense.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-attenuation">3. L'atténuation</h3>
+
+  <div class="bloc definition" data-titre="Atténuation">
+    <p>L'<strong>atténuation</strong> $A$ est la baisse du niveau d'intensité sonore entre deux situations (deux distances, avant et après un obstacle) :</p>
+    <p class="formule">$A = L_{\text{avant}} - L_{\text{après}}$ &nbsp; (en dB)</p>
+    <p>On distingue l'<strong>atténuation géométrique</strong>, due à l'éloignement, et l'<strong>atténuation par absorption</strong>, due à un matériau traversé (mur, vitre, mousse, bouchon d'oreille, eau) qui ne laisse passer qu'une partie de l'énergie sonore. Le reste est réfléchi ou transformé en chaleur : une mousse absorbe surtout, un mur lourd renvoie surtout l'onde.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Atténuation géométrique d'une source ponctuelle">
+    <p>Entre les distances $d_1$ et $d_2$, l'intensité est divisée par $\left(\dfrac{d_2}{d_1}\right)^2$. Donc</p>
+    <p class="formule">$A = L_1 - L_2 = 10\log\dfrac{I_1}{I_2} = 20\log\dfrac{d_2}{d_1}$</p>
+    <p>Distance doublée : $A = 20\log2\approx6$ dB. Distance multipliée par $10$ : $A = 20$ dB.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 660 250" role="img" aria-label="Une enceinte et cinq points de mesure. À 2 mètres, 100 décibels ; à 4 mètres, 94 ; à 8 mètres, 88 ; à 16 mètres, 82. Derrière un mur qui atténue de 30 décibels, il ne reste que 52 décibels."><rect class="forme" x="14" y="120" width="26" height="54" rx="4"/><circle class="contour t-ink" cx="27" cy="160" r="9"/><circle class="contour t-ink" cx="27" cy="134" r="5"/><text class="note" x="27" y="212" text-anchor="middle">enceinte</text><rect class="plein t-u op-70" x="93" y="60.0" width="34" height="130.0"/><text class="note" x="110" y="52.0" text-anchor="middle">100 dB</text><text class="petit" x="110" y="210" text-anchor="middle">2 m</text><rect class="plein t-u op-70" x="193" y="67.8" width="34" height="122.2"/><text class="note" x="210" y="59.8" text-anchor="middle">94 dB</text><text class="petit" x="210" y="210" text-anchor="middle">4 m</text><text class="petit" x="160" y="160" text-anchor="middle">−6 dB</text><rect class="plein t-u op-70" x="293" y="75.6" width="34" height="114.4"/><text class="note" x="310" y="67.6" text-anchor="middle">88 dB</text><text class="petit" x="310" y="210" text-anchor="middle">8 m</text><text class="petit" x="260" y="160" text-anchor="middle">−6 dB</text><rect class="plein t-u op-70" x="393" y="83.4" width="34" height="106.6"/><text class="note" x="410" y="75.4" text-anchor="middle">82 dB</text><text class="petit" x="410" y="210" text-anchor="middle">16 m</text><text class="petit" x="360" y="160" text-anchor="middle">−6 dB</text><rect class="paroi" x="476" y="78" width="16" height="112"/><text class="note" x="484" y="210" text-anchor="middle">mur</text><text class="petit" x="484" y="68" text-anchor="middle">−30 dB</text><rect class="plein t-u op-70" x="543" y="122.4" width="34" height="67.6"/><text class="note" x="560" y="114.4" text-anchor="middle">52 dB</text><text class="petit" x="560" y="210" text-anchor="middle">16 m, derrière</text><g class="trace t-n"><line x1="10" y1="190" x2="630" y2="190"/></g><text class="petit" x="320" y="228" text-anchor="middle">la distance double d'un point au suivant (échelle non proportionnelle)</text></svg><figcaption>Une enceinte, puis des points de plus en plus loin : à chaque doublement de la distance, le niveau perd $6$ dB. Le mur, lui, retire d'un coup $30$ dB : c'est l'atténuation par absorption.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Calculer un niveau à une autre distance">
+    <ol class="etapes">
+      <li><span>Je calcule le rapport des distances $\dfrac{d_2}{d_1}$.</span></li>
+      <li><span>J'en déduis l'atténuation $A = 20\log\dfrac{d_2}{d_1}$, puis $L_2 = L_1 - A$.</span></li>
+      <li><span>Pour trouver une distance : $\dfrac{d_2}{d_1} = 10^{A/20}$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Une enceinte, assimilée à une source ponctuelle, produit $100$ dB à $2{,}0$ m. Quel niveau à $8{,}0$ m ? À quelle distance le niveau tombe-t-il à $80$ dB ?</p>
+      <ol class="pas">
+        <li><strong>Le rapport.</strong> $\dfrac{d_2}{d_1}=\dfrac{8{,}0}{2{,}0}=4$.</li>
+        <li><strong>L'atténuation.</strong> $A=20\log4=12$ dB, donc $L_2=100-12=88$ dB. Deux doublements, deux fois $6$ dB.</li>
+        <li><strong>La distance cherchée.</strong> Il faut $A=100-80=20$ dB, donc $\dfrac{d}{2{,}0}=10^{20/20}=10$ et $d=20$ m.</li>
+        <li><strong>Le piège évité.</strong> À $8$ m, le niveau n'est pas divisé par $4$ (ce serait $25$ dB, un murmure) : c'est l'intensité qui est divisée par $16$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Atténuation par absorption">
+    <p>Un bouchon d'oreille en mousse atténue de l'ordre de $20$ à $30$ dB ; un double vitrage, d'environ $30$ dB. Au concert, avec $101$ dB devant la scène et des bouchons de $20$ dB, le tympan ne reçoit plus que $81$ dB : l'intensité qui l'atteint est divisée par $10^{2}=100$.</p>
+    <p>L'absorption dépend de la fréquence : la plupart des matériaux arrêtent mieux les aigus que les graves. C'est pour cela qu'à travers un mur, on entend surtout les basses de la fête des voisins.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Les décibels et la santé">
+    <p>Les sonomètres affichent souvent des <strong>dB(A)</strong> : une mesure pondérée qui donne moins de poids aux graves et aux très aigus, comme l'oreille. Ce n'est pas tout à fait le niveau $L$ du programme, mais il se calcule et se combine de la même façon.</p>
+    <p>Le risque dépend du niveau <strong>et</strong> de la durée. Au travail, l'employeur doit agir dès $80$ dB(A) en moyenne sur $8$ h, les protections deviennent obligatoires à $85$ dB(A), et ce qui arrive à l'oreille, protections comprises, ne doit jamais dépasser $87$ dB(A) (Code du travail). En concert, le niveau ne doit pas dépasser $102$ dB(A) en moyenne sur $15$ minutes, et $94$ dB(A) dans les spectacles destinés aux enfants jusqu'à six ans (Code de la santé publique). Repère de prévention : chaque fois que le niveau monte de $3$ dB, l'énergie reçue double, donc la durée d'écoute « équivalente » est divisée par deux.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-doppler">4. Ce qu'on entend quand la sirène passe</h3>
+
+  <div class="bloc exemple" data-titre="L'ambulance">
+    <p>Tu attends au bord d'une route droite. Une ambulance arrive, sirène allumée, à vitesse constante. Pendant toute l'approche, tu entends une note <strong>plus aiguë</strong> que celle de la sirène à l'arrêt, et cette note ne bouge pas. Au moment où l'ambulance te dépasse, la note <strong>chute</strong> ; pendant qu'elle s'éloigne, tu entends une note <strong>plus grave</strong>, elle aussi constante. Le son, lui, devient de plus en plus fort puis de plus en plus faible : c'est une autre affaire, celle des décibels.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Effet Doppler et décalage Doppler">
+    <p>Quand un émetteur d'ondes se déplace par rapport à un observateur, la fréquence $f_R$ que reçoit l'observateur est différente de la fréquence $f_E$ émise : c'est l'<strong>effet Doppler</strong>. Il existe pour toutes les ondes : son, ultrasons, lumière, ondes radio.</p>
+    <p>Le <strong>décalage Doppler</strong> est la différence $\Delta f = f_R - f_E$, en hertz. Il est positif quand l'émetteur se rapproche, négatif quand il s'éloigne.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 700 310" role="img" aria-label="À gauche, une source immobile entourée de quatre fronts d'onde circulaires, également espacés. À droite, la même source qui avance vers la droite : les cercles sont décalés, serrés devant la source, du côté de l'observateur A, et espacés derrière, du côté de l'observateur B."><circle class="contour t-u" cx="140.0" cy="128" r="100.0"/><circle class="contour t-u" cx="140.0" cy="128" r="75.0"/><circle class="contour t-u" cx="140.0" cy="128" r="50.0"/><circle class="contour t-u" cx="140.0" cy="128" r="25.0"/><circle class="plein t-v" cx="140.0" cy="128" r="6"/><text class="note" x="140" y="262" text-anchor="middle">source immobile</text><circle class="contour t-u" cx="440.0" cy="128" r="100.0"/><circle class="contour t-u" cx="450.0" cy="128" r="75.0"/><circle class="contour t-u" cx="460.0" cy="128" r="50.0"/><circle class="contour t-u" cx="470.0" cy="128" r="25.0"/><circle class="plein t-v" cx="480.0" cy="128" r="6"/><g class="trace t-v"><line x1="480.0" y1="128.0" x2="505.0" y2="128.0"/></g><polygon class="plein t-v" points="516.0,128.0 505.0,133.0 505.0,123.0"/><text class="lettre halo" x="500" y="118" text-anchor="middle">v<tspan dy="4">E</tspan></text><circle class="plein t-ink" cx="612" cy="128" r="5"/><text class="lettre" x="612" y="114" text-anchor="middle">A</text><circle class="plein t-ink" cx="318" cy="128" r="5"/><text class="lettre" x="318" y="114" text-anchor="middle">B</text><text class="note" x="612" y="252" text-anchor="middle">A, devant :</text><text class="note" x="612" y="270" text-anchor="middle">fronts serrés, plus aigu</text><text class="note" x="318" y="252" text-anchor="middle">B, derrière :</text><text class="note" x="318" y="270" text-anchor="middle">fronts espacés, plus grave</text><text class="note" x="465" y="282" text-anchor="middle">source en mouvement</text></svg><figcaption>À gauche, une source immobile : les fronts d'onde sont des cercles concentriques, également espacés. À droite, la même source avance : chaque front part d'un point différent. Devant elle, les fronts se resserrent ; derrière, ils s'écartent.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Ce qui change, ce qui ne change pas">
+    <ul>
+      <li>La <strong>célérité</strong> de l'onde ne dépend que du milieu. Que la sirène roule ou non, son son va à $340$ m·s⁻¹ dans l'air.</li>
+      <li>Ce qui change, c'est l'<strong>espacement des fronts</strong>, donc la longueur d'onde reçue. Devant la source, $\lambda$ est plus petite, donc $f = \dfrac{v}{\lambda}$ est plus grande : le son est plus aigu. Derrière, il est plus grave.</li>
+      <li>Pour une source qui va en ligne droite, à vitesse constante, droit vers l'observateur, la fréquence reçue est <strong>constante</strong> pendant l'approche, puis pendant l'éloignement.</li>
+    </ul>
+  </div>
+
+  <div class="bloc remarque" data-titre="Au bord de la route, la note glisse">
+    <p>Si tu te tiens à quelques mètres de la route, l'ambulance ne vient pas droit sur toi. Seule la partie de sa vitesse dirigée vers toi compte, et elle diminue à mesure que l'ambulance arrive à ta hauteur. La note glisse alors en une ou deux secondes au lieu de sauter. Le programme se limite au cas à une dimension.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-decalage">5. Établir le décalage Doppler</h3>
+
+  <p>On se place dans le cas du programme : un observateur <strong>immobile</strong>, un émetteur <strong>mobile</strong> qui se déplace sur la droite qui le relie à l'observateur, à vitesse constante $v_E$. L'onde se propage à la célérité $v$, avec $v_E &lt; v$.</p>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 660 270" role="img" aria-label="Deux instants. En haut, à l'instant 0, la source émet un premier front. En bas, une période plus tard, ce front a parcouru v fois T, la source a avancé de v E fois T et émet le deuxième front. L'écart entre les deux fronts vaut (v moins v E) fois T : c'est la longueur d'onde reçue par l'observateur O, immobile, à droite."><text class="note" x="8" y="20">t = 0</text><g class="trace t-n fin pointille"><line x1="40" y1="52" x2="600" y2="52"/></g><circle class="plein t-ink" cx="600" cy="52" r="5"/><text class="lettre" x="600" y="38" text-anchor="middle">O</text><text class="note" x="8" y="132">t = T<tspan dy="4">E</tspan></text><g class="trace t-n fin pointille"><line x1="40" y1="164" x2="600" y2="164"/></g><circle class="plein t-ink" cx="600" cy="164" r="5"/><text class="lettre" x="600" y="150" text-anchor="middle">O</text><g class="trace t-u"><path d="M80.0,26 Q91.0,52 80.0,78"/></g><circle class="plein t-v" cx="70" cy="52" r="7"/><g class="trace t-v"><line x1="70.0" y1="52.0" x2="99.0" y2="52.0"/></g><polygon class="plein t-v" points="110.0,52.0 99.0,57.0 99.0,47.0"/><text class="note" x="60" y="88">front 1 émis</text><g class="trace t-u"><path d="M396.0,138 Q407.0,164 396.0,190"/></g><g class="trace t-u"><path d="M190.0,138 Q201.0,164 190.0,190"/></g><circle class="plein t-v op-30" cx="70" cy="164" r="7"/><circle class="plein t-v" cx="190" cy="164" r="7"/><text class="note" x="406" y="132" text-anchor="middle">front 1</text><text class="note" x="194" y="132" text-anchor="middle">front 2</text><g class="trace t-n fin"><line x1="76.0" y1="112.0" x2="394.0" y2="112.0"/></g><polygon class="plein t-n" points="70.0,112.0 79.0,108.0 79.0,116.0"/><polygon class="plein t-n" points="400.0,112.0 391.0,108.0 391.0,116.0"/><text class="note halo" x="235.0" y="105.0" text-anchor="middle">v · T<tspan dy="4">E</tspan></text><g class="trace t-n fin"><line x1="76.0" y1="214.0" x2="184.0" y2="214.0"/></g><polygon class="plein t-n" points="70.0,214.0 79.0,210.0 79.0,218.0"/><polygon class="plein t-n" points="190.0,214.0 181.0,210.0 181.0,218.0"/><text class="note halo" x="130.0" y="232.0" text-anchor="middle">v<tspan dy="4">E</tspan><tspan dy="-4"> · T</tspan><tspan dy="4">E</tspan></text><g class="trace t-v fin"><line x1="196.0" y1="214.0" x2="394.0" y2="214.0"/></g><polygon class="plein t-v" points="190.0,214.0 199.0,210.0 199.0,218.0"/><polygon class="plein t-v" points="400.0,214.0 391.0,210.0 391.0,218.0"/><text class="note halo" x="295.0" y="232.0" text-anchor="middle">λ<tspan dy="4">R</tspan><tspan dy="-4"> = (v − v</tspan><tspan dy="4">E</tspan><tspan dy="-4">) · T</tspan><tspan dy="4">E</tspan></text></svg><figcaption>Pendant une période $T_E$, le premier front parcourt $v\,T_E$ ; la source, qui le suit, avance de $v_E\,T_E$ avant d'émettre le front suivant. Devant elle, l'écart entre les deux fronts n'est plus que $(v-v_E)\,T_E$.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Établir l'expression de la fréquence reçue" data-ouvert>
+    <ol class="etapes">
+      <li><span>Je suis deux fronts successifs, émis à une période $T_E$ d'écart.</span></li>
+      <li><span>J'écris la distance entre eux devant la source : c'est la longueur d'onde reçue $\lambda_R$.</span></li>
+      <li><span>Les fronts arrivent à la célérité $v$ : $f_R = \dfrac{v}{\lambda_R}$.</span></li>
+      <li><span>Je vérifie le cas $v_E = 0$, puis le sens du décalage.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Une source émet un son de fréquence $f_E$ (période $T_E=\frac{1}{f_E}$). Elle se rapproche en ligne droite d'un observateur immobile, à la vitesse $v_E$. Le son se propage à la célérité $v$. Établir la fréquence $f_R$ reçue par l'observateur.</p>
+      <ol class="pas">
+        <li><strong>Deux fronts.</strong> À l'instant $0$, la source émet un front. À l'instant $T_E$, elle émet le suivant.</li>
+        <li><strong>Pendant $T_E$.</strong> Le premier front a parcouru $v\,T_E$ vers l'observateur. Dans le même temps, la source a avancé de $v_E\,T_E$ dans le même sens.</li>
+        <li><strong>La longueur d'onde reçue.</strong> L'écart entre les deux fronts vaut $\lambda_R = v\,T_E - v_E\,T_E = (v-v_E)\,T_E$, plus petit que $\lambda_E = v\,T_E$.</li>
+        <li><strong>La fréquence reçue.</strong> Les fronts voyagent à $v$ : $f_R=\dfrac{v}{\lambda_R}=\dfrac{v}{(v-v_E)\,T_E}$, soit $f_R = f_E\times\dfrac{v}{v-v_E}$.</li>
+        <li><strong>Vérifier.</strong> Si $v_E=0$, on retrouve $f_R=f_E$. Si $v_E&gt;0$, le dénominateur est plus petit que $v$ : $f_R&gt;f_E$, le son est plus aigu. Pour une source qui s'éloigne, elle recule de $v_E\,T_E$ : $\lambda_R=(v+v_E)\,T_E$ et $f_R = f_E\times\dfrac{v}{v+v_E}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Fréquence reçue (observateur fixe, émetteur mobile)">
+    <p class="formule">Approche : $f_R = f_E\times\dfrac{v}{v-v_E}$ &nbsp;&nbsp; Éloignement : $f_R = f_E\times\dfrac{v}{v+v_E}$</p>
+    <ul>
+      <li>$v$ : célérité de l'onde dans le milieu ; $v_E$ : vitesse de l'émetteur, toutes deux en m·s⁻¹ ;</li>
+      <li>le décalage Doppler vaut, à l'approche, $\Delta f = f_R - f_E = f_E\times\dfrac{v_E}{v-v_E}$.</li>
+    </ul>
+    <p>Pour ne pas se tromper de signe : à l'approche, le son doit être plus aigu, donc le dénominateur doit être plus petit que $v$.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Quand la source est lente devant l'onde">
+    <p>Si $v_E$ est petite devant $v$, $v-v_E\approx v$ et le décalage devient $|\Delta f|\approx f_E\times\dfrac{v_E}{v}$, à peu près le même à l'approche et à l'éloignement. Pour un vélo à $5$ m·s⁻¹, petit devant $340$ m·s⁻¹, l'écart avec l'expression exacte est de $1{,}5$ % seulement. Pour une voiture à $30$ m·s⁻¹, les deux décalages diffèrent déjà nettement.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Déterminer la vitesse d'une source">
+    <ol class="etapes">
+      <li><span>Je repère si la source s'approche ($f_R&gt;f_E$) ou s'éloigne ($f_R&lt;f_E$), et je choisis l'expression.</span></li>
+      <li><span>J'isole $v_E$. À l'approche : $v-v_E=\dfrac{f_E\,v}{f_R}$, donc $v_E = v\left(1-\dfrac{f_E}{f_R}\right)$.</span></li>
+      <li><span>Je calcule en m·s⁻¹, puis je convertis en km·h⁻¹ (× $3{,}6$) si on le demande.</span></li>
+      <li><span>Je vérifie que $v_E$ est positive, plus petite que $v$, et plausible.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> La sirène d'une ambulance émet un la à $f_E=440$ Hz. Un piéton mesure, pendant l'approche, $f_R=476$ Hz. Avec $v=340$ m·s⁻¹, déterminer la vitesse de l'ambulance.</p>
+      <ol class="pas">
+        <li><strong>Le cas.</strong> $f_R&gt;f_E$ : l'ambulance s'approche, $f_R=f_E\times\dfrac{v}{v-v_E}$.</li>
+        <li><strong>Isoler.</strong> $v-v_E=\dfrac{f_E\,v}{f_R}$ donc $v_E=v\left(1-\dfrac{f_E}{f_R}\right)$.</li>
+        <li><strong>Calculer.</strong> $v_E=340\times\left(1-\dfrac{440}{476}\right)=340\times0{,}0756=25{,}7$ m·s⁻¹, soit $25{,}7\times3{,}6\approx93$ km·h⁻¹.</li>
+        <li><strong>Vérifier.</strong> Une ambulance en ville à $93$ km·h⁻¹, c'est rapide mais possible en urgence ; et $25{,}7$ m·s⁻¹ reste bien plus petit que $340$ m·s⁻¹.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-em">6. Avec la lumière et les ondes radio</h3>
+
+  <div class="bloc propriete" data-titre="Le même effet pour les ondes électromagnétiques">
+    <p>L'effet Doppler existe aussi pour la lumière et les ondes radio. Dans les expressions, la célérité devient $c=3{,}00\times10^{8}$ m·s⁻¹. Comme les vitesses des objets courants sont minuscules devant $c$, le décalage relatif l'est aussi : $\dfrac{|\Delta f|}{f}\approx\dfrac{v_E}{c}$, de l'ordre de $10^{-7}$ pour une voiture. Il faut des appareils très précis, et une onde de très haute fréquence, pour le mesurer.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Le radar routier">
+      <p>Le radar émet une onde radio de fréquence $f\approx24$ GHz vers la voiture, qui la renvoie. L'onde subit deux fois l'effet Doppler (reçue par la voiture en mouvement, puis réémise par elle) : le sujet donne alors $\Delta f = \dfrac{2\,f\,v}{c}$. Pour une voiture à $25$ m·s⁻¹ ($90$ km·h⁻¹) : $\Delta f=\dfrac{2\times24\times10^{9}\times25}{3{,}00\times10^{8}}=4\,000$ Hz. Quelques kilohertz sur vingt-quatre milliards : c'est cet écart que l'électronique mesure.</p>
+    </div>
+    <div class="bloc exemple" data-titre="L'échographie Doppler">
+      <p>La sonde émet des ultrasons de quelques mégahertz dans les tissus ($v\approx1\,540$ m·s⁻¹). Les globules rouges les renvoient décalés. Avec une sonde à $4{,}0$ MHz, du sang à $0{,}50$ m·s⁻¹, un faisceau incliné de $60°$ sur l'artère et l'expression donnée par l'énoncé, on trouve un décalage d'environ $1{,}3$ kHz : il tombe dans le domaine audible, et l'appareil le fait entendre.</p>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le décalage vers le rouge">
+    <p>Dans le spectre d'une étoile ou d'une galaxie, on reconnaît les raies d'absorption de l'hydrogène, dont on connaît les longueurs d'onde au laboratoire (la raie Hα, $656{,}3$ nm). Si la galaxie s'éloigne, les raies sont reçues à une longueur d'onde plus grande : elles sont <strong>décalées vers le rouge</strong>. Si elle se rapproche, elles sont décalées vers le bleu. Le modèle du paragraphe 5 donne la vitesse : pour une source qui s'éloigne, $\lambda_R=(c+v_E)\,T_E$, donc $\Delta\lambda=\lambda_R-\lambda_0=v_E\,T_E$ et $\dfrac{\Delta\lambda}{\lambda_0}=\dfrac{v_E\,T_E}{c\,T_E}$. Pour la lumière, ce modèle ne vaut que si $v_E \ll c$ :</p>
+    <p class="formule">$\dfrac{|\Delta\lambda|}{\lambda_0} \approx \dfrac{v_E}{c}$</p>
+    <p>Une raie Hα reçue à $662{,}9$ nm : $\Delta\lambda=6{,}6$ nm, donc $v_E\approx3{,}00\times10^{8}\times\dfrac{6{,}6}{656{,}3}\approx3{,}0\times10^{6}$ m·s⁻¹, trois mille kilomètres par seconde, en s'éloignant.</p>
+    <p>Pour les galaxies très lointaines, le décalage vient surtout de l'expansion de l'Univers, qui étire la lumière pendant son long trajet. On parle encore de vitesse d'éloignement, mais ce n'est plus un effet Doppler au sens strict.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 640 300" role="img" aria-label="Trois bandes de spectre de 400 à 700 nanomètres. En haut, les raies de l'hydrogène mesurées au laboratoire. Au milieu, une galaxie qui s'éloigne : les mêmes raies, décalées vers les grandes longueurs d'onde, le rouge. En bas, une galaxie qui se rapproche : décalées vers le bleu."><text class="note" x="40" y="22">laboratoire</text><rect class="fond-grid" x="40" y="30" width="550" height="38" rx="4"/><g class="trace t-ink ep-3"><line x1="503.6" y1="33" x2="503.6" y2="65"/></g><g class="trace t-ink ep-3"><line x1="201.6" y1="33" x2="201.6" y2="65"/></g><g class="trace t-ink ep-3"><line x1="109.2" y1="33" x2="109.2" y2="65"/></g><g class="trace t-ink ep-3"><line x1="67.0" y1="33" x2="67.0" y2="65"/></g><text class="note" x="40" y="100">galaxie qui s'éloigne : décalage vers le rouge</text><rect class="fond-grid" x="40" y="108" width="550" height="38" rx="4"/><g class="trace t-ink ep-3"><line x1="538.5" y1="111" x2="538.5" y2="143"/></g><g class="trace t-ink ep-3"><line x1="227.5" y1="111" x2="227.5" y2="143"/></g><g class="trace t-ink ep-3"><line x1="132.3" y1="111" x2="132.3" y2="143"/></g><g class="trace t-ink ep-3"><line x1="88.8" y1="111" x2="88.8" y2="143"/></g><g class="trace t-rouge"><line x1="503.6" y1="127.0" x2="527.5" y2="127.0"/></g><polygon class="plein t-rouge" points="538.5,127.0 527.5,132.0 527.5,122.0"/><g class="trace t-n fin pointille"><line x1="503.6" y1="104" x2="503.6" y2="150"/></g><text class="note" x="40" y="178">galaxie qui se rapproche : décalage vers le bleu</text><rect class="fond-grid" x="40" y="186" width="550" height="38" rx="4"/><g class="trace t-ink ep-3"><line x1="474.5" y1="189" x2="474.5" y2="221"/></g><g class="trace t-ink ep-3"><line x1="180.1" y1="189" x2="180.1" y2="221"/></g><g class="trace t-ink ep-3"><line x1="89.9" y1="189" x2="89.9" y2="221"/></g><g class="trace t-ink ep-3"><line x1="48.8" y1="189" x2="48.8" y2="221"/></g><g class="trace t-bleu"><line x1="503.6" y1="205.0" x2="485.5" y2="205.0"/></g><polygon class="plein t-bleu" points="474.5,205.0 485.5,200.0 485.5,210.0"/><g class="trace t-n fin pointille"><line x1="503.6" y1="182" x2="503.6" y2="228"/></g><text class="petit" x="503.6" y="82" text-anchor="middle">Hα</text><g class="trace t-n"><line x1="40" y1="246" x2="590" y2="246"/></g><line class="axe-trait" x1="48.9" y1="242" x2="48.9" y2="250"/><text class="petit" x="48.9" y="266" text-anchor="middle">400</text><line class="axe-trait" x1="226.3" y1="242" x2="226.3" y2="250"/><text class="petit" x="226.3" y="266" text-anchor="middle">500</text><line class="axe-trait" x1="403.7" y1="242" x2="403.7" y2="250"/><text class="petit" x="403.7" y="266" text-anchor="middle">600</text><line class="axe-trait" x1="581.1" y1="242" x2="581.1" y2="250"/><text class="petit" x="581.1" y="266" text-anchor="middle">700</text><text class="petit" x="590" y="238" text-anchor="end">λ (nm)</text></svg><figcaption>Les mêmes raies de l'hydrogène, au laboratoire, dans une galaxie qui s'éloigne (décalées vers le rouge) et dans une galaxie qui se rapproche (vers le bleu). Les décalages sont exagérés pour être visibles.</figcaption></figure>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-mesurer">7. Mesurer en TP</h3>
+
+  <div class="bloc methode" data-titre="Mesurer un niveau d'intensité sonore">
+    <ol class="etapes">
+      <li><span>Je relève d'abord le bruit de fond, source éteinte : il doit être nettement plus faible que ce que je mesure.</span></li>
+      <li><span>Je place le sonomètre (ou le téléphone) à la distance voulue, micro tourné vers la source, sans le masquer de la main.</span></li>
+      <li><span>Je fais plusieurs mesures et j'en prends la moyenne ; je note si l'appareil affiche des dB ou des dB(A).</span></li>
+      <li><span>Avec une application de téléphone, je garde un regard critique : le micro n'est pas étalonné, l'écart avec un sonomètre peut atteindre quelques décibels.</span></li>
+    </ol>
+  </div>
+
+  <div class="bloc methode" data-titre="Déterminer une vitesse par effet Doppler, avec son incertitude">
+    <ol class="etapes">
+      <li><span>Un téléphone émet un son pur (par exemple $4\,000$ Hz) ; un second, immobile, affiche le spectre du son reçu. Je mesure d'abord $f_E$, émetteur au repos.</span></li>
+      <li><span>Je fais avancer l'émetteur droit vers le récepteur, à vitesse constante (sur un chariot), et je relève la fréquence du pic, $f_R$. Le mouvement doit durer : pour lire une fréquence au hertz près, le récepteur a besoin d'environ une seconde de signal stable.</span></li>
+      <li><span>Je calcule $v_E = v\left(1-\dfrac{f_E}{f_R}\right)$, avec la célérité $v$ à la température de la salle.</span></li>
+      <li><span>J'évalue l'incertitude-type avec l'expression donnée, puis j'écris le résultat avec un ou deux chiffres significatifs pour $u$.</span></li>
+      <li><span>Je compare à une valeur de référence (chronométrage sur une distance connue) avec le quotient $\dfrac{|v_E - v_{\text{réf}}|}{u(v_E)}$ : en dessous de $2$, les deux sont compatibles.</span></li>
+    </ol>
+    <figure class="figure-svg"><svg viewBox="0 0 540 260" role="img" aria-label="Spectre du son reçu par le téléphone immobile, de 3 980 à 4 040 hertz. Un pic en pointillés à 4 000 hertz, l'émetteur au repos ; un pic plein à 4 017 hertz, l'émetteur en approche. L'écart entre les deux pics vaut 17 hertz."><g class="trace t-n"><line x1="50" y1="196" x2="500" y2="196"/><line x1="50" y1="30" x2="50" y2="196"/></g><line class="axe-trait" x1="50.0" y1="196" x2="50.0" y2="201"/><text class="petit" x="50.0" y="217" text-anchor="middle">3 980</text><line class="axe-trait" x1="125.0" y1="196" x2="125.0" y2="201"/><text class="petit" x="125.0" y="217" text-anchor="middle">3 990</text><line class="axe-trait" x1="200.0" y1="196" x2="200.0" y2="201"/><text class="petit" x="200.0" y="217" text-anchor="middle">4 000</text><line class="axe-trait" x1="275.0" y1="196" x2="275.0" y2="201"/><text class="petit" x="275.0" y="217" text-anchor="middle">4 010</text><line class="axe-trait" x1="350.0" y1="196" x2="350.0" y2="201"/><text class="petit" x="350.0" y="217" text-anchor="middle">4 020</text><line class="axe-trait" x1="425.0" y1="196" x2="425.0" y2="201"/><text class="petit" x="425.0" y="217" text-anchor="middle">4 030</text><line class="axe-trait" x1="500.0" y1="196" x2="500.0" y2="201"/><text class="petit" x="500.0" y="217" text-anchor="middle">4 040</text><text class="petit" x="500" y="234" text-anchor="end">f (Hz)</text><text class="petit" x="56" y="26">amplitude</text><g class="trace t-n pointille"><path d="M50.0,196.0 L51.9,196.0 L53.8,196.0 L55.6,196.0 L57.5,196.0 L59.4,196.0 L61.2,196.0 L63.1,196.0 L65.0,196.0 L66.9,196.0 L68.8,196.0 L70.6,196.0 L72.5,196.0 L74.4,196.0 L76.2,196.0 L78.1,196.0 L80.0,196.0 L81.9,196.0 L83.8,196.0 L85.6,196.0 L87.5,196.0 L89.4,196.0 L91.2,196.0 L93.1,196.0 L95.0,196.0 L96.9,196.0 L98.8,196.0 L100.6,196.0 L102.5,196.0 L104.4,196.0 L106.2,196.0 L108.1,196.0 L110.0,196.0 L111.9,196.0 L113.8,196.0 L115.6,196.0 L117.5,196.0 L119.4,196.0 L121.2,196.0 L123.1,196.0 L125.0,196.0 L126.9,196.0 L128.8,196.0 L130.6,196.0 L132.5,196.0 L134.4,196.0 L136.2,196.0 L138.1,196.0 L140.0,196.0 L141.9,196.0 L143.8,196.0 L145.6,196.0 L147.5,196.0 L149.4,196.0 L151.2,196.0 L153.1,196.0 L155.0,196.0 L156.9,196.0 L158.8,196.0 L160.6,196.0 L162.5,196.0 L164.4,196.0 L166.2,196.0 L168.1,195.9 L170.0,195.8 L171.9,195.5 L173.8,195.0 L175.6,194.0 L177.5,192.3 L179.4,189.5 L181.2,185.1 L183.1,178.7 L185.0,169.8 L186.9,158.3 L188.8,144.2 L190.6,128.2 L192.5,111.6 L194.4,95.8 L196.2,82.8 L198.1,74.2 L200.0,71.2 L201.9,74.2 L203.8,82.8 L205.6,95.8 L207.5,111.6 L209.4,128.2 L211.2,144.2 L213.1,158.3 L215.0,169.8 L216.9,178.7 L218.8,185.1 L220.6,189.5 L222.5,192.3 L224.4,194.0 L226.2,195.0 L228.1,195.5 L230.0,195.8 L231.9,195.9 L233.8,196.0 L235.6,196.0 L237.5,196.0 L239.4,196.0 L241.2,196.0 L243.1,196.0 L245.0,196.0 L246.9,196.0 L248.8,196.0 L250.6,196.0 L252.5,196.0 L254.4,196.0 L256.2,196.0 L258.1,196.0 L260.0,196.0 L261.9,196.0 L263.8,196.0 L265.6,196.0 L267.5,196.0 L269.4,196.0 L271.2,196.0 L273.1,196.0 L275.0,196.0 L276.9,196.0 L278.8,196.0 L280.6,196.0 L282.5,196.0 L284.4,196.0 L286.2,196.0 L288.1,196.0 L290.0,196.0 L291.9,196.0 L293.8,196.0 L295.6,196.0 L297.5,196.0 L299.4,196.0 L301.2,196.0 L303.1,196.0 L305.0,196.0 L306.9,196.0 L308.8,196.0 L310.6,196.0 L312.5,196.0 L314.4,196.0 L316.2,196.0 L318.1,196.0 L320.0,196.0 L321.9,196.0 L323.8,196.0 L325.6,196.0 L327.5,196.0 L329.4,196.0 L331.2,196.0 L333.1,196.0 L335.0,196.0 L336.9,196.0 L338.8,196.0 L340.6,196.0 L342.5,196.0 L344.4,196.0 L346.2,196.0 L348.1,196.0 L350.0,196.0 L351.9,196.0 L353.8,196.0 L355.6,196.0 L357.5,196.0 L359.4,196.0 L361.2,196.0 L363.1,196.0 L365.0,196.0 L366.9,196.0 L368.8,196.0 L370.6,196.0 L372.5,196.0 L374.4,196.0 L376.2,196.0 L378.1,196.0 L380.0,196.0 L381.9,196.0 L383.8,196.0 L385.6,196.0 L387.5,196.0 L389.4,196.0 L391.2,196.0 L393.1,196.0 L395.0,196.0 L396.9,196.0 L398.8,196.0 L400.6,196.0 L402.5,196.0 L404.4,196.0 L406.2,196.0 L408.1,196.0 L410.0,196.0 L411.9,196.0 L413.8,196.0 L415.6,196.0 L417.5,196.0 L419.4,196.0 L421.2,196.0 L423.1,196.0 L425.0,196.0 L426.9,196.0 L428.8,196.0 L430.6,196.0 L432.5,196.0 L434.4,196.0 L436.2,196.0 L438.1,196.0 L440.0,196.0 L441.9,196.0 L443.8,196.0 L445.6,196.0 L447.5,196.0 L449.4,196.0 L451.2,196.0 L453.1,196.0 L455.0,196.0 L456.9,196.0 L458.8,196.0 L460.6,196.0 L462.5,196.0 L464.4,196.0 L466.2,196.0 L468.1,196.0 L470.0,196.0 L471.9,196.0 L473.8,196.0 L475.6,196.0 L477.5,196.0 L479.4,196.0 L481.2,196.0 L483.1,196.0 L485.0,196.0 L486.9,196.0 L488.8,196.0 L490.6,196.0 L492.5,196.0 L494.4,196.0 L496.2,196.0 L498.1,196.0 L500.0,196.0"/></g><g class="trace t-u"><path d="M50.0,196.0 L51.9,196.0 L53.8,196.0 L55.6,196.0 L57.5,196.0 L59.4,196.0 L61.2,196.0 L63.1,196.0 L65.0,196.0 L66.9,196.0 L68.8,196.0 L70.6,196.0 L72.5,196.0 L74.4,196.0 L76.2,196.0 L78.1,196.0 L80.0,196.0 L81.9,196.0 L83.8,196.0 L85.6,196.0 L87.5,196.0 L89.4,196.0 L91.2,196.0 L93.1,196.0 L95.0,196.0 L96.9,196.0 L98.8,196.0 L100.6,196.0 L102.5,196.0 L104.4,196.0 L106.2,196.0 L108.1,196.0 L110.0,196.0 L111.9,196.0 L113.8,196.0 L115.6,196.0 L117.5,196.0 L119.4,196.0 L121.2,196.0 L123.1,196.0 L125.0,196.0 L126.9,196.0 L128.8,196.0 L130.6,196.0 L132.5,196.0 L134.4,196.0 L136.2,196.0 L138.1,196.0 L140.0,196.0 L141.9,196.0 L143.8,196.0 L145.6,196.0 L147.5,196.0 L149.4,196.0 L151.2,196.0 L153.1,196.0 L155.0,196.0 L156.9,196.0 L158.8,196.0 L160.6,196.0 L162.5,196.0 L164.4,196.0 L166.2,196.0 L168.1,196.0 L170.0,196.0 L171.9,196.0 L173.8,196.0 L175.6,196.0 L177.5,196.0 L179.4,196.0 L181.2,196.0 L183.1,196.0 L185.0,196.0 L186.9,196.0 L188.8,196.0 L190.6,196.0 L192.5,196.0 L194.4,196.0 L196.2,196.0 L198.1,196.0 L200.0,196.0 L201.9,196.0 L203.8,196.0 L205.6,196.0 L207.5,196.0 L209.4,196.0 L211.2,196.0 L213.1,196.0 L215.0,196.0 L216.9,196.0 L218.8,196.0 L220.6,196.0 L222.5,196.0 L224.4,196.0 L226.2,196.0 L228.1,196.0 L230.0,196.0 L231.9,196.0 L233.8,196.0 L235.6,196.0 L237.5,196.0 L239.4,196.0 L241.2,196.0 L243.1,196.0 L245.0,196.0 L246.9,196.0 L248.8,196.0 L250.6,196.0 L252.5,196.0 L254.4,196.0 L256.2,196.0 L258.1,196.0 L260.0,196.0 L261.9,196.0 L263.8,196.0 L265.6,196.0 L267.5,196.0 L269.4,196.0 L271.2,196.0 L273.1,196.0 L275.0,196.0 L276.9,196.0 L278.8,196.0 L280.6,196.0 L282.5,196.0 L284.4,196.0 L286.2,196.0 L288.1,196.0 L290.0,196.0 L291.9,196.0 L293.8,196.0 L295.6,195.9 L297.5,195.8 L299.4,195.5 L301.2,195.0 L303.1,194.1 L305.0,192.5 L306.9,189.9 L308.8,185.8 L310.6,179.8 L312.5,171.5 L314.4,160.6 L316.2,147.4 L318.1,132.5 L320.0,116.8 L321.9,102.1 L323.8,89.9 L325.6,81.8 L327.5,79.0 L329.4,81.8 L331.2,89.9 L333.1,102.1 L335.0,116.8 L336.9,132.5 L338.8,147.4 L340.6,160.6 L342.5,171.5 L344.4,179.8 L346.2,185.8 L348.1,189.9 L350.0,192.5 L351.9,194.1 L353.8,195.0 L355.6,195.5 L357.5,195.8 L359.4,195.9 L361.2,196.0 L363.1,196.0 L365.0,196.0 L366.9,196.0 L368.8,196.0 L370.6,196.0 L372.5,196.0 L374.4,196.0 L376.2,196.0 L378.1,196.0 L380.0,196.0 L381.9,196.0 L383.8,196.0 L385.6,196.0 L387.5,196.0 L389.4,196.0 L391.2,196.0 L393.1,196.0 L395.0,196.0 L396.9,196.0 L398.8,196.0 L400.6,196.0 L402.5,196.0 L404.4,196.0 L406.2,196.0 L408.1,196.0 L410.0,196.0 L411.9,196.0 L413.8,196.0 L415.6,196.0 L417.5,196.0 L419.4,196.0 L421.2,196.0 L423.1,196.0 L425.0,196.0 L426.9,196.0 L428.8,196.0 L430.6,196.0 L432.5,196.0 L434.4,196.0 L436.2,196.0 L438.1,196.0 L440.0,196.0 L441.9,196.0 L443.8,196.0 L445.6,196.0 L447.5,196.0 L449.4,196.0 L451.2,196.0 L453.1,196.0 L455.0,196.0 L456.9,196.0 L458.8,196.0 L460.6,196.0 L462.5,196.0 L464.4,196.0 L466.2,196.0 L468.1,196.0 L470.0,196.0 L471.9,196.0 L473.8,196.0 L475.6,196.0 L477.5,196.0 L479.4,196.0 L481.2,196.0 L483.1,196.0 L485.0,196.0 L486.9,196.0 L488.8,196.0 L490.6,196.0 L492.5,196.0 L494.4,196.0 L496.2,196.0 L498.1,196.0 L500.0,196.0"/></g><text class="note" x="190.0" y="89.2" text-anchor="end">au repos : 4 000 Hz</text><text class="note" x="337.5" y="97.0">en approche : 4 017 Hz</text><g class="trace t-v fin"><line x1="206.0" y1="47.8" x2="321.5" y2="47.8"/></g><polygon class="plein t-v" points="200.0,47.8 209.0,43.8 209.0,51.8"/><polygon class="plein t-v" points="327.5,47.8 318.5,43.8 318.5,51.8"/><text class="note halo" x="263.8" y="40.8" text-anchor="middle">Δf = 17 Hz</text></svg><figcaption>Le spectre affiché par le téléphone récepteur : le pic au repos, puis le pic pendant l'approche, décalé d'une vingtaine de hertz. C'est sur ce petit écart que repose toute la mesure.</figcaption></figure>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Au repos, $f_E=4\,000$ Hz ; pendant l'approche, $f_R=4\,017$ Hz. Chaque fréquence est lue avec une incertitude-type de $1$ Hz. La salle est à $20$ °C : $v=343$ m·s⁻¹. Le chronométrage donne $v_{\text{réf}}=1{,}43$ m·s⁻¹. On donne $\frac{u(v_E)}{v_E}=\sqrt{\left(\frac{u(\Delta f)}{\Delta f}\right)^2+\left(\frac{u(f_R)}{f_R}\right)^2}$ avec $u(\Delta f)=\sqrt{u(f_E)^2+u(f_R)^2}$.</p>
+      <ol class="pas">
+        <li><strong>La vitesse.</strong> $v_E=343\times\left(1-\dfrac{4\,000}{4\,017}\right)=343\times4{,}23\times10^{-3}=1{,}45$ m·s⁻¹.</li>
+        <li><strong>L'incertitude.</strong> $\Delta f=17$ Hz et $u(\Delta f)=\sqrt{1^2+1^2}=1{,}4$ Hz. Le premier terme vaut $\frac{1{,}4}{17}=0{,}083$ ; le second, $\frac{1}{4\,017}=2{,}5\times10^{-4}$, est négligeable. Donc $u(v_E)=0{,}083\times1{,}45=0{,}12$ m·s⁻¹.</li>
+        <li><strong>Le résultat.</strong> $v_E=1{,}45$ m·s⁻¹ avec $u(v_E)=0{,}12$ m·s⁻¹.</li>
+        <li><strong>Comparer.</strong> $\dfrac{|1{,}45-1{,}43|}{0{,}12}=0{,}2&lt;2$ : la mesure par effet Doppler est compatible avec le chronométrage. Pour gagner en précision, il faut un $\Delta f$ plus grand. Une fréquence émise plus haute réduit $u(v_E)$ elle-même. Un mouvement plus rapide ne la change pas, mais la rend plus petite devant $v_E$ : il améliore la précision relative.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait">
+    <ul>
+      <li><strong>Additionner les décibels.</strong> Deux sources de $60$ dB ne font pas $120$ dB, mais $63$ dB : on additionne les intensités, puis on revient au niveau.</li>
+      <li><strong>Croire que le niveau double avec l'intensité.</strong> Intensité doublée : $+3$ dB. Intensité multipliée par $10$ : $+10$ dB.</li>
+      <li><strong>Diviser le niveau par deux quand la distance double.</strong> L'intensité est divisée par $4$, le niveau perd $6$ dB : $90$ dB deviennent $84$ dB, pas $45$.</li>
+      <li><strong>Oublier $I_0$.</strong> $10\log I$ seul donne un nombre négatif sans signification. Et dans l'autre sens, $I = I_0\times10^{L/10}$, avec le $I_0$ et le « divisé par 10 ».</li>
+      <li><strong>Confondre atténuation et rapport.</strong> Une atténuation de $20$ dB ne divise pas l'intensité par $20$, mais par $10^{2}=100$.</li>
+      <li><strong>Inverser approche et éloignement.</strong> À l'approche, le son est plus aigu : $f_R&gt;f_E$, donc $v-v_E$ au dénominateur.</li>
+      <li><strong>Croire que le son monte pendant l'approche.</strong> À vitesse constante et en ligne droite, la note reçue est constante ; elle change au passage.</li>
+      <li><strong>Confondre plus aigu et plus fort.</strong> L'effet Doppler change la fréquence, pas l'intensité. Le son qui forcit en approchant, c'est la distance qui diminue.</li>
+      <li><strong>Croire que le son va plus vite quand la source roule.</strong> La célérité ne dépend que du milieu. C'est la longueur d'onde qui change.</li>
+      <li><strong>Mélanger les vitesses.</strong> Une vitesse en km·h⁻¹ dans la formule (divise d'abord par $3{,}6$) ; ou la célérité de la lumière pour un son, et celle du son pour un radar.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Les décibels : pourquoi un logarithme ?"></div>
+    <div class="video" data-titre="L'effet Doppler en 5 minutes"></div>
+    <div class="video" data-titre="TP : mesurer une vitesse avec deux téléphones"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, dans l'ordre du cours. D'abord prévoir des décibels avant de les voir, avec des machines et une distance réglable. Puis faire passer une sirène et lire ses fronts d'onde. Enfin, mesurer comme en TP une vitesse par effet Doppler, avec son incertitude. Aucun niveau dangereux ne se fait entendre : il se lit à l'écran.</p>
+  <div class="labo" data-labo="son-doppler" data-outil="decibels"></div>
+  <div class="labo" data-labo="son-doppler" data-outil="sirene"></div>
+  <div class="labo" data-labo="son-doppler" data-outil="tp"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie : niveaux et intensités, atténuation, fronts d'onde, décalages et vitesses. Les réponses numériques sont acceptées à l'arrondi demandé près : garde les décimales pendant le calcul et n'arrondis qu'à la fin. Le quiz vérifie les réflexes du cours.</p>
+
+  <div class="jeu" data-generateurs="son-doppler" data-questions="10" data-titre="Le défi des décibels et de Doppler"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Deux sources identiques produisent chacune $70$ dB au même endroit. Ensemble, le niveau vaut…</p>
+      <ul class="choix"><li class="bon">$73$ dB</li><li>$140$ dB</li><li>$70$ dB</li><li>$80$ dB</li></ul>
+      <div class="explication">L'intensité double : $L=70+10\log2\approx73$ dB. On additionne les intensités, jamais les niveaux.</div>
+    </div>
+    <div class="question" data-reponse="70" data-tolerance="0,5">
+      <p>$I=1{,}0\times10^{-5}$ W·m⁻². Calcule le niveau $L$ en dB.</p>
+      <div class="explication">$L=10\log\dfrac{1{,}0\times10^{-5}}{1{,}0\times10^{-12}}=10\log(10^{7})=70$ dB.</div>
+    </div>
+    <div class="question" data-reponse="1" data-tolerance="0,05">
+      <p>Un sonomètre affiche $90$ dB. Calcule l'intensité sonore, en <strong>milliwatts</strong> par mètre carré (mW·m⁻²).</p>
+      <div class="explication">$I=I_0\times10^{L/10}=1{,}0\times10^{-12}\times10^{9}=1{,}0\times10^{-3}$ W·m⁻², soit $1$ mW·m⁻².</div>
+    </div>
+    <div class="question">
+      <p>Tu t'éloignes deux fois plus loin d'une source ponctuelle. Le niveau d'intensité sonore…</p>
+      <ul class="choix"><li class="bon">baisse d'environ $6$ dB</li><li>est divisé par $2$</li><li>est divisé par $4$</li><li>baisse d'environ $3$ dB</li></ul>
+      <div class="explication">L'intensité est divisée par $2^2=4$ : $A=10\log4=20\log2\approx6$ dB.</div>
+    </div>
+    <div class="question">
+      <p>On multiplie l'intensité sonore par $100$. Le niveau…</p>
+      <ul class="choix"><li class="bon">augmente de $20$ dB</li><li>est multiplié par $100$</li><li>augmente de $100$ dB</li><li>augmente de $2$ dB</li></ul>
+      <div class="explication">$10\log100=10\times2=20$ dB. Chaque facteur $10$ en intensité ajoute $10$ dB.</div>
+    </div>
+    <div class="question">
+      <p>Devant la scène, $100$ dB. Tes bouchons d'oreille atténuent de $25$ dB. Le niveau dans ton oreille vaut…</p>
+      <ul class="choix"><li class="bon">$75$ dB</li><li>$4$ dB</li><li>$97$ dB</li><li>$125$ dB</li></ul>
+      <div class="explication">Une atténuation se retranche du niveau : $100-25=75$ dB. ($4$ dB, c'est $100\div25$ : une atténuation n'est pas une division.)</div>
+    </div>
+    <div class="question">
+      <p>Une ambulance s'approche de toi en ligne droite, à vitesse constante. Le son que tu entends est…</p>
+      <ul class="choix"><li class="bon">plus aigu que le son émis, et de hauteur constante</li><li>de plus en plus aigu</li><li>plus grave que le son émis</li><li>identique au son émis, seulement plus fort</li></ul>
+      <div class="explication">À l'approche, les fronts sont resserrés : $f_R&gt;f_E$. À vitesse constante, ce décalage ne change pas ; la note chute au passage.</div>
+    </div>
+    <div class="question">
+      <p>Devant une source sonore qui avance, les fronts d'onde sont…</p>
+      <ul class="choix"><li class="bon">plus resserrés : la longueur d'onde reçue est plus petite</li><li>plus espacés : la longueur d'onde reçue est plus grande</li><li>aussi espacés que si elle était immobile</li><li>plus rapides : ils vont à $v+v_E$</li></ul>
+      <div class="explication">La source « suit » les fronts qu'elle vient d'émettre : $\lambda_R=(v-v_E)\,T_E$. La célérité, elle, reste $v$.</div>
+    </div>
+    <div class="question">
+      <p>Une moto roule à $90$ km·h⁻¹. La célérité du son qu'elle émet, dans l'air…</p>
+      <ul class="choix"><li class="bon">ne dépend que de l'air : environ $340$ m·s⁻¹</li><li>vaut $340+25$ m·s⁻¹ devant elle</li><li>vaut $340-25$ m·s⁻¹ devant elle</li><li>dépend de la fréquence du moteur</li></ul>
+      <div class="explication">La célérité d'une onde dépend du milieu, pas du mouvement de la source. Le mouvement change la longueur d'onde reçue.</div>
+    </div>
+    <div class="question" data-reponse="531" data-tolerance="1">
+      <p>Une source émet à $f_E=500$ Hz et s'approche à $72$ km·h⁻¹ ; $v=340$ m·s⁻¹. Calcule $f_R$ en Hz, arrondie à l'unité.</p>
+      <div class="explication">$72$ km·h⁻¹ $=20$ m·s⁻¹. $f_R=500\times\dfrac{340}{340-20}=500\times\dfrac{340}{320}\approx531$ Hz.</div>
+    </div>
+    <div class="question">
+      <p>Pour un émetteur qui <strong>s'éloigne</strong> d'un observateur fixe, la fréquence reçue est…</p>
+      <ul class="choix"><li class="bon">$f_R=f_E\times\dfrac{v}{v+v_E}$</li><li>$f_R=f_E\times\dfrac{v}{v-v_E}$</li><li>$f_R=f_E\times\dfrac{v+v_E}{v}$</li><li>$f_R=f_E+v_E$</li></ul>
+      <div class="explication">En s'éloignant, le son doit être plus grave : il faut un dénominateur plus grand que $v$. La dernière est même fausse par ses unités : on n'ajoute pas une vitesse à une fréquence.</div>
+    </div>
+    <div class="question">
+      <p>Dans le spectre d'une galaxie, la raie Hα est reçue à une longueur d'onde plus grande qu'au laboratoire. La galaxie…</p>
+      <ul class="choix"><li class="bon">s'éloigne de nous</li><li>se rapproche de nous</li><li>est plus chaude que le Soleil</li><li>est immobile</li></ul>
+      <div class="explication">Décalage vers le rouge (λ plus grande, donc fréquence plus petite) : la source s'éloigne.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre : ★ appliquer une relation, ★★ exploiter une situation, ★★★ mesurer et raisonner. Rédige, vérifie l'ordre de grandeur, puis ouvre la correction.</p>
+
+  <h3>Niveau 1 · Appliquer le cours</h3>
+
+  <article class="exercice" id="ex-du-niveau-a-l-intensite" data-titre="Du niveau à l'intensité" data-niveau="1" data-type="application" data-notions="intensite-sonore niveau-sonore" data-duree="8" data-calculatrice="oui">
+    <p>Au pied de la scène d'un concert, l'intensité sonore vaut $I_1=2{,}0\times10^{-2}$ W·m⁻². Dans le hall, un sonomètre affiche $L_2=72$ dB. Donnée : $I_0=1{,}0\times10^{-12}$ W·m⁻².</p>
+    <p>1. Calculer le niveau $L_1$ au pied de la scène.<br>2. Calculer l'intensité $I_2$ dans le hall.<br>3. Combien de fois le son est-il plus intense au pied de la scène que dans le hall ?</p>
+    <details class="indice"><p>Pour la question 2, la réciproque : $I=I_0\times10^{L/10}$.</p></details>
+    <details class="correction">
+      <p>1. $L_1=10\log\dfrac{2{,}0\times10^{-2}}{1{,}0\times10^{-12}}=10\log(2{,}0\times10^{10})=103$ dB.</p>
+      <p>2. $I_2=1{,}0\times10^{-12}\times10^{7{,}2}=1{,}6\times10^{-5}$ W·m⁻².</p>
+      <p>3. $\dfrac{I_1}{I_2}=\dfrac{2{,}0\times10^{-2}}{1{,}6\times10^{-5}}\approx1{,}3\times10^{3}$ : plus de mille fois. Contrôle : $103-72=31$ dB, et $10^{3{,}1}\approx1\,260$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-million-de-fois-plus-intense" data-titre="Un million de fois plus intense" data-niveau="1" data-type="application" data-notions="niveau-sonore" data-duree="8" data-calculatrice="non">
+    <p>Sans calculatrice. On rappelle que $10\log(10^n)=10\,n$.</p>
+    <p>1. Que vaut le niveau d'un son dont l'intensité est égale à $I_0$ ? Cela veut-il dire qu'on n'entend rien ?<br>2. Le seuil de douleur est vers $120$ dB, une conversation vers $60$ dB. Combien de fois le premier son est-il plus intense que le second ?<br>3. Quel niveau a un son $100$ fois plus intense qu'une conversation à $60$ dB ?</p>
+    <details class="correction">
+      <p>1. $L=10\log1=0$ dB. On entend : c'est le son le plus faible que l'oreille perçoit à $1\,000$ Hz. $0$ dB n'est pas « pas de son ».</p>
+      <p>2. $120-60=60$ dB d'écart, soit six fois $10$ dB : l'intensité est multipliée par $10^{6}$, un million.</p>
+      <p>3. $\times100=\times10^2$ : $+20$ dB, donc $80$ dB. C'est le niveau d'une rue très passante, et le seuil à partir duquel une exposition prolongée devient un risque.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-deux-machines" data-titre="Deux machines" data-niveau="1" data-type="application" data-notions="niveau-sonore intensite-sonore" data-duree="8" data-calculatrice="oui">
+    <p>Dans un atelier, une machine seule produit $82$ dB au poste de l'opérateur.</p>
+    <p>1. Quel niveau avec deux machines identiques ?<br>2. Combien de machines identiques faut-il pour atteindre $92$ dB ?<br>3. On remplace la seconde machine par une plus silencieuse, qui produit seule $75$ dB. Quel niveau quand les deux tournent ?</p>
+    <details class="indice"><p>Les intensités s'additionnent. Pour $N$ machines identiques : $L_N=L_1+10\log N$.</p></details>
+    <details class="correction">
+      <p>1. L'intensité double : $L=82+10\log2=82+3{,}0=85$ dB.</p>
+      <p>2. $92-82=10$ dB, soit une intensité multipliée par $10$ : il faut <strong>dix</strong> machines.</p>
+      <p>3. $I=10^{-12}\times(10^{8{,}2}+10^{7{,}5})=10^{-12}\times(1{,}58\times10^{8}+0{,}32\times10^{8})=1{,}90\times10^{-4}$ W·m⁻², donc $L=10\log(1{,}90\times10^{8})=82{,}8$ dB. La machine silencieuse ne change presque rien.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-s-eloigner-de-l-enceinte" data-titre="S'éloigner de l'enceinte" data-niveau="1" data-type="application" data-notions="niveau-sonore" data-duree="8" data-calculatrice="oui">
+    <p>Une enceinte, assimilée à une source ponctuelle, produit $96$ dB à $3{,}0$ m. On ne tient compte que de l'atténuation géométrique.</p>
+    <p>1. Quel est le niveau à $6{,}0$ m ?<br>2. Et à $30$ m ?<br>3. Un camarade affirme : « À $6$ m, on aura $48$ dB. » Expliquer son erreur.</p>
+    <details class="correction">
+      <p>1. $A=20\log\dfrac{6{,}0}{3{,}0}=20\log2=6{,}0$ dB, donc $L=90$ dB.</p>
+      <p>2. $A=20\log10=20$ dB, donc $L=76$ dB.</p>
+      <p>3. Il a divisé le niveau par $2$. Ce qui change avec la distance, c'est l'intensité : divisée par $4$ quand la distance double. En décibels, cela fait $6$ dB de moins, pas la moitié. $48$ dB serait le bruit d'un bureau calme, à six mètres d'une sono.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-bouchons-d-oreille" data-titre="Les bouchons d'oreille" data-niveau="1" data-type="application" data-notions="niveau-sonore" data-duree="8" data-calculatrice="oui">
+    <p>Au premier rang d'un concert, à $4{,}0$ m de l'enceinte, le niveau est de $101$ dB. Des bouchons en mousse atténuent de $20$ dB.</p>
+    <p>1. Quel niveau atteint le tympan avec les bouchons ?<br>2. Par combien l'intensité est-elle divisée ?<br>3. Sans bouchons, au fond de la salle, à $16$ m de l'enceinte, quel serait le niveau (atténuation géométrique seule) ? Qu'est-ce qui protège le mieux ?</p>
+    <details class="correction">
+      <p>1. $L=101-20=81$ dB.</p>
+      <p>2. $20$ dB, c'est $10^{20/10}=10^{2}$ : l'intensité est divisée par $100$.</p>
+      <p>3. $\dfrac{16}{4{,}0}=4$, donc $A=20\log4=12$ dB et $L=89$ dB. Les bouchons ($81$ dB) protègent mieux que le fond de la salle ($89$ dB). Dans une vraie salle, les réflexions sur les murs rendent même le fond un peu plus bruyant que ce calcul.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-plus-aigu-ou-plus-grave" data-titre="Plus aigu ou plus grave ?" data-niveau="1" data-type="application" data-notions="doppler" data-duree="8" data-calculatrice="non">
+    <p>La figure montre, vus de dessus, les fronts d'onde émis par une source sonore $S$ en mouvement, à intervalles de temps réguliers. Deux micros $A$ et $B$ sont immobiles.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 480 270" role="img" aria-label="Vue de dessus : quatre fronts d'onde circulaires émis par une source S. Les cercles sont serrés du côté gauche, où se trouve le micro A, et espacés du côté droit, où se trouve le micro B."><circle class="contour t-u" cx="270.0" cy="120" r="96.0"/><circle class="contour t-u" cx="260.0" cy="120" r="72.0"/><circle class="contour t-u" cx="250.0" cy="120" r="48.0"/><circle class="contour t-u" cx="240.0" cy="120" r="24.0"/><circle class="plein t-v" cx="230.0" cy="120" r="6"/><text class="lettre halo" x="230.0" y="146" text-anchor="middle">S</text><circle class="plein t-ink" cx="34" cy="120" r="5"/><text class="lettre" x="34" y="106" text-anchor="middle">A</text><circle class="plein t-ink" cx="420" cy="120" r="5"/><text class="lettre" x="420" y="106" text-anchor="middle">B</text></svg></figure>
+    <p>1. Dans quel sens la source se déplace-t-elle ? Justifier.<br>2. Comparer la fréquence reçue en $A$, puis en $B$, à la fréquence émise.<br>3. Un camarade dit : « En $A$, le son est plus fort : c'est ça, l'effet Doppler. » Corriger.</p>
+    <details class="correction">
+      <p>1. Les fronts sont resserrés à gauche et espacés à droite : la source se déplace <strong>vers la gauche</strong>. Elle suit les fronts qu'elle émet de ce côté.</p>
+      <p>2. En $A$, la longueur d'onde reçue est plus petite, donc la fréquence est plus grande : son plus aigu que $f_E$. En $B$, la longueur d'onde est plus grande : son plus grave.</p>
+      <p>3. L'effet Doppler change la <strong>fréquence</strong> (la hauteur), pas l'intensité. Le son peut être plus fort en $A$ parce que la source s'en rapproche, mais c'est une question de distance et de décibels, pas d'effet Doppler.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-calculer-un-decalage" data-titre="Calculer un décalage" data-niveau="1" data-type="application" data-notions="doppler" data-duree="8" data-calculatrice="oui">
+    <p>Un train klaxonne à $f_E=520$ Hz en roulant à $108$ km·h⁻¹, sur une voie droite. Un observateur immobile se tient près de la voie. On prend $v=340$ m·s⁻¹.</p>
+    <p>1. Convertir la vitesse du train en m·s⁻¹.<br>2. Calculer la fréquence reçue pendant l'approche, puis pendant l'éloignement.<br>3. Calculer les deux décalages Doppler. Sont-ils égaux ?</p>
+    <details class="correction">
+      <p>1. $v_E=\dfrac{108}{3{,}6}=30$ m·s⁻¹.</p>
+      <p>2. Approche : $f_R=520\times\dfrac{340}{340-30}=520\times\dfrac{340}{310}=570$ Hz. Éloignement : $f_R=520\times\dfrac{340}{370}=478$ Hz.</p>
+      <p>3. $\Delta f=570-520=+50$ Hz à l'approche, $478-520=-42$ Hz à l'éloignement. Ils ne sont pas égaux en valeur absolue : $30$ m·s⁻¹ n'est pas négligeable devant $340$ m·s⁻¹, l'approximation $|\Delta f|\approx f_E\frac{v_E}{v}=46$ Hz ne suffit plus.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Exploiter une situation</h3>
+
+  <article class="exercice" id="ex-le-niveau-sonore-d-une-salle-de-classe" data-titre="Le niveau sonore d'une salle de classe" data-niveau="2" data-type="probleme" data-notions="niveau-sonore intensite-sonore" data-duree="15" data-calculatrice="oui" data-source="Bac 2026, Métropole, jour 2, épreuve de sciences de l'ingénieur (partie sciences physiques) : « Niveau sonore dans une salle de classe »">
+    <p>Une voix normale produit environ $60$ dB à $1$ m. Pendant un travail de groupe, on modélise la classe ainsi : chaque élève qui écoute est à environ $1$ m de chaque voix qui l'atteint, et toutes les voix s'ajoutent sans être synchrones.</p>
+    <p>1. Dix élèves parlent en même temps. Quel niveau entend un élève ?<br>2. Le sonomètre de la classe affiche en réalité $74$ dB. À combien de voix « normales » cela correspond-il ? Proposer une explication.<br>3. On pose au plafond des panneaux absorbants qui abaissent le niveau de $6$ dB. Quelle fraction de l'intensité sonore reste ?<br>4. Pour se faire entendre à $10$ dB au-dessus du brouhaha de la question 1, quel niveau devrait atteindre la voix du professeur ?</p>
+    <details class="indice"><p>Dix voix identiques : l'intensité est multipliée par $10$.</p></details>
+    <details class="indice"><p>Question 2 : $74-60=14$ dB, et $N=10^{14/10}$.</p></details>
+    <details class="correction">
+      <p>1. $L=60+10\log10=70$ dB.</p>
+      <p>2. $N=10^{(74-60)/10}=10^{1{,}4}\approx25$ voix. Avec dix élèves seulement, c'est que chacun parle plus fort que la normale, pour couvrir les autres : le bruit s'entretient lui-même. C'est l'effet Lombard : dans le bruit, chacun hausse la voix sans s'en rendre compte.</p>
+      <p>3. $10^{-6/10}=10^{-0{,}6}\approx0{,}25$ : il reste un quart de l'intensité.</p>
+      <p>4. $70+10=80$ dB : une voix forcée, épuisante sur une journée. Réduire le brouhaha est plus efficace que monter la voix.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-concert-et-sa-limite" data-titre="Le concert et sa limite" data-niveau="2" data-type="probleme" data-notions="niveau-sonore intensite-sonore" data-duree="15" data-calculatrice="oui">
+    <p>Dans une salle de concert, la réglementation impose de ne pas dépasser $102$ dB(A) en tout endroit accessible au public. Une enceinte, assimilée à une source ponctuelle, produit $108$ dB(A) à $5{,}0$ m. On ne tient compte que de l'atténuation géométrique, et on calcule avec les dB(A) comme avec des dB.</p>
+    <p>1. À quelle distance minimale de l'enceinte faut-il placer le public ?<br>2. L'ingénieur du son ajoute une seconde enceinte identique, juste à côté de la première. On admet que leurs intensités s'additionnent. Que devient le niveau à $5{,}0$ m ? Quelle est la nouvelle distance minimale ?<br>3. Plutôt que de reculer le public, il préfère baisser le volume. De combien de décibels chaque enceinte doit-elle baisser pour revenir à la situation de la question 1 ?</p>
+    <details class="indice"><p>Il faut une atténuation $A=108-102=6$ dB ; puis $\dfrac{d}{5{,}0}=10^{A/20}$.</p></details>
+    <details class="correction">
+      <p>1. $A=6$ dB, donc $\dfrac{d}{5{,}0}=10^{6/20}=2{,}0$ et $d=10$ m. Logique : $6$ dB, c'est une distance doublée.</p>
+      <p>2. Deux enceintes : intensité doublée, $+3$ dB, soit $111$ dB(A) à $5{,}0$ m. Il faut maintenant $A=9$ dB : $\dfrac{d}{5{,}0}=10^{9/20}=2{,}8$, donc $d=14$ m.</p>
+      <p>3. Il faut retirer les $3$ dB gagnés : chaque enceinte baisse de $3$ dB, ce qui divise sa puissance par $2$. Deux enceintes à demi-puissance font autant qu'une à pleine puissance.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-casque-et-la-duree-d-ecoute" data-titre="Le casque et la durée d'écoute" data-niveau="2" data-type="probleme" data-notions="niveau-sonore" data-duree="15" data-calculatrice="oui">
+    <p>Un repère de prévention : une exposition de $8$ h à $80$ dB(A) correspond à une certaine « dose » d'énergie sonore. On reçoit la même dose en moins de temps si le niveau est plus élevé, à énergie égale (règle d'égale énergie).</p>
+    <p>Un élève écoute sa musique au casque à $92$ dB(A).</p>
+    <p>1. Par combien l'intensité sonore est-elle multipliée entre $80$ et $92$ dB(A) ?<br>2. En déduire la durée d'écoute à $92$ dB(A) qui apporte la même dose que $8$ h à $80$ dB(A).<br>3. Retrouver ce résultat avec la règle « $+3$ dB, durée divisée par $2$ ».<br>4. Il baisse le volume de $6$ dB. Quelle durée équivalente obtient-il ?</p>
+    <details class="indice"><p>À énergie égale, intensité × durée reste constant.</p></details>
+    <details class="correction">
+      <p>1. $92-80=12$ dB : intensité multipliée par $10^{1{,}2}\approx16$.</p>
+      <p>2. Intensité $16$ fois plus grande, durée $16$ fois plus courte : $\dfrac{8\ \text{h}}{16}=0{,}5$ h, soit $30$ minutes.</p>
+      <p>3. $12$ dB, c'est quatre fois $3$ dB : la durée est divisée par $2^4=16$. Même résultat.</p>
+      <p>4. À $86$ dB(A), on n'a plus que deux fois $3$ dB au-dessus de $80$ : $\dfrac{8}{4}=2$ h. Baisser de $6$ dB multiplie la durée « sûre » par quatre. Ce ne sont pas des normes pour la musique, seulement des repères.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-radar-pedagogique" data-titre="Le radar pédagogique" data-niveau="2" data-type="probleme" data-notions="doppler" data-duree="15" data-calculatrice="oui" data-source="Bac 2025, centres étrangers 1, jour 1 : « Radar pédagogique équipé d'un panneau solaire »">
+    <p>À l'entrée d'un village limité à $50$ km·h⁻¹, un radar pédagogique émet une onde de fréquence $f=24{,}125$ GHz vers les voitures qui arrivent. Pour l'onde réfléchie par une voiture qui s'approche à la vitesse $v$, l'énoncé donne le décalage $\Delta f=\dfrac{2\,f\,v}{c}$, avec $c=3{,}00\times10^{8}$ m·s⁻¹.</p>
+    <p>1. Expliquer qualitativement l'origine du facteur $2$.<br>2. Le radar mesure $\Delta f=2\,145$ Hz. Calculer la vitesse de la voiture en km·h⁻¹. Qu'affiche le panneau ?<br>3. Calculer $\dfrac{\Delta f}{f}$. Pourquoi peut-on tout de même mesurer un décalage aussi faible ?</p>
+    <details class="indice"><p>La voiture joue deux rôles : elle reçoit l'onde, puis elle la renvoie.</p></details>
+    <details class="correction">
+      <p>1. La voiture, en mouvement vers le radar, reçoit une onde déjà décalée (premier effet Doppler). Elle la réémet en avançant, ce qui la décale une seconde fois. Les deux décalages s'ajoutent.</p>
+      <p>2. $v=\dfrac{\Delta f\,c}{2f}=\dfrac{2\,145\times3{,}00\times10^{8}}{2\times24{,}125\times10^{9}}=13{,}3$ m·s⁻¹, soit $13{,}3\times3{,}6=48$ km·h⁻¹. Le panneau affiche « 48 », sous la limite.</p>
+      <p>3. $\dfrac{\Delta f}{f}=\dfrac{2\,145}{24{,}125\times10^{9}}\approx8{,}9\times10^{-8}$. C'est minuscule en valeur relative, mais $\Delta f$ vaut plus de $2$ kHz : l'électronique compare l'onde reçue à l'onde émise et mesure directement leur écart, sans avoir à mesurer chaque fréquence à $10^{-8}$ près.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-andromede-s-approche" data-titre="Andromède s'approche" data-niveau="2" data-type="probleme" data-notions="doppler" data-duree="15" data-calculatrice="oui" data-source="Bac 2024, Métropole, jour 1, épreuve de sciences de l'ingénieur (partie sciences physiques) : « Galaxie d'Andromède »">
+    <p>Au laboratoire, la raie Hα de l'hydrogène a pour longueur d'onde $\lambda_0=656{,}28$ nm. Dans le spectre de la galaxie d'Andromède, on la mesure à $\lambda=655{,}62$ nm. Pour une vitesse petite devant $c$, on admet $\dfrac{|\Delta\lambda|}{\lambda_0}\approx\dfrac{v}{c}$, avec $c=3{,}00\times10^{8}$ m·s⁻¹.</p>
+    <p>1. La galaxie se rapproche-t-elle ou s'éloigne-t-elle ? Justifier.<br>2. Calculer sa vitesse par rapport à nous, en km·s⁻¹.<br>3. L'approximation $v\ll c$ est-elle justifiée ?<br>4. La plupart des galaxies lointaines présentent un décalage vers le rouge. Qu'en conclut-on ?</p>
+    <details class="correction">
+      <p>1. $\lambda&lt;\lambda_0$ : la raie est décalée vers le bleu, donc la fréquence reçue est plus grande. Andromède se <strong>rapproche</strong>.</p>
+      <p>2. $|\Delta\lambda|=656{,}28-655{,}62=0{,}66$ nm, donc $v=c\times\dfrac{0{,}66}{656{,}28}=3{,}0\times10^{5}$ m·s⁻¹, soit environ $300$ km·s⁻¹.</p>
+      <p>3. $\dfrac{v}{c}=1{,}0\times10^{-3}$ : un millième. L'approximation est largement justifiée.</p>
+      <p>4. Si presque toutes les galaxies lointaines s'éloignent de nous, l'Univers est en expansion. Andromède, assez proche, est attirée par notre galaxie : c'est une exception locale.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-montrer-qu-on-perd-6-db" data-titre="Montrer qu'on perd 6 dB" data-niveau="2" data-type="raisonnement" data-notions="niveau-sonore intensite-sonore" data-duree="10" data-calculatrice="non">
+    <p>Une source ponctuelle de puissance $P$ émet dans toutes les directions : $I=\dfrac{P}{4\pi d^2}$. On note $L_1$ le niveau à la distance $d_1$ et $L_2$ celui à la distance $d_2$. Donnée : $\log2\approx0{,}30$.</p>
+    <p>1. Montrer que $L_1-L_2=20\log\dfrac{d_2}{d_1}$.<br>2. En déduire l'atténuation quand la distance double.<br>3. Montrer que si l'on s'éloigne dix fois plus loin, on perd exactement $20$ dB.</p>
+    <details class="indice"><p>$L_1-L_2=10\log\dfrac{I_1}{I_0}-10\log\dfrac{I_2}{I_0}=10\log\dfrac{I_1}{I_2}$.</p></details>
+    <details class="correction">
+      <p>1. $L_1-L_2=10\log\dfrac{I_1}{I_2}$. Or $\dfrac{I_1}{I_2}=\dfrac{P/(4\pi d_1^2)}{P/(4\pi d_2^2)}=\left(\dfrac{d_2}{d_1}\right)^2$. Donc $L_1-L_2=10\log\left(\dfrac{d_2}{d_1}\right)^2=20\log\dfrac{d_2}{d_1}$.</p>
+      <p>2. $\dfrac{d_2}{d_1}=2$ : $A=20\log2\approx20\times0{,}30=6$ dB.</p>
+      <p>3. $\dfrac{d_2}{d_1}=10$ : $A=20\log10=20\times1=20$ dB, exactement. La puissance $P$ ne joue aucun rôle : la règle vaut pour toutes les sources ponctuelles.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="niveau-sonore intensite-sonore" data-duree="10" data-calculatrice="oui">
+    <p>Un élève a demandé à une IA si l'on pouvait installer deux enceintes de $90$ dB chacune dans la salle des fêtes. Voici sa réponse. Elle est sûre d'elle. Trouve les erreurs, puis rédige la bonne réponse. On admet que les intensités des deux enceintes s'additionnent.</p>
+    <blockquote class="copie-ia">« Deux enceintes de $90$ dB produisent ensemble $90+90=180$ dB, bien au-delà du seuil de douleur de $120$ dB : c'est dangereux et interdit. Si l'on tient à les garder, il faut se placer deux fois plus loin : quand la distance double, le niveau est divisé par deux, et l'on retrouve ainsi $90$ dB. »</blockquote>
+    <details class="indice"><p>Que devient l'intensité quand on ajoute une seconde source identique ? Et quand on double la distance ?</p></details>
+    <details class="correction">
+      <p><strong>Erreur 1 : additionner les niveaux.</strong> Ce sont les intensités qui s'additionnent. Deux sources identiques doublent l'intensité : $L=90+10\log2=93$ dB, pas $180$ dB. Un indice aurait dû alerter l'IA : $180$ dB, c'est l'ordre de grandeur du bruit d'une fusée au décollage, tout près des moteurs.</p>
+      <p><strong>Erreur 2 : diviser le niveau par deux.</strong> Quand la distance double, l'intensité est divisée par $4$ et le niveau perd $6$ dB. Le niveau n'est jamais divisé par deux.</p>
+      <p><strong>La bonne réponse.</strong> Les deux enceintes produisent $93$ dB là où une seule produisait $90$ dB. Pour revenir à $90$ dB, il faut $A=3$ dB, donc $\dfrac{d_2}{d_1}=10^{3/20}\approx1{,}4$ : se placer environ $1{,}4$ fois plus loin, pas deux fois. À $93$ dB, il n'y a rien d'interdit, mais une écoute de plusieurs heures mérite des bouchons.</p>
+      <p>Une réponse fluide peut être fausse dès la première ligne. Le réflexe : comparer l'ordre de grandeur à l'échelle des décibels.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Mesurer et raisonner</h3>
+
+  <article class="exercice" id="ex-tp-la-vitesse-d-un-telephone" data-titre="TP : la vitesse d'un téléphone" data-niveau="3" data-type="probleme" data-notions="doppler" data-duree="25" data-calculatrice="oui" data-source="Bac 2026, centres étrangers 1, jour 1, épreuve de sciences de l'ingénieur (partie sciences physiques) : « Étude de l'effet Doppler à l'aide de deux téléphones »">
+    <p>Un téléphone $T_1$ émet un son pur de fréquence $f_E=2\,000$ Hz. Il est fixé au bout d'un bras qui tourne, dans un plan horizontal, sur un cercle de rayon $R=30{,}0$ cm, en $0{,}600$ s par tour. Un second téléphone $T_2$, immobile et loin du cercle, enregistre le spectre du son reçu. Quand $T_1$ se dirige droit vers $T_2$, le pic est à $f_{max}=2\,018$ Hz. Chaque fréquence est lue avec une incertitude-type de $1$ Hz. La salle est à $20$ °C : $v=343$ m·s⁻¹.</p>
+    <p>On donne :</p>
+    <div class="defile"><p class="formule">$\dfrac{u(v_E)}{v_E}=\sqrt{\left(\dfrac{u(\Delta f)}{\Delta f}\right)^2+\left(\dfrac{u(f_{max})}{f_{max}}\right)^2}$</p></div>
+    <p>avec $u(\Delta f)=\sqrt{u(f_E)^2+u(f_{max})^2}$.</p>
+    <p>1. Calculer la vitesse $v_{\text{réf}}$ de $T_1$ à partir du rayon et de la période.<br>2. Pourquoi la fréquence la plus haute est-elle reçue quand $T_1$ se dirige droit vers $T_2$ ?<br>3. Déterminer $v_E$ à partir de $f_{max}$, puis son incertitude-type $u(v_E)$.<br>4. Les deux valeurs sont-elles compatibles ? On utilisera $\dfrac{|v_E-v_{\text{réf}}|}{u(v_E)}$.<br>5. Quelle est la fréquence la plus basse que reçoit $T_2$ ?</p>
+    <details class="indice"><p>Sur un tour, $T_1$ parcourt $2\pi R$ en une période.</p></details>
+    <details class="indice"><p>Seule compte la partie de la vitesse dirigée vers $T_2$ : elle est maximale quand $T_1$ va droit sur lui.</p></details>
+    <details class="correction">
+      <p>1. $v_{\text{réf}}=\dfrac{2\pi R}{T}=\dfrac{2\pi\times0{,}300}{0{,}600}=3{,}14$ m·s⁻¹.</p>
+      <p>2. L'effet Doppler ne dépend que de la vitesse dans la direction de l'observateur. Sur le cercle, elle est la plus grande vers $T_2$ quand $T_1$ fonce droit sur lui : la fréquence reçue est alors maximale. C'est le cas à une dimension du cours.</p>
+      <p>3. $v_E=v\left(1-\dfrac{f_E}{f_{max}}\right)=343\times\left(1-\dfrac{2\,000}{2\,018}\right)=3{,}06$ m·s⁻¹. $\Delta f=18$ Hz, $u(\Delta f)=\sqrt2=1{,}4$ Hz ; $\dfrac{1{,}4}{18}=0{,}079$ et $\dfrac{1}{2\,018}=5\times10^{-4}$, négligeable. Donc $u(v_E)=0{,}079\times3{,}06=0{,}24$ m·s⁻¹. Résultat : $v_E=3{,}06$ m·s⁻¹, $u(v_E)=0{,}24$ m·s⁻¹.</p>
+      <p>4. $\dfrac{|3{,}06-3{,}14|}{0{,}24}=0{,}3&lt;2$ : compatibles. L'incertitude vient presque toute de la lecture des fréquences : $\Delta f$ ne vaut que $18$ Hz.</p>
+      <p>5. Quand $T_1$ s'éloigne droit de $T_2$ : $f_{min}=2\,000\times\dfrac{343}{343+3{,}14}=1\,982$ Hz.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-moto-qui-passe" data-titre="La moto qui passe" data-niveau="3" data-type="raisonnement" data-notions="doppler" data-duree="25" data-calculatrice="oui">
+    <p>Au bord d'une route droite, on enregistre le son d'une moto qui passe à vitesse constante. Son moteur émet une fréquence $f_E$ qu'on ne connaît pas. Pendant l'approche, on mesure $f_a=312$ Hz ; pendant l'éloignement, $f_e=268$ Hz. On prend $v=340$ m·s⁻¹ et on se place dans le modèle à une dimension.</p>
+    <p>1. Écrire les deux relations qui lient $f_a$, puis $f_e$, à $f_E$.<br>2. En déduire que la vitesse de la moto vaut $v_E=v\times\dfrac{f_a-f_e}{f_a+f_e}$.<br>3. Calculer $v_E$ en km·h⁻¹.<br>4. Calculer $f_E$. Est-ce la moyenne de $f_a$ et $f_e$ ?</p>
+    <details class="indice"><p>Les deux relations donnent toutes deux $f_E\,v$ : $f_a(v-v_E)=f_E\,v=f_e(v+v_E)$.</p></details>
+    <details class="correction">
+      <p>1. $f_a=f_E\times\dfrac{v}{v-v_E}$ et $f_e=f_E\times\dfrac{v}{v+v_E}$.</p>
+      <p>2. On en tire $f_a(v-v_E)=f_E\,v$ et $f_e(v+v_E)=f_E\,v$, donc $f_a(v-v_E)=f_e(v+v_E)$. En développant : $f_a v-f_a v_E=f_e v+f_e v_E$, soit $v_E(f_a+f_e)=v(f_a-f_e)$, d'où $v_E=v\times\dfrac{f_a-f_e}{f_a+f_e}$.</p>
+      <p>3. $v_E=340\times\dfrac{312-268}{312+268}=340\times\dfrac{44}{580}=25{,}8$ m·s⁻¹, soit $93$ km·h⁻¹.</p>
+      <p>4. $f_E=f_a\times\dfrac{v-v_E}{v}=312\times\dfrac{340-25{,}8}{340}=288$ Hz. La moyenne vaudrait $290$ Hz : proche, mais pas égale, car les deux décalages ne sont pas symétriques ($+24$ Hz et $-20$ Hz). Plus précisément, $\dfrac{1}{f_a}+\dfrac{1}{f_e}=\dfrac{(v-v_E)+(v+v_E)}{f_E\,v}=\dfrac{2}{f_E}$ : c'est la période émise qui est la moyenne des deux périodes reçues, pas la fréquence.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-echographie-doppler" data-titre="L'échographie Doppler" data-niveau="3" data-type="probleme" data-notions="doppler" data-duree="25" data-calculatrice="oui">
+    <p>Pour mesurer la vitesse du sang dans une artère, une sonde émet des ultrasons de fréquence $f=5{,}0$ MHz. Le faisceau fait un angle $\theta=60°$ avec l'artère. Les globules rouges renvoient l'onde, et l'énoncé donne le décalage $\Delta f=\dfrac{2\,f\,v_s\cos\theta}{v}$, où $v_s$ est la vitesse du sang et $v=1\,540$ m·s⁻¹ la célérité des ultrasons dans les tissus.</p>
+    <p>1. Pourquoi utilise-t-on des ultrasons, et non des sons audibles ? (Pense à la longueur d'onde.)<br>2. L'appareil mesure $\Delta f=1{,}62$ kHz. Calculer $v_s$.<br>3. L'appareil fait entendre $\Delta f$. Pourquoi est-ce possible ?<br>4. Plus loin, l'artère se rétrécit et la vitesse du sang double. Que devient ce qu'on entend ?</p>
+    <details class="indice"><p>$\lambda=\dfrac{v}{f}$ : compare la longueur d'onde aux détails qu'on veut voir dans le corps.</p></details>
+    <details class="correction">
+      <p>1. À $5{,}0$ MHz, $\lambda=\dfrac{1\,540}{5{,}0\times10^{6}}=3{,}1\times10^{-4}$ m, environ $0{,}3$ mm : on distingue des détails de cette taille. Un son audible à $1$ kHz aurait $\lambda\approx1{,}5$ m, de l'ordre de la taille du corps entier : impossible d'y voir une artère.</p>
+      <p>2. $v_s=\dfrac{\Delta f\,v}{2f\cos\theta}=\dfrac{1\,620\times1\,540}{2\times5{,}0\times10^{6}\times0{,}50}=0{,}50$ m·s⁻¹.</p>
+      <p>3. $1{,}62$ kHz est entre $20$ Hz et $20$ kHz : le décalage est un son audible, que l'appareil diffuse tel quel.</p>
+      <p>4. $\Delta f$ est proportionnel à $v_s$ : il double, $3{,}2$ kHz. Le son entendu devient nettement plus aigu : c'est ce signal qui alerte le médecin sur un rétrécissement (sténose).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-chantier-et-les-voisins" data-titre="Le chantier et les voisins" data-niveau="3" data-type="probleme" data-notions="niveau-sonore intensite-sonore" data-duree="25" data-calculatrice="oui">
+    <p>Un marteau-piqueur produit $95$ dB à $10$ m. La maison la plus proche est à $40$ m ; ses fenêtres à double vitrage atténuent de $30$ dB. On assimile chaque machine à une source ponctuelle, et on néglige les réflexions.</p>
+    <p>1. Quel niveau atteint la façade de la maison ?<br>2. Quel niveau à l'intérieur, fenêtres fermées ?<br>3. Le chef de chantier veut faire tourner plusieurs marteaux-piqueurs identiques, regroupés au même endroit. Il s'engage à ne pas dépasser $60$ dB à l'intérieur de la maison. Combien de machines au plus ?<br>4. Un écran antibruit, placé entre le chantier et la maison, apporte $10$ dB d'atténuation de plus. Combien de machines peut-il alors faire tourner ?</p>
+    <details class="indice"><p>Additionne les atténuations, puis cherche $N$ tel que $L_1+10\log N\le60$.</p></details>
+    <details class="correction">
+      <p>1. $A=20\log\dfrac{40}{10}=20\log4=12$ dB : $95-12=83$ dB sur la façade.</p>
+      <p>2. $83-30=53$ dB à l'intérieur.</p>
+      <p>3. Avec $N$ machines : $53+10\log N\le60$, donc $\log N\le0{,}70$ et $N\le10^{0{,}70}=5{,}0$. Au plus <strong>cinq</strong> machines. Vérification : cinq donnent $53+7{,}0=60$ dB, six donneraient $60{,}8$ dB.</p>
+      <p>4. Avec $10$ dB de plus : $43+10\log N\le60$, soit $N\le10^{1{,}7}\approx50$. On passe de cinq à cinquante machines possibles : $10$ dB, c'est un facteur $10$ sur l'intensité.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-deluge-d-eau-d-ariane-6" data-titre="Le déluge d'eau d'Ariane 6" data-niveau="3" data-type="probleme" data-notions="niveau-sonore intensite-sonore" data-duree="25" data-calculatrice="oui" data-source="Bac 2025, Métropole, jour 2, épreuve de sciences de l'ingénieur (partie sciences physiques) : « Ariane 6 : un déluge d'eau pour se protéger du bruit »">
+    <p>Au décollage, les moteurs d'une fusée produisent un bruit énorme. On déverse sous la fusée des centaines de mètres cubes d'eau : ce déluge protège d'abord la fusée, sa charge et le pas de tir des vibrations sonores, et il absorbe une partie de l'énergie du bruit. On utilise un modèle simple, avec des valeurs d'exercice : sans déluge, le niveau vaudrait $150$ dB à $30$ m de la fusée, assimilée à une source ponctuelle. Le déluge atténue de $20$ dB. L'air n'absorbe rien.</p>
+    <p>1. Calculer l'intensité sonore à $30$ m sans déluge.<br>2. En déduire la puissance sonore émise. Comparer à celle d'une enceinte de concert (environ $100$ W).<br>3. Sans déluge, à quelle distance le niveau descend-il à $85$ dB ?<br>4. Même question avec le déluge. Conclure sur son intérêt pour le public, installé à quelques kilomètres.</p>
+    <details class="indice"><p>Question 3 : $A=150-85=65$ dB, et $\dfrac{d}{30}=10^{A/20}$.</p></details>
+    <details class="correction">
+      <p>1. $I=10^{-12}\times10^{15}=1{,}0\times10^{3}$ W·m⁻².</p>
+      <p>2. $P=I\times4\pi d^2=1{,}0\times10^{3}\times4\pi\times30^2=1{,}1\times10^{7}$ W : une dizaine de mégawatts sonores, cent mille fois une enceinte de concert.</p>
+      <p>3. $A=65$ dB : $\dfrac{d}{30}=10^{65/20}=1{,}8\times10^{3}$, donc $d\approx53$ km.</p>
+      <p>4. Avec le déluge, il ne reste que $45$ dB à atténuer par la distance : $\dfrac{d}{30}=10^{45/20}=1{,}8\times10^{2}$, donc $d\approx5{,}3$ km. Les $20$ dB du déluge divisent cette distance par $10$ : dans ce modèle, le public peut être installé à quelques kilomètres au lieu de plusieurs dizaines. Dans la réalité, le public est tenu loin du pas de tir pour d'autres raisons de sécurité, et le déluge sert surtout à protéger la fusée.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi un logarithme ? On ne pourrait pas garder les W·m⁻² ?</summary>
+      <div><p>Parce que l'oreille couvre un domaine immense : de $10^{-12}$ à environ $1$ W·m⁻², un facteur mille milliards. En W·m⁻², une conversation et un concert seraient des nombres impossibles à comparer d'un coup d'œil. Le logarithme ramène tout entre $0$ et $130$ environ. Et il colle à notre perception : chaque fois que l'intensité est multipliée par $10$, on a l'impression d'un « cran » de plus, toujours le même.</p></div></details>
+    <details><summary>D'où vient $I_0=10^{-12}$ W·m⁻² ?</summary>
+      <div><p>C'est l'intensité du son le plus faible qu'une oreille jeune et en bonne santé perçoit à $1\,000$ Hz. On l'a prise comme référence pour que $0$ dB corresponde au seuil d'audibilité. Pour d'autres fréquences, le seuil réel est différent : on entend moins bien les très graves et les très aigus.</p></div></details>
+    <details><summary>Mon sonomètre affiche des dB(A). C'est la même chose que des dB ?</summary>
+      <div><p>Presque. Les dB(A) sont pondérés : l'appareil compte moins les graves et les très aigus, auxquels l'oreille est moins sensible. Pour un son vers $1\,000$ Hz, les deux valeurs sont proches. Les règles de calcul (additionner les intensités, $-6$ dB quand la distance double) restent les mêmes. Les textes de santé et du travail parlent en dB(A), les exercices de physique en dB.</p></div></details>
+    <details><summary>Deux sons de $60$ dB, ça ne fait vraiment pas $120$ dB ?</summary>
+      <div><p>Non : $63$ dB. Deux sources identiques, c'est deux fois plus d'énergie, et $10\log2\approx3$. Pour atteindre $120$ dB à partir de sons de $60$ dB, il en faudrait… un million. C'est l'erreur la plus fréquente du chapitre : les décibels ne s'additionnent pas.</p></div></details>
+    <details><summary>Le son va-t-il plus vite quand la sirène roule ?</summary>
+      <div><p>Non. Une fois émis, le son se propage dans l'air à la célérité de l'air, quelle que soit la vitesse de la sirène. Ce que le mouvement change, c'est l'endroit d'où partent les fronts successifs : devant, ils sont plus serrés. La longueur d'onde change, la célérité non.</p></div></details>
+    <details><summary>Pourquoi la note change-t-elle d'un coup au passage ?</summary>
+      <div><p>Pendant l'approche, la sirène vient vers toi à vitesse constante : le décalage est constant, la note aussi. Après le passage, elle s'éloigne : nouveau décalage, dans l'autre sens. Le changement se fait au moment où elle passe. Si tu es un peu à l'écart de la route, il prend une seconde ou deux, parce que la sirène ne vient plus exactement vers toi.</p></div></details>
+    <details><summary>Et si c'est moi qui bouge, et pas la source ?</summary>
+      <div><p>Il y a aussi un effet Doppler : en courant vers une source, tu croises les fronts plus souvent, et tu entends plus aigu. Mais l'expression n'est pas la même que pour une source mobile : c'est hors programme. Dans les exercices, l'observateur est toujours immobile, ou l'énoncé donne la formule.</p></div></details>
+    <details><summary>La lumière aussi ? Alors une voiture rouge devient bleue en roulant ?</summary>
+      <div><p>L'effet existe, mais à une voiture il est de l'ordre de $\frac{v}{c}\approx10^{-7}$ : la couleur bouge d'un dix-millionième, totalement invisible. Pour que la couleur change à l'œil, il faudrait des vitesses énormes, des dizaines de milliers de kilomètres par seconde. Un spectrographe précis, lui, mesure le décalage des raies d'une étoile qui se déplace de quelques kilomètres par seconde, et même de quelques mètres par seconde : c'est ainsi qu'on a découvert des planètes autour d'autres étoiles.</p></div></details>
+    <details><summary>Mon téléphone peut-il servir de sonomètre ?</summary>
+      <div><p>Pour une mesure de TP ou une comparaison, oui : plusieurs applications affichent un niveau en dB. Mais son micro n'est pas étalonné et il se protège souvent des sons forts : l'écart avec un vrai sonomètre peut atteindre quelques décibels, plus au-delà de $90$ dB. Pour une valeur fiable, on compare d'abord le téléphone à un sonomètre.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
