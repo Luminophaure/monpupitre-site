@@ -1,0 +1,1 @@
+var theme={sombre(){return document.documentElement.dataset.theme==="dark"},basculer(){let n=theme.sombre()?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("theme",n)}catch{}}};export{theme};
