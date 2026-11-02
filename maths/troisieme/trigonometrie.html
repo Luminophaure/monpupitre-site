@@ -1,0 +1,764 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de trigonometrie.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/troisieme/trigonometrie.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Trigonométrie · Troisième</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=db8e08ca16">
+<script type="module" src="../../assets/js/site.js?v=1d5a14de32"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5VH6UEFK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-XBUZYNB5.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-NJJQEVXO.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MURIO2JQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IYUFATCB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-C2UYVGRR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-G7AAJAVY.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TOBHGHFJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EZRLS5Z4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-37WQ7QFP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-AZADSB2R.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-I2KECKBZ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-JLX2YEHS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VEDQXTSR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UEPN5T2D.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-S3MN66YR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MZZRHLYT.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Q7QJMXBC.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-SFXTDB4Z.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7TQW5JOI.js">
+<link rel="modulepreload" href="../../assets/js/labos/trigo-3.js?v=c73a6462f2">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MI35G4WU.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/trigo-3.js?v=11c1c4c815">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-3DMKOMPX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TLTAELPK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-HIDEO3LX.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="trigo-3" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Troisième · Espace et géométrie</span>
+  <h1>Trigonométrie</h1>
+  <p class="chapeau">Une rampe pour un fauteuil roulant, la hauteur d'un phare, l'angle d'une échelle : dans un triangle rectangle, un angle et une longueur suffisent pour trouver tout le reste. Le cosinus, vu en 4ᵉ, a deux frères : le <strong>sinus</strong> et la <strong>tangente</strong>. Tu vas apprendre à choisir le bon, à calculer une longueur, à calculer un angle, et à te servir de la calculatrice sans qu'elle te trompe.</p>
+  <ul class="objectifs">
+    <li>Nommer les côtés depuis un angle</li><li>Écrire cosinus, sinus et tangente</li><li>Calculer une longueur</li><li>Calculer un angle</li><li>Régler sa calculatrice</li><li>Passer d'une pente en % à un angle</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Une rampe est-elle assez douce pour un fauteuil roulant ?</strong> Pour un bâtiment neuf qui reçoit du public, la règle (arrêté du 20 avril 2017) dit : une pente de <strong>5 %</strong> au plus, c'est-à-dire 5 cm de montée pour 1 m à l'horizontale. Jusqu'à 8 % sur 2 m, et 10 % sur 50 cm, mais pas plus. En degrés, 5 %, c'est moins de 3° : une rampe qui paraît presque plate. L'architecte et le maçon passent sans cesse des pour cent aux degrés, et des degrés aux longueurs. Ce passage, c'est la trigonométrie. Le labo « Pour cent ou degrés » te fait vérifier des rampes et des routes.</p>
+    <p class="discret">Ils s'en servent : les géomètres-topographes (mesurer une hauteur qu'on ne peut pas atteindre), les charpentiers et les couvreurs (la pente d'un toit), les maçons et les architectes (une rampe, un escalier), les ergothérapeutes (aménager un logement pour un fauteuil), les pompiers (l'angle d'une échelle), les pilotes et les contrôleurs aériens (la descente vers la piste). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-vocabulaire">1. Le triangle rectangle, vu depuis un angle</h3>
+
+  <div class="bloc definition" data-titre="Hypoténuse, côté opposé, côté adjacent">
+    <p>Dans un triangle rectangle, l'<strong>hypoténuse</strong> est le côté en face de l'angle droit. C'est le plus long des trois côtés.</p>
+    <p>On choisit ensuite un des deux angles aigus (moins de 90°). Les deux autres côtés prennent un nom par rapport à lui :</p>
+    <ul>
+      <li>le <strong>côté opposé</strong> est en face de l'angle : il ne le touche pas ;</li>
+      <li>le <strong>côté adjacent</strong> touche l'angle, et ce n'est pas l'hypoténuse.</li>
+    </ul>
+    <figure class="figure-svg"><svg viewBox="0 0 451 242" role="img" aria-label="Triangle ABC rectangle en A, l'angle en B marqué : le côté AB, adjacent à l'angle B, en vert ; le côté AC, opposé à l'angle B, en bleu ; l'hypoténuse BC en rose."><polygon class="forme" points="136.0,196.0 376.0,196.0 136.0,46.0"/><g class="trace t-w ep-3"><line x1="136.0" y1="196.0" x2="376.0" y2="196.0"/></g><g class="trace t-u ep-3"><line x1="136.0" y1="196.0" x2="136.0" y2="46.0"/></g><g class="trace t-v ep-3"><line x1="376.0" y1="196.0" x2="136.0" y2="46.0"/></g><g class="trace t-n ep-2"><path d="M340.4,173.7 A42.0,42.0 0 0 0 334.0,196.0"/></g><text class="moyen halo plein t-w" x="256.0" y="222.0" text-anchor="middle">côté adjacent</text><text class="moyen halo plein t-u" x="124.0" y="119.0" text-anchor="end">côté</text><text class="moyen halo plein t-u" x="124.0" y="138.0" text-anchor="end">opposé</text><text class="moyen halo plein t-v" x="270.0" y="111.0" text-anchor="start">hypoténuse</text><g class="trace t-n fin"><path d="M145.6,196.0 L145.6,186.4 L136.0,186.4"/></g><circle class="pt " cx="136.0" cy="196.0" r="4.5"/><text class="lettre" x="114.0" y="216.0">A</text><circle class="pt " cx="376.0" cy="196.0" r="4.5"/><text class="lettre" x="384.0" y="216.0">B</text><circle class="pt " cx="136.0" cy="46.0" r="4.5"/><text class="lettre" x="114.0" y="48.0">C</text></svg><figcaption>Le triangle $ABC$ est rectangle en $A$. Vu depuis l'angle $\widehat{ABC}$ : $[AC]$ est le côté opposé, $[AB]$ le côté adjacent, $[BC]$ l'hypoténuse.</figcaption></figure>
+    <figure class="figure-svg"><svg viewBox="0 0 451 242" role="img" aria-label="Le même triangle ABC rectangle en A, l'angle en C marqué : le côté AC, adjacent à l'angle C, en vert ; le côté AB, opposé à l'angle C, en bleu ; l'hypoténuse BC en rose."><polygon class="forme" points="136.0,196.0 376.0,196.0 136.0,46.0"/><g class="trace t-w ep-3"><line x1="136.0" y1="196.0" x2="136.0" y2="46.0"/></g><g class="trace t-u ep-3"><line x1="136.0" y1="196.0" x2="376.0" y2="196.0"/></g><g class="trace t-v ep-3"><line x1="376.0" y1="196.0" x2="136.0" y2="46.0"/></g><g class="trace t-n ep-2"><path d="M136.0,82.0 A36.0,36.0 0 0 0 166.5,65.1"/></g><text class="moyen halo plein t-u" x="256.0" y="222.0" text-anchor="middle">côté opposé</text><text class="moyen halo plein t-w" x="124.0" y="119.0" text-anchor="end">côté</text><text class="moyen halo plein t-w" x="124.0" y="138.0" text-anchor="end">adjacent</text><text class="moyen halo plein t-v" x="270.0" y="111.0" text-anchor="start">hypoténuse</text><g class="trace t-n fin"><path d="M145.6,196.0 L145.6,186.4 L136.0,186.4"/></g><circle class="pt " cx="136.0" cy="196.0" r="4.5"/><text class="lettre" x="114.0" y="216.0">A</text><circle class="pt " cx="376.0" cy="196.0" r="4.5"/><text class="lettre" x="384.0" y="216.0">B</text><circle class="pt " cx="136.0" cy="46.0" r="4.5"/><text class="lettre" x="114.0" y="48.0">C</text></svg><figcaption>Le même triangle, vu depuis l'angle $\widehat{ACB}$ : cette fois, $[AB]$ est le côté opposé et $[AC]$ le côté adjacent. L'hypoténuse n'a pas bougé.</figcaption></figure>
+  </div>
+
+  <div class="bloc piege" data-titre="L'opposé et l'adjacent dépendent de l'angle">
+    <p>$[AC]$ est opposé à $\widehat{ABC}$, mais adjacent à $\widehat{ACB}$. Tout le monde se trompe un jour en nommant les côtés depuis le mauvais angle.</p>
+    <p>Le réflexe : pose le doigt sur l'angle dont on parle. Le côté que ton doigt ne touche pas, c'est l'opposé. Parmi les deux qu'il touche, le plus long est l'hypoténuse, l'autre est l'adjacent.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les deux angles aigus">
+    <p>La somme des angles d'un triangle vaut 180°. L'angle droit en prend 90° : les deux angles aigus d'un triangle rectangle font donc 90° à eux deux.</p>
+    <p>Si $\widehat{ABC} = 35°$, alors $\widehat{ACB} = 90° - 35° = 55°$.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-rapport">2. Un angle, un rapport</h3>
+
+  <div class="bloc propriete" data-titre="Le rapport ne dépend que de l'angle">
+    <p>Deux triangles rectangles qui ont le même angle aigu ont des côtés proportionnels. Le rapport de deux de leurs côtés ne dépend pas de la taille du triangle : <strong>il ne dépend que de l'angle</strong>.</p>
+    <figure class="figure-svg large"><svg viewBox="0 0 392 288" role="img" aria-label="Trois triangles rectangles emboîtés qui ont le même angle au sommet B, à gauche. Leurs côtés horizontaux mesurent 4, 8 et 12, leurs côtés verticaux 3, 6 et 9, leurs hypoténuses 5, 10 et 15."><polygon class="forme" points="46.0,250 334.0,250 334.0,34"/><polygon class="forme forme-image" points="46.0,250 238.0,250 238.0,106"/><g class="trace t-w ep-3"><line x1="46.0" y1="250" x2="334.0" y2="250"/></g><g class="trace t-v ep-3"><line x1="46.0" y1="250" x2="334.0" y2="34"/></g><g class="trace t-u ep-3"><line x1="142.0" y1="250" x2="142.0" y2="178"/></g><g class="trace t-n fin"><path d="M132.4,250.0 L132.4,240.4 L142.0,240.4"/></g><text class="moyen halo plein t-u" x="150.0" y="220.0" text-anchor="start">3</text><text class="moyen halo plein t-w" x="136.0" y="270.0" text-anchor="end">4</text><text class="moyen halo plein t-v" x="134.0" y="170.0" text-anchor="end">5</text><g class="trace t-u ep-3"><line x1="238.0" y1="250" x2="238.0" y2="106"/></g><g class="trace t-n fin"><path d="M228.4,250.0 L228.4,240.4 L238.0,240.4"/></g><text class="moyen halo plein t-u" x="246.0" y="184.0" text-anchor="start">6</text><text class="moyen halo plein t-w" x="232.0" y="270.0" text-anchor="end">8</text><text class="moyen halo plein t-v" x="230.0" y="98.0" text-anchor="end">10</text><g class="trace t-u ep-3"><line x1="334.0" y1="250" x2="334.0" y2="34"/></g><g class="trace t-n fin"><path d="M324.4,250.0 L324.4,240.4 L334.0,240.4"/></g><text class="moyen halo plein t-u" x="342.0" y="148.0" text-anchor="start">9</text><text class="moyen halo plein t-w" x="328.0" y="270.0" text-anchor="end">12</text><text class="moyen halo plein t-v" x="326.0" y="26.0" text-anchor="end">15</text><g class="trace t-n ep-2"><path d="M84.4,250.0 A38.4,38.4 0 0 0 76.7,227.0"/></g><circle class="pt " cx="46.0" cy="250" r="4.5"/><text class="lettre" x="26.0" y="270.0">B</text></svg><figcaption>Trois triangles rectangles avec le même angle en $B$. Leurs côtés verticaux valent $3$, $6$ et $9$ ; leurs hypoténuses $5$, $10$ et $15$. Le côté vertical vaut toujours $0{,}6$ fois l'hypoténuse.</figcaption></figure>
+    <div class="defile"><table class="simple">
+      <tbody>
+        <tr><th>Côté vertical</th><td>$3$</td><td>$6$</td><td>$9$</td></tr>
+        <tr><th>Côté horizontal</th><td>$4$</td><td>$8$</td><td>$12$</td></tr>
+        <tr><th>Hypoténuse</th><td>$5$</td><td>$10$</td><td>$15$</td></tr>
+        <tr><th>Vertical ÷ hypoténuse</th><td>$0{,}6$</td><td>$0{,}6$</td><td>$0{,}6$</td></tr>
+        <tr><th>Horizontal ÷ hypoténuse</th><td>$0{,}8$</td><td>$0{,}8$</td><td>$0{,}8$</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pourquoi ? C'est Thalès">
+    <p>Les trois triangles de la figure sont emboîtés. Leurs côtés verticaux sont tous perpendiculaires à la même droite horizontale : ils sont parallèles. Le théorème de Thalès dit alors que les côtés sont proportionnels. C'est ce qui permet de donner un nom au rapport : il appartient à l'angle, pas au triangle.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-definitions">3. Cosinus, sinus, tangente</h3>
+
+  <div class="bloc definition" data-titre="Les trois rapports d'un angle aigu">
+    <p>Dans un triangle rectangle, pour un angle aigu :</p>
+    <ul>
+      <li>le <strong>cosinus</strong> de l'angle : $\cos = \dfrac{\text{côté adjacent}}{\text{hypoténuse}}$ (tu l'as vu en 4ᵉ) ;</li>
+      <li>le <strong>sinus</strong> de l'angle : $\sin = \dfrac{\text{côté opposé}}{\text{hypoténuse}}$ ;</li>
+      <li>la <strong>tangente</strong> de l'angle : $\tan = \dfrac{\text{côté opposé}}{\text{côté adjacent}}$.</li>
+    </ul>
+    <p>Dans le triangle $ABC$ rectangle en $A$, pour l'angle $\widehat{ABC}$ :</p>
+    $$ \cos\widehat{ABC}=\frac{AB}{BC} \qquad \sin\widehat{ABC}=\frac{AC}{BC} \qquad \tan\widehat{ABC}=\frac{AC}{AB} $$
+    <figure class="figure-svg"><svg viewBox="0 0 410 254" role="img" aria-label="Triangle ABC rectangle en A, avec B en bas à gauche, A en bas à droite et C au-dessus de A. L'angle en B est marqué. Le côté adjacent AB est vert, le côté opposé AC bleu, l'hypoténuse BC rose."><polygon class="forme" points="292.0,202.0 52.0,202.0 292.0,52.0"/><g class="trace t-w ep-3"><line x1="52.0" y1="202.0" x2="292.0" y2="202.0"/></g><g class="trace t-u ep-3"><line x1="292.0" y1="202.0" x2="292.0" y2="52.0"/></g><g class="trace t-v ep-3"><line x1="52.0" y1="202.0" x2="292.0" y2="52.0"/></g><g class="trace t-n ep-2"><path d="M97.0,202.0 A45.0,45.0 0 0 0 90.2,178.2"/></g><g class="trace t-n fin"><path d="M282.4,202.0 L282.4,192.4 L292.0,192.4"/></g><text class="moyen halo plein t-w" x="172.0" y="228.0" text-anchor="middle">adjacent</text><text class="moyen halo plein t-u" x="304.0" y="133.0" text-anchor="start">opposé</text><text class="moyen halo plein t-v" x="160.0" y="117.0" text-anchor="end">hypoténuse</text><circle class="pt " cx="52.0" cy="202.0" r="4.5"/><text class="lettre" x="32.0" y="222.0">B</text><circle class="pt " cx="292.0" cy="202.0" r="4.5"/><text class="lettre" x="300.0" y="222.0">A</text><circle class="pt " cx="292.0" cy="52.0" r="4.5"/><text class="lettre" x="300.0" y="52.0">C</text></svg><figcaption>Depuis l'angle $\widehat{ABC}$ : l'adjacent $[AB]$ en vert, l'opposé $[AC]$ en bleu, l'hypoténuse $[BC]$ en rose. Le cosinus et le sinus divisent par l'hypoténuse ; la tangente divise l'opposé par l'adjacent.</figcaption></figure>
+  </div>
+
+  <div class="bloc exemple" data-titre="Les trois rapports dans un triangle 3, 4, 5">
+    <p>Le triangle $ABC$ est rectangle en $A$, avec $AB = 4$ cm, $AC = 3$ cm et $BC = 5$ cm.</p>
+    <ul>
+      <li>Pour $\widehat{ABC}$ : $\cos\widehat{ABC}=\dfrac{4}{5}=0{,}8$ ; $\sin\widehat{ABC}=\dfrac{3}{5}=0{,}6$ ; $\tan\widehat{ABC}=\dfrac{3}{4}=0{,}75$.</li>
+      <li>Pour $\widehat{ACB}$, l'opposé et l'adjacent s'échangent : $\cos\widehat{ACB}=\dfrac{3}{5}=0{,}6$ ; $\sin\widehat{ACB}=\dfrac{4}{5}=0{,}8$ ; $\tan\widehat{ACB}=\dfrac{4}{3}\approx1{,}33$.</li>
+    </ul>
+    <p>Le sinus d'un angle est le cosinus de l'autre : c'est normal, l'opposé de l'un est l'adjacent de l'autre.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le cosinus et le sinus sont plus petits que 1">
+    <p>L'hypoténuse est le plus long côté. Le cosinus et le sinus divisent un côté par l'hypoténuse : pour un angle aigu, ils sont <strong>entre 0 et 1</strong>.</p>
+    <p>La tangente divise l'opposé par l'adjacent : elle peut dépasser 1. Elle vaut moins de 1 si l'angle est plus petit que 45°, exactement 1 à 45°, plus de 1 au-delà.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Seulement dans un triangle rectangle">
+    <p>Sans angle droit, il n'y a pas d'hypoténuse, et ces formules sont fausses. La première ligne d'une rédaction le dit toujours : « Le triangle $ABC$ est rectangle en $A$. »</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-calculatrice">4. La calculatrice</h3>
+
+  <div class="bloc methode" data-titre="Régler et vérifier sa calculatrice">
+    <ol class="etapes">
+      <li><span>Je regarde l'unité d'angle à l'écran : il faut un petit <strong>D</strong> ou <strong>DEG</strong> (les degrés). Un R ou RAD (les radians) ou un G ou GRAD donne des résultats faux.</span></li>
+      <li><span>Je fais le test : $\cos(60)$ doit afficher $0{,}5$. Si je lis $-0{,}95\dots$, la calculatrice est en radians : je change l'unité dans le menu de configuration.</span></li>
+      <li><span>Pour une longueur, je tape $\cos$, $\sin$ ou $\tan$ suivi de l'angle : la calculatrice donne un rapport.</span></li>
+      <li><span>Pour un angle, je tape $\cos^{-1}$, $\sin^{-1}$ ou $\tan^{-1}$ suivi du rapport : la calculatrice donne l'angle. Sur la plupart des calculatrices, c'est la touche « seconde » (ou « shift »), puis $\cos$. Certaines l'écrivent Arccos ou acos.</span></li>
+      <li><span>Je garde la valeur complète jusqu'à la fin du calcul : la touche « Ans » (ou « Rép ») réutilise le dernier résultat sans le recopier.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Essai.</strong> Calcule $\cos 35°$, puis l'angle dont le cosinus vaut $0{,}5$.</p>
+      <ol class="pas">
+        <li><strong>Le test.</strong> $\cos(60)$ affiche $0{,}5$ : la calculatrice est en degrés.</li>
+        <li><strong>Un rapport.</strong> $\cos(35)$ affiche $0{,}819\,152\dots$ : un nombre entre 0 et 1, c'est bien un rapport.</li>
+        <li><strong>Un angle.</strong> $\cos^{-1}(0{,}5)$ affiche $60$ : l'angle dont le cosinus vaut $0{,}5$ mesure $60°$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="cos ou cos⁻¹ ?">
+    <p>$\cos$ prend un angle et donne un rapport. $\cos^{-1}$ prend un rapport et donne un angle. Tout le monde a tapé un jour $\cos(0{,}6)$ en cherchant un angle : la calculatrice répond $0{,}99\dots$, et on annonce un « angle de 1° ».</p>
+    <p>Un « angle » plus petit que 1, ou un message d'erreur sur $\cos^{-1}(1{,}25)$ : c'est le signe qu'on s'est trompé de touche, ou de rapport (le cosinus ne dépasse jamais 1).</p>
+  </div>
+
+  <div class="bloc piege" data-titre="La calculatrice en radians">
+    <p>Une calculatrice prêtée, ou réglée pour un autre cours, peut être en radians. Elle calcule alors juste, mais dans une autre unité : $\cos(60)$ y vaut $-0{,}95$, et un angle de $53°$ y sort comme $0{,}93$. Le test de $\cos(60)$, au début de chaque contrôle, prend cinq secondes.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-longueur">5. Calculer une longueur</h3>
+
+  <div class="bloc methode" data-titre="Calculer une longueur avec un angle">
+    <ol class="etapes">
+      <li><span>J'écris où est l'angle droit : « Le triangle est rectangle en … ». Je repère l'hypoténuse, en face.</span></li>
+      <li><span>Depuis l'angle connu, je nomme les deux autres côtés : l'opposé et l'adjacent.</span></li>
+      <li><span>Je choisis le rapport qui contient <strong>le côté connu et le côté cherché</strong> : adjacent et hypoténuse, le cosinus ; opposé et hypoténuse, le sinus ; opposé et adjacent, la tangente.</span></li>
+      <li><span>J'écris l'égalité avec les lettres, puis je remplace par les nombres.</span></li>
+      <li><span>Je calcule. Si l'inconnue est en haut, je multiplie ; si elle est en bas, je fais le produit en croix. J'arrondis à la fin seulement, avec l'unité.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice (l'inconnue en haut).</strong> Le triangle $ABC$ est rectangle en $A$, avec $\widehat{ABC}=35°$ et $BC = 8$ cm. Calculer $AB$, arrondi au millimètre.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 378 267" role="img" aria-label="Triangle ABC rectangle en A, l'angle en B mesure 35 degrés, l'hypoténuse BC mesure 8 cm, le côté AB est cherché."><polygon class="forme" points="289.1,211.2 53.2,211.2 289.1,46.0"/><g class="trace t-w ep-3"><line x1="53.2" y1="211.2" x2="289.1" y2="211.2"/></g><g class="trace t-u ep-3"><line x1="289.1" y1="211.2" x2="289.1" y2="46.0"/></g><g class="trace t-v ep-3"><line x1="53.2" y1="211.2" x2="289.1" y2="46.0"/></g><g class="trace t-n fin"><path d="M277.6,211.2 L277.6,199.7 L289.1,199.7"/></g><g class="trace t-n ep-2"><path d="M100.0,211.2 A46.8,46.8 0 0 0 91.5,184.4"/></g><text class="moyen halo" x="118.4" y="196.6" text-anchor="middle">35°</text><text class="moyen halo plein t-v" x="162.0" y="120.5" text-anchor="middle">8 cm</text><text class="moyen halo plein t-w" x="171.2" y="234.2" text-anchor="middle">?</text><circle class="pt " cx="53.2" cy="211.2" r="4.5"/><text class="lettre" x="33.2" y="231.2">B</text><circle class="pt " cx="289.1" cy="211.2" r="4.5"/><text class="lettre" x="297.1" y="231.2">A</text><circle class="pt " cx="289.1" cy="46.0" r="4.5"/><text class="lettre" x="297.1" y="46.0">C</text></svg><figcaption>On connaît l'angle en $B$ et l'hypoténuse. On cherche $[AB]$, qui touche l'angle : c'est l'adjacent.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>L'angle droit.</strong> Le triangle $ABC$ est rectangle en $A$ : l'hypoténuse est $[BC]$.</li>
+        <li><strong>Les côtés.</strong> Depuis $\widehat{ABC}$ : $[AB]$ est l'adjacent (cherché), $[BC]$ l'hypoténuse (connue).</li>
+        <li><strong>Le rapport.</strong> Adjacent et hypoténuse : le cosinus. $\cos\widehat{ABC}=\dfrac{AB}{BC}$, soit $\cos 35°=\dfrac{AB}{8}$.</li>
+        <li><strong>Le calcul.</strong> $AB$ est en haut : $AB = 8\times\cos 35° \approx 6{,}553$.</li>
+        <li><strong>La conclusion.</strong> $AB \approx 6{,}6$ cm, au millimètre près. Il est plus court que l'hypoténuse : c'est cohérent.</li>
+      </ol>
+    </div>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice (l'inconnue en bas).</strong> Le triangle $DEF$ est rectangle en $E$, avec $\widehat{EDF}=50°$ et $EF = 6$ cm. Calculer $DF$, arrondi au millimètre.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 285 269" role="img" aria-label="Triangle DEF rectangle en E, l'angle en D mesure 50 degrés, le côté EF, opposé à cet angle, mesure 6 cm, l'hypoténuse DF est cherchée."><polygon class="forme" points="46.0,220 197.0,220 197.0,40"/><g class="trace t-w ep-3"><line x1="46.0" y1="220" x2="197.0" y2="220"/></g><g class="trace t-u ep-3"><line x1="197.0" y1="220" x2="197.0" y2="40"/></g><g class="trace t-v ep-3"><line x1="46.0" y1="220" x2="197.0" y2="40"/></g><g class="trace t-n fin"><path d="M187.4,220.0 L187.4,210.4 L197.0,210.4"/></g><g class="trace t-n ep-2"><path d="M82.0,220.0 A36.0,36.0 0 0 0 69.1,192.4"/></g><text class="moyen halo" x="93.6" y="203.8" text-anchor="middle">50°</text><text class="moyen halo plein t-u" x="227.0" y="135.0" text-anchor="middle">6 cm</text><text class="moyen halo plein t-v" x="109.2" y="124.7" text-anchor="middle">?</text><circle class="pt " cx="46.0" cy="220" r="4.5"/><text class="lettre" x="26.0" y="240.0">D</text><circle class="pt " cx="197.0" cy="220" r="4.5"/><text class="lettre" x="205.0" y="240.0">E</text><circle class="pt " cx="197.0" cy="40" r="4.5"/><text class="lettre" x="205.0" y="42.0">F</text></svg><figcaption>On connaît l'angle en $D$ et le côté qui lui fait face. On cherche l'hypoténuse $[DF]$.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>L'angle droit.</strong> Le triangle $DEF$ est rectangle en $E$ : l'hypoténuse est $[DF]$.</li>
+        <li><strong>Les côtés.</strong> Depuis $\widehat{EDF}$ : $[EF]$ est l'opposé (connu), $[DF]$ l'hypoténuse (cherchée).</li>
+        <li><strong>Le rapport.</strong> Opposé et hypoténuse : le sinus. $\sin\widehat{EDF}=\dfrac{EF}{DF}$, soit $\sin 50°=\dfrac{6}{DF}$.</li>
+        <li><strong>Le calcul.</strong> $DF$ est en bas : produit en croix. $DF\times\sin 50° = 6$, donc $DF=\dfrac{6}{\sin 50°}\approx 7{,}832$.</li>
+        <li><strong>La conclusion.</strong> $DF \approx 7{,}8$ cm. L'hypoténuse est plus longue que $EF = 6$ cm : c'est cohérent.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="L'inconnue en bas : on divise">
+    <p>Avec $\sin 50° = \dfrac{6}{DF}$, tout le monde a envie d'écrire $DF = 6\times\sin 50° \approx 4{,}6$ cm. Mais une hypoténuse plus courte que le côté de $6$ cm, c'est impossible. Quand l'inconnue est en bas, le produit en croix la fait passer en haut : $DF = \dfrac{6}{\sin 50°}$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Arrondir trop tôt">
+    <p>$\cos 35° \approx 0{,}819$. En l'arrondissant à $0{,}8$ avant de multiplier, on trouve $AB = 8 \times 0{,}8 = 6{,}4$ cm au lieu de $6{,}6$ cm : deux millimètres d'erreur, sur un résultat qu'on demandait au millimètre. On garde la valeur de la calculatrice jusqu'au bout, et on arrondit une seule fois.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-angle">6. Calculer un angle</h3>
+
+  <div class="bloc methode" data-titre="Calculer un angle avec deux longueurs">
+    <ol class="etapes">
+      <li><span>J'écris où est l'angle droit, et je repère l'hypoténuse.</span></li>
+      <li><span>Depuis l'angle cherché, je nomme les côtés : l'opposé et l'adjacent.</span></li>
+      <li><span>Je choisis le rapport qui contient les deux côtés connus.</span></li>
+      <li><span>J'écris l'égalité et je calcule le rapport.</span></li>
+      <li><span>Je trouve l'angle avec $\cos^{-1}$, $\sin^{-1}$ ou $\tan^{-1}$, et j'arrondis en degrés.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice (l'échelle).</strong> Une échelle de $13$ m est posée contre un mur vertical. Son pied est à $5$ m du mur. Pour qu'elle soit stable, l'angle entre l'échelle et le sol doit être compris entre $65°$ et $75°$. L'est-il ?</p>
+      <figure class="figure-svg"><svg viewBox="0 0 209 286" role="img" aria-label="Une échelle de 13 m posée contre un mur vertical, son pied à 5 m du mur. L'angle alpha entre l'échelle et le sol est marqué au pied de l'échelle."><g class="trace t-n ep-3"><line x1="19.0" y1="247.6" x2="190" y2="247.6"/></g><rect class="forme-3" x="136" y="13.6" width="21.6" height="234.0"/><g class="trace t-w ep-3"><line x1="46" y1="247.6" x2="136" y2="247.6"/></g><g class="trace t-u ep-3"><line x1="136" y1="247.6" x2="136" y2="31.6"/></g><g class="trace t-v ep-6"><line x1="46" y1="247.6" x2="136" y2="31.6"/></g><g class="trace t-v ep-2"><line x1="45.4" y1="226.2" x2="61.6" y2="233.0"/></g><g class="trace t-v ep-2"><line x1="52.9" y1="208.2" x2="69.1" y2="215.0"/></g><g class="trace t-v ep-2"><line x1="60.4" y1="190.2" x2="76.6" y2="197.0"/></g><g class="trace t-v ep-2"><line x1="67.9" y1="172.2" x2="84.1" y2="179.0"/></g><g class="trace t-v ep-2"><line x1="75.4" y1="154.2" x2="91.6" y2="161.0"/></g><g class="trace t-v ep-2"><line x1="82.9" y1="136.2" x2="99.1" y2="143.0"/></g><g class="trace t-v ep-2"><line x1="90.4" y1="118.2" x2="106.6" y2="125.0"/></g><g class="trace t-v ep-2"><line x1="97.9" y1="100.2" x2="114.1" y2="107.0"/></g><g class="trace t-v ep-2"><line x1="105.4" y1="82.2" x2="121.6" y2="89.0"/></g><g class="trace t-v ep-2"><line x1="112.9" y1="64.2" x2="129.1" y2="71.0"/></g><g class="trace t-v ep-2"><line x1="120.4" y1="46.2" x2="136.6" y2="53.0"/></g><g class="trace t-n fin"><path d="M125.2,247.6 L125.2,236.8 L136.0,236.8"/></g><g class="trace t-n ep-2"><path d="M74.8,247.6 A28.8,28.8 0 0 0 57.1,221.0"/></g><text class="moyen halo" x="78.9" y="231.6" text-anchor="middle">α</text><text class="moyen halo plein t-v" x="72.5" y="136.9" text-anchor="middle">13 m</text><text class="moyen halo plein t-w" x="91.0" y="270.6" text-anchor="middle">5 m</text><text class="petit halo" x="163.6" y="121.6" text-anchor="start">mur</text></svg><figcaption>Le mur, le sol et l'échelle forment un triangle rectangle. L'angle $\alpha$ est au pied de l'échelle, sur le sol.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>L'angle droit.</strong> Le mur est vertical, le sol horizontal : le triangle est rectangle au pied du mur. L'hypoténuse est l'échelle, $13$ m.</li>
+        <li><strong>Les côtés.</strong> Depuis l'angle $\alpha$ au sol : les $5$ m entre le pied de l'échelle et le mur forment l'adjacent ; la hauteur sur le mur est l'opposé (inconnue).</li>
+        <li><strong>Le rapport.</strong> Adjacent et hypoténuse : le cosinus. $\cos\alpha=\dfrac{5}{13}\approx0{,}385$.</li>
+        <li><strong>L'angle.</strong> $\alpha=\cos^{-1}\left(\dfrac{5}{13}\right)\approx 67{,}4°$, soit environ $67°$.</li>
+        <li><strong>La conclusion.</strong> $67°$ est entre $65°$ et $75°$ : l'échelle est stable.</li>
+      </ol>
+    </div>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice (deux côtés de l'angle droit).</strong> Le triangle $RST$ est rectangle en $S$, avec $RS = 7$ cm et $ST = 4{,}5$ cm. Calculer $\widehat{SRT}$, puis $\widehat{STR}$, arrondis au degré.</p>
+      <figure class="figure-svg"><svg viewBox="0 0 400 251" role="img" aria-label="Triangle RST rectangle en S : RS mesure 7 cm, ST mesure 4,5 cm. L'angle en R, cherché, est marqué d'un point d'interrogation."><polygon class="forme" points="50.8,197.0 288.8,197.0 288.8,44.0"/><g class="trace t-w ep-3"><line x1="50.8" y1="197.0" x2="288.8" y2="197.0"/></g><g class="trace t-u ep-3"><line x1="288.8" y1="197.0" x2="288.8" y2="44.0"/></g><g class="trace t-v ep-3"><line x1="50.8" y1="197.0" x2="288.8" y2="44.0"/></g><g class="trace t-n fin"><path d="M277.9,197.0 L277.9,186.1 L288.8,186.1"/></g><g class="trace t-n ep-2"><path d="M98.4,197.0 A47.6,47.6 0 0 0 90.8,171.3"/></g><text class="moyen halo" x="114.4" y="184.3" text-anchor="middle">?</text><text class="moyen halo plein t-w" x="169.8" y="220.0" text-anchor="middle">7 cm</text><text class="moyen halo plein t-u" x="322.8" y="125.5" text-anchor="middle">4,5 cm</text><circle class="pt " cx="50.8" cy="197.0" r="4.5"/><text class="lettre" x="30.8" y="217.0">R</text><circle class="pt " cx="288.8" cy="197.0" r="4.5"/><text class="lettre" x="296.8" y="217.0">S</text><circle class="pt " cx="288.8" cy="44.0" r="4.5"/><text class="lettre" x="296.8" y="46.0">T</text></svg><figcaption>On connaît les deux côtés de l'angle droit, pas l'hypoténuse. Depuis $R$, $[ST]$ est l'opposé et $[RS]$ l'adjacent.</figcaption></figure>
+      <ol class="pas">
+        <li><strong>L'angle droit.</strong> Le triangle $RST$ est rectangle en $S$ : l'hypoténuse $[RT]$ n'est pas connue.</li>
+        <li><strong>Les côtés.</strong> Depuis $\widehat{SRT}$ : $[ST]$ est l'opposé, $[RS]$ l'adjacent. Les deux sont connus.</li>
+        <li><strong>Le rapport.</strong> Opposé et adjacent : la tangente. $\tan\widehat{SRT}=\dfrac{ST}{RS}=\dfrac{4{,}5}{7}\approx0{,}643$.</li>
+        <li><strong>L'angle.</strong> $\widehat{SRT}=\tan^{-1}\left(\dfrac{4{,}5}{7}\right)\approx 32{,}7°$, soit environ $33°$.</li>
+        <li><strong>L'autre angle.</strong> $\widehat{STR} = 90° - 32{,}7° = 57{,}3°$, soit environ $57°$. On prend la valeur avant l'arrondi.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Un angle aigu est entre 0° et 90°">
+    <p>Les deux angles aigus d'un triangle rectangle sont entre $0°$ et $90°$. Un résultat comme $0{,}7°$ ou $1{,}2°$ n'est pas un angle de ce triangle : c'est le signe d'une erreur de touche ($\cos$ au lieu de $\cos^{-1}$) ou d'unité (les radians). Un message d'erreur de la calculatrice veut souvent dire que l'hypoténuse est en haut du rapport.</p>
+    <p>L'opposé et l'adjacent inversés, eux, ne se voient pas à ce test : ils donnent un angle tout à fait vraisemblable, l'autre angle aigu ($57{,}3°$ au lieu de $32{,}7°$ dans l'exercice ci-dessus). Le seul remède, c'est le doigt posé sur l'angle avant d'écrire le rapport.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-choisir">7. Pythagore, Thalès ou trigonométrie ?</h3>
+
+  <div class="bloc propriete" data-titre="Ce que je connais, ce que je cherche">
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Je connais</th><th>Je cherche</th><th>J'utilise</th></tr></thead>
+      <tbody>
+        <tr><td>deux côtés d'un triangle rectangle</td><td>le troisième côté</td><td>le théorème de Pythagore</td></tr>
+        <tr><td>un angle aigu et un côté d'un triangle rectangle</td><td>un autre côté</td><td>$\cos$, $\sin$ ou $\tan$</td></tr>
+        <tr><td>deux côtés d'un triangle rectangle</td><td>un angle aigu</td><td>$\cos^{-1}$, $\sin^{-1}$ ou $\tan^{-1}$</td></tr>
+        <tr><td>un angle aigu d'un triangle rectangle</td><td>l'autre angle aigu</td><td>$90°$ moins l'angle connu</td></tr>
+        <tr><td>deux parallèles qui coupent deux droites sécantes</td><td>une longueur</td><td>le théorème de Thalès</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Pas de triangle rectangle ? On en fabrique un">
+    <p>Dans un triangle isocèle $AOB$ de sommet $O$, aucun angle n'est droit. Mais la hauteur issue de $O$ coupe $[AB]$ en son milieu $H$, perpendiculairement : les triangles $OHA$ et $OHB$ sont rectangles en $H$. On peut y utiliser le cosinus, le sinus et la tangente. L'exercice « Le triangle isocèle » le fait jusqu'au bout.</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-pente">8. Une pente, un angle</h3>
+
+  <div class="bloc definition" data-titre="La pente d'une route ou d'une rampe">
+    <p>La pente d'une route, en pour cent, c'est la montée (le <strong>dénivelé</strong>) pour 100 m parcourus à l'horizontale. C'est la définition que donnent les sujets du brevet :</p>
+    $$ \text{pente} = \frac{\text{dénivelé}}{\text{distance horizontale}} $$
+    <p>Dans le triangle rectangle formé par la route, l'horizontale et la verticale, le dénivelé est l'opposé de l'angle $\alpha$ avec l'horizontale, et la distance horizontale son adjacent : <strong>la pente est la tangente de l'angle</strong>.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 455 141" role="img" aria-label="Une route qui monte de 10 m pour 100 m à l'horizontale : un triangle rectangle très aplati, avec l'angle alpha entre la route et l'horizontale."><polygon class="forme" points="42,86.8 362,86.8 362,54.8"/><g class="trace t-w ep-3"><line x1="42" y1="86.8" x2="362" y2="86.8"/></g><g class="trace t-u ep-3"><line x1="362" y1="86.8" x2="362" y2="54.8"/></g><g class="trace t-v ep-4"><line x1="42" y1="86.8" x2="362" y2="54.8"/></g><g class="trace t-n fin"><path d="M352.4,86.8 L352.4,77.2 L362.0,77.2"/></g><g class="trace t-n ep-2"><path d="M138.0,86.8 A96.0,96.0 0 0 0 137.5,77.2"/></g><text class="moyen halo" x="157.1" y="87.1" text-anchor="middle">α</text><text class="moyen halo plein t-w" x="202.0" y="110.8" text-anchor="middle">100 m à l'horizontale</text><text class="moyen halo plein t-u" x="372.0" y="76.8" text-anchor="start">10 m</text><text class="petit halo" x="234.0" y="57.6" text-anchor="end">la route</text></svg><figcaption>Une route qui monte de $10$ m pour $100$ m à l'horizontale : une pente de $10\,\%$, et $\tan\alpha = \dfrac{10}{100}=0{,}1$.</figcaption></figure>
+  </div>
+
+  <div class="bloc exemple" data-titre="La rampe à 5 %">
+    <p>Une pente de $5\,\%$, c'est $\tan\alpha = 0{,}05$, donc $\alpha=\tan^{-1}(0{,}05)\approx 2{,}9°$.</p>
+    <p>Pour monter une marche de $15$ cm avec cette pente, il faut une distance horizontale de $\dfrac{15}{0{,}05} = 300$ cm, soit $3$ m de rampe. C'est pour cela que les rampes d'accès sont si longues.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="10 % n'est pas 10°">
+    <p>Une pente de $10\,\%$ fait un angle de $\tan^{-1}(0{,}1)\approx 5{,}7°$. Un angle de $10°$, lui, donne une pente de $\tan 10° \approx 0{,}176$, soit environ $17{,}6\,\%$ : presque deux fois plus raide. Les pour cent et les degrés ne se lisent pas l'un pour l'autre ; on passe de l'un à l'autre par la tangente.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 546 115" role="img" aria-label="Deux routes partent du même point : la pente de 10 pour cent monte de 1 unité sur 10 à l'horizontale, la pente de 10 degrés monte de 1,76 unité sur la même distance."><g class="trace t-n ep-2"><line x1="26.8" y1="82.8" x2="320.8" y2="82.8"/></g><g class="trace t-n pointille"><line x1="306.8" y1="82.8" x2="306.8" y2="25.0"/></g><g class="trace t-w ep-3"><line x1="26.8" y1="82.8" x2="306.8" y2="54.8"/></g><g class="trace t-v ep-3"><line x1="26.8" y1="82.8" x2="306.8" y2="33.4"/></g><text class="moyen halo plein t-w" x="316.8" y="62.8" text-anchor="start">pente de 10 %</text><text class="moyen halo plein t-v" x="316.8" y="35.4" text-anchor="start">10° : pente de 17,6 %</text></svg><figcaption>Partant du même point, la pente de $10\,\%$ (en vert) et la pente de $10°$ (en rose). Elles n'arrivent pas à la même hauteur.</figcaption></figure>
+  </div>
+
+  <div class="bloc remarque" data-titre="100 %, c'est 45°">
+    <p>Une pente de $100\,\%$ monte autant qu'elle avance : $\tan\alpha = 1$, donc $\alpha = 45°$. Au-delà de $45°$, la pente dépasse $100\,\%$. Pour une pente douce, mesurer la distance le long de la route ou à l'horizontale ne change presque rien ; pour une pente raide, la différence se voit.</p>
+  </div>
+
+  <!-- ===== 9 ===== -->
+  <h3 id="c-pieges">9. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait un jour">
+    <ul>
+      <li><strong>L'opposé et l'adjacent inversés</strong>, parce qu'on les nomme depuis le mauvais angle. Le doigt sur l'angle : le côté qu'il ne touche pas est l'opposé.</li>
+      <li><strong>La trigonométrie sans angle droit.</strong> Pas de triangle rectangle, pas d'hypoténuse : on en fabrique un (une hauteur), ou on change d'outil.</li>
+      <li><strong>L'inconnue en bas, multipliée au lieu d'être divisée.</strong> Une hypoténuse plus courte qu'un autre côté signale l'erreur.</li>
+      <li><strong>$\cos$ au lieu de $\cos^{-1}$</strong> pour trouver un angle. Un angle de moins d'un degré doit faire réagir.</li>
+      <li><strong>La calculatrice en radians.</strong> Le test : $\cos(60) = 0{,}5$.</li>
+      <li><strong>Arrondir trop tôt</strong> le cosinus ou le sinus, puis multiplier. On arrondit une fois, à la fin.</li>
+      <li><strong>Prendre une pente en % pour un angle en °.</strong> $10\,\%$, c'est environ $5{,}7°$.</li>
+      <li><strong>Un rapport plus grand que 1 pour un cosinus ou un sinus.</strong> On a mis l'hypoténuse en haut.</li>
+      <li><strong>L'unité oubliée</strong> : une longueur a son unité, un angle ses degrés, et l'arrondi demandé est respecté.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">10. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Cosinus, sinus, tangente : nommer les côtés et choisir le rapport"></div>
+    <div class="video" data-titre="Calculer une longueur, calculer un angle à la calculatrice"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, dans l'ordre : d'abord <strong>trouver l'angle</strong> qui donne un rapport demandé (et voir que la taille du triangle n'y change rien), puis <strong>mesurer un phare</strong> avec un angle et une distance, et enfin passer des <strong>pour cent aux degrés</strong> sur des rampes et des routes. Chaque labo a un défi : c'est le défi qui compte.</p>
+  <div class="labo" data-labo="trigo-3" data-outil="rapport"></div>
+  <div class="labo" data-labo="trigo-3" data-outil="hauteur"></div>
+  <div class="labo" data-labo="trigo-3" data-outil="pente"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des triangles au hasard : nommer les côtés, écrire le bon rapport, calculer une longueur ou un angle, passer d'une pente à un angle, repérer l'erreur d'un camarade. Quand il demande un arrondi, garde la valeur complète jusqu'au bout. Le quiz reprend les réflexes du cours. Le contrôle blanc s'ajoute en bas.</p>
+
+  <div class="jeu" data-generateurs="trigo-3" data-questions="10" data-titre="Le défi des trois rapports"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Le triangle $ABC$ est rectangle en $A$. Son hypoténuse est…</p>
+      <ul class="choix">
+        <li class="bon">$[BC]$</li><li>$[AB]$</li><li>$[AC]$</li>
+      </ul>
+      <div class="explication">L'hypoténuse est en face de l'angle droit. L'angle droit est en $A$ ; le côté qui ne touche pas $A$, c'est $[BC]$.</div>
+    </div>
+    <div class="question">
+      <p>Le triangle $ABC$ est rectangle en $A$. Le côté opposé à l'angle $\widehat{ABC}$ est…</p>
+      <ul class="choix">
+        <li class="bon">$[AC]$</li><li>$[AB]$</li><li>$[BC]$</li>
+      </ul>
+      <div class="explication">Le doigt sur $B$ : il touche $[AB]$ et $[BC]$. Le côté qu'il ne touche pas, $[AC]$, est l'opposé. $[AB]$ est l'adjacent, $[BC]$ l'hypoténuse.</div>
+    </div>
+    <div class="question">
+      <p>Le triangle $ABC$ est rectangle en $A$. Combien vaut $\cos\widehat{ABC}$ ?</p>
+      <ul class="choix">
+        <li class="bon">$\dfrac{AB}{BC}$</li><li>$\dfrac{AC}{BC}$</li><li>$\dfrac{AC}{AB}$</li><li>$\dfrac{BC}{AB}$</li>
+      </ul>
+      <div class="explication">Le cosinus, c'est l'adjacent sur l'hypoténuse. Depuis $B$, l'adjacent est $[AB]$, l'hypoténuse $[BC]$. $\dfrac{AC}{BC}$ est le sinus, $\dfrac{AC}{AB}$ la tangente, et $\dfrac{BC}{AB}$ est plus grand que 1 : ce n'est ni un cosinus ni un sinus.</div>
+    </div>
+    <div class="question">
+      <p>Dans un triangle rectangle, on connaît un angle aigu et l'hypoténuse. On cherche le côté opposé à l'angle. On utilise…</p>
+      <ul class="choix">
+        <li class="bon">le sinus</li><li>le cosinus</li><li>la tangente</li><li>le théorème de Pythagore</li>
+      </ul>
+      <div class="explication">Le rapport qui contient l'opposé et l'hypoténuse est le sinus. Pythagore demande deux côtés connus : ici, on n'en a qu'un.</div>
+    </div>
+    <div class="question">
+      <p>Le sinus d'un angle aigu d'un triangle rectangle peut-il valoir $1{,}2$ ?</p>
+      <ul class="choix">
+        <li class="bon">Non : l'hypoténuse est le plus long côté</li><li>Oui, si l'angle est assez grand</li><li>Oui, si le triangle est assez grand</li>
+      </ul>
+      <div class="explication">Le sinus divise un côté par l'hypoténuse, qui est plus longue : le résultat est toujours plus petit que 1. La taille du triangle n'y change rien, puisque le rapport ne dépend que de l'angle.</div>
+    </div>
+    <div class="question" data-reponse="0,5|1/2|0.5">
+      <p>Ta calculatrice est bien réglée en degrés si $\cos(60)$ affiche…</p>
+      <div class="explication">$\cos 60° = 0{,}5$. Si elle affiche $-0{,}95\dots$, elle est en radians : change l'unité d'angle avant de continuer.</div>
+    </div>
+    <div class="question">
+      <p>Pour trouver l'angle dont le cosinus vaut $0{,}4$, on tape…</p>
+      <ul class="choix">
+        <li class="bon">$\cos^{-1}(0{,}4)$</li><li>$\cos(0{,}4)$</li><li>$0{,}4\times\cos$</li><li>$\dfrac{1}{\cos(0{,}4)}$</li>
+      </ul>
+      <div class="explication">$\cos^{-1}$ prend un rapport et rend l'angle : $\cos^{-1}(0{,}4)\approx 66{,}4°$. $\cos(0{,}4)$ calcule le cosinus d'un angle de $0{,}4°$ : ce n'est pas la question.</div>
+    </div>
+    <div class="question" data-reponse="6">
+      <p>Le triangle $ABC$ est rectangle en $A$, avec $\widehat{ABC}=30°$ et $BC = 12$ cm. On donne $\sin 30° = 0{,}5$. Combien mesure $AC$, en cm ?</p>
+      <div class="explication">Depuis $B$, $[AC]$ est l'opposé et $[BC]$ l'hypoténuse : $\sin 30° = \dfrac{AC}{12}$, donc $AC = 12\times 0{,}5 = 6$ cm.</div>
+    </div>
+    <div class="question">
+      <p>$\sin 50° = \dfrac{6}{DF}$. Alors…</p>
+      <ul class="choix">
+        <li class="bon">$DF=\dfrac{6}{\sin 50°}$</li><li>$DF=6\times\sin 50°$</li><li>$DF=\dfrac{\sin 50°}{6}$</li>
+      </ul>
+      <div class="explication">L'inconnue est en bas : le produit en croix donne $DF\times\sin 50° = 6$, donc $DF=\dfrac{6}{\sin 50°}\approx 7{,}8$. Avec $6\times\sin 50°\approx4{,}6$, l'hypoténuse serait plus courte qu'un autre côté.</div>
+    </div>
+    <div class="question">
+      <p>Une route a une pente de $10\,\%$. Son angle avec l'horizontale mesure environ…</p>
+      <ul class="choix">
+        <li class="bon">$5{,}7°$</li><li>$10°$</li><li>$0{,}1°$</li><li>$17{,}6°$</li>
+      </ul>
+      <div class="explication">La pente est la tangente de l'angle : $\tan\alpha = 0{,}1$, donc $\alpha = \tan^{-1}(0{,}1)\approx 5{,}7°$. Ce n'est pas $10°$ : un angle de $10°$ ferait une pente d'environ $17{,}6\,\%$.</div>
+    </div>
+    <div class="question" data-reponse="52">
+      <p>Un angle aigu d'un triangle rectangle mesure $38°$. Combien mesure l'autre angle aigu, en degrés ?</p>
+      <div class="explication">Les deux angles aigus font $90°$ à eux deux : $90° - 38° = 52°$.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Pas de correction à ouvrir : l'égalité est déjà écrite, avec la valeur du cosinus, du sinus ou de la tangente arrondie au centième, et tu la résous ligne par ligne. Le vérificateur te dit si chaque ligne est juste. Écris <code>x/8</code> pour $\dfrac{x}{8}$ et <code>0,82*8</code> pour $0{,}82\times8$. Si tu bloques, demande un indice, mais cherche d'abord seul.</p>
+
+  <article class="exercice" id="ex-le-cote-en-haut" data-titre="Le côté en haut" data-niveau="1" data-type="guide" data-notions="trigo3 equation" data-duree="5" data-calculatrice="non">
+    <p>Le triangle $ABC$ est rectangle en $A$, avec $\widehat{ABC}=35°$ et $BC = 8$ cm. On cherche $AB = x$. On donne $\cos 35° \approx 0{,}82$. Le cosinus donne $\dfrac{AB}{BC}=\cos 35°$, soit $\dfrac{x}{8}=0{,}82$. Résous.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="trigo3-haut" data-depart="x/8=0,82" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-avec-la-tangente" data-titre="Avec la tangente" data-niveau="1" data-type="guide" data-notions="trigo3 equation" data-duree="5" data-calculatrice="non">
+    <p>Un triangle est rectangle. Depuis un angle de $50°$, le côté adjacent mesure $5$ cm et le côté opposé $x$ cm. On donne $\tan 50° \approx 1{,}19$. La tangente donne $\dfrac{x}{5}=1{,}19$. Résous.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="trigo3-tangente" data-depart="x/5=1,19" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-l-hypotenuse-produit-en-croix" data-titre="L'hypoténuse, produit en croix posé" data-niveau="1" data-type="guide" data-notions="trigo3 equation" data-duree="4" data-calculatrice="non">
+    <p>Un triangle est rectangle. Depuis un angle de $37°$, le côté opposé mesure $4{,}2$ cm et l'hypoténuse $x$ cm. On donne $\sin 37° \approx 0{,}6$. Le sinus donne $\dfrac{4{,}2}{x}=0{,}6$ : l'inconnue est en bas. Le produit en croix est déjà fait : $0{,}6\,x = 4{,}2$. Résous.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="trigo3-croix" data-depart="0,6x=4,2" data-consigne="Résous :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+
+  <h3>Niveau 1 · Repérer et calculer</h3>
+
+  <article class="exercice" id="ex-nommer-les-cotes" data-titre="Nommer les côtés" data-niveau="1" data-type="application" data-notions="trigo3" data-duree="5" data-calculatrice="non">
+    <p>Le triangle $KLM$ ci-dessous est rectangle en $L$.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 360 237" role="img" aria-label="Triangle KLM rectangle en L, posé sur sa pointe : L est en bas, K en haut à gauche, M en haut à droite ; l'hypoténuse KM est le côté du haut."><polygon class="forme" points="57.6,84.8 159.6,186.8 295.6,50.8"/><g class="trace t-n fin"><path d="M150.0,177.2 L159.6,167.6 L169.2,177.2"/></g><circle class="pt " cx="57.6" cy="84.8" r="4.5"/><text class="lettre" x="35.6" y="88.8">K</text><circle class="pt " cx="159.6" cy="186.8" r="4.5"/><text class="lettre" x="153.6" y="214.8">L</text><circle class="pt " cx="295.6" cy="50.8" r="4.5"/><text class="lettre" x="305.6" y="54.8">M</text></svg><figcaption>Le triangle $KLM$, rectangle en $L$, posé sur sa pointe : l'hypoténuse n'est pas en bas.</figcaption></figure>
+    <ol>
+      <li>Quelle est l'hypoténuse ?</li>
+      <li>Depuis l'angle $\widehat{LKM}$, quel est le côté opposé ? le côté adjacent ?</li>
+      <li>Depuis l'angle $\widehat{KML}$, quel est le côté opposé ? le côté adjacent ?</li>
+    </ol>
+    <details class="indice"><p>Pose le doigt sur l'angle. Le côté que ton doigt ne touche pas est l'opposé.</p></details>
+    <details class="correction">
+      <ol>
+        <li>L'hypoténuse est en face de l'angle droit $L$ : c'est $[KM]$.</li>
+        <li>Depuis $\widehat{LKM}$ : le doigt sur $K$ touche $[KL]$ et $[KM]$. L'opposé est $[LM]$, l'adjacent $[KL]$.</li>
+        <li>Depuis $\widehat{KML}$ : le doigt sur $M$ touche $[LM]$ et $[KM]$. L'opposé est $[KL]$, l'adjacent $[LM]$.</li>
+      </ol>
+      <p>Les deux côtés de l'angle droit échangent leur rôle d'un angle à l'autre ; l'hypoténuse reste la même, quelle que soit la position du triangle sur la page.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-ecrire-les-rapports" data-titre="Écrire les rapports" data-niveau="1" data-type="application" data-notions="trigo3" data-duree="6" data-calculatrice="non">
+    <p>On reprend le triangle $KLM$ rectangle en $L$ de l'exercice « Nommer les côtés ».</p>
+    <ol>
+      <li>Écris $\cos\widehat{LKM}$, $\sin\widehat{LKM}$ et $\tan\widehat{LKM}$ avec les longueurs du triangle.</li>
+      <li>Fais de même pour l'angle $\widehat{KML}$.</li>
+      <li>Que remarques-tu en comparant les deux listes ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Depuis $K$ : $\cos\widehat{LKM}=\dfrac{KL}{KM}$ (adjacent sur hypoténuse), $\sin\widehat{LKM}=\dfrac{LM}{KM}$ (opposé sur hypoténuse), $\tan\widehat{LKM}=\dfrac{LM}{KL}$ (opposé sur adjacent).</li>
+        <li>Depuis $M$ : $\cos\widehat{KML}=\dfrac{LM}{KM}$, $\sin\widehat{KML}=\dfrac{KL}{KM}$, $\tan\widehat{KML}=\dfrac{KL}{LM}$.</li>
+        <li>Le cosinus de l'un est le sinus de l'autre : $\cos\widehat{LKM}=\sin\widehat{KML}$ et $\sin\widehat{LKM}=\cos\widehat{KML}$. Et les deux tangentes sont inverses l'une de l'autre : $\dfrac{LM}{KL}$ et $\dfrac{KL}{LM}$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-choisir-la-formule" data-titre="Choisir la formule" data-niveau="1" data-type="application" data-notions="trigo3" data-duree="3" data-calculatrice="non" data-source="Dans l'esprit de la partie 1 du DNB 2026 (Amérique du Nord, question 7)">
+    <p>Le triangle $RST$ est rectangle en $S$, avec $RT = 6$ cm et $\widehat{SRT} = 40°$.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 293 238" role="img" aria-label="Triangle RST rectangle en S ; l'hypoténuse RT mesure 6 cm et l'angle en R mesure 40 degrés."><polygon class="forme" points="53.2,184.8 218.7,184.8 218.7,46.0"/><g class="trace t-v ep-3"><line x1="53.2" y1="184.8" x2="218.7" y2="46.0"/></g><g class="trace t-n fin"><path d="M207.1,184.8 L207.1,173.3 L218.7,173.3"/></g><g class="trace t-n ep-2"><path d="M96.4,184.8 A43.2,43.2 0 0 0 86.3,157.0"/></g><text class="moyen halo" x="114.1" y="168.7" text-anchor="middle">40°</text><text class="moyen halo plein t-v" x="125.6" y="108.1" text-anchor="middle">6 cm</text><circle class="pt " cx="53.2" cy="184.8" r="4.5"/><text class="lettre" x="33.2" y="204.8">R</text><circle class="pt " cx="218.7" cy="184.8" r="4.5"/><text class="lettre" x="226.7" y="204.8">S</text><circle class="pt " cx="218.7" cy="46.0" r="4.5"/><text class="lettre" x="226.7" y="48.0">T</text></svg><figcaption>On connaît l'hypoténuse $[RT]$ et l'angle en $R$.</figcaption></figure>
+    <ol>
+      <li>Recopie la formule qui donne la longueur $RS$ : $6\times\sin 40°$ ; $6\times\cos 40°$ ; $6\div\sin 40°$ ; $6\div\cos 40°$.</li>
+      <li>Même question pour la longueur $ST$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Depuis $R$, $[RS]$ est l'adjacent et $[RT]$ l'hypoténuse : $\cos 40° = \dfrac{RS}{6}$, donc $RS = 6\times\cos 40°$.</li>
+        <li>$[ST]$ est l'opposé : $\sin 40° = \dfrac{ST}{6}$, donc $ST = 6\times\sin 40°$.</li>
+      </ol>
+      <p>Les deux formules avec une division donneraient des longueurs plus grandes que $6$ cm : impossible pour un côté de l'angle droit, plus court que l'hypoténuse.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-cosinus-sans-calculatrice" data-titre="Un cosinus sans calculatrice" data-niveau="1" data-type="application" data-notions="trigo3" data-duree="5" data-calculatrice="non" data-source="Dans l'esprit de la partie 1 du DNB 2026 (métropole, question 9)">
+    <p>Le triangle $EFG$ est rectangle en $G$, avec $EF = 10$ cm, $EG = 8$ cm et $FG = 6$ cm.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 356 255" role="img" aria-label="Triangle EFG rectangle en G : EG mesure 8 cm, FG mesure 6 cm et l'hypoténuse EF 10 cm."><polygon class="forme" points="43.6,206 267.6,206 267.6,38"/><g class="trace t-n fin"><path d="M258.6,206.0 L258.6,197.0 L267.6,197.0"/></g><text class="moyen halo" x="155.6" y="229.0" text-anchor="middle">8 cm</text><text class="moyen halo" x="297.6" y="127.0" text-anchor="middle">6 cm</text><text class="moyen halo" x="146.0" y="114.2" text-anchor="middle">10 cm</text><circle class="pt " cx="43.6" cy="206" r="4.5"/><text class="lettre" x="23.6" y="226.0">E</text><circle class="pt " cx="267.6" cy="206" r="4.5"/><text class="lettre" x="275.6" y="226.0">G</text><circle class="pt " cx="267.6" cy="38" r="4.5"/><text class="lettre" x="275.6" y="40.0">F</text></svg><figcaption>Les trois longueurs sont connues : les rapports se calculent de tête.</figcaption></figure>
+    <ol>
+      <li>Donne $\cos\widehat{FEG}$, $\sin\widehat{FEG}$ et $\tan\widehat{FEG}$ sous forme décimale.</li>
+      <li>Donne $\cos\widehat{EFG}$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>L'hypoténuse est $[EF]$, en face de $G$. Depuis $E$ : l'adjacent est $[EG]$, l'opposé $[FG]$. $\cos\widehat{FEG}=\dfrac{8}{10}=0{,}8$ ; $\sin\widehat{FEG}=\dfrac{6}{10}=0{,}6$ ; $\tan\widehat{FEG}=\dfrac{6}{8}=0{,}75$.</li>
+        <li>Depuis $F$, l'adjacent est $[FG]$ : $\cos\widehat{EFG}=\dfrac{6}{10}=0{,}6$. C'est le sinus de l'autre angle.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-calculer-un-cote" data-titre="Calculer un côté" data-niveau="1" data-type="application" data-notions="trigo3" data-duree="8" data-calculatrice="oui">
+    <p>Le triangle $PQR$ est rectangle en $Q$, avec $\widehat{QPR}=28°$ et $PR = 12$ cm.</p>
+    <ol>
+      <li>Calcule $QR$, arrondi au millimètre.</li>
+      <li>Calcule $PQ$, arrondi au millimètre.</li>
+    </ol>
+    <details class="indice"><p>Fais une figure à main levée et code l'angle droit en $Q$. Depuis $P$, lequel des deux côtés cherchés touche l'angle ?</p></details>
+    <details class="correction">
+      <ol>
+        <li>Le triangle $PQR$ est rectangle en $Q$ : l'hypoténuse est $[PR]$. Depuis $\widehat{QPR}$, $[QR]$ est l'opposé. Opposé et hypoténuse : le sinus. $\sin 28° = \dfrac{QR}{12}$, donc $QR = 12\times\sin 28° \approx 5{,}634$, soit $QR\approx 5{,}6$ cm.</li>
+        <li>$[PQ]$ est l'adjacent : $\cos 28° = \dfrac{PQ}{12}$, donc $PQ = 12\times\cos 28° \approx 10{,}595$, soit $PQ\approx 10{,}6$ cm.</li>
+      </ol>
+      <p>Pour vérifier, Pythagore : $5{,}634^2 + 10{,}595^2 \approx 31{,}7 + 112{,}3 = 144 = 12^2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-calculer-l-hypotenuse" data-titre="Calculer l'hypoténuse" data-niveau="1" data-type="application" data-notions="trigo3 equation" data-duree="8" data-calculatrice="oui">
+    <p>Le triangle $UVW$ est rectangle en $V$, avec $\widehat{VWU}=62°$ et $VW = 4{,}5$ cm.</p>
+    <ol>
+      <li>Calcule $UW$, arrondi au millimètre.</li>
+      <li>Calcule $UV$, arrondi au millimètre.</li>
+    </ol>
+    <details class="indice"><p>L'hypoténuse est l'inconnue : elle sera en bas du rapport. Pense au produit en croix.</p></details>
+    <details class="correction">
+      <ol>
+        <li>Le triangle $UVW$ est rectangle en $V$ : l'hypoténuse est $[UW]$. Depuis $\widehat{VWU}$, $[VW]$ est l'adjacent. Adjacent et hypoténuse : le cosinus. $\cos 62° = \dfrac{4{,}5}{UW}$. L'inconnue est en bas : $UW\times\cos 62° = 4{,}5$, donc $UW = \dfrac{4{,}5}{\cos 62°}\approx 9{,}585$, soit $UW\approx 9{,}6$ cm.</li>
+        <li>$[UV]$ est l'opposé, $[VW]$ l'adjacent : $\tan 62° = \dfrac{UV}{4{,}5}$, donc $UV = 4{,}5\times\tan 62° \approx 8{,}463$, soit $UV \approx 8{,}5$ cm.</li>
+      </ol>
+      <p>Contrôle : l'hypoténuse ($9{,}6$ cm) est bien le plus long côté.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-calculer-un-angle" data-titre="Calculer un angle" data-niveau="1" data-type="application" data-notions="trigo3-angle" data-duree="8" data-calculatrice="oui">
+    <p>Le triangle $ABC$ est rectangle en $B$, avec $AB = 7{,}2$ cm et $BC = 3$ cm.</p>
+    <ol>
+      <li>Calcule $\widehat{BAC}$, arrondi au degré.</li>
+      <li>Déduis-en $\widehat{BCA}$, arrondi au degré.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Le triangle $ABC$ est rectangle en $B$. Depuis $\widehat{BAC}$, $[BC]$ est l'opposé et $[AB]$ l'adjacent : ce sont les deux côtés connus. La tangente : $\tan\widehat{BAC}=\dfrac{3}{7{,}2}\approx 0{,}417$, donc $\widehat{BAC}=\tan^{-1}\left(\dfrac{3}{7{,}2}\right)\approx 22{,}6°$, soit environ $23°$.</li>
+        <li>Les deux angles aigus font $90°$ : $\widehat{BCA}\approx 90° - 22{,}6° = 67{,}4°$, soit environ $67°$.</li>
+      </ol>
+      <p>On aurait aussi pu calculer l'hypoténuse par Pythagore ($AC = 7{,}8$ cm) puis utiliser le sinus. Mais la tangente utilise directement les deux longueurs données.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-vrai-ou-faux" data-titre="Vrai ou faux" data-niveau="1" data-type="raisonnement" data-notions="trigo3" data-duree="8" data-calculatrice="non">
+    <p>Pour chaque phrase, dis si elle est vraie ou fausse, et justifie.</p>
+    <ol>
+      <li>Le sinus d'un angle aigu d'un triangle rectangle peut valoir $1{,}2$.</li>
+      <li>Si on double toutes les longueurs d'un triangle rectangle, le cosinus de ses angles aigus double aussi.</li>
+      <li>Dans un triangle rectangle, le sinus d'un angle aigu est égal au cosinus de l'autre angle aigu.</li>
+      <li>La tangente d'un angle aigu est toujours plus petite que 1.</li>
+      <li>Dans n'importe quel triangle $ABC$, $\cos\widehat{ABC}=\dfrac{AB}{BC}$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li><strong>Faux.</strong> Le sinus est l'opposé divisé par l'hypoténuse, qui est le plus long côté : il est plus petit que 1.</li>
+        <li><strong>Faux.</strong> Les deux longueurs du rapport doublent : $\dfrac{2\times AB}{2\times BC}=\dfrac{AB}{BC}$. Le cosinus ne dépend que de l'angle, et doubler les longueurs ne change pas les angles.</li>
+        <li><strong>Vrai.</strong> Le côté opposé à un angle aigu est le côté adjacent à l'autre ; l'hypoténuse est commune.</li>
+        <li><strong>Faux.</strong> Elle vaut 1 à $45°$ et dépasse 1 au-delà : dans un triangle 3, 4, 5, la tangente du plus grand angle aigu vaut $\dfrac{4}{3}$.</li>
+        <li><strong>Faux.</strong> Il faut un triangle rectangle, et rectangle en $A$ pour que $[BC]$ soit l'hypoténuse. Sans angle droit, il n'y a ni hypoténuse ni côté adjacent.</li>
+      </ol>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Des situations</h3>
+
+  <article class="exercice" id="ex-la-rampe-d-acces" data-titre="La rampe d'accès" data-niveau="2" data-type="probleme" data-notions="trigo3-angle trigo3" data-duree="15" data-calculatrice="oui" data-source="Dans l'esprit du DNB, Polynésie, septembre 2023 (une rampe d'accès)">
+    <p>Pour entrer dans une boutique, il faut monter une marche de $18$ cm. Le commerçant pose une rampe : une planche de $2$ m qui va du trottoir jusqu'en haut de la marche.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 452 152" role="img" aria-label="Une rampe : une planche TP posée du trottoir jusqu'en haut d'une marche HP, avec l'angle alpha entre la planche et le trottoir. La figure n'est pas à l'échelle."><rect class="forme-3" x="340" y="52.0" width="90" height="48.0"/><g class="trace t-n ep-3"><line x1="16.0" y1="100" x2="430" y2="100"/></g><g class="trace t-w ep-2"><line x1="40" y1="100" x2="340" y2="100"/></g><g class="trace t-u ep-3"><line x1="340" y1="100" x2="340" y2="52.0"/></g><g class="trace t-v ep-6"><line x1="40" y1="100" x2="340" y2="52.0"/></g><g class="trace t-n fin"><path d="M329.5,100.0 L329.5,89.5 L340.0,89.5"/></g><g class="trace t-n ep-2"><path d="M118.0,100.0 A78.0,78.0 0 0 0 117.0,87.7"/></g><text class="moyen halo" x="135.7" y="98.4" text-anchor="middle">α</text><text class="moyen halo plein t-v" x="187.2" y="63.2" text-anchor="middle">planche : 2 m</text><text class="moyen halo plein t-u" x="330.0" y="82.0" text-anchor="end">18 cm</text><circle class="pt " cx="40" cy="100" r="4.5"/><text class="lettre" x="32.0" y="128.0">T</text><circle class="pt " cx="340" cy="100" r="4.5"/><text class="lettre" x="334.0" y="128.0">H</text><circle class="pt " cx="340" cy="52.0" r="4.5"/><text class="lettre" x="346.0" y="50.0">P</text></svg><figcaption>La planche $[TP]$ de $2$ m, la marche $[HP]$ de $18$ cm, et l'angle $\alpha$ entre la planche et le trottoir. La figure n'est pas à l'échelle : la marche y est grossie.</figcaption></figure>
+    <ol>
+      <li>Calcule l'angle $\alpha$ entre la rampe et le trottoir, au dixième de degré.</li>
+      <li>Calcule la distance horizontale $TH$ couverte par la rampe, au centimètre.</li>
+      <li>La règle pour un bâtiment neuf qui reçoit du public : une pente de $5\,\%$ au plus, tolérée jusqu'à $8\,\%$ sur une longueur de $2$ m au plus. Cette rampe la respecte-t-elle ?</li>
+      <li>Quelle distance horizontale faudrait-il pour une pente de $5\,\%$ ?</li>
+    </ol>
+    <details class="indice"><p>Les $2$ m de la planche sont mesurés le long de la pente : c'est l'hypoténuse, pas la distance horizontale.</p></details>
+    <details class="correction">
+      <ol>
+        <li>Le triangle $THP$ est rectangle en $H$ (la marche est verticale, le trottoir horizontal). Hypoténuse : la planche, $TP = 200$ cm. Depuis $\alpha$, la marche $HP = 18$ cm est l'opposé. Le sinus : $\sin\alpha = \dfrac{18}{200}=0{,}09$, donc $\alpha=\sin^{-1}(0{,}09)\approx 5{,}2°$.</li>
+        <li>$TH = 200\times\cos\alpha \approx 199{,}19$ cm, soit environ $1{,}99$ m. (Pythagore donne le même résultat : $TH=\sqrt{200^2-18^2}=\sqrt{39\,676}\approx199{,}19$ cm.)</li>
+        <li>La pente est $\dfrac{\text{dénivelé}}{\text{distance horizontale}}=\dfrac{18}{199{,}19}\approx 0{,}090$, soit environ $9\,\%$. C'est plus que $8\,\%$ : la rampe ne respecte pas la règle, même avec la tolérance.</li>
+        <li>Pour $5\,\%$ : distance horizontale $=\dfrac{18}{0{,}05}=360$ cm, soit $3{,}60$ m. L'angle serait alors $\tan^{-1}(0{,}05)\approx 2{,}9°$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-angle-de-l-echelle" data-titre="L'angle de l'échelle" data-niveau="2" data-type="probleme" data-notions="trigo3-angle trigo3" data-duree="12" data-calculatrice="oui" data-source="Dans l'esprit des attendus de fin de 4ᵉ (eduscol, 2019 : l'échelle et l'angle de sécurité)">
+    <p>Une échelle de $6$ m est posée contre un mur vertical, son pied à $1{,}80$ m du mur. Pour qu'une échelle soit stable, l'angle entre l'échelle et le sol doit être compris entre $65°$ et $75°$.</p>
+    <ol>
+      <li>L'échelle est-elle stable ? Calcule l'angle au degré.</li>
+      <li>À quelle hauteur arrive le haut de l'échelle, au centimètre ?</li>
+      <li>Entre quelles distances du mur doit-on poser le pied de cette échelle pour qu'elle soit stable ? Arrondis au centimètre.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Le mur et le sol forment un angle droit. L'échelle est l'hypoténuse ($6$ m) ; depuis l'angle $\alpha$ au sol, les $1{,}80$ m sont l'adjacent. $\cos\alpha=\dfrac{1{,}8}{6}=0{,}3$, donc $\alpha=\cos^{-1}(0{,}3)\approx 72{,}5°$, soit environ $73°$. C'est entre $65°$ et $75°$ : l'échelle est stable.</li>
+        <li>La hauteur est l'opposé : $h = 6\times\sin\alpha \approx 5{,}72$ m. Avec Pythagore : $h=\sqrt{6^2-1{,}8^2}=\sqrt{32{,}76}\approx 5{,}72$ m.</li>
+        <li>La distance au mur est $6\times\cos\alpha$. Pour $\alpha = 75°$ : $6\times\cos 75°\approx 1{,}55$ m ; pour $\alpha = 65°$ : $6\times\cos 65° \approx 2{,}54$ m. Plus l'échelle est droite, plus son pied est près du mur. Pour rester dans la zone de sécurité, on arrondit vers l'intérieur : il faut poser le pied entre $1{,}56$ m et $2{,}53$ m du mur (à $1{,}55$ m, l'angle dépasserait déjà un peu $75°$).</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-hauteur-du-phare" data-titre="La hauteur du phare" data-niveau="2" data-type="probleme" data-notions="trigo3 trigo3-angle" data-duree="12" data-calculatrice="oui">
+    <p>Sur la plage, Inès se place à $120$ m du pied d'un phare. Avec un clinomètre tenu devant ses yeux, à $1{,}60$ m du sol, elle vise le sommet du phare : l'angle avec l'horizontale mesure $18°$. Le sol est horizontal et le phare vertical.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 446 224" role="img" aria-label="Inès, à 120 m du pied d'un phare, vise son sommet avec un clinomètre tenu à 1,60 m du sol. Le triangle rectangle a pour sommets ses yeux E, le point K du phare à hauteur des yeux, et le sommet S. L'angle en E mesure 18 degrés. La figure n'est pas à l'échelle."><g class="trace t-n ep-3"><line x1="16.0" y1="178.0" x2="430.0" y2="178.0"/></g><polygon class="forme-3" points="340.0,178.0 376.0,178.0 368.5,59.5 347.5,59.5"/><rect class="forme-4" x="344.5" y="44.5" width="27.0" height="15.0"/><g class="trace t-n ep-4"><line x1="58.0" y1="178.0" x2="58.0" y2="157.0"/></g><g class="trace t-w pointille"><line x1="58.0" y1="157.0" x2="358.0" y2="157.0"/></g><g class="trace t-u ep-3"><line x1="358.0" y1="157.0" x2="358.0" y2="59.5"/></g><g class="trace t-v ep-3"><line x1="58.0" y1="157.0" x2="358.0" y2="59.5"/></g><g class="trace t-n fin"><path d="M347.5,157.0 L347.5,146.5 L358.0,146.5"/></g><g class="trace t-n ep-2"><path d="M130.0,157.0 A72.0,72.0 0 0 0 126.5,134.7"/></g><text class="moyen halo" x="148.4" y="148.7" text-anchor="middle">18°</text><text class="moyen halo plein t-w" x="208.0" y="202.0" text-anchor="middle">120 m</text><text class="petit halo" x="48.0" y="173.5" text-anchor="end">1,60 m</text><circle class="pt " cx="58.0" cy="157.0" r="4.5"/><text class="lettre" x="48.0" y="151.0">E</text><circle class="pt " cx="358.0" cy="157.0" r="4.5"/><text class="lettre" x="334.0" y="185.0">K</text><circle class="pt " cx="358.0" cy="59.5" r="4.5"/><text class="lettre" x="372.0" y="61.5">S</text></svg><figcaption>Le triangle rectangle commence aux yeux d'Inès, pas au sol : il faut ajouter $1{,}60$ m à la fin. La figure n'est pas à l'échelle : la hauteur des yeux y est grossie.</figcaption></figure>
+    <ol>
+      <li>Calcule la hauteur du phare, au dixième de mètre.</li>
+      <li>Inès recule jusqu'à $150$ m du pied du phare. Quel angle mesure-t-elle alors, au dixième de degré ?</li>
+    </ol>
+    <details class="indice"><p>Le triangle rectangle a pour sommets les yeux d'Inès, le point du phare à la hauteur de ses yeux, et le sommet du phare.</p></details>
+    <details class="correction">
+      <ol>
+        <li>Le triangle formé par les yeux d'Inès $E$, le point $K$ du phare à $1{,}60$ m du sol et le sommet $S$ est rectangle en $K$. Depuis l'angle de $18°$ en $E$, $EK = 120$ m est l'adjacent et $KS$ l'opposé. La tangente : $\tan 18° = \dfrac{KS}{120}$, donc $KS = 120\times\tan 18° \approx 38{,}99$ m. La hauteur du phare : $38{,}99 + 1{,}60 \approx 40{,}6$ m.</li>
+        <li>À $150$ m, l'opposé ne change pas : $KS \approx 38{,}99$ m. $\tan\alpha=\dfrac{38{,}99}{150}\approx 0{,}260$, donc $\alpha \approx 14{,}6°$. Plus on recule, plus l'angle diminue ; la hauteur du phare, elle, ne change pas.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-route-de-montagne" data-titre="La route de montagne" data-niveau="2" data-type="probleme" data-notions="trigo3-angle trigo3" data-duree="12" data-calculatrice="oui" data-source="Dans l'esprit du DNB 2015 (la pente d'une route)">
+    <p>Un panneau annonce une pente de $12\,\%$ : la route monte de $12$ m pour $100$ m parcourus à l'horizontale.</p>
+    <ol>
+      <li>Calcule l'angle de la route avec l'horizontale, au dixième de degré.</li>
+      <li>Un cycliste parcourt $2$ km sur cette route (mesurés le long de la route). De combien de mètres est-il monté ? Arrondis au mètre.</li>
+      <li>Un autre cycliste dit : « $12\,\%$, c'est $12°$. » Quelle pente aurait une route qui fait un angle de $12°$ avec l'horizontale ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>La pente est la tangente de l'angle : $\tan\alpha=\dfrac{12}{100}=0{,}12$, donc $\alpha=\tan^{-1}(0{,}12)\approx 6{,}8°$.</li>
+        <li>Les $2\,000$ m sont mesurés le long de la route : c'est l'hypoténuse. Le dénivelé est l'opposé : $h = 2\,000\times\sin\alpha \approx 238$ m. (Avec $2\,000\times 0{,}12 = 240$ m, on traiterait les $2$ km comme une distance horizontale : pour une pente douce, l'écart est petit, mais ce n'est pas le bon calcul.)</li>
+        <li>$\tan 12° \approx 0{,}213$ : une pente d'environ $21{,}3\,\%$. Près de deux fois la vraie pente : les pour cent et les degrés ne se lisent pas l'un pour l'autre.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-pythagore-thales-ou-trigonometrie" data-titre="Pythagore, Thalès ou trigonométrie ?" data-niveau="2" data-type="raisonnement" data-notions="trigo3 trigo3-angle thales" data-duree="10" data-calculatrice="non">
+    <p>Pour chaque situation, dis quel outil utiliser (le théorème de Pythagore, le théorème de Thalès, ou la trigonométrie), et écris l'égalité de départ. Ne calcule pas.</p>
+    <ol>
+      <li>Le triangle $ABC$ est rectangle en $A$, avec $AB = 5$ cm et $AC = 12$ cm. On cherche $BC$.</li>
+      <li>Le triangle $ABC$ est rectangle en $A$, avec $AB = 5$ cm et $AC = 12$ cm. On cherche $\widehat{ABC}$.</li>
+      <li>Le triangle $DEF$ est rectangle en $E$, avec $DF = 9$ cm et $\widehat{EDF}=25°$. On cherche $EF$.</li>
+      <li>Les droites $(MN)$ et $(BC)$ sont parallèles, $M\in[AB]$, $N\in[AC]$, $AM = 3$ cm, $AB = 7$ cm et $BC = 10$ cm. On cherche $MN$.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Deux côtés connus, le troisième cherché : <strong>Pythagore</strong>. $BC^2 = AB^2 + AC^2$, soit $BC^2 = 5^2+12^2$ (on trouverait $BC = 13$ cm).</li>
+        <li>Deux côtés connus, un angle cherché : <strong>la trigonométrie</strong>. Depuis $B$, $[AC]$ est l'opposé et $[AB]$ l'adjacent : $\tan\widehat{ABC}=\dfrac{AC}{AB}=\dfrac{12}{5}$.</li>
+        <li>Un angle et un côté connus, un autre côté cherché : <strong>la trigonométrie</strong>. $[DF]$ est l'hypoténuse, $[EF]$ l'opposé à $\widehat{EDF}$ : $\sin 25° = \dfrac{EF}{9}$.</li>
+        <li>Deux parallèles : <strong>Thalès</strong>. $\dfrac{AM}{AB}=\dfrac{MN}{BC}$, soit $\dfrac{3}{7}=\dfrac{MN}{10}$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="trigo3" data-duree="12" data-calculatrice="oui">
+    <p>Le triangle $ABC$ est rectangle en $A$, avec $\widehat{ABC}=40°$ et $BC = 12$ cm. Un élève a demandé à une IA de calculer $AC$. Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« Le triangle $ABC$ est rectangle en $A$, donc on peut utiliser la trigonométrie. Le côté $[AC]$ est adjacent à l'angle $\widehat{ABC}$, et $[BC]$ est l'hypoténuse. On utilise donc le cosinus : $\cos 40° = \dfrac{AC}{BC}$. Comme $\cos 40° \approx 0{,}8$, on obtient $AC = 12 \times 0{,}8 = 9{,}6$ cm. Vérification : $9{,}6$ cm est plus petit que $12$ cm, l'hypoténuse est bien le plus grand côté. Le résultat est cohérent. »</blockquote>
+    <details class="indice"><p>Pose le doigt sur l'angle en $B$ : quels côtés touche-t-il ?</p></details>
+    <details class="correction">
+      <p><strong>Erreur 1 : le côté mal nommé.</strong> Depuis $B$, le doigt touche $[AB]$ et $[BC]$. Le côté $[AC]$ ne touche pas l'angle : c'est l'<em>opposé</em>, pas l'adjacent. Le bon rapport est le sinus : $\sin 40° = \dfrac{AC}{BC}$.</p>
+      <p><strong>Erreur 2 : l'arrondi trop tôt.</strong> $\cos 40° \approx 0{,}766$, pas $0{,}8$. Même avec le bon rapport, arrondir avant de multiplier fausse le résultat de plusieurs millimètres.</p>
+      <p><strong>Erreur 3 : la vérification qui ne vérifie rien.</strong> « Plus petit que $12$ cm » est vrai pour n'importe quel côté de l'angle droit. Un vrai contrôle : dans un triangle, le plus petit angle est en face du plus petit côté. Ici $\widehat{ABC}=40°$ et $\widehat{ACB}=50°$ : $[AC]$, en face de $40°$, doit être plus court que $[AB]$, en face de $50°$. Avec $9{,}6$ cm pour $AC$, il resterait $AB=\sqrt{12^2-9{,}6^2}=7{,}2$ cm : c'est l'inverse.</p>
+      <p><strong>La réponse correcte.</strong> Le triangle $ABC$ est rectangle en $A$ ; depuis $\widehat{ABC}$, $[AC]$ est l'opposé et $[BC]$ l'hypoténuse. $\sin 40° = \dfrac{AC}{12}$, donc $AC = 12\times\sin 40° \approx 7{,}7$ cm. (Et $AB = 12\times\cos 40° \approx 9{,}2$ cm : $AC$ est bien le plus court.)</p>
+      <p>Une réponse fluide, un « donc » à chaque ligne, et fausse dès qu'elle nomme les côtés. Le réflexe : le doigt sur l'angle avant d'écrire le moindre rapport.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Des problèmes complets</h3>
+
+  <article class="exercice" id="ex-le-triangle-isocele" data-titre="Le triangle isocèle" data-niveau="3" data-type="probleme" data-notions="trigo3" data-duree="15" data-calculatrice="oui" data-source="Dans l'esprit du sujet de référence n° 02 du DNB 2027 (eduscol), exercice 2">
+    <p>Le triangle $AOB$ est isocèle en $O$, avec $OA = OB = 6$ cm et $\widehat{AOB}=80°$. On note $H$ le milieu de $[AB]$.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 363 261" role="img" aria-label="Triangle AOB isocèle en O, avec OA = OB = 6 cm et un angle de 80 degrés en O. H est le milieu de AB ; le segment OH, en pointillés, est perpendiculaire à AB."><polygon class="forme" points="50.8,207.1 181.9,50.8 313.1,207.1"/><g class="trace t-u pointille"><line x1="181.9" y1="50.8" x2="181.9" y2="207.1"/></g><g class="trace t-n fin"><path d="M193.8,207.1 L193.8,195.2 L181.9,195.2"/></g><g class="trace t-n ep-2"><path d="M162.2,74.2 A30.6,30.6 0 0 0 201.6,74.2"/></g><text class="moyen halo" x="181.9" y="104.4" text-anchor="middle">80°</text><text class="moyen halo" x="104.1" y="123.6" text-anchor="middle">6 cm</text><text class="moyen halo" x="259.8" y="123.6" text-anchor="middle">6 cm</text><circle class="pt " cx="50.8" cy="207.1" r="4.5"/><text class="lettre" x="30.8" y="227.1">A</text><circle class="pt " cx="313.1" cy="207.1" r="4.5"/><text class="lettre" x="321.1" y="227.1">B</text><circle class="pt " cx="181.9" cy="50.8" r="4.5"/><text class="lettre" x="175.9" y="46.8">O</text><circle class="pt " cx="181.9" cy="207.1" r="4.5"/><text class="lettre" x="175.9" y="237.1">H</text></svg><figcaption>La droite $(OH)$ est l'axe de symétrie du triangle isocèle : elle coupe $[AB]$ en son milieu, à angle droit.</figcaption></figure>
+    <ol>
+      <li>Explique pourquoi le triangle $OHA$ est rectangle en $H$, et pourquoi $\widehat{AOH}=40°$.</li>
+      <li>Calcule $OH$, au millimètre.</li>
+      <li>Calcule $AB$, au millimètre.</li>
+      <li>Calcule l'aire du triangle $AOB$, au dixième de cm².</li>
+    </ol>
+    <details class="indice"><p>Dans un triangle isocèle, la droite qui passe par le sommet principal et le milieu de la base est un axe de symétrie.</p></details>
+    <details class="correction">
+      <ol>
+        <li>Comme $OA = OB$, le point $O$ est sur la médiatrice de $[AB]$, qui passe aussi par le milieu $H$ : $(OH)$ est la médiatrice de $[AB]$, donc $(OH)\perp(AB)$. Le triangle $OHA$ est rectangle en $H$. La médiatrice est l'axe de symétrie du triangle isocèle : elle partage l'angle en $O$ en deux angles égaux, $\widehat{AOH}=\dfrac{80°}{2}=40°$.</li>
+        <li>Dans $OHA$, rectangle en $H$, l'hypoténuse est $[OA]$ ; depuis $\widehat{AOH}$, $[OH]$ est l'adjacent. $\cos 40° = \dfrac{OH}{6}$, donc $OH = 6\times\cos 40°\approx 4{,}596$, soit $OH\approx 4{,}6$ cm.</li>
+        <li>$[AH]$ est l'opposé : $AH = 6\times\sin 40° \approx 3{,}857$ cm. $H$ est le milieu de $[AB]$ : $AB = 2\times AH \approx 7{,}713$, soit $AB\approx 7{,}7$ cm.</li>
+        <li>L'aire vaut $\dfrac{\text{base}\times\text{hauteur}}{2}=\dfrac{AB\times OH}{2}\approx\dfrac{7{,}713\times 4{,}596}{2}\approx 17{,}7$ cm². On calcule avec les valeurs non arrondies.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-avion-en-approche" data-titre="L'avion en approche" data-niveau="3" data-type="probleme" data-notions="trigo3 trigo3-angle" data-duree="15" data-calculatrice="oui">
+    <p>Pour atterrir, un avion de ligne descend vers la piste en ligne droite, avec un angle de $3°$ par rapport à l'horizontale. On néglige la hauteur des roues.</p>
+    <ol>
+      <li>À $10$ km de la piste (distance mesurée à l'horizontale), à quelle altitude doit se trouver l'avion ? Arrondis au mètre.</li>
+      <li>Quelle est la pente de cette descente, en pour cent, au dixième ?</li>
+      <li>L'avion est à $300$ m d'altitude. À quelle distance horizontale de la piste est-il ? Arrondis à la centaine de mètres.</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>L'avion, son point à la verticale sur le sol et le début de la piste forment un triangle rectangle. Depuis l'angle de $3°$ à la piste, l'altitude est l'opposé, la distance horizontale l'adjacent. $\tan 3° = \dfrac{h}{10\,000}$, donc $h = 10\,000\times\tan 3°\approx 524$ m.</li>
+        <li>La pente est la tangente de l'angle : $\tan 3° \approx 0{,}0524$, soit environ $5{,}2\,\%$.</li>
+        <li>$\tan 3° = \dfrac{300}{d}$ : l'inconnue est en bas. $d = \dfrac{300}{\tan 3°}\approx 5\,724$ m, soit environ $5\,700$ m, ou $5{,}7$ km.</li>
+      </ol>
+      <p>Une descente de $3°$ paraît faible ; elle fait pourtant perdre plus de $500$ m d'altitude en $10$ km.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-pourquoi-le-sinus-reste-sous-1" data-titre="Pourquoi le sinus reste sous 1" data-niveau="3" data-type="raisonnement" data-notions="trigo3" data-duree="15" data-calculatrice="non">
+    <p>Pour aller plus loin : les deux formules de cet exercice ne sont pas au programme de troisième (on les démontre en seconde), mais tu as tout ce qu'il faut pour les prouver. Le triangle $ABC$ est rectangle en $A$ ; on note $\alpha = \widehat{ABC}$.</p>
+    <ol>
+      <li>Avec le théorème de Pythagore, explique pourquoi $AC &lt; BC$. Déduis-en que $\sin\alpha &lt; 1$.</li>
+      <li>Montre que $(\cos\alpha)^2 + (\sin\alpha)^2 = 1$.</li>
+      <li>Montre que $\tan\alpha = \dfrac{\sin\alpha}{\cos\alpha}$.</li>
+      <li>On sait que $\sin\alpha = 0{,}6$. Sans calculatrice, trouve $\cos\alpha$ puis $\tan\alpha$.</li>
+    </ol>
+    <details class="indice"><p>Pour la question 2, remplace $\cos\alpha$ et $\sin\alpha$ par leurs rapports, puis mets au même dénominateur $BC^2$.</p></details>
+    <details class="correction">
+      <ol>
+        <li>Pythagore : $BC^2 = AB^2 + AC^2$, et $AB^2 &gt; 0$, donc $BC^2 &gt; AC^2$, et $BC &gt; AC$ (deux longueurs positives). Alors $\sin\alpha = \dfrac{AC}{BC} &lt; 1$. Même raisonnement pour le cosinus avec $AB$.</li>
+        <li>$(\cos\alpha)^2 + (\sin\alpha)^2 = \dfrac{AB^2}{BC^2}+\dfrac{AC^2}{BC^2}=\dfrac{AB^2+AC^2}{BC^2}=\dfrac{BC^2}{BC^2}=1$, d'après Pythagore.</li>
+        <li>$\dfrac{\sin\alpha}{\cos\alpha}=\dfrac{AC}{BC}\div\dfrac{AB}{BC}=\dfrac{AC}{BC}\times\dfrac{BC}{AB}=\dfrac{AC}{AB}=\tan\alpha$.</li>
+        <li>$(\cos\alpha)^2 = 1 - 0{,}6^2 = 1 - 0{,}36 = 0{,}64$, et $\cos\alpha$ est positif : $\cos\alpha = 0{,}8$. Puis $\tan\alpha = \dfrac{0{,}6}{0{,}8}=0{,}75$. C'est le triangle 3, 4, 5.</li>
+      </ol>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Comment retenir les trois formules ?</summary>
+      <div><p>Beaucoup d'élèves retiennent « CAH SOH TOA » : <strong>C</strong>osinus = <strong>A</strong>djacent sur <strong>H</strong>ypoténuse, <strong>S</strong>inus = <strong>O</strong>pposé sur <strong>H</strong>ypoténuse, <strong>T</strong>angente = <strong>O</strong>pposé sur <strong>A</strong>djacent. Prononcé à voix haute, on entend « casse-toi ». Ton professeur a peut-être une autre façon de le dire : garde celle qui te reste en tête. Et si tu as un doute pendant un contrôle, le cosinus et le sinus ont l'hypoténuse en bas, puisqu'ils restent sous 1.</p></div></details>
+    <details><summary>Ma calculatrice dit que $\cos 60 = -0{,}95$. Elle est cassée ?</summary>
+      <div><p>Non : elle est réglée en radians, une autre unité d'angle, qu'on utilise au lycée. Cherche dans le menu de configuration l'unité d'angle, et choisis les degrés (un D ou DEG à l'écran). Refais le test : $\cos(60)$ doit afficher $0{,}5$.</p></div></details>
+    <details><summary>Quand faut-il arrondir ?</summary>
+      <div><p>Une seule fois, à la fin, à la précision demandée par l'énoncé (au degré, au dixième, au millimètre). Pendant le calcul, garde la valeur complète de la calculatrice, ou utilise la touche « Ans ». Si tu dois écrire une valeur intermédiaire sur ta copie, écris-la avec « $\approx$ » et plusieurs décimales, mais continue le calcul avec la valeur exacte.</p></div></details>
+    <details><summary>Et si le triangle n'est pas rectangle ?</summary>
+      <div><p>Alors le cosinus, le sinus et la tangente « adjacent, opposé, hypoténuse » ne s'appliquent pas. En troisième, on cherche à faire apparaître un triangle rectangle : on trace une hauteur, comme dans l'exercice « Le triangle isocèle ». Au lycée, d'autres formules permettent de calculer dans n'importe quel triangle.</p></div></details>
+    <details><summary>Pythagore ou trigonométrie : comment savoir ?</summary>
+      <div><p>Regarde s'il y a un angle dans l'histoire. Deux côtés connus et un troisième cherché, sans angle : Pythagore. Un angle et un côté connus, ou un angle cherché à partir de deux côtés : la trigonométrie. Un angle aigu connu et l'autre cherché : $90°$ moins le premier. Le tableau de la partie 7 du cours range tous les cas, Thalès compris.</p></div></details>
+    <details><summary>Pourquoi le sinus ne dépasse jamais 1, et la tangente si ?</summary>
+      <div><p>Le sinus et le cosinus divisent un côté par l'hypoténuse, le plus long des trois : le résultat est toujours plus petit que 1. La tangente divise l'opposé par l'adjacent, deux côtés qui peuvent être plus grands l'un que l'autre : à $45°$ ils sont égaux et la tangente vaut 1 ; au-delà, l'opposé est le plus long et la tangente dépasse 1.</p></div></details>
+    <details><summary>D'où viennent les mots « sinus » et « cosinus » ?</summary>
+      <div><p>Selon l'histoire la plus souvent racontée, le mot vient d'un long voyage. Les astronomes indiens parlaient de la « corde » d'un arc de cercle ; le mot est passé en arabe, puis, au Moyen Âge, un traducteur latin l'a lu comme un mot arabe qui veut dire « pli » ou « creux », et l'a traduit par <em>sinus</em>, qui veut dire la même chose en latin. Le cosinus est le « sinus du complément » : le sinus de l'autre angle aigu, celui qui complète jusqu'à $90°$. La tangente tient son nom du latin <em>tangere</em>, « toucher » : sur un cercle, c'est la longueur d'un segment qui touche le cercle en un point.</p></div></details>
+    <details><summary>Les radians, c'est quoi ?</summary>
+      <div><p>Une autre façon de mesurer les angles, avec la longueur d'un arc de cercle de rayon 1 : un demi-tour mesure $\pi$ radians, soit environ $3{,}14$, au lieu de $180°$. Tu les rencontreras en première, dans le chapitre « Trigonométrie », avec le cercle trigonométrique, qui étend le cosinus et le sinus à tous les angles. En troisième, on reste en degrés.</p></div></details>
+    <details><summary>Qu'est-ce qui tombe au brevet ?</summary>
+      <div><p>Dans la première partie (20 minutes, sans calculatrice), des questions courtes : choisir la formule qui donne une longueur (« $5\times\cos 60°$ ou $5\div\cos 60°$ ? »), écrire le cosinus d'un angle à partir des longueurs d'une figure. Dans la seconde partie (avec calculatrice), un problème rédigé : une rampe, un toit, un terrain en pente, un triangle à couper en deux. On y demande un angle ou une longueur, toujours avec un arrondi précis.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
