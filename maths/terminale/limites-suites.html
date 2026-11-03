@@ -1,0 +1,931 @@
+<!doctype html>
+<!-- Chapitre « Limites de suites » (terminale spécialité). Source : les {{figure:…}} sont
+     remplacés par les dessins de limites-suites.figures.py ;
+     fabrication : python3 outils/figures.py maths/terminale/limites-suites.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Limites de suites · Terminale spécialité</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=db8e08ca16">
+<script type="module" src="../../assets/js/site.js?v=4fe9b993b8"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KZBHYK6H.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-F2NDMWXU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IIKXGQRS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-T5NZ5DMR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LIBQ5WPH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-C2UYVGRR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FLALMM7R.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-XFM7DOQB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PS7DZ2L4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-GMLVBNMW.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BHH5Q3XL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-STOZIWS7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IRYYISNL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-JLL4QBKH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-W2R5XQGS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BOAJ3VFE.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MZZRHLYT.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LV5OXHIY.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FBYJLYFB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7TQW5JOI.js">
+<link rel="modulepreload" href="../../assets/js/labos/limites.js?v=286cadc322">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TLTAELPK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MI35G4WU.js">
+<link rel="modulepreload" href="../../assets/js/labos/limites-suites-t.js?v=36e233547d">
+<link rel="modulepreload" href="../../assets/js/generateurs/limites-suites-t.js?v=c1bb1a7be1">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-DPDMCK5N.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-ZATZSMK3.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="limites-suites-t" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Mathématiques · Terminale spécialité</span>
+  <h1>Limites de suites</h1>
+  <p class="chapeau">En première, tu as deviné vers quoi va une suite en calculant des termes. Cette année, tu apprends à le <strong>prouver</strong> : ce que veut dire « tendre vers », les théorèmes qui concluent sans calculer la limite, et les calculs qui marchent à coup sûr.</p>
+  <ul class="objectifs">
+    <li>Dire avec précision ce que signifie « tendre vers $+\infty$ » ou « converger vers $\ell$ »</li>
+    <li>Calculer une limite avec les opérations, et lever une forme indéterminée</li>
+    <li>Conclure par comparaison, par les gendarmes, ou parce que la suite est monotone et bornée</li>
+    <li>Rédiger les trois démonstrations du programme</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Ta calculatrice ne connaît pas $\sqrt2$.</strong> Elle n'a en mémoire ni ses décimales, ni une formule magique. Elle part d'une valeur grossière, $u_0=2$, et calcule une suite : $u_{n+1}=\dfrac{1}{2}\left(u_n+\dfrac{2}{u_n}\right)$. Ça donne $2$ ; $1{,}5$ ; $1{,}416\,67$ ; $1{,}414\,216$ ; $1{,}414\,213\,562\,4$… À chaque étape, le nombre de décimales justes <em>double</em>. Elle s'arrête quand deux termes successifs sont à moins de $10^{-12}$ l'un de l'autre, et affiche $1{,}414\,213\,562$. Trois questions se cachent là-dedans : vers quoi tend cette suite ? Comment être <em>sûr</em> qu'elle s'approche de $\sqrt2$ et pas d'autre chose ? À partir de quel rang la précision demandée est-elle atteinte ? C'est tout le chapitre.</p>
+    <p class="discret">Ils s'en servent : les ingénieurs en calcul scientifique (une simulation météo, un crash-test, une image de synthèse sont des suites qui convergent), les développeurs (chaque bibliothèque mathématique cache une suite de ce genre), les actuaires et les analystes financiers (un capital qui tend vers un plafond, une dette qui tend vers zéro), les pharmaciens (la dose d'un traitement qui se stabilise). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-infini">1. Tendre vers l'infini</h3>
+  <p>En première, « $u_n$ tend vers $+\infty$ » voulait dire « les termes deviennent aussi grands qu'on veut ». On va dire exactement la même chose, mais sans le flou du « aussi grands qu'on veut ».</p>
+
+  <div class="bloc definition" data-titre="Suite qui tend vers +∞">
+    <p>Dire que la suite $(u_n)$ <strong>tend vers $+\infty$</strong> signifie que <strong>tout</strong> intervalle de la forme $[A\,;+\infty[$ contient tous les termes $u_n$ <strong>à partir d'un certain rang</strong>. On note $\lim\limits_{n\to+\infty}u_n=+\infty$.</p>
+    <p>Dit autrement : quel que soit le seuil $A$ qu'on choisit, aussi grand soit-il, il existe un rang $N$ tel que pour tout $n\geq N$, $u_n\geq A$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 411 344" role="img" aria-label="Les termes de 0,15 n carré, pour n de 0 à 10, montent de plus en plus vite. Une zone claire couvre tout ce qui est au-dessus du seuil A égal 5 ; les termes y entrent au rang 6 et n'en ressortent plus."><rect class="bande" x="10" y="10" width="374" height="216.0"/><g class="trace t-v"><line x1="10" y1="226.0" x2="384" y2="226.0"/></g><g class="trace t-n"><line x1="10" y1="316" x2="383.0" y2="316.0"/><polygon points="390.8,316.0 377.8,321.9 377.8,310.1"/></g><g class="trace t-n"><line x1="10" y1="334" x2="10.0" y2="17.8"/><polygon points="10.0,10.0 15.9,23.0 4.1,23.0"/></g><text class="moyen" x="377.2" y="299.8">n</text><g class="trace t-n"><line x1="10" y1="321.8" x2="10" y2="310.2"/></g><text class="petit" x="3.9" y="340.3">0</text><g class="trace t-n"><line x1="44" y1="321.8" x2="44" y2="310.2"/></g><text class="petit" x="37.9" y="340.3">1</text><g class="trace t-n"><line x1="78" y1="321.8" x2="78" y2="310.2"/></g><text class="petit" x="71.9" y="340.3">2</text><g class="trace t-n"><line x1="112" y1="321.8" x2="112" y2="310.2"/></g><text class="petit" x="105.9" y="340.3">3</text><g class="trace t-n"><line x1="146" y1="321.8" x2="146" y2="310.2"/></g><text class="petit" x="139.9" y="340.3">4</text><g class="trace t-n"><line x1="180" y1="321.8" x2="180" y2="310.2"/></g><text class="petit" x="173.9" y="340.3">5</text><g class="trace t-n"><line x1="214" y1="321.8" x2="214" y2="310.2"/></g><text class="petit" x="207.9" y="340.3">6</text><g class="trace t-n"><line x1="248" y1="321.8" x2="248" y2="310.2"/></g><text class="petit" x="241.9" y="340.3">7</text><g class="trace t-n"><line x1="282" y1="321.8" x2="282" y2="310.2"/></g><text class="petit" x="275.9" y="340.3">8</text><g class="trace t-n"><line x1="316" y1="321.8" x2="316" y2="310.2"/></g><text class="petit" x="309.9" y="340.3">9</text><g class="trace t-n"><line x1="350" y1="321.8" x2="350" y2="310.2"/></g><text class="petit" x="343.9" y="340.3">10</text><g class="trace t-n"><line x1="5.9" y1="226" x2="14.1" y2="226"/></g><text class="petit" x="-11.4" y="232.5">5</text><g class="trace t-n"><line x1="5.9" y1="136" x2="14.1" y2="136"/></g><text class="petit" x="-20.9" y="142.5">10</text><g class="trace t-n"><line x1="5.9" y1="46" x2="14.1" y2="46"/></g><text class="petit" x="-20.9" y="52.5">15</text><circle class="pt pt-v" cx="10" cy="316.0" r="4.5"/><circle class="pt pt-v" cx="44" cy="313.3" r="4.5"/><circle class="pt pt-v" cx="78" cy="305.2" r="4.5"/><circle class="pt pt-v" cx="112" cy="291.7" r="4.5"/><circle class="pt pt-v" cx="146" cy="272.8" r="4.5"/><circle class="pt pt-v" cx="180" cy="248.5" r="4.5"/><circle class="pt pt-u" cx="214" cy="218.8" r="4.5"/><circle class="pt pt-u" cx="248" cy="183.7" r="4.5"/><circle class="pt pt-u" cx="282" cy="143.2" r="4.5"/><circle class="pt pt-u" cx="316" cy="97.3" r="4.5"/><circle class="pt pt-u" cx="350" cy="46.0" r="4.5"/><g class="trace t-w pointille"><line x1="214" y1="326.8" x2="214" y2="37.0"/></g><text class="moyen" x="220.8" y="31.6">rang N = 6</text><text class="moyen" x="20.2" y="215.2">[A ; +∞[</text><text class="lettre" x="316.0" y="251.2">A = 5</text></svg><figcaption>Les termes de $u_n=0{,}15\,n^2$. Pour le seuil $A=5$, tous les termes à partir du rang $N=6$ sont dans $[A\,;+\infty[$ : un terme peut passer au-dessus de $A$ plus tôt, ce qui compte, c'est qu'à partir de $N$ plus aucun ne redescend. Et ça marche pour n'importe quel $A$, pas seulement pour $5$.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Vérifier la définition sur une suite">
+    <p>$u_n=n^2$ tend vers $+\infty$. Prenons un seuil, disons $A=10^6$. À partir de quel rang a-t-on $n^2\geq10^6$ ? Dès que $n\geq1\,000$. Pour $A=10^{10}$, dès que $n\geq10^5$. Quel que soit $A&gt;0$, le rang $N$ existe : c'est le premier entier au moins égal à $\sqrt A$. La définition est vérifiée.</p>
+    <p>Même chose pour $u_n=n$, $u_n=n^3$, $u_n=\sqrt n$ (pour $A$, prendre $N\geq A^2$) : toutes tendent vers $+\infty$.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Suite qui tend vers −∞">
+    <p>De la même façon, $(u_n)$ <strong>tend vers $-\infty$</strong> si tout intervalle $]-\infty\,;A]$ contient tous les termes à partir d'un certain rang. On note $\lim\limits_{n\to+\infty}u_n=-\infty$. Par exemple $u_n=-n^2$ tend vers $-\infty$.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Croissante, ce n'est pas tendre vers +∞">
+    <p>$u_n=3-\dfrac1n$ est croissante (chaque terme est plus grand que le précédent) et pourtant elle ne dépassera jamais $3$ : l'intervalle $[4\,;+\infty[$ ne contient aucun de ses termes. Une suite croissante peut tendre vers $+\infty$… ou pas. On y revient en partie 6.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-converger">2. Converger vers un réel</h3>
+  <p>Pour une limite finie, l'idée est la même : on remplace « dépasser tout seuil » par « entrer dans toute bande autour de $\ell$, et y rester ».</p>
+
+  <div class="bloc definition" data-titre="Suite convergente">
+    <p>Dire que la suite $(u_n)$ <strong>converge vers le réel $\ell$</strong> signifie que <strong>tout</strong> intervalle ouvert contenant $\ell$ contient tous les termes $u_n$ <strong>à partir d'un certain rang</strong>. On note $\lim\limits_{n\to+\infty}u_n=\ell$.</p>
+    <p>En pratique, on prend des intervalles centrés en $\ell$ : $]\ell-\varepsilon\,;\ell+\varepsilon[$, une <strong>bande</strong> de demi-largeur $\varepsilon$ (« epsilon »), un réel strictement positif aussi petit qu'on veut. Converger vers $\ell$, c'est : pour tout $\varepsilon&gt;0$, il existe un rang $N$ tel que pour tout $n\geq N$, $\ell-\varepsilon&lt;u_n&lt;\ell+\varepsilon$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 456 290" role="img" aria-label="Les termes de 1 plus 2,5 fois moins 0,7 puissance n oscillent de part et d'autre de 1 en se rapprochant. Une bande claire de demi-largeur 0,3 entoure la valeur 1 ; les termes y restent à partir du rang 6."><rect class="bande" x="10" y="150.4" width="420" height="31.2"/><g class="trace t-n pointille"><line x1="10" y1="166.0" x2="430" y2="166.0"/></g><g class="trace t-n"><line x1="10" y1="218" x2="430.6" y2="218.0"/><polygon points="438.4,218.0 425.4,223.8 425.4,212.2"/></g><g class="trace t-n"><line x1="10" y1="280.4" x2="10.0" y2="17.8"/><polygon points="10.0,10.0 15.9,23.0 4.1,23.0"/></g><text class="moyen" x="427.2" y="204.5">n</text><g class="trace t-n"><line x1="10" y1="222.9" x2="10" y2="213.1"/></g><text class="petit" x="5.0" y="238.3">0</text><g class="trace t-n"><line x1="66" y1="222.9" x2="66" y2="213.1"/></g><text class="petit" x="61.0" y="238.3">2</text><g class="trace t-n"><line x1="122" y1="222.9" x2="122" y2="213.1"/></g><text class="petit" x="117.0" y="238.3">4</text><g class="trace t-n"><line x1="178" y1="222.9" x2="178" y2="213.1"/></g><text class="petit" x="173.0" y="238.3">6</text><g class="trace t-n"><line x1="234" y1="222.9" x2="234" y2="213.1"/></g><text class="petit" x="229.0" y="238.3">8</text><g class="trace t-n"><line x1="290" y1="222.9" x2="290" y2="213.1"/></g><text class="petit" x="285.0" y="238.3">10</text><g class="trace t-n"><line x1="346" y1="222.9" x2="346" y2="213.1"/></g><text class="petit" x="341.0" y="238.3">12</text><g class="trace t-n"><line x1="402" y1="222.9" x2="402" y2="213.1"/></g><text class="petit" x="397.0" y="238.3">14</text><g class="trace t-n"><line x1="6.6" y1="270" x2="13.4" y2="270"/></g><text class="petit" x="-15.5" y="275.4">−1</text><g class="trace t-n"><line x1="6.6" y1="166" x2="13.4" y2="166"/></g><text class="petit" x="-7.6" y="171.4">1</text><g class="trace t-n"><line x1="6.6" y1="114" x2="13.4" y2="114"/></g><text class="petit" x="-7.6" y="119.4">2</text><g class="trace t-n"><line x1="6.6" y1="62" x2="13.4" y2="62"/></g><text class="petit" x="-7.6" y="67.4">3</text><circle class="pt pt-v" cx="10" cy="36.0" r="4.5"/><circle class="pt pt-v" cx="38" cy="257.0" r="4.5"/><circle class="pt pt-v" cx="66" cy="102.3" r="4.5"/><circle class="pt pt-v" cx="94" cy="210.6" r="4.5"/><circle class="pt pt-v" cx="122" cy="134.8" r="4.5"/><circle class="pt pt-v" cx="150" cy="187.8" r="4.5"/><circle class="pt pt-u" cx="178" cy="150.7" r="4.5"/><circle class="pt pt-u" cx="206" cy="176.7" r="4.5"/><circle class="pt pt-u" cx="234" cy="158.5" r="4.5"/><circle class="pt pt-u" cx="262" cy="171.2" r="4.5"/><circle class="pt pt-u" cx="290" cy="162.3" r="4.5"/><circle class="pt pt-u" cx="318" cy="168.6" r="4.5"/><circle class="pt pt-u" cx="346" cy="164.2" r="4.5"/><circle class="pt pt-u" cx="374" cy="167.3" r="4.5"/><circle class="pt pt-u" cx="402" cy="165.1" r="4.5"/><g class="trace t-w pointille"><line x1="178" y1="270.0" x2="178" y2="36.0"/></g><text class="moyen" x="185.0" y="33.4">rang N = 6</text><text class="lettre" x="432.8" y="162.4">ℓ</text><text class="moyen" x="273.2" y="124.4">bande ]ℓ − ε ; ℓ + ε[</text></svg><figcaption>Les termes de $u_n=1+2{,}5\times(-0{,}7)^n$ oscillent autour de $1$. Pour la bande $\varepsilon=0{,}3$, ils y entrent pour de bon au rang $N=6$ : $u_6\approx1{,}29$, et plus aucun terme ne ressort. Avec une bande plus étroite, $N$ serait plus grand, mais il existerait encore.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Trouver le rang pour une bande donnée">
+    <p>$u_n=2+\dfrac1n$ converge vers $2$. Pour la bande $\varepsilon=0{,}01$ : $|u_n-2|=\dfrac1n&lt;0{,}01$ dès que $n&gt;100$. À partir du rang $N=101$, tous les termes sont dans $]1{,}99\,;2{,}01[$. Pour $\varepsilon=10^{-6}$, à partir de $N=10^6+1$. Il y a toujours un rang : la définition est vérifiée.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Le vocabulaire">
+    <ul>
+      <li>Une suite qui a une limite <strong>finie</strong> est <strong>convergente</strong>.</li>
+      <li>Une suite qui n'est pas convergente est <strong>divergente</strong>. Il y a deux façons de diverger : tendre vers $+\infty$ ou $-\infty$, <em>ou</em> ne pas avoir de limite du tout, comme $(-1)^n$, qui alterne entre $1$ et $-1$.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 476 245" role="img" aria-label="Trois petits graphiques de suites sans limite. À gauche, moins 1 puissance n alterne entre 1 et moins 1. Au milieu, moins 1 puissance n fois n alterne en s'écartant de plus en plus de zéro. À droite, 3 plus moins 1 puissance n alterne entre 4 et 2."><g class="trace t-n"><line x1="19.5" y1="142.0" x2="152.5" y2="142.0"/></g><g class="trace t-n"><line x1="19.5" y1="220" x2="19.5" y2="58.0"/></g><circle class="pt pt-u" cx="29.0" cy="112.0" r="4.5"/><circle class="pt pt-u" cx="45.1" cy="172.0" r="4.5"/><circle class="pt pt-u" cx="61.3" cy="112.0" r="4.5"/><circle class="pt pt-u" cx="77.5" cy="172.0" r="4.5"/><circle class="pt pt-u" cx="93.6" cy="112.0" r="4.5"/><circle class="pt pt-u" cx="109.8" cy="172.0" r="4.5"/><circle class="pt pt-u" cx="125.9" cy="112.0" r="4.5"/><circle class="pt pt-u" cx="142.1" cy="172.0" r="4.5"/><text class="moyen" x="25.2" y="37.0">(−1)ⁿ</text><g class="trace t-n"><line x1="171.5" y1="142.0" x2="304.5" y2="142.0"/></g><g class="trace t-n"><line x1="171.5" y1="220" x2="171.5" y2="58.0"/></g><circle class="pt pt-u" cx="181.0" cy="142.0" r="4.5"/><circle class="pt pt-u" cx="197.2" cy="151.0" r="4.5"/><circle class="pt pt-u" cx="213.3" cy="124.0" r="4.5"/><circle class="pt pt-u" cx="229.5" cy="169.0" r="4.5"/><circle class="pt pt-u" cx="245.6" cy="106.0" r="4.5"/><circle class="pt pt-u" cx="261.8" cy="187.0" r="4.5"/><circle class="pt pt-u" cx="277.9" cy="88.0" r="4.5"/><circle class="pt pt-u" cx="294.1" cy="205.0" r="4.5"/><text class="moyen" x="177.2" y="37.0">(−1)ⁿ n</text><g class="trace t-n"><line x1="323.5" y1="208.0" x2="456.5" y2="208.0"/></g><g class="trace t-n"><line x1="323.5" y1="220" x2="323.5" y2="58.0"/></g><circle class="pt pt-u" cx="333.0" cy="136.0" r="4.5"/><circle class="pt pt-u" cx="349.2" cy="172.0" r="4.5"/><circle class="pt pt-u" cx="365.3" cy="136.0" r="4.5"/><circle class="pt pt-u" cx="381.4" cy="172.0" r="4.5"/><circle class="pt pt-u" cx="397.6" cy="136.0" r="4.5"/><circle class="pt pt-u" cx="413.8" cy="172.0" r="4.5"/><circle class="pt pt-u" cx="429.9" cy="136.0" r="4.5"/><circle class="pt pt-u" cx="446.1" cy="172.0" r="4.5"/><text class="moyen" x="329.2" y="37.0">3 + (−1)ⁿ</text></svg><figcaption>Trois suites divergentes. À gauche, $(-1)^n$ : bornée, sans limite. Au milieu, $(-1)^n\,n$ : pas bornée, sans limite (ni $+\infty$ ni $-\infty$, elle change de signe à chaque rang). À droite, $3+(-1)^n$ : ses termes valent alternativement $4$ et $2$, elle n'a pas de limite non plus. « Diverger », ce n'est pas « partir à l'infini ».</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Deux propriétés admises">
+    <ul>
+      <li><strong>Une suite convergente a une seule limite.</strong> Si $(u_n)$ converge vers $\ell$ et vers $\ell'$, alors $\ell=\ell'$. (Sinon, deux bandes disjointes autour de $\ell$ et de $\ell'$ devraient contenir chacune tous les termes à partir d'un certain rang : impossible.)</li>
+      <li><strong>Une suite convergente est bornée.</strong> À partir d'un certain rang, tous les termes sont dans $]\ell-1\,;\ell+1[$ ; avant ce rang, il n'y en a qu'un nombre fini.</li>
+    </ul>
+    <p>La réciproque est fausse : $(-1)^n$ est bornée et ne converge pas.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Conjecturer une limite (ce n'est pas la prouver)">
+    <ol class="etapes">
+      <li><span>Je calcule des termes de rang <strong>grand</strong> ($u_{100}$, $u_{1000}$, $u_{10^6}$) à la calculatrice ou en Python, pas seulement $u_1$ à $u_5$.</span></li>
+      <li><span>Je regarde si les valeurs se stabilisent (une limite finie), grossissent sans fin (infinie) ou oscillent (peut-être pas de limite).</span></li>
+      <li><span>J'écris « je conjecture que… ». Une conjecture est une <strong>hypothèse</strong> : il reste à la démontrer avec les outils des parties 3 à 6.</span></li>
+    </ol>
+    <p>$u_n=\dfrac{n^2}{1{,}01^n}$ monte jusqu'au rang $200$ environ ($u_{200}\approx5\,470$) avant de redescendre vers $0$. Qui s'arrête à $u_5$ conjecture $+\infty$ et se trompe. Et $u_n=\left(1+\dfrac1n\right)^n$ donne $2$ ; $2{,}25$ ; $2{,}37$… puis $2{,}718$ : sa limite est le nombre $e$, que personne ne devine sur cinq termes.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les limites de référence">
+    <div class="defile">
+    <table>
+      <tr><th>Tendent vers $+\infty$</th><th>Tendent vers $0$</th></tr>
+      <tr><td>$n$, $n^2$, $n^3$, et plus généralement $n^k$ ($k$ entier $\geq1$)</td><td>$\dfrac1n$, $\dfrac1{n^2}$, $\dfrac1{n^3}$, et plus généralement $\dfrac1{n^k}$</td></tr>
+      <tr><td>$\sqrt n$</td><td>$\dfrac1{\sqrt n}$</td></tr>
+    </table>
+    </div>
+    <p>Pour celles de droite, la définition se vérifie comme dans l'exemple ci-dessus : $\dfrac1{n^k}&lt;\varepsilon$ dès que $n^k&gt;\dfrac1\varepsilon$. Pour $(q^n)$, voir la partie 5.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-comparaison">3. Comparer et encadrer</h3>
+  <p>Première famille d'outils : on ne calcule pas la limite de $(u_n)$, on la <strong>compare</strong> à une suite dont on connaît la limite. C'est ce qui sauve quand $(u_n)$ contient un $\cos n$, un $(-1)^n$, ou n'importe quoi qu'on ne sait pas calculer.</p>
+
+  <div class="bloc theoreme" data-titre="Théorème de comparaison">
+    <p>Soit $(u_n)$ et $(v_n)$ deux suites telles que $u_n\geq v_n$ à partir d'un certain rang.</p>
+    <ul>
+      <li>Si $\lim\limits_{n\to+\infty}v_n=+\infty$, alors $\lim\limits_{n\to+\infty}u_n=+\infty$.</li>
+      <li>De même, si $u_n\leq v_n$ à partir d'un certain rang et $\lim\limits_{n\to+\infty}v_n=-\infty$, alors $\lim\limits_{n\to+\infty}u_n=-\infty$.</li>
+    </ul>
+    <p>Une suite <strong>minorée</strong> par une suite qui tend vers $+\infty$ tend vers $+\infty$. Un seul gendarme suffit, du bon côté.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 462 332" role="img" aria-label="Deux suites. En bas, les termes de 0,5 n, alignés sur une droite qui monte. En haut, les termes de 0,5 n plus 1,5 plus sinus n, qui ondulent mais restent toujours au-dessus des premiers. Un seuil A est tracé : les deux suites le dépassent pour de bon."><g class="trace t-v"><line x1="10" y1="140.0" x2="436.4" y2="140.0"/></g><text class="lettre" x="20.4" y="128.3">A</text><g class="trace t-n"><line x1="10" y1="296" x2="433.8" y2="296.0"/><polygon points="441.6,296.0 428.6,301.9 428.6,290.1"/></g><g class="trace t-n"><line x1="10" y1="322" x2="10.0" y2="17.8"/><polygon points="10.0,10.0 15.9,23.0 4.1,23.0"/></g><text class="moyen" x="431.2" y="280.4">n</text><g class="trace t-n"><line x1="10" y1="301.6" x2="10" y2="290.4"/></g><text class="petit" x="5.3" y="319.4">0</text><g class="trace t-n"><line x1="114" y1="301.6" x2="114" y2="290.4"/></g><text class="petit" x="109.3" y="319.4">4</text><g class="trace t-n"><line x1="218" y1="301.6" x2="218" y2="290.4"/></g><text class="petit" x="213.3" y="319.4">8</text><g class="trace t-n"><line x1="322" y1="301.6" x2="322" y2="290.4"/></g><text class="petit" x="317.3" y="319.4">12</text><g class="trace t-n"><line x1="426" y1="301.6" x2="426" y2="290.4"/></g><text class="petit" x="421.3" y="319.4">16</text><g class="trace t-n"><line x1="6.9" y1="244" x2="13.1" y2="244"/></g><text class="petit" x="-6.4" y="250.2">2</text><g class="trace t-n"><line x1="6.9" y1="192" x2="13.1" y2="192"/></g><text class="petit" x="-6.4" y="198.2">4</text><g class="trace t-n"><line x1="6.9" y1="140" x2="13.1" y2="140"/></g><text class="petit" x="-6.4" y="146.2">6</text><g class="trace t-n"><line x1="6.9" y1="88" x2="13.1" y2="88"/></g><text class="petit" x="-6.4" y="94.2">8</text><g class="trace t-n"><line x1="6.9" y1="36" x2="13.1" y2="36"/></g><text class="petit" x="-13.7" y="42.2">10</text><g class="trace t-n fin pointille"><path d="M10.0,296.0 L11.7,295.1 L13.5,294.3 L15.2,293.4 L16.9,292.5 L18.7,291.7 L20.4,290.8 L22.1,289.9 L23.9,289.1 L25.6,288.2 L27.3,287.3 L29.1,286.5 L30.8,285.6 L32.5,284.7 L34.3,283.9 L36.0,283.0 L37.7,282.1 L39.5,281.3 L41.2,280.4 L42.9,279.5 L44.7,278.7 L46.4,277.8 L48.1,276.9 L49.9,276.1 L51.6,275.2 L53.3,274.3 L55.1,273.5 L56.8,272.6 L58.5,271.7 L60.3,270.9 L62.0,270.0 L63.7,269.1 L65.5,268.3 L67.2,267.4 L68.9,266.5 L70.7,265.7 L72.4,264.8 L74.1,263.9 L75.9,263.1 L77.6,262.2 L79.3,261.3 L81.1,260.5 L82.8,259.6 L84.5,258.7 L86.3,257.9 L88.0,257.0 L89.7,256.1 L91.5,255.3 L93.2,254.4 L94.9,253.5 L96.7,252.7 L98.4,251.8 L100.1,250.9 L101.9,250.1 L103.6,249.2 L105.3,248.3 L107.1,247.5 L108.8,246.6 L110.5,245.7 L112.3,244.9 L114.0,244.0 L115.7,243.1 L117.5,242.3 L119.2,241.4 L120.9,240.5 L122.7,239.7 L124.4,238.8 L126.1,237.9 L127.9,237.1 L129.6,236.2 L131.3,235.3 L133.1,234.5 L134.8,233.6 L136.5,232.7 L138.3,231.9 L140.0,231.0 L141.7,230.1 L143.5,229.3 L145.2,228.4 L146.9,227.5 L148.7,226.7 L150.4,225.8 L152.1,224.9 L153.9,224.1 L155.6,223.2 L157.3,222.3 L159.1,221.5 L160.8,220.6 L162.5,219.7 L164.3,218.9 L166.0,218.0 L167.7,217.1 L169.5,216.3 L171.2,215.4 L172.9,214.5 L174.7,213.7 L176.4,212.8 L178.1,211.9 L179.9,211.1 L181.6,210.2 L183.3,209.3 L185.1,208.5 L186.8,207.6 L188.5,206.7 L190.3,205.9 L192.0,205.0 L193.7,204.1 L195.5,203.3 L197.2,202.4 L198.9,201.5 L200.7,200.7 L202.4,199.8 L204.1,198.9 L205.9,198.1 L207.6,197.2 L209.3,196.3 L211.1,195.5 L212.8,194.6 L214.5,193.7 L216.3,192.9 L218.0,192.0 L219.7,191.1 L221.5,190.3 L223.2,189.4 L224.9,188.5 L226.7,187.7 L228.4,186.8 L230.1,185.9 L231.9,185.1 L233.6,184.2 L235.3,183.3 L237.1,182.5 L238.8,181.6 L240.5,180.7 L242.3,179.9 L244.0,179.0 L245.7,178.1 L247.5,177.3 L249.2,176.4 L250.9,175.5 L252.7,174.7 L254.4,173.8 L256.1,172.9 L257.9,172.1 L259.6,171.2 L261.3,170.3 L263.1,169.5 L264.8,168.6 L266.5,167.7 L268.3,166.9 L270.0,166.0 L271.7,165.1 L273.5,164.3 L275.2,163.4 L276.9,162.5 L278.7,161.7 L280.4,160.8 L282.1,159.9 L283.9,159.1 L285.6,158.2 L287.3,157.3 L289.1,156.5 L290.8,155.6 L292.5,154.7 L294.3,153.9 L296.0,153.0 L297.7,152.1 L299.5,151.3 L301.2,150.4 L302.9,149.5 L304.7,148.7 L306.4,147.8 L308.1,146.9 L309.9,146.1 L311.6,145.2 L313.3,144.3 L315.1,143.5 L316.8,142.6 L318.5,141.7 L320.3,140.9 L322.0,140.0 L323.7,139.1 L325.5,138.3 L327.2,137.4 L328.9,136.5 L330.7,135.7 L332.4,134.8 L334.1,133.9 L335.9,133.1 L337.6,132.2 L339.3,131.3 L341.1,130.5 L342.8,129.6 L344.5,128.7 L346.3,127.9 L348.0,127.0 L349.7,126.1 L351.5,125.3 L353.2,124.4 L354.9,123.5 L356.7,122.7 L358.4,121.8 L360.1,120.9 L361.9,120.1 L363.6,119.2 L365.3,118.3 L367.1,117.5 L368.8,116.6 L370.5,115.7 L372.3,114.9 L374.0,114.0 L375.7,113.1 L377.5,112.3 L379.2,111.4 L380.9,110.5 L382.7,109.7 L384.4,108.8 L386.1,107.9 L387.9,107.1 L389.6,106.2 L391.3,105.3 L393.1,104.5 L394.8,103.6 L396.5,102.7 L398.3,101.9 L400.0,101.0 L401.7,100.1 L403.5,99.3 L405.2,98.4 L406.9,97.5 L408.7,96.7 L410.4,95.8 L412.1,94.9 L413.9,94.1 L415.6,93.2 L417.3,92.3 L419.1,91.5 L420.8,90.6 L422.5,89.7 L424.3,88.9 L426.0,88.0"/></g><circle class="pt pt-v" cx="10" cy="296.0" r="4.5"/><circle class="pt pt-u" cx="10" cy="257.0" r="4.5"/><circle class="pt pt-v" cx="36" cy="283.0" r="4.5"/><circle class="pt pt-u" cx="36" cy="222.1" r="4.5"/><circle class="pt pt-v" cx="62" cy="270.0" r="4.5"/><circle class="pt pt-u" cx="62" cy="207.4" r="4.5"/><circle class="pt pt-v" cx="88" cy="257.0" r="4.5"/><circle class="pt pt-u" cx="88" cy="214.3" r="4.5"/><circle class="pt pt-v" cx="114" cy="244.0" r="4.5"/><circle class="pt pt-u" cx="114" cy="224.7" r="4.5"/><circle class="pt pt-v" cx="140" cy="231.0" r="4.5"/><circle class="pt pt-u" cx="140" cy="216.9" r="4.5"/><circle class="pt pt-v" cx="166" cy="218.0" r="4.5"/><circle class="pt pt-u" cx="166" cy="186.3" r="4.5"/><circle class="pt pt-v" cx="192" cy="205.0" r="4.5"/><circle class="pt pt-u" cx="192" cy="148.9" r="4.5"/><circle class="pt pt-v" cx="218" cy="192.0" r="4.5"/><circle class="pt pt-u" cx="218" cy="127.3" r="4.5"/><circle class="pt pt-v" cx="244" cy="179.0" r="4.5"/><circle class="pt pt-u" cx="244" cy="129.3" r="4.5"/><circle class="pt pt-v" cx="270" cy="166.0" r="4.5"/><circle class="pt pt-u" cx="270" cy="141.1" r="4.5"/><circle class="pt pt-v" cx="296" cy="153.0" r="4.5"/><circle class="pt pt-u" cx="296" cy="140.0" r="4.5"/><circle class="pt pt-v" cx="322" cy="140.0" r="4.5"/><circle class="pt pt-u" cx="322" cy="115.0" r="4.5"/><circle class="pt pt-v" cx="348" cy="127.0" r="4.5"/><circle class="pt pt-u" cx="348" cy="77.1" r="4.5"/><circle class="pt pt-v" cx="374" cy="114.0" r="4.5"/><circle class="pt pt-u" cx="374" cy="49.2" r="4.5"/><circle class="pt pt-v" cx="400" cy="101.0" r="4.5"/><circle class="pt pt-u" cx="400" cy="45.1" r="4.5"/><circle class="pt pt-v" cx="426" cy="88.0" r="4.5"/><circle class="pt pt-u" cx="426" cy="56.5" r="4.5"/><text class="moyen" x="340.2" y="38.6">uₙ</text><text class="moyen" x="353.2" y="163.4">vₙ</text></svg><figcaption>$u_n=0{,}5\,n+1{,}5+\sin n$ (en haut) reste au-dessus de $v_n=0{,}5\,n$ (en bas), qui tend vers $+\infty$. Pour tout seuil $A$, les $v_n$ finissent par dépasser $A$, et les $u_n$, plus hauts, aussi.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Démonstration du théorème de comparaison (au programme)" data-ouvert>
+    <p>C'est la première démonstration exigible du chapitre. Elle n'utilise que la définition de la partie 1 : cherche-la avant de dévoiler.</p>
+    <div class="deroule">
+      <p class="consigne"><strong>À démontrer.</strong> Si $u_n\geq v_n$ pour tout $n\geq n_0$ et si $(v_n)$ tend vers $+\infty$, alors $(u_n)$ tend vers $+\infty$.</p>
+      <ol class="pas">
+        <li><strong>Ce qu'il faut obtenir.</strong> Pour montrer que $(u_n)$ tend vers $+\infty$, je prends un réel $A$ quelconque, et je dois trouver un rang à partir duquel tous les $u_n$ sont dans $[A\,;+\infty[$.</li>
+        <li><strong>Ce que donne l'hypothèse sur $(v_n)$.</strong> $(v_n)$ tend vers $+\infty$, donc l'intervalle $[A\,;+\infty[$ contient tous les $v_n$ à partir d'un certain rang : il existe $N_1$ tel que pour tout $n\geq N_1$, $v_n\geq A$.</li>
+        <li><strong>On combine.</strong> Soit $N$ le plus grand des deux entiers $n_0$ et $N_1$. Pour tout $n\geq N$, on a à la fois $u_n\geq v_n$ (car $n\geq n_0$) et $v_n\geq A$ (car $n\geq N_1$). Donc $u_n\geq A$.</li>
+        <li><strong>Conclusion.</strong> L'intervalle $[A\,;+\infty[$ contient tous les $u_n$ à partir du rang $N$. Comme $A$ était quelconque, $(u_n)$ tend vers $+\infty$. ∎</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Théorème des gendarmes (admis)">
+    <p>Soit $(u_n)$, $(v_n)$ et $(w_n)$ trois suites telles que, à partir d'un certain rang, $v_n\leq u_n\leq w_n$. Si $(v_n)$ et $(w_n)$ convergent vers <strong>la même limite</strong> $\ell$, alors $(u_n)$ converge vers $\ell$.</p>
+    <p>Les deux gendarmes se resserrent sur $\ell$ ; le prisonnier, coincé entre eux, n'a pas le choix.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 462 295" role="img" aria-label="Une suite coincée entre deux suites : les gendarmes 2 plus 2 sur n et 2 moins 2 sur n se resserrent sur 2, et les termes de 2 plus 2 cosinus n sur n, entre les deux, s'approchent de 2 aussi."><g class="trace t-n"><line x1="10" y1="258.4" x2="433.8" y2="258.4"/><polygon points="441.6,258.4 428.6,264.2 428.6,252.5"/></g><g class="trace t-n"><line x1="10" y1="285.4" x2="10.0" y2="17.8"/><polygon points="10.0,10.0 15.9,23.0 4.1,23.0"/></g><text class="moyen" x="431.2" y="244.6">n</text><g class="trace t-n"><line x1="10" y1="263.4" x2="10" y2="253.4"/></g><text class="petit" x="5.3" y="279.1">0</text><g class="trace t-n"><line x1="114" y1="263.4" x2="114" y2="253.4"/></g><text class="petit" x="109.3" y="279.1">4</text><g class="trace t-n"><line x1="218" y1="263.4" x2="218" y2="253.4"/></g><text class="petit" x="213.3" y="279.1">8</text><g class="trace t-n"><line x1="322" y1="263.4" x2="322" y2="253.4"/></g><text class="petit" x="317.3" y="279.1">12</text><g class="trace t-n"><line x1="426" y1="263.4" x2="426" y2="253.4"/></g><text class="petit" x="421.3" y="279.1">16</text><g class="trace t-n"><line x1="6.9" y1="204.4" x2="13.1" y2="204.4"/></g><text class="petit" x="-6.4" y="209.9">1</text><g class="trace t-n"><line x1="6.9" y1="150.4" x2="13.1" y2="150.4"/></g><text class="petit" x="-6.4" y="155.9">2</text><g class="trace t-n"><line x1="6.9" y1="96.4" x2="13.1" y2="96.4"/></g><text class="petit" x="-6.4" y="101.9">3</text><g class="trace t-n"><line x1="6.9" y1="42.4" x2="13.1" y2="42.4"/></g><text class="petit" x="-6.4" y="47.9">4</text><g class="trace t-n pointille"><line x1="10" y1="150.4" x2="426" y2="150.4"/></g><circle class="pt pt-v" cx="36" cy="42.4" r="4.5"/><circle class="pt pt-v" cx="36" cy="258.4" r="4.5"/><circle class="pt pt-u" cx="36" cy="92.0" r="4.5"/><circle class="pt pt-v" cx="62" cy="96.4" r="4.5"/><circle class="pt pt-v" cx="62" cy="204.4" r="4.5"/><circle class="pt pt-u" cx="62" cy="172.9" r="4.5"/><circle class="pt pt-v" cx="88" cy="114.4" r="4.5"/><circle class="pt pt-v" cx="88" cy="186.4" r="4.5"/><circle class="pt pt-u" cx="88" cy="186.0" r="4.5"/><circle class="pt pt-v" cx="114" cy="123.4" r="4.5"/><circle class="pt pt-v" cx="114" cy="177.4" r="4.5"/><circle class="pt pt-u" cx="114" cy="168.0" r="4.5"/><circle class="pt pt-v" cx="140" cy="128.8" r="4.5"/><circle class="pt pt-v" cx="140" cy="172.0" r="4.5"/><circle class="pt pt-u" cx="140" cy="144.3" r="4.5"/><circle class="pt pt-v" cx="166" cy="132.4" r="4.5"/><circle class="pt pt-v" cx="166" cy="168.4" r="4.5"/><circle class="pt pt-u" cx="166" cy="133.1" r="4.5"/><circle class="pt pt-v" cx="192" cy="135.0" r="4.5"/><circle class="pt pt-v" cx="192" cy="165.8" r="4.5"/><circle class="pt pt-u" cx="192" cy="138.8" r="4.5"/><circle class="pt pt-v" cx="218" cy="136.9" r="4.5"/><circle class="pt pt-v" cx="218" cy="163.9" r="4.5"/><circle class="pt pt-u" cx="218" cy="152.4" r="4.5"/><circle class="pt pt-v" cx="244" cy="138.4" r="4.5"/><circle class="pt pt-v" cx="244" cy="162.4" r="4.5"/><circle class="pt pt-u" cx="244" cy="161.3" r="4.5"/><circle class="pt pt-v" cx="270" cy="139.6" r="4.5"/><circle class="pt pt-v" cx="270" cy="161.2" r="4.5"/><circle class="pt pt-u" cx="270" cy="159.5" r="4.5"/><circle class="pt pt-v" cx="296" cy="140.6" r="4.5"/><circle class="pt pt-v" cx="296" cy="160.2" r="4.5"/><circle class="pt pt-u" cx="296" cy="150.4" r="4.5"/><circle class="pt pt-v" cx="322" cy="141.4" r="4.5"/><circle class="pt pt-v" cx="322" cy="159.4" r="4.5"/><circle class="pt pt-u" cx="322" cy="142.8" r="4.5"/><circle class="pt pt-v" cx="348" cy="142.1" r="4.5"/><circle class="pt pt-v" cx="348" cy="158.7" r="4.5"/><circle class="pt pt-u" cx="348" cy="142.9" r="4.5"/><circle class="pt pt-v" cx="374" cy="142.7" r="4.5"/><circle class="pt pt-v" cx="374" cy="158.1" r="4.5"/><circle class="pt pt-u" cx="374" cy="149.3" r="4.5"/><circle class="pt pt-v" cx="400" cy="143.2" r="4.5"/><circle class="pt pt-v" cx="400" cy="157.6" r="4.5"/><circle class="pt pt-u" cx="400" cy="155.9" r="4.5"/><circle class="pt pt-v" cx="426" cy="143.6" r="4.5"/><circle class="pt pt-v" cx="426" cy="157.1" r="4.5"/><circle class="pt pt-u" cx="426" cy="156.9" r="4.5"/><text class="lettre" x="431.2" y="146.1">2</text><text class="moyen" x="77.6" y="64.0">wₙ = 2 + 2/n</text><text class="moyen" x="77.6" y="228.7">vₙ = 2 − 2/n</text><text class="moyen" x="197.2" y="109.9">uₙ</text></svg><figcaption>$u_n=2+\dfrac{2\cos n}{n}$ ne se calcule pas avec les opérations ($\cos n$ n'a pas de limite). Mais $-1\leq\cos n\leq1$, donc $2-\dfrac2n\leq u_n\leq2+\dfrac2n$, et les deux gendarmes tendent vers $2$. Donc $(u_n)$ aussi.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Encadrer pour conclure">
+    <ol class="etapes">
+      <li><span>Je repère le morceau qui n'a pas de limite ($\cos n$, $\sin n$, $(-1)^n$) et je l'encadre : $-1\leq\cos n\leq1$, $-1\leq(-1)^n\leq1$.</span></li>
+      <li><span>Je reporte l'encadrement dans $u_n$, en faisant attention au <strong>sens des inégalités</strong> : multiplier par un nombre négatif les retourne, diviser par $n&gt;0$ les conserve.</span></li>
+      <li><span>Je calcule les limites des deux bornes. Si elles sont égales : gendarmes, $(u_n)$ converge vers cette limite. Si la borne du bas tend vers $+\infty$ : comparaison, $(u_n)$ tend vers $+\infty$ (la borne du haut ne sert plus).</span></li>
+      <li><span>Si les deux bornes ont des limites <strong>différentes</strong>, je ne conclus rien : il faut encadrer plus finement.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Déterminer la limite de $u_n=\dfrac{3n+(-1)^n}{n}$.</p>
+      <ol class="pas">
+        <li><strong>Encadrer le morceau gênant.</strong> Pour tout $n$, $-1\leq(-1)^n\leq1$, donc $3n-1\leq3n+(-1)^n\leq3n+1$.</li>
+        <li><strong>Diviser par $n&gt;0$</strong> (le sens est conservé) : $\dfrac{3n-1}{n}\leq u_n\leq\dfrac{3n+1}{n}$, c'est-à-dire $3-\dfrac1n\leq u_n\leq3+\dfrac1n$.</li>
+        <li><strong>Les gendarmes.</strong> $\lim\limits_{n\to+\infty}\left(3-\dfrac1n\right)=3$ et $\lim\limits_{n\to+\infty}\left(3+\dfrac1n\right)=3$ : même limite.</li>
+        <li><strong>Conclusion.</strong> D'après le théorème des gendarmes, $\lim\limits_{n\to+\infty}u_n=3$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Passage à la limite dans une inégalité">
+    <p>Si $(u_n)$ converge vers $\ell$ et si $u_n\leq M$ à partir d'un certain rang, alors $\ell\leq M$. De même, $u_n\geq m$ donne $\ell\geq m$, et $u_n\leq v_n$ avec deux suites convergentes donne $\ell\leq\ell'$.</p>
+    <p><strong>L'inégalité devient large.</strong> $u_n=\dfrac1n$ vérifie $u_n&gt;0$ pour tout $n$, et sa limite est $0$, pas un nombre strictement positif. Une inégalité stricte sur les termes ne donne jamais mieux qu'une inégalité large sur la limite.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Les deux erreurs de la comparaison">
+    <ul>
+      <li><strong>Le gendarme du mauvais côté.</strong> « $u_n\leq n^2$ et $n^2$ tend vers $+\infty$, donc $u_n$ aussi » : non, être <em>en dessous</em> de quelque chose de grand ne dit rien ($u_n=\frac1n$ est aussi en dessous de $n^2$). Pour conclure vers $+\infty$, il faut une suite <em>en dessous</em> de $u_n$ qui tend vers $+\infty$.</li>
+      <li><strong>Des gendarmes qui ne se rejoignent pas.</strong> « $-1\leq(-1)^n\leq1$, donc la limite est entre $-1$ et $1$ » : les gendarmes ont des limites différentes, le théorème ne s'applique pas, et d'ailleurs $(-1)^n$ n'a pas de limite.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-operations">4. Calculer avec les opérations</h3>
+  <p>Deuxième famille d'outils : quand $u_n$ est une somme, un produit ou un quotient de suites dont on connaît les limites, la limite se lit dans trois tableaux… sauf dans quatre cas.</p>
+
+  <div class="bloc propriete" data-titre="Limite d'une somme">
+    <div class="defile">
+    <table>
+      <tr><th>$\lim u_n$</th><td>$\ell$</td><td>$\ell$</td><td>$\ell$</td><td>$+\infty$</td><td>$-\infty$</td><td>$+\infty$</td></tr>
+      <tr><th>$\lim v_n$</th><td>$\ell'$</td><td>$+\infty$</td><td>$-\infty$</td><td>$+\infty$</td><td>$-\infty$</td><td>$-\infty$</td></tr>
+      <tr><th>$\lim(u_n+v_n)$</th><td>$\ell+\ell'$</td><td>$+\infty$</td><td>$-\infty$</td><td>$+\infty$</td><td>$-\infty$</td><td><strong>F.I.</strong></td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Limite d'un produit">
+    <div class="defile">
+    <table>
+      <tr><th>$\lim u_n$</th><td>$\ell$</td><td>$\ell\neq0$</td><td>$\pm\infty$</td><td>$0$</td></tr>
+      <tr><th>$\lim v_n$</th><td>$\ell'$</td><td>$\pm\infty$</td><td>$\pm\infty$</td><td>$\pm\infty$</td></tr>
+      <tr><th>$\lim(u_n\times v_n)$</th><td>$\ell\times\ell'$</td><td>$\pm\infty$ (règle des signes)</td><td>$\pm\infty$ (règle des signes)</td><td><strong>F.I.</strong></td></tr>
+    </table>
+    </div>
+    <p>La règle des signes est celle d'un produit : $(-3)\times(+\infty)=-\infty$, $(-\infty)\times(-\infty)=+\infty$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Limite d'un quotient">
+    <div class="defile">
+    <table>
+      <tr><th>$\lim u_n$</th><td>$\ell$</td><td>$\ell$</td><td>$\pm\infty$</td><td>$\ell\neq0$ ou $\pm\infty$</td><td>$\pm\infty$</td><td>$0$</td></tr>
+      <tr><th>$\lim v_n$</th><td>$\ell'\neq0$</td><td>$\pm\infty$</td><td>$\ell'\neq0$</td><td>$0$ en gardant un signe</td><td>$\pm\infty$</td><td>$0$</td></tr>
+      <tr><th>$\lim\dfrac{u_n}{v_n}$</th><td>$\dfrac{\ell}{\ell'}$</td><td>$0$</td><td>$\pm\infty$</td><td>$\pm\infty$ (règle des signes)</td><td><strong>F.I.</strong></td><td><strong>F.I.</strong></td></tr>
+    </table>
+    </div>
+    <p>« $0$ en gardant un signe » : $v_n$ tend vers $0$ en restant positif (on note $0^+$) ou négatif ($0^-$). $\dfrac{1}{v_n}$ tend alors vers $+\infty$ ou $-\infty$ selon le signe.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Les quatre formes indéterminées">
+    <p>$$\infty-\infty\qquad 0\times\infty\qquad \frac{\infty}{\infty}\qquad \frac00$$</p>
+    <p>« Indéterminée » ne veut pas dire « pas de limite » : ça veut dire que <strong>le tableau ne sait pas</strong>. $n^2-n$ et $n-n^2$ sont tous les deux de la forme $\infty-\infty$ ; le premier tend vers $+\infty$, le second vers $-\infty$. Il faut travailler l'expression pour lever l'indétermination.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Lever une forme indéterminée">
+    <ol class="etapes">
+      <li><span><strong>Une somme de puissances</strong> ($\infty-\infty$) : je factorise par le terme de plus haut degré. $n^2-5n=n^2\left(1-\dfrac5n\right)$ ; la parenthèse tend vers $1$, le produit vers $+\infty$.</span></li>
+      <li><span><strong>Un quotient de sommes</strong> ($\frac\infty\infty$) : je factorise le numérateur et le dénominateur par leur terme de plus haut degré, puis je simplifie. $\dfrac{2n+1}{n+3}=\dfrac{n\left(2+\frac1n\right)}{n\left(1+\frac3n\right)}=\dfrac{2+\frac1n}{1+\frac3n}$, qui tend vers $\dfrac21=2$.</span></li>
+      <li><span><strong>Une différence de racines</strong> ($\infty-\infty$) : je multiplie par la quantité conjuguée. $\sqrt{n+1}-\sqrt n=\dfrac{(\sqrt{n+1}-\sqrt n)(\sqrt{n+1}+\sqrt n)}{\sqrt{n+1}+\sqrt n}=\dfrac{1}{\sqrt{n+1}+\sqrt n}$, qui tend vers $0$.</span></li>
+      <li><span>Dans les trois cas, c'est <strong>le terme qui grandit le plus vite</strong> qui décide : $n^3$ écrase $n^2$, qui écrase $n$, qui écrase $\sqrt n$ et les constantes.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Déterminer $\lim\limits_{n\to+\infty}\dfrac{3n^2-n+2}{n^2+5}$.</p>
+      <ol class="pas">
+        <li><strong>Reconnaître la forme.</strong> Le numérateur tend vers $+\infty$ (c'est $n^2(3-\frac1n+\frac2{n^2})$), le dénominateur aussi : forme $\dfrac\infty\infty$, le tableau ne conclut pas.</li>
+        <li><strong>Factoriser par $n^2$ en haut et en bas.</strong> $u_n=\dfrac{n^2\left(3-\frac1n+\frac2{n^2}\right)}{n^2\left(1+\frac5{n^2}\right)}=\dfrac{3-\frac1n+\frac2{n^2}}{1+\frac5{n^2}}$.</li>
+        <li><strong>Les limites des morceaux.</strong> $\dfrac1n$, $\dfrac2{n^2}$ et $\dfrac5{n^2}$ tendent vers $0$ : le numérateur tend vers $3$, le dénominateur vers $1$.</li>
+        <li><strong>Conclusion.</strong> Par quotient, $\lim\limits_{n\to+\infty}u_n=\dfrac31=3$. Le quotient des termes dominants, $\dfrac{3n^2}{n^2}=3$, le disait d'avance.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Ce que l'infini n'est pas">
+    <ul>
+      <li><strong>$\infty-\infty\neq0$</strong> et $\dfrac\infty\infty\neq1$. L'infini n'est pas un nombre : deux suites qui tendent vers $+\infty$ ne vont pas « à la même vitesse ». $n^2-n\to+\infty$, $\dfrac{n^2}{n}\to+\infty$, $\dfrac{n}{n^2}\to0$.</li>
+      <li><strong>$0\times\infty\neq0$.</strong> $\dfrac1n\times n^2=n\to+\infty$, alors que $\dfrac1{n^2}\times n=\dfrac1n\to0$. Tout dépend de qui va le plus vite.</li>
+      <li><strong>$\dfrac10$ n'est pas « l'infini » tout court.</strong> $\dfrac1{v_n}$ tend vers $+\infty$ si $v_n\to0^+$, vers $-\infty$ si $v_n\to0^-$, et n'a pas de limite si $v_n$ change de signe (par exemple $v_n=\dfrac{(-1)^n}{n}$).</li>
+    </ul>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-geometrique">5. La suite géométrique $(q^n)$</h3>
+  <p>En première, tu as vu sur des exemples que $0{,}5^n$ s'écrase sur $0$ et que $1{,}5^n$ explose. Voici le théorème complet, et sa démonstration, qui repose sur une inégalité démontrée <strong>par récurrence</strong>.</p>
+
+  <div class="bloc methode" data-titre="Rappel : rédiger un raisonnement par récurrence" data-ouvert>
+    <p>Pour prouver qu'une propriété $P(n)$ est vraie pour tout entier $n\geq n_0$, on rédige trois temps. (Le chapitre « Raisonnement par récurrence » y revient en détail.)</p>
+    <ol class="etapes">
+      <li><span><strong>Initialisation.</strong> Je vérifie que $P(n_0)$ est vraie, avec les valeurs.</span></li>
+      <li><span><strong>Hérédité.</strong> Je suppose que $P(n)$ est vraie pour <strong>un</strong> entier $n\geq n_0$ (c'est l'hypothèse de récurrence, pas « pour tout $n$ »), et je montre qu'alors $P(n+1)$ est vraie.</span></li>
+      <li><span><strong>Conclusion.</strong> « $P(n_0)$ est vraie et $P$ est héréditaire : par récurrence, $P(n)$ est vraie pour tout entier $n\geq n_0$. »</span></li>
+    </ol>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Inégalité de Bernoulli">
+    <p>Pour tout réel $a&gt;0$ et tout entier naturel $n$ : $$(1+a)^n\geq1+na.$$</p>
+    <div class="deroule">
+      <p class="consigne"><strong>Démonstration (au programme), par récurrence.</strong> Cherche les trois temps avant de dévoiler.</p>
+      <ol class="pas">
+        <li><strong>Initialisation.</strong> Pour $n=0$ : $(1+a)^0=1$ et $1+0\times a=1$. On a bien $1\geq1$ : $P(0)$ est vraie.</li>
+        <li><strong>Hérédité.</strong> Soit $n$ un entier tel que $(1+a)^n\geq1+na$. Comme $1+a&gt;0$, je peux multiplier les deux membres par $1+a$ sans changer le sens : $(1+a)^{n+1}\geq(1+na)(1+a)$.</li>
+        <li><strong>On développe le membre de droite.</strong> $(1+na)(1+a)=1+a+na+na^2=1+(n+1)a+na^2$. Or $na^2\geq0$, donc $1+(n+1)a+na^2\geq1+(n+1)a$.</li>
+        <li><strong>On enchaîne.</strong> $(1+a)^{n+1}\geq1+(n+1)a+na^2\geq1+(n+1)a$ : c'est $P(n+1)$.</li>
+        <li><strong>Conclusion.</strong> $P(0)$ est vraie et $P$ est héréditaire : pour tout entier naturel $n$, $(1+a)^n\geq1+na$. ∎</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Limite de la suite géométrique (qⁿ)">
+    <div class="defile">
+    <table>
+      <tr><th>$q&gt;1$</th><th>$q=1$</th><th>$-1&lt;q&lt;1$</th><th>$q\leq-1$</th></tr>
+      <tr><td>$\lim\limits_{n\to+\infty}q^n=+\infty$</td><td>$q^n=1$ : la suite est constante, limite $1$</td><td>$\lim\limits_{n\to+\infty}q^n=0$</td><td>$(q^n)$ n'a pas de limite</td></tr>
+    </table>
+    </div>
+    <p>Et pour une suite géométrique $u_n=u_0\,q^n$ : on multiplie par $u_0$ (règle des signes si $u_0&lt;0$).</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 440 303" role="img" aria-label="Quatre petits graphiques de suites géométriques. En haut à gauche, 1,3 puissance n monte de plus en plus vite. En haut à droite, 0,7 puissance n descend vers 0. En bas à gauche, moins 0,7 puissance n alterne de signe en s'écrasant sur 0. En bas à droite, moins 1,2 puissance n alterne de signe en s'écartant de plus en plus."><g class="trace t-n"><line x1="22.6" y1="131.8" x2="203.2" y2="131.8"/></g><g class="trace t-n"><line x1="22.6" y1="133.9" x2="22.6" y2="26.8"/></g><circle class="pt pt-u" cx="31.0" cy="120.0" r="4.5"/><circle class="pt pt-u" cx="52.0" cy="116.5" r="4.5"/><circle class="pt pt-u" cx="73.0" cy="111.9" r="4.5"/><circle class="pt pt-u" cx="94.0" cy="105.9" r="4.5"/><circle class="pt pt-u" cx="115.0" cy="98.2" r="4.5"/><circle class="pt pt-u" cx="136.0" cy="88.1" r="4.5"/><circle class="pt pt-u" cx="157.0" cy="74.9" r="4.5"/><circle class="pt pt-u" cx="178.0" cy="57.9" r="4.5"/><circle class="pt pt-u" cx="199.0" cy="35.7" r="4.5"/><text class="moyen" x="28.9" y="17.3">q = 1,3 : vers +∞</text><g class="trace t-n"><line x1="232.6" y1="131.8" x2="413.2" y2="131.8"/></g><g class="trace t-n"><line x1="232.6" y1="133.9" x2="232.6" y2="26.8"/></g><g class="trace t-w pointille"><line x1="232.6" y1="131.8" x2="413.2" y2="131.8"/></g><circle class="pt pt-u" cx="241.0" cy="39.4" r="4.5"/><circle class="pt pt-u" cx="262.0" cy="67.1" r="4.5"/><circle class="pt pt-u" cx="283.0" cy="86.5" r="4.5"/><circle class="pt pt-u" cx="304.0" cy="100.1" r="4.5"/><circle class="pt pt-u" cx="325.0" cy="109.6" r="4.5"/><circle class="pt pt-u" cx="346.0" cy="116.3" r="4.5"/><circle class="pt pt-u" cx="367.0" cy="120.9" r="4.5"/><circle class="pt pt-u" cx="388.0" cy="124.2" r="4.5"/><circle class="pt pt-u" cx="409.0" cy="126.5" r="4.5"/><text class="moyen" x="238.9" y="17.3">q = 0,7 : vers 0</text><g class="trace t-n"><line x1="22.6" y1="220.0" x2="203.2" y2="220.0"/></g><g class="trace t-n"><line x1="22.6" y1="270.4" x2="22.6" y2="165.4"/></g><g class="trace t-w pointille"><line x1="22.6" y1="220.0" x2="203.2" y2="220.0"/></g><circle class="pt pt-u" cx="31.0" cy="173.8" r="4.5"/><circle class="pt pt-u" cx="52.0" cy="252.3" r="4.5"/><circle class="pt pt-u" cx="73.0" cy="197.4" r="4.5"/><circle class="pt pt-u" cx="94.0" cy="235.8" r="4.5"/><circle class="pt pt-u" cx="115.0" cy="208.9" r="4.5"/><circle class="pt pt-u" cx="136.0" cy="227.8" r="4.5"/><circle class="pt pt-u" cx="157.0" cy="214.6" r="4.5"/><circle class="pt pt-u" cx="178.0" cy="223.8" r="4.5"/><circle class="pt pt-u" cx="199.0" cy="217.3" r="4.5"/><text class="moyen" x="28.9" y="156.0">q = −0,7 : vers 0</text><g class="trace t-n"><line x1="232.6" y1="220.0" x2="413.2" y2="220.0"/></g><g class="trace t-n"><line x1="232.6" y1="270.4" x2="232.6" y2="165.4"/></g><circle class="pt pt-u" cx="241.0" cy="209.5" r="4.5"/><circle class="pt pt-u" cx="262.0" cy="232.6" r="4.5"/><circle class="pt pt-u" cx="283.0" cy="204.9" r="4.5"/><circle class="pt pt-u" cx="304.0" cy="238.1" r="4.5"/><circle class="pt pt-u" cx="325.0" cy="198.2" r="4.5"/><circle class="pt pt-u" cx="346.0" cy="246.1" r="4.5"/><circle class="pt pt-u" cx="367.0" cy="188.6" r="4.5"/><circle class="pt pt-u" cx="388.0" cy="257.6" r="4.5"/><circle class="pt pt-u" cx="409.0" cy="174.9" r="4.5"/><text class="moyen" x="238.9" y="156.0">q = −1,2 : pas de limite</text></svg><figcaption>Quatre raisons, quatre destins : $1{,}3^n$ grimpe ; $0{,}7^n$ s'écrase sur $0$ ; $(-0{,}7)^n$ s'écrase aussi, en alternant de signe ; $(-1{,}2)^n$ alterne en grandissant, sans limite.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Démonstration du théorème (au programme)" data-ouvert>
+    <div class="deroule">
+      <p class="consigne"><strong>À démontrer.</strong> Les trois cas $q&gt;1$, $0&lt;q&lt;1$ et $-1&lt;q&lt;0$ (les cas $q=1$ et $q=0$ sont évidents ; le cas $q\leq-1$ se justifie à la fin).</p>
+      <ol class="pas">
+        <li><strong>Cas $q&gt;1$.</strong> Je pose $a=q-1&gt;0$, donc $q=1+a$. D'après Bernoulli, $q^n\geq1+na$ pour tout $n$. La suite $1+na$ est arithmétique de raison $a&gt;0$ : elle tend vers $+\infty$ (pour un seuil $A$, elle le dépasse dès que $n\geq\frac{A-1}{a}$). Par <strong>comparaison</strong>, $q^n$ tend vers $+\infty$.</li>
+        <li><strong>Cas $0&lt;q&lt;1$.</strong> Alors $\dfrac1q&gt;1$, donc $\left(\dfrac1q\right)^n$ tend vers $+\infty$ d'après le cas précédent. Et $q^n=\dfrac{1}{\left(\frac1q\right)^n}$ : l'inverse d'une suite qui tend vers $+\infty$ tend vers $0$ (tableau du quotient).</li>
+        <li><strong>Cas $-1&lt;q&lt;0$.</strong> Je pose $r=|q|=-q$, avec $0&lt;r&lt;1$ : $r^n$ tend vers $0$. Comme $q^n=(-1)^n r^n$, on a $-r^n\leq q^n\leq r^n$. Les deux gendarmes tendent vers $0$ : $q^n$ tend vers $0$.</li>
+        <li><strong>Et $q\leq-1$ ?</strong> $q^n$ vaut $|q|^n\geq1$ pour $n$ pair et $-|q|^n\leq-1$ pour $n$ impair : deux termes consécutifs sont toujours à distance au moins $2$, donc aucune bande de largeur plus petite que $2$ ne peut contenir tous les termes à partir d'un rang : pas de limite finie. Et comme les termes changent de signe à chaque rang, la suite ne tend ni vers $+\infty$ ni vers $-\infty$. Pas de limite. ∎</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Des suites géométriques en situation">
+    <ul>
+      <li>Un capital de $1\,000$ € placé à $3$ % : $u_n=1\,000\times1{,}03^n$, $q=1{,}03&gt;1$, il tend vers $+\infty$ (avec beaucoup de patience).</li>
+      <li>Une dette dont on rembourse $5$ % par mois : $u_n=u_0\times0{,}95^n$, $q=0{,}95$, elle tend vers $0$ (sans jamais l'atteindre : c'est pour ça que la dernière mensualité est toujours calculée à part).</li>
+      <li>$u_n=5-3\times0{,}8^n$ : $0{,}8^n\to0$, donc $u_n\to5-0=5$. La suite monte vers $5$ sans l'atteindre.</li>
+      <li>$u_n=2\times(-3)^n$ : $q=-3\leq-1$, pas de limite ; elle change de signe à chaque rang en grossissant.</li>
+    </ul>
+  </div>
+
+  <div class="bloc piege" data-titre="Les trois oublis sur qⁿ">
+    <ul>
+      <li><strong>$q$ négatif entre $-1$ et $0$ tend vers $0$</strong>, pas vers $-\infty$ : $(-0{,}5)^n$ vaut $1$ ; $-0{,}5$ ; $0{,}25$ ; $-0{,}125$ ; $0{,}0625$… les signes alternent mais la taille fond.</li>
+      <li><strong>$q=1$ ne donne pas $0$</strong> : $1^n=1$ pour tout $n$. La frontière $q=1$ est à part.</li>
+      <li><strong>$q&gt;1$ ne tend pas vers $q$</strong> : $1{,}2^n$ ne tend pas vers $1{,}2$ mais vers $+\infty$. Et $q=-1$ : $(-1)^n$ alterne, sans limite.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-monotone">6. Monotone et bornée</h3>
+  <p>Troisième famille d'outils, la plus forte : un théorème qui garantit qu'une suite converge <strong>sans qu'on sache vers quoi</strong>. C'est lui qui fait marcher la suite de $\sqrt2$ de l'ouverture, et la plupart des exercices de bac.</p>
+
+  <div class="bloc definition" data-titre="Majorée, minorée, bornée">
+    <ul>
+      <li>$(u_n)$ est <strong>majorée</strong> s'il existe un réel $M$ tel que $u_n\leq M$ pour tout $n$. $M$ est <em>un</em> majorant (si $M$ majore, $M+1$ aussi).</li>
+      <li>$(u_n)$ est <strong>minorée</strong> s'il existe un réel $m$ tel que $u_n\geq m$ pour tout $n$.</li>
+      <li>$(u_n)$ est <strong>bornée</strong> si elle est majorée et minorée.</li>
+    </ul>
+    <p>Ce sont des propriétés <strong>globales</strong> : elles parlent de tous les termes. « Tendre vers » parle de ce qui se passe au bout, à partir d'un certain rang. Bornée n'implique pas convergente : $(-1)^n$ est bornée et n'a pas de limite. (Dans l'autre sens, on l'a vu en partie 2 : convergente implique bornée.)</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Théorème de la limite monotone (admis)">
+    <ul>
+      <li>Toute suite <strong>croissante et majorée</strong> converge.</li>
+      <li>Toute suite <strong>décroissante et minorée</strong> converge.</li>
+    </ul>
+    <p>Le théorème dit que la limite <em>existe</em>, pas combien elle vaut. Si $(u_n)$ est croissante et majorée par $M$, on sait seulement que $\ell\leq M$ (passage à la limite dans $u_n\leq M$). Le majorant <strong>n'est pas</strong> la limite : $u_n=3-\dfrac1n$ est croissante, majorée par $100$, par $10$, par $3$… et sa limite est $3$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 440 279" role="img" aria-label="Les termes de la suite u zéro égale 200, u n plus 1 égale 0,75 u n plus 200, pour n de 0 à 12 : 200, 350, 462, 547… Ils montent de moins en moins vite vers la droite horizontale 800, tracée en vert, sans jamais atteindre la droite 1 000 tracée au-dessus."><g class="trace t-n"><line x1="10" y1="256.4" x2="410.2" y2="256.4"/><polygon points="418.0,256.4 405.0,262.2 405.0,250.5"/></g><g class="trace t-n"><line x1="10" y1="269.6" x2="10.0" y2="17.8"/><polygon points="10.0,10.0 15.9,23.0 4.1,23.0"/></g><text class="moyen" x="406.0" y="243.4">n</text><g class="trace t-n"><line x1="10" y1="261.1" x2="10" y2="251.7"/></g><text class="petit" x="4.6" y="275.9">0</text><g class="trace t-n"><line x1="70" y1="261.1" x2="70" y2="251.7"/></g><text class="petit" x="64.6" y="275.9">2</text><g class="trace t-n"><line x1="130" y1="261.1" x2="130" y2="251.7"/></g><text class="petit" x="124.6" y="275.9">4</text><g class="trace t-n"><line x1="190" y1="261.1" x2="190" y2="251.7"/></g><text class="petit" x="184.6" y="275.9">6</text><g class="trace t-n"><line x1="250" y1="261.1" x2="250" y2="251.7"/></g><text class="petit" x="244.6" y="275.9">8</text><g class="trace t-n"><line x1="310" y1="261.1" x2="310" y2="251.7"/></g><text class="petit" x="304.6" y="275.9">10</text><g class="trace t-n"><line x1="370" y1="261.1" x2="370" y2="251.7"/></g><text class="petit" x="364.6" y="275.9">12</text><g class="trace t-n"><line x1="6.4" y1="212.4" x2="13.6" y2="212.4"/></g><text class="petit" x="-25.7" y="217.6">200</text><g class="trace t-n"><line x1="6.4" y1="168.4" x2="13.6" y2="168.4"/></g><text class="petit" x="-25.7" y="173.6">400</text><g class="trace t-n"><line x1="6.4" y1="124.4" x2="13.6" y2="124.4"/></g><text class="petit" x="-25.7" y="129.6">600</text><g class="trace t-n"><line x1="6.4" y1="80.4" x2="13.6" y2="80.4"/></g><text class="petit" x="-25.7" y="85.6">800</text><g class="trace t-n"><line x1="6.4" y1="36.4" x2="13.6" y2="36.4"/></g><text class="petit" x="-34.1" y="41.6">1000</text><g class="trace t-v pointille"><line x1="10" y1="36.4" x2="400" y2="36.4"/></g><g class="trace t-w"><line x1="10" y1="80.4" x2="400" y2="80.4"/></g><circle class="pt pt-u" cx="10" cy="212.4" r="4.5"/><circle class="pt pt-u" cx="40" cy="179.4" r="4.5"/><circle class="pt pt-u" cx="70" cy="154.7" r="4.5"/><circle class="pt pt-u" cx="100" cy="136.1" r="4.5"/><circle class="pt pt-u" cx="130" cy="122.2" r="4.5"/><circle class="pt pt-u" cx="160" cy="111.7" r="4.5"/><circle class="pt pt-u" cx="190" cy="103.9" r="4.5"/><circle class="pt pt-u" cx="220" cy="98.0" r="4.5"/><circle class="pt pt-u" cx="250" cy="93.6" r="4.5"/><circle class="pt pt-u" cx="280" cy="90.3" r="4.5"/><circle class="pt pt-u" cx="310" cy="87.8" r="4.5"/><circle class="pt pt-u" cx="340" cy="86.0" r="4.5"/><circle class="pt pt-u" cx="370" cy="84.6" r="4.5"/><text class="moyen" x="25.0" y="26.5">un majorant : 1 000</text><text class="moyen" x="25.0" y="72.7">la limite : 800</text></svg><figcaption>Les termes de $u_0=200$, $u_{n+1}=0{,}75\,u_n+200$ : la suite monte, elle est majorée par $1\,000$, donc elle converge. Mais elle converge vers $800$, pas vers $1\,000$ : le majorant qu'on a trouvé n'est qu'un plafond, pas la limite.</figcaption></figure>
+
+  <div class="bloc theoreme" data-titre="Et si elle n'est pas majorée ?">
+    <p>Une suite <strong>croissante et non majorée</strong> tend vers $+\infty$. De même, une suite décroissante et non minorée tend vers $-\infty$.</p>
+    <p>Une suite croissante n'a donc que deux destins possibles : converger (si elle est majorée), ou tendre vers $+\infty$ (sinon). Elle ne peut pas osciller.</p>
+    <div class="deroule">
+      <p class="consigne"><strong>Démonstration (au programme).</strong> Avec la définition de la partie 1 et celle de « majorée ». Cherche-la avant de dévoiler.</p>
+      <ol class="pas">
+        <li><strong>Ce qu'il faut obtenir.</strong> Soit $A$ un réel quelconque. Je dois trouver un rang à partir duquel tous les $u_n$ sont dans $[A\,;+\infty[$.</li>
+        <li><strong>« Non majorée ».</strong> $A$ n'est pas un majorant de la suite (elle n'en a aucun). Donc il existe au moins un terme plus grand que $A$ : il existe un rang $N$ tel que $u_N&gt;A$.</li>
+        <li><strong>« Croissante ».</strong> Pour tout $n\geq N$, $u_n\geq u_N$, donc $u_n\geq u_N&gt;A$.</li>
+        <li><strong>Conclusion.</strong> Tous les termes à partir du rang $N$ sont dans $[A\,;+\infty[$. Comme $A$ était quelconque, $(u_n)$ tend vers $+\infty$. ∎</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 440 296" role="img" aria-label="Deux petits graphiques de suites croissantes. À gauche, 4 moins 3 sur n plus 1 monte vers la droite horizontale 4 sans la dépasser. À droite, racine de n monte de plus en plus lentement, mais sans aucun plafond."><g class="trace t-n"><line x1="22.6" y1="266.0" x2="203.2" y2="266.0"/></g><g class="trace t-n"><line x1="22.6" y1="270.0" x2="22.6" y2="58.0"/></g><g class="trace t-w pointille"><line x1="22.6" y1="106.0" x2="203.2" y2="106.0"/></g><text class="lettre" x="182.2" y="96.0">4</text><circle class="pt pt-u" cx="28.9" cy="226.0" r="4.5"/><circle class="pt pt-u" cx="39.4" cy="166.0" r="4.5"/><circle class="pt pt-u" cx="49.9" cy="146.0" r="4.5"/><circle class="pt pt-u" cx="60.4" cy="136.0" r="4.5"/><circle class="pt pt-u" cx="70.9" cy="130.0" r="4.5"/><circle class="pt pt-u" cx="81.4" cy="126.0" r="4.5"/><circle class="pt pt-u" cx="91.9" cy="123.1" r="4.5"/><circle class="pt pt-u" cx="102.4" cy="121.0" r="4.5"/><circle class="pt pt-u" cx="112.9" cy="119.3" r="4.5"/><circle class="pt pt-u" cx="123.4" cy="118.0" r="4.5"/><circle class="pt pt-u" cx="133.9" cy="116.9" r="4.5"/><circle class="pt pt-u" cx="144.4" cy="116.0" r="4.5"/><circle class="pt pt-u" cx="154.9" cy="115.2" r="4.5"/><circle class="pt pt-u" cx="165.4" cy="114.6" r="4.5"/><circle class="pt pt-u" cx="175.9" cy="114.0" r="4.5"/><circle class="pt pt-u" cx="186.4" cy="113.5" r="4.5"/><circle class="pt pt-u" cx="196.9" cy="113.1" r="4.5"/><text class="petit" x="24.7" y="38.0">majorée : converge</text><g class="trace t-n"><line x1="232.6" y1="266.0" x2="413.2" y2="266.0"/></g><g class="trace t-n"><line x1="232.6" y1="270.0" x2="232.6" y2="58.0"/></g><circle class="pt pt-u" cx="238.9" cy="266.0" r="4.5"/><circle class="pt pt-u" cx="249.4" cy="226.0" r="4.5"/><circle class="pt pt-u" cx="259.9" cy="209.4" r="4.5"/><circle class="pt pt-u" cx="270.4" cy="196.7" r="4.5"/><circle class="pt pt-u" cx="280.9" cy="186.0" r="4.5"/><circle class="pt pt-u" cx="291.4" cy="176.6" r="4.5"/><circle class="pt pt-u" cx="301.9" cy="168.0" r="4.5"/><circle class="pt pt-u" cx="312.4" cy="160.2" r="4.5"/><circle class="pt pt-u" cx="322.9" cy="152.9" r="4.5"/><circle class="pt pt-u" cx="333.4" cy="146.0" r="4.5"/><circle class="pt pt-u" cx="343.9" cy="139.5" r="4.5"/><circle class="pt pt-u" cx="354.4" cy="133.3" r="4.5"/><circle class="pt pt-u" cx="364.9" cy="127.4" r="4.5"/><circle class="pt pt-u" cx="375.4" cy="121.8" r="4.5"/><circle class="pt pt-u" cx="385.9" cy="116.3" r="4.5"/><circle class="pt pt-u" cx="396.4" cy="111.1" r="4.5"/><circle class="pt pt-u" cx="406.9" cy="106.0" r="4.5"/><text class="petit" x="234.7" y="38.0">non majorée : vers +∞</text></svg><figcaption>Deux suites croissantes. À gauche, $4-\dfrac{3}{n+1}$ : majorée par $4$, elle converge (vers $4$). À droite, $\sqrt n$ : aucun plafond ne la retient, elle tend vers $+\infty$, même si elle monte lentement.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Prouver qu'une suite définie par u(n+1) = f(u(n)) converge">
+    <p>C'est le scénario type d'un exercice de bac : on ne sait pas calculer $u_n$ en fonction de $n$, on prouve quand même que la suite converge.</p>
+    <ol class="etapes">
+      <li><span><strong>Par récurrence</strong>, je montre une propriété qui contient à la fois la borne et la monotonie : par exemple $u_n\leq u_{n+1}\leq M$ pour tout $n$ (croissante et majorée par $M$), ou $m\leq u_{n+1}\leq u_n$ (décroissante et minorée par $m$).</span></li>
+      <li><span>Pour l'hérédité, j'applique $f$ aux trois membres de l'encadrement : ça marche quand $f$ est <strong>croissante</strong> sur l'intervalle (une fonction affine de coefficient positif, une racine carrée, …).</span></li>
+      <li><span>Je conclus avec le théorème de la limite monotone : $(u_n)$ converge vers un réel $\ell$, avec $m\leq\ell\leq M$.</span></li>
+      <li><span>Pour <strong>trouver</strong> $\ell$, l'énoncé guide : souvent par une suite auxiliaire géométrique $v_n=u_n-\ell$ (partie 5), qui donne en prime une formule explicite de $u_n$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un patient prend une dose de $200$ mg d'un médicament toutes les 12 heures ; entre deux prises, son corps en élimine $25$ %. $u_0=200$ mg est la quantité juste après la première prise, et $u_{n+1}=0{,}75\,u_n+200$ (ce qui reste, plus la nouvelle dose). Montrer que $(u_n)$ converge.</p>
+      <ol class="pas">
+        <li><strong>La propriété à prouver.</strong> $P(n)$ : « $u_n\leq u_{n+1}\leq800$ ». Elle contient la croissance ($u_n\leq u_{n+1}$) et la majoration par $800$. (Pourquoi $800$ ? C'est la solution de $x=0{,}75x+200$ : on y revient à la fin.)</li>
+        <li><strong>Initialisation.</strong> $u_0=200$ et $u_1=0{,}75\times200+200=350$. On a bien $200\leq350\leq800$ : $P(0)$ est vraie.</li>
+        <li><strong>Hérédité.</strong> Soit $n$ tel que $u_n\leq u_{n+1}\leq800$. La fonction $f(x)=0{,}75x+200$ est affine de coefficient $0{,}75&gt;0$, donc croissante : $f(u_n)\leq f(u_{n+1})\leq f(800)$, c'est-à-dire $u_{n+1}\leq u_{n+2}\leq0{,}75\times800+200=800$. C'est $P(n+1)$.</li>
+        <li><strong>Conclusion de la récurrence.</strong> Pour tout $n$, $u_n\leq u_{n+1}\leq800$ : $(u_n)$ est croissante et majorée par $800$.</li>
+        <li><strong>Le théorème.</strong> D'après le théorème de la limite monotone, $(u_n)$ converge vers un réel $\ell\leq800$. (On montre dans l'exercice 19 que $\ell=800$, avec la suite $v_n=u_n-800$ : la quantité de médicament se stabilise à $800$ mg.)</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Où va une suite u(n+1) = f(u(n)) ?">
+    <p>Quand $(u_n)$ converge vers $\ell$ et que $f$ est continue en $\ell$, on a $f(\ell)=\ell$ : la limite est un <strong>point fixe</strong> de $f$. C'est ce qui donne $800$ ci-dessus ($x=0{,}75x+200$) et $\sqrt2$ dans l'ouverture ($x=\frac12(x+\frac2x)$ a pour solution positive $\sqrt2$). Le chapitre « Continuité » démontre ce résultat ; d'ici là, un énoncé te le donnera, ou te fera passer par une suite auxiliaire. Dans tous les cas, <strong>on prouve d'abord que la suite converge</strong>, et seulement ensuite on cherche $\ell$ : résoudre $f(\ell)=\ell$ sans savoir que la suite converge ne prouve rien (pour $u_{n+1}=2u_n$, $u_0=1$, l'équation $x=2x$ donne $0$, et la suite tend vers $+\infty$).</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Les trois erreurs sur le théorème">
+    <ul>
+      <li><strong>« Majorée, donc convergente. »</strong> Il faut les deux : croissante <em>et</em> majorée. $(-1)^n$ est majorée (par $1$), minorée (par $-1$), bornée, et n'a pas de limite.</li>
+      <li><strong>« Majorée par $M$, donc la limite est $M$. »</strong> Non : la limite est <em>au plus</em> $M$. Dans l'exemple de la dose, $1\,000$ est un majorant, et la limite est $800$.</li>
+      <li><strong>« $\ell=f(\ell)$ donne $\ell$, donc la suite converge. »</strong> L'équation ne prouve rien tant que la convergence n'est pas établie. D'abord le théorème, ensuite l'équation.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-python">7. Seuils et valeurs approchées en Python</h3>
+  <p>En première, tu as écrit des algorithmes de seuil. Ce qui change en terminale : tu sais maintenant <strong>pourquoi la boucle s'arrête</strong>. Les exemples suivent la dose de la partie 6, $u_0=200$ et $u_{n+1}=0{,}75\,u_n+200$, dont on sait qu'elle tend vers $800$.</p>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="À partir de quel rang dépasse-t-on 799 ?">
+<pre class="code">def seuil(S):
+    n = 0
+    u = 200
+    while u &lt;= S:
+        n = n + 1
+        u = 0.75 * u + 200
+    return n</pre>
+      <p><code>seuil(799)</code> renvoie $23$ : $u_{22}\approx798{,}9$ et $u_{23}\approx799{,}2$. La quantité dépasse $799$ mg à la 23<sup>e</sup> prise.</p>
+    </div>
+    <div class="bloc exemple" data-titre="À partir de quel rang est-on dans la bande ?">
+<pre class="code">def rang(eps):
+    n = 0
+    u = 200
+    while abs(u - 800) &gt;= eps:
+        n = n + 1
+        u = 0.75 * u + 200
+    return n</pre>
+      <p><code>rang(0.01)</code> renvoie $39$ : c'est le rang $N$ de la définition pour $\varepsilon=0{,}01$ (la suite est croissante vers $800$ : une fois dans la bande, elle y reste, donc le premier terme dedans donne bien $N$). Pour $\varepsilon=10^{-6}$, $71$.</p>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Justifier qu'un algorithme de seuil se termine">
+    <ol class="etapes">
+      <li><span>Je nomme ce que la boucle attend : « <code>while u &lt;= 799</code> » attend un terme strictement plus grand que $799$.</span></li>
+      <li><span>J'invoque la limite : $(u_n)$ tend vers $800$, donc l'intervalle ouvert $]799\,;801[$ contient tous les termes à partir d'un certain rang. Un tel terme existe : la boucle finit par s'arrêter.</span></li>
+      <li><span>Pour un seuil vers $+\infty$ (<code>while u &lt;= A</code>), c'est la définition de la partie 1 : $[A+1\,;+\infty[$ contient tous les termes à partir d'un certain rang.</span></li>
+      <li><span>Si la suite ne tend pas vers la valeur attendue (par exemple <code>while u &lt; 801</code> avec une suite qui tend vers $800$ en restant en dessous), la boucle ne s'arrête <strong>jamais</strong>. C'est la question piège des sujets de bac.</span></li>
+    </ol>
+  </div>
+
+  <div class="bloc remarque" data-titre="Calculer √2 comme ta calculatrice (approfondissement)">
+<pre class="code">def racine2(eps):
+    u = 2
+    v = (u + 2 / u) / 2
+    while abs(v - u) &gt;= eps:
+        u = v
+        v = (u + 2 / u) / 2
+    return v</pre>
+    <p><code>racine2(1e-12)</code> renvoie $1{,}414\,213\,562\,373\,095$ en cinq tours de boucle. L'exercice 24 démontre que cette suite (la méthode de Héron, vieille de deux mille ans) est décroissante, minorée par $\sqrt2$, et converge vers $\sqrt2$. Le même principe donne $\pi$, $e$, $\ln2$ : chaque constante de ta calculatrice est la limite d'une suite bien choisie.</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-strategie">8. Face à une limite : quelle méthode ?</h3>
+  <div class="bloc methode" data-titre="L'arbre de décision" data-ouvert>
+    <ol class="etapes">
+      <li><span><strong>$u_n$ est donné par une formule en $n$ ?</strong> J'essaie les opérations (partie 4) avec les limites de référence (partie 2) et $(q^n)$ (partie 5).</span></li>
+      <li><span><strong>Forme indéterminée ?</strong> Je factorise par le terme dominant, ou je multiplie par la quantité conjuguée (partie 4).</span></li>
+      <li><span><strong>Un morceau sans limite</strong> ($\cos n$, $(-1)^n$) ? Je l'encadre : gendarmes si les deux bornes ont la même limite, comparaison si la borne utile part à l'infini (partie 3).</span></li>
+      <li><span><strong>$u_n$ est défini par $u_{n+1}=f(u_n)$ ?</strong> Récurrence pour la borne et la monotonie, théorème de la limite monotone (partie 6) ; puis la suite auxiliaire ou le point fixe pour la valeur de $\ell$.</span></li>
+      <li><span><strong>On me demande un rang</strong> (seuil, bande) ? Une inéquation si je sais la résoudre, un algorithme sinon, et dans les deux cas une phrase qui dit pourquoi ce rang existe (partie 7).</span></li>
+    </ol>
+  </div>
+
+  <!-- ===== Les pièges ===== -->
+  <h3 id="c-pieges">9. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les douze erreurs que tout le monde fait">
+    <ol>
+      <li><strong>Un terme dans la bande pris pour la convergence.</strong> « $u_5=1{,}99$, donc la limite est $2$ » : il faut que <em>tous</em> les termes à partir d'un rang y restent, pour <em>toute</em> bande. Un terme, ou dix, ne prouvent rien.</li>
+      <li><strong>$\infty-\infty=0$, $0\times\infty=0$, $\dfrac\infty\infty=1$.</strong> Ce sont les quatre formes indéterminées : on factorise, on compare, on conjugue, mais on ne calcule jamais avec $\infty$ comme avec un nombre.</li>
+      <li><strong>$(q^n)$ mal rangé.</strong> $q$ entre $-1$ et $0$ : vers $0$. $q=1$ : constante. $q&gt;1$ : vers $+\infty$, pas vers $q$. $q\leq-1$ : pas de limite.</li>
+      <li><strong>« Majorée, donc convergente. »</strong> Il faut croissante <em>et</em> majorée (ou décroissante et minorée). Bornée seule ne suffit pas.</li>
+      <li><strong>Le majorant pris pour la limite.</strong> Majorée par $1\,000$ donne $\ell\leq1\,000$, rien de plus. Dans la dose, la limite est $800$.</li>
+      <li><strong>L'inégalité stricte qui passe à la limite.</strong> $u_n&lt;2$ donne $\ell\leq2$. $\dfrac1n&gt;0$ et sa limite est $0$.</li>
+      <li><strong>Les gendarmes dépareillés.</strong> Deux bornes de limites différentes ne concluent rien ; et un gendarme au-dessus d'une suite ne la fait pas monter.</li>
+      <li><strong>La récurrence bancale.</strong> Sans initialisation, rien n'est prouvé ($P(n)$ : « $n=n+1$ » est héréditaire et fausse). Et l'hypothèse se fait pour <em>un</em> rang $n$, pas « pour tout $n$ » (sinon on suppose ce qu'on veut prouver).</li>
+      <li><strong>« Elle augmente, donc elle tend vers $+\infty$. »</strong> Croissante n'est pas divergente : $3-\dfrac1n$ monte vers $3$.</li>
+      <li><strong>« Pas de limite, donc elle tend vers l'infini. »</strong> $(-1)^n$ diverge sans partir nulle part. Diverger, c'est « ne pas converger », rien de plus.</li>
+      <li><strong>Résoudre $\ell=f(\ell)$ sans avoir prouvé la convergence.</strong> L'équation donne un candidat, pas une limite. D'abord le théorème de la limite monotone, ensuite l'équation.</li>
+      <li><strong>La condition du <code>while</code> à l'envers.</strong> Pour « dépasser $S$ », la boucle tourne <em>tant que</em> <code>u &lt;= S</code>. Et elle renvoie <code>n</code>, pas <code>n - 1</code> : au sortir de la boucle, $u$ est le terme de rang $n$, et c'est lui qui a franchi le seuil.</li>
+    </ol>
+  </div>
+
+  <h3 id="c-videos">10. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="La définition de la limite, avec la bande et le rang"></div>
+    <div class="video" data-titre="Lever une forme indéterminée"></div>
+    <div class="video" data-titre="Le théorème de la limite monotone sur un exercice de bac"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Cinq laboratoires, dans l'ordre du cours : la bande et le rang (la définition), le curseur $q$ et la machine des opérations (repris du chapitre de maths complémentaires), puis les gendarmes à choisir, et le théorème de la limite monotone mis à l'épreuve.</p>
+
+  <div class="labo" data-labo="limites-suites-t" data-outil="bande"></div>
+  <div class="labo" data-labo="limites" data-outil="geometrique"></div>
+  <div class="labo" data-labo="limites" data-outil="machine"></div>
+  <div class="labo" data-labo="limites-suites-t" data-outil="encadrer"></div>
+  <div class="labo" data-labo="limites-suites-t" data-outil="bornee"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des suites au hasard : limites de référence, opérations, formes indéterminées, lecture d'un graphique, rang d'une bande, seuils, gendarmes, théorème de la limite monotone. Le quiz vérifie les réflexes du chapitre. Le contrôle blanc s'ajoute en bas.</p>
+
+  <div class="jeu" data-generateurs="limites-suites-t" data-questions="10" data-titre="Le défi des limites de suites"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>« $(u_n)$ tend vers $+\infty$ » signifie que…</p>
+      <ul class="choix"><li class="bon">tout intervalle $[A\,;+\infty[$ contient tous les termes à partir d'un certain rang</li><li>les termes sont de plus en plus grands</li><li>il existe un terme plus grand que n'importe quel réel $A$</li><li>la suite n'est pas majorée</li></ul>
+      <div class="explication">C'est la définition. « De plus en plus grands » décrit une suite croissante, qui peut converger ($3-\frac1n$). « Il existe un terme » parle d'un seul terme ; il faut tous les termes à partir d'un rang. Et « non majorée » ne suffit pas : $(-1)^n n$ n'est pas majorée et ne tend pas vers $+\infty$.</div>
+    </div>
+    <div class="question" data-reponse="101">
+      <p>$u_n=2+\dfrac1n$. À partir de quel rang tous les termes sont-ils dans $]1{,}99\,;2{,}01[$ ?</p>
+      <div class="explication">$|u_n-2|=\dfrac1n&lt;0{,}01$ équivaut à $n&gt;100$. Le premier rang qui convient est $N=101$ (au rang $100$, $u_{100}=2{,}01$ est sur le bord, pas dedans).</div>
+    </div>
+    <div class="question">
+      <p>Laquelle de ces suites est divergente sans tendre vers $+\infty$ ni vers $-\infty$ ?</p>
+      <ul class="choix"><li class="bon">$u_n=(-1)^n\,n$</li><li>$u_n=-n^2$</li><li>$u_n=5-0{,}9^n$</li><li>$u_n=\sqrt n$</li></ul>
+      <div class="explication">$(-1)^n n$ vaut $-1$ ; $2$ ; $-3$ ; $4$… elle change de signe à chaque rang : aucun intervalle $[A\,;+\infty[$ ni $]-\infty\,;A]$ ne contient tous ses termes à partir d'un rang. Les trois autres ont une limite : $-\infty$, $5$ et $+\infty$.</div>
+    </div>
+    <div class="question">
+      <p>$\lim\limits_{n\to+\infty}(-0{,}8)^n=$ …</p>
+      <ul class="choix"><li class="bon">$0$</li><li>$-\infty$</li><li>pas de limite</li><li>$-0{,}8$</li></ul>
+      <div class="explication">$-1&lt;-0{,}8&lt;1$ : la suite tend vers $0$. Les signes alternent, mais $|(-0{,}8)^n|=0{,}8^n$ fond vers $0$. « Pas de limite », c'est pour $q\leq-1$.</div>
+    </div>
+    <div class="question">
+      <p>$\lim\limits_{n\to+\infty}u_n=+\infty$ et $\lim\limits_{n\to+\infty}v_n=-\infty$. Que peut-on dire de $\lim\limits_{n\to+\infty}(u_n+v_n)$ ?</p>
+      <ul class="choix"><li class="bon">on ne peut pas conclure sans en savoir plus</li><li>$0$</li><li>$+\infty$</li><li>elle n'existe pas</li></ul>
+      <div class="explication">$\infty-\infty$ est une forme indéterminée : $n^2-n\to+\infty$, $n-n^2\to-\infty$, $(n+1)-n\to1$. Chaque cas se travaille.</div>
+    </div>
+    <div class="question" data-reponse="3">
+      <p>Calcule $\lim\limits_{n\to+\infty}\dfrac{3n^2+n}{n^2-7}$.</p>
+      <div class="explication">On factorise par $n^2$ en haut et en bas : $\dfrac{3+\frac1n}{1-\frac7{n^2}}$, qui tend vers $\dfrac31=3$. Le quotient des termes dominants, $\dfrac{3n^2}{n^2}$, le disait.</div>
+    </div>
+    <div class="question">
+      <p>Pour tout $n\geq1$, $2-\dfrac3n\leq u_n\leq2+\dfrac1{n^2}$. Alors…</p>
+      <ul class="choix"><li class="bon">$(u_n)$ converge vers $2$</li><li>$(u_n)$ est bornée, donc elle converge</li><li>la limite est entre $-3$ et $1$</li><li>on ne peut rien dire sans la formule de $u_n$</li></ul>
+      <div class="explication">Les deux gendarmes tendent vers $2$ : théorème des gendarmes, $(u_n)$ converge vers $2$. « Bornée donc convergente » est faux en général ; ici, c'est l'égalité des deux limites qui conclut.</div>
+    </div>
+    <div class="question">
+      <p>Pour tout $n$, $u_n\geq n-5$. Alors…</p>
+      <ul class="choix"><li class="bon">$(u_n)$ tend vers $+\infty$</li><li>$(u_n)$ est croissante</li><li>$(u_n)$ converge</li><li>on ne peut rien dire</li></ul>
+      <div class="explication">$n-5$ tend vers $+\infty$ et minore $(u_n)$ : théorème de comparaison. Rien ne dit que $(u_n)$ est croissante (elle peut osciller en montant).</div>
+    </div>
+    <div class="question">
+      <p>$(u_n)$ est croissante et majorée par $5$. Alors…</p>
+      <ul class="choix"><li class="bon">$(u_n)$ converge vers un réel $\ell\leq5$</li><li>$(u_n)$ converge vers $5$</li><li>$(u_n)$ tend vers $+\infty$</li><li>$(u_n)$ est constante à partir d'un certain rang</li></ul>
+      <div class="explication">Théorème de la limite monotone : elle converge, et le passage à la limite dans $u_n\leq5$ donne $\ell\leq5$. Le majorant n'est pas la limite : $5-\frac1n$ est croissante, majorée par $5$ et par $7$, de limite $5$.</div>
+    </div>
+    <div class="question">
+      <p>Vrai ou faux : « toute suite bornée est convergente ».</p>
+      <ul class="choix"><li class="bon">faux</li><li>vrai</li></ul>
+      <div class="explication">$(-1)^n$ est bornée (entre $-1$ et $1$) et n'a pas de limite. La réciproque, elle, est vraie : toute suite convergente est bornée.</div>
+    </div>
+    <div class="question">
+      <p>Pour tout $n$, $0&lt;u_n&lt;1$, et $(u_n)$ converge vers $\ell$. Que sait-on de $\ell$ ?</p>
+      <ul class="choix"><li class="bon">$0\leq\ell\leq1$</li><li>$0&lt;\ell&lt;1$</li><li>$\ell=0$ ou $\ell=1$</li><li>rien</li></ul>
+      <div class="explication">Le passage à la limite rend les inégalités larges : $u_n=\frac1n$ vérifie $0&lt;u_n&lt;1$ pour $n\geq2$ et tend vers $0$.</div>
+    </div>
+    <div class="question">
+      <p>$u_0=200$, $u_{n+1}=0{,}75\,u_n+200$, et $(u_n)$ tend vers $800$ en restant en dessous. Que fait <code>n = 0 ; u = 200 ; while u &lt; 850: n = n + 1 ; u = 0.75*u + 200</code> ?</p>
+      <ul class="choix"><li class="bon">la boucle ne s'arrête jamais</li><li>elle renvoie le rang où $u_n$ dépasse $850$</li><li>elle s'arrête quand $u_n$ dépasse $800$</li><li>elle s'arrête au bout de $850$ tours</li></ul>
+      <div class="explication">Tous les termes restent sous $800$, donc sous $850$ : la condition <code>u &lt; 850</code> est toujours vraie et la boucle tourne sans fin. Un seuil n'a de sens qu'en dessous de la limite.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre. Rédige d'abord sur ton cahier, puis ouvre la correction. Les exercices guidés se font avec le tuteur, ligne par ligne.</p>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Le tuteur vérifie chaque ligne de calcul et ne donne jamais la réponse. La lettre est $n$ (le rang) ou $u$ (le terme $u_n$, écrit $u$ pour le calcul).</p>
+
+  <article class="exercice" id="ex-croissante-a-partir-d-un-rang" data-titre="Croissante à partir d'un rang" data-niveau="1" data-type="guide" data-notions="suites limsuites" data-duree="6" data-calculatrice="non">
+    <p>On pose $u_n=n^2-6n$. Pour étudier ses variations, calcule $u_{n+1}-u_n$ sous forme réduite. Tu trouveras une expression du premier degré : à partir de quel rang est-elle positive ? Conclus sur les variations de $(u_n)$, puis sur sa limite (une suite croissante non majorée…).</p>
+    <div class="tuteur" data-tuteur="expression" data-lettre="n" data-id="lst-difference" data-depart="(n+1)^2-6(n+1)-(n^2-6n)" data-consigne="Développe et réduis $u_{n+1}-u_n=(n+1)^2-6(n+1)-(n^2-6n)$ :"></div>
+  </article>
+
+  <article class="exercice" id="ex-la-suite-auxiliaire" data-titre="La suite auxiliaire" data-niveau="2" data-type="guide" data-notions="suites limsuites" data-duree="6" data-calculatrice="non">
+    <p>$u_{n+1}=0{,}75\,u_n+200$ (la dose du cours). On pose $v_n=u_n-800$. Alors $v_{n+1}=u_{n+1}-800=0{,}75\,u_n+200-800$. Réduis, puis factorise par $0{,}75$ pour faire apparaître $u_n-800$, c'est-à-dire $v_n$ : tu auras prouvé que $(v_n)$ est géométrique de raison $0{,}75$.</p>
+    <div class="tuteur" data-tuteur="factoriser" data-lettre="u" data-id="lst-auxiliaire" data-depart="0,75u+200-800" data-consigne="Réduis puis factorise $v_{n+1}=0{,}75u+200-800$ (ici $u$ désigne $u_n$) :"></div>
+  </article>
+
+  <article class="exercice" id="ex-le-rang-du-seuil" data-titre="Le rang du seuil" data-niveau="1" data-type="guide" data-notions="suites limsuites" data-duree="5" data-calculatrice="non">
+    <p>$u_n=0{,}8\,n+5$ est arithmétique de raison $0{,}8&gt;0$ : elle tend vers $+\infty$. Pour quel rang $n$ a-t-on $u_n=25$ ? Résous l'équation. Tu en déduiras qu'à partir de ce rang, tous les termes sont dans $[25\,;+\infty[$.</p>
+    <div class="tuteur" data-tuteur="equation" data-lettre="n" data-id="lst-seuil" data-depart="0,8n+5=25" data-consigne="Résous $0{,}8n+5=25$ :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+
+  <h3>Niveau 1 · Reconnaître et appliquer</h3>
+
+  <article class="exercice" id="ex-les-limites-de-reference" data-titre="Les limites de référence" data-niveau="1" data-type="application" data-notions="limsuites" data-duree="6" data-calculatrice="non">
+    <p>Donne la limite de chaque suite, sans calcul.<br>
+    a) $u_n=n^3$ · b) $u_n=\dfrac{1}{\sqrt n}$ · c) $u_n=-n$ · d) $u_n=2+\dfrac{1}{n^2}$ · e) $u_n=\sqrt n-10$ · f) $u_n=\dfrac5n+3$</p>
+    <details class="correction">
+      <p>a) $+\infty$. b) $0$. c) $-\infty$ (l'opposé de $n$). d) $2+0=2$. e) $+\infty$ : retirer $10$ à quelque chose qui tend vers $+\infty$ ne change rien. f) $5\times0+3=3$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-quatre-cas-de-q-puissance-n" data-titre="Les quatre cas de qⁿ" data-niveau="1" data-type="application" data-notions="limsuites" data-duree="6" data-calculatrice="non">
+    <p>Donne la limite de chaque suite, en précisant dans quel cas du théorème on est.<br>
+    a) $1{,}02^n$ · b) $0{,}2^n$ · c) $(-0{,}5)^n$ · d) $(-2)^n$ · e) $1^n$ · f) $3\times0{,}5^n$ · g) $-4\times1{,}5^n$ · h) $7-2\times0{,}9^n$</p>
+    <details class="indice"><p>Range $q$ : plus grand que $1$, égal à $1$, entre $-1$ et $1$, ou plus petit ou égal à $-1$. Pour f, g, h, commence par la limite de $q^n$, puis applique les opérations.</p></details>
+    <details class="correction">
+      <p>a) $q=1{,}02&gt;1$ : $+\infty$. b) $0&lt;0{,}2&lt;1$ : $0$. c) $-1&lt;-0{,}5&lt;1$ : $0$ (les signes alternent, la taille fond). d) $q=-2\leq-1$ : pas de limite. e) $q=1$ : la suite est constante égale à $1$, sa limite est $1$.</p>
+      <p>f) $0{,}5^n\to0$, donc $3\times0{,}5^n\to0$. g) $1{,}5^n\to+\infty$, multiplié par $-4&lt;0$ : $-\infty$. h) $0{,}9^n\to0$, donc $7-2\times0{,}9^n\to7$ (la suite monte vers $7$ sans l'atteindre).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-sans-indetermination" data-titre="Sans indétermination" data-niveau="1" data-type="application" data-notions="limsuites" data-duree="8" data-calculatrice="non">
+    <p>Avec les tableaux des opérations, donne la limite de chaque suite en citant l'opération utilisée.<br>
+    a) $u_n=n^2+\dfrac1n$ · b) $v_n=\left(3-\dfrac1n\right)\left(2+0{,}5^n\right)$ · c) $w_n=\dfrac{1}{n^2+1}$ · d) $t_n=-n+\dfrac2n$ · e) $r_n=\dfrac{2+\frac1n}{5-\frac1n}$</p>
+    <details class="correction">
+      <p>a) Somme : $+\infty+0=+\infty$. b) Produit : $3\times2=6$. c) Quotient : $n^2+1\to+\infty$, donc $\dfrac{1}{n^2+1}\to0$ (un nombre sur quelque chose qui tend vers l'infini). d) Somme : $-\infty+0=-\infty$. e) Quotient de deux limites finies : $\dfrac25$ (le dénominateur tend vers $5\neq0$).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-dans-la-bande" data-titre="Dans la bande" data-niveau="1" data-type="application" data-notions="limsuites" data-duree="8" data-calculatrice="non">
+    <p>$u_n=5-\dfrac2n$ pour $n\geq1$.<br>
+    1. Quelle est sa limite ?<br>
+    2. Trouve un rang $N$ tel que pour tout $n\geq N$, $u_n$ soit dans l'intervalle $]4{,}99\,;5{,}01[$.<br>
+    3. Même question avec $]5-10^{-4}\,;5+10^{-4}[$. Qu'est-ce que ces deux réponses illustrent ?</p>
+    <details class="indice"><p>Écris la distance entre $u_n$ et $5$ : $|u_n-5|=\dfrac2n$. Tu veux qu'elle soit plus petite que $0{,}01$.</p></details>
+    <details class="correction">
+      <p>1. $\dfrac2n\to0$, donc $u_n\to5$.</p>
+      <p>2. $|u_n-5|=\dfrac2n$. Et $\dfrac2n&lt;0{,}01$ équivaut à $n&gt;200$. Donc à partir du rang $N=201$, tous les termes sont dans $]4{,}99\,;5{,}01[$. (Au rang $200$, $u_{200}=4{,}99$ est sur le bord : pas dedans, l'intervalle est ouvert.)</p>
+      <p>3. $\dfrac2n&lt;10^{-4}$ équivaut à $n&gt;20\,000$ : $N=20\,001$. Plus la bande est étroite, plus il faut attendre, mais il y a toujours un rang : c'est exactement la définition de « converger vers $5$ ».</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-au-dessus-du-seuil" data-titre="Au-dessus du seuil" data-niveau="1" data-type="application" data-notions="limsuites" data-duree="8" data-calculatrice="oui">
+    <p>$u_n=3n^2-10$.<br>
+    1. Quelle est sa limite ?<br>
+    2. À partir de quel rang a-t-on $u_n\geq10\,000$ ?<br>
+    3. Soit $A$ un réel positif quelconque. Montre qu'il existe un rang à partir duquel $u_n\geq A$. Quelle définition viens-tu de vérifier ?</p>
+    <details class="correction">
+      <p>1. $3n^2\to+\infty$ et $-10$ ne change rien : $+\infty$.</p>
+      <p>2. $3n^2-10\geq10\,000$ équivaut à $n^2\geq\dfrac{10\,010}{3}\approx3\,336{,}7$, soit $n\geq57{,}8$. À partir du rang $58$ : $u_{57}=9\,737&lt;10\,000$ et $u_{58}=10\,082\geq10\,000$.</p>
+      <p>3. $3n^2-10\geq A$ équivaut à $n\geq\sqrt{\dfrac{A+10}{3}}$. Quel que soit $A$, le premier entier $N$ au moins égal à cette racine convient : pour $n\geq N$, $u_n\geq A$. C'est la définition de « $(u_n)$ tend vers $+\infty$ » : tout intervalle $[A\,;+\infty[$ contient tous les termes à partir d'un certain rang.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-conjecturer-avec-un-tableau" data-titre="Conjecturer avec un tableau" data-niveau="1" data-type="application" data-notions="limsuites" data-duree="10" data-calculatrice="oui">
+    <p>1. $u_n=\dfrac{2n+3}{n+1}$. Calcule $u_1$, $u_{10}$, $u_{100}$, $u_{1\,000}$ (quatre décimales). Que conjectures-tu ? Puis démontre-le.<br>
+    2. $v_n=n^2-50n$. Calcule $v_1$ à $v_5$. Que conjecturerait quelqu'un qui s'arrête là ? Calcule $v_{50}$ et $v_{100}$, puis démontre la vraie limite.</p>
+    <details class="correction">
+      <p>1. $u_1=2{,}5$ ; $u_{10}=\dfrac{23}{11}\approx2{,}0909$ ; $u_{100}=\dfrac{203}{101}\approx2{,}0099$ ; $u_{1\,000}=\dfrac{2\,003}{1\,001}\approx2{,}0010$. Conjecture : la limite est $2$. Preuve : $u_n=\dfrac{n(2+\frac3n)}{n(1+\frac1n)}=\dfrac{2+\frac3n}{1+\frac1n}\to\dfrac21=2$.</p>
+      <p>2. $v_1=-49$, $v_2=-96$, $v_3=-141$, $v_4=-184$, $v_5=-225$ : ça descend, on conjecturerait $-\infty$. Pourtant $v_{50}=0$ et $v_{100}=5\,000$. Preuve : $v_n=n^2\left(1-\dfrac{50}n\right)$, et la parenthèse tend vers $1$ : $v_n\to+\infty$. Les cinq premiers termes ne disent rien de ce qui se passe « au bout ».</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-lire-sur-le-graphique" data-titre="Lire sur le graphique" data-niveau="1" data-type="application" data-notions="limsuites" data-duree="8" data-calculatrice="non">
+    <p>Le graphique montre les termes $u_0$ à $u_{12}$ d'une suite et une bande autour de $3$, de demi-largeur $\varepsilon=0{,}5$.</p>
+    <figure class="figure-svg"><svg viewBox="0 0 470 326" role="img" aria-label="Les termes u zéro à u douze d'une suite sur un quadrillage : 3 ; 5,1 ; 2,1 ; 2,4 ; 3,9 ; 2,9 ; 2,4 ; 3,4 ; 3,2 ; 2,6 ; 3,1 ; 3,3 ; 2,8. Ils oscillent autour de 3 en se rapprochant, et restent entre 2,5 et 3,5 à partir du rang 7. Une bande claire va de 2,5 à 3,5."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="316"/><line x1="40" y1="10" x2="40" y2="316"/><line x1="70" y1="10" x2="70" y2="316"/><line x1="100" y1="10" x2="100" y2="316"/><line x1="130" y1="10" x2="130" y2="316"/><line x1="160" y1="10" x2="160" y2="316"/><line x1="190" y1="10" x2="190" y2="316"/><line x1="220" y1="10" x2="220" y2="316"/><line x1="250" y1="10" x2="250" y2="316"/><line x1="280" y1="10" x2="280" y2="316"/><line x1="310" y1="10" x2="310" y2="316"/><line x1="340" y1="10" x2="340" y2="316"/><line x1="370" y1="10" x2="370" y2="316"/><line x1="400" y1="10" x2="400" y2="316"/><line x1="430" y1="10" x2="430" y2="316"/><line x1="460" y1="10" x2="460" y2="316"/><line x1="10" y1="316" x2="460" y2="316"/><line x1="10" y1="282" x2="460" y2="282"/><line x1="10" y1="248" x2="460" y2="248"/><line x1="10" y1="214" x2="460" y2="214"/><line x1="10" y1="180" x2="460" y2="180"/><line x1="10" y1="146" x2="460" y2="146"/><line x1="10" y1="112" x2="460" y2="112"/><line x1="10" y1="78" x2="460" y2="78"/><line x1="10" y1="44" x2="460" y2="44"/><line x1="10" y1="10" x2="460" y2="10"/></g><rect class="bande" x="10" y="163.0" width="438.0" height="34.0"/><g class="trace t-n pointille"><line x1="10" y1="180" x2="448.0" y2="180"/></g><g class="trace t-n"><line x1="40" y1="282" x2="440.2" y2="282.0"/><polygon points="448.0,282.0 435.0,287.9 435.0,276.1"/></g><g class="trace t-n"><line x1="40" y1="316" x2="40.0" y2="17.8"/><polygon points="40.0,10.0 45.9,23.0 34.1,23.0"/></g><text class="moyen" x="436.0" y="266.7">n</text><g class="trace t-n"><line x1="40" y1="287.5" x2="40" y2="276.5"/></g><text class="petit" x="34.6" y="305.0">0</text><g class="trace t-n"><line x1="70" y1="287.5" x2="70" y2="276.5"/></g><text class="petit" x="64.6" y="305.0">1</text><g class="trace t-n"><line x1="100" y1="287.5" x2="100" y2="276.5"/></g><text class="petit" x="94.6" y="305.0">2</text><g class="trace t-n"><line x1="130" y1="287.5" x2="130" y2="276.5"/></g><text class="petit" x="124.6" y="305.0">3</text><g class="trace t-n"><line x1="160" y1="287.5" x2="160" y2="276.5"/></g><text class="petit" x="154.6" y="305.0">4</text><g class="trace t-n"><line x1="190" y1="287.5" x2="190" y2="276.5"/></g><text class="petit" x="184.6" y="305.0">5</text><g class="trace t-n"><line x1="220" y1="287.5" x2="220" y2="276.5"/></g><text class="petit" x="214.6" y="305.0">6</text><g class="trace t-n"><line x1="250" y1="287.5" x2="250" y2="276.5"/></g><text class="petit" x="244.6" y="305.0">7</text><g class="trace t-n"><line x1="280" y1="287.5" x2="280" y2="276.5"/></g><text class="petit" x="274.6" y="305.0">8</text><g class="trace t-n"><line x1="310" y1="287.5" x2="310" y2="276.5"/></g><text class="petit" x="304.6" y="305.0">9</text><g class="trace t-n"><line x1="340" y1="287.5" x2="340" y2="276.5"/></g><text class="petit" x="334.6" y="305.0">10</text><g class="trace t-n"><line x1="370" y1="287.5" x2="370" y2="276.5"/></g><text class="petit" x="364.6" y="305.0">11</text><g class="trace t-n"><line x1="400" y1="287.5" x2="400" y2="276.5"/></g><text class="petit" x="394.6" y="305.0">12</text><g class="trace t-n"><line x1="36.4" y1="248" x2="43.6" y2="248"/></g><text class="petit" x="21.1" y="254.1">1</text><g class="trace t-n"><line x1="36.4" y1="214" x2="43.6" y2="214"/></g><text class="petit" x="21.1" y="220.1">2</text><g class="trace t-n"><line x1="36.4" y1="180" x2="43.6" y2="180"/></g><text class="petit" x="21.1" y="186.1">3</text><g class="trace t-n"><line x1="36.4" y1="146" x2="43.6" y2="146"/></g><text class="petit" x="21.1" y="152.1">4</text><g class="trace t-n"><line x1="36.4" y1="112" x2="43.6" y2="112"/></g><text class="petit" x="21.1" y="118.1">5</text><g class="trace t-n"><line x1="36.4" y1="78" x2="43.6" y2="78"/></g><text class="petit" x="21.1" y="84.1">6</text><g class="trace t-n"><line x1="36.4" y1="44" x2="43.6" y2="44"/></g><text class="petit" x="21.1" y="50.1">7</text><circle class="pt pt-u" cx="40" cy="180.0" r="4.5"/><circle class="pt pt-u" cx="70" cy="109.2" r="4.5"/><circle class="pt pt-u" cx="100" cy="210.5" r="4.5"/><circle class="pt pt-u" cx="130" cy="200.6" r="4.5"/><circle class="pt pt-u" cx="160" cy="151.0" r="4.5"/><circle class="pt pt-u" cx="190" cy="181.9" r="4.5"/><circle class="pt pt-u" cx="220" cy="199.6" r="4.5"/><circle class="pt pt-u" cx="250" cy="167.5" r="4.5"/><circle class="pt pt-u" cx="280" cy="171.9" r="4.5"/><circle class="pt pt-u" cx="310" cy="194.7" r="4.5"/><circle class="pt pt-u" cx="340" cy="178.0" r="4.5"/><circle class="pt pt-u" cx="370" cy="168.9" r="4.5"/><circle class="pt pt-u" cx="400" cy="188.3" r="4.5"/><text class="moyen" x="376.0" y="151.1">bande</text></svg><figcaption>Les termes de la suite et la bande $]2{,}5\,;3{,}5[$.</figcaption></figure>
+    <p>1. Quelle limite conjectures-tu ?<br>
+    2. À partir de quel rang tous les termes dessinés sont-ils dans la bande ?<br>
+    3. $u_0=3$ et $u_5\approx2{,}94$ sont dans la bande. Pourquoi les rangs $0$ et $5$ ne conviennent-ils pas ?<br>
+    4. Si on prenait une bande de demi-largeur $0{,}1$, le rang serait-il plus petit ou plus grand ?</p>
+    <details class="correction">
+      <p>1. Les termes oscillent de part et d'autre de $3$ en se rapprochant : on conjecture $3$.</p>
+      <p>2. À partir du rang $7$ : $u_7\approx3{,}37$ est dedans, et tous les suivants aussi.</p>
+      <p>3. Parce qu'après $u_0$, $u_1\approx5{,}1$ ressort ; et après $u_5$, $u_6\approx2{,}42$ ressort. « À partir d'un certain rang » veut dire que <em>tous</em> les termes suivants restent dedans, sans exception. Un terme dans la bande, même le tout premier, ne prouve rien.</p>
+      <p>4. Plus grand : une bande plus étroite se remplit plus tard (ici bien au-delà du dessin, au rang $40$). Mais elle finit par se remplir, pour n'importe quelle demi-largeur : c'est ça, converger.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Calculer et conclure</h3>
+
+  <article class="exercice" id="ex-le-terme-dominant" data-titre="Le terme dominant" data-niveau="2" data-type="application" data-notions="limsuites" data-duree="10" data-calculatrice="non">
+    <p>Chaque limite est de la forme $\infty-\infty$. Lève l'indétermination en factorisant par le terme dominant.<br>
+    a) $u_n=n^2-5n$ · b) $v_n=-2n^3+n^2+7$ · c) $w_n=n-\sqrt n$</p>
+    <details class="indice"><p>Pour c), le terme dominant est $n$, et $\dfrac{\sqrt n}{n}=\dfrac{1}{\sqrt n}$.</p></details>
+    <details class="correction">
+      <p>a) $u_n=n^2\left(1-\dfrac5n\right)$ ; $n^2\to+\infty$ et la parenthèse tend vers $1$ : produit, $+\infty$.</p>
+      <p>b) $v_n=n^3\left(-2+\dfrac1n+\dfrac7{n^3}\right)$ ; $n^3\to+\infty$ et la parenthèse tend vers $-2$ : produit, $-\infty$.</p>
+      <p>c) $w_n=n\left(1-\dfrac{1}{\sqrt n}\right)$ ; $n\to+\infty$ et la parenthèse tend vers $1$ : $+\infty$. (On peut aussi écrire $w_n=\sqrt n(\sqrt n-1)$.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-quotient" data-titre="Un quotient" data-niveau="2" data-type="application" data-notions="limsuites" data-duree="10" data-calculatrice="non">
+    <p>Chaque limite est de la forme $\dfrac\infty\infty$. Factorise en haut et en bas par le terme dominant, simplifie, conclus.<br>
+    a) $\dfrac{2n+1}{n+3}$ · b) $\dfrac{n^2+1}{3n-2}$ · c) $\dfrac{n+5}{n^2+1}$ · d) $\dfrac{1-4n^2}{2n^2+n}$</p>
+    <details class="correction">
+      <p>a) $\dfrac{n(2+\frac1n)}{n(1+\frac3n)}=\dfrac{2+\frac1n}{1+\frac3n}\to\dfrac21=2$.</p>
+      <p>b) $\dfrac{n^2(1+\frac1{n^2})}{n(3-\frac2n)}=n\times\dfrac{1+\frac1{n^2}}{3-\frac2n}$ ; le quotient tend vers $\dfrac13$, et $n\to+\infty$ : $+\infty$.</p>
+      <p>c) $\dfrac{n(1+\frac5n)}{n^2(1+\frac1{n^2})}=\dfrac1n\times\dfrac{1+\frac5n}{1+\frac1{n^2}}\to0\times1=0$.</p>
+      <p>d) $\dfrac{n^2(\frac1{n^2}-4)}{n^2(2+\frac1n)}=\dfrac{\frac1{n^2}-4}{2+\frac1n}\to\dfrac{-4}{2}=-2$.</p>
+      <p>Le réflexe : le quotient des termes dominants donne la réponse ($\frac{2n}{n}$, $\frac{n^2}{3n}$, $\frac{n}{n^2}$, $\frac{-4n^2}{2n^2}$). La factorisation, elle, est la justification.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-quantite-conjuguee" data-titre="La quantité conjuguée" data-niveau="2" data-type="application" data-notions="limsuites" data-duree="10" data-calculatrice="non">
+    <p>a) $u_n=\sqrt{n+1}-\sqrt n$. Montre que $u_n=\dfrac{1}{\sqrt{n+1}+\sqrt n}$, puis donne sa limite.<br>
+    b) $v_n=\sqrt{n^2+n}-n$. Même méthode : vers quoi tend $(v_n)$ ? (La réponse surprend.)</p>
+    <details class="indice"><p>Multiplie et divise par $\sqrt{n+1}+\sqrt n$, puis utilise $(a-b)(a+b)=a^2-b^2$.</p></details>
+    <details class="correction">
+      <p>a) $u_n=\dfrac{(\sqrt{n+1}-\sqrt n)(\sqrt{n+1}+\sqrt n)}{\sqrt{n+1}+\sqrt n}=\dfrac{(n+1)-n}{\sqrt{n+1}+\sqrt n}=\dfrac{1}{\sqrt{n+1}+\sqrt n}$. Le dénominateur tend vers $+\infty$, donc $u_n\to0$ : deux racines consécutives finissent par être aussi proches qu'on veut.</p>
+      <p>b) $v_n=\dfrac{(n^2+n)-n^2}{\sqrt{n^2+n}+n}=\dfrac{n}{\sqrt{n^2+n}+n}$. On factorise par $n$ en bas : $\sqrt{n^2+n}=n\sqrt{1+\frac1n}$, donc $v_n=\dfrac{n}{n\left(\sqrt{1+\frac1n}+1\right)}=\dfrac{1}{\sqrt{1+\frac1n}+1}\to\dfrac1{1+1}=\dfrac12$. Une forme $\infty-\infty$ qui tend vers $\dfrac12$ : voilà pourquoi on ne décide jamais sans calculer.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-gendarmes-avec-cos-n" data-titre="Les gendarmes avec cos n" data-niveau="2" data-type="application" data-notions="gendarmes" data-duree="10" data-calculatrice="non">
+    <p>Détermine la limite de chaque suite avec le théorème des gendarmes.<br>
+    a) $u_n=\dfrac{3n+\cos n}{n}$ · b) $v_n=\dfrac{(-1)^n}{n^2+1}$ · c) $w_n=2+\dfrac{\sin n}{\sqrt n}$ (a et c pour $n\geq1$)</p>
+    <details class="correction">
+      <p>a) $-1\leq\cos n\leq1$, donc $3n-1\leq3n+\cos n\leq3n+1$, et en divisant par $n&gt;0$ : $3-\dfrac1n\leq u_n\leq3+\dfrac1n$. Les deux bornes tendent vers $3$ : $u_n\to3$.</p>
+      <p>b) $-1\leq(-1)^n\leq1$ et $n^2+1&gt;0$ : $-\dfrac1{n^2+1}\leq v_n\leq\dfrac1{n^2+1}$. Les deux bornes tendent vers $0$ : $v_n\to0$.</p>
+      <p>c) $-1\leq\sin n\leq1$, donc $2-\dfrac1{\sqrt n}\leq w_n\leq2+\dfrac1{\sqrt n}$, et $w_n\to2$.</p>
+      <p>Dans les trois cas, on n'a jamais eu besoin de savoir ce que fait $\cos n$ ou $(-1)^n$ : seulement qu'ils restent entre $-1$ et $1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-comparer-avec-moins-un-puissance-n" data-titre="Comparer avec (−1)ⁿ" data-niveau="2" data-type="application" data-notions="gendarmes" data-duree="8" data-calculatrice="non">
+    <p>a) $u_n=n+(-1)^n$. Montre que $u_n\geq n-1$ pour tout $n$, et conclus.<br>
+    b) $v_n=n^2+n\cos n$. Trouve une suite qui minore $(v_n)$ et conclus.<br>
+    c) Pourquoi n'a-t-on pas besoin d'un gendarme au-dessus ?</p>
+    <details class="correction">
+      <p>a) $(-1)^n\geq-1$, donc $u_n\geq n-1$. Or $n-1\to+\infty$ : par comparaison, $u_n\to+\infty$. (La suite n'est pas croissante, elle fait $1$ ; $0$ ; $3$ ; $2$ ; $5$ ; $4$… et tend quand même vers $+\infty$.)</p>
+      <p>b) $\cos n\geq-1$ et $n\geq0$, donc $n\cos n\geq-n$ et $v_n\geq n^2-n=n(n-1)$. Or $n(n-1)\to+\infty$ (produit de deux suites qui tendent vers $+\infty$) : $v_n\to+\infty$.</p>
+      <p>c) Pour aller vers $+\infty$, il suffit d'être poussé par en dessous : c'est le théorème de comparaison, un seul gendarme. Le gendarme du haut ne sert que pour une limite finie (gendarmes au pluriel).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-inegalite-a-la-limite" data-titre="Une inégalité à la limite" data-niveau="2" data-type="raisonnement" data-notions="limsuites" data-duree="10" data-calculatrice="non">
+    <p>$(u_n)$ converge vers $\ell$, et pour tout $n$, $0&lt;u_n&lt;1$.<br>
+    1. Que peut-on dire de $\ell$ ?<br>
+    2. Donne un exemple de suite de ce type dont la limite est $0$, puis un dont la limite est $1$.<br>
+    3. Un camarade écrit « $0&lt;\ell&lt;1$ ». Explique-lui son erreur avec tes exemples.</p>
+    <details class="correction">
+      <p>1. Par passage à la limite dans $0&lt;u_n&lt;1$ : $0\leq\ell\leq1$. Les inégalités deviennent larges.</p>
+      <p>2. $u_n=\dfrac{1}{n+2}$ : tous les termes sont dans $]0\,;1[$ (le premier vaut $\dfrac12$) et la limite est $0$. $u_n=1-\dfrac{1}{n+2}$ : tous les termes sont entre $\dfrac12$ (atteint pour $n=0$) et $1$ (jamais atteint), et la limite est $1$.</p>
+      <p>3. Ses deux exemples ont une limite sur le bord : $0$ et $1$. Une inégalité stricte sur <em>chaque terme</em> ne donne jamais qu'une inégalité large sur la limite. Dire $\ell&lt;1$ serait affirmer que la suite ne peut pas s'approcher de $1$, alors qu'elle le fait.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-seuil-en-python" data-titre="Le seuil en Python" data-niveau="2" data-type="probleme" data-notions="limsuites" data-duree="12" data-calculatrice="oui">
+    <p>$u_n=1{,}5^n$ et $v_n=1\,000\times0{,}7^n$.<br>
+    1. Complète la fonction pour qu'elle renvoie le plus petit rang $n$ tel que $u_n&gt;S$ :</p>
+<pre class="code">def seuil(S):
+    n = 0
+    u = 1
+    while ……… :
+        n = n + 1
+        u = ………
+    return n</pre>
+    <p>2. Que renvoie <code>seuil(1000)</code> ? Vérifie avec deux termes.<br>
+    3. Explique pourquoi la boucle s'arrête forcément, quel que soit $S$.<br>
+    4. Écris une fonction <code>rang(eps)</code> qui renvoie le premier rang tel que $v_n&lt;\varepsilon$, et explique pourquoi elle s'arrête.</p>
+    <details class="correction">
+      <p>1. <code>while u &lt;= S :</code> et <code>u = 1.5 * u</code>. La boucle tourne <em>tant que</em> le seuil n'est pas dépassé.</p>
+      <p>2. $18$ : $u_{17}=1{,}5^{17}\approx985{,}3\leq1\,000$ et $u_{18}\approx1\,477{,}9&gt;1\,000$.</p>
+      <p>3. $q=1{,}5&gt;1$, donc $(u_n)$ tend vers $+\infty$ : l'intervalle $]S\,;+\infty[$ contient tous les termes à partir d'un certain rang. Il existe donc un terme qui dépasse $S$, et la boucle s'arrête au premier d'entre eux.</p>
+      <p>4. <code>def rang(eps): n = 0 ; v = 1000 ; while v &gt;= eps : n = n + 1 ; v = 0.7 * v ; return n</code>. Comme $0&lt;0{,}7&lt;1$, $v_n\to0$ : l'intervalle $]-\varepsilon\,;\varepsilon[$ contient tous les termes à partir d'un certain rang, donc un terme finit par passer sous $\varepsilon$. Par exemple <code>rang(1)</code> renvoie $20$ ($v_{19}\approx1{,}14$, $v_{20}\approx0{,}80$).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-majoree-par-recurrence" data-titre="Majorée par récurrence" data-niveau="2" data-type="raisonnement" data-notions="monotone-bornee" data-duree="15" data-calculatrice="non">
+    <p>$u_0=1$ et, pour tout $n$, $u_{n+1}=\sqrt{u_n+6}$.<br>
+    1. Calcule $u_1$ et $u_2$ (valeur exacte puis approchée).<br>
+    2. Montre par récurrence que pour tout $n$, $0\leq u_n\leq3$.<br>
+    3. Montre que $u_{n+1}^2-u_n^2=-(u_n-3)(u_n+2)$, et déduis-en que $(u_n)$ est croissante.<br>
+    4. Conclus. Vers quoi peut-on penser qu'elle converge ?</p>
+    <details class="indice"><p>Pour la question 2, l'hérédité consiste à appliquer $x\mapsto\sqrt{x+6}$, qui est croissante, à l'encadrement $0\leq u_n\leq3$.</p></details>
+    <details class="correction">
+      <p>1. $u_1=\sqrt7\approx2{,}65$ ; $u_2=\sqrt{\sqrt7+6}\approx2{,}94$.</p>
+      <p>2. <em>Initialisation</em> : $u_0=1$, et $0\leq1\leq3$. <em>Hérédité</em> : soit $n$ tel que $0\leq u_n\leq3$. Alors $6\leq u_n+6\leq9$, et la racine carrée est croissante : $\sqrt6\leq u_{n+1}\leq3$, donc $0\leq u_{n+1}\leq3$. <em>Conclusion</em> : pour tout $n$, $0\leq u_n\leq3$.</p>
+      <p>3. $u_{n+1}^2-u_n^2=u_n+6-u_n^2=-(u_n^2-u_n-6)=-(u_n-3)(u_n+2)$ (les racines de $x^2-x-6$ sont $3$ et $-2$). Comme $0\leq u_n\leq3$, on a $u_n-3\leq0$ et $u_n+2&gt;0$, donc $u_{n+1}^2-u_n^2\geq0$. Comme $u_{n+1}$ et $u_n$ sont positifs, $u_{n+1}\geq u_n$ : la suite est croissante.</p>
+      <p>4. Croissante et majorée par $3$ : d'après le théorème de la limite monotone, $(u_n)$ converge vers un réel $\ell\leq3$. En admettant que $\ell=\sqrt{\ell+6}$ (point fixe), $\ell^2-\ell-6=0$ et $\ell\geq0$ donnent $\ell=3$. Les valeurs de la question 1 le confirment ; le théorème, lui, ne dit que « $\ell\leq3$ ».</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Démontrer, comme au bac</h3>
+
+  <article class="exercice" id="ex-la-dose-qui-se-stabilise" data-titre="La dose qui se stabilise" data-niveau="3" data-type="probleme" data-notions="monotone-bornee limsuites suites" data-duree="25" data-calculatrice="oui" data-source="Inspiré des exercices de bac sur les suites arithmético-géométriques (métropole, 2021 à 2024)">
+    <p>Un patient prend $200$ mg d'un médicament toutes les 12 heures ; entre deux prises, son organisme en élimine $25$ %. On note $u_n$ la quantité (en mg) présente juste après la $(n+1)$-ième prise : $u_0=200$ et $u_{n+1}=0{,}75\,u_n+200$.<br>
+    1. Calcule $u_1$ et $u_2$.<br>
+    2. Montre par récurrence que pour tout $n$, $u_n\leq u_{n+1}\leq800$.<br>
+    3. Déduis-en que $(u_n)$ converge.<br>
+    4. On pose $v_n=u_n-800$. Montre que $(v_n)$ est géométrique, et exprime $v_n$ puis $u_n$ en fonction de $n$.<br>
+    5. Détermine la limite de $(u_n)$ et interprète-la.<br>
+    6. Écris une fonction Python qui renvoie le premier rang $n$ tel que $u_n&gt;799$, donne sa valeur et explique pourquoi elle existe.</p>
+    <details class="indice"><p>Question 2 : la fonction $x\mapsto0{,}75x+200$ est croissante ; applique-la aux trois membres de $u_n\leq u_{n+1}\leq800$.</p></details>
+    <details class="indice"><p>Question 4 : $v_{n+1}=u_{n+1}-800=0{,}75\,u_n+200-800$. Fais apparaître $u_n-800$.</p></details>
+    <details class="correction">
+      <p>1. $u_1=0{,}75\times200+200=350$ ; $u_2=0{,}75\times350+200=462{,}5$.</p>
+      <p>2. $P(n)$ : « $u_n\leq u_{n+1}\leq800$ ». <em>Initialisation</em> : $200\leq350\leq800$. <em>Hérédité</em> : soit $n$ tel que $u_n\leq u_{n+1}\leq800$. La fonction $f(x)=0{,}75x+200$ est croissante, donc $f(u_n)\leq f(u_{n+1})\leq f(800)$, soit $u_{n+1}\leq u_{n+2}\leq0{,}75\times800+200=800$. <em>Conclusion</em> : pour tout $n$, $u_n\leq u_{n+1}\leq800$.</p>
+      <p>3. $(u_n)$ est croissante ($u_n\leq u_{n+1}$) et majorée par $800$ : d'après le théorème de la limite monotone, elle converge vers un réel $\ell\leq800$.</p>
+      <p>4. $v_{n+1}=u_{n+1}-800=0{,}75\,u_n+200-800=0{,}75\,u_n-600=0{,}75\,(u_n-800)=0{,}75\,v_n$. Donc $(v_n)$ est géométrique de raison $0{,}75$ et de premier terme $v_0=u_0-800=-600$ : $v_n=-600\times0{,}75^n$, et $u_n=v_n+800=800-600\times0{,}75^n$.</p>
+      <p>5. $0&lt;0{,}75&lt;1$, donc $0{,}75^n\to0$ et $u_n\to800$. La quantité de médicament dans l'organisme se stabilise autour de $800$ mg : elle ne s'accumule pas sans fin, ce qui garantit que le traitement ne devient pas toxique à force de prises.</p>
+      <p>6. <code>def seuil(): n = 0 ; u = 200 ; while u &lt;= 799 : n = n + 1 ; u = 0.75 * u + 200 ; return n</code> renvoie $23$ ($u_{22}\approx798{,}9$, $u_{23}\approx799{,}2$). Ce rang existe parce que $(u_n)$ tend vers $800$ : l'intervalle $]799\,;801[$ contient tous les termes à partir d'un certain rang. On peut aussi résoudre : $800-600\times0{,}75^n&gt;799$ équivaut à $0{,}75^n&lt;\dfrac1{600}$, vrai à partir de $n=23$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-suite-qui-s-emballe" data-titre="Une suite qui s'emballe" data-niveau="3" data-type="raisonnement" data-notions="gendarmes monotone-bornee" data-duree="20" data-calculatrice="non">
+    <p>$u_0=1$ et, pour tout $n$, $u_{n+1}=u_n+u_n^2$.<br>
+    1. Calcule $u_1$, $u_2$, $u_3$.<br>
+    2. Montre par récurrence que pour tout $n$, $u_n\geq n+1$.<br>
+    3. Déduis-en la limite de $(u_n)$.<br>
+    4. Autre chemin : montre que $(u_n)$ est croissante. Si elle était majorée, elle convergerait vers un réel $\ell$ vérifiant $\ell=\ell+\ell^2$ (admis). Pourquoi est-ce impossible ? Conclus à nouveau.</p>
+    <details class="correction">
+      <p>1. $u_1=1+1=2$ ; $u_2=2+4=6$ ; $u_3=6+36=42$.</p>
+      <p>2. <em>Initialisation</em> : $u_0=1\geq0+1$. <em>Hérédité</em> : soit $n$ tel que $u_n\geq n+1$. Alors $u_n^2\geq(n+1)^2\geq1$ (car $u_n\geq n+1\geq1$), donc $u_{n+1}=u_n+u_n^2\geq(n+1)+1=n+2$. <em>Conclusion</em> : pour tout $n$, $u_n\geq n+1$.</p>
+      <p>3. $n+1\to+\infty$ et minore $(u_n)$ : par comparaison, $u_n\to+\infty$.</p>
+      <p>4. $u_{n+1}-u_n=u_n^2\geq0$ : croissante. Si elle convergeait vers $\ell$, on aurait $\ell=\ell+\ell^2$, donc $\ell=0$. Impossible : tous les termes sont $\geq1$, donc $\ell\geq1$ (passage à la limite). Une suite croissante qui ne converge pas n'est pas majorée, et une suite croissante non majorée tend vers $+\infty$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-bernoulli-et-un-placement" data-titre="Bernoulli et un placement" data-niveau="3" data-type="raisonnement" data-notions="limsuites suites" data-duree="15" data-calculatrice="oui">
+    <p>Un capital de $5\,000$ € est placé à $2$ % par an : $C_n=5\,000\times1{,}02^n$ après $n$ années.<br>
+    1. Montre par récurrence que pour tout $n$, $1{,}02^n\geq1+0{,}02\,n$.<br>
+    2. Déduis-en que $C_n\geq5\,000+100\,n$, puis la limite de $(C_n)$.<br>
+    3. À partir de quelle année l'inégalité de la question 2 garantit-elle $C_n\geq10\,000$ ? Et en vrai, à partir de quelle année a-t-on $C_n\geq10\,000$ ? Commente.</p>
+    <details class="correction">
+      <p>1. <em>Initialisation</em> : $1{,}02^0=1$ et $1+0=1$. <em>Hérédité</em> : si $1{,}02^n\geq1+0{,}02n$, alors en multipliant par $1{,}02&gt;0$ : $1{,}02^{n+1}\geq(1+0{,}02n)\times1{,}02=1+0{,}02n+0{,}02+0{,}0004n=1+0{,}02(n+1)+0{,}0004n\geq1+0{,}02(n+1)$. <em>Conclusion</em> : vrai pour tout $n$. (C'est l'inégalité de Bernoulli avec $a=0{,}02$.)</p>
+      <p>2. En multipliant par $5\,000$ : $C_n\geq5\,000+100n$. Or $5\,000+100n\to+\infty$ (suite arithmétique de raison $100&gt;0$). Par comparaison, $C_n\to+\infty$.</p>
+      <p>3. $5\,000+100n\geq10\,000$ dès que $n\geq50$ : l'inégalité garantit le doublement au bout de $50$ ans. En vrai, $1{,}02^n\geq2$ dès que $n\geq36$ ($1{,}02^{35}\approx1{,}9999$, $1{,}02^{36}\approx2{,}040$). Bernoulli minore $q^n$ par une droite : c'est assez pour prouver la limite, pas pour trouver le rang exact. La droite est en dessous de l'exponentielle, de plus en plus loin.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-somme-qui-grandit" data-titre="Une somme qui grandit" data-niveau="3" data-type="raisonnement" data-notions="gendarmes" data-duree="20" data-calculatrice="non">
+    <p>Pour $n\geq1$, $S_n=1+\dfrac1{\sqrt2}+\dfrac1{\sqrt3}+\dots+\dfrac1{\sqrt n}$.<br>
+    1. Montre que pour tout entier $k$ tel que $1\leq k\leq n$, $\dfrac1{\sqrt k}\geq\dfrac1{\sqrt n}$.<br>
+    2. Déduis-en que $S_n\geq\sqrt n$.<br>
+    3. Quelle est la limite de $(S_n)$ ?<br>
+    4. Chaque terme ajouté, $\dfrac1{\sqrt n}$, tend vers $0$. Pourquoi ne peut-on pas en conclure que $(S_n)$ converge ?</p>
+    <details class="correction">
+      <p>1. $1\leq k\leq n$ donne $\sqrt k\leq\sqrt n$ (racine croissante), puis $\dfrac1{\sqrt k}\geq\dfrac1{\sqrt n}$ (inverse de nombres positifs : le sens change).</p>
+      <p>2. $S_n$ est la somme de $n$ termes, chacun au moins égal à $\dfrac1{\sqrt n}$ : $S_n\geq n\times\dfrac1{\sqrt n}=\sqrt n$.</p>
+      <p>3. $\sqrt n\to+\infty$ : par comparaison, $S_n\to+\infty$.</p>
+      <p>4. Une somme de termes qui tendent vers $0$ peut très bien tendre vers $+\infty$ : il y a de plus en plus de termes. Ajouter $\dfrac1{\sqrt n}$, qui tend vers $0$, c'est « presque rien », mais on le fait $n$ fois. Aucun théorème du cours ne dit « les termes ajoutés tendent vers $0$, donc la somme converge » : c'est faux.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-bornee-et-pourtant-sans-limite" data-titre="Bornée, et pourtant sans limite" data-niveau="3" data-type="raisonnement" data-notions="limsuites monotone-bornee" data-duree="15" data-calculatrice="non">
+    <p>$u_n=(-1)^n\dfrac{n}{n+1}$.<br>
+    1. Calcule $u_0$, $u_1$, $u_2$, $u_3$.<br>
+    2. Montre que $(u_n)$ est bornée.<br>
+    3. Montre que pour $n\geq1$ : $u_n\geq\dfrac12$ si $n$ est pair, et $u_n\leq-\dfrac12$ si $n$ est impair.<br>
+    4. Suppose que $(u_n)$ converge vers un réel $\ell$, et considère l'intervalle $]\ell-\frac12\,;\ell+\frac12[$. Montre que c'est impossible, et conclus.<br>
+    5. Est-ce contradictoire avec le théorème de la limite monotone ?</p>
+    <details class="correction">
+      <p>1. $u_0=0$ ; $u_1=-\dfrac12$ ; $u_2=\dfrac23$ ; $u_3=-\dfrac34$.</p>
+      <p>2. $|u_n|=\dfrac{n}{n+1}&lt;1$, donc $-1\leq u_n\leq1$ : bornée.</p>
+      <p>3. Pour $n\geq1$, $\dfrac{n}{n+1}\geq\dfrac12$ équivaut à $2n\geq n+1$, soit $n\geq1$ : vrai. Donc $u_n=\dfrac n{n+1}\geq\dfrac12$ si $n$ est pair, et $u_n=-\dfrac n{n+1}\leq-\dfrac12$ si $n$ est impair.</p>
+      <p>4. Si $(u_n)$ convergeait vers $\ell$, l'intervalle ouvert $]\ell-\frac12\,;\ell+\frac12[$, de longueur $1$, contiendrait tous les termes à partir d'un rang $N$. Prenons $n\geq N$ pair, avec $n\geq2$ : $u_n\geq\frac12$ et $u_{n+1}\leq-\frac12$, donc $u_n-u_{n+1}\geq1$. Deux nombres à distance au moins $1$ ne tiennent pas dans un intervalle ouvert de longueur $1$. Contradiction : $(u_n)$ n'a pas de limite.</p>
+      <p>5. Non : le théorème demande une suite <em>monotone</em> et bornée. Celle-ci est bornée mais elle n'est ni croissante ni décroissante (elle change de signe à chaque rang). Être bornée ne suffit pas.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-methode-de-heron" data-titre="La méthode de Héron" data-niveau="3" data-type="probleme" data-notions="monotone-bornee limsuites" data-duree="25" data-calculatrice="oui">
+    <p>La suite de l'ouverture : $u_0=2$ et $u_{n+1}=\dfrac12\left(u_n+\dfrac2{u_n}\right)$. On admet que $u_n&gt;0$ pour tout $n$ (la moyenne de deux nombres positifs est positive).<br>
+    1. Calcule $u_1$ et $u_2$ en valeur exacte, puis $u_3$ en valeur approchée (six décimales).<br>
+    2. Montre que pour tout $n$, $u_{n+1}-\sqrt2=\dfrac{(u_n-\sqrt2)^2}{2u_n}$. Déduis-en que $u_n\geq\sqrt2$ pour tout $n$.<br>
+    3. Montre que $u_{n+1}-u_n=\dfrac{2-u_n^2}{2u_n}$, puis que $(u_n)$ est décroissante.<br>
+    4. Conclus que $(u_n)$ converge. En admettant que sa limite $\ell$ vérifie $\ell=\dfrac12\left(\ell+\dfrac2\ell\right)$, détermine $\ell$.<br>
+    5. En notant $e_n=u_n-\sqrt2$ l'erreur au rang $n$, montre que $e_{n+1}\leq\dfrac{e_n^2}{2\sqrt2}$. Qu'est-ce que ça explique ?</p>
+    <details class="indice"><p>Question 2 : réduis $u_{n+1}-\sqrt2$ au même dénominateur $2u_n$, et reconnais le développement de $(u_n-\sqrt2)^2$.</p></details>
+    <details class="correction">
+      <p>1. $u_1=\dfrac12\left(2+1\right)=\dfrac32$ ; $u_2=\dfrac12\left(\dfrac32+\dfrac43\right)=\dfrac12\times\dfrac{17}6=\dfrac{17}{12}\approx1{,}416\,667$ ; $u_3\approx1{,}414\,216$.</p>
+      <p>2. $u_{n+1}-\sqrt2=\dfrac{u_n^2+2}{2u_n}-\sqrt2=\dfrac{u_n^2-2\sqrt2\,u_n+2}{2u_n}=\dfrac{(u_n-\sqrt2)^2}{2u_n}$. Un carré est positif et $2u_n&gt;0$ : $u_{n+1}-\sqrt2\geq0$ pour tout $n$, donc $u_n\geq\sqrt2$ pour tout $n\geq1$ ; et $u_0=2\geq\sqrt2$ aussi.</p>
+      <p>3. $u_{n+1}-u_n=\dfrac{u_n^2+2}{2u_n}-u_n=\dfrac{u_n^2+2-2u_n^2}{2u_n}=\dfrac{2-u_n^2}{2u_n}$. Comme $u_n\geq\sqrt2$, $u_n^2\geq2$, donc le numérateur est négatif ou nul et le dénominateur positif : $u_{n+1}\leq u_n$. La suite est décroissante.</p>
+      <p>4. Décroissante et minorée par $\sqrt2$ : elle converge vers un réel $\ell\geq\sqrt2$. L'équation $\ell=\dfrac12\left(\ell+\dfrac2\ell\right)$ donne $2\ell=\ell+\dfrac2\ell$, soit $\ell^2=2$, et $\ell&gt;0$ : $\ell=\sqrt2$. La calculatrice avait raison.</p>
+      <p>5. D'après la question 2, $e_{n+1}=\dfrac{e_n^2}{2u_n}$, et $u_n\geq\sqrt2$ donne $e_{n+1}\leq\dfrac{e_n^2}{2\sqrt2}$. L'erreur est à peu près élevée au carré à chaque étape : $10^{-3}$ devient de l'ordre de $10^{-6}$, puis $10^{-12}$. C'est pour ça que le nombre de décimales justes double à chaque tour, et que cinq tours suffisent à la calculatrice.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="3" data-type="corrige-ia" data-notions="monotone-bornee limsuites" data-duree="15" data-calculatrice="non">
+    <p>Un élève a demandé à une IA de montrer que la suite de la dose ($u_0=200$, $u_{n+1}=0{,}75\,u_n+200$) converge, et de donner sa limite. Voici la réponse. Trouve les erreurs (il y en a au moins quatre), puis rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« La suite est croissante : $u_1=350&gt;u_0$, $u_2=462{,}5&gt;u_1$, elle augmente à chaque fois. Elle est majorée par $1\,000$ : $u_0\leq1\,000$, et si $u_n\leq1\,000$ alors $u_{n+1}\leq0{,}75\times1\,000+200=950\leq1\,000$. Une suite croissante et majorée converge, donc $(u_n)$ converge vers $1\,000$. On le vérifie : comme $u_n&lt;1\,000$ pour tout $n$, on a $\ell&lt;1\,000$, et comme la suite monte vers son majorant, $\ell=1\,000$. La quantité de médicament se stabilise donc à $1\,000$ mg. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 : la croissance n'est pas prouvée.</strong> Trois termes qui montent ne prouvent rien pour tous les rangs ($n^2-50n$ descend sur les cinq premiers et tend vers $+\infty$). Il faut une récurrence : $u_n\leq u_{n+1}$ pour tout $n$ (voir l'exercice « La dose qui se stabilise »).</p>
+      <p><strong>Ce qui est juste : la majoration par $1\,000$.</strong> La récurrence de l'IA est correcte. $1\,000$ est bien un majorant (et $800$ aussi, et $900$). Une IA peut écrire un paragraphe juste au milieu d'un raisonnement faux : il faut tout vérifier.</p>
+      <p><strong>Erreur 2 : « donc converge vers $1\,000$ ».</strong> Le théorème de la limite monotone dit que la limite <em>existe</em>, et le passage à la limite dans $u_n\leq1\,000$ donne $\ell\leq1\,000$. Rien de plus. Un majorant n'est pas la limite.</p>
+      <p><strong>Erreur 3 : « $u_n&lt;1\,000$ donc $\ell&lt;1\,000$ ».</strong> Une inégalité stricte devient large à la limite : $\ell\leq1\,000$. (Et l'IA se contredit elle-même : elle conclut $\ell=1\,000$ juste après avoir écrit $\ell&lt;1\,000$.)</p>
+      <p><strong>Erreur 4 : « elle monte vers son majorant ».</strong> Une suite croissante monte vers sa limite, qui est son <em>plus petit</em> majorant, pas vers n'importe quel majorant. Ici $\ell=800$ : si $(u_n)$ converge vers $\ell$, alors $\ell=0{,}75\,\ell+200$ (admis, chapitre Continuité), soit $\ell=800$ ; ou directement $u_n=800-600\times0{,}75^n\to800$.</p>
+      <p><strong>La réponse correcte</strong> : récurrence sur $u_n\leq u_{n+1}\leq800$, théorème de la limite monotone, puis $u_n=800-600\times0{,}75^n$ et $\ell=800$ mg. La réponse de l'IA était fluide, assurée, et fausse sur le nombre final — celui qui compte pour le patient.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Diverger, c'est tendre vers l'infini ?</summary>
+      <div><p>Non. Diverger, c'est « ne pas converger » : ne pas avoir de limite finie. Ça comprend les suites qui tendent vers $+\infty$ ou $-\infty$, et celles qui n'ont aucune limite, comme $(-1)^n$. Quand un énoncé dit « montrer que $(u_n)$ diverge », on peut montrer qu'elle tend vers $+\infty$, ou qu'elle n'a pas de limite : les deux conviennent.</p></div></details>
+    <details><summary>Pourquoi « à partir d'un certain rang » et pas « pour tout n » ?</summary>
+      <div><p>Parce que le début de la suite ne compte pas. $u_n=\dfrac{1\,000}{n}$ vaut $1\,000$ au rang $1$, c'est loin de $0$, et elle tend quand même vers $0$. Une limite décrit ce qui se passe <em>au bout</em>, quand $n$ est grand. Changer les mille premiers termes ne change pas la limite.</p></div></details>
+    <details><summary>ε, c'est quoi, et qui le choisit ?</summary>
+      <div><p>C'est la demi-largeur de la bande autour de $\ell$, un réel strictement positif. Ce n'est pas toi qui le choisis : la définition dit « pour <em>tout</em> $\varepsilon$ », c'est-à-dire que ton adversaire choisit la bande, aussi fine qu'il veut, et que tu dois trouver le rang $N$ à chaque fois. Si tu y arrives quel que soit son choix, la suite converge. Au bac, on ne te demandera pas de démontrer avec $\varepsilon$ : on te demandera de reconnaître la définition et de trouver un rang pour une bande donnée, souvent avec Python.</p></div></details>
+    <details><summary>∞ − ∞, ça fait 0 ?</summary>
+      <div><p>Non, ça ne fait rien : c'est une forme indéterminée. $n^2-n$, $n-n^2$ et $(n+1)-n$ sont toutes les trois de la forme $\infty-\infty$ et tendent vers $+\infty$, $-\infty$ et $1$. L'infini n'est pas un nombre, on ne calcule pas avec. On factorise par le terme dominant, et le résultat apparaît.</p></div></details>
+    <details><summary>Majorée, ça veut dire qu'elle converge ?</summary>
+      <div><p>Non. Il faut <em>monotone</em> et majorée (croissante et majorée, ou décroissante et minorée). $(-1)^n$ est majorée par $1$, minorée par $-1$, et n'a pas de limite. Et même quand le théorème s'applique, il ne dit pas combien vaut la limite : seulement qu'elle est au plus égale au majorant.</p></div></details>
+    <details><summary>Comment trouver ℓ pour une suite u(n+1) = f(u(n)) ?</summary>
+      <div><p>D'abord, prouver que la suite converge (théorème de la limite monotone). Ensuite seulement, chercher $\ell$ : soit par une suite auxiliaire que l'énoncé propose ($v_n=u_n-\ell$, géométrique), soit en résolvant $f(\ell)=\ell$, ce que le chapitre « Continuité » justifiera. Résoudre $f(\ell)=\ell$ sans savoir que la suite converge est l'erreur classique : l'équation donne un candidat, pas une limite.</p></div></details>
+    <details><summary>Pourquoi admet-on le théorème de la limite monotone ?</summary>
+      <div><p>Parce que sa démonstration repose sur une propriété des nombres réels (toute partie majorée de $\mathbb R$ a un plus petit majorant) qui n'est pas au programme du lycée. Le programme te demande de savoir l'<em>utiliser</em>, et de démontrer l'énoncé qui le complète : une suite croissante non majorée tend vers $+\infty$.</p></div></details>
+    <details><summary>Au bac, qu'est-ce qui tombe ?</summary>
+      <div><p>Presque toujours une suite $u_{n+1}=f(u_n)$ : des premiers termes, une récurrence (encadrement et monotonie), le théorème de la limite monotone, une suite auxiliaire géométrique qui donne la formule explicite et la limite, et un algorithme de seuil à compléter ou à interpréter. Parfois une limite à calculer par les opérations, les gendarmes ou la comparaison. L'exercice « La dose qui se stabilise » est le modèle à connaître ; « La méthode de Héron », la version plus difficile.</p></div></details>
+  </div>
+</section>
+</main>
+</body>
+</html>
