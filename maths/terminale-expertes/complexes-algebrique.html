@@ -1,0 +1,833 @@
+<!doctype html>
+<!-- Chapitre « Nombres complexes : forme algébrique et équations » (terminale, option
+     mathématiques expertes). Source : les {{figure:…}} sont remplacés par les dessins de
+     complexes-algebrique.figures.py ;
+     fabrication : python3 outils/figures.py maths/terminale-expertes/complexes-algebrique.source.html
+     Programme : option de mathématiques expertes, BO spécial n° 8 du 25 juillet 2019, parties
+     « point de vue algébrique », « point de vue géométrique » (sans les arguments) et « équations
+     polynomiales » (le second degré à coefficients réels) ; docs/programmes/maths-terminale-expertes.md.
+     Les pièges viennent de la liste proposée au professeur le 3 novembre 2026 : des reconstitutions,
+     à confirmer sur ses copies (docs/mise-au-point.md, L13). -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Nombres complexes : forme algébrique et équations · Maths expertes</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=5a22d367ef">
+<script type="module" src="../../assets/js/site.js?v=9c202fa6e8"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-JGP4NFMA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-52PT3HYD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OKJNVBBK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ROWJN4LH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YMMFTHWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-C2UYVGRR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MKISBJYU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-U52O2JOF.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7BIUVD3G.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KR4KUQO6.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QEMVZNDJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VQRI7VH3.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TPDLHW53.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BI2RIQIE.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TPS3R6JE.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KH3HABOL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MZZRHLYT.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-33IU3D7R.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QVAX5MXI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7TQW5JOI.js">
+<link rel="modulepreload" href="../../assets/js/labos/complexes-algebrique.js?v=c3aad4bffb">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MI35G4WU.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/complexes-algebrique.js?v=c580fa0ee2">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-O6HL6HQI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TLTAELPK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-4LDDP4GY.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="complexes-algebrique" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Terminale, maths expertes · Nombres complexes</span>
+  <h1>Nombres complexes : forme algébrique et équations</h1>
+  <p class="chapeau">En première, $x^2+1=0$ n'avait aucune solution : un carré n'est jamais négatif. Ce chapitre invente un nombre dont le carré vaut $-1$, et tout un monde de nombres avec lui. Tu apprends à calculer avec eux comme avec les réels, à les placer dans un plan, à leur associer un conjugué et un module, puis à résoudre dans ce nouveau monde les équations qui restaient sans réponse.</p>
+  <ul class="objectifs">
+    <li>Écrire un nombre complexe sous forme algébrique et calculer avec</li><li>Placer un nombre complexe dans le plan, lire une affixe</li><li>Utiliser le conjugué et le module, et savoir démontrer leurs propriétés</li><li>Écrire un quotient sous forme algébrique</li><li>Résoudre $az=b$, une équation avec $z$ et $\overline z$, une équation du second degré</li><li>Développer $(a+b)^n$ avec la formule du binôme</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Un électricien contrôle le moteur d'une pompe.</strong> Son voltmètre indique 230 V, son ampèremètre 2,0 A : il s'attend à $230\times2=460$ W. Le wattmètre, lui, affiche 370 W. Rien n'est cassé. Dans un moteur, le courant alternatif arrive <em>en retard</em> sur la tension, et une partie de ce que fournit le réseau ne sert pas à tourner. Pour calculer avec ce retard, les électriciens n'utilisent pas un nombre par grandeur, mais un <strong>nombre complexe</strong> : une amplitude et un décalage, tenus ensemble dans une seule écriture $Z=R+jX$. Avec elle, le circuit se calcule comme en classe de première, par des sommes et des produits. Ce chapitre construit ces nombres ; le suivant donnera leur angle. (Et oui, les électriciens écrivent $j$ : chez eux, la lettre $i$ est déjà prise par le courant.)</p>
+    <p class="discret">Ils s'en servent : les électriciens et les électroniciens (impédances, filtres), les ingénieurs du signal (son numérique, radar, IRM), les développeurs de moteurs de jeu (rotations, à partir du chapitre suivant), les physiciens (ondes, mécanique quantique), les mathématiciens qui dessinent des fractales. Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-i">1. Un nombre dont le carré vaut $-1$</h3>
+
+  <div class="bloc remarque" data-titre="Des nombres « impossibles », avant d'être utiles">
+    <p>En 1545, Cardan publie une formule qui résout les équations du troisième degré. Appliquée à $x^3=15x+4$, elle fait apparaître des racines carrées de nombres négatifs… alors que l'équation a une solution toute simple, $x=4$. Trente ans plus tard, Bombelli ose calculer avec ces racines « comme si » elles existaient, en posant qu'un certain nombre a pour carré $-1$ : les termes impossibles s'annulent entre eux, et la formule rend bien $4$. Il a fallu deux siècles de plus pour que ces nombres soient acceptés, et un plan pour les dessiner (Argand, Gauss, vers 1800). Tu vas refaire le calcul de Bombelli à la partie 9.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="L'ensemble $\mathbb{C}$ et la forme algébrique">
+    <p>On admet qu'il existe un ensemble de nombres, noté $\mathbb{C}$, qui contient $\mathbb{R}$ et un nombre noté $i$ tel que</p>
+    $$i^2=-1,$$
+    <p>et dans lequel on additionne et on multiplie avec les mêmes règles que dans $\mathbb{R}$. Tout nombre complexe $z$ s'écrit <strong>d'une seule façon</strong> sous la forme</p>
+    $$z=a+ib,\quad\text{avec } a \text{ et } b \text{ réels.}$$
+    <p>C'est sa <strong>forme algébrique</strong>. Le réel $a$ est la <strong>partie réelle</strong> de $z$, le réel $b$ sa <strong>partie imaginaire</strong>. On note souvent $a=\mathrm{Re}(z)$ et $b=\mathrm{Im}(z)$.</p>
+    <ul>
+      <li>$z=3-2i$ : partie réelle $3$, partie imaginaire $-2$ (pas $-2i$ : <strong>la partie imaginaire est un réel</strong>).</li>
+      <li>$z=5i$ : partie réelle $0$. Un complexe de partie réelle nulle est un <strong>imaginaire pur</strong>.</li>
+      <li>$z=-7$ : partie imaginaire $0$. Les réels sont les complexes de partie imaginaire nulle : $\mathbb{R}\subset\mathbb{C}$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="Deux complexes sont égaux…">
+    <p>… quand ils ont la même partie réelle <strong>et</strong> la même partie imaginaire : pour $a$, $b$, $a'$, $b'$ réels,</p>
+    $$a+ib=a'+ib'\iff a=a'\ \text{ et }\ b=b'.$$
+    <p>En particulier, $a+ib=0\iff a=0$ et $b=0$. Une égalité entre complexes, c'est donc <strong>deux</strong> égalités entre réels : c'est ce qui permet de résoudre des équations (partie 7).</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Pas de « plus grand » dans $\mathbb{C}$">
+    <p>Écrire $2+i&gt;1+i$ ou $z&gt;0$ n'a aucun sens : <strong>il n'y a pas d'ordre sur $\mathbb{C}$</strong>. On compare des parties réelles, des parties imaginaires, des modules (partie 5), mais jamais deux complexes. Pour la même raison, $i$ n'est « ni positif ni négatif », et $-i$ non plus.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-calculer">2. Calculer dans $\mathbb{C}$</h3>
+
+  <div class="bloc propriete" data-titre="La seule règle nouvelle : $i^2=-1$">
+    <p>On développe, on réduit, on factorise comme avec des réels ; à chaque fois qu'un $i^2$ apparaît, on le remplace par $-1$, puis on regroupe la partie réelle et la partie imaginaire. Pour $z=a+ib$ et $z'=a'+ib'$ :</p>
+    <ul>
+      <li>$z+z'=(a+a')+i(b+b')$ ;</li>
+      <li>$z\times z'=(aa'-bb')+i(ab'+a'b)$, résultat du développement : pas une formule à apprendre, un calcul à refaire ;</li>
+      <li>les identités remarquables tiennent toujours : $(a+ib)^2=a^2-b^2+2iab$ et surtout $(a+ib)(a-ib)=a^2+b^2$, un <strong>réel positif</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="bloc exemple" data-titre="Trois produits">
+    <ul>
+      <li>$(2+3i)(4-i)=8-2i+12i-3i^2=8+10i+3=11+10i$.</li>
+      <li>$(3+2i)^2=9+12i+4i^2=9+12i-4=5+12i$. Pas $9+4i^2$ : le double produit ne disparaît pas.</li>
+      <li>$(3+2i)(3-2i)=9-4i^2=9+4=13$. Un produit de deux complexes peut être réel.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les puissances de $i$">
+    <p>$i^0=1$, $i^1=i$, $i^2=-1$, $i^3=i^2\times i=-i$, $i^4=(i^2)^2=1$, et ensuite tout recommence : $i^5=i$, $i^6=-1$… Pour $n$ entier naturel, $i^n$ ne dépend que du <strong>reste de la division de $n$ par $4$</strong> : $i^n=i^r$ avec $n=4q+r$ et $0\le r\le3$.</p>
+    <p>Par exemple, $2026=4\times506+2$, donc $i^{2026}=i^2=-1$ ; et $i^{2027}=i^3=-i$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer une puissance d'un complexe">
+    <ol class="etapes">
+      <li><span>Je développe pas à pas : le carré d'abord, puis je multiplie par le nombre de départ autant de fois qu'il faut (ou j'utilise la formule du binôme, partie 9).</span></li>
+      <li><span>Je remplace chaque $i^2$ par $-1$ dès qu'il apparaît, pour ne jamais traîner de $i^3$ ou de $i^4$ sans le savoir.</span></li>
+      <li><span>Je regroupe : les termes sans $i$ d'un côté, les termes en $i$ de l'autre, et j'écris le résultat $a+ib$.</span></li>
+      <li><span>Je contrôle une étape par un autre chemin : $(1+i)^2=2i$ se voit de tête, et sert de point de passage.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Écrire $(1+2i)^3$ sous forme algébrique.</p>
+      <ol class="pas">
+        <li><strong>Le carré.</strong> $(1+2i)^2=1+4i+4i^2=1+4i-4=-3+4i$.</li>
+        <li><strong>Le cube.</strong> $(1+2i)^3=(1+2i)^2\times(1+2i)=(-3+4i)(1+2i)=-3-6i+4i+8i^2$.</li>
+        <li><strong>Le $i^2$, puis le regroupement.</strong> $8i^2=-8$, donc $(1+2i)^3=-3-8+(-6+4)i=-11-2i$.</li>
+        <li><strong>Contrôle.</strong> Par le binôme (partie 9) : $1+3(2i)+3(2i)^2+(2i)^3=1+6i-12-8i=-11-2i$. Même résultat.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="$i^2=1$, l'erreur qui fait tout basculer">
+    <p>Tout le monde l'a faite au moins une fois : un $i^2$ remplacé par $+1$, et le résultat change de partie réelle. $(3+2i)(3-2i)=9-4i^2$ vaut $13$, pas $5$. Un réflexe : écris $i^2$ en toutes lettres avant de le remplacer, ne saute pas l'étape de tête.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-plan">3. Le plan complexe</h3>
+
+  <div class="bloc definition" data-titre="Image et affixe">
+    <p>Le plan est muni d'un repère orthonormé direct $(O\,;\vec u,\vec v)$. À tout complexe $z=a+ib$ on associe le point $M(a\,;b)$ : c'est l'<strong>image</strong> de $z$, et $z$ est l'<strong>affixe</strong> du point $M$. On écrit $M(z)$. De même, le vecteur $\vec w$ de coordonnées $(a\,;b)$ a pour affixe $z=a+ib$.</p>
+    <p>L'axe des abscisses porte les images des réels : c'est l'<strong>axe des réels</strong>. L'axe des ordonnées porte les images des imaginaires purs : c'est l'<strong>axe des imaginaires purs</strong>. Le point $O$ a pour affixe $0$, le point $(1\,;0)$ a pour affixe $1$, le point $(0\,;1)$ a pour affixe $i$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 340 276" role="img" aria-label="Le plan complexe : l'axe des réels horizontal, l'axe des imaginaires purs vertical. Le point M d'affixe 3 + 2i, son symétrique M' par rapport à l'axe des réels, d'affixe 3 − 2i, et son symétrique M'' par rapport à O, d'affixe −3 − 2i. Les pointillés relient M à ses projections sur les axes."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="266"/><line x1="42" y1="10" x2="42" y2="266"/><line x1="74" y1="10" x2="74" y2="266"/><line x1="106" y1="10" x2="106" y2="266"/><line x1="138" y1="10" x2="138" y2="266"/><line x1="170" y1="10" x2="170" y2="266"/><line x1="202" y1="10" x2="202" y2="266"/><line x1="234" y1="10" x2="234" y2="266"/><line x1="266" y1="10" x2="266" y2="266"/><line x1="298" y1="10" x2="298" y2="266"/><line x1="330" y1="10" x2="330" y2="266"/><line x1="10" y1="266" x2="330" y2="266"/><line x1="10" y1="234" x2="330" y2="234"/><line x1="10" y1="202" x2="330" y2="202"/><line x1="10" y1="170" x2="330" y2="170"/><line x1="10" y1="138" x2="330" y2="138"/><line x1="10" y1="106" x2="330" y2="106"/><line x1="10" y1="74" x2="330" y2="74"/><line x1="10" y1="42" x2="330" y2="42"/><line x1="10" y1="10" x2="330" y2="10"/></g><g class="trace t-n"><line x1="16.4" y1="138" x2="315.8" y2="138.0"/><polygon points="323.6,138.0 310.6,143.8 310.6,132.2"/></g><g class="trace t-n"><line x1="170" y1="259.6" x2="170.0" y2="24.2"/><polygon points="170.0,16.4 175.8,29.4 164.2,29.4"/></g><text class="petit" x="240.4" y="174.8">axe des réels</text><text class="petit" x="176.4" y="26.0">axe des imaginaires purs</text><g class="trace t-n"><line x1="42" y1="141.8" x2="42" y2="134.2"/></g><text class="petit" x="35.0" y="154.0">−4</text><g class="trace t-n"><line x1="74" y1="141.8" x2="74" y2="134.2"/></g><text class="petit" x="67.0" y="154.0">−3</text><g class="trace t-n"><line x1="106" y1="141.8" x2="106" y2="134.2"/></g><text class="petit" x="99.0" y="154.0">−2</text><g class="trace t-n"><line x1="138" y1="141.8" x2="138" y2="134.2"/></g><text class="petit" x="131.0" y="154.0">−1</text><g class="trace t-n"><line x1="202" y1="141.8" x2="202" y2="134.2"/></g><text class="petit" x="198.8" y="154.0">1</text><g class="trace t-n"><line x1="234" y1="141.8" x2="234" y2="134.2"/></g><text class="petit" x="230.8" y="154.0">2</text><g class="trace t-n"><line x1="266" y1="141.8" x2="266" y2="134.2"/></g><text class="petit" x="262.8" y="154.0">3</text><g class="trace t-n"><line x1="298" y1="141.8" x2="298" y2="134.2"/></g><text class="petit" x="294.8" y="154.0">4</text><g class="trace t-n"><line x1="166.2" y1="234" x2="173.8" y2="234"/></g><text class="petit" x="141.2" y="238.5">−3i</text><g class="trace t-n"><line x1="166.2" y1="202" x2="173.8" y2="202"/></g><text class="petit" x="141.2" y="206.5">−2i</text><g class="trace t-n"><line x1="166.2" y1="170" x2="173.8" y2="170"/></g><text class="petit" x="147.6" y="174.5">−i</text><g class="trace t-n"><line x1="166.2" y1="106" x2="173.8" y2="106"/></g><text class="petit" x="154.0" y="110.5">i</text><g class="trace t-n"><line x1="166.2" y1="74" x2="173.8" y2="74"/></g><text class="petit" x="147.6" y="78.5">2i</text><g class="trace t-n"><line x1="166.2" y1="42" x2="173.8" y2="42"/></g><text class="petit" x="147.6" y="46.5">3i</text><g class="trace t-n pointille"><line x1="266" y1="138" x2="266" y2="74"/></g><g class="trace t-n pointille"><line x1="170" y1="74" x2="266" y2="74"/></g><g class="trace t-u"><line x1="170" y1="138" x2="259.5" y2="78.3"/><polygon points="266.0,74.0 258.4,86.1 251.9,76.3"/></g><circle class="pt pt-u" cx="266" cy="74" r="4.5"/><text class="lettre" x="272.4" y="64.4">M(3 + 2i)</text><g class="trace t-v pointille"><line x1="266" y1="74" x2="266" y2="202"/></g><circle class="pt pt-v" cx="266" cy="202" r="4.5"/><text class="lettre" x="272.4" y="218.0">M'(3 − 2i)</text><g class="trace t-w pointille"><line x1="266" y1="74" x2="74" y2="202"/></g><circle class="pt pt-w" cx="74" cy="202" r="4.5"/><text class="lettre" x="32.4" y="221.2">M''(−3 − 2i)</text><text class="petit" x="208.4" y="64.4">a = 3</text><text class="petit" x="270.8" y="112.4">b = 2</text></svg><figcaption>Le plan complexe. $M$ est l'image de $z=3+2i$ ; son symétrique par rapport à l'axe des réels a pour affixe $3-2i$ (le conjugué, partie 4) ; son symétrique par rapport à $O$ a pour affixe $-3-2i$ (l'opposé).</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Affixes et vecteurs">
+    <p>Pour deux points $A(z_A)$ et $B(z_B)$ et un réel $k$ :</p>
+    <ul>
+      <li>le vecteur $\overrightarrow{AB}$ a pour affixe $z_B-z_A$ ;</li>
+      <li>$\vec w+\vec w'$ a pour affixe $z_{\vec w}+z_{\vec w'}$, et $k\vec w$ a pour affixe $kz_{\vec w}$ ;</li>
+      <li>le milieu $I$ de $[AB]$ a pour affixe $z_I=\dfrac{z_A+z_B}{2}$ ;</li>
+      <li>$M(z)$ et $M'(-z)$ sont symétriques par rapport à $O$.</li>
+    </ul>
+    <p>Tout cela se lit sur les coordonnées : l'affixe $a+ib$, c'est le couple $(a\,;b)$ rangé dans un seul nombre.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 292 258" role="img" aria-label="Dans le plan complexe, les points A d'affixe 1 + i et B d'affixe 4 + 3i, le vecteur AB d'affixe 3 + 2i, et le milieu I de [AB], d'affixe 5/2 + 2i."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="248"/><line x1="44" y1="10" x2="44" y2="248"/><line x1="78" y1="10" x2="78" y2="248"/><line x1="112" y1="10" x2="112" y2="248"/><line x1="146" y1="10" x2="146" y2="248"/><line x1="180" y1="10" x2="180" y2="248"/><line x1="214" y1="10" x2="214" y2="248"/><line x1="248" y1="10" x2="248" y2="248"/><line x1="282" y1="10" x2="282" y2="248"/><line x1="10" y1="248" x2="282" y2="248"/><line x1="10" y1="214" x2="282" y2="214"/><line x1="10" y1="180" x2="282" y2="180"/><line x1="10" y1="146" x2="282" y2="146"/><line x1="10" y1="112" x2="282" y2="112"/><line x1="10" y1="78" x2="282" y2="78"/><line x1="10" y1="44" x2="282" y2="44"/><line x1="10" y1="10" x2="282" y2="10"/></g><g class="trace t-n"><line x1="16.8" y1="180" x2="267.4" y2="180.0"/><polygon points="275.2,180.0 262.2,185.8 262.2,174.2"/></g><g class="trace t-n"><line x1="78" y1="241.2" x2="78.0" y2="24.6"/><polygon points="78.0,16.8 83.8,29.8 72.2,29.8"/></g><g class="trace t-n"><line x1="44" y1="184.1" x2="44" y2="175.9"/></g><text class="petit" x="36.5" y="197.0">−1</text><g class="trace t-n"><line x1="112" y1="184.1" x2="112" y2="175.9"/></g><text class="petit" x="108.6" y="197.0">1</text><g class="trace t-n"><line x1="146" y1="184.1" x2="146" y2="175.9"/></g><text class="petit" x="142.6" y="197.0">2</text><g class="trace t-n"><line x1="180" y1="184.1" x2="180" y2="175.9"/></g><text class="petit" x="176.6" y="197.0">3</text><g class="trace t-n"><line x1="214" y1="184.1" x2="214" y2="175.9"/></g><text class="petit" x="210.6" y="197.0">4</text><g class="trace t-n"><line x1="248" y1="184.1" x2="248" y2="175.9"/></g><text class="petit" x="244.6" y="197.0">5</text><g class="trace t-n"><line x1="73.9" y1="214" x2="82.1" y2="214"/></g><text class="petit" x="54.2" y="218.8">−i</text><g class="trace t-n"><line x1="73.9" y1="146" x2="82.1" y2="146"/></g><text class="petit" x="61.0" y="150.8">i</text><g class="trace t-n"><line x1="73.9" y1="112" x2="82.1" y2="112"/></g><text class="petit" x="54.2" y="116.8">2i</text><g class="trace t-n"><line x1="73.9" y1="78" x2="82.1" y2="78"/></g><text class="petit" x="54.2" y="82.8">3i</text><g class="trace t-n"><line x1="73.9" y1="44" x2="82.1" y2="44"/></g><text class="petit" x="54.2" y="48.8">4i</text><g class="trace t-u"><line x1="112" y1="146" x2="207.5" y2="82.3"/><polygon points="214.0,78.0 206.4,90.1 199.9,80.3"/><text x="181.0" y="135.9" class="nom-vec">AB</text></g><circle class="pt pt-u" cx="112" cy="146" r="4.5"/><text class="lettre" x="82.0" y="136.0">A(1 + i)</text><circle class="pt pt-u" cx="214" cy="78" r="4.5"/><text class="lettre" x="222.0" y="72.0">B(4 + 3i)</text><circle class="pt pt-v" cx="163.0" cy="112" r="4.5"/><text class="lettre" x="168.1" y="129.0">I</text><g class="trace t-n pointille"><line x1="112" y1="146" x2="214" y2="146"/></g><g class="trace t-n pointille"><line x1="214" y1="146" x2="214" y2="78"/></g><text class="petit" x="152.8" y="159.6">+3</text><text class="petit" x="219.1" y="139.2">+2i</text></svg><figcaption>$A(1+i)$ et $B(4+3i)$ : le vecteur $\overrightarrow{AB}$ a pour affixe $(4+3i)-(1+i)=3+2i$, et le milieu $I$ de $[AB]$ a pour affixe $\dfrac{5}{2}+2i$.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Un parallélogramme">
+    <p>$A(1+i)$, $B(4+3i)$, $C(2+5i)$. Pour que $ABCD$ soit un parallélogramme, il faut $\overrightarrow{AD}=\overrightarrow{BC}$, donc $z_D-z_A=z_C-z_B$ : $z_D=z_A+z_C-z_B=1+i+2+5i-4-3i=-1+3i$. Le point $D(-1+3i)$ convient. Contrôle : les diagonales ont le même milieu, $\dfrac{z_A+z_C}{2}=\dfrac{3+6i}{2}=\dfrac{z_B+z_D}{2}$.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-conjugue">4. Le conjugué</h3>
+
+  <div class="bloc definition" data-titre="Conjugué">
+    <p>Le <strong>conjugué</strong> du complexe $z=a+ib$ ($a$, $b$ réels) est le complexe</p>
+    $$\overline{z}=a-ib.$$
+    <p>Même partie réelle, partie imaginaire opposée : $\overline{3+2i}=3-2i$, $\overline{-5i}=5i$, $\overline{4}=4$. Dans le plan, $M(\overline z)$ est le symétrique de $M(z)$ par rapport à l'<strong>axe des réels</strong> (figure de la partie 3).</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Ce que le conjugué révèle">
+    <p>Pour tout complexe $z=a+ib$ :</p>
+    <ul>
+      <li>$\overline{\overline z}=z$ ;</li>
+      <li>$z+\overline z=2a=2\,\mathrm{Re}(z)$ et $z-\overline z=2ib=2i\,\mathrm{Im}(z)$ ;</li>
+      <li>$z\overline z=a^2+b^2$ : un réel positif, nul seulement si $z=0$ ;</li>
+      <li>$z$ est réel $\iff\overline z=z$ ; $z$ est imaginaire pur $\iff\overline z=-z$.</li>
+    </ul>
+    <p>Les deux dernières lignes sont les plus utiles : « $\overline z=z$ » est une façon de dire « $z$ est réel » sans parler de $a$ et de $b$.</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Conjugué et opérations">
+    <p>Pour tous complexes $z$ et $z'$ et tout entier naturel $n$ :</p>
+    $$\overline{z+z'}=\overline z+\overline{z'},\qquad\overline{zz'}=\overline z\times\overline{z'},\qquad\overline{\left(\dfrac1z\right)}=\dfrac{1}{\overline z}\ (z\ne0),\qquad\overline{z^n}=\overline z^{\,n}.$$
+    <p>Et donc aussi $\overline{\left(\dfrac{z}{z'}\right)}=\dfrac{\overline z}{\overline{z'}}$ pour $z'\ne0$. En un mot : <strong>on peut conjuguer avant ou après avoir calculé</strong>, le résultat est le même.</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Démonstration, au programme">
+    <div class="deroule">
+      <p class="consigne"><strong>Les trois démonstrations exigibles de cette partie</strong> : le conjugué d'un produit, d'un inverse, d'une puissance. Cherche-les avant de dévoiler. La somme, plus simple, est laissée en exercice.</p>
+      <ol class="pas">
+        <li><strong>Le produit, à gauche.</strong> $z=a+ib$, $z'=a'+ib'$. On a vu que $zz'=(aa'-bb')+i(ab'+a'b)$, donc $\overline{zz'}=(aa'-bb')-i(ab'+a'b)$.</li>
+        <li><strong>Le produit, à droite.</strong> $\overline z\times\overline{z'}=(a-ib)(a'-ib')=aa'-iab'-ia'b+i^2bb'=(aa'-bb')-i(ab'+a'b)$. Les deux expressions sont égales : $\overline{zz'}=\overline z\,\overline{z'}$.</li>
+        <li><strong>L'inverse.</strong> Pour $z\ne0$, $z\times\dfrac1z=1$. On conjugue les deux membres avec le résultat précédent : $\overline z\times\overline{\left(\dfrac1z\right)}=\overline1=1$. Comme $\overline z\ne0$, on divise : $\overline{\left(\dfrac1z\right)}=\dfrac1{\overline z}$.</li>
+        <li><strong>La puissance, par récurrence.</strong> Pour $n=0$ : $\overline{z^0}=\overline1=1=\overline z^{\,0}$. Si $\overline{z^n}=\overline z^{\,n}$ pour un entier $n$, alors $\overline{z^{n+1}}=\overline{z^n\times z}=\overline{z^n}\times\overline z=\overline z^{\,n}\times\overline z=\overline z^{\,n+1}$. La propriété est vraie pour tout entier naturel $n$. Pour un exposant négatif, on combine avec l'inverse : $\overline{z^{-n}}=\overline{\left(\dfrac1z\right)^{n}}=\left(\dfrac1{\overline z}\right)^{n}=\overline z^{\,-n}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Sans développer">
+    <p>Le conjugué de $(2+i)^5(1-3i)$ est $(2-i)^5(1+3i)$ : on conjugue chaque facteur. Et pour montrer que $w=(2+i)^3+(2-i)^3$ est réel, inutile de développer : $\overline w=\overline{(2+i)^3}+\overline{(2-i)^3}=(2-i)^3+(2+i)^3=w$, donc $w$ est réel. (Si tu développes quand même, la partie 9 te donnera $(2+i)^3=2+11i$, donc $w=2+11i+2-11i=4$.)</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Conjugué ou opposé ?">
+    <p>Le conjugué de $3-2i$ est $3+2i$ ; son opposé est $-3+2i$. Le conjugué ne change que le signe de la partie <strong>imaginaire</strong>, l'opposé change les deux. Dans le plan : une symétrie par rapport à l'axe des réels pour l'un, par rapport au point $O$ pour l'autre.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-module">5. Le module</h3>
+
+  <div class="bloc definition" data-titre="Module">
+    <p>Le <strong>module</strong> du complexe $z=a+ib$ ($a$, $b$ réels) est le réel positif</p>
+    $$|z|=\sqrt{a^2+b^2}.$$
+    <p>Dans le plan, c'est la <strong>distance</strong> $OM$ entre l'origine et l'image $M$ de $z$ (Pythagore dans le triangle rectangle de côtés $|a|$ et $|b|$). Pour un réel, le module est la valeur absolue : $|-7|=7$. Et $|z|=0\iff z=0$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 308 308" role="img" aria-label="Le point M d'affixe 3 + 4i, à distance 5 de l'origine : le triangle rectangle de côtés 3 et 4 a pour hypoténuse OM. Les points d'affixes 3 − 4i et −3 − 4i sont à la même distance 5 de O, sur un cercle de rayon 5 tracé en pointillés."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="298"/><line x1="34" y1="10" x2="34" y2="298"/><line x1="58" y1="10" x2="58" y2="298"/><line x1="82" y1="10" x2="82" y2="298"/><line x1="106" y1="10" x2="106" y2="298"/><line x1="130" y1="10" x2="130" y2="298"/><line x1="154" y1="10" x2="154" y2="298"/><line x1="178" y1="10" x2="178" y2="298"/><line x1="202" y1="10" x2="202" y2="298"/><line x1="226" y1="10" x2="226" y2="298"/><line x1="250" y1="10" x2="250" y2="298"/><line x1="274" y1="10" x2="274" y2="298"/><line x1="298" y1="10" x2="298" y2="298"/><line x1="10" y1="298" x2="298" y2="298"/><line x1="10" y1="274" x2="298" y2="274"/><line x1="10" y1="250" x2="298" y2="250"/><line x1="10" y1="226" x2="298" y2="226"/><line x1="10" y1="202" x2="298" y2="202"/><line x1="10" y1="178" x2="298" y2="178"/><line x1="10" y1="154" x2="298" y2="154"/><line x1="10" y1="130" x2="298" y2="130"/><line x1="10" y1="106" x2="298" y2="106"/><line x1="10" y1="82" x2="298" y2="82"/><line x1="10" y1="58" x2="298" y2="58"/><line x1="10" y1="34" x2="298" y2="34"/><line x1="10" y1="10" x2="298" y2="10"/></g><g class="trace t-n"><line x1="14.8" y1="154" x2="285.4" y2="154.0"/><polygon points="293.2,154.0 280.2,159.8 280.2,148.2"/></g><g class="trace t-n"><line x1="154" y1="293.2" x2="154.0" y2="22.6"/><polygon points="154.0,14.8 159.8,27.8 148.2,27.8"/></g><text class="petit" x="230.8" y="181.6">axe des réels</text><text class="petit" x="158.8" y="22.0">axe des imaginaires purs</text><g class="trace t-n"><line x1="34" y1="156.9" x2="34" y2="151.1"/></g><text class="petit" x="28.7" y="166.0">−5</text><g class="trace t-n"><line x1="82" y1="156.9" x2="82" y2="151.1"/></g><text class="petit" x="76.7" y="166.0">−3</text><g class="trace t-n"><line x1="226" y1="156.9" x2="226" y2="151.1"/></g><text class="petit" x="223.6" y="166.0">3</text><g class="trace t-n"><line x1="274" y1="156.9" x2="274" y2="151.1"/></g><text class="petit" x="271.6" y="166.0">5</text><g class="trace t-n"><line x1="151.1" y1="274" x2="156.9" y2="274"/></g><text class="petit" x="132.4" y="277.4">−5i</text><g class="trace t-n"><line x1="151.1" y1="250" x2="156.9" y2="250"/></g><text class="petit" x="132.4" y="253.4">−4i</text><g class="trace t-n"><line x1="151.1" y1="58" x2="156.9" y2="58"/></g><text class="petit" x="137.2" y="61.4">4i</text><g class="trace t-n"><line x1="151.1" y1="34" x2="156.9" y2="34"/></g><text class="petit" x="137.2" y="37.4">5i</text><g class="trace t-n"><path d="M274.0,154.0 A120.0,120.0 0 1 0 274.0,156.1"/></g><g class="trace t-w"><line x1="154" y1="154" x2="226" y2="154"/></g><g class="trace t-w"><line x1="226" y1="154" x2="226" y2="58"/></g><g class="trace t-u"><line x1="154" y1="154" x2="221.3" y2="64.2"/><polygon points="226.0,58.0 222.9,71.9 213.5,64.9"/></g><circle class="pt pt-u" cx="226" cy="58" r="4.5"/><text class="lettre" x="234.0" y="54.0">M(3 + 4i)</text><text class="moyen" x="180.4" y="169.6">3</text><text class="moyen" x="230.8" y="108.4">4</text><text class="lettre" x="167.2" y="91.6">|z| = 5</text><circle class="pt pt-v" cx="226" cy="250" r="4.5"/><text class="lettre" x="234.0" y="260.0">3 − 4i</text><circle class="pt pt-w" cx="82" cy="250" r="4.5"/><text class="lettre" x="12.0" y="260.0">−3 − 4i</text><g class="trace t-v pointille"><line x1="154" y1="154" x2="226" y2="250"/></g><g class="trace t-w pointille"><line x1="154" y1="154" x2="82" y2="250"/></g></svg><figcaption>$z=3+4i$ : $OM^2=3^2+4^2=25$, donc $|z|=5$. Le conjugué et l'opposé ont le même module : les trois points sont à la même distance de $O$.</figcaption></figure>
+
+  <div class="bloc theoreme" data-titre="Module et opérations">
+    <p>Pour tous complexes $z$, $z'$ et tout entier naturel $n$ :</p>
+    $$|z|^2=z\overline z,\qquad|\overline z|=|-z|=|z|,\qquad|zz'|=|z|\,|z'|,\qquad\left|\dfrac1z\right|=\dfrac1{|z|}\ (z\ne0),\qquad|z^n|=|z|^n.$$
+    <p>Et donc $\left|\dfrac z{z'}\right|=\dfrac{|z|}{|z'|}$. <strong>Attention</strong> : rien de tel pour la somme, $|z+z'|$ n'est pas $|z|+|z'|$ en général (voir la remarque plus bas).</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Démonstration, au programme">
+    <div class="deroule">
+      <p class="consigne"><strong>Trois démonstrations exigibles</strong> : $|z|^2=z\overline z$, le module d'un produit, le module d'une puissance. La clé est de passer par les carrés : les modules sont positifs, donc deux modules de même carré sont égaux.</p>
+      <ol class="pas">
+        <li><strong>$|z|^2=z\overline z$.</strong> Avec $z=a+ib$ : $z\overline z=(a+ib)(a-ib)=a^2-i^2b^2=a^2+b^2=|z|^2$.</li>
+        <li><strong>Le produit.</strong> $|zz'|^2=zz'\,\overline{zz'}=zz'\,\overline z\,\overline{z'}=(z\overline z)(z'\overline{z'})=|z|^2|z'|^2=(|z||z'|)^2$. Les deux nombres $|zz'|$ et $|z||z'|$ sont positifs et ont le même carré : ils sont égaux.</li>
+        <li><strong>La puissance, par récurrence.</strong> $|z^0|=|1|=1=|z|^0$. Si $|z^n|=|z|^n$, alors $|z^{n+1}|=|z^n\times z|=|z^n|\,|z|=|z|^n|z|=|z|^{n+1}$ par le point précédent. Vrai pour tout entier naturel $n$.</li>
+        <li><strong>En bonus, l'inverse.</strong> $z\times\dfrac1z=1$, donc $|z|\left|\dfrac1z\right|=|1|=1$, et $\left|\dfrac1z\right|=\dfrac1{|z|}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Des modules de tête">
+    <ul>
+      <li>$|3+4i|=\sqrt{9+16}=5$ ; $|1+i|=\sqrt2$ ; $|i|=1$ ; $|-2|=2$ ; $|-1+2i|=\sqrt5$.</li>
+      <li>$|(3+4i)(1+i)|=5\sqrt2$, sans calculer le produit.</li>
+      <li>$|(1+i)^{10}|=(\sqrt2)^{10}=2^5=32$.</li>
+      <li>$\left|\dfrac{3+4i}{1-i}\right|=\dfrac{5}{\sqrt2}$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc exemple" data-titre="Lire une distance : cercles et médiatrices">
+    <p>La distance entre $A(z_A)$ et $B(z_B)$ est $AB=|z_B-z_A|$, le module de l'affixe de $\overrightarrow{AB}$. D'où deux lectures à connaître :</p>
+    <ul>
+      <li>$|z-(2+i)|=3$ caractérise les points $M(z)$ tels que $AM=3$ avec $A(2+i)$ : le <strong>cercle</strong> de centre $A$ et de rayon $3$ ;</li>
+      <li>$|z-1|=|z+i|$, c'est-à-dire $|z-1|=|z-(-i)|$, caractérise les points équidistants de $A(1)$ et de $B(-i)$ : la <strong>médiatrice</strong> de $[AB]$.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg"><svg viewBox="0 0 320 290" role="img" aria-label="Le cercle de centre A d'affixe 2 + i et de rayon 3 dans le plan complexe. Un point M du cercle est marqué, relié à A par un segment de longueur 3."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="280"/><line x1="40" y1="10" x2="40" y2="280"/><line x1="70" y1="10" x2="70" y2="280"/><line x1="100" y1="10" x2="100" y2="280"/><line x1="130" y1="10" x2="130" y2="280"/><line x1="160" y1="10" x2="160" y2="280"/><line x1="190" y1="10" x2="190" y2="280"/><line x1="220" y1="10" x2="220" y2="280"/><line x1="250" y1="10" x2="250" y2="280"/><line x1="280" y1="10" x2="280" y2="280"/><line x1="310" y1="10" x2="310" y2="280"/><line x1="10" y1="280" x2="310" y2="280"/><line x1="10" y1="250" x2="310" y2="250"/><line x1="10" y1="220" x2="310" y2="220"/><line x1="10" y1="190" x2="310" y2="190"/><line x1="10" y1="160" x2="310" y2="160"/><line x1="10" y1="130" x2="310" y2="130"/><line x1="10" y1="100" x2="310" y2="100"/><line x1="10" y1="70" x2="310" y2="70"/><line x1="10" y1="40" x2="310" y2="40"/><line x1="10" y1="10" x2="310" y2="10"/></g><g class="trace t-n"><line x1="16.0" y1="160" x2="296.2" y2="160.0"/><polygon points="304.0,160.0 291.0,165.8 291.0,154.2"/></g><g class="trace t-n"><line x1="100" y1="274.0" x2="100.0" y2="23.8"/><polygon points="100.0,16.0 105.8,29.0 94.2,29.0"/></g><text class="petit" x="226.0" y="194.5">axe des réels</text><text class="petit" x="106.0" y="25.0">axe des imaginaires purs</text><g class="trace t-n"><line x1="40" y1="163.6" x2="40" y2="156.4"/></g><text class="petit" x="33.4" y="175.0">−2</text><g class="trace t-n"><line x1="70" y1="163.6" x2="70" y2="156.4"/></g><text class="petit" x="63.4" y="175.0">−1</text><g class="trace t-n"><line x1="130" y1="163.6" x2="130" y2="156.4"/></g><text class="petit" x="127.0" y="175.0">1</text><g class="trace t-n"><line x1="160" y1="163.6" x2="160" y2="156.4"/></g><text class="petit" x="157.0" y="175.0">2</text><g class="trace t-n"><line x1="190" y1="163.6" x2="190" y2="156.4"/></g><text class="petit" x="187.0" y="175.0">3</text><g class="trace t-n"><line x1="220" y1="163.6" x2="220" y2="156.4"/></g><text class="petit" x="217.0" y="175.0">4</text><g class="trace t-n"><line x1="250" y1="163.6" x2="250" y2="156.4"/></g><text class="petit" x="247.0" y="175.0">5</text><g class="trace t-n"><line x1="280" y1="163.6" x2="280" y2="156.4"/></g><text class="petit" x="277.0" y="175.0">6</text><g class="trace t-n"><line x1="96.4" y1="250" x2="103.6" y2="250"/></g><text class="petit" x="73.0" y="254.2">−3i</text><g class="trace t-n"><line x1="96.4" y1="220" x2="103.6" y2="220"/></g><text class="petit" x="73.0" y="224.2">−2i</text><g class="trace t-n"><line x1="96.4" y1="190" x2="103.6" y2="190"/></g><text class="petit" x="79.0" y="194.2">−i</text><g class="trace t-n"><line x1="96.4" y1="130" x2="103.6" y2="130"/></g><text class="petit" x="85.0" y="134.2">i</text><g class="trace t-n"><line x1="96.4" y1="100" x2="103.6" y2="100"/></g><text class="petit" x="79.0" y="104.2">2i</text><g class="trace t-n"><line x1="96.4" y1="70" x2="103.6" y2="70"/></g><text class="petit" x="79.0" y="74.2">3i</text><g class="trace t-n"><line x1="96.4" y1="40" x2="103.6" y2="40"/></g><text class="petit" x="79.0" y="44.2">4i</text><g class="trace t-u"><path d="M250.0,130.0 A90.0,90.0 0 1 0 250.0,131.6"/></g><circle class="pt pt-u" cx="160" cy="130" r="4.5"/><text class="lettre" x="170.0" y="148.0">A(2 + i)</text><g class="trace t-v"><line x1="160" y1="130" x2="96.4" y2="66.4"/></g><circle class="pt pt-v" cx="96.4" cy="66.4" r="4.5"/><text class="lettre" x="54.4" y="60.4">M(z)</text><text class="petit" x="172.0" y="242.5">|z − (2 + i)| = AM = 3</text></svg><figcaption>L'ensemble des points $M(z)$ tels que $|z-(2+i)|=3$ : le cercle de centre $A(2+i)$ et de rayon $3$. Chaque point du cercle vérifie $AM=3$.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="L'inégalité triangulaire">
+    <p>Pour tous complexes, $|z+z'|\le|z|+|z'|$ : dans le plan, aller de $O$ à l'image de $z+z'$ en passant par celle de $z$ est un détour, sauf si les trois points sont alignés dans le bon ordre. C'est un « problème possible » du programme ; retiens surtout qu'on n'a <strong>pas</strong> le droit d'écrire $|z+z'|=|z|+|z'|$ : $|1+i|=\sqrt2$, alors que $|1|+|i|=2$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="$|z|=a+b$, et $|z|^2=z^2$">
+    <p>$|3-4i|$ vaut $5$, pas $3-4=-1$ : un module est une <strong>racine carrée de somme de carrés</strong>, jamais négatif. Et $|z|^2=z\overline z$, pas $z^2$ : pour $z=i$, $|z|^2=1$ mais $z^2=-1$. Confondre les deux, c'est perdre le $\overline z$ qui rend le résultat réel.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-quotient">6. Inverse et quotient</h3>
+
+  <div class="bloc propriete" data-titre="L'inverse d'un complexe non nul">
+    <p>Pour $z=a+ib\ne0$ : comme $z\overline z=|z|^2$ est un réel non nul,</p>
+    $$\dfrac1z=\dfrac{\overline z}{|z|^2}=\dfrac{a-ib}{a^2+b^2}.$$
+    <p>Par exemple $\dfrac1i=\dfrac{-i}{1}=-i$ (vérifie : $i\times(-i)=-i^2=1$), et $\dfrac1{3+4i}=\dfrac{3-4i}{25}=\dfrac3{25}-\dfrac4{25}i$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Écrire un quotient sous forme algébrique">
+    <ol class="etapes">
+      <li><span>Je repère le dénominateur et j'écris son <strong>conjugué</strong> (je change seulement le signe de la partie imaginaire).</span></li>
+      <li><span>Je multiplie le numérateur <strong>et</strong> le dénominateur par ce conjugué : la valeur du quotient ne change pas.</span></li>
+      <li><span>Au dénominateur, j'utilise $(a+ib)(a-ib)=a^2+b^2$ : un réel. Au numérateur, je développe et je remplace $i^2$ par $-1$.</span></li>
+      <li><span>Je sépare : $\dfrac{p+iq}{r}=\dfrac pr+\dfrac qr\,i$, et je vérifie en multipliant le résultat par le dénominateur de départ.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Écrire $\dfrac{2+3i}{1-i}$ sous forme algébrique.</p>
+      <ol class="pas">
+        <li><strong>Le conjugué du dénominateur.</strong> $\overline{1-i}=1+i$.</li>
+        <li><strong>On multiplie en haut et en bas.</strong> $\dfrac{2+3i}{1-i}=\dfrac{(2+3i)(1+i)}{(1-i)(1+i)}$.</li>
+        <li><strong>Le dénominateur.</strong> $(1-i)(1+i)=1-i^2=1+1=2$.</li>
+        <li><strong>Le numérateur.</strong> $(2+3i)(1+i)=2+2i+3i+3i^2=2+5i-3=-1+5i$.</li>
+        <li><strong>Le résultat, et sa vérification.</strong> $\dfrac{2+3i}{1-i}=\dfrac{-1+5i}2=-\dfrac12+\dfrac52i$. Contrôle : $\left(-\dfrac12+\dfrac52i\right)(1-i)=-\dfrac12+\dfrac12i+\dfrac52i-\dfrac52i^2=-\dfrac12+\dfrac52+3i=2+3i$. Juste.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Multiplier par le dénominateur lui-même">
+    <p>Pour $\dfrac{2+3i}{1-i}$, multiplier en haut et en bas par $1-i$ donne $\dfrac{(2+3i)(1-i)}{(1-i)^2}=\dfrac{5+i}{-2i}$ : le dénominateur est <strong>toujours complexe</strong>, on n'a rien gagné. Seul le <strong>conjugué</strong> fabrique un dénominateur réel, parce que $(a+ib)(a-ib)=a^2+b^2$.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-equations">7. Résoudre une équation dans $\mathbb{C}$</h3>
+
+  <div class="bloc propriete" data-titre="L'équation $az=b$">
+    <p>Pour $a$ et $b$ complexes avec $a\ne0$, l'équation $az=b$ a une unique solution, $z=\dfrac ba$, qu'on écrit sous forme algébrique avec la méthode de la partie 6. Si $a=0$ : aucune solution si $b\ne0$, tous les complexes si $b=0$.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="$(1+i)z=3-i$">
+    <p>$z=\dfrac{3-i}{1+i}=\dfrac{(3-i)(1-i)}{(1+i)(1-i)}=\dfrac{3-3i-i+i^2}{2}=\dfrac{2-4i}2=1-2i$. Vérification : $(1+i)(1-2i)=1-2i+i-2i^2=3-i$. $S=\{1-2i\}$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Une équation avec $z$ et $\overline z$">
+    <ol class="etapes">
+      <li><span>J'écris l'inconnue sous forme algébrique, $z=x+iy$ avec $x$ et $y$ réels, donc $\overline z=x-iy$.</span></li>
+      <li><span>Je remplace dans l'équation, je développe, et je regroupe chaque membre en partie réelle et partie imaginaire.</span></li>
+      <li><span>Deux complexes égaux ont la même partie réelle et la même partie imaginaire : j'obtiens <strong>un système de deux équations</strong> d'inconnues réelles $x$ et $y$.</span></li>
+      <li><span>Je résous le système, j'écris $z$, et je vérifie dans l'équation de départ.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Résoudre dans $\mathbb{C}$ l'équation $2z-\overline z=1+6i$.</p>
+      <ol class="pas">
+        <li><strong>La forme algébrique.</strong> $z=x+iy$, $\overline z=x-iy$ ($x$, $y$ réels).</li>
+        <li><strong>On remplace.</strong> $2(x+iy)-(x-iy)=2x+2iy-x+iy=x+3iy$. L'équation devient $x+3iy=1+6i$.</li>
+        <li><strong>Le système.</strong> Partie réelle : $x=1$. Partie imaginaire : $3y=6$, donc $y=2$.</li>
+        <li><strong>La solution.</strong> $z=1+2i$. Vérification : $2(1+2i)-(1-2i)=2+4i-1+2i=1+6i$. $S=\{1+2i\}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Réel ou imaginaire pur ?">
+    <p>Pour quel réel $x$ le nombre $z=(x+2i)(x-i)$ est-il réel ? On développe : $z=x^2-ix+2ix-2i^2=(x^2+2)+ix$. Il est réel quand sa partie imaginaire est nulle : $x=0$ (et alors $z=2$). Il est imaginaire pur quand $x^2+2=0$ : jamais, pour un réel $x$. L'exercice guidé de l'onglet Exercices te fait écrire ce genre de condition ligne par ligne.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Une équation complexe, deux équations réelles">
+    <p>$x+3iy=1+6i$ ne se « résout » pas en divisant par $i$ ou en isolant $x$ tout seul : c'est <strong>deux</strong> égalités, $x=1$ et $3y=6$. Oublier l'une des deux, c'est perdre la moitié de l'inconnue. Et $z$ et $\overline z$ ne sont pas deux inconnues indépendantes : ils cachent les mêmes $x$ et $y$.</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-second-degre">8. Le second degré à coefficients réels</h3>
+
+  <div class="bloc theoreme" data-titre="Les solutions dans $\mathbb{C}$">
+    <p>Soit l'équation $az^2+bz+c=0$ avec $a$, $b$, $c$ <strong>réels</strong>, $a\ne0$, et $\Delta=b^2-4ac$.</p>
+    <ul>
+      <li>Si $\Delta&gt;0$ : deux solutions réelles, $\dfrac{-b\pm\sqrt\Delta}{2a}$.</li>
+      <li>Si $\Delta=0$ : une solution réelle (double), $-\dfrac b{2a}$.</li>
+      <li>Si $\Delta&lt;0$ : <strong>deux solutions complexes conjuguées</strong>,
+        $$z_1=\dfrac{-b-i\sqrt{-\Delta}}{2a}\qquad\text{et}\qquad z_2=\overline{z_1}=\dfrac{-b+i\sqrt{-\Delta}}{2a}.$$</li>
+    </ul>
+    <p>Dans tous les cas, $az^2+bz+c=a(z-z_1)(z-z_2)$, et la somme et le produit des solutions valent $-\dfrac ba$ et $\dfrac ca$. <strong>Dans $\mathbb{C}$, une équation du second degré a toujours des solutions.</strong></p>
+  </div>
+
+  <figure class="figure-svg large"><svg viewBox="0 0 452 394" role="img" aria-label="Deux panneaux. À gauche, la parabole y = x² − 4x + 13 dans un repère : elle reste au-dessus de l'axe des abscisses, son sommet est en (2 ; 9), elle ne coupe pas l'axe. À droite, le plan complexe avec les deux solutions 2 + 3i et 2 − 3i, symétriques par rapport à l'axe des réels, toutes deux de partie réelle 2."><g class="trace t-n"><line x1="26.8" y1="300.0" x2="172.6" y2="300.0"/><polygon points="180.4,300.0 167.4,305.9 167.4,294.1"/></g><g class="trace t-n"><line x1="46.0" y1="316.0" x2="46.0" y2="27.8"/><polygon points="46.0,20.0 51.9,33.0 40.1,33.0"/></g><text class="moyen" x="166.0" y="322.0">x</text><text class="moyen" x="52.0" y="30.0">y</text><g class="trace t-u"><path d="M35.2,-0.0 L35.7,1.9 L36.2,3.9 L36.7,5.9 L37.2,7.8 L37.6,9.7 L38.1,11.7 L38.6,13.5 L39.1,15.4 L39.6,17.3 L40.1,19.1 L40.6,21.0 L41.1,22.8 L41.6,24.6 L42.1,26.3 L42.6,28.1 L43.0,29.8 L43.5,31.6 L44.0,33.3 L44.5,35.0 L45.0,36.6 L45.5,38.3 L46.0,39.9 L46.5,41.6 L47.0,43.2 L47.5,44.8 L47.9,46.3 L48.4,47.9 L48.9,49.4 L49.4,51.0 L49.9,52.5 L50.4,54.0 L50.9,55.4 L51.4,56.9 L51.9,58.3 L52.4,59.8 L52.8,61.2 L53.3,62.6 L53.8,63.9 L54.3,65.3 L54.8,66.6 L55.3,68.0 L55.8,69.3 L56.3,70.6 L56.8,71.8 L57.2,73.1 L57.7,74.3 L58.2,75.6 L58.7,76.8 L59.2,78.0 L59.7,79.1 L60.2,80.3 L60.7,81.5 L61.2,82.6 L61.7,83.7 L62.1,84.8 L62.6,85.9 L63.1,86.9 L63.6,88.0 L64.1,89.0 L64.6,90.0 L65.1,91.0 L65.6,92.0 L66.1,92.9 L66.6,93.9 L67.0,94.8 L67.5,95.7 L68.0,96.6 L68.5,97.5 L69.0,98.3 L69.5,99.2 L70.0,100.0 L70.5,100.8 L71.0,101.6 L71.5,102.4 L71.9,103.1 L72.4,103.9 L72.9,104.6 L73.4,105.3 L73.9,106.0 L74.4,106.7 L74.9,107.3 L75.4,108.0 L75.9,108.6 L76.4,109.2 L76.9,109.8 L77.3,110.4 L77.8,110.9 L78.3,111.5 L78.8,112.0 L79.3,112.5 L79.8,113.0 L80.3,113.5 L80.8,113.9 L81.3,114.4 L81.8,114.8 L82.2,115.2 L82.7,115.6 L83.2,116.0 L83.7,116.3 L84.2,116.7 L84.7,117.0 L85.2,117.3 L85.7,117.6 L86.2,117.9 L86.6,118.1 L87.1,118.4 L87.6,118.6 L88.1,118.8 L88.6,119.0 L89.1,119.2 L89.6,119.3 L90.1,119.5 L90.6,119.6 L91.1,119.7 L91.6,119.8 L92.0,119.9 L92.5,119.9 L93.0,120.0 L93.5,120.0 L94.0,120.0 L94.5,120.0 L95.0,120.0 L95.5,119.9 L96.0,119.9 L96.5,119.8 L96.9,119.7 L97.4,119.6 L97.9,119.5 L98.4,119.3 L98.9,119.2 L99.4,119.0 L99.9,118.8 L100.4,118.6 L100.9,118.4 L101.4,118.1 L101.8,117.9 L102.3,117.6 L102.8,117.3 L103.3,117.0 L103.8,116.7 L104.3,116.3 L104.8,116.0 L105.3,115.6 L105.8,115.2 L106.2,114.8 L106.7,114.4 L107.2,113.9 L107.7,113.5 L108.2,113.0 L108.7,112.5 L109.2,112.0 L109.7,111.5 L110.2,110.9 L110.7,110.4 L111.2,109.8 L111.6,109.2 L112.1,108.6 L112.6,108.0 L113.1,107.3 L113.6,106.7 L114.1,106.0 L114.6,105.3 L115.1,104.6 L115.6,103.9 L116.1,103.1 L116.5,102.4 L117.0,101.6 L117.5,100.8 L118.0,100.0 L118.5,99.2 L119.0,98.3 L119.5,97.5 L120.0,96.6 L120.5,95.7 L121.0,94.8 L121.4,93.9 L121.9,92.9 L122.4,92.0 L122.9,91.0 L123.4,90.0 L123.9,89.0 L124.4,88.0 L124.9,86.9 L125.4,85.9 L125.9,84.8 L126.3,83.7 L126.8,82.6 L127.3,81.5 L127.8,80.3 L128.3,79.1 L128.8,78.0 L129.3,76.8 L129.8,75.6 L130.3,74.3 L130.8,73.1 L131.2,71.8 L131.7,70.6 L132.2,69.3 L132.7,68.0 L133.2,66.6 L133.7,65.3 L134.2,63.9 L134.7,62.6 L135.2,61.2 L135.7,59.8 L136.1,58.3 L136.6,56.9 L137.1,55.4 L137.6,54.0 L138.1,52.5 L138.6,51.0 L139.1,49.4 L139.6,47.9 L140.1,46.3 L140.6,44.8 L141.0,43.2 L141.5,41.6 L142.0,39.9 L142.5,38.3 L143.0,36.6 L143.5,35.0 L144.0,33.3 L144.5,31.6 L145.0,29.8 L145.4,28.1 L145.9,26.3 L146.4,24.6 L146.9,22.8 L147.4,21.0 L147.9,19.1 L148.4,17.3 L148.9,15.4 L149.4,13.5 L149.9,11.7 L150.3,9.7 L150.8,7.8 L151.3,5.9 L151.8,3.9 L152.3,1.9 L152.8,-0.1"/></g><g class="trace t-v pointille"><line x1="94.0" y1="300.0" x2="94.0" y2="120.0"/></g><circle class="pt pt-v" cx="94.0" cy="120.0" r="4.5"/><text class="petit" x="98.8" y="120.0">S(2 ; 9)</text><g class="trace t-n"><line x1="70.0" y1="304.0" x2="70.0" y2="296.0"/></g><text class="petit" x="67.6" y="322.0">1</text><g class="trace t-n"><line x1="94.0" y1="304.0" x2="94.0" y2="296.0"/></g><text class="petit" x="91.6" y="322.0">2</text><g class="trace t-n"><line x1="118.0" y1="304.0" x2="118.0" y2="296.0"/></g><text class="petit" x="115.6" y="322.0">3</text><g class="trace t-n"><line x1="142.0" y1="304.0" x2="142.0" y2="296.0"/></g><text class="petit" x="139.6" y="322.0">4</text><g class="trace t-n"><line x1="42.4" y1="200.0" x2="49.6" y2="200.0"/></g><text class="petit" x="28.0" y="205.0">5</text><g class="trace t-n"><line x1="42.4" y1="100.0" x2="49.6" y2="100.0"/></g><text class="petit" x="28.0" y="105.0">10</text><text class="petit" x="31.6" y="352.0">Δ = −36</text><text class="petit" x="31.6" y="372.0">aucune solution réelle</text><g class="trace t-n"><line x1="198.2" y1="200.0" x2="421.2" y2="200.0"/><polygon points="429.0,200.0 416.0,205.8 416.0,194.2"/></g><g class="trace t-n"><line x1="298.0" y1="331.0" x2="298.0" y2="70.5"/><polygon points="298.0,62.7 303.9,75.7 292.1,75.7"/></g><g class="trace t-n"><line x1="329.2" y1="204.0" x2="329.2" y2="196.0"/></g><text class="petit" x="326.3" y="220.0">1</text><g class="trace t-n"><line x1="360.4" y1="204.0" x2="360.4" y2="196.0"/></g><text class="petit" x="357.5" y="220.0">2</text><g class="trace t-n"><line x1="391.6" y1="204.0" x2="391.6" y2="196.0"/></g><text class="petit" x="388.7" y="220.0">3</text><g class="trace t-n"><line x1="294.4" y1="293.6" x2="301.6" y2="293.6"/></g><text class="petit" x="275.2" y="298.6">-3i</text><g class="trace t-n"><line x1="294.4" y1="106.4" x2="301.6" y2="106.4"/></g><text class="petit" x="275.2" y="111.4">3i</text><g class="trace t-v pointille"><line x1="360.4" y1="106.4" x2="360.4" y2="293.6"/></g><circle class="pt pt-v" cx="360.4" cy="106.4" r="4.5"/><circle class="pt pt-v" cx="360.4" cy="293.6" r="4.5"/><text class="lettre" x="368.2" y="103.3">2 + 3i</text><text class="lettre" x="368.2" y="307.6">2 − 3i</text><text class="petit" x="366.6" y="187.5">partie réelle 2</text><text class="petit" x="235.6" y="343.5">deux solutions</text><text class="petit" x="235.6" y="362.2">conjuguées</text></svg><figcaption>$z^2-4z+13=0$ : à gauche, la parabole $y=x^2-4x+13$ ne coupe pas l'axe des abscisses ($\Delta=-36$). À droite, les deux solutions $2+3i$ et $2-3i$ dans le plan complexe, symétriques par rapport à l'axe des réels, de partie réelle $2=-\dfrac b{2a}$ : l'abscisse du sommet.</figcaption></figure>
+
+  <div class="bloc theoreme" data-titre="Démonstration du cas $\Delta&lt;0$">
+    <div class="deroule">
+      <p class="consigne"><strong>Pourquoi ces formules ?</strong> Le raisonnement est celui de première, avec une étape nouvelle : écrire un nombre négatif comme un carré. Cherche-le avant de dévoiler.</p>
+      <ol class="pas">
+        <li><strong>La forme canonique, comme en première.</strong> Pour tout complexe $z$, $az^2+bz+c=a\left[\left(z+\dfrac b{2a}\right)^2-\dfrac{\Delta}{4a^2}\right]$.</li>
+        <li><strong>Un négatif est un carré dans $\mathbb{C}$.</strong> Comme $\Delta&lt;0$, $-\Delta&gt;0$ et $\dfrac{\Delta}{4a^2}=-\dfrac{-\Delta}{4a^2}=i^2\left(\dfrac{\sqrt{-\Delta}}{2a}\right)^2=\left(\dfrac{i\sqrt{-\Delta}}{2a}\right)^2$.</li>
+        <li><strong>Une différence de deux carrés.</strong> $az^2+bz+c=a\left[\left(z+\dfrac b{2a}\right)^2-\left(\dfrac{i\sqrt{-\Delta}}{2a}\right)^2\right]=a\left(z+\dfrac{b-i\sqrt{-\Delta}}{2a}\right)\left(z+\dfrac{b+i\sqrt{-\Delta}}{2a}\right)$.</li>
+        <li><strong>Un produit nul.</strong> Dans $\mathbb{C}$ aussi, un produit est nul si et seulement si l'un des facteurs est nul (si $zz'=0$ et $z\ne0$, alors $z'=\dfrac1z\times zz'=0$). D'où $z=\dfrac{-b+i\sqrt{-\Delta}}{2a}$ ou $z=\dfrac{-b-i\sqrt{-\Delta}}{2a}$ : deux solutions, conjuguées l'une de l'autre puisque $a$ et $b$ sont réels.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Résoudre $az^2+bz+c=0$ dans $\mathbb{C}$">
+    <ol class="etapes">
+      <li><span>Je mets tout d'un côté et je lis $a$, $b$, $c$ avec leurs signes ; je vérifie qu'ils sont <strong>réels</strong> (sinon, ce théorème ne s'applique pas).</span></li>
+      <li><span>Je calcule $\Delta=b^2-4ac$ et je regarde son signe.</span></li>
+      <li><span>Si $\Delta&lt;0$, je calcule $\sqrt{-\Delta}$ (la racine du nombre <strong>positif</strong> $-\Delta$) et j'écris $z_1=\dfrac{-b-i\sqrt{-\Delta}}{2a}$, puis $z_2=\overline{z_1}$. Le $2a$ divise la partie réelle <strong>et</strong> la partie imaginaire.</span></li>
+      <li><span>Je vérifie : la somme des solutions doit valoir $-\dfrac ba$ et leur produit $\dfrac ca$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Résoudre dans $\mathbb{C}$ l'équation $z^2-4z+13=0$.</p>
+      <ol class="pas">
+        <li><strong>Les coefficients.</strong> $a=1$, $b=-4$, $c=13$, tous réels.</li>
+        <li><strong>Le discriminant.</strong> $\Delta=(-4)^2-4\times1\times13=16-52=-36&lt;0$ : deux solutions complexes conjuguées.</li>
+        <li><strong>Les solutions.</strong> $\sqrt{-\Delta}=\sqrt{36}=6$, donc $z_1=\dfrac{4-6i}{2}=2-3i$ et $z_2=2+3i$.</li>
+        <li><strong>Vérification.</strong> Somme : $(2-3i)+(2+3i)=4=-\dfrac ba$. Produit : $(2-3i)(2+3i)=4+9=13=\dfrac ca$. $S=\{2-3i\,;2+3i\}$, et $z^2-4z+13=(z-2+3i)(z-2-3i)$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le conjugué d'une racine est une racine">
+    <p>Si un polynôme $P$ est à coefficients <strong>réels</strong> et si $P(z_0)=0$, alors $P(\overline{z_0})=0$. En effet, conjuguer respecte les sommes, les produits et les puissances, et laisse les réels inchangés : $P(\overline{z_0})=\overline{P(z_0)}=\overline0=0$. C'est pour cela que les solutions non réelles vont toujours par paires conjuguées — et que si tu connais une solution de $z^2-4z+13=0$, tu connais l'autre sans calcul.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Fabriquer l'équation qui a des solutions données">
+    <p>Quelle équation du second degré à coefficients réels a pour solutions $3+2i$ et $3-2i$ ? Leur somme vaut $6$ et leur produit $(3+2i)(3-2i)=9+4=13$ : c'est $z^2-6z+13=0$ (le trinôme $z^2-sz+p$). Contrôle : $\Delta=36-52=-16$, $\sqrt{16}=4$, solutions $\dfrac{6\pm4i}2=3\pm2i$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="« $\sqrt{-36}=6$ » et le $2a$ qui ne divise que la moitié">
+    <p>Trois erreurs vont ensemble. Écrire $\sqrt{-36}$ : la racine carrée d'un négatif n'est pas définie, on écrit $i\sqrt{36}=6i$, dont le carré vaut bien $-36$. Laisser tomber le $i$ : $\dfrac{4\pm6}{2}$ donne $5$ et $-1$, deux réels qui ne vérifient pas l'équation. Et diviser seulement la partie imaginaire par $2a$ : $\dfrac{4\pm6i}{2}$ vaut $2\pm3i$, pas $4\pm3i$. La vérification par la somme et le produit attrape les trois.</p>
+  </div>
+
+  <!-- ===== 9 ===== -->
+  <h3 id="c-binome">9. La formule du binôme</h3>
+
+  <div class="bloc definition" data-titre="Coefficients binomiaux et triangle de Pascal">
+    <p>Pour $n$ entier naturel et $0\le k\le n$, le <strong>coefficient binomial</strong> $\dbinom nk$ (lire « $k$ parmi $n$ ») est le nombre qui apparaît à la ligne $n$, colonne $k$, du <strong>triangle de Pascal</strong> : chaque ligne commence et finit par $1$, et chaque nombre est la somme des deux nombres au-dessus de lui :</p>
+    $$\dbinom{n+1}{k}=\dbinom n{k-1}+\dbinom nk\quad(1\le k\le n).$$
+    <div class="defile"><table class="valeurs"><tr><th>$n=0$</th><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>$n=1$</th><td>1</td><td>1</td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>$n=2$</th><td>1</td><td>2</td><td>1</td><td></td><td></td><td></td><td></td></tr><tr><th>$n=3$</th><td>1</td><td>3</td><td>3</td><td>1</td><td></td><td></td><td></td></tr><tr><th>$n=4$</th><td>1</td><td>4</td><td>6</td><td>4</td><td>1</td><td></td><td></td></tr><tr><th>$n=5$</th><td>1</td><td>5</td><td>10</td><td>10</td><td>5</td><td>1</td><td></td></tr><tr><th>$n=6$</th><td>1</td><td>6</td><td>15</td><td>20</td><td>15</td><td>6</td><td>1</td></tr></table></div>
+    <p>Le chapitre « Combinatoire et dénombrement » de la spécialité montre que $\dbinom nk$ compte les façons de choisir $k$ objets parmi $n$ ; ici, c'est la relation de Pascal qui sert.</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Formule du binôme">
+    <p>Pour tous complexes $a$ et $b$ et tout entier naturel $n$ :</p>
+    $$(a+b)^n=\sum_{k=0}^{n}\dbinom nk a^{n-k}b^k=a^n+\dbinom n1a^{n-1}b+\dbinom n2a^{n-2}b^2+\cdots+\dbinom n{n-1}ab^{n-1}+b^n.$$
+    <p>Les exposants de $a$ descendent, ceux de $b$ montent, leur somme vaut toujours $n$, et les coefficients sont la ligne $n$ du triangle. Pour $n=2$, c'est l'identité remarquable ; pour $n=3$ : $(a+b)^3=a^3+3a^2b+3ab^2+b^3$.</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Démonstration, au programme">
+    <div class="deroule">
+      <p class="consigne"><strong>Par récurrence sur $n$.</strong> La formule est vraie pour $n=0$ ($(a+b)^0=1=\dbinom00a^0b^0$, avec la convention $w^0=1$ pour tout complexe $w$, $0$ compris). Suppose-la vraie pour un entier $n$ et cherche comment en déduire $(a+b)^{n+1}$, avant de dévoiler.</p>
+      <ol class="pas">
+        <li><strong>On multiplie par $(a+b)$.</strong> $(a+b)^{n+1}=(a+b)(a+b)^n=(a+b)\displaystyle\sum_{k=0}^n\dbinom nka^{n-k}b^k=\sum_{k=0}^n\dbinom nka^{n+1-k}b^k+\sum_{k=0}^n\dbinom nka^{n-k}b^{k+1}$.</li>
+        <li><strong>On décale l'indice de la seconde somme.</strong> En posant $j=k+1$, elle s'écrit $\displaystyle\sum_{j=1}^{n+1}\dbinom n{j-1}a^{n+1-j}b^{j}$ : les mêmes monômes $a^{n+1-j}b^j$ que dans la première, pour $j$ de $1$ à $n+1$.</li>
+        <li><strong>On regroupe les monômes identiques.</strong> Le terme en $a^{n+1}$ ($k=0$ dans la première somme) a pour coefficient $\dbinom n0=1$ ; le terme en $b^{n+1}$ ($j=n+1$ de la seconde) a pour coefficient $\dbinom nn=1$ ; pour $1\le k\le n$, le monôme $a^{n+1-k}b^k$ a pour coefficient $\dbinom nk+\dbinom n{k-1}$.</li>
+        <li><strong>La relation de Pascal conclut.</strong> $\dbinom nk+\dbinom n{k-1}=\dbinom{n+1}k$, et $1=\dbinom{n+1}0=\dbinom{n+1}{n+1}$. Donc $(a+b)^{n+1}=\displaystyle\sum_{k=0}^{n+1}\dbinom{n+1}ka^{n+1-k}b^k$ : la formule est vraie au rang $n+1$, donc pour tout $n$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le calcul de Bombelli, et $(1+i)^4$">
+    <ul>
+      <li>$(2+i)^3=2^3+3\times2^2\times i+3\times2\times i^2+i^3=8+12i-6-i=2+11i$. C'est le nombre que Bombelli a reconnu dans la formule de Cardan : si $(2+i)^3=2+11i$, alors « $\sqrt[3]{2+11i}$ » vaut $2+i$, et la formule donne $(2+i)+(2-i)=4$. Le $i$ disparaît à la fin, la solution est réelle.</li>
+      <li>$(1+i)^4=1+4i+6i^2+4i^3+i^4=1+4i-6-4i+1=-4$. Plus court : $(1+i)^2=2i$, donc $(1+i)^4=(2i)^2=-4$. Les deux chemins doivent se rejoindre : c'est une vérification gratuite.</li>
+    </ul>
+  </div>
+
+  <div class="bloc remarque" data-titre="Les complexes en Python">
+    <p>Python connaît les complexes : $i$ s'écrit <code>1j</code>, et <code>(2+1j)**3</code> affiche <code>(2+11j)</code>. Le module est <code>abs(z)</code>, le conjugué <code>z.conjugate()</code>, les parties <code>z.real</code> et <code>z.imag</code> (deux flottants). Pratique pour contrôler un calcul, pas pour le remplacer : ta calculatrice en mode complexe fait la même chose.</p>
+  </div>
+
+  <!-- ===== 10 ===== -->
+  <h3 id="c-pieges">10. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs qui coûtent des points">
+    <ol>
+      <li><strong>$i^2=1$.</strong> Non : $i^2=-1$, c'est toute la définition. Écris $i^2$ avant de le remplacer.</li>
+      <li><strong>« La partie imaginaire de $3-2i$ est $-2i$. »</strong> C'est $-2$, un réel. Une partie imaginaire ne contient jamais de $i$.</li>
+      <li><strong>Le conjugué pris pour l'opposé.</strong> $\overline{3-2i}=3+2i$ (un seul signe change) ; $-(3-2i)=-3+2i$ (les deux).</li>
+      <li><strong>$|a+ib|=a+b$.</strong> $|3-4i|=\sqrt{9+16}=5$, pas $-1$. Un module n'est jamais négatif.</li>
+      <li><strong>$|z+z'|=|z|+|z'|$.</strong> Faux en général : $|1+i|=\sqrt2$ et $|1|+|i|=2$. Le module respecte les produits, pas les sommes.</li>
+      <li><strong>$|z|^2=z^2$.</strong> $|z|^2=z\overline z$, un réel ; $z^2$ est en général complexe.</li>
+      <li><strong>Diviser sans le conjugué.</strong> Multiplier par le dénominateur lui-même laisse un dénominateur complexe. Seul le conjugué donne $a^2+b^2$.</li>
+      <li><strong>$z&gt;0$, $i&gt;0$.</strong> Pas d'ordre dans $\mathbb{C}$. On compare des réels : parties réelles, modules.</li>
+      <li><strong>$\sqrt{-36}=6$.</strong> On n'écrit pas la racine d'un négatif ; on écrit $(6i)^2=-36$, et les solutions sont $\dfrac{-b\pm6i}{2a}$.</li>
+      <li><strong>Le $2a$ qui ne divise que la partie imaginaire.</strong> $\dfrac{4\pm6i}2=2\pm3i$. Le trait de fraction passe sous tout le numérateur.</li>
+      <li><strong>Une seule solution quand $\Delta&lt;0$.</strong> Il y en a deux, conjuguées. Les oublier à moitié, c'est rater la factorisation $a(z-z_1)(z-z_2)$.</li>
+      <li><strong>$(a+ib)^2=a^2+b^2$ ou $a^2-b^2$.</strong> C'est $a^2-b^2+2iab$ : le double produit reste, et $i^2$ change le signe de $b^2$.</li>
+    </ol>
+  </div>
+
+  <h3 id="c-videos">11. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Calculer avec i en cinq minutes"></div>
+    <div class="video" data-titre="Conjugué et module : ce qu'il faut voir dans le plan"></div>
+    <div class="video" data-titre="Le second degré quand Δ est négatif"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, chacun avec ses défis. Commence par le plan complexe, pour placer un nombre et lire son conjugué, son opposé et son module. Puis regarde les racines d'une équation du second degré se décoller de l'axe quand $\Delta$ devient négatif. Termine par la multiplication par $i$, qui fait tourner le plan d'un quart de tour : un avant-goût du chapitre suivant.</p>
+
+  <div class="labo" data-labo="complexes-algebrique" data-outil="plan"></div>
+  <div class="labo" data-labo="complexes-algebrique" data-outil="racines"></div>
+  <div class="labo" data-labo="complexes-algebrique" data-outil="tourner"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, dans toutes les catégories du chapitre, et dessine des points du plan complexe à lire ; le bilan de fin de partie te dit quoi retravailler. Le quiz vérifie les réflexes du cours. Ni l'un ni l'autre ne demande de calculatrice : ce sont les automatismes que le programme veut entretenir.</p>
+
+  <div class="jeu" data-generateurs="complexes-algebrique" data-questions="12" data-titre="Le défi des nombres complexes"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>La partie imaginaire de $z=5-3i$ est…</p>
+      <ul class="choix"><li class="bon">$-3$</li><li>$-3i$</li><li>$3$</li><li>$5$</li></ul>
+      <div class="explication">Dans $a+ib$, la partie imaginaire est le réel $b$, ici $-3$. Jamais de $i$ dedans.</div>
+    </div>
+    <div class="question">
+      <p>$i^3$ vaut…</p>
+      <ul class="choix"><li class="bon">$-i$</li><li>$i$</li><li>$-1$</li><li>$1$</li></ul>
+      <div class="explication">$i^3=i^2\times i=-1\times i=-i$. Le cycle : $i$, $-1$, $-i$, $1$.</div>
+    </div>
+    <div class="question">
+      <p>$(2+i)(2-i)$ vaut…</p>
+      <ul class="choix"><li class="bon">$5$</li><li>$3$</li><li>$4-4i$</li><li>$4+4i$</li></ul>
+      <div class="explication">$(a+ib)(a-ib)=a^2+b^2$ : $4+1=5$. Avec $i^2=1$ on trouverait $3$, c'est le piège n° 1.</div>
+    </div>
+    <div class="question">
+      <p>Le conjugué de $-2+7i$ est…</p>
+      <ul class="choix"><li class="bon">$-2-7i$</li><li>$2-7i$</li><li>$2+7i$</li><li>$-7+2i$</li></ul>
+      <div class="explication">Seule la partie imaginaire change de signe. $2-7i$ est l'opposé.</div>
+    </div>
+    <div class="question" data-reponse="5">
+      <p>Calcule $|3-4i|$.</p>
+      <div class="explication">$|3-4i|=\sqrt{3^2+(-4)^2}=\sqrt{25}=5$. Pas $3-4$.</div>
+    </div>
+    <div class="question">
+      <p>$\dfrac1i$ vaut…</p>
+      <ul class="choix"><li class="bon">$-i$</li><li>$i$</li><li>$1$</li><li>$-1$</li></ul>
+      <div class="explication">$i\times(-i)=-i^2=1$, donc $\dfrac1i=-i$. Ou : $\dfrac1i=\dfrac{\overline i}{|i|^2}=\dfrac{-i}1$.</div>
+    </div>
+    <div class="question">
+      <p>Dans le plan complexe, le point d'affixe $-i$ est…</p>
+      <ul class="choix"><li class="bon">sur l'axe des imaginaires purs, en dessous de $O$</li><li>sur l'axe des réels, à gauche de $O$</li><li>sur l'axe des imaginaires purs, au-dessus de $O$</li><li>en dehors des deux axes</li></ul>
+      <div class="explication">$-i=0+(-1)i$ : le point $(0\,;-1)$, sur l'axe vertical, en dessous de l'origine.</div>
+    </div>
+    <div class="question">
+      <p>Les solutions de $z^2+4=0$ sont…</p>
+      <ul class="choix"><li class="bon">$2i$ et $-2i$</li><li>$2$ et $-2$</li><li>$2i$ seulement</li><li>il n'y en a pas</li></ul>
+      <div class="explication">$z^2=-4=(2i)^2$, donc $z=2i$ ou $z=-2i$ : deux solutions conjuguées. Dans $\mathbb{C}$, une équation du second degré a toujours des solutions.</div>
+    </div>
+    <div class="question">
+      <p>$1+3i$ est solution de $z^2-2z+10=0$. L'autre solution est…</p>
+      <ul class="choix"><li class="bon">$1-3i$</li><li>$-1-3i$</li><li>$-1+3i$</li><li>$3+i$</li></ul>
+      <div class="explication">Les coefficients sont réels : les solutions non réelles sont conjuguées. Contrôle : somme $2=-\dfrac ba$, produit $1+9=10=\dfrac ca$.</div>
+    </div>
+    <div class="question" data-reponse="2">
+      <p>Pour quel réel $x$ le nombre $z=(x-2)+3i$ est-il imaginaire pur ?</p>
+      <div class="explication">Imaginaire pur : partie réelle nulle, $x-2=0$, donc $x=2$. La partie imaginaire $3$ ne joue aucun rôle.</div>
+    </div>
+    <div class="question">
+      <p>« Si $|z|=0$, alors $z=0$. »</p>
+      <ul class="choix"><li class="bon">Vrai</li><li>Faux : $z$ peut valoir $i$</li><li>Faux : seulement si $z$ est réel</li></ul>
+      <div class="explication">$|z|^2=a^2+b^2=0$ force $a=0$ et $b=0$. Et $|i|=1$, pas $0$.</div>
+    </div>
+    <div class="question">
+      <p>$(1+i)^2$ vaut…</p>
+      <ul class="choix"><li class="bon">$2i$</li><li>$2$</li><li>$2+2i$</li><li>$0$</li></ul>
+      <div class="explication">$(1+i)^2=1+2i+i^2=1+2i-1=2i$. Un résultat à connaître de tête.</div>
+    </div>
+    <div class="question" data-reponse="29">
+      <p>Calcule $z\overline z$ pour $z=2-5i$.</p>
+      <div class="explication">$z\overline z=|z|^2=2^2+(-5)^2=4+25=29$. Pas besoin de développer.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Le vérificateur ne connaît pas $i$ : il calcule avec une seule lettre réelle. Ces deux exercices te font donc écrire la <strong>condition</strong> qu'on tire d'une partie réelle ou imaginaire, puis la résoudre ligne par ligne. Fais le développement sur ta feuille d'abord. Si tu bloques, demande un indice, mais essaie seul avant : la réussite sans aide compte le plus.</p>
+
+  <article class="exercice" id="ex-imaginaire-pur-pour-quel-reel" data-titre="Imaginaire pur, pour quel réel ?" data-niveau="1" data-type="guide" data-notions="complexe" data-duree="5" data-calculatrice="non">
+    <p>Soit $z=(3x-12)+(x+5)i$, avec $x$ réel. Pour quelle valeur de $x$ le nombre $z$ est-il imaginaire pur ? Écris la condition sur la partie réelle, puis résous.</p>
+    <div class="tuteur" data-tuteur="equation" data-lettre="x" data-id="cx-imaginaire-pur" data-depart="3x-12=0" data-consigne="Résous la condition « partie réelle nulle », $3x-12=0$ :"></div>
+  </article>
+
+  <article class="exercice" id="ex-reel-pour-quel-reel" data-titre="Réel, pour quel réel ?" data-niveau="2" data-type="guide" data-notions="complexe" data-duree="6" data-calculatrice="non">
+    <p>Soit $z=(2x-i)(1+3i)$, avec $x$ réel. Développe sur ta feuille : tu dois trouver $z=(2x+3)+(6x-1)i$. Pour quelle valeur de $x$ le nombre $z$ est-il réel ? Résous la condition sur la partie imaginaire.</p>
+    <div class="tuteur" data-tuteur="equation" data-lettre="x" data-id="cx-reel" data-depart="6x-1=0" data-consigne="Résous la condition « partie imaginaire nulle », $6x-1=0$ :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ calculer et reconnaître, ★★ résoudre et modéliser, ★★★ démontrer et chercher. Rédige ta réponse avant d'ouvrir la correction. Quand un exercice demande la calculatrice, l'énoncé le dit ; sinon, fais sans, comme pour les automatismes.</p>
+
+  <h3>Niveau 1 · Calculer et reconnaître</h3>
+
+  <article class="exercice" id="ex-parties-reelle-et-imaginaire" data-titre="Parties réelle et imaginaire" data-niveau="1" data-type="application" data-notions="complexe" data-duree="6" data-calculatrice="non">
+    <p>Pour chaque nombre, donne sa partie réelle et sa partie imaginaire, et dis s'il est réel, imaginaire pur, ou ni l'un ni l'autre.</p>
+    <p>a) $z_1=4-7i$ · b) $z_2=-i$ · c) $z_3=\sqrt2$ · d) $z_4=(1+i)^2$ · e) $z_5=\dfrac{3-2i}{2}$ · f) $z_6=i(1-i)$</p>
+    <details class="indice"><p>Mets d'abord chaque nombre sous la forme $a+ib$ en développant ; les parties se lisent ensuite sans $i$.</p></details>
+    <details class="correction">
+      <p>a) $\mathrm{Re}=4$, $\mathrm{Im}=-7$ : ni l'un ni l'autre. b) $\mathrm{Re}=0$, $\mathrm{Im}=-1$ : imaginaire pur. c) $\mathrm{Re}=\sqrt2$, $\mathrm{Im}=0$ : réel. d) $(1+i)^2=1+2i+i^2=2i$ : $\mathrm{Re}=0$, $\mathrm{Im}=2$, imaginaire pur. e) $\dfrac32-i$ : $\mathrm{Re}=\dfrac32$, $\mathrm{Im}=-1$, ni l'un ni l'autre. f) $i-i^2=1+i$ : $\mathrm{Re}=1$, $\mathrm{Im}=1$, ni l'un ni l'autre. Dans tous les cas, la partie imaginaire est un réel : $-7$, pas $-7i$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-sommes-et-produits" data-titre="Sommes et produits" data-niveau="1" data-type="application" data-notions="complexe" data-duree="10" data-calculatrice="non">
+    <p>Écris sous forme algébrique.</p>
+    <p>a) $(3+2i)+(1-5i)$ · b) $(3+2i)-(1-5i)$ · c) $(3+2i)(1-5i)$ · d) $(2-i)^2$ · e) $i(2+3i)$ · f) $(1+i)(1-i)(2+i)$</p>
+    <details class="correction">
+      <p>a) $4-3i$. b) $2+7i$. c) $3-15i+2i-10i^2=3-13i+10=13-13i$. d) $4-4i+i^2=3-4i$. e) $2i+3i^2=-3+2i$. f) $(1+i)(1-i)=1-i^2=2$, puis $2(2+i)=4+2i$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-puissances-de-i" data-titre="Les puissances de i" data-niveau="1" data-type="application" data-notions="complexe" data-duree="8" data-calculatrice="non">
+    <p>Calcule : a) $i^7$ · b) $i^{10}$ · c) $i^{2027}$ · d) $(-i)^3$ · e) $i^{-1}$ · f) $1+i+i^2+i^3$ · g) $i^{4n+1}$ pour $n$ entier naturel.</p>
+    <details class="indice"><p>Divise l'exposant par $4$ : seul le reste compte. $2027=4\times506+3$.</p></details>
+    <details class="correction">
+      <p>a) $7=4+3$ : $i^7=i^3=-i$. b) $10=8+2$ : $i^{10}=-1$. c) reste $3$ : $i^{2027}=-i$. d) $(-i)^3=-i^3=-(-i)=i$. e) $i^{-1}=\dfrac1i=-i$. f) $1+i-1-i=0$. g) $i^{4n+1}=(i^4)^ni=1^n\times i=i$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-lire-et-placer-dans-le-plan" data-titre="Lire et placer dans le plan" data-niveau="1" data-type="application" data-notions="complexe" data-duree="10" data-calculatrice="non">
+    <figure class="figure-svg"><svg viewBox="0 0 320 290" role="img" aria-label="Quatre points dans le plan complexe gradué : A en (3 ; 2), B en (−2 ; 1), C en (−1 ; −3), D en (4 ; −1)."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="280"/><line x1="40" y1="10" x2="40" y2="280"/><line x1="70" y1="10" x2="70" y2="280"/><line x1="100" y1="10" x2="100" y2="280"/><line x1="130" y1="10" x2="130" y2="280"/><line x1="160" y1="10" x2="160" y2="280"/><line x1="190" y1="10" x2="190" y2="280"/><line x1="220" y1="10" x2="220" y2="280"/><line x1="250" y1="10" x2="250" y2="280"/><line x1="280" y1="10" x2="280" y2="280"/><line x1="310" y1="10" x2="310" y2="280"/><line x1="10" y1="280" x2="310" y2="280"/><line x1="10" y1="250" x2="310" y2="250"/><line x1="10" y1="220" x2="310" y2="220"/><line x1="10" y1="190" x2="310" y2="190"/><line x1="10" y1="160" x2="310" y2="160"/><line x1="10" y1="130" x2="310" y2="130"/><line x1="10" y1="100" x2="310" y2="100"/><line x1="10" y1="70" x2="310" y2="70"/><line x1="10" y1="40" x2="310" y2="40"/><line x1="10" y1="10" x2="310" y2="10"/></g><g class="trace t-n"><line x1="16.0" y1="130" x2="296.2" y2="130.0"/><polygon points="304.0,130.0 291.0,135.8 291.0,124.2"/></g><g class="trace t-n"><line x1="130" y1="274.0" x2="130.0" y2="23.8"/><polygon points="130.0,16.0 135.8,29.0 124.2,29.0"/></g><g class="trace t-n"><line x1="40" y1="133.6" x2="40" y2="126.4"/></g><text class="petit" x="33.4" y="145.0">−3</text><g class="trace t-n"><line x1="70" y1="133.6" x2="70" y2="126.4"/></g><text class="petit" x="63.4" y="145.0">−2</text><g class="trace t-n"><line x1="100" y1="133.6" x2="100" y2="126.4"/></g><text class="petit" x="93.4" y="145.0">−1</text><g class="trace t-n"><line x1="160" y1="133.6" x2="160" y2="126.4"/></g><text class="petit" x="157.0" y="145.0">1</text><g class="trace t-n"><line x1="190" y1="133.6" x2="190" y2="126.4"/></g><text class="petit" x="187.0" y="145.0">2</text><g class="trace t-n"><line x1="220" y1="133.6" x2="220" y2="126.4"/></g><text class="petit" x="217.0" y="145.0">3</text><g class="trace t-n"><line x1="250" y1="133.6" x2="250" y2="126.4"/></g><text class="petit" x="247.0" y="145.0">4</text><g class="trace t-n"><line x1="280" y1="133.6" x2="280" y2="126.4"/></g><text class="petit" x="277.0" y="145.0">5</text><g class="trace t-n"><line x1="126.4" y1="250" x2="133.6" y2="250"/></g><text class="petit" x="103.0" y="254.2">−4i</text><g class="trace t-n"><line x1="126.4" y1="220" x2="133.6" y2="220"/></g><text class="petit" x="103.0" y="224.2">−3i</text><g class="trace t-n"><line x1="126.4" y1="190" x2="133.6" y2="190"/></g><text class="petit" x="103.0" y="194.2">−2i</text><g class="trace t-n"><line x1="126.4" y1="160" x2="133.6" y2="160"/></g><text class="petit" x="109.0" y="164.2">−i</text><g class="trace t-n"><line x1="126.4" y1="100" x2="133.6" y2="100"/></g><text class="petit" x="115.0" y="104.2">i</text><g class="trace t-n"><line x1="126.4" y1="70" x2="133.6" y2="70"/></g><text class="petit" x="109.0" y="74.2">2i</text><g class="trace t-n"><line x1="126.4" y1="40" x2="133.6" y2="40"/></g><text class="petit" x="109.0" y="44.2">3i</text><circle class="pt pt-u" cx="220" cy="70" r="4.5"/><text class="lettre" x="228.0" y="66.0">A</text><circle class="pt pt-u" cx="70" cy="100" r="4.5"/><text class="lettre" x="50.0" y="96.0">B</text><circle class="pt pt-u" cx="100" cy="220" r="4.5"/><text class="lettre" x="80.0" y="240.0">C</text><circle class="pt pt-u" cx="250" cy="160" r="4.5"/><text class="lettre" x="258.0" y="180.0">D</text></svg></figure>
+    <p>a) Lis les affixes des points $A$, $B$, $C$ et $D$. b) Place les points $E(\overline{z_A})$, $F(-z_B)$ et $G(z_C+z_D)$. c) Quelle est l'affixe du vecteur $\overrightarrow{AB}$ ? du milieu de $[CD]$ ? d) Laquelle des quatre affixes a le plus grand module ?</p>
+    <details class="correction">
+      <p>a) $z_A=3+2i$, $z_B=-2+i$, $z_C=-1-3i$, $z_D=4-i$. b) $E(3-2i)$ : le symétrique de $A$ par rapport à l'axe des réels ; $F(2-i)$ : le symétrique de $B$ par rapport à $O$ ; $G(3-4i)$. c) $z_B-z_A=-5-i$ ; milieu de $[CD]$ : $\dfrac{z_C+z_D}{2}=\dfrac{3-4i}{2}=\dfrac32-2i$. d) $|z_A|=\sqrt{13}$, $|z_B|=\sqrt5$, $|z_C|=\sqrt{10}$, $|z_D|=\sqrt{17}$ : c'est $D$, le plus éloigné de $O$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-conjugues-et-modules" data-titre="Conjugués et modules" data-niveau="1" data-type="application" data-notions="module-conjugue" data-duree="8" data-calculatrice="non">
+    <p>Pour chaque nombre, donne son conjugué et son module.</p>
+    <p>a) $3-4i$ · b) $-2+i$ · c) $5i$ · d) $-7$ · e) $1+i\sqrt3$ · f) $\dfrac{1}{2}-\dfrac{1}{2}i$</p>
+    <p>g) Vérifie sur le a) que $z\overline z=|z|^2$.</p>
+    <details class="correction">
+      <p>a) $3+4i$, module $5$. b) $-2-i$, module $\sqrt5$. c) $-5i$, module $5$. d) $-7$ (un réel est son propre conjugué), module $7$. e) $1-i\sqrt3$, module $\sqrt{1+3}=2$. f) $\dfrac12+\dfrac12i$, module $\sqrt{\dfrac14+\dfrac14}=\dfrac{\sqrt2}2$. g) $(3-4i)(3+4i)=9-16i^2=25=5^2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-inverses-et-quotients" data-titre="Inverses et quotients" data-niveau="1" data-type="application" data-notions="module-conjugue complexe" data-duree="12" data-calculatrice="non">
+    <p>Écris sous forme algébrique.</p>
+    <p>a) $\dfrac{1}{2-i}$ · b) $\dfrac{4+3i}{1+2i}$ · c) $\dfrac{1+i}{1-i}$ · d) $\dfrac{5}{i}$ · e) $\dfrac{2}{1-i}+\dfrac{2}{1+i}$</p>
+    <details class="indice"><p>Multiplie en haut et en bas par le conjugué du dénominateur. Pour le e), calcule chaque fraction, ou remarque que les deux termes sont conjugués.</p></details>
+    <details class="correction">
+      <p>a) $\dfrac{2+i}{(2-i)(2+i)}=\dfrac{2+i}{5}=\dfrac25+\dfrac15i$.</p>
+      <p>b) $\dfrac{(4+3i)(1-2i)}{1+4}=\dfrac{4-8i+3i-6i^2}{5}=\dfrac{10-5i}{5}=2-i$. Contrôle : $(2-i)(1+2i)=2+4i-i-2i^2=4+3i$.</p>
+      <p>c) $\dfrac{(1+i)^2}{(1-i)(1+i)}=\dfrac{2i}{2}=i$.</p>
+      <p>d) $\dfrac{5}{i}=5\times\dfrac1i=-5i$.</p>
+      <p>e) $\dfrac2{1-i}=\dfrac{2(1+i)}2=1+i$ et $\dfrac2{1+i}=1-i$ : la somme vaut $2$. Normal : les deux termes sont conjugués, leur somme est $2\,\mathrm{Re}(1+i)=2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-equations-az-egal-b" data-titre="Équations az = b" data-niveau="1" data-type="application" data-notions="complexe module-conjugue" data-duree="10" data-calculatrice="non">
+    <p>Résous dans $\mathbb{C}$.</p>
+    <p>a) $(2+i)z=1+3i$ · b) $iz=4-2i$ · c) $(1-i)z+2=3i$</p>
+    <details class="correction">
+      <p>a) $z=\dfrac{1+3i}{2+i}=\dfrac{(1+3i)(2-i)}{5}=\dfrac{2-i+6i-3i^2}{5}=\dfrac{5+5i}{5}=1+i$. $S=\{1+i\}$.</p>
+      <p>b) $z=\dfrac{4-2i}{i}=(4-2i)\times(-i)=-4i+2i^2=-2-4i$. $S=\{-2-4i\}$. Contrôle : $i(-2-4i)=-2i-4i^2=4-2i$.</p>
+      <p>c) $(1-i)z=-2+3i$, donc $z=\dfrac{(-2+3i)(1+i)}{2}=\dfrac{-2-2i+3i+3i^2}{2}=\dfrac{-5+i}{2}=-\dfrac52+\dfrac12i$. $S=\left\{-\dfrac52+\dfrac12i\right\}$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Résoudre et modéliser</h3>
+
+  <article class="exercice" id="ex-reel-ou-imaginaire-pur" data-titre="Réel ou imaginaire pur ?" data-niveau="2" data-type="application" data-notions="complexe" data-duree="12" data-calculatrice="non">
+    <p>Soit $x$ un réel et $z=(x+i)(3-2i)$.</p>
+    <p>a) Écris $z$ sous forme algébrique. b) Pour quel réel $x$ le nombre $z$ est-il réel ? imaginaire pur ? c) Même question pour $w=(x+i)^2$. d) Existe-t-il un réel $x$ tel que $w$ soit réel <strong>et</strong> imaginaire pur ?</p>
+    <details class="correction">
+      <p>a) $z=3x-2xi+3i-2i^2=(3x+2)+(3-2x)i$.</p>
+      <p>b) Réel : $3-2x=0$, soit $x=\dfrac32$ (alors $z=\dfrac{13}2$). Imaginaire pur : $3x+2=0$, soit $x=-\dfrac23$ (alors $z=\dfrac{13}3i$).</p>
+      <p>c) $w=x^2+2xi+i^2=(x^2-1)+2xi$. Réel : $2x=0$, $x=0$ (et $w=-1$). Imaginaire pur : $x^2-1=0$, $x=1$ ou $x=-1$ (et $w=\pm2i$).</p>
+      <p>d) Il faudrait $w=0$, donc $x^2-1=0$ et $2x=0$ en même temps : impossible. (Seul $0$ est à la fois réel et imaginaire pur.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-equations-avec-z-et-son-conjugue" data-titre="Équations avec z et son conjugué" data-niveau="2" data-type="application" data-notions="module-conjugue complexe" data-duree="15" data-calculatrice="non">
+    <p>Résous dans $\mathbb{C}$, en posant $z=x+iy$ ($x$, $y$ réels).</p>
+    <p>a) $z+2\overline z=9-3i$ · b) $z-3\overline z=2+8i$ · c) $i\overline z=z$ · d) $z\overline z+z+\overline z=0$</p>
+    <details class="indice"><p>Chaque équation devient un système de deux équations réelles. Pour le d), $z\overline z=x^2+y^2$ et $z+\overline z=2x$ : complète le carré.</p></details>
+    <details class="correction">
+      <p>a) $x+iy+2x-2iy=3x-iy=9-3i$ : $x=3$ et $y=3$. $S=\{3+3i\}$.</p>
+      <p>b) $x+iy-3x+3iy=-2x+4iy=2+8i$ : $x=-1$, $y=2$. $S=\{-1+2i\}$. Contrôle : $-1+2i-3(-1-2i)=-1+2i+3+6i=2+8i$.</p>
+      <p>c) $i(x-iy)=y+ix$ et $z=x+iy$ : il faut $y=x$ et $x=y$, une seule condition. Toutes les solutions sont $z=x(1+i)$, $x$ réel : une infinité, les points de la droite $y=x$.</p>
+      <p>d) $x^2+y^2+2x=0\iff(x+1)^2+y^2=1$ : les solutions sont les affixes des points du cercle de centre $-1$ et de rayon $1$ (par exemple $0$, $-2$, $-1+i$).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-second-degre-les-trois-cas" data-titre="Second degré : les trois cas" data-niveau="2" data-type="application" data-notions="second-degre-complexe" data-duree="15" data-calculatrice="non">
+    <p>Résous dans $\mathbb{C}$.</p>
+    <p>a) $z^2+2z+5=0$ · b) $2z^2-2z+1=0$ · c) $z^2+9=0$ · d) $z^2-6z+9=0$ · e) $z^2+z+1=0$</p>
+    <details class="indice"><p>$\Delta$ d'abord ; s'il est négatif, calcule $\sqrt{-\Delta}$ et n'oublie pas le $i$. Pour le c), inutile de $\Delta$ : $z^2=-9=(3i)^2$.</p></details>
+    <details class="correction">
+      <p>a) $\Delta=4-20=-16$, $\sqrt{16}=4$ : $z=\dfrac{-2\pm4i}{2}=-1\pm2i$. $S=\{-1-2i\,;-1+2i\}$.</p>
+      <p>b) $\Delta=4-8=-4$, $\sqrt4=2$ : $z=\dfrac{2\pm2i}{4}=\dfrac12\pm\dfrac12i$. Contrôle : produit $\dfrac14+\dfrac14=\dfrac12=\dfrac ca$.</p>
+      <p>c) $z^2=-9$, donc $z=3i$ ou $z=-3i$.</p>
+      <p>d) $\Delta=36-36=0$ : une solution réelle double, $z=3$. ($z^2-6z+9=(z-3)^2$.)</p>
+      <p>e) $\Delta=1-4=-3$, $\sqrt3$ : $z=\dfrac{-1\pm i\sqrt3}{2}$. Ces deux nombres, souvent notés $j$ et $\overline j$ (rien à voir avec le $j$ des électriciens), vérifient $z^3=1$ : tu les retrouveras avec les racines de l'unité.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-conjugue-est-aussi-solution" data-titre="Le conjugué est aussi solution" data-niveau="2" data-type="application" data-notions="second-degre-complexe module-conjugue" data-duree="12" data-calculatrice="non">
+    <p>a) Vérifie que $2+i$ est solution de $z^2-4z+5=0$. Sans calculer $\Delta$, donne l'autre solution, puis factorise $z^2-4z+5$. b) Trouve une équation du second degré à coefficients réels dont les solutions sont $3+2i$ et $3-2i$. c) Même question avec $-5i$ et $5i$. d) Existe-t-il une équation du second degré à coefficients réels dont les solutions sont $1+i$ et $2-i$ ?</p>
+    <details class="correction">
+      <p>a) $(2+i)^2-4(2+i)+5=4+4i-1-8-4i+5=0$. Les coefficients sont réels : $\overline{2+i}=2-i$ est l'autre solution. $z^2-4z+5=(z-2-i)(z-2+i)$.</p>
+      <p>b) Somme $6$, produit $9+4=13$ : $z^2-6z+13=0$.</p>
+      <p>c) Somme $0$, produit $25$ : $z^2+25=0$.</p>
+      <p>d) Non : $1+i$ et $2-i$ ne sont pas conjugués, or les solutions non réelles d'une équation à coefficients réels vont par paires conjuguées. (L'équation $(z-1-i)(z-2+i)=0$ existe, mais ses coefficients ne sont pas réels : développe-la pour le voir.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-cercles-et-mediatrices" data-titre="Cercles et médiatrices" data-niveau="2" data-type="application" data-notions="module-conjugue complexe" data-duree="12" data-calculatrice="non">
+    <p>Décris et dessine l'ensemble des points $M(z)$ tels que :</p>
+    <p>a) $|z-2+i|=2$ · b) $|z|=3$ · c) $|z-1|=|z+i|$ · d) $|z-3i|\le1$</p>
+    <details class="indice"><p>Écris chaque module comme une distance : $|z-z_A|=AM$. Attention aux signes : $z-2+i=z-(2-i)$.</p></details>
+    <details class="correction">
+      <p>a) $|z-(2-i)|=2$ : $AM=2$ avec $A(2-i)$, le cercle de centre $A$ et de rayon $2$.</p>
+      <p>b) $OM=3$ : le cercle de centre $O$ et de rayon $3$.</p>
+      <p>c) $AM=BM$ avec $A(1)$ et $B(-i)$ : la médiatrice de $[AB]$ (elle passe par $O$ et par le milieu $\dfrac{1-i}2$ de $[AB]$).</p>
+      <p>d) $AM\le1$ avec $A(3i)$ : le disque de centre $A$ et de rayon $1$, bord compris.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-impedance-du-moteur" data-titre="L'impédance du moteur" data-niveau="2" data-type="probleme" data-notions="module-conjugue complexe" data-duree="15" data-calculatrice="oui">
+    <p>En régime sinusoïdal, un électricien représente le moteur de l'ouverture par son <strong>impédance</strong> $Z=R+jX$ (en ohms), où $R=8$ et $X=6$, et il écrit la loi d'Ohm $U=ZI$ avec des nombres complexes ; il note $j$ ce que nous notons $i$. On prend $U=230$ (réel). Calculatrice autorisée.</p>
+    <p>a) Calcule $|Z|$. b) Écris $I=\dfrac UZ$ sous forme algébrique, puis calcule $|I|$ : c'est l'intensité efficace, en ampères. c) La puissance active (celle qui travaille) est $P=R\,|I|^2$ et la puissance apparente $S=U\,|I|$. Calcule-les, puis le quotient $\dfrac PS$. d) Compare $\dfrac PS$ à $\dfrac R{|Z|}$. (Ce quotient est le « facteur de puissance » ; son interprétation comme un angle viendra au chapitre suivant.)</p>
+    <details class="correction">
+      <p>a) $|Z|=\sqrt{64+36}=10$ ohms.</p>
+      <p>b) $I=\dfrac{230}{8+6i}=\dfrac{230(8-6i)}{100}=18{,}4-13{,}8i$ ; $|I|=\dfrac{|U|}{|Z|}=\dfrac{230}{10}=23$ A (ou $\sqrt{18{,}4^2+13{,}8^2}=\sqrt{529}=23$).</p>
+      <p>c) $P=8\times23^2=4\,232$ W ; $S=230\times23=5\,290$ VA ; $\dfrac PS=0{,}8$.</p>
+      <p>d) $\dfrac R{|Z|}=\dfrac8{10}=0{,}8$ : c'est la même chose. Le réseau fournit $5\,290$ VA, le moteur n'en convertit que $80\,\%$ en travail : c'est le phénomène de l'ouverture du chapitre.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-python-et-les-complexes" data-titre="Python et les complexes" data-niveau="2" data-type="application" data-notions="module-conjugue complexe" data-duree="10" data-calculatrice="non">
+    <p>En Python, $i$ s'écrit <code>1j</code>. Voici une session :</p>
+<pre class="code">&gt;&gt;&gt; z = 3 - 4j
+&gt;&gt;&gt; z.real, z.imag
+(3.0, -4.0)
+&gt;&gt;&gt; abs(z)
+5.0
+&gt;&gt;&gt; z.conjugate()
+(3+4j)
+&gt;&gt;&gt; z * z.conjugate()
+(25+0j)
+&gt;&gt;&gt; (1 + 1j) ** 4
+(-4+0j)</pre>
+    <p>a) À quoi correspondent <code>real</code>, <code>imag</code>, <code>abs</code> et <code>conjugate</code> ? Pourquoi <code>z * z.conjugate()</code> s'affiche-t-il avec un <code>+0j</code> ? b) Qu'afficheront <code>(2 + 1j) ** 3</code> et <code>1 / 1j</code> ? c) Écris une fonction <code>quotient(a, b, c, d)</code> qui renvoie les parties réelle et imaginaire de $\dfrac{a+ib}{c+id}$, sans utiliser les complexes de Python.</p>
+    <details class="correction">
+      <p>a) La partie réelle, la partie imaginaire (deux flottants, sans $i$), le module, le conjugué. Le produit $z\overline z$ est réel, mais Python garde le type complexe : partie imaginaire $0$.</p>
+      <p>b) <code>(2+11j)</code> (le calcul de Bombelli) et <code>-1j</code>, puisque $\dfrac1i=-i$.</p>
+      <p>c) On multiplie par le conjugué : $\dfrac{(a+ib)(c-id)}{c^2+d^2}=\dfrac{(ac+bd)+i(bc-ad)}{c^2+d^2}$.</p>
+<pre class="code">def quotient(a, b, c, d):
+    n = c**2 + d**2
+    return (a*c + b*d) / n, (b*c - a*d) / n</pre>
+      <p>Contrôle : <code>quotient(2, 3, 1, -1)</code> renvoie <code>(-0.5, 2.5)</code>, le résultat de la partie 6.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="second-degre-complexe" data-duree="10" data-calculatrice="non">
+    <p>Un élève a demandé à une IA de résoudre dans $\mathbb{C}$ l'équation $z^2-6z+13=0$. Voici sa réponse. Trouve les erreurs, puis rédige la bonne réponse.</p>
+    <blockquote class="copie-ia">« On calcule le discriminant : $\Delta=(-6)^2-4\times1\times13=36-52=-16$. Comme $\Delta&lt;0$, l'équation n'a pas de solution réelle, mais elle en a dans $\mathbb{C}$ : on calcule $\sqrt{\Delta}=\sqrt{-16}=4i$, et les solutions sont $z=\dfrac{6\pm4i}{2}=6\pm2i$. Vérification : $z_1=6+2i$ et $z_2=6-2i$ sont bien conjugués l'un de l'autre, ce qui est toujours le cas quand $\Delta&lt;0$ ; le résultat est donc correct. $S=\{6-2i\,;6+2i\}$. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1, l'écriture $\sqrt{-16}$.</strong> La racine carrée n'est définie que pour un réel positif. Ce qu'on utilise, c'est que $-16=(4i)^2$ : on écrit $i\sqrt{-\Delta}=4i$, et jamais $\sqrt\Delta$ quand $\Delta&lt;0$. Ici l'IA tombe sur la bonne valeur, mais l'écriture est fausse, et elle devient dangereuse dès qu'on manipule des racines de négatifs comme des racines ordinaires ($\sqrt{-4}\times\sqrt{-9}$ n'est pas $\sqrt{36}$).</p>
+      <p><strong>Erreur 2, le $2a$ qui ne divise que la moitié.</strong> $\dfrac{6\pm4i}{2}=3\pm2i$ : le trait de fraction passe sous $6$ aussi. C'est l'erreur de la ligne du milieu, et c'est elle qui rend le résultat faux.</p>
+      <p><strong>Erreur 3, une « vérification » qui ne vérifie rien.</strong> Deux nombres conjugués, ce n'est pas une preuve : $6\pm2i$ sont conjugués et ne sont pas solutions, $3\pm2i$ aussi et le sont. Une vraie vérification remplace, ou contrôle la somme et le produit : $z_1+z_2$ doit valoir $-\dfrac ba=6$ (l'IA obtient $12$) et $z_1z_2$ doit valoir $13$ (elle obtient $36+4=40$). Les deux auraient dû l'alerter.</p>
+      <p><strong>La bonne réponse.</strong> $\Delta=-16&lt;0$, $\sqrt{-\Delta}=4$ : $z=\dfrac{6\pm4i}{2}=3\pm2i$. Contrôle : somme $6$, produit $9+4=13$. $S=\{3-2i\,;3+2i\}$.</p>
+      <p>Une réponse fluide, qui enchaîne les bons mots (« conjugués », « toujours le cas quand $\Delta&lt;0$ »), peut être fausse au milieu. Le réflexe : la somme et le produit, qui ne coûtent que dix secondes.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Démontrer et chercher</h3>
+
+  <article class="exercice" id="ex-une-equation-avec-un-parametre" data-titre="Une équation avec un paramètre" data-niveau="3" data-type="raisonnement" data-notions="second-degre-complexe module-conjugue" data-duree="18" data-calculatrice="non">
+    <p>Soit $m$ un réel. On considère l'équation $(E_m)$ : $z^2-2z+m=0$.</p>
+    <p>a) Pour quelles valeurs de $m$ l'équation $(E_m)$ a-t-elle deux solutions non réelles ? b) Exprime alors ces solutions $z_1$ et $z_2$ en fonction de $m$, et calcule $|z_1|$. c) Montre que, quand $m$ varie, les images de $z_1$ et $z_2$ restent sur une même droite, que tu préciseras. d) Pour quelle valeur de $m$ a-t-on $|z_1|=3$ ? e) Résous $(E_m)$ pour $m=1$ et pour $m=0$, et place toutes les solutions trouvées (questions d et e) dans le plan complexe.</p>
+    <details class="indice"><p>$\Delta=4-4m$. Pour le c), regarde la partie réelle des solutions. Pour le d), $|z_1|^2=z_1\overline{z_1}=z_1z_2$.</p></details>
+    <details class="correction">
+      <p>a) $\Delta=4-4m&lt;0\iff m&gt;1$.</p>
+      <p>b) $\sqrt{-\Delta}=\sqrt{4m-4}=2\sqrt{m-1}$, donc $z_1=1-i\sqrt{m-1}$ et $z_2=1+i\sqrt{m-1}$. Et $|z_1|^2=1+(m-1)=m$, donc $|z_1|=\sqrt m$ (c'est aussi $z_1z_2=\dfrac ca=m$).</p>
+      <p>c) Les deux solutions ont pour partie réelle $1=-\dfrac b{2a}$, quelle que soit la valeur de $m&gt;1$ : leurs images sont sur la droite verticale d'équation $x=1$, symétriques par rapport à l'axe des réels.</p>
+      <p>d) $\sqrt m=3\iff m=9$ : les solutions sont $1\pm2\sqrt2\,i$.</p>
+      <p>e) $m=1$ : $\Delta=0$, solution double $z=1$. $m=0$ : $z^2-2z=z(z-2)=0$, solutions $0$ et $2$. Sur la figure : $0$ et $2$ sur l'axe des réels, $1$ entre eux, et $1\pm2\sqrt2\,i$ au-dessus et en dessous de $1$, sur la droite $x=1$. Quand $m$ augmente, les deux solutions réelles se rapprochent de $1$, s'y rejoignent pour $m=1$, puis se décollent de l'axe le long de la verticale : c'est ce que montre le deuxième laboratoire.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-demontrer-le-module-d-un-produit" data-titre="Démontrer le module d'un produit" data-niveau="3" data-type="raisonnement" data-notions="module-conjugue" data-duree="20" data-calculatrice="non">
+    <p>Soit $z=a+ib$ et $z'=a'+ib'$, avec $a$, $b$, $a'$, $b'$ réels.</p>
+    <p>a) Développe $(aa'-bb')^2+(ab'+a'b)^2$ et montre qu'il vaut $(a^2+b^2)(a'^2+b'^2)$. b) Déduis-en que $|zz'|=|z|\,|z'|$, sans utiliser le conjugué. c) Retrouve le résultat avec $|z|^2=z\overline z$ (démonstration du cours). d) Application : $5=1^2+2^2$ et $13=2^2+3^2$. En calculant $(1+2i)(2+3i)$, écris $65$ comme une somme de deux carrés d'entiers. Trouve une deuxième écriture avec $(1+2i)(3+2i)$.</p>
+    <details class="correction">
+      <p>a) $(aa'-bb')^2+(ab'+a'b)^2=a^2a'^2-2aa'bb'+b^2b'^2+a^2b'^2+2aa'bb'+a'^2b^2=a^2a'^2+b^2b'^2+a^2b'^2+a'^2b^2=(a^2+b^2)(a'^2+b'^2)$.</p>
+      <p>b) $zz'=(aa'-bb')+i(ab'+a'b)$, donc $|zz'|^2=(aa'-bb')^2+(ab'+a'b)^2=(a^2+b^2)(a'^2+b'^2)=|z|^2|z'|^2$. Les modules sont positifs : $|zz'|=|z||z'|$.</p>
+      <p>c) $|zz'|^2=zz'\overline{zz'}=z\overline z\,z'\overline{z'}=|z|^2|z'|^2$, même conclusion.</p>
+      <p>d) $(1+2i)(2+3i)=2+3i+4i+6i^2=-4+7i$, de module $\sqrt{16+49}=\sqrt{65}$ ; et ce module vaut aussi $\sqrt5\times\sqrt{13}$. Donc $65=4^2+7^2$. Avec $(1+2i)(3+2i)=3+2i+6i+4i^2=-1+8i$ : $65=1^2+8^2$. L'identité du a) dit qu'un produit de deux sommes de deux carrés est encore une somme de deux carrés.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-formule-du-binome-en-action" data-titre="La formule du binôme en action" data-niveau="3" data-type="raisonnement" data-notions="complexe" data-duree="15" data-calculatrice="non">
+    <p>a) Écris la ligne $n=6$ du triangle de Pascal, puis développe $(1+i)^6$ avec la formule du binôme. b) Retrouve le résultat en partant de $(1+i)^2=2i$. c) Déduis de la partie réelle du a) la valeur de $1-\dbinom62+\dbinom64-\dbinom66$. d) Montre que $(1+i)^n$ est réel si et seulement si $n$ est un multiple de $4$ (pour $n$ entier naturel). Que vaut-il alors ?</p>
+    <details class="indice"><p>d) Écris $(1+i)^n$ à partir de $(1+i)^2=2i$ selon que $n$ est pair ou impair, puis regarde les puissances de $i$.</p></details>
+    <details class="correction">
+      <p>a) $1,6,15,20,15,6,1$. $(1+i)^6=1+6i+15i^2+20i^3+15i^4+6i^5+i^6=1+6i-15-20i+15+6i-1=0-8i=-8i$.</p>
+      <p>b) $(1+i)^6=\left((1+i)^2\right)^3=(2i)^3=8i^3=-8i$.</p>
+      <p>c) La partie réelle de $(1+i)^6$ est $1-15+15-1=0$ : donc $1-\dbinom62+\dbinom64-\dbinom66=0$.</p>
+      <p>d) Si $n=2p$ : $(1+i)^n=(2i)^p=2^pi^p$, réel si et seulement si $i^p$ est réel, c'est-à-dire $p$ pair, $n$ multiple de $4$ ; alors $(1+i)^n=2^{p}(-1)^{p/2}=(-4)^{n/4}$. Si $n=2p+1$ : $(1+i)^n=2^pi^p(1+i)$, et $i^p(1+i)$ vaut $1+i$, $-1+i$, $-1-i$ ou $1-i$ : jamais réel. Conclusion : $(1+i)^n$ est réel $\iff4$ divise $n$, et il vaut alors $(-4)^{n/4}$ (par exemple $(1+i)^8=16$).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-suite-qui-tourne-en-carre" data-titre="Une suite qui tourne en carré" data-niveau="3" data-type="probleme" data-notions="complexe module-conjugue" data-duree="20" data-calculatrice="non">
+    <p>On définit une suite de nombres complexes par $z_0=0$ et, pour tout entier naturel $n$, $z_{n+1}=iz_n+1$.</p>
+    <p>a) Calcule $z_1$, $z_2$, $z_3$, $z_4$ et $z_5$, et place leurs images $A_1$ à $A_5$. b) Que remarques-tu ? Démontre que $z_{n+4}=z_n$ pour tout $n$. c) Résous l'équation $z=iz+1$. Que représente sa solution $\omega$ pour les points $A_1$, $A_2$, $A_3$, $A_4$ ? d) Montre que $|z_n|\le\sqrt2$ pour tout $n$.</p>
+    <details class="indice"><p>b) Calcule $z_{n+4}$ en appliquant quatre fois la relation, ou remarque que $z_4=z_0$ et que chaque terme ne dépend que du précédent. c) $\omega$ est à la même distance des quatre points.</p></details>
+    <details class="correction">
+      <p>a) $z_1=1$, $z_2=i+1$, $z_3=i(1+i)+1=i-1+1=i$, $z_4=i\times i+1=0$, $z_5=1$. Les points $A_1(1)$, $A_2(1+i)$, $A_3(i)$, $A_4(0)$ sont les sommets d'un carré de côté $1$.</p>
+      <p>b) La suite revient à son point de départ : $z_4=z_0$. Par récurrence, si $z_{n+4}=z_n$, alors $z_{n+5}=iz_{n+4}+1=iz_n+1=z_{n+1}$ ; et $z_4=z_0$ amorce. Donc $z_{n+4}=z_n$ pour tout $n$ : la suite est périodique, de période $4$.</p>
+      <p>c) $z-iz=1\iff z(1-i)=1\iff z=\dfrac1{1-i}=\dfrac{1+i}{2}$. Le point $\Omega\left(\dfrac12+\dfrac12i\right)$ est le centre du carré : $|z_k-\omega|=\dfrac{\sqrt2}2$ pour $k=1,2,3,4$. (Si la suite partait de $\omega$, elle n'en bougerait plus.)</p>
+      <p>d) Les termes ne prennent que les quatre valeurs $0$, $1$, $1+i$, $i$, de modules $0$, $1$, $\sqrt2$, $1$ : tous inférieurs ou égaux à $\sqrt2$.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>On a le droit d'inventer un nombre comme ça ?</summary>
+      <div><p>Oui, à condition que l'ensemble obtenu ne se contredise pas : c'est le cas de $\mathbb{C}$ (on peut le construire à partir de couples de réels, c'est ce que fait le plan complexe). Les mathématiciens ont fait pareil avec les négatifs, les fractions, les irrationnels. Ce qui a mis du temps, ce n'est pas l'invention, c'est l'acceptation : « imaginaire » est resté le nom.</p></div></details>
+    <details><summary>$i$ est-il « la » racine carrée de $-1$ ?</summary>
+      <div><p>$i$ et $-i$ ont tous deux pour carré $-1$, et rien ne permet de préférer l'un à l'autre. C'est pour cela qu'on n'écrit jamais $\sqrt{-1}$ : la racine carrée est réservée aux réels positifs, pour lesquels on peut choisir « la positive ». Dans $\mathbb{C}$, on dit « un nombre dont le carré vaut $-1$ ».</p></div></details>
+    <details><summary>Pourquoi ne peut-on pas écrire $z&gt;0$ ?</summary>
+      <div><p>Parce qu'aucun ordre sur $\mathbb{C}$ n'est compatible avec le calcul. Si $i&gt;0$, alors $i\times i&gt;0$, soit $-1&gt;0$ : absurde. Si $i&lt;0$, alors $-i&gt;0$ et $(-i)^2=-1&gt;0$ : absurde aussi. Les seules comparaisons permises portent sur des réels : parties réelles, parties imaginaires, modules.</p></div></details>
+    <details><summary>À quoi sert le conjugué, à part changer un signe ?</summary>
+      <div><p>À fabriquer des réels : $z+\overline z$ et $z\overline z$ sont réels. C'est lui qui permet de diviser (le dénominateur devient $|z|^2$), de dire qu'un nombre est réel ($\overline z=z$) sans ouvrir la forme algébrique, et de comprendre pourquoi les solutions d'une équation à coefficients réels vont par paires.</p></div></details>
+    <details><summary>Le module, c'est la valeur absolue ?</summary>
+      <div><p>C'est sa généralisation : pour un réel, $|z|$ est bien la valeur absolue. Pour un complexe, c'est la distance à l'origine. Les deux mesurent « la taille » d'un nombre sans son signe ou sa direction, et les deux respectent les produits : $|zz'|=|z||z'|$.</p></div></details>
+    <details><summary>Quand $\Delta&lt;0$, il y a vraiment deux solutions ?</summary>
+      <div><p>Oui, et elles sont conjuguées. En première, on répondait « pas de solution » parce qu'on cherchait des réels ; la réponse était complète pour $\mathbb{R}$. Dans $\mathbb{C}$, une équation du second degré a toujours deux solutions (confondues si $\Delta=0$). La question change, la réponse aussi.</p></div></details>
+    <details><summary>Ces formules marchent-elles si les coefficients sont complexes ?</summary>
+      <div><p>Pas telles quelles : il faut savoir extraire une « racine carrée » d'un complexe, ce qui n'est pas au programme. Le théorème de ce chapitre suppose $a$, $b$, $c$ réels, et c'est aussi ce qui garantit que les solutions sont conjuguées. Avec des coefficients complexes, elles ne le sont plus nécessairement.</p></div></details>
+    <details><summary>Pourquoi les électriciens écrivent-ils $j$ ?</summary>
+      <div><p>Parce que $i$ désigne l'intensité du courant. Même nombre, autre lettre : $j^2=-1$. Les logiciels font comme eux (Python écrit <code>1j</code>). En maths, on garde $i$ ; en physique, on lit $j$ sans s'étonner.</p></div></details>
+    <details><summary>Ma calculatrice sait-elle calculer avec les complexes ?</summary>
+      <div><p>La plupart ont un mode complexe (touche $i$ ou menu « CPLX »). Il sert à contrôler un résultat, pas à le trouver : en devoir, c'est le calcul écrit, avec $i^2=-1$ et le conjugué, qui rapporte les points. Et sans calculatrice, les réflexes du jeu suffisent.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
