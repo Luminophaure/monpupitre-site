@@ -1,5 +1,7 @@
 {
-  "version": 1,
-  "exporte_le": null,
-  "pages": []
+ "version": 2,
+ "exporte_le": null,
+ "pages": [],
+ "zones": [],
+ "menus": {}
 }
