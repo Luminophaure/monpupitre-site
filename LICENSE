@@ -54,6 +54,9 @@ mêmes conditions. Lis le paragraphe qui correspond à ce que tu veux reprendre.
    le dépôt et ne doivent jamais être retirées :
 
      assets/vendor/katex/    KaTeX, licence MIT (voir le fichier LICENSE du dossier)
+     assets/vendor/qrcode/   qrcode-generator de Kazuhiko Arase, licence MIT (voir le
+                             fichier LICENSE du dossier) ; « QR Code » est une marque
+                             déposée de DENSO WAVE INCORPORATED
      assets/vendor/polices/  Bricolage Grotesque, Atkinson Hyperlegible, Caveat et
                              IBM Plex Mono, toutes sous SIL Open Font License 1.1
                              (voir les fichiers LICENCE-<famille>.txt du dossier)

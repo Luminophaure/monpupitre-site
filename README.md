@@ -20,5 +20,5 @@ la commande `python3 tests/publier_site.py`.
   commercial, et en partageant tes adaptations aux mêmes conditions ;
 - **le code du site** est tous droits réservés : consultable, mais non concédé.
 
-Les éléments de tiers (KaTeX, polices) gardent leur propre licence.
+Les éléments de tiers (KaTeX, qrcode-generator, polices) gardent leur propre licence.
 Pour un usage commercial ou une reprise du code : vince.grimal@gmail.com

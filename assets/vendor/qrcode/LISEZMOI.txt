@@ -1,0 +1,9 @@
+qrcode-generator, de Kazuhiko Arase — https://github.com/kazuhikoarase/qrcode-generator
+Fichier : js/dist/qrcode.js, pris au commit 83b7e8f (7 août 2025), sans modification.
+Licence MIT (fichier LICENSE à côté, à ne jamais retirer). « QR Code » est une marque déposée de
+DENSO WAVE INCORPORATED.
+
+Sert à une seule chose : dessiner, dans le navigateur, le code QR de l'adresse otpauth:// que
+l'application d'authentification lit à l'activation de la double authentification (« Mon compte »,
+composants/comptes-serveur.js). Chargé à la demande par charger() (socle/chargeur.js), jamais
+avant ; rien ne part vers un tiers.
