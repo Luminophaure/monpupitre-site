@@ -1,0 +1,1 @@
+var echap=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"),identifiant=t=>String(t).trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""),pluriel=(n,mot,pl)=>n+" "+(n>1?pl||mot+"s":mot);export{echap,identifiant,pluriel};

@@ -1,0 +1,756 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de probabilites-conditionnelles.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/premiere/probabilites-conditionnelles.source.html
+     Programme : spécialité de première, BO n° 14 du 2 avril 2026, partie « Probabilités conditionnelles et
+     indépendance » (docs/programmes/maths-premiere-generale.md). Les pièges et les diagnostics viennent de la
+     liste proposée au professeur le 7 novembre 2026 et acceptée telle quelle : des reconstitutions, à
+     confirmer sur ses copies. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Probabilités conditionnelles · Première</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=88d8734a23">
+<script type="module" src="../../assets/js/site.js?v=ed7c06b6a7"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PSR3ZH26.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-AMMZOBPW.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Q2GVEQM4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CBQT7B7D.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-U4C76PXR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-XKVO5GCQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IOD4MBYH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-X3JHWWFK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MAO2JT43.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KZF5WI3B.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YUMCMQAL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UFPTI3MU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-I47X6ATD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IA4MTT2D.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-NKPT4H3L.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KMBOCMA6.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-SJHCGNDZ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-G6GBEMMA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-JH6NPKZM.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/proba-cond.js?v=4b8a92ee68">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/proba-cond.js?v=2f7d6630d7">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-RUETV3ET.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-56ZXDPWN.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="proba-cond" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Première spécialité · Probabilités</span>
+  <h1>Probabilités conditionnelles</h1>
+  <p class="chapeau">Un test médical est positif : quelle est la chance d'être vraiment malade ? Il a plu samedi : quelle est la chance qu'il pleuve dimanche ? Quand on sait déjà quelque chose, les probabilités changent. Ce chapitre t'apprend à en tenir compte, avec deux outils : le tableau croisé et l'arbre pondéré.</p>
+  <ul class="objectifs">
+    <li>Calculer une probabilité sachant un événement</li><li>Construire et lire un arbre pondéré</li><li>Calculer une probabilité par la formule des probabilités totales</li><li>Renverser le conditionnement : passer de $P_A(B)$ à $P_B(A)$</li><li>Reconnaître et justifier l'indépendance</li><li>Représenter des épreuves répétées</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Un laboratoire annonce un test « fiable à 99 % » pour une maladie qui touche une personne sur cent : il est positif chez 99 % des malades, et négatif chez 99 % des personnes saines.</strong> Un patient reçoit un résultat positif. A-t-il 99 chances sur 100 d'être malade ? Non : à peu près une sur deux. Le chiffre de 99 % répond à une autre question : <em>sachant qu'on est malade</em>, quelle est la chance d'avoir un test positif ? Le patient, lui, veut savoir l'inverse : <em>sachant que son test est positif</em>, quelle est la chance d'être malade ? Ce sont deux nombres très différents, et les confondre a déjà conduit à de mauvaises décisions, à l'hôpital comme au tribunal. Ce chapitre t'apprend à les distinguer, et à passer de l'une à l'autre.</p>
+    <p class="discret">Ils s'en servent : les biologistes et les techniciens de laboratoire médical (lire un résultat d'analyse), les médecins et les épidémiologistes (dépistage, efficacité d'un vaccin), les ingénieurs qualité (repérer la machine qui produit les défauts), les actuaires (assurances), les météorologues et les data scientists (prévoir sachant ce qu'on observe). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-sachant">1. Probabilité de B sachant A</h3>
+
+  <p>Une médiathèque compte 400 inscrits. On note $J$ l'événement « l'inscrit a moins de 18 ans » et $B$ l'événement « l'inscrit emprunte des bandes dessinées ». Le tableau croisé compte les inscrits selon les deux critères à la fois.</p>
+
+  <div class="defile"><table class="simple">
+    <tr><th></th><th>$B$ : emprunte des BD</th><th>$\bar B$ : n'en emprunte pas</th><th>Total</th></tr>
+    <tr><th>$J$ : moins de 18 ans</th><td>90</td><td>30</td><td><strong>120</strong></td></tr>
+    <tr><th>$\bar J$ : 18 ans ou plus</th><td>70</td><td>210</td><td><strong>280</strong></td></tr>
+    <tr><th>Total</th><td><strong>160</strong></td><td><strong>240</strong></td><td><strong>400</strong></td></tr>
+  </table></div>
+
+  <div class="bloc exemple" data-titre="Trois questions, trois dénominateurs">
+    <p>On tire un inscrit au hasard : tous ont la même chance d'être choisis.</p>
+    <ul>
+      <li>Il emprunte des BD : $P(B)=\dfrac{160}{400}=0{,}4$. On divise par l'<strong>effectif total</strong>.</li>
+      <li>Il a moins de 18 ans <strong>et</strong> il emprunte des BD : $P(J\cap B)=\dfrac{90}{400}=0{,}225$. Toujours sur l'effectif total.</li>
+      <li><strong>Sachant</strong> qu'il a moins de 18 ans, il emprunte des BD. On ne regarde plus que la ligne $J$ : 90 inscrits sur 120. La probabilité vaut $\dfrac{90}{120}=0{,}75$. C'est la <strong>probabilité de $B$ sachant $J$</strong>.</li>
+    </ul>
+    <p>Savoir que l'inscrit a moins de 18 ans fait passer la probabilité d'emprunter des BD de 0,4 à 0,75 : l'information a changé la probabilité.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Probabilité conditionnelle">
+    <p>Soit $A$ un événement de probabilité non nulle. La <strong>probabilité de $B$ sachant $A$</strong>, notée $P_A(B)$, est</p>
+    $$P_A(B)=\dfrac{P(A\cap B)}{P(A)}.$$
+    <p>On lit « P indice A de B », ou « probabilité de B sachant A ». L'événement en indice est ce qu'on sait déjà ; l'événement entre parenthèses est celui dont on cherche la probabilité.</p>
+    <p>Dans un tableau croisé, quand on tire un individu au hasard : $P_A(B)=\dfrac{\text{effectif de }A\cap B}{\text{effectif de }A}$. On divise par le total de la <strong>ligne</strong> (ou de la colonne) de $A$, pas par l'effectif total.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Sachant A, B et B̄ se partagent A">
+    <p>Pour tout événement $A$ de probabilité non nulle : $0\le P_A(B)\le1$ et $P_A(\bar B)=1-P_A(B)$.</p>
+    <p>Dans la médiathèque : $P_J(\bar B)=\dfrac{30}{120}=0{,}25=1-0{,}75$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Traduire une phrase en probabilité">
+    <ol class="etapes">
+      <li><span>Je cherche l'ensemble de référence : « parmi les… », « chez les… », « sachant que… », « quand… », ou « … % des $A$ » quand $A$ n'est qu'une partie de la population (« 75 % des moins de 18 ans »). S'il y en a un, c'est l'événement en <strong>indice</strong>.</span></li>
+      <li><span>Je repère ce qu'on compte dans cet ensemble : c'est l'événement <strong>entre parenthèses</strong>.</span></li>
+      <li><span>Si l'on compte parmi tout le monde (« 22,5 % des inscrits… ») et que deux conditions sont réunies par « et », « à la fois » : c'est une <strong>intersection</strong>, $P(A\cap B)$.</span></li>
+      <li><span>Je relis la phrase avec ma notation : « parmi les $A$, la part des $B$ » se dit $P_A(B)$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Dans la médiathèque, écris chaque phrase avec une probabilité. a) 75 % des moins de 18 ans empruntent des BD. b) 22,5 % des inscrits ont moins de 18 ans et empruntent des BD. c) Parmi les emprunteurs de BD, 56,25 % ont moins de 18 ans.</p>
+      <ol class="pas">
+        <li><strong>a)</strong> L'ensemble de référence : les moins de 18 ans, $J$. On y compte ceux qui empruntent des BD : $P_J(B)=0{,}75$.</li>
+        <li><strong>b)</strong> Pas d'ensemble de référence, deux conditions réunies : $P(J\cap B)=0{,}225$.</li>
+        <li><strong>c)</strong> L'ensemble de référence : les emprunteurs de BD, $B$. On y compte les moins de 18 ans : $P_B(J)=0{,}5625$. Vérification dans le tableau : $\dfrac{90}{160}=0{,}5625$.</li>
+        <li><strong>À retenir.</strong> Les trois phrases parlent des mêmes 90 inscrits, mais divisent par trois effectifs différents : 120, 400 et 160.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Le mauvais dénominateur">
+    <p>Pour $P_J(B)$, tout le monde est tenté d'écrire $\dfrac{90}{400}$. Mais 90 sur 400, c'est $P(J\cap B)$. « Sachant $J$ » veut dire : on ne regarde que les 120 inscrits de la ligne $J$.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-arbre">2. L'arbre pondéré</h3>
+
+  <p>Un tableau croisé demande les effectifs. Souvent, on ne connaît que des pourcentages : 30 % des inscrits ont moins de 18 ans, 75 % d'entre eux empruntent des BD, contre 25 % des autres. On range alors ces informations dans un arbre.</p>
+
+  <div class="bloc definition" data-titre="Arbre pondéré">
+    <p>Un <strong>arbre pondéré</strong> part d'un point, la <strong>racine</strong>. Chaque <strong>branche</strong> porte une probabilité ; chaque <strong>nœud</strong> est un événement ; une suite de branches de la racine à une extrémité est un <strong>chemin</strong>, et son extrémité une <strong>feuille</strong>.</p>
+    <ul>
+      <li>Au premier niveau : $A$ et $\bar A$, avec $P(A)$ et $P(\bar A)$.</li>
+      <li>Au second niveau, sous $A$ : $B$ et $\bar B$, avec $P_A(B)$ et $P_A(\bar B)$. Une branche du second niveau porte toujours une probabilité <strong>sachant</strong> le nœud d'où elle part.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="arbre-mediatheque" viewBox="0 0 580 320" role="img" aria-label="L'arbre pondéré de la médiathèque. De la racine : J, moins de 18 ans, 0,3 ; J barre, 0,7. Sous J : B, emprunte des BD, 0,75 ; B barre, 0,25. Sous J barre : B, 0,25 ; B barre, 0,75. Au bout des chemins : 0,3 fois 0,75 égale 0,225 ; 0,3 fois 0,25 égale 0,075 ; 0,7 fois 0,25 égale 0,175 ; 0,7 fois 0,75 égale 0,525. Le chemin qui va de la racine à J puis à B est en couleur."><g class="trace t-u ep-3"><line x1="34" y1="150" x2="142" y2="75.0"/></g><g class="trace ep-2-5"><line x1="34" y1="150" x2="142" y2="225.0"/></g><g class="trace t-u ep-3"><line x1="174" y1="75.0" x2="266" y2="38.0"/></g><g class="trace ep-2-5"><line x1="174" y1="75.0" x2="266" y2="112.0"/></g><g class="trace ep-2-5"><line x1="174" y1="225.0" x2="266" y2="188.0"/></g><g class="trace ep-2-5"><line x1="174" y1="225.0" x2="266" y2="262.0"/></g><circle class="pt" cx="34" cy="150" r="4"/><text class="lettre" x="158" y="81.0" text-anchor="middle">J</text><text class="lettre" x="158" y="231.0" text-anchor="middle"><tspan class="barre">J</tspan></text><text class="lettre" x="282" y="44.0" text-anchor="middle">B</text><text class="lettre" x="282" y="118.0" text-anchor="middle"><tspan class="barre">B</tspan></text><text class="lettre" x="282" y="194.0" text-anchor="middle">B</text><text class="lettre" x="282" y="268.0" text-anchor="middle"><tspan class="barre">B</tspan></text><text class="formule halo" x="89.80000000000001" y="100.75" text-anchor="middle">0,3</text><text class="formule halo" x="89.80000000000001" y="213.25" text-anchor="middle">0,7</text><text class="formule halo" x="220.0" y="47.5" text-anchor="middle">0,75</text><text class="formule halo" x="220.0" y="114.5" text-anchor="middle">0,25</text><text class="formule halo" x="220.0" y="197.5" text-anchor="middle">0,25</text><text class="formule halo" x="220.0" y="264.5" text-anchor="middle">0,75</text><text class="petit" x="304" y="34.0">J ∩ B</text><text class="formule t-u plein" x="304" y="54.0">0,3 × 0,75 = 0,225</text><text class="petit" x="304" y="108.0">J ∩ <tspan class="barre">B</tspan></text><text class="formule" x="304" y="128.0">0,3 × 0,25 = 0,075</text><text class="petit" x="304" y="184.0"><tspan class="barre">J</tspan> ∩ B</text><text class="formule" x="304" y="204.0">0,7 × 0,25 = 0,175</text><text class="petit" x="304" y="258.0"><tspan class="barre">J</tspan> ∩ <tspan class="barre">B</tspan></text><text class="formule" x="304" y="278.0">0,7 × 0,75 = 0,525</text><text class="petit" x="304" y="296">somme des quatre feuilles : 1</text></svg><figcaption>L'arbre de la médiathèque. Le chemin en couleur, de la racine à $J$ puis à $B$, est l'événement $J\cap B$ : sa probabilité est le produit des branches, $0{,}3\times0{,}75=0{,}225$, la même que dans le tableau.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Les trois règles de l'arbre">
+    <ol>
+      <li><strong>Un nœud fait 1.</strong> Les probabilités des branches qui partent d'un même nœud ont pour somme 1 : $P_A(B)+P_A(\bar B)=1$.</li>
+      <li><strong>On multiplie le long d'un chemin.</strong> La probabilité d'un chemin est le produit des probabilités de ses branches : $P(A\cap B)=P(A)\times P_A(B)$ (avec $P(A)\neq0$, pour que $P_A(B)$ existe).</li>
+      <li><strong>Les feuilles font 1.</strong> La somme des probabilités de toutes les feuilles vaut 1.</li>
+    </ol>
+    <p>La règle 2 n'est que la définition de $P_A(B)$ retournée : de $P_A(B)=\dfrac{P(A\cap B)}{P(A)}$, on tire $P(A\cap B)=P(A)\times P_A(B)$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Construire un arbre à partir d'un énoncé">
+    <ol class="etapes">
+      <li><span>Je nomme les événements par des lettres, et je repère celui dont on connaît la probabilité <strong>sans condition</strong> : il va au premier niveau.</span></li>
+      <li><span>Je place les données « parmi les… » au second niveau, sous le bon nœud.</span></li>
+      <li><span>Je complète chaque nœud pour qu'il fasse 1.</span></li>
+      <li><span>Je calcule un chemin en multipliant ses branches.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Une boulangerie livre 40 % de ses commandes ; les autres sont retirées en boutique. Parmi les commandes livrées, 10 % sont en retard ; parmi les commandes retirées, 5 % ne sont pas prêtes à l'heure, donc en retard aussi. On choisit une commande au hasard. Construis l'arbre, puis calcule la probabilité qu'elle soit livrée et en retard.</p>
+      <ol class="pas">
+        <li><strong>Les événements.</strong> $L$ : « la commande est livrée », $R$ : « elle est en retard ». On connaît $P(L)=0{,}4$ sans condition : $L$ et $\bar L$ au premier niveau.</li>
+        <li><strong>Le second niveau.</strong> « Parmi les livrées, 10 % en retard » : $P_L(R)=0{,}1$. « Parmi les retirées, 5 % en retard » : $P_{\bar L}(R)=0{,}05$.</li>
+        <li><strong>Compléter.</strong> $P(\bar L)=0{,}6$, $P_L(\bar R)=0{,}9$, $P_{\bar L}(\bar R)=0{,}95$.</li>
+        <li><strong>Le chemin.</strong> $P(L\cap R)=P(L)\times P_L(R)=0{,}4\times0{,}1=0{,}04$. Une commande sur 25 est livrée en retard.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Une intersection sur une branche">
+    <p>Sur une branche du second niveau, on écrit une probabilité <strong>sachant</strong>, jamais une intersection. Si l'énoncé dit « 4 % des commandes sont livrées et en retard », c'est $P(L\cap R)$ : ça va au bout d'un chemin, et la branche porte $P_L(R)=\dfrac{0{,}04}{0{,}4}=0{,}1$.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-totales">3. La formule des probabilités totales</h3>
+
+  <p>Dans la boulangerie, quelle est la probabilité qu'une commande soit en retard, livrée ou non ? Deux chemins mènent à $R$ : par $L$ et par $\bar L$. Il faut les deux.</p>
+
+  <div class="bloc definition" data-titre="Partition de l'univers">
+    <p>Des événements $A_1$, $A_2$, …, $A_n$ forment une <strong>partition</strong> de l'univers (un <strong>système complet d'événements</strong>) quand ils sont deux à deux incompatibles et que leur réunion est l'univers tout entier : chaque issue est dans un et un seul d'entre eux. Le cas le plus courant : $A$ et $\bar A$.</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Formule des probabilités totales">
+    <p>Si $A_1$, …, $A_n$ forment une partition de l'univers, pour tout événement $B$ :</p>
+    $$P(B)=P(A_1\cap B)+P(A_2\cap B)+\dots+P(A_n\cap B).$$
+    <p>Avec $A$ et $\bar A$, si $0&lt;P(A)&lt;1$ (pour que $P_A(B)$ et $P_{\bar A}(B)$ existent) : $P(B)=P(A\cap B)+P(\bar A\cap B)=P(A)\times P_A(B)+P(\bar A)\times P_{\bar A}(B)$.</p>
+    <p>Sur l'arbre : <strong>on additionne les feuilles qui contiennent $B$</strong>.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pourquoi c'est vrai">
+    <p>Les événements $A\cap B$ et $\bar A\cap B$ découpent $B$ en deux morceaux qui ne se chevauchent pas : une issue de $B$ est soit dans $A$, soit dans $\bar A$. Les probabilités de deux événements incompatibles s'ajoutent. L'exercice « Montrer la formule des probabilités totales » le rédige.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="La boulangerie, puis la médiathèque">
+    <p>Boulangerie : $P(R)=P(L\cap R)+P(\bar L\cap R)=0{,}4\times0{,}1+0{,}6\times0{,}05=0{,}04+0{,}03=0{,}07$. Sept commandes sur cent sont en retard.</p>
+    <p>Médiathèque : $P(B)=0{,}3\times0{,}75+0{,}7\times0{,}25=0{,}225+0{,}175=0{,}4$. Le tableau donnait $\dfrac{160}{400}=0{,}4$ : l'arbre et le tableau sont d'accord.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Retrouver une branche qui manque">
+    <ol class="etapes">
+      <li><span>J'appelle $x$ la probabilité inconnue et je l'écris sur sa branche.</span></li>
+      <li><span>J'écris la formule des probabilités totales pour l'événement dont on connaît la probabilité.</span></li>
+      <li><span>Je résous l'équation du premier degré en $x$, et je vérifie que $0\le x\le1$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Dans une enquête, 70 % des personnes interrogées ont un abonnement de transport ($A$). Parmi elles, 20 % ont pris le bus ce matin ($B$). Au total, 26 % des personnes ont pris le bus ce matin. Quelle part des personnes sans abonnement a pris le bus ?</p>
+      <ol class="pas">
+        <li><strong>L'inconnue.</strong> On cherche $x=P_{\bar A}(B)$. On connaît $P(A)=0{,}7$, donc $P(\bar A)=0{,}3$, et $P_A(B)=0{,}2$.</li>
+        <li><strong>La formule.</strong> $P(B)=P(A)\times P_A(B)+P(\bar A)\times x$, soit $0{,}26=0{,}7\times0{,}2+0{,}3x$.</li>
+        <li><strong>L'équation.</strong> $0{,}26=0{,}14+0{,}3x$, donc $0{,}3x=0{,}12$ et $x=\dfrac{0{,}12}{0{,}3}=0{,}4$.</li>
+        <li><strong>Conclusion.</strong> 40 % des personnes sans abonnement ont pris le bus. Le nombre est bien entre 0 et 1.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Un seul chemin, ou des branches additionnées">
+    <ul>
+      <li>$P(R)=0{,}04$ : c'est seulement le chemin par $L$. Il manque les commandes retirées en retard.</li>
+      <li>$P(R)=0{,}1+0{,}05=0{,}15$ : on a additionné deux probabilités <em>sachant</em> des événements différents. Elles ne s'additionnent pas ; ce sont les feuilles qui s'additionnent.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-schema">4. Le schéma récapitulatif</h3>
+
+  <p>Tout le chapitre tient sur un dessin. Lis-le de gauche à droite : sur les branches, les probabilités <strong>sachant</strong> ; au bout des chemins, les <strong>intersections</strong>, calculées par produit ; l'accolade ramasse les deux feuilles qui contiennent $B$ et donne $P(B)$ ; dessous, on renverse le conditionnement pour obtenir $P_B(A)$.</p>
+
+  <figure class="figure-svg large"><svg data-figure="schema-arbre" viewBox="0 0 740 420" role="img" aria-label="Le schéma récapitulatif. Un arbre pondéré horizontal : de la racine partent A, avec la probabilité P(A), et A barre, avec P(A barre). Sous A, B avec P indice A de B et B barre avec P indice A de B barre ; sous A barre, B avec P indice A barre de B, et B barre. Au bout de chaque chemin, l'intersection et son calcul : P(A inter B) égale P(A) fois P indice A de B, et de même pour les trois autres. Les deux chemins qui mènent à B sont en couleur ; une accolade les réunit : P(B) égale P(A inter B) plus P(A barre inter B), c'est la formule des probabilités totales. En dessous, dans un cadre : P indice B de A, A sachant B, égale P(A inter B) divisé par P(B)."><g class="trace ep-3"><line x1="34" y1="160" x2="146" y2="85.0"/></g><g class="trace ep-3"><line x1="34" y1="160" x2="146" y2="235.0"/></g><g class="trace t-u ep-3"><line x1="178" y1="85.0" x2="274" y2="48.0"/></g><g class="trace t-n"><line x1="178" y1="85.0" x2="274" y2="122.0"/></g><g class="trace t-u ep-3"><line x1="178" y1="235.0" x2="274" y2="198.0"/></g><g class="trace t-n"><line x1="178" y1="235.0" x2="274" y2="272.0"/></g><circle class="pt" cx="34" cy="160" r="4"/><text class="lettre" x="162" y="91.0" text-anchor="middle">A</text><text class="lettre" x="162" y="241.0" text-anchor="middle"><tspan class="barre">A</tspan></text><text class="lettre" x="290" y="54.0" text-anchor="middle">B</text><text class="lettre" x="290" y="128.0" text-anchor="middle"><tspan class="barre">B</tspan></text><text class="lettre" x="290" y="204.0" text-anchor="middle">B</text><text class="lettre" x="290" y="278.0" text-anchor="middle"><tspan class="barre">B</tspan></text><text class="formule halo" x="91.6" y="110.75" text-anchor="middle">P(A)</text><text class="formule halo" x="91.6" y="223.25" text-anchor="middle">P(<tspan class="barre">A</tspan>)</text><text class="formule halo" x="226.0" y="57.5" text-anchor="middle">P<tspan class="ind" dx="1.5" dy="6">A</tspan><tspan dy="-6">(</tspan>B)</text><text class="formule halo" x="226.0" y="124.5" text-anchor="middle">P<tspan class="ind" dx="1.5" dy="6">A</tspan><tspan dy="-6">(</tspan><tspan class="barre">B</tspan>)</text><text class="formule halo" x="226.0" y="207.5" text-anchor="middle">P<tspan class="ind" dx="1.5" dy="6"><tspan class="barre">A</tspan></tspan><tspan dy="-6">(</tspan>B)</text><text class="formule halo" x="226.0" y="274.5" text-anchor="middle">P<tspan class="ind" dx="1.5" dy="6"><tspan class="barre">A</tspan></tspan><tspan dy="-6">(</tspan><tspan class="barre">B</tspan>)</text><text class="formule t-u plein" x="312" y="54.0">P(A ∩ B) = P(A) × P<tspan class="ind" dx="1.5" dy="6">A</tspan><tspan dy="-6">(</tspan>B)</text><text class="formule op-70" x="312" y="128.0">P(A ∩ <tspan class="barre">B</tspan>) = P(A) × P<tspan class="ind" dx="1.5" dy="6">A</tspan><tspan dy="-6">(</tspan><tspan class="barre">B</tspan>)</text><text class="formule t-u plein" x="312" y="204.0">P(<tspan class="barre">A</tspan> ∩ B) = P(<tspan class="barre">A</tspan>) × P<tspan class="ind" dx="1.5" dy="6"><tspan class="barre">A</tspan></tspan><tspan dy="-6">(</tspan>B)</text><text class="formule op-70" x="312" y="278.0">P(<tspan class="barre">A</tspan> ∩ <tspan class="barre">B</tspan>) = P(<tspan class="barre">A</tspan>) × P<tspan class="ind" dx="1.5" dy="6"><tspan class="barre">A</tspan></tspan><tspan dy="-6">(</tspan><tspan class="barre">B</tspan>)</text><g class="trace t-u ep-2-5"><line x1="510" y1="48.0" x2="562" y2="48.0"/></g><g class="trace t-u ep-2-5"><line x1="510" y1="198.0" x2="562" y2="198.0"/></g><g class="trace t-u ep-2-5"><path d="M562,48.0 C571.6,48.0 570.0,54.0 570.0,64.0 L570.0,111.0 C570.0,120.0 574.8,123.0 578,123.0 C574.8,123.0 570.0,126.0 570.0,135.0 L570.0,182.0 C570.0,192.0 571.6,198.0 562,198.0"/></g><text class="formule t-u plein" x="586" y="99.0">P(B) =</text><text class="formule t-u plein" x="586" y="127.0">P(A ∩ B)</text><text class="formule t-u plein" x="586" y="155.0">+ P(<tspan class="barre">A</tspan> ∩ B)</text><text class="petit" x="586" y="179.0">probabilités totales</text><rect class="fond-carte" x="200" y="312" width="320" height="78" rx="12"/><text class="formule" x="216" y="357">P<tspan class="ind" dx="1.5" dy="6">B</tspan><tspan dy="-6">(</tspan>A) =</text><text class="formule" x="405" y="342" text-anchor="middle">P(A ∩ B)</text><g class="trace ep-2"><line x1="343" y1="351" x2="467" y2="351"/></g><text class="formule t-u plein" x="405" y="374" text-anchor="middle">P(B)</text><text class="petit" x="216" y="382">« A sachant B »</text></svg><figcaption>Le schéma à savoir refaire. Les deux chemins en couleur mènent à $B$ : leur somme est $P(B)$, la formule des probabilités totales. Le cadre du bas répond à la question renversée, « $A$ sachant $B$ ».</figcaption></figure>
+
+  <div class="bloc methode" data-ouvert data-titre="Renverser le conditionnement">
+    <ol class="etapes">
+      <li><span>Je calcule $P(A\cap B)$ par le chemin : $P(A)\times P_A(B)$.</span></li>
+      <li><span>Je calcule $P(B)$ par la formule des probabilités totales : la somme des feuilles qui contiennent $B$.</span></li>
+      <li><span>Je divise : $P_B(A)=\dfrac{P(A\cap B)}{P(B)}$.</span></li>
+      <li><span>Je compare à $P_A(B)$ : ce n'est en général <strong>pas</strong> le même nombre.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Dans la médiathèque, un inscrit emprunte des BD. Quelle est la probabilité qu'il ait moins de 18 ans ?</p>
+      <ol class="pas">
+        <li><strong>Le chemin.</strong> $P(J\cap B)=0{,}3\times0{,}75=0{,}225$.</li>
+        <li><strong>Les deux feuilles $B$.</strong> $P(B)=0{,}225+0{,}175=0{,}4$.</li>
+        <li><strong>La division.</strong> $P_B(J)=\dfrac{0{,}225}{0{,}4}=0{,}5625$, soit $\dfrac{9}{16}$. Le tableau donnait $\dfrac{90}{160}=\dfrac{9}{16}$.</li>
+        <li><strong>La comparaison.</strong> $P_J(B)=0{,}75$ mais $P_B(J)=0{,}5625$ : « 75 % des moins de 18 ans empruntent des BD » et « 56 % des emprunteurs de BD ont moins de 18 ans » sont deux informations différentes.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le test positif, en effectifs">
+    <p>Reprenons la maladie qui touche 1 % de la population, et le test qui est positif chez 99 % des malades et chez 1 % des personnes saines (les <strong>faux positifs</strong>). Imaginons 10 000 personnes.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="arbre-effectifs" viewBox="0 0 640 300" role="img" aria-label="L'arbre du dépistage en effectifs, pour 10 000 personnes. 1 % sont malades : 100 malades et 9 900 non malades. Parmi les 100 malades, 99 % ont un test positif : 99 positifs, 1 négatif. Parmi les 9 900 non malades, 1 % ont un test positif : 99 positifs, 9 801 négatifs. Les deux groupes de positifs sont en couleur et réunis par une accolade : 198 positifs, dont 99 malades, soit un sur deux."><rect class="fond-carte" x="12" y="133" width="116" height="34" rx="9"/><text class="formule" x="70" y="156" text-anchor="middle">10 000</text><g class="trace ep-2-5"><line x1="128" y1="150" x2="164" y2="75"/></g><text class="formule halo" x="146.0" y="102.5" text-anchor="middle">1 %</text><rect class="fond-carte" x="164" y="58" width="152" height="34" rx="9"/><text class="formule" x="240" y="81" text-anchor="middle">100 <tspan class="ind">malades</tspan></text><g class="trace ep-2-5"><line x1="128" y1="150" x2="164" y2="225"/></g><text class="formule halo" x="146.0" y="211.5" text-anchor="middle">99 %</text><rect class="fond-carte" x="164" y="208" width="152" height="34" rx="9"/><text class="formule" x="240" y="231" text-anchor="middle">9 900 <tspan class="ind">non malades</tspan></text><g class="trace t-u ep-3"><line x1="316" y1="75" x2="416" y2="40"/></g><text class="formule halo" x="368.0" y="49.5" text-anchor="middle">99 %</text><text class="formule t-u plein" x="426" y="46">99 positifs</text><g class="trace ep-2"><line x1="316" y1="75" x2="416" y2="110"/></g><text class="formule halo" x="368.0" y="112.5" text-anchor="middle">1 %</text><text class="formule op-70" x="426" y="116">1 négatif</text><g class="trace t-u ep-3"><line x1="316" y1="225" x2="416" y2="190"/></g><text class="formule halo" x="368.0" y="199.5" text-anchor="middle">1 %</text><text class="formule t-u plein" x="426" y="196">99 positifs</text><g class="trace ep-2"><line x1="316" y1="225" x2="416" y2="260"/></g><text class="formule halo" x="368.0" y="262.5" text-anchor="middle">99 %</text><text class="formule op-70" x="426" y="266">9 801 négatifs</text><g class="trace t-u ep-2-5"><line x1="528" y1="40" x2="538" y2="40"/></g><g class="trace t-u ep-2-5"><line x1="528" y1="190" x2="538" y2="190"/></g><g class="trace t-u ep-2-5"><path d="M538,40 C547.6,40 546.0,46 546.0,56 L546.0,103.0 C546.0,112.0 550.8,115.0 554,115.0 C550.8,115.0 546.0,118.0 546.0,127.0 L546.0,174 C546.0,184 547.6,190 538,190"/></g><text class="formule t-u plein" x="560" y="105">198</text><text class="formule t-u plein" x="560" y="126">positifs</text><text class="petit" x="560" y="147">dont 99</text><text class="petit" x="560" y="164">malades</text></svg><figcaption>Sur 10 000 personnes : 99 malades positifs, mais aussi 99 personnes saines positives. Parmi les 198 positifs, la moitié seulement est malade.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Le même calcul, en probabilités">
+    <p>On note $M$ « être malade » et $T$ « avoir un test positif ». On connaît $P(M)=0{,}01$, $P_M(T)=0{,}99$ et $P_{\bar M}(T)=0{,}01$.</p>
+    <ul>
+      <li>$P(M\cap T)=0{,}01\times0{,}99=0{,}0099$ et $P(\bar M\cap T)=0{,}99\times0{,}01=0{,}0099$.</li>
+      <li>$P(T)=0{,}0099+0{,}0099=0{,}0198$.</li>
+      <li>$P_T(M)=\dfrac{0{,}0099}{0{,}0198}=0{,}5$.</li>
+    </ul>
+    <p>Le « 99 % » du laboratoire est $P_M(T)$ ; ce que le patient veut savoir est $P_T(M)$, qui ne vaut que 0,5. Quand une maladie est rare, les personnes saines sont si nombreuses que leurs 1 % de faux positifs pèsent autant que tous les vrais positifs. C'est pour cela qu'un test positif se confirme par un second test.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Effectifs ou probabilités ?">
+    <p>Raisonner sur 10 000 personnes donne exactement les mêmes résultats que l'arbre de probabilités, et c'est souvent plus parlant. Le passage de $P_A(B)$ à $P_B(A)$ est associé au nom de Thomas Bayes (XVIII<sup>e</sup> siècle), et c'est Laplace qui en a fait une méthode. Tu n'as pas de formule de plus à apprendre : l'arbre, le produit, la somme des feuilles et une division suffisent.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Sachant A, ou sachant B ?">
+    <p>« Le test est positif chez 99 % des malades » ne dit <strong>pas</strong> que 99 % des positifs sont malades. La première phrase regarde parmi les malades, la seconde parmi les positifs. Avant d'écrire un nombre, demande-toi : parmi qui ?</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-independance">5. Événements indépendants</h3>
+
+  <p>Dans la médiathèque, savoir que l'inscrit a moins de 18 ans change la probabilité qu'il emprunte des BD : 0,75 au lieu de 0,4. Parfois au contraire, l'information ne change rien.</p>
+
+  <div class="bloc definition" data-titre="Événements indépendants">
+    <p>Deux événements $A$ et $B$ sont <strong>indépendants</strong> lorsque $P(A\cap B)=P(A)\times P(B)$.</p>
+    <p>Si $P(A)\ne0$, c'est la même chose que $P_A(B)=P(B)$ : savoir que $A$ est réalisé ne change pas la probabilité de $B$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="carre-independance" viewBox="0 0 620 320" role="img" aria-label="Deux carrés d'aire 1. Chacun est coupé en une bande A, de largeur 0,4, et une bande A barre, de largeur 0,6. Dans chaque bande, la partie B est colorée. À gauche, B occupe la moitié de A et la moitié de A barre : la même hauteur des deux côtés, A et B sont indépendants. À droite, B occupe 0,7 de A mais seulement 0,2 de A barre : les hauteurs diffèrent, A et B sont liés."><rect class="forme-image" x="40" y="30" width="88.0" height="220"/><rect class="fond-carte" x="128.0" y="30" width="132.0" height="220"/><g class="t-u"><rect class="plein op-50" x="40" y="140.0" width="88.0" height="110.0"/></g><g class="t-u"><rect class="plein op-35" x="128.0" y="140.0" width="132.0" height="110.0"/></g><g class="t-n"><rect class="contour ep-2" x="40" y="30" width="220" height="220"/></g><g class="trace ep-2"><line x1="128.0" y1="30" x2="128.0" y2="250"/></g><text class="lettre" x="84.0" y="52" text-anchor="middle">A</text><text class="lettre" x="194.0" y="52" text-anchor="middle"><tspan class="barre">A</tspan></text><text class="formule halo" x="84.0" y="201.0" text-anchor="middle">A ∩ B</text><text class="formule halo" x="194.0" y="201.0" text-anchor="middle"><tspan class="barre">A</tspan> ∩ B</text><text class="formule" x="150.0" y="278" text-anchor="middle">Indépendants</text><text class="petit" x="150.0" y="298" text-anchor="middle">B prend la même part de A et de Ā</text><rect class="forme-image" x="340" y="30" width="88.0" height="220"/><rect class="fond-carte" x="428.0" y="30" width="132.0" height="220"/><g class="t-u"><rect class="plein op-50" x="340" y="96.0" width="88.0" height="154.0"/></g><g class="t-u"><rect class="plein op-35" x="428.0" y="206.0" width="132.0" height="44.0"/></g><g class="t-n"><rect class="contour ep-2" x="340" y="30" width="220" height="220"/></g><g class="trace ep-2"><line x1="428.0" y1="30" x2="428.0" y2="250"/></g><text class="lettre" x="384.0" y="52" text-anchor="middle">A</text><text class="lettre" x="494.0" y="52" text-anchor="middle"><tspan class="barre">A</tspan></text><text class="formule halo" x="384.0" y="179.0" text-anchor="middle">A ∩ B</text><text class="formule halo" x="494.0" y="234.0" text-anchor="middle"><tspan class="barre">A</tspan> ∩ B</text><text class="formule" x="450.0" y="278" text-anchor="middle">Liés</text><text class="petit" x="450.0" y="298" text-anchor="middle">B prend 0,7 de A, mais 0,2 de Ā</text></svg><figcaption>Le carré des probabilités. À gauche, $B$ occupe la même part de $A$ et de $\bar A$ : $P_A(B)=P_{\bar A}(B)=P(B)$, les événements sont indépendants. À droite, savoir que $A$ est réalisé rend $B$ bien plus probable : ils sont liés.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Indépendance et contraires">
+    <p>Si $A$ et $B$ sont indépendants, alors $\bar A$ et $B$ le sont aussi (et de même $A$ et $\bar B$, $\bar A$ et $\bar B$). Sur l'arbre, les branches vers $B$ portent la même probabilité sous $A$ et sous $\bar A$. L'exercice « Si A et B sont indépendants, Ā et B aussi » le démontre.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Justifier, ou utiliser, l'indépendance">
+    <ol class="etapes">
+      <li><span><strong>Pour justifier</strong> : je calcule $P(A\cap B)$ et $P(A)\times P(B)$ (ou je compare $P_A(B)$ et $P(B)$), et je conclus par une phrase.</span></li>
+      <li><span><strong>Pour utiliser</strong> : quand l'énoncé dit que les événements sont indépendants (c'est une hypothèse du modèle), j'écris $P(A\cap B)=P(A)\times P(B)$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> a) Dans la médiathèque, $J$ et $B$ sont-ils indépendants ? b) Un immeuble a deux alarmes incendie qui fonctionnent de façon indépendante. Chacune tombe en panne dans l'année avec la probabilité 0,05. Quelle est la probabilité que les deux soient en panne la même année ?</p>
+      <ol class="pas">
+        <li><strong>a) Le calcul.</strong> $P(J)\times P(B)=0{,}3\times0{,}4=0{,}12$, alors que $P(J\cap B)=0{,}225$.</li>
+        <li><strong>a) La conclusion.</strong> $0{,}225\ne0{,}12$ : $J$ et $B$ ne sont pas indépendants. On le voyait aussi avec $P_J(B)=0{,}75\ne P(B)=0{,}4$.</li>
+        <li><strong>b) L'hypothèse.</strong> On note $A_1$ « la première alarme tombe en panne » et $A_2$ « la seconde tombe en panne ». Ces pannes sont indépendantes : $P(A_1\cap A_2)=P(A_1)\times P(A_2)=0{,}05\times0{,}05=0{,}0025$.</li>
+        <li><strong>b) Le sens.</strong> Une chance sur 400 : c'est pour cela qu'on double les alarmes.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="L'indépendance fait partie du modèle">
+    <p>Sur des données réelles, $P(A\cap B)$ et $P(A)\times P(B)$ ne sont presque jamais exactement égaux. L'indépendance est le plus souvent une <strong>hypothèse</strong> qu'on pose parce que la situation la rend raisonnable : deux lancers de dé, deux appareils sans aucun lien, deux tirages avec remise.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Indépendants n'est pas incompatibles">
+    <p>Deux événements <strong>incompatibles</strong> ne peuvent pas se produire ensemble : $P(A\cap B)=0$. S'ils ont chacun une probabilité non nulle, $P(A)\times P(B)\ne0$ : ils ne sont donc <strong>pas</strong> indépendants. Au contraire, savoir que $A$ s'est produit dit que $B$ ne s'est pas produit : c'est le contraire de « ne rien changer ».</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-epreuves">6. Répéter une épreuve</h3>
+
+  <div class="bloc definition" data-titre="Épreuves indépendantes">
+    <p>Deux épreuves aléatoires qui se suivent sont <strong>indépendantes</strong> quand le résultat de la première ne change pas les probabilités de la seconde. Sur l'arbre, le second niveau porte alors les mêmes probabilités sous chaque branche du premier ; on peut aussi tout ranger dans un tableau à double entrée.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Avec remise, sans remise">
+    <p>Une urne contient 3 boules rouges et 2 vertes. On tire deux boules.</p>
+    <ul>
+      <li><strong>Avec remise</strong> (on remet la première boule) : la seconde épreuve est identique à la première, indépendante. $P(\text{rouge puis rouge})=0{,}6\times0{,}6=0{,}36$.</li>
+      <li><strong>Sans remise</strong> : après une rouge, il reste 2 rouges sur 4. Le second niveau dépend du premier. $P(\text{rouge puis rouge})=\dfrac35\times\dfrac24=0{,}3$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc definition" data-titre="Épreuve de Bernoulli, épreuves répétées">
+    <p>Une <strong>épreuve de Bernoulli</strong> a deux issues : le <strong>succès</strong> $S$, de probabilité $p$, et l'<strong>échec</strong> $\bar S$, de probabilité $1-p$. Répéter $n$ fois la même épreuve de Bernoulli, de façon indépendante, se représente par un arbre à $n$ niveaux (ici, $n\le4$) : chaque chemin a pour probabilité le produit de ses branches.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="arbre-bernoulli" viewBox="0 0 620 350" role="img" aria-label="L'arbre de trois tirs indépendants, réussis chacun avec la probabilité 0,8. Chaque nœud a deux branches : S, réussi, 0,8, et S barre, raté, 0,2, écrites sur chaque branche. Les huit feuilles, de haut en bas : SSS, SS S barre, S S barre S, S S barre S barre, S barre SS, S barre S S barre, S barre S barre S, S barre S barre S barre. Les trois chemins qui comptent exactement deux réussites sont en couleur, chacun de probabilité 0,8 fois 0,8 fois 0,2 égale 0,128."><g class="trace t-u ep-3"><line x1="30" y1="165" x2="136" y2="89.0"/></g><text class="lettre" x="150" y="95.0" text-anchor="middle">S</text><g class="trace t-u ep-3"><line x1="164" y1="89.0" x2="256" y2="51.0"/></g><text class="petit halo" x="210.0" y="65.0" text-anchor="middle">0,8</text><text class="lettre" x="270" y="57.0" text-anchor="middle">S</text><g class="trace ep-2"><line x1="284" y1="51.0" x2="376" y2="32.0"/></g><text class="petit halo" x="330.0" y="36.5" text-anchor="middle">0,8</text><text class="lettre" x="390" y="38.0" text-anchor="middle">S</text><g class="trace t-u ep-3"><line x1="284" y1="51.0" x2="376" y2="70.0"/></g><text class="petit halo" x="330.0" y="73.5" text-anchor="middle">0,2</text><text class="lettre" x="390" y="76.0" text-anchor="middle"><tspan class="barre">S</tspan></text><g class="trace t-u ep-3"><line x1="164" y1="89.0" x2="256" y2="127.0"/></g><text class="petit halo" x="210.0" y="121.0" text-anchor="middle">0,2</text><text class="lettre" x="270" y="133.0" text-anchor="middle"><tspan class="barre">S</tspan></text><g class="trace t-u ep-3"><line x1="284" y1="127.0" x2="376" y2="108.0"/></g><text class="petit halo" x="330.0" y="112.5" text-anchor="middle">0,8</text><text class="lettre" x="390" y="114.0" text-anchor="middle">S</text><g class="trace ep-2"><line x1="284" y1="127.0" x2="376" y2="146.0"/></g><text class="petit halo" x="330.0" y="149.5" text-anchor="middle">0,2</text><text class="lettre" x="390" y="152.0" text-anchor="middle"><tspan class="barre">S</tspan></text><g class="trace t-u ep-3"><line x1="30" y1="165" x2="136" y2="241.0"/></g><text class="lettre" x="150" y="247.0" text-anchor="middle"><tspan class="barre">S</tspan></text><g class="trace t-u ep-3"><line x1="164" y1="241.0" x2="256" y2="203.0"/></g><text class="petit halo" x="210.0" y="217.0" text-anchor="middle">0,8</text><text class="lettre" x="270" y="209.0" text-anchor="middle">S</text><g class="trace t-u ep-3"><line x1="284" y1="203.0" x2="376" y2="184.0"/></g><text class="petit halo" x="330.0" y="188.5" text-anchor="middle">0,8</text><text class="lettre" x="390" y="190.0" text-anchor="middle">S</text><g class="trace ep-2"><line x1="284" y1="203.0" x2="376" y2="222.0"/></g><text class="petit halo" x="330.0" y="225.5" text-anchor="middle">0,2</text><text class="lettre" x="390" y="228.0" text-anchor="middle"><tspan class="barre">S</tspan></text><g class="trace ep-2"><line x1="164" y1="241.0" x2="256" y2="279.0"/></g><text class="petit halo" x="210.0" y="273.0" text-anchor="middle">0,2</text><text class="lettre" x="270" y="285.0" text-anchor="middle"><tspan class="barre">S</tspan></text><g class="trace ep-2"><line x1="284" y1="279.0" x2="376" y2="260.0"/></g><text class="petit halo" x="330.0" y="264.5" text-anchor="middle">0,8</text><text class="lettre" x="390" y="266.0" text-anchor="middle">S</text><g class="trace ep-2"><line x1="284" y1="279.0" x2="376" y2="298.0"/></g><text class="petit halo" x="330.0" y="301.5" text-anchor="middle">0,2</text><text class="lettre" x="390" y="304.0" text-anchor="middle"><tspan class="barre">S</tspan></text><circle class="pt" cx="30" cy="165" r="4"/><text class="formule halo" x="84.0" y="115.2" text-anchor="middle">0,8</text><text class="formule halo" x="84.0" y="228.8" text-anchor="middle">0,2</text><text class="formule op-70" x="416" y="38.0">S S S</text><text class="formule t-u plein" x="416" y="76.0">S S <tspan class="barre">S</tspan>   0,8 × 0,8 × 0,2 = 0,128</text><text class="formule t-u plein" x="416" y="114.0">S <tspan class="barre">S</tspan> S   0,8 × 0,2 × 0,8 = 0,128</text><text class="formule op-70" x="416" y="152.0">S <tspan class="barre">S</tspan> <tspan class="barre">S</tspan></text><text class="formule t-u plein" x="416" y="190.0"><tspan class="barre">S</tspan> S S   0,2 × 0,8 × 0,8 = 0,128</text><text class="formule op-70" x="416" y="228.0"><tspan class="barre">S</tspan> S <tspan class="barre">S</tspan></text><text class="formule op-70" x="416" y="266.0"><tspan class="barre">S</tspan> <tspan class="barre">S</tspan> S</text><text class="formule op-70" x="416" y="304.0"><tspan class="barre">S</tspan> <tspan class="barre">S</tspan> <tspan class="barre">S</tspan></text></svg><figcaption>Trois tirs indépendants, réussis chacun avec la probabilité 0,8. Trois chemins comptent exactement deux réussites, et ils ont tous la même probabilité, 0,128.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Compter les succès sur un arbre">
+    <ol class="etapes">
+      <li><span>Je dessine l'arbre, ou je liste les issues ($SSS$, $SS\bar S$…).</span></li>
+      <li><span>Je repère les chemins qui ont exactement $k$ succès, et je calcule la probabilité d'un seul : $p$ pour chaque succès, $1-p$ pour chaque échec, le tout multiplié.</span></li>
+      <li><span>Je multiplie par le nombre de chemins : ils ont tous la même probabilité.</span></li>
+      <li><span>Pour « au moins un succès », je passe par le contraire, « aucun succès ».</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Les trois tirs de la figure, réussis chacun avec la probabilité 0,8. Calcule la probabilité de réussir exactement deux tirs, puis celle de rater au moins un tir.</p>
+      <ol class="pas">
+        <li><strong>Un chemin à deux réussites.</strong> $0{,}8\times0{,}8\times0{,}2=0{,}128$.</li>
+        <li><strong>Combien de chemins.</strong> Trois : $SS\bar S$, $S\bar SS$, $\bar SSS$ (le raté peut être le premier, le deuxième ou le troisième tir).</li>
+        <li><strong>Exactement deux.</strong> $3\times0{,}128=0{,}384$.</li>
+        <li><strong>Au moins un raté.</strong> Le contraire : « les trois réussis », de probabilité $0{,}8^3=0{,}512$. Donc $1-0{,}512=0{,}488$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Et après ?">
+    <p>En terminale, on compte ces chemins sans dessiner l'arbre : c'est la loi binomiale. Ce que tu fais ici avec deux, trois ou quatre niveaux en est la base.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-python">7. Simuler en Python</h3>
+  <p>Quand on répète une expérience un grand nombre de fois, la fréquence d'un événement se rapproche de sa probabilité. Un programme peut donc <strong>estimer</strong> une probabilité en simulant. <code>random()</code>, du module <code>random</code>, renvoie un nombre au hasard entre 0 et 1 ; <code>random() &lt; 0.01</code> est vrai avec la probabilité 0,01.</p>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Simuler le test de dépistage">
+<pre class="code">from random import random
+
+def malades_parmi_positifs(n):
+    positifs = 0
+    malades_positifs = 0
+    for k in range(n):
+        malade = random() &lt; 0.01
+        if malade:
+            positif = random() &lt; 0.99
+        else:
+            positif = random() &lt; 0.01
+        if positif:
+            positifs = positifs + 1
+            if malade:
+                malades_positifs = malades_positifs + 1
+    return malades_positifs / positifs</pre>
+      <p><code>malades_parmi_positifs(1000000)</code> renvoie un nombre proche de 0,5 : c'est une estimation de $P_T(M)$.</p>
+    </div>
+    <div class="bloc exemple" data-titre="La méthode de Monte-Carlo">
+<pre class="code">from random import random
+
+def estimer_pi(n):
+    dedans = 0
+    for k in range(n):
+        x = random()
+        y = random()
+        if x**2 + y**2 &lt;= 1:
+            dedans = dedans + 1
+    return 4 * dedans / n</pre>
+      <p>Un point tiré au hasard dans le carré de côté 1 tombe dans le quart de disque avec la probabilité $\dfrac{\pi}{4}$, l'aire du quart de disque. <code>estimer_pi(100000)</code> donne environ 3,14.</p>
+    </div>
+  </div>
+
+  <!-- ===== pièges ===== -->
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs qui coûtent des points">
+    <ul>
+      <li><strong>Confondre $P_A(B)$ et $P_B(A)$.</strong> « Parmi les malades, 99 % sont positifs » n'est pas « parmi les positifs, 99 % sont malades ». Demande-toi toujours : parmi qui ?</li>
+      <li><strong>Confondre $P(A\cap B)$ et $P_A(B)$.</strong> « Et » sans ensemble de référence : une intersection, au bout d'un chemin. « Parmi les $A$ » : une probabilité sachant, sur une branche.</li>
+      <li><strong>Un nœud qui ne fait pas 1.</strong> Les branches qui partent d'un même nœud ont pour somme 1. Vérifie chaque nœud avant de calculer.</li>
+      <li><strong>$P(B)$ par un seul chemin.</strong> Deux chemins mènent à $B$ : la formule des probabilités totales les additionne tous les deux.</li>
+      <li><strong>Additionner le long d'un chemin.</strong> Le long d'un chemin, on multiplie. On additionne les feuilles, à la fin.</li>
+      <li><strong>Additionner $P_A(B)$ et $P_{\bar A}(B)$.</strong> Ce sont des probabilités sachant des événements différents : leur somme ne veut rien dire, et peut dépasser 1.</li>
+      <li><strong>Confondre indépendants et incompatibles.</strong> Incompatibles : ils ne peuvent pas arriver ensemble. Indépendants : l'un ne change pas la probabilité de l'autre. Deux événements incompatibles de probabilités non nulles ne sont jamais indépendants.</li>
+      <li><strong>Le mauvais dénominateur dans un tableau.</strong> $P_A(B)$ se divise par l'effectif de $A$ (sa ligne ou sa colonne), pas par l'effectif total.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Probabilité sachant : le tableau croisé"></div>
+    <div class="video" data-titre="L'arbre pondéré et les probabilités totales"></div>
+    <div class="video" data-titre="Le test positif : renverser le conditionnement"></div>
+  </div>
+
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Quatre labos, dans l'ordre du cours : compléter un arbre, passer d'un tableau à un arbre, comprendre pourquoi un test positif ne veut pas dire malade, et fabriquer deux événements indépendants.</p>
+
+  <div class="labo" data-labo="proba-cond" data-outil="arbre"></div>
+  <div class="labo" data-labo="proba-cond" data-outil="tableau"></div>
+  <div class="labo" data-labo="proba-cond" data-outil="depistage"></div>
+  <div class="labo" data-labo="proba-cond" data-outil="independance"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, dans toutes les catégories du chapitre ; le bilan de fin de partie te dit quoi retravailler. Le quiz vérifie les réflexes du cours. Ni l'un ni l'autre ne demande de calculatrice : c'est l'esprit de l'épreuve anticipée.</p>
+
+  <div class="jeu" data-generateurs="proba-cond" data-questions="10" data-titre="Le défi des probabilités conditionnelles"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Dans un magasin, on note $C$ « le client paie par carte » et $F$ « il a la carte de fidélité ». Quelle écriture traduit : « Parmi les clients qui paient par carte, 70 % ont la carte de fidélité » ?</p>
+      <ul class="choix"><li class="bon">$P_C(F)=0{,}7$</li><li>$P_F(C)=0{,}7$</li><li>$P(C\cap F)=0{,}7$</li><li>$P(F)=0{,}7$</li></ul>
+      <div class="explication">L'ensemble de référence est « les clients qui paient par carte » : $C$ va en indice, et on y compte ceux qui ont la carte de fidélité, $F$. $P_F(C)$ regarderait parmi les clients fidèles ; $P(C\cap F)$ parlerait de tous les clients.</div>
+    </div>
+    <div class="question" data-reponse="0,2|1/5">
+      <p>Sur 200 personnes, 50 sont vaccinées. Parmi elles, 10 ont eu la grippe. On choisit au hasard une personne vaccinée : quelle est la probabilité qu'elle ait eu la grippe ?</p>
+      <div class="explication">On ne regarde que les 50 vaccinés : $\dfrac{10}{50}=0{,}2$. Diviser par 200 donnerait $0{,}05$, la probabilité d'être vacciné <em>et</em> d'avoir eu la grippe.</div>
+    </div>
+    <div class="question" data-reponse="0,12">
+      <p>Dans un arbre pondéré, $P(A)=0{,}4$ et $P_A(B)=0{,}3$. Calcule $P(A\cap B)$.</p>
+      <div class="explication">On multiplie le long du chemin : $P(A\cap B)=P(A)\times P_A(B)=0{,}4\times0{,}3=0{,}12$.</div>
+    </div>
+    <div class="question" data-reponse="0,24">
+      <p>Le même arbre, avec en plus $P_{\bar A}(B)=0{,}2$. Calcule $P(B)$.</p>
+      <div class="explication">Deux chemins mènent à $B$ : $P(B)=0{,}4\times0{,}3+0{,}6\times0{,}2=0{,}12+0{,}12=0{,}24$. Avec un seul chemin, on trouverait $0{,}12$ : il en manque la moitié.</div>
+    </div>
+    <div class="question" data-reponse="0,5|1/2">
+      <p>Toujours le même arbre. Calcule $P_B(A)$.</p>
+      <div class="explication">$P_B(A)=\dfrac{P(A\cap B)}{P(B)}=\dfrac{0{,}12}{0{,}24}=0{,}5$. Ce n'est pas $P_A(B)=0{,}3$ : renverser le conditionnement change le nombre.</div>
+    </div>
+    <div class="question">
+      <p>$A$ et $B$ sont incompatibles, avec $P(A)=0{,}3$ et $P(B)=0{,}5$. Alors…</p>
+      <ul class="choix"><li class="bon">$A$ et $B$ ne sont pas indépendants.</li><li>$A$ et $B$ sont indépendants.</li><li>$P(A\cap B)=0{,}15$.</li><li>$P_A(B)=0{,}5$.</li></ul>
+      <div class="explication">Incompatibles : $P(A\cap B)=0$, alors que $P(A)\times P(B)=0{,}15$. Les deux nombres diffèrent : pas indépendants. Et $P_A(B)=0$ : si $A$ est réalisé, $B$ ne peut pas l'être.</div>
+    </div>
+    <div class="question" data-reponse="0,2">
+      <p>$A$ et $B$ sont indépendants, avec $P(A)=0{,}5$ et $P(B)=0{,}4$. Calcule $P(A\cap B)$.</p>
+      <div class="explication">Indépendants : $P(A\cap B)=P(A)\times P(B)=0{,}5\times0{,}4=0{,}2$. Additionner donnerait $0{,}9$ : ce n'est même pas $P(A\cup B)$, qui vaut $0{,}5+0{,}4-0{,}2=0{,}7$.</div>
+    </div>
+    <div class="question">
+      <p>On lance trois fois une pièce équilibrée. Quelle est la probabilité d'obtenir exactement deux piles ?</p>
+      <ul class="choix"><li class="bon">$\dfrac38$</li><li>$\dfrac18$</li><li>$\dfrac23$</li><li>$\dfrac14$</li></ul>
+      <div class="explication">Trois chemins ont exactement deux piles : $PPF$, $PFP$, $FPP$. Chacun a la probabilité $\left(\dfrac12\right)^3=\dfrac18$. Donc $3\times\dfrac18=\dfrac38$. $\dfrac18$, c'est un seul chemin.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Ici, pas de correction à ouvrir : tu écris ton calcul ligne par ligne, et le vérificateur te dit si chaque ligne est juste. L'inconnue s'appelle $p$ ; écris les décimaux avec une virgule (<code>0,6p</code>). Si tu bloques, demande un indice, mais essaie d'abord seul : la réussite sans aide compte le plus.</p>
+
+  <article class="exercice" id="ex-trouver-p" data-titre="Trouver p" data-niveau="2" data-type="guide" data-notions="totales" data-duree="10" data-calculatrice="non">
+    <p>Dans un réseau de bus, 40 % des trajets ont lieu aux heures de pointe ($A$). La moitié de ces trajets arrive en retard ($B$). Au total, 38 % des trajets arrivent en retard. On cherche $p=P_{\bar A}(B)$, la part des trajets en retard en dehors des heures de pointe.</p>
+    <p>L'arbre donne $P(A\cap B)=0{,}4\times0{,}5=0{,}2$ et $P(\bar A)=0{,}6$. La formule des probabilités totales s'écrit donc $0{,}2+0{,}6p=0{,}38$. Résous cette équation.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="pc-trouver-p" data-lettre="p" data-depart="0,2+0,6p=0,38" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-p-et-1-moins-p" data-titre="p et 1 − p" data-niveau="2" data-type="guide" data-notions="arbre totales" data-duree="12" data-calculatrice="non">
+    <p>Une usine reçoit ses pièces de deux fournisseurs. On ne connaît pas la part $p$ des pièces qui viennent du premier ; les autres, une part $1-p$, viennent du second. 10 % des pièces du premier fournisseur sont défectueuses, contre 2 % pour le second. Au total, 4 % des pièces sont défectueuses.</p>
+    <p>La formule des probabilités totales donne $0{,}1p+0{,}02(1-p)=0{,}04$. Développe sur ton cahier : tu obtiens $0{,}1p+0{,}02-0{,}02p=0{,}04$. Résous cette équation avec le tuteur, puis dis quelle part des pièces vient du premier fournisseur.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="pc-p-et-1-moins-p" data-lettre="p" data-depart="0,1p+0,02-0,02p=0,04" data-consigne="Résous :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ reconnaître et appliquer, ★★ analyser une situation, ★★★ synthèse et démonstrations. Rédige ta réponse avant d'ouvrir la correction. Aucun exercice ne demande de calculatrice, sauf un, signalé : les nombres sont choisis pour se calculer à la main, comme à l'épreuve anticipée.</p>
+
+  <h3>Niveau 1 · Reconnaître et appliquer</h3>
+
+  <article class="exercice" id="ex-lire-une-phrase" data-titre="Lire une phrase, écrire une probabilité" data-niveau="1" data-type="application" data-notions="proba-cond inverser" data-duree="8" data-calculatrice="non">
+    <p>On choisit au hasard un adhérent d'un club de randonnée. On note $V$ « il a un vélo » et $D$ « il vient aux sorties du dimanche ».</p>
+    <p>1. Écris chaque information avec une probabilité.<br>a) La moitié des adhérents ont un vélo.<br>b) Parmi les adhérents qui ont un vélo, 60 % viennent aux sorties du dimanche.<br>c) 30 % des adhérents ont un vélo et viennent aux sorties du dimanche.<br>d) Parmi ceux qui viennent aux sorties du dimanche, 75 % ont un vélo.<br>e) 20 % des adhérents sans vélo viennent aux sorties du dimanche.</p>
+    <p>2. Vérifie que l'information c) se déduit de a) et b).</p>
+    <details class="indice"><p>Pour chaque phrase, cherche d'abord « parmi qui ? ». S'il y a un ensemble de référence, c'est l'indice.</p></details>
+    <details class="correction">
+      <p>1. a) $P(V)=0{,}5$. b) L'ensemble de référence : ceux qui ont un vélo. $P_V(D)=0{,}6$. c) Pas d'ensemble de référence, deux conditions réunies : $P(V\cap D)=0{,}3$. d) L'ensemble de référence : ceux qui viennent le dimanche. $P_D(V)=0{,}75$. e) L'ensemble de référence : ceux qui n'ont pas de vélo. $P_{\bar V}(D)=0{,}2$.</p>
+      <p>2. $P(V\cap D)=P(V)\times P_V(D)=0{,}5\times0{,}6=0{,}3$ : c'est bien l'information c).</p>
+      <p>Remarque : b) et d) parlent des mêmes personnes (à vélo et le dimanche), mais pas dans le même ensemble de référence : 60 % des cyclistes, 75 % des marcheurs du dimanche. $P_V(D)\neq P_D(V)$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-tableau-club" data-titre="Le tableau du club de sport" data-niveau="1" data-type="application" data-notions="proba-cond inverser" data-duree="10" data-calculatrice="non">
+    <p>Un club propose deux sports, la natation ($N$) et l'athlétisme ($\bar N$) ; chaque licencié pratique l'un des deux, en compétition ($C$) ou en loisir ($\bar C$). On choisit un licencié au hasard.</p>
+    <div class="defile"><table class="simple">
+      <tr><th></th><th>Compétition $C$</th><th>Loisir $\bar C$</th><th>Total</th></tr>
+      <tr><th>Natation $N$</th><td>45</td><td>105</td><td>150</td></tr>
+      <tr><th>Athlétisme $\bar N$</th><td>55</td><td>45</td><td>100</td></tr>
+      <tr><th>Total</th><td>100</td><td>150</td><td>250</td></tr>
+    </table></div>
+    <p>1. Calcule $P(C)$, $P(N\cap C)$, $P_N(C)$, $P_C(N)$ et $P_{\bar N}(C)$, en décimal.<br>2. Un nageur a-t-il plus ou moins de chances de faire de la compétition qu'un athlète ?</p>
+    <details class="correction">
+      <p>1. $P(C)=\dfrac{100}{250}=0{,}4$ (effectif total). $P(N\cap C)=\dfrac{45}{250}=0{,}18$ (effectif total). $P_N(C)=\dfrac{45}{150}=0{,}3$ (on ne regarde que la ligne des nageurs). $P_C(N)=\dfrac{45}{100}=0{,}45$ (on ne regarde que la colonne de la compétition). $P_{\bar N}(C)=\dfrac{55}{100}=0{,}55$ (la ligne des athlètes).</p>
+      <p>2. $P_N(C)=0{,}3$ et $P_{\bar N}(C)=0{,}55$ : un athlète fait bien plus souvent de la compétition qu'un nageur. On compare deux probabilités sachant, chacune dans sa ligne ; comparer les effectifs 45 et 55 ne suffirait pas, car il y a plus de nageurs que d'athlètes.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-completer-arbre" data-titre="Compléter un arbre" data-niveau="1" data-type="application" data-notions="arbre" data-duree="8" data-calculatrice="non">
+    <figure class="figure-svg petite"><svg data-figure="ex-arbre-trous" viewBox="0 0 380 270" role="img" aria-label="Un arbre pondéré à compléter. De la racine : A avec 0,35, et A barre avec un point d'interrogation. Sous A : B avec 0,6, B barre avec un point d'interrogation. Sous A barre : B avec un point d'interrogation, B barre avec 0,9."><g class="trace ep-2-5"><line x1="30" y1="125" x2="149" y2="55.0"/></g><g class="trace ep-2-5"><line x1="30" y1="125" x2="149" y2="195.0"/></g><g class="trace ep-2-5"><line x1="181" y1="55.0" x2="284" y2="19.0"/></g><g class="trace ep-2-5"><line x1="181" y1="55.0" x2="284" y2="91.0"/></g><g class="trace ep-2-5"><line x1="181" y1="195.0" x2="284" y2="159.0"/></g><g class="trace ep-2-5"><line x1="181" y1="195.0" x2="284" y2="231.0"/></g><circle class="pt" cx="30" cy="125" r="4"/><text class="lettre" x="165" y="61.0" text-anchor="middle">A</text><text class="lettre" x="165" y="201.0" text-anchor="middle"><tspan class="barre">A</tspan></text><text class="lettre" x="300" y="25.0" text-anchor="middle">B</text><text class="lettre" x="300" y="97.0" text-anchor="middle"><tspan class="barre">B</tspan></text><text class="lettre" x="300" y="165.0" text-anchor="middle">B</text><text class="lettre" x="300" y="237.0" text-anchor="middle"><tspan class="barre">B</tspan></text><text class="formule halo" x="90.75" y="78.5" text-anchor="middle">0,35</text><text class="formule halo" x="90.75" y="185.5" text-anchor="middle">?</text><text class="formule halo" x="232.5" y="28.0" text-anchor="middle">0,6</text><text class="formule halo" x="232.5" y="94.0" text-anchor="middle">?</text><text class="formule halo" x="232.5" y="168.0" text-anchor="middle">?</text><text class="formule halo" x="232.5" y="234.0" text-anchor="middle">0,9</text></svg><figcaption>Un arbre pondéré où trois branches attendent leur probabilité.</figcaption></figure>
+    <p>1. Complète l'arbre.<br>2. Calcule $P(A\cap B)$ et $P(\bar A\cap\bar B)$.<br>3. Calcule les deux autres feuilles, puis vérifie que la somme des quatre feuilles vaut 1.</p>
+    <details class="correction">
+      <p>1. Chaque nœud fait 1 : $P(\bar A)=1-0{,}35=0{,}65$ ; $P_A(\bar B)=1-0{,}6=0{,}4$ ; $P_{\bar A}(B)=1-0{,}9=0{,}1$.</p>
+      <p>2. On multiplie le long des chemins : $P(A\cap B)=0{,}35\times0{,}6=0{,}21$ et $P(\bar A\cap\bar B)=0{,}65\times0{,}9=0{,}585$.</p>
+      <p>3. $P(A\cap\bar B)=0{,}35\times0{,}4=0{,}14$ et $P(\bar A\cap B)=0{,}65\times0{,}1=0{,}065$. Somme : $0{,}21+0{,}14+0{,}065+0{,}585=1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-deux-chemins" data-titre="P(B) par deux chemins" data-niveau="1" data-type="application" data-notions="arbre totales" data-duree="10" data-calculatrice="non">
+    <p>Une entreprise de livraison expédie 80 % de ses colis depuis son dépôt Nord ($N$), les autres depuis son dépôt Sud. Parmi les colis du dépôt Nord, 5 % arrivent abîmés ($D$) ; parmi ceux du dépôt Sud, 15 %. On choisit un colis au hasard.</p>
+    <p>1. Construis l'arbre pondéré.<br>2. Calcule $P(N\cap D)$.<br>3. Calcule $P(D)$.<br>4. Un élève écrit : « $P(D)=0{,}05+0{,}15=0{,}2$ ». Explique son erreur.</p>
+    <details class="correction">
+      <p>1. Premier niveau : $P(N)=0{,}8$ et $P(\bar N)=0{,}2$. Sous $N$ : $P_N(D)=0{,}05$ et $P_N(\bar D)=0{,}95$. Sous $\bar N$ : $P_{\bar N}(D)=0{,}15$ et $P_{\bar N}(\bar D)=0{,}85$.</p>
+      <p>2. $P(N\cap D)=0{,}8\times0{,}05=0{,}04$.</p>
+      <p>3. Deux chemins mènent à $D$ : $P(D)=0{,}8\times0{,}05+0{,}2\times0{,}15=0{,}04+0{,}03=0{,}07$. Sept colis sur cent arrivent abîmés.</p>
+      <p>4. Il a additionné $P_N(D)$ et $P_{\bar N}(D)$, deux probabilités sachant des événements différents. Elles ne tiennent pas compte de la taille de chaque dépôt : le dépôt Sud, où l'on abîme le plus, n'expédie que 20 % des colis. Ce sont les feuilles, $0{,}04$ et $0{,}03$, qui s'additionnent.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-independants-verifier" data-titre="Indépendants ? Quatre vérifications" data-niveau="1" data-type="application" data-notions="independance" data-duree="10" data-calculatrice="non">
+    <p>Dans chaque cas, dis si les événements $A$ et $B$ sont indépendants, en justifiant.</p>
+    <p>a) $P(A)=0{,}4$, $P(B)=0{,}5$ et $P(A\cap B)=0{,}2$.<br>b) $P(A)=0{,}3$, $P(B)=0{,}6$ et $P(A\cap B)=0{,}2$.<br>c) $P(A)=0{,}25$, $P_A(B)=0{,}8$ et $P(B)=0{,}8$.<br>d) $A$ et $B$ sont incompatibles, avec $P(A)=0{,}3$ et $P(B)=0{,}4$.</p>
+    <details class="correction">
+      <p>a) $P(A)\times P(B)=0{,}4\times0{,}5=0{,}2=P(A\cap B)$ : indépendants.</p>
+      <p>b) $P(A)\times P(B)=0{,}3\times0{,}6=0{,}18\neq0{,}2$ : pas indépendants.</p>
+      <p>c) $P_A(B)=0{,}8=P(B)$ : savoir que $A$ est réalisé ne change pas la probabilité de $B$. Indépendants. (On vérifie : $P(A\cap B)=0{,}25\times0{,}8=0{,}2$ et $P(A)\times P(B)=0{,}25\times0{,}8=0{,}2$.)</p>
+      <p>d) Incompatibles : $P(A\cap B)=0$. Or $P(A)\times P(B)=0{,}12\neq0$. Pas indépendants : savoir que $A$ est réalisé dit que $B$ ne l'est pas.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-deux-epreuves" data-titre="Deux épreuves indépendantes" data-niveau="1" data-type="application" data-notions="independance" data-duree="10" data-calculatrice="non">
+    <p>On lance un dé équilibré à six faces, puis une pièce équilibrée. Les deux épreuves sont indépendantes.</p>
+    <p>1. Représente l'expérience par un tableau à double entrée (ou par un arbre). Combien y a-t-il d'issues ? Ont-elles la même probabilité ?<br>2. Calcule la probabilité d'obtenir 6 et pile.<br>3. Calcule la probabilité d'obtenir un nombre pair et face.<br>4. Calcule la probabilité d'obtenir 6 ou pile.</p>
+    <details class="correction">
+      <p>1. Six lignes (le dé) et deux colonnes (la pièce) : 12 issues. Chacune a la probabilité $\dfrac16\times\dfrac12=\dfrac1{12}$ : elles sont équiprobables.</p>
+      <p>2. $P(6\text{ et pile})=\dfrac16\times\dfrac12=\dfrac1{12}$ (une case du tableau sur 12).</p>
+      <p>3. $P(\text{pair et face})=\dfrac12\times\dfrac12=\dfrac14$ (trois cases sur 12).</p>
+      <p>4. $P(6\text{ ou pile})=P(6)+P(\text{pile})-P(6\text{ et pile})=\dfrac16+\dfrac12-\dfrac1{12}=\dfrac{2+6-1}{12}=\dfrac7{12}$. Dans le tableau : la ligne du 6 (2 cases) et la colonne pile (6 cases), qui ont une case en commun : $2+6-1=7$ cases sur 12.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Analyser une situation</h3>
+
+  <article class="exercice" id="ex-test-depistage" data-titre="Le test de dépistage" data-niveau="2" data-type="probleme" data-notions="arbre totales inverser" data-duree="20" data-calculatrice="non">
+    <p>Chez les patients qui consultent pour une toux persistante, 20 % ont une certaine maladie ($M$). Un test est positif ($T$) chez 90 % des malades, et aussi chez 10 % des personnes qui n'ont pas la maladie. On choisit au hasard un patient qui consulte.</p>
+    <p>1. Construis l'arbre pondéré.<br>2. Calcule $P(M\cap T)$.<br>3. Montre que $P(T)=0{,}26$.<br>4. Le test du patient est positif. Calcule la probabilité qu'il soit malade, en fraction irréductible.<br>5. Le test d'un autre patient est négatif. Calcule la probabilité qu'il ne soit pas malade, en fraction irréductible.<br>6. Que penses-tu de la fiabilité d'un test positif ? d'un test négatif ?</p>
+    <details class="indice"><p>Pour la question 4, on cherche $P_T(M)$ : il faut $P(M\cap T)$, puis $P(T)$.</p></details>
+    <details class="correction">
+      <p>1. $P(M)=0{,}2$, $P(\bar M)=0{,}8$ ; $P_M(T)=0{,}9$, $P_M(\bar T)=0{,}1$ ; $P_{\bar M}(T)=0{,}1$, $P_{\bar M}(\bar T)=0{,}9$.</p>
+      <p>2. $P(M\cap T)=0{,}2\times0{,}9=0{,}18$.</p>
+      <p>3. $P(T)=P(M\cap T)+P(\bar M\cap T)=0{,}18+0{,}8\times0{,}1=0{,}18+0{,}08=0{,}26$.</p>
+      <p>4. $P_T(M)=\dfrac{P(M\cap T)}{P(T)}=\dfrac{0{,}18}{0{,}26}=\dfrac{18}{26}=\dfrac9{13}$, un peu moins de 0,7.</p>
+      <p>5. $P(\bar T)=1-0{,}26=0{,}74$ et $P(\bar M\cap\bar T)=0{,}8\times0{,}9=0{,}72$. Donc $P_{\bar T}(\bar M)=\dfrac{0{,}72}{0{,}74}=\dfrac{72}{74}=\dfrac{36}{37}$, plus de 0,97.</p>
+      <p>6. Un test positif laisse environ 3 chances sur 10 de ne pas être malade : il faut le confirmer. Un test négatif rassure beaucoup plus : moins de 3 chances sur 100 d'être malade quand même. Remarque : le test est « bon à 90 % » dans les deux sens, et pourtant $P_T(M)$ ne vaut pas 0,9 ; ce qui compte aussi, c'est la proportion de malades au départ.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-branche-manque" data-titre="La branche qui manque" data-niveau="2" data-type="probleme" data-notions="totales" data-duree="15" data-calculatrice="non" data-source="Épreuve anticipée de mathématiques, juin 2026, exercice 1">
+    <p>Une salle de concert vend ses billets en ligne ($E$) ou au guichet. 75 % des billets sont vendus en ligne. Parmi les acheteurs en ligne, 40 % prennent l'option « vestiaire » ($V$). Au total, 35 % des acheteurs prennent l'option vestiaire. On choisit un acheteur au hasard.</p>
+    <p>1. Construis l'arbre pondéré, en notant $x=P_{\bar E}(V)$.<br>2. Montre que $P(E\cap V)=0{,}3$.<br>3. En déduire que $P(\bar E\cap V)=0{,}05$.<br>4. Calcule $x$.<br>5. Un acheteur a pris l'option vestiaire. Calcule la probabilité qu'il ait acheté son billet en ligne, en fraction irréductible.</p>
+    <details class="indice"><p>Question 3 : la formule des probabilités totales relie $P(V)$, que tu connais, à $P(E\cap V)$ et $P(\bar E\cap V)$.</p></details>
+    <details class="correction">
+      <p>1. $P(E)=0{,}75$, $P(\bar E)=0{,}25$ ; sous $E$ : $P_E(V)=0{,}4$, $P_E(\bar V)=0{,}6$ ; sous $\bar E$ : $P_{\bar E}(V)=x$, $P_{\bar E}(\bar V)=1-x$.</p>
+      <p>2. $P(E\cap V)=0{,}75\times0{,}4=0{,}3$.</p>
+      <p>3. D'après la formule des probabilités totales, $P(V)=P(E\cap V)+P(\bar E\cap V)$, donc $P(\bar E\cap V)=0{,}35-0{,}3=0{,}05$.</p>
+      <p>4. $P(\bar E\cap V)=P(\bar E)\times x$, donc $0{,}25x=0{,}05$ et $x=\dfrac{0{,}05}{0{,}25}=0{,}2$. Parmi les acheteurs au guichet, 20 % prennent l'option vestiaire.</p>
+      <p>5. $P_V(E)=\dfrac{P(E\cap V)}{P(V)}=\dfrac{0{,}3}{0{,}35}=\dfrac{30}{35}=\dfrac67$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-controle-qualite" data-titre="Le contrôle qualité" data-niveau="2" data-type="probleme" data-notions="arbre totales inverser" data-duree="20" data-calculatrice="non">
+    <p>Un atelier fabrique des pièces sur deux machines. La machine 1 produit 60 % des pièces, la machine 2 les autres. 2 % des pièces de la machine 1 sont défectueuses, contre 5 % de celles de la machine 2. On prélève une pièce au hasard et on note $D$ « elle est défectueuse ».</p>
+    <p>1. Calcule $P(D)$.<br>2. La pièce prélevée est défectueuse. Quelle est la probabilité qu'elle vienne de la machine 2 ? Donne le résultat en fraction irréductible, puis en décimal.<br>3. Le responsable de l'atelier affirme : « La machine 2 ne fabrique que 40 % des pièces, elle n'est donc responsable que de 40 % des défauts. » A-t-il raison ?</p>
+    <details class="correction">
+      <p>1. On note $M_1$ et $M_2$ les deux machines : elles forment une partition. $P(D)=0{,}6\times0{,}02+0{,}4\times0{,}05=0{,}012+0{,}02=0{,}032$.</p>
+      <p>2. $P_D(M_2)=\dfrac{P(M_2\cap D)}{P(D)}=\dfrac{0{,}02}{0{,}032}=\dfrac{20}{32}=\dfrac58=0{,}625$.</p>
+      <p>3. Non. Il confond $P(M_2)=0{,}4$, la part de la machine 2 dans toute la production, avec $P_D(M_2)=0{,}625$, sa part parmi les pièces défectueuses. La machine 2 fait moins de pièces, mais elle en rate deux fois et demie plus : elle produit plus de 60 % des défauts. C'est sur elle qu'il faut agir.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-tableau-arbre" data-titre="Du tableau à l'arbre" data-niveau="2" data-type="probleme" data-notions="proba-cond arbre" data-duree="15" data-calculatrice="non">
+    <p>Un site de vente a interrogé 500 clients : livrés en point relais ($R$) ou à domicile ($\bar R$), satisfaits ($S$) ou non ($\bar S$).</p>
+    <div class="defile"><table class="simple">
+      <tr><th></th><th>Satisfait $S$</th><th>Pas satisfait $\bar S$</th><th>Total</th></tr>
+      <tr><th>Point relais $R$</th><td>150</td><td>50</td><td>200</td></tr>
+      <tr><th>Domicile $\bar R$</th><td>270</td><td>30</td><td>300</td></tr>
+      <tr><th>Total</th><td>420</td><td>80</td><td>500</td></tr>
+    </table></div>
+    <p>On choisit un client au hasard.</p>
+    <p>1. Construis l'arbre pondéré qui a $R$ et $\bar R$ au premier niveau.<br>2. Calcule $P(S)$ avec l'arbre, puis vérifie avec le tableau.<br>3. Calcule $P_{\bar S}(R)$ avec l'arbre, puis vérifie avec le tableau.<br>4. Le service client dit : « Les mécontents viennent surtout du point relais. » Est-ce juste ?</p>
+    <details class="correction">
+      <p>1. $P(R)=\dfrac{200}{500}=0{,}4$ et $P(\bar R)=0{,}6$. Sous $R$ : $P_R(S)=\dfrac{150}{200}=0{,}75$, $P_R(\bar S)=0{,}25$. Sous $\bar R$ : $P_{\bar R}(S)=\dfrac{270}{300}=0{,}9$, $P_{\bar R}(\bar S)=0{,}1$.</p>
+      <p>2. $P(S)=0{,}4\times0{,}75+0{,}6\times0{,}9=0{,}3+0{,}54=0{,}84$. Tableau : $\dfrac{420}{500}=0{,}84$.</p>
+      <p>3. $P(R\cap\bar S)=0{,}4\times0{,}25=0{,}1$ et $P(\bar S)=0{,}1+0{,}6\times0{,}1=0{,}16$. Donc $P_{\bar S}(R)=\dfrac{0{,}1}{0{,}16}=0{,}625$. Tableau : $\dfrac{50}{80}=0{,}625$.</p>
+      <p>4. Oui : les clients du point relais ne sont que 40 % de l'ensemble, mais 62,5 % des mécontents. Être livré en point relais rend l'insatisfaction plus fréquente : un client du point relais est mécontent une fois sur quatre, un client livré à domicile une fois sur dix.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-meteo" data-titre="La pluie du week-end" data-niveau="2" data-type="probleme" data-notions="arbre totales" data-duree="15" data-calculatrice="non">
+    <p>Dans une ville, le temps d'un jour dépend de celui de la veille : s'il pleut un jour, il pleut le lendemain avec la probabilité 0,6 ; s'il ne pleut pas, il pleut le lendemain avec la probabilité 0,2. Ce samedi, la probabilité qu'il pleuve est 0,3. On note $S$ « il pleut samedi » et $D$ « il pleut dimanche ».</p>
+    <p>1. Construis l'arbre pondéré.<br>2. Calcule la probabilité qu'il pleuve samedi et dimanche.<br>3. Calcule la probabilité qu'il pleuve dimanche.<br>4. Calcule la probabilité qu'il pleuve au moins un des deux jours.<br>5. Les événements $S$ et $D$ sont-ils indépendants ?</p>
+    <details class="correction">
+      <p>1. $P(S)=0{,}3$, $P(\bar S)=0{,}7$ ; $P_S(D)=0{,}6$, $P_S(\bar D)=0{,}4$ ; $P_{\bar S}(D)=0{,}2$, $P_{\bar S}(\bar D)=0{,}8$.</p>
+      <p>2. $P(S\cap D)=0{,}3\times0{,}6=0{,}18$.</p>
+      <p>3. $P(D)=0{,}18+0{,}7\times0{,}2=0{,}18+0{,}14=0{,}32$.</p>
+      <p>4. Le contraire : il ne pleut aucun des deux jours, $P(\bar S\cap\bar D)=0{,}7\times0{,}8=0{,}56$. Donc la probabilité cherchée vaut $1-0{,}56=0{,}44$.</p>
+      <p>5. $P_S(D)=0{,}6$ mais $P(D)=0{,}32$ : savoir qu'il a plu samedi rend la pluie de dimanche presque deux fois plus probable. $S$ et $D$ ne sont pas indépendants. (Vérification : $P(S)\times P(D)=0{,}096\neq0{,}18$.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-tirs-au-but" data-titre="Trois tirs au but" data-niveau="2" data-type="probleme" data-notions="bernoulli" data-duree="20" data-calculatrice="non">
+    <p>Une gardienne de but arrête chaque tir au but avec la probabilité 0,3, indépendamment des autres tirs. Elle fait face à trois tirs.</p>
+    <p>1. Représente la situation par un arbre ($A$ : « elle arrête le tir »).<br>2. Calcule la probabilité qu'elle arrête les trois tirs, puis qu'elle n'en arrête aucun.<br>3. Calcule la probabilité qu'elle arrête exactement un tir.<br>4. Calcule la probabilité qu'elle arrête au moins un tir.</p>
+    <details class="indice"><p>Question 3 : l'arrêt peut être le premier, le deuxième ou le troisième tir. Combien de chemins ? Ont-ils la même probabilité ?</p></details>
+    <details class="correction">
+      <p>1. Un arbre à trois niveaux ; à chaque nœud, $A$ avec 0,3 et $\bar A$ avec 0,7. Huit chemins.</p>
+      <p>2. Les trois arrêtés : $0{,}3^3=0{,}027$. Aucun : $0{,}7^3=0{,}343$.</p>
+      <p>3. Trois chemins ont exactement un arrêt : $A\bar A\bar A$, $\bar AA\bar A$, $\bar A\bar AA$. Chacun a la probabilité $0{,}3\times0{,}7\times0{,}7=0{,}147$. Donc $3\times0{,}147=0{,}441$.</p>
+      <p>4. C'est le contraire de « aucun arrêt » : $1-0{,}343=0{,}657$.</p>
+      <p>Vérification : exactement deux arrêts, $3\times0{,}3\times0{,}3\times0{,}7=0{,}189$ ; et $0{,}027+0{,}189+0{,}441+0{,}343=1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-indep-incompat" data-titre="Indépendants ou incompatibles ?" data-niveau="2" data-type="raisonnement" data-notions="independance" data-duree="15" data-calculatrice="non">
+    <p>On tire une carte au hasard dans un jeu de 32 cartes (quatre couleurs : cœur, carreau, trèfle, pique ; huit valeurs : 7, 8, 9, 10, valet, dame, roi, as). On note $A$ « la carte est un cœur », $B$ « c'est un roi » et $C$ « c'est un pique ».</p>
+    <p>1. $A$ et $B$ sont-ils indépendants ?<br>2. $A$ et $C$ sont-ils incompatibles ? indépendants ?<br>3. Montre que deux événements incompatibles, de probabilités non nulles, ne sont jamais indépendants.<br>4. Deux événements peuvent-ils être à la fois incompatibles et indépendants ?</p>
+    <details class="correction">
+      <p>1. $P(A)=\dfrac8{32}=\dfrac14$, $P(B)=\dfrac4{32}=\dfrac18$ et $P(A\cap B)=\dfrac1{32}$ (le roi de cœur). Or $\dfrac14\times\dfrac18=\dfrac1{32}$ : $A$ et $B$ sont indépendants. Savoir que la carte est un cœur ne change pas la chance que ce soit un roi : 1 sur 8 dans les cœurs comme dans tout le jeu.</p>
+      <p>2. Une carte ne peut pas être à la fois un cœur et un pique : $A$ et $C$ sont incompatibles. $P(A\cap C)=0$ alors que $P(A)\times P(C)=\dfrac14\times\dfrac14=\dfrac1{16}$ : ils ne sont pas indépendants.</p>
+      <p>3. Si $A$ et $B$ sont incompatibles, $P(A\cap B)=0$. Si de plus $P(A)\neq0$ et $P(B)\neq0$, alors $P(A)\times P(B)\neq0$. Donc $P(A\cap B)\neq P(A)\times P(B)$ : ils ne sont pas indépendants.</p>
+      <p>4. Oui, mais seulement si l'un des deux est impossible : alors $A\cap B$ est impossible aussi, et $P(A\cap B)=0=P(A)\times P(B)$. Dès que les deux ont une probabilité non nulle, « incompatibles » et « indépendants » s'excluent (question 3).</p>
+    </details>
+  </article>
+
+  <!-- UN PAR CHAPITRE : une réponse d'IA fluide, assurée et fausse dès la première ligne. -->
+  <article class="exercice" id="ex-corrige-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="inverser arbre" data-duree="15" data-calculatrice="non">
+    <p>Une élève a posé cette question à une IA : « Une maladie touche une personne sur 200. Un test est fiable à 98 % : il est positif chez 98 % des malades et négatif chez 98 % des personnes saines. Mon test est positif. Quelle est la probabilité que je sois malade ? » Voici la réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« C'est un calcul simple. Le test est fiable à 98 %, donc la probabilité que tu sois malade, sachant que ton test est positif, est de 98 %. En effet, la probabilité d'être malade sachant que le test est positif est égale à la probabilité que le test soit positif sachant qu'on est malade, soit 0,98. La proportion de 1 sur 200 n'intervient pas ici : elle concerne la population en général, pas ton résultat personnel. Il ne reste donc que 2 % de chances que le test se soit trompé. »</blockquote>
+    <details class="indice"><p>Imagine 10 000 personnes testées. Combien de malades positifs ? Combien de personnes saines positives ?</p></details>
+    <details class="correction">
+      <p><strong>Erreur 1 : elle renverse le conditionnement.</strong> « Positif chez 98 % des malades », c'est $P_M(T)=0{,}98$. La question porte sur $P_T(M)$, la part des malades parmi les positifs. Ces deux nombres n'ont aucune raison d'être égaux.</p>
+      <p><strong>Erreur 2 : elle jette la proportion de malades.</strong> C'est elle qui fait tout. Sur 10 000 personnes : 50 malades, dont 49 positifs ; 9 950 personnes saines, dont 2 %, soit 199, sont positives quand même.</p>
+      <p><strong>Le bon calcul.</strong> Il y a $49+199=248$ positifs, dont 49 malades : $P_T(M)=\dfrac{49}{248}$, environ 0,2. En probabilités : $P(M\cap T)=0{,}005\times0{,}98=0{,}0049$, $P(T)=0{,}0049+0{,}995\times0{,}02=0{,}0049+0{,}0199=0{,}0248$, et $P_T(M)=\dfrac{0{,}0049}{0{,}0248}=\dfrac{49}{248}$.</p>
+      <p><strong>Erreur 3 : la conclusion.</strong> Ce n'est pas « 2 % de chances que le test se soit trompé », mais environ 80 % : à peu près quatre positifs sur cinq ne sont pas malades. Le résultat se confirme par un second test.</p>
+      <p>Une réponse peut être fluide, polie, et fausse dès la deuxième phrase. Le réflexe : se demander « parmi qui ? », et refaire le calcul sur un effectif concret.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Synthèse et démonstrations</h3>
+
+  <article class="exercice" id="ex-montrer-totales" data-titre="Montrer la formule des probabilités totales" data-niveau="3" data-type="raisonnement" data-notions="totales" data-duree="15" data-calculatrice="non">
+    <p>$A$ est un événement tel que $0&lt;P(A)&lt;1$, et $B$ un événement quelconque.</p>
+    <p>1. Explique pourquoi $B$ est la réunion de $A\cap B$ et de $\bar A\cap B$, et pourquoi ces deux événements sont incompatibles.<br>2. En déduire que $P(B)=P(A\cap B)+P(\bar A\cap B)$.<br>3. En déduire que $P(B)=P(A)\times P_A(B)+P(\bar A)\times P_{\bar A}(B)$. Pourquoi faut-il $P(A)\neq0$ et $P(\bar A)\neq0$ ?<br>4. Écris la formule pour trois événements $A_1$, $A_2$, $A_3$ qui forment une partition de l'univers.</p>
+    <details class="indice"><p>Une issue de $B$ est soit dans $A$, soit pas dans $A$. Elle ne peut pas être les deux à la fois.</p></details>
+    <details class="correction">
+      <p>1. Une issue de $B$ est soit dans $A$, et alors elle est dans $A\cap B$, soit dans $\bar A$, et alors elle est dans $\bar A\cap B$. Réciproquement, $A\cap B$ et $\bar A\cap B$ sont tous deux contenus dans $B$. Donc $B=(A\cap B)\cup(\bar A\cap B)$. Une issue ne peut pas être à la fois dans $A$ et dans $\bar A$ : $A\cap B$ et $\bar A\cap B$ sont incompatibles.</p>
+      <p>2. La probabilité de la réunion de deux événements incompatibles est la somme de leurs probabilités (la relation $P(E\cup F)+P(E\cap F)=P(E)+P(F)$ avec $P(E\cap F)=0$). Donc $P(B)=P(A\cap B)+P(\bar A\cap B)$.</p>
+      <p>3. Par définition, $P_A(B)=\dfrac{P(A\cap B)}{P(A)}$, donc $P(A\cap B)=P(A)\times P_A(B)$ ; de même $P(\bar A\cap B)=P(\bar A)\times P_{\bar A}(B)$. On remplace dans 2. Il faut $P(A)\neq0$ et $P(\bar A)\neq0$ parce que $P_A(B)$ et $P_{\bar A}(B)$ ne sont définies que si l'on peut diviser par $P(A)$ et $P(\bar A)$.</p>
+      <p>4. $P(B)=P(A_1\cap B)+P(A_2\cap B)+P(A_3\cap B)=P(A_1)P_{A_1}(B)+P(A_2)P_{A_2}(B)+P(A_3)P_{A_3}(B)$ (si chaque $P(A_i)$ est non nulle).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-contraire-independant" data-titre="Si A et B sont indépendants, Ā et B aussi" data-niveau="3" data-type="raisonnement" data-notions="independance" data-duree="15" data-calculatrice="non">
+    <p>$A$ et $B$ sont deux événements indépendants.</p>
+    <p>1. Montre que $P(\bar A\cap B)=P(B)-P(A\cap B)$.<br>2. En déduire que $P(\bar A\cap B)=P(\bar A)\times P(B)$. Que peux-tu conclure ?<br>3. En déduire, sans nouveau calcul, que $A$ et $\bar B$ sont indépendants, puis que $\bar A$ et $\bar B$ le sont aussi.<br>4. Application : un projecteur a deux lampes qui tombent en panne de façon indépendante, avec les probabilités 0,1 et 0,2 sur une soirée. Calcule la probabilité qu'aucune ne tombe en panne.</p>
+    <details class="correction">
+      <p>1. D'après la formule des probabilités totales (ou parce que $B$ se coupe en $A\cap B$ et $\bar A\cap B$, incompatibles), $P(B)=P(A\cap B)+P(\bar A\cap B)$. Donc $P(\bar A\cap B)=P(B)-P(A\cap B)$.</p>
+      <p>2. $A$ et $B$ sont indépendants : $P(A\cap B)=P(A)\times P(B)$. Donc $P(\bar A\cap B)=P(B)-P(A)P(B)=P(B)\big(1-P(A)\big)=P(\bar A)\times P(B)$. Conclusion : $\bar A$ et $B$ sont indépendants.</p>
+      <p>3. On a montré : si deux événements $E$ et $F$ sont indépendants, alors $\bar E$ et $F$ le sont aussi. La définition $P(E\cap F)=P(E)\times P(F)$ ne dépend pas de l'ordre : $B$ et $A$ sont indépendants. Avec $E=B$ et $F=A$, on obtient : $\bar B$ et $A$ sont indépendants. Puis avec $E=A$ et $F=\bar B$ : $\bar A$ et $\bar B$ sont indépendants.</p>
+      <p>4. Les pannes $L_1$ et $L_2$ sont indépendantes, donc $\bar L_1$ et $\bar L_2$ aussi : $P(\bar L_1\cap\bar L_2)=0{,}9\times0{,}8=0{,}72$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-second-test" data-titre="Un second test" data-niveau="3" data-type="probleme" data-notions="inverser arbre" data-duree="30" data-calculatrice="non">
+    <p>On reprend la maladie du cours : elle touche 1 % de la population, et le test est positif chez 99 % des malades et chez 1 % des personnes saines. On a vu qu'une personne au test positif n'est malade qu'avec la probabilité 0,5.</p>
+    <p>On fait passer un second test, de mêmes caractéristiques, à toutes les personnes dont le premier test est positif : chez un malade, il est positif avec la probabilité 0,99, et chez une personne saine avec la probabilité 0,01, quel que soit le résultat du premier test. On note $M$ « la personne est malade », $T_1$ « son premier test est positif » et $T_2$ « son second test est positif ».</p>
+    <p>1. On imagine un million de personnes. Combien sont malades ? Combien ont un premier test positif, parmi les malades et parmi les personnes saines ?<br>2. Parmi ces personnes au premier test positif, combien ont aussi un second test positif, parmi les malades et parmi les personnes saines ?<br>3. Une personne a deux tests positifs. Quelle est la probabilité qu'elle soit malade ?<br>4. Retrouve ce résultat avec un arbre qui ne regarde que les personnes au premier test positif : au premier niveau, malade avec la probabilité $P_{T_1}(M)=0{,}5$.<br>5. Explique pourquoi un second test change autant la situation.</p>
+    <details class="correction">
+      <p>1. Un million de personnes : 10 000 malades et 990 000 personnes saines. Premier test positif : 99 % des malades, soit 9 900 ; et 1 % des personnes saines, soit 9 900 aussi.</p>
+      <p>2. Second test positif : 99 % des 9 900 malades, soit 9 801 ; 1 % des 9 900 personnes saines, soit 99.</p>
+      <p>3. $\dfrac{9\,801}{9\,801+99}=\dfrac{9\,801}{9\,900}=0{,}99$.</p>
+      <p>4. On ne regarde que les personnes dont le premier test est positif : toutes les probabilités de cet arbre sont « sachant $T_1$ », et l'on écrit $T_1$ en indice. Au premier niveau, $P_{T_1}(M)=0{,}5$ et $P_{T_1}(\bar M)=0{,}5$. Au second, le second test : positif avec 0,99 sous $M$ et 0,01 sous $\bar M$. $P_{T_1}(M\cap T_2)=0{,}5\times0{,}99=0{,}495$ ; $P_{T_1}(T_2)=0{,}495+0{,}5\times0{,}01=0{,}5$. Donc la probabilité d'être malade sachant les deux tests positifs vaut $P_{T_1\cap T_2}(M)=\dfrac{0{,}495}{0{,}5}=0{,}99$, comme à la question 3.</p>
+      <p>5. Le premier test a fait le tri : parmi les positifs, les malades ne sont plus rares (la moitié). Le second test part donc d'une proportion de 0,5, et non plus de 0,01 : ses 1 % de faux positifs ne pèsent presque plus rien. C'est pour cela qu'un dépistage positif se confirme toujours par un second examen.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-quatre-lancers" data-titre="Quatre lancers" data-niveau="3" data-type="probleme" data-notions="bernoulli independance" data-duree="25" data-calculatrice="non">
+    <p>Au XVII<sup>e</sup> siècle, le chevalier de Méré pariait qu'en lançant quatre fois un dé, il obtiendrait au moins un 6. Ce pari lui réussissait ; c'est un second pari, obtenir au moins un double six en lançant 24 fois deux dés, qui l'intrigua, et dont il parla à Pascal. On étudie ici le premier. Les quatre lancers sont indépendants, et le dé est équilibré.</p>
+    <p>1. Combien de chemins compte l'arbre des quatre lancers si l'on ne note, à chaque lancer, que « 6 » ou « pas 6 » ?<br>2. Calcule la probabilité de n'obtenir aucun 6, en fraction.<br>3. En déduire la probabilité d'obtenir au moins un 6. Le pari est-il favorable ?<br>4. Calcule la probabilité d'obtenir exactement un 6, en fraction irréductible.</p>
+    <details class="indice"><p>Question 3 : compare ta fraction à $\dfrac12=\dfrac{648}{1\,296}$.</p></details>
+    <details class="correction">
+      <p>1. Deux branches à chaque lancer, quatre lancers : $2\times2\times2\times2=16$ chemins.</p>
+      <p>2. À chaque lancer, « pas 6 » a la probabilité $\dfrac56$. Les lancers sont indépendants : $\left(\dfrac56\right)^4=\dfrac{625}{1\,296}$.</p>
+      <p>3. C'est le contraire : $1-\dfrac{625}{1\,296}=\dfrac{671}{1\,296}$. Or $\dfrac12=\dfrac{648}{1\,296}$, et $671&gt;648$ : le pari est (légèrement) favorable, un peu plus d'une chance sur deux.</p>
+      <p>4. Le 6 peut sortir au premier, au deuxième, au troisième ou au quatrième lancer : quatre chemins, chacun de probabilité $\dfrac16\times\left(\dfrac56\right)^3=\dfrac{125}{1\,296}$. Donc $4\times\dfrac{125}{1\,296}=\dfrac{500}{1\,296}=\dfrac{125}{324}$.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>$P_A(B)$ ou $P(B\,|\,A)$ : c'est la même chose ?</summary>
+      <div><p>Oui, ce sont deux notations de la probabilité de $B$ sachant $A$. Le programme de première écrit $P_A(B)$, et c'est ce que tu trouveras dans les sujets. $P(B\,|\,A)$ est fréquente dans le supérieur, les logiciels et les articles. Choisis-en une et ne mélange pas les deux dans une copie.</p></div></details>
+    <details><summary>Comment savoir quel événement mettre au premier niveau de l'arbre ?</summary>
+      <div><p>Celui dont l'énoncé donne la probabilité <strong>sans condition</strong> (« 40 % des commandes sont livrées »). Les données « parmi les… » se rangent ensuite sous leur nœud. Si l'on te demande $P_B(A)$, ne cherche pas à mettre $B$ au premier niveau : construis l'arbre dans l'ordre de l'énoncé, puis renverse avec le schéma récapitulatif.</p></div></details>
+    <details><summary>Tableau croisé ou arbre : lequel choisir ?</summary>
+      <div><p>Quand l'énoncé donne des <strong>effectifs</strong> (150 nageurs, dont 45 en compétition), le tableau croisé est le plus direct. Quand il donne des <strong>pourcentages en cascade</strong> (« 30 % … parmi eux, 75 % … »), l'arbre est plus naturel. Les deux donnent les mêmes probabilités : tu peux toujours vérifier l'un avec l'autre.</p></div></details>
+    <details><summary>Pourquoi un test « fiable à 99 % » peut-il se tromper une fois sur deux ?</summary>
+      <div><p>Parce que « 99 % » est $P_M(T)$, la part des malades qui sont positifs (et, pour ce test, aussi la part des personnes saines qui sont négatives). Quand la maladie est rare, les personnes saines sont très nombreuses, et le 1 % d'entre elles dont le test est positif quand même fait autant de positifs que tous les malades. Ce qui intéresse le patient, $P_T(M)$, dépend donc aussi de la proportion de malades au départ. Le labo « Le test positif » te laisse régler cette proportion.</p></div></details>
+    <details><summary>Indépendants et incompatibles : comment ne plus les confondre ?</summary>
+      <div><p><strong>Incompatibles</strong> : ils ne peuvent pas arriver en même temps, $P(A\cap B)=0$. <strong>Indépendants</strong> : l'un ne change pas la probabilité de l'autre, $P(A\cap B)=P(A)\times P(B)$. Deux événements incompatibles, de probabilités non nulles, sont au contraire très liés : si l'un arrive, on sait que l'autre n'arrive pas. Un repère : pour l'indépendance, pense « même proportion partout » ; pour l'incompatibilité, pense « jamais ensemble ».</p></div></details>
+    <details><summary>Je donne le résultat en fraction ou en décimal ?</summary>
+      <div><p>Si le quotient tombe juste (0,4 ; 0,625), le décimal convient. Sinon, sans calculatrice, donne une <strong>fraction irréductible</strong> ($\dfrac9{13}$) : c'est une valeur exacte. Si l'énoncé demande un arrondi, donne-le en plus. Une probabilité est toujours entre 0 et 1 : si tu trouves 1,2, cherche l'erreur.</p></div></details>
+    <details><summary>Une probabilité « sachant » peut-elle être plus grande que la probabilité tout court ?</summary>
+      <div><p>Oui. Dans la médiathèque, $P(B)=0{,}4$ mais $P_J(B)=0{,}75$ : savoir que l'inscrit a moins de 18 ans rend l'emprunt de BD plus probable. Elle peut aussi être plus petite, ou égale : c'est exactement le cas des événements indépendants.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
