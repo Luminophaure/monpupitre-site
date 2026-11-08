@@ -1,0 +1,608 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de structure.figures.py.
+     Fabriquer la page : python3 outils/figures.py physique-chimie/premiere/structure.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>De la structure à la propriété · Première spécialité</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=111fcfb17b">
+<script type="module" src="../../assets/js/site.js?v=3f5afb7ded"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-F75KB7KS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EPKCR5K2.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BE5PKHNW.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3CNZ7OVG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-P67FIC6Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BJIHOUEU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-HTI43ULB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-GQRJZIYF.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IYGWNPFQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-DH4MAWEA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RAUIN6RX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FQLVPLKF.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-F4JM3J26.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-L54GOF6F.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BTRIWATJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5NIYVSC6.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QWS2VV7Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-HPTJRXZZ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EVZXKJF4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/structure.js?v=82eaf0e2e9">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YOOI2NES.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/structure.js?v=521245606e">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-AFI5TSO2.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="physique-chimie" data-chapitre="structure" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Première spécialité · Constitution et transformations de la matière</span>
+  <h1>De la structure à la propriété</h1>
+  <p class="chapeau">L'eau, l'ammoniac, le dioxyde de carbone : leur formule dit quels atomes les composent, pas comment ils tiennent ensemble. Le <strong>schéma de Lewis</strong> le montre : il dessine chaque doublet d'électrons, celui que deux atomes se partagent et celui qui reste à un seul. En seconde, tu lisais ces schémas ; ici, tu apprends à les établir toi-même, pour une molécule comme pour un ion. Pour l'instant, la page ne traite que du schéma de Lewis : la géométrie des molécules et leur polarité viendront ensuite.</p>
+  <ul class="objectifs">
+    <li>Trouver les électrons de valence d'un atome dans le tableau périodique</li><li>Distinguer doublet liant et doublet non liant</li><li>Vérifier les règles du duet et de l'octet, atome par atome</li><li>Établir le schéma de Lewis d'une molécule, liaisons multiples comprises</li><li>Établir le schéma de Lewis d'un ion et y placer sa charge</li><li>Reconnaître une lacune électronique</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Dans un laboratoire pharmaceutique, une chimiste dessine au tableau la molécule qu'elle veut fabriquer. Avant toute expérience, elle place chaque doublet d'électrons.</strong> Ce sont eux qui disent quelles liaisons la molécule peut former, quelle partie attirera l'eau, quelle partie pourra s'accrocher à une protéine de l'organisme. Le même raisonnement explique des choses de tous les jours : pourquoi l'eau dissout le sel, pourquoi l'ammoniac des engrais capte si facilement un ion H⁺, pourquoi le dioxyde de carbone est un gaz qui ne réagit presque avec rien. Tout commence par le même dessin : le schéma de Lewis.</p>
+    <p class="discret">Ils s'en servent : les <a href="https://www.onisep.fr/ressources/univers-metier/metiers/technicien-technicienne-chimiste" rel="noopener">techniciens et techniciennes chimistes</a>, les <a href="https://www.onisep.fr/ressources/univers-metier/metiers/ingenieur-ingenieure-chimiste" rel="noopener">ingénieurs et ingénieures chimistes</a>, les <a href="https://www.onisep.fr/ressources/univers-metier/metiers/pharmacien-chercheur-pharmacienne-chercheuse" rel="noopener">pharmaciens chercheurs</a>, et tous ceux qui conçoivent des médicaments, des matériaux, des engrais.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-valence">1. Les électrons de valence</h3>
+
+  <div class="bloc definition" data-titre="Électrons de valence">
+    <p>Les <strong>électrons de valence</strong> d'un atome sont ceux de sa <strong>couche externe</strong>, la dernière couche occupée. Ce sont les seuls qui participent aux liaisons. Pour les atomes de numéro atomique $Z\le 18$, on les lit dans le tableau périodique :</p>
+    <ul>
+      <li>colonne 1 : 1 électron de valence ; colonne 2 : 2 ;</li>
+      <li>colonnes 13 à 18 : de 3 à 8 (le chiffre des unités du numéro de colonne) ;</li>
+      <li>seule exception : l'hélium, dans la colonne 18, n'en a que 2.</li>
+    </ul>
+    <p>Exemple : l'oxygène ($Z=8$) a la configuration $1s^2\,2s^2\,2p^4$. Sa couche externe, la couche 2, porte $2+4=6$ électrons. Il est dans la colonne 16 : on retrouve 6.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="tableau_valence" viewBox="0 0 660 320" role="img" aria-label="Les dix-huit premiers éléments rangés comme dans le tableau périodique, en trois lignes et huit colonnes (1, 2, puis 13 à 18). Chaque atome est dessiné avec ses électrons de valence : un point par électron célibataire, un tiret par doublet. De gauche à droite, une ligne compte 1, 2, 3, 4, 5, 6, 7 puis 8 électrons de valence."><text class="petit" x="52.0" y="22.0" text-anchor="middle">col. 1</text><text class="note" x="52.0" y="302.0" text-anchor="middle">1 e⁻</text><text class="petit" x="128.0" y="22.0" text-anchor="middle">col. 2</text><text class="note" x="128.0" y="302.0" text-anchor="middle">2 e⁻</text><text class="petit" x="204.0" y="22.0" text-anchor="middle">col. 13</text><text class="note" x="204.0" y="302.0" text-anchor="middle">3 e⁻</text><text class="petit" x="280.0" y="22.0" text-anchor="middle">col. 14</text><text class="note" x="280.0" y="302.0" text-anchor="middle">4 e⁻</text><text class="petit" x="356.0" y="22.0" text-anchor="middle">col. 15</text><text class="note" x="356.0" y="302.0" text-anchor="middle">5 e⁻</text><text class="petit" x="432.0" y="22.0" text-anchor="middle">col. 16</text><text class="note" x="432.0" y="302.0" text-anchor="middle">6 e⁻</text><text class="petit" x="508.0" y="22.0" text-anchor="middle">col. 17</text><text class="note" x="508.0" y="302.0" text-anchor="middle">7 e⁻</text><text class="petit" x="584.0" y="22.0" text-anchor="middle">col. 18</text><text class="note" x="584.0" y="302.0" text-anchor="middle">8 e⁻</text><circle class="pt" cx="52.0" cy="52.0" r="2.8"/><text class="lettre" x="52.0" y="74.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="577.5" y1="52.0" x2="590.5" y2="52.0"/></g><text class="lettre" x="584.0" y="74.5" text-anchor="middle">He</text><circle class="pt" cx="52.0" cy="134.0" r="2.8"/><text class="lettre" x="52.0" y="156.5" text-anchor="middle">Li</text><circle class="pt" cx="128.0" cy="134.0" r="2.8"/><circle class="pt" cx="150.0" cy="150.0" r="2.8"/><text class="lettre" x="128.0" y="156.5" text-anchor="middle">Be</text><circle class="pt" cx="204.0" cy="134.0" r="2.8"/><circle class="pt" cx="220.0" cy="150.0" r="2.8"/><circle class="pt" cx="204.0" cy="166.0" r="2.8"/><text class="lettre" x="204.0" y="156.5" text-anchor="middle">B</text><circle class="pt" cx="280.0" cy="134.0" r="2.8"/><circle class="pt" cx="296.0" cy="150.0" r="2.8"/><circle class="pt" cx="280.0" cy="166.0" r="2.8"/><circle class="pt" cx="264.0" cy="150.0" r="2.8"/><text class="lettre" x="280.0" y="156.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="349.5" y1="134.0" x2="362.5" y2="134.0"/></g><circle class="pt" cx="372.0" cy="150.0" r="2.8"/><circle class="pt" cx="356.0" cy="166.0" r="2.8"/><circle class="pt" cx="340.0" cy="150.0" r="2.8"/><text class="lettre" x="356.0" y="156.5" text-anchor="middle">N</text><g class="trace ep-2-5 t-ink"><line x1="425.5" y1="134.0" x2="438.5" y2="134.0"/></g><g class="trace ep-2-5 t-ink"><line x1="448.0" y1="143.5" x2="448.0" y2="156.5"/></g><circle class="pt" cx="432.0" cy="166.0" r="2.8"/><circle class="pt" cx="416.0" cy="150.0" r="2.8"/><text class="lettre" x="432.0" y="156.5" text-anchor="middle">O</text><g class="trace ep-2-5 t-ink"><line x1="501.5" y1="134.0" x2="514.5" y2="134.0"/></g><g class="trace ep-2-5 t-ink"><line x1="524.0" y1="143.5" x2="524.0" y2="156.5"/></g><g class="trace ep-2-5 t-ink"><line x1="514.5" y1="166.0" x2="501.5" y2="166.0"/></g><circle class="pt" cx="492.0" cy="150.0" r="2.8"/><text class="lettre" x="508.0" y="156.5" text-anchor="middle">F</text><g class="trace ep-2-5 t-ink"><line x1="577.5" y1="134.0" x2="590.5" y2="134.0"/></g><g class="trace ep-2-5 t-ink"><line x1="606.0" y1="143.5" x2="606.0" y2="156.5"/></g><g class="trace ep-2-5 t-ink"><line x1="590.5" y1="166.0" x2="577.5" y2="166.0"/></g><g class="trace ep-2-5 t-ink"><line x1="562.0" y1="156.5" x2="562.0" y2="143.5"/></g><text class="lettre" x="584.0" y="156.5" text-anchor="middle">Ne</text><circle class="pt" cx="52.0" cy="216.0" r="2.8"/><text class="lettre" x="52.0" y="238.5" text-anchor="middle">Na</text><circle class="pt" cx="128.0" cy="216.0" r="2.8"/><circle class="pt" cx="150.0" cy="232.0" r="2.8"/><text class="lettre" x="128.0" y="238.5" text-anchor="middle">Mg</text><circle class="pt" cx="204.0" cy="216.0" r="2.8"/><circle class="pt" cx="226.0" cy="232.0" r="2.8"/><circle class="pt" cx="204.0" cy="248.0" r="2.8"/><text class="lettre" x="204.0" y="238.5" text-anchor="middle">Al</text><circle class="pt" cx="280.0" cy="216.0" r="2.8"/><circle class="pt" cx="302.0" cy="232.0" r="2.8"/><circle class="pt" cx="280.0" cy="248.0" r="2.8"/><circle class="pt" cx="258.0" cy="232.0" r="2.8"/><text class="lettre" x="280.0" y="238.5" text-anchor="middle">Si</text><g class="trace ep-2-5 t-ink"><line x1="349.5" y1="216.0" x2="362.5" y2="216.0"/></g><circle class="pt" cx="372.0" cy="232.0" r="2.8"/><circle class="pt" cx="356.0" cy="248.0" r="2.8"/><circle class="pt" cx="340.0" cy="232.0" r="2.8"/><text class="lettre" x="356.0" y="238.5" text-anchor="middle">P</text><g class="trace ep-2-5 t-ink"><line x1="425.5" y1="216.0" x2="438.5" y2="216.0"/></g><g class="trace ep-2-5 t-ink"><line x1="448.0" y1="225.5" x2="448.0" y2="238.5"/></g><circle class="pt" cx="432.0" cy="248.0" r="2.8"/><circle class="pt" cx="416.0" cy="232.0" r="2.8"/><text class="lettre" x="432.0" y="238.5" text-anchor="middle">S</text><g class="trace ep-2-5 t-ink"><line x1="501.5" y1="216.0" x2="514.5" y2="216.0"/></g><g class="trace ep-2-5 t-ink"><line x1="530.0" y1="225.5" x2="530.0" y2="238.5"/></g><g class="trace ep-2-5 t-ink"><line x1="514.5" y1="248.0" x2="501.5" y2="248.0"/></g><circle class="pt" cx="486.0" cy="232.0" r="2.8"/><text class="lettre" x="508.0" y="238.5" text-anchor="middle">Cl</text><g class="trace ep-2-5 t-ink"><line x1="577.5" y1="216.0" x2="590.5" y2="216.0"/></g><g class="trace ep-2-5 t-ink"><line x1="606.0" y1="225.5" x2="606.0" y2="238.5"/></g><g class="trace ep-2-5 t-ink"><line x1="590.5" y1="248.0" x2="577.5" y2="248.0"/></g><g class="trace ep-2-5 t-ink"><line x1="562.0" y1="238.5" x2="562.0" y2="225.5"/></g><text class="lettre" x="584.0" y="238.5" text-anchor="middle">Ar</text><line class="axe-trait" x1="12" y1="280" x2="648" y2="280"/></svg><figcaption>Les dix-huit premiers atomes, avec leurs électrons de valence. Un point est un électron célibataire, un tiret un doublet. Dans une même colonne, le même nombre : c'est pour cela que les éléments d'une colonne se ressemblent.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Ce que cherche un atome : la couche externe d'un gaz noble">
+    <p>Les gaz nobles (colonne 18) ne forment presque aucune liaison : leur couche externe est <strong>complète</strong>, avec 2 électrons pour l'hélium, 8 pour le néon et l'argon. Les autres atomes deviennent plus stables en s'approchant de cette situation : en <strong>partageant</strong> des électrons avec d'autres atomes (ils forment une molécule) ou en en <strong>gagnant</strong> ou en <strong>perdant</strong> (ils forment un ion).</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pourquoi la colonne, et pas le numéro atomique">
+    <p>$Z$ compte <strong>tous</strong> les électrons de l'atome. L'oxygène en a 8, mais 2 sont sur la première couche, enfouis près du noyau : ils ne participent à aucune liaison. Seuls les 6 électrons de la couche externe comptent pour le schéma de Lewis.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-doublets">2. Doublet liant, doublet non liant</h3>
+
+  <div class="bloc definition" data-titre="Doublets et liaison covalente">
+    <p>Une <strong>liaison covalente</strong> est la mise en commun de deux électrons de valence par deux atomes. Ces deux électrons forment un <strong>doublet liant</strong> : il appartient aux deux atomes à la fois.</p>
+    <p>Un <strong>doublet non liant</strong> est une paire d'électrons de valence qui reste sur un seul atome.</p>
+    <p>Dans un <strong>schéma de Lewis</strong>, chaque doublet est un tiret : entre deux symboles quand il est liant, collé à un seul symbole quand il est non liant.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="eau_annotee" viewBox="0 0 440 230" role="img" aria-label="Le schéma de Lewis de l'eau : l'atome d'oxygène au centre, relié à deux atomes d'hydrogène par deux tirets, les doublets liants, en bleu ; au-dessus de l'oxygène, deux tirets qui ne touchent que lui, les doublets non liants, en rose."><g class="trace ep-2-5 t-u"><line x1="200.4" y1="107.2" x2="166.8" y2="132.4"/></g><g class="trace ep-2-5 t-u"><line x1="219.6" y1="107.2" x2="253.2" y2="132.4"/></g><g class="trace ep-2-5 t-v"><line x1="216.7" y1="84.1" x2="225.9" y2="93.3"/></g><g class="trace ep-2-5 t-v"><line x1="194.1" y1="93.3" x2="203.3" y2="84.1"/></g><text class="lettre" x="210.0" y="106.5" text-anchor="middle">O</text><text class="lettre" x="157.2" y="146.1" text-anchor="middle">H</text><text class="lettre" x="262.8" y="146.1" text-anchor="middle">H</text><text class="note" x="210.0" y="36.0" text-anchor="middle">deux doublets non liants</text><text class="petit" x="210.0" y="52.0" text-anchor="middle">(ils n’appartiennent qu’à O)</text><g class="trace t-n"><line x1="160" y1="44" x2="181.1" y2="69.9"/><polygon points="186.0,76.0 173.3,69.6 182.3,62.2"/></g><g class="trace t-n"><line x1="262" y1="44" x2="240.9" y2="69.9"/><polygon points="236.0,76.0 239.7,62.2 248.7,69.6"/></g><text class="note" x="82.0" y="168.0" text-anchor="middle">doublet liant</text><text class="petit" x="82.0" y="184.0" text-anchor="middle">(partagé par O et H)</text><g class="trace t-n"><line x1="110" y1="156" x2="158.8" y2="136.0"/><polygon points="166.0,133.0 156.2,143.4 151.8,132.5"/></g><text class="note" x="338.0" y="168.0" text-anchor="middle">doublet liant</text><g class="trace t-n"><line x1="312" y1="156" x2="263.2" y2="136.0"/><polygon points="256.0,133.0 270.2,132.5 265.8,143.4"/></g></svg><figcaption>La molécule d'eau. Les deux doublets liants, en bleu, relient O à chaque H. Les deux doublets non liants, en rose, ne touchent que O.</figcaption></figure>
+
+  <div class="bloc definition" data-titre="Liaison simple, double, triple">
+    <p>Deux atomes peuvent mettre en commun un, deux ou trois doublets : la liaison est <strong>simple</strong> (un tiret), <strong>double</strong> (deux tirets parallèles) ou <strong>triple</strong> (trois tirets). Une liaison double compte pour deux doublets liants.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Un tiret, ce sont deux électrons">
+    <p>Tout le monde a envie, au début, de dessiner un tiret par électron. Mais un tiret est un <strong>doublet</strong> : deux électrons. Pour compter les électrons d'un schéma, on multiplie le nombre de tirets par deux.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-octet">3. Les règles du duet et de l'octet</h3>
+
+  <div class="bloc propriete" data-titre="Duet et octet">
+    <p>Dans une molécule ou un ion stable :</p>
+    <ul>
+      <li>chaque atome d'hydrogène est entouré de <strong>2 électrons</strong>, comme l'hélium : c'est la <strong>règle du duet</strong> ;</li>
+      <li>chaque atome de carbone, d'azote, d'oxygène, de chlore… est entouré de <strong>8 électrons</strong>, comme le néon ou l'argon : c'est la <strong>règle de l'octet</strong>.</li>
+    </ul>
+    <p>Pour compter les électrons autour d'un atome, on prend <strong>tous les tirets qui le touchent</strong>, liants et non liants, et on multiplie par deux. Un doublet liant compte pour <strong>chacun</strong> des deux atomes qu'il relie.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="compter_autour" viewBox="0 0 440 190" role="img" aria-label="Le schéma de Lewis du chlorure d'hydrogène, H relié à Cl par un tiret, Cl portant trois doublets non liants. Un cercle pointillé entoure H et ce qui le touche : un doublet, soit deux électrons. Un autre entoure Cl : quatre doublets, soit huit électrons. Le doublet liant est dans les deux cercles."><g class="trace ep-2-5 t-ink"><line x1="187.0" y1="70.0" x2="227.0" y2="70.0"/></g><g class="trace t-u pointille"><path d="M144.0,70.0 a31,31 0 1,0 62,0 a31,31 0 1,0 -62,0"/></g><text class="lettre" x="175.0" y="76.5" text-anchor="middle">H</text><g class="trace t-u pointille"><path d="M211.0,70.0 a34,34 0 1,0 68,0 a34,34 0 1,0 -68,0"/></g><g class="trace ep-2-5 t-ink"><line x1="267.0" y1="63.5" x2="267.0" y2="76.5"/></g><g class="trace ep-2-5 t-ink"><line x1="238.5" y1="54.0" x2="251.5" y2="54.0"/></g><g class="trace ep-2-5 t-ink"><line x1="251.5" y1="86.0" x2="238.5" y2="86.0"/></g><text class="lettre" x="245.0" y="76.5" text-anchor="middle">Cl</text><text class="note" x="210.0" y="140.0" text-anchor="middle">H : 1 doublet = 2 électrons, le duet</text><text class="note" x="210.0" y="160.0" text-anchor="middle">Cl : 4 doublets = 8 électrons, l’octet</text></svg><figcaption>Le doublet liant de H–Cl est dans les deux cercles : H le compte pour son duet, Cl pour son octet.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Combien de liaisons pour chaque atome">
+    <p>Dans une molécule, un atome qui ne porte pas de charge forme autant de liaisons qu'il lui manque d'électrons pour atteindre son duet ou son octet. Le reste de ses électrons de valence forme ses doublets non liants.</p>
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Atome</th><th>H</th><th>C</th><th>N</th><th>O</th><th>Cl</th></tr></thead>
+      <tbody>
+        <tr><td>Électrons de valence</td><td>1</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+        <tr><td>Liaisons (doublets liants)</td><td>1</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>
+        <tr><td>Doublets non liants</td><td>0</td><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+      </tbody>
+    </table></div>
+    <p>Ce tableau ne remplace pas la méthode : il sert à <strong>vérifier</strong> un schéma d'un coup d'œil.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Un modèle, avec ses limites">
+    <p>La règle de l'octet est un modèle, très efficace pour les atomes des deux premières lignes du tableau. Quelques atomes s'en écartent : le bore ou l'aluminium se contentent parfois de 6 électrons (section 7), et des atomes plus lourds, comme le soufre ou le phosphore, peuvent en porter plus de 8 dans certaines molécules. Ce dernier cas n'est pas au programme.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-methode">4. Établir un schéma de Lewis</h3>
+
+  <div class="bloc methode" data-titre="Établir le schéma de Lewis d'une molécule">
+    <ol class="etapes">
+      <li><span>Je compte les électrons de valence de chaque atome, lus dans sa colonne, et je fais la somme $n_v$.</span></li>
+      <li><span>J'en déduis le nombre de doublets à placer : $n_d=\dfrac{n_v}{2}$.</span></li>
+      <li><span>Je relie les atomes par des liaisons simples. Un hydrogène est toujours en bout de chaîne : il ne forme qu'une liaison.</span></li>
+      <li><span>Je place les doublets qui restent en doublets non liants, sur les atomes qui n'ont pas encore leur octet, en commençant par ceux du bord.</span></li>
+      <li><span>Je vérifie chaque atome : 2 électrons pour H, 8 pour les autres. S'il en manque à un atome, un doublet non liant d'un voisin devient liant : la liaison devient double (section 5).</span></li>
+      <li><span>Je recompte : il doit y avoir exactement $n_d$ tirets dans le schéma.</span></li>
+    </ol>
+    <figure class="figure-svg"><svg data-figure="methode_nh3" viewBox="0 0 580 200" role="img" aria-label="Trois étapes pour l'ammoniac. À gauche, le squelette : N relié à trois H par des liaisons simples, trois doublets placés sur quatre. Au milieu, le quatrième doublet posé sur N, en rose. À droite, un cercle pointillé autour de N compte quatre doublets, soit huit électrons."><g class="trace ep-2-5 t-ink"><line x1="78.0" y1="80.0" x2="48.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="102.0" y1="80.0" x2="132.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="90.0" y1="92.0" x2="90.0" y2="122.0"/></g><text class="lettre" x="90.0" y="86.5" text-anchor="middle">N</text><text class="lettre" x="36.0" y="86.5" text-anchor="middle">H</text><text class="lettre" x="144.0" y="86.5" text-anchor="middle">H</text><text class="lettre" x="90.0" y="140.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="268.0" y1="80.0" x2="238.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="292.0" y1="80.0" x2="322.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="280.0" y1="92.0" x2="280.0" y2="122.0"/></g><g class="trace ep-2-5 t-v"><line x1="273.5" y1="64.0" x2="286.5" y2="64.0"/></g><text class="lettre" x="280.0" y="86.5" text-anchor="middle">N</text><text class="lettre" x="226.0" y="86.5" text-anchor="middle">H</text><text class="lettre" x="334.0" y="86.5" text-anchor="middle">H</text><text class="lettre" x="280.0" y="140.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="458.0" y1="80.0" x2="428.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="482.0" y1="80.0" x2="512.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="470.0" y1="92.0" x2="470.0" y2="122.0"/></g><g class="trace t-u pointille"><path d="M439.0,80.0 a31,31 0 1,0 62,0 a31,31 0 1,0 -62,0"/></g><g class="trace ep-2-5 t-ink"><line x1="463.5" y1="64.0" x2="476.5" y2="64.0"/></g><text class="lettre" x="470.0" y="86.5" text-anchor="middle">N</text><text class="lettre" x="416.0" y="86.5" text-anchor="middle">H</text><text class="lettre" x="524.0" y="86.5" text-anchor="middle">H</text><text class="lettre" x="470.0" y="140.5" text-anchor="middle">H</text><text class="note" x="90.0" y="160.0" text-anchor="middle">1. le squelette</text><text class="petit" x="90.0" y="176.0" text-anchor="middle">3 doublets placés sur 4</text><text class="note" x="280.0" y="160.0" text-anchor="middle">2. le doublet restant</text><text class="petit" x="280.0" y="176.0" text-anchor="middle">sur N, le seul à compléter</text><text class="note" x="470.0" y="160.0" text-anchor="middle">3. je vérifie</text><text class="petit" x="470.0" y="176.0" text-anchor="middle">N : 8 électrons, chaque H : 2</text></svg><figcaption>L'ammoniac en trois temps : le squelette, le doublet qui reste, la vérification.</figcaption></figure>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Établir le schéma de Lewis de l'ammoniac NH₃, sachant que l'azote est relié aux trois hydrogènes.</p>
+      <ol class="pas">
+        <li><strong>Les électrons de valence.</strong> N est dans la colonne 15 : 5. Chaque H, colonne 1 : 1. $n_v=5+3\times1=8$.</li>
+        <li><strong>Les doublets.</strong> $n_d=8/2=4$ doublets à placer.</li>
+        <li><strong>Le squelette.</strong> Trois liaisons simples N–H : 3 doublets placés, il en reste 1.</li>
+        <li><strong>Le doublet qui reste.</strong> Les H ont déjà leur duet ; N n'a que $3\times2=6$ électrons. Le dernier doublet va sur N, en doublet non liant.</li>
+        <li><strong>La vérification.</strong> N : 3 liants + 1 non liant = 4 doublets = 8 électrons. Chaque H : 1 doublet = 2 électrons. 4 tirets en tout : c'est juste.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-multiples">5. Quand l'octet ne tombe pas juste : liaisons doubles et triples</h3>
+
+  <div class="bloc propriete" data-titre="Faire basculer un doublet">
+    <p>Il arrive que tous les doublets soient placés et qu'un atome n'ait pas son octet. Il ne faut pas en ajouter : le nombre de doublets est fixé par les électrons de valence. On <strong>déplace</strong> un doublet non liant d'un atome voisin pour en faire un doublet liant de plus : la liaison devient double. S'il manque encore deux électrons, on recommence : la liaison devient triple.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Le dioxyde de carbone" data-ouvert>
+    <figure class="figure-svg"><svg data-figure="methode_co2" viewBox="0 0 620 190" role="img" aria-label="Le dioxyde de carbone en trois étapes. À gauche, O–C–O en liaisons simples, trois doublets non liants sur chaque oxygène : tous les doublets sont placés mais le carbone n'a que quatre électrons. Au milieu, une flèche indique qu'un doublet non liant de chaque oxygène devient un doublet liant. À droite, O=C=O, deux doublets non liants sur chaque oxygène."><g class="trace ep-2-5 t-ink"><line x1="56.0" y1="80.0" x2="88.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="112.0" y1="80.0" x2="144.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="37.5" y1="64.0" x2="50.5" y2="64.0"/></g><g class="trace ep-2-5 t-ink"><line x1="28.0" y1="86.5" x2="28.0" y2="73.5"/></g><g class="trace ep-2-5 t-ink"><line x1="50.5" y1="96.0" x2="37.5" y2="96.0"/></g><text class="lettre" x="44.0" y="86.5" text-anchor="middle">O</text><g class="trace t-u pointille"><path d="M69.0,80.0 a31,31 0 1,0 62,0 a31,31 0 1,0 -62,0"/></g><text class="lettre plein t-ko" x="100.0" y="86.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="172.0" y1="73.5" x2="172.0" y2="86.5"/></g><g class="trace ep-2-5 t-ink"><line x1="149.5" y1="64.0" x2="162.5" y2="64.0"/></g><g class="trace ep-2-5 t-ink"><line x1="162.5" y1="96.0" x2="149.5" y2="96.0"/></g><text class="lettre" x="156.0" y="86.5" text-anchor="middle">O</text><text class="note" x="100.0" y="148.0" text-anchor="middle">C n’a que 4 électrons</text><text class="petit" x="100.0" y="164.0" text-anchor="middle">les 8 doublets sont placés</text><g class="trace t-n"><line x1="222" y1="80" x2="260.2" y2="80.0"/><polygon points="268.0,80.0 255.0,85.8 255.0,74.2"/></g><text class="petit" x="245.0" y="66.0" text-anchor="middle">un doublet</text><text class="petit" x="245.0" y="102.0" text-anchor="middle">bascule</text><g class="trace ep-2-5 t-v"><line x1="356.0" y1="76.2" x2="388.0" y2="76.2"/><line x1="356.0" y1="83.8" x2="388.0" y2="83.8"/></g><g class="trace ep-2-5 t-v"><line x1="412.0" y1="76.2" x2="444.0" y2="76.2"/><line x1="412.0" y1="83.8" x2="444.0" y2="83.8"/></g><g class="trace ep-2-5 t-ink"><line x1="328.1" y1="73.3" x2="337.3" y2="64.1"/></g><g class="trace ep-2-5 t-ink"><line x1="337.3" y1="95.9" x2="328.1" y2="86.7"/></g><text class="lettre" x="344.0" y="86.5" text-anchor="middle">O</text><text class="lettre" x="400.0" y="86.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="462.7" y1="64.1" x2="471.9" y2="73.3"/></g><g class="trace ep-2-5 t-ink"><line x1="471.9" y1="86.7" x2="462.7" y2="95.9"/></g><text class="lettre" x="456.0" y="86.5" text-anchor="middle">O</text><text class="note" x="400.0" y="148.0" text-anchor="middle">O=C=O : chacun a son octet</text><text class="petit" x="400.0" y="164.0" text-anchor="middle">toujours 8 doublets</text></svg><figcaption>Avec des liaisons simples, les 8 doublets sont placés et le carbone n'en touche que 2. Un doublet non liant de chaque oxygène bascule entre O et C.</figcaption></figure>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Établir le schéma de Lewis du dioxyde de carbone CO₂, sachant que le carbone est au centre.</p>
+      <ol class="pas">
+        <li><strong>Les électrons de valence.</strong> C, colonne 14 : 4. Chaque O, colonne 16 : 6. $n_v=4+2\times6=16$, soit $n_d=8$ doublets.</li>
+        <li><strong>Le squelette.</strong> O–C–O : 2 doublets placés, il en reste 6.</li>
+        <li><strong>Les doublets qui restent.</strong> 3 sur chaque O, qui a alors son octet. Les 8 doublets sont placés.</li>
+        <li><strong>La vérification.</strong> C ne touche que 2 tirets : 4 électrons. Il lui en manque 4.</li>
+        <li><strong>La bascule.</strong> Un doublet non liant de chaque O devient liant : O=C=O. C touche 4 tirets (8 électrons), chaque O garde 2 doublets non liants et 2 liants (8 électrons). Toujours 8 doublets.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le diazote, une liaison triple">
+    <p>N₂ : $n_v=2\times5=10$, soit 5 doublets. Avec N–N, il en reste 4 : 3 sur un N, 1 sur l'autre, qui n'a alors que 4 électrons. Deux doublets basculent : N≡N, avec un doublet non liant sur chaque N. Chacun touche 4 tirets : 8 électrons. Cette liaison triple, très solide, explique pourquoi le diazote de l'air réagit si peu.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="molecules" viewBox="0 0 660 320" role="img" aria-label="Les schémas de Lewis des huit molécules du programme. En haut : le dihydrogène H–H ; le chlorure d'hydrogène H–Cl avec trois doublets non liants sur Cl ; le dioxygène O=O avec deux doublets non liants sur chaque O ; le diazote N≡N avec un doublet non liant sur chaque N. En bas : l'eau, O relié à deux H, deux doublets non liants ; l'ammoniac, N relié à trois H, un doublet non liant ; le méthane, C relié à quatre H ; le dioxyde de carbone O=C=O, deux doublets non liants sur chaque O."><g class="trace ep-2-5 t-ink"><line x1="62.0" y1="60.0" x2="96.0" y2="60.0"/></g><text class="lettre" x="50.0" y="66.5" text-anchor="middle">H</text><text class="lettre" x="108.0" y="66.5" text-anchor="middle">H</text><text class="formule" x="79.0" y="118.0" text-anchor="middle">H₂</text><g class="trace ep-2-5 t-ink"><line x1="217.0" y1="60.0" x2="245.0" y2="60.0"/></g><text class="lettre" x="205.0" y="66.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="285.0" y1="53.5" x2="285.0" y2="66.5"/></g><g class="trace ep-2-5 t-ink"><line x1="256.5" y1="44.0" x2="269.5" y2="44.0"/></g><g class="trace ep-2-5 t-ink"><line x1="269.5" y1="76.0" x2="256.5" y2="76.0"/></g><text class="lettre" x="263.0" y="66.5" text-anchor="middle">Cl</text><text class="formule" x="234.0" y="118.0" text-anchor="middle">HCl</text><g class="trace ep-2-5 t-ink"><line x1="367.0" y1="56.2" x2="401.0" y2="56.2"/><line x1="367.0" y1="63.8" x2="401.0" y2="63.8"/></g><g class="trace ep-2-5 t-ink"><line x1="339.1" y1="53.3" x2="348.3" y2="44.1"/></g><g class="trace ep-2-5 t-ink"><line x1="348.3" y1="75.9" x2="339.1" y2="66.7"/></g><text class="lettre" x="355.0" y="66.5" text-anchor="middle">O</text><g class="trace ep-2-5 t-ink"><line x1="419.7" y1="44.1" x2="428.9" y2="53.3"/></g><g class="trace ep-2-5 t-ink"><line x1="428.9" y1="66.7" x2="419.7" y2="75.9"/></g><text class="lettre" x="413.0" y="66.5" text-anchor="middle">O</text><text class="formule" x="384.0" y="118.0" text-anchor="middle">O₂</text><g class="trace ep-2-5 t-ink"><line x1="522.0" y1="53.8" x2="556.0" y2="53.8"/><line x1="522.0" y1="60.0" x2="556.0" y2="60.0"/><line x1="522.0" y1="66.2" x2="556.0" y2="66.2"/></g><g class="trace ep-2-5 t-ink"><line x1="494.0" y1="66.5" x2="494.0" y2="53.5"/></g><text class="lettre" x="510.0" y="66.5" text-anchor="middle">N</text><g class="trace ep-2-5 t-ink"><line x1="584.0" y1="53.5" x2="584.0" y2="66.5"/></g><text class="lettre" x="568.0" y="66.5" text-anchor="middle">N</text><text class="formule" x="539.0" y="118.0" text-anchor="middle">N₂</text><g class="trace ep-2-5 t-ink"><line x1="70.4" y1="212.2" x2="49.6" y2="227.8"/></g><g class="trace ep-2-5 t-ink"><line x1="89.6" y1="212.2" x2="110.4" y2="227.8"/></g><g class="trace ep-2-5 t-ink"><line x1="86.7" y1="189.1" x2="95.9" y2="198.3"/></g><g class="trace ep-2-5 t-ink"><line x1="64.1" y1="198.3" x2="73.3" y2="189.1"/></g><text class="lettre" x="80.0" y="211.5" text-anchor="middle">O</text><text class="lettre" x="40.0" y="241.5" text-anchor="middle">H</text><text class="lettre" x="120.0" y="241.5" text-anchor="middle">H</text><text class="formule" x="80.0" y="296.0" text-anchor="middle">H₂O</text><g class="trace ep-2-5 t-ink"><line x1="228.0" y1="205.0" x2="202.0" y2="205.0"/></g><g class="trace ep-2-5 t-ink"><line x1="252.0" y1="205.0" x2="278.0" y2="205.0"/></g><g class="trace ep-2-5 t-ink"><line x1="240.0" y1="217.0" x2="240.0" y2="243.0"/></g><g class="trace ep-2-5 t-ink"><line x1="233.5" y1="189.0" x2="246.5" y2="189.0"/></g><text class="lettre" x="240.0" y="211.5" text-anchor="middle">N</text><text class="lettre" x="190.0" y="211.5" text-anchor="middle">H</text><text class="lettre" x="290.0" y="211.5" text-anchor="middle">H</text><text class="lettre" x="240.0" y="261.5" text-anchor="middle">H</text><text class="formule" x="240.0" y="296.0" text-anchor="middle">NH₃</text><g class="trace ep-2-5 t-ink"><line x1="388.0" y1="205.0" x2="362.0" y2="205.0"/></g><g class="trace ep-2-5 t-ink"><line x1="412.0" y1="205.0" x2="438.0" y2="205.0"/></g><g class="trace ep-2-5 t-ink"><line x1="400.0" y1="193.0" x2="400.0" y2="167.0"/></g><g class="trace ep-2-5 t-ink"><line x1="400.0" y1="217.0" x2="400.0" y2="243.0"/></g><text class="lettre" x="400.0" y="211.5" text-anchor="middle">C</text><text class="lettre" x="350.0" y="211.5" text-anchor="middle">H</text><text class="lettre" x="450.0" y="211.5" text-anchor="middle">H</text><text class="lettre" x="400.0" y="161.5" text-anchor="middle">H</text><text class="lettre" x="400.0" y="261.5" text-anchor="middle">H</text><text class="formule" x="400.0" y="296.0" text-anchor="middle">CH₄</text><g class="trace ep-2-5 t-ink"><line x1="522.0" y1="201.2" x2="548.0" y2="201.2"/><line x1="522.0" y1="208.8" x2="548.0" y2="208.8"/></g><g class="trace ep-2-5 t-ink"><line x1="572.0" y1="201.2" x2="598.0" y2="201.2"/><line x1="572.0" y1="208.8" x2="598.0" y2="208.8"/></g><g class="trace ep-2-5 t-ink"><line x1="494.1" y1="198.3" x2="503.3" y2="189.1"/></g><g class="trace ep-2-5 t-ink"><line x1="503.3" y1="220.9" x2="494.1" y2="211.7"/></g><text class="lettre" x="510.0" y="211.5" text-anchor="middle">O</text><text class="lettre" x="560.0" y="211.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="616.7" y1="189.1" x2="625.9" y2="198.3"/></g><g class="trace ep-2-5 t-ink"><line x1="625.9" y1="211.7" x2="616.7" y2="220.9"/></g><text class="lettre" x="610.0" y="211.5" text-anchor="middle">O</text><text class="formule" x="560.0" y="296.0" text-anchor="middle">CO₂</text></svg><figcaption>Les huit molécules du programme. Compte les tirets autour de chaque atome : 1 tiret pour H, 4 pour tous les autres.</figcaption></figure>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-ions">6. Les ions : compter avec la charge, puis la placer</h3>
+
+  <div class="bloc definition" data-titre="Les électrons de valence d'un ion">
+    <p>Un ion positif a <strong>perdu</strong> des électrons, un ion négatif en a <strong>gagné</strong>. Pour compter ses électrons de valence, on fait la somme de ceux de ses atomes, puis on <strong>retire</strong> un électron par charge + et on en <strong>ajoute</strong> un par charge − :</p>
+    <ul>
+      <li>H₃O⁺ : $n_v=3\times1+6-1=8$ ;</li>
+      <li>HO⁻ : $n_v=6+1+1=8$ ;</li>
+      <li>O²⁻ : $n_v=6+2=8$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc exemple" data-titre="Les ions monoatomiques">
+    <p>Le sodium (colonne 1) perd son unique électron de valence : l'ion Na⁺ n'en a plus aucun sur sa couche externe, et la couche d'en dessous, complète avec 8 électrons comme le néon, ne se dessine pas. Le chlore (7) en gagne un : Cl⁻ a 8 électrons, soit 4 doublets non liants. L'oxygène (6) en gagne deux : O²⁻ a lui aussi 4 doublets non liants.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="ions_mono" viewBox="0 0 460 160" role="img" aria-label="Trois ions monoatomiques. Na⁺ : le symbole Na seul, sans doublet, avec un + entouré. Cl⁻ : Cl entouré de quatre doublets non liants, avec un − entouré. O²⁻ : O entouré de quatre doublets non liants, avec 2− entouré."><circle class="contour ep-2 t-ink" cx="90.7" cy="41.3" r="9.0"/><text class="formule" x="90.7" y="46.8" text-anchor="middle">+</text><text class="lettre" x="70.0" y="68.5" text-anchor="middle">Na</text><text class="formule" x="70.0" y="122.0" text-anchor="middle">Na⁺</text><text class="petit" x="70.0" y="140.0" text-anchor="middle">a perdu 1 électron</text><g class="trace ep-2-5 t-ink"><line x1="242.0" y1="55.5" x2="242.0" y2="68.5"/></g><g class="trace ep-2-5 t-ink"><line x1="213.5" y1="46.0" x2="226.5" y2="46.0"/></g><g class="trace ep-2-5 t-ink"><line x1="198.0" y1="68.5" x2="198.0" y2="55.5"/></g><g class="trace ep-2-5 t-ink"><line x1="226.5" y1="78.0" x2="213.5" y2="78.0"/></g><circle class="contour ep-2 t-ink" cx="240.7" cy="41.3" r="9.0"/><text class="formule" x="240.7" y="46.8" text-anchor="middle">−</text><text class="lettre" x="220.0" y="68.5" text-anchor="middle">Cl</text><text class="formule" x="220.0" y="122.0" text-anchor="middle">Cl⁻</text><text class="petit" x="220.0" y="140.0" text-anchor="middle">a gagné 1 électron</text><g class="trace ep-2-5 t-ink"><line x1="386.0" y1="55.5" x2="386.0" y2="68.5"/></g><g class="trace ep-2-5 t-ink"><line x1="363.5" y1="46.0" x2="376.5" y2="46.0"/></g><g class="trace ep-2-5 t-ink"><line x1="354.0" y1="68.5" x2="354.0" y2="55.5"/></g><g class="trace ep-2-5 t-ink"><line x1="376.5" y1="78.0" x2="363.5" y2="78.0"/></g><circle class="contour ep-2 t-ink" cx="389.1" cy="42.9" r="11.5"/><text class="formule" x="389.1" y="48.4" text-anchor="middle">2−</text><text class="lettre" x="370.0" y="68.5" text-anchor="middle">O</text><text class="formule" x="370.0" y="122.0" text-anchor="middle">O²⁻</text><text class="petit" x="370.0" y="140.0" text-anchor="middle">a gagné 2 électrons</text></svg><figcaption>Dans le schéma de Lewis d'un ion, la charge est écrite dans un petit cercle, près de l'atome qui la porte.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Sur quel atome poser la charge">
+    <p>Dans un ion polyatomique, la charge est portée par un atome précis. Pour le trouver, compte ce que chaque atome <strong>possède</strong> dans le schéma : un électron par liaison (l'autre est à son voisin) et deux par doublet non liant. Compare à ses électrons de valence :</p>
+    <ul>
+      <li>il possède un électron de <strong>moins</strong> : il porte la charge + ;</li>
+      <li>il possède un électron de <strong>plus</strong> : il porte la charge −.</li>
+    </ul>
+    <p>Dans H₃O⁺, O possède $3+2=5$ électrons contre 6 pour l'atome seul : c'est lui qui porte le +. Chaque H possède 1 électron, comme l'atome seul : il ne porte rien.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="L'ion ammonium NH₄⁺">
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Établir le schéma de Lewis de l'ion ammonium NH₄⁺, l'azote étant relié aux quatre hydrogènes, et y placer la charge.</p>
+      <ol class="pas">
+        <li><strong>Les électrons de valence.</strong> $n_v=5+4\times1-1=8$ : la charge + retire un électron. Soit 4 doublets.</li>
+        <li><strong>Le squelette.</strong> Quatre liaisons N–H : les 4 doublets sont placés.</li>
+        <li><strong>La vérification.</strong> N touche 4 tirets : 8 électrons. Chaque H : 2. Aucun doublet non liant.</li>
+        <li><strong>La charge.</strong> N possède 4 électrons (un par liaison) contre 5 pour l'atome seul : il porte le +, qu'on entoure à côté de N.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="ions_poly" viewBox="0 0 540 190" role="img" aria-label="Trois ions polyatomiques. L'ion oxonium H₃O⁺ : O relié à trois H, un doublet non liant, un + entouré près de O. L'ion ammonium NH₄⁺ : N relié à quatre H, aucun doublet non liant, un + entouré près de N. L'ion hydroxyde HO⁻ : O relié à un H, trois doublets non liants, un − entouré près de O."><g class="trace ep-2-5 t-ink"><line x1="68.0" y1="70.0" x2="40.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="92.0" y1="70.0" x2="120.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="80.0" y1="82.0" x2="80.0" y2="110.0"/></g><g class="trace ep-2-5 t-ink"><line x1="73.5" y1="54.0" x2="86.5" y2="54.0"/></g><circle class="contour ep-2 t-v" cx="97.7" cy="52.3" r="9.0"/><text class="formule" x="97.7" y="57.8" text-anchor="middle">+</text><text class="lettre" x="80.0" y="76.5" text-anchor="middle">O</text><text class="lettre" x="28.0" y="76.5" text-anchor="middle">H</text><text class="lettre" x="132.0" y="76.5" text-anchor="middle">H</text><text class="lettre" x="80.0" y="128.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="243.0" y1="75.0" x2="217.0" y2="75.0"/></g><g class="trace ep-2-5 t-ink"><line x1="267.0" y1="75.0" x2="293.0" y2="75.0"/></g><g class="trace ep-2-5 t-ink"><line x1="255.0" y1="63.0" x2="255.0" y2="37.0"/></g><g class="trace ep-2-5 t-ink"><line x1="255.0" y1="87.0" x2="255.0" y2="113.0"/></g><circle class="contour ep-2 t-v" cx="272.7" cy="57.3" r="9.0"/><text class="formule" x="272.7" y="62.8" text-anchor="middle">+</text><text class="lettre" x="255.0" y="81.5" text-anchor="middle">N</text><text class="lettre" x="205.0" y="81.5" text-anchor="middle">H</text><text class="lettre" x="305.0" y="81.5" text-anchor="middle">H</text><text class="lettre" x="255.0" y="31.5" text-anchor="middle">H</text><text class="lettre" x="255.0" y="131.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="412.0" y1="75.0" x2="444.0" y2="75.0"/></g><g class="trace ep-2-5 t-ink"><line x1="393.5" y1="59.0" x2="406.5" y2="59.0"/></g><g class="trace ep-2-5 t-ink"><line x1="384.0" y1="81.5" x2="384.0" y2="68.5"/></g><g class="trace ep-2-5 t-ink"><line x1="406.5" y1="91.0" x2="393.5" y2="91.0"/></g><circle class="contour ep-2 t-v" cx="417.7" cy="57.3" r="9.0"/><text class="formule" x="417.7" y="62.8" text-anchor="middle">−</text><text class="lettre" x="400.0" y="81.5" text-anchor="middle">O</text><text class="lettre" x="456.0" y="81.5" text-anchor="middle">H</text><text class="note" x="80.0" y="160.0" text-anchor="middle">H₃O⁺, l’ion oxonium</text><text class="note" x="255.0" y="160.0" text-anchor="middle">NH₄⁺, l’ion ammonium</text><text class="note" x="428.0" y="160.0" text-anchor="middle">HO⁻, l’ion hydroxyde</text></svg><figcaption>Trois ions polyatomiques du programme. Dans les trois cas, la charge est sur l'atome central, jamais sur un hydrogène.</figcaption></figure>
+
+  <div class="bloc piege" data-titre="Le signe de la charge, dans le bon sens">
+    <p>Un ion + a <strong>moins</strong> d'électrons que ses atomes : on retire. L'erreur que tout le monde fait au moins une fois, c'est d'ajouter un électron « parce qu'il y a un + ». Avec H₃O⁺ compté à 10 électrons, on trouve 5 doublets, un de trop, et un octet impossible.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-lacune">7. La lacune électronique</h3>
+
+  <div class="bloc definition" data-titre="Lacune électronique">
+    <p>Une <strong>lacune électronique</strong> est l'absence d'un doublet autour d'un atome qui n'a pas son duet ou son octet. On la dessine par un petit <strong>rectangle vide</strong>, là où le doublet manque.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="lacune" viewBox="0 0 440 185" role="img" aria-label="Deux entités avec une lacune électronique, dessinée comme un petit rectangle vide. À gauche, l'ion H⁺ : le symbole H, une lacune, un + entouré. À droite, le borane BH₃ : B relié à trois H, une lacune au-dessus de B."><polygon class="contour t-v" points="105.0,63.0 111.0,63.0 111.0,77.0 105.0,77.0"/><circle class="contour ep-2 t-ink" cx="107.7" cy="52.3" r="9.0"/><text class="formule" x="107.7" y="57.8" text-anchor="middle">+</text><text class="lettre" x="90.0" y="76.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="278.0" y1="70.0" x2="244.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="302.0" y1="70.0" x2="336.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="290.0" y1="82.0" x2="290.0" y2="116.0"/></g><polygon class="contour t-v" points="283.0,55.0 283.0,49.0 297.0,49.0 297.0,55.0"/><text class="lettre" x="290.0" y="76.5" text-anchor="middle">B</text><text class="lettre" x="232.0" y="76.5" text-anchor="middle">H</text><text class="lettre" x="348.0" y="76.5" text-anchor="middle">H</text><text class="lettre" x="290.0" y="134.5" text-anchor="middle">H</text><text class="note" x="90.0" y="160.0" text-anchor="middle">H⁺ : 0 électron autour de H</text><text class="note" x="290.0" y="160.0" text-anchor="middle">BH₃ : 6 électrons autour de B</text></svg><figcaption>La lacune, en rose : une place pour un doublet, vide.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="L'ion H⁺ et le borane BH₃">
+    <ul>
+      <li><strong>H⁺</strong> : l'hydrogène a perdu son unique électron. Il n'a plus rien autour de lui ; pour son duet, il lui manque un doublet : une lacune.</li>
+      <li><strong>BH₃</strong> : le bore (colonne 13) a 3 électrons de valence. $n_v=3+3=6$, soit 3 doublets, tous utilisés par les liaisons B–H. Le bore n'a que 6 électrons : il lui manque un doublet, une lacune.</li>
+    </ul>
+  </div>
+
+  <div class="bloc remarque" data-titre="Une lacune attire les doublets">
+    <p>Un atome qui porte une lacune attire les doublets non liants des autres entités. C'est ainsi que H⁺ se fixe sur un doublet non liant de l'eau pour former H₃O⁺, ou sur celui de l'ammoniac pour former NH₄⁺ : le doublet non liant devient le doublet de la nouvelle liaison. Le borane, pour la même raison, ne reste jamais longtemps seul.</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs qui coûtent des points">
+    <ul>
+      <li><strong>Compter avec le numéro atomique.</strong> O a $Z=8$ mais 6 électrons de valence. Avec 8, on fabrique un oxygène à 10 électrons.</li>
+      <li><strong>Un tiret pour un électron.</strong> Un tiret est un doublet : deux électrons.</li>
+      <li><strong>Oublier les doublets non liants</strong> de O, N ou Cl : l'atome n'a plus son octet (figure ci-dessous).</li>
+      <li><strong>Un hydrogène lié deux fois.</strong> H ne forme qu'une liaison simple : il est toujours en bout de chaîne.</li>
+      <li><strong>Un carbone à cinq liaisons.</strong> Le carbone forme quatre liaisons, jamais plus.</li>
+      <li><strong>Ajouter des doublets pour compléter un octet.</strong> Le nombre de doublets est fixé par $n_v$ : s'il manque des électrons à un atome, on fait une liaison double, on n'ajoute rien.</li>
+      <li><strong>Le signe de la charge à l'envers</strong>, ou la charge posée sur un hydrogène.</li>
+    </ul>
+  </div>
+  <figure class="figure-svg"><svg data-figure="piege_doublets" viewBox="0 0 440 170" role="img" aria-label="À gauche, un schéma faux de l'eau : O relié à deux H, sans aucun doublet non liant, l'oxygène en rouge. À droite, le schéma juste, avec les deux doublets non liants de l'oxygène."><g class="trace ep-2-5 t-ink"><line x1="100.4" y1="77.2" x2="70.0" y2="100.0"/></g><g class="trace ep-2-5 t-ink"><line x1="119.6" y1="77.2" x2="150.0" y2="100.0"/></g><text class="lettre plein t-ko" x="110.0" y="76.5" text-anchor="middle">O</text><text class="lettre" x="60.4" y="113.7" text-anchor="middle">H</text><text class="lettre" x="159.6" y="113.7" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="300.4" y1="77.2" x2="270.0" y2="100.0"/></g><g class="trace ep-2-5 t-ink"><line x1="319.6" y1="77.2" x2="350.0" y2="100.0"/></g><g class="trace ep-2-5 t-w"><line x1="316.7" y1="54.1" x2="325.9" y2="63.3"/></g><g class="trace ep-2-5 t-w"><line x1="294.1" y1="63.3" x2="303.3" y2="54.1"/></g><text class="lettre" x="310.0" y="76.5" text-anchor="middle">O</text><text class="lettre" x="260.4" y="113.7" text-anchor="middle">H</text><text class="lettre" x="359.6" y="113.7" text-anchor="middle">H</text><text class="note" x="110.0" y="136.0" text-anchor="middle">faux : O n’a que 4 électrons</text><text class="note" x="310.0" y="136.0" text-anchor="middle">juste : O a ses 8 électrons</text></svg><figcaption>L'oubli le plus fréquent : les doublets non liants de l'oxygène. Sans eux, O ne touche que 2 tirets.</figcaption></figure>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Établir un schéma de Lewis, pas à pas"></div>
+    <div class="video" data-titre="Les ions oxonium et ammonium"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires : construire un schéma doublet par doublet, avec un vérificateur qui nomme ce qui ne va pas ; débusquer l'erreur dans un schéma faux ; et compter les électrons et les doublets d'une formule avant de dessiner.</p>
+  <div class="labo" data-labo="structure" data-outil="construire"></div>
+  <div class="labo" data-labo="structure" data-outil="erreur"></div>
+  <div class="labo" data-labo="structure" data-outil="compter"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie : compter des électrons de valence et des doublets, lire un schéma, reconnaître le bon, trouver l'erreur, placer une charge. Le quiz vérifie les réflexes du cours. En bas, le contrôle blanc.</p>
+
+  <div class="jeu" data-generateurs="structure" data-questions="10" data-titre="Le défi des doublets"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question" data-reponse="5">
+      <p>Combien d'électrons de valence possède un atome d'azote N ($Z=7$, colonne 15) ?</p>
+      <div class="explication">La colonne 15 donne 5 électrons de valence. Configuration : $1s^2\,2s^2\,2p^3$, soit $2+3=5$ sur la couche 2. Le 7, c'est le nombre total d'électrons.</div>
+    </div>
+    <div class="question">
+      <p>Un doublet non liant, c'est…</p>
+      <ul class="choix"><li class="bon">deux électrons de valence qui restent sur un seul atome</li><li>deux électrons mis en commun par deux atomes</li><li>un électron célibataire</li><li>une liaison double</li></ul>
+      <div class="explication">Le doublet non liant n'appartient qu'à un atome. Celui que deux atomes se partagent est un doublet liant.</div>
+    </div>
+    <div class="question">
+      <p>Un tiret dans un schéma de Lewis représente…</p>
+      <ul class="choix"><li class="bon">deux électrons</li><li>un électron</li><li>une charge</li><li>un atome d'hydrogène</li></ul>
+      <div class="explication">Chaque tiret est un doublet, liant ou non liant : deux électrons.</div>
+    </div>
+    <div class="question" data-reponse="4">
+      <p>Combien de liaisons covalentes forme un atome de carbone dans une molécule ?</p>
+      <div class="explication">C a 4 électrons de valence : il lui en manque 4 pour l'octet. Il forme 4 liaisons et n'a aucun doublet non liant.</div>
+    </div>
+    <div class="question" data-reponse="4">
+      <p>Combien de doublets (liants et non liants) le schéma de Lewis de l'ammoniac NH₃ contient-il ?</p>
+      <div class="explication">$n_v=5+3\times1=8$ électrons, soit 4 doublets : 3 liaisons N–H et 1 doublet non liant sur N.</div>
+    </div>
+    <div class="question" data-reponse="2">
+      <p>Combien de doublets non liants porte l'atome d'oxygène dans la molécule d'eau H₂O ?</p>
+      <div class="explication">O a 6 électrons de valence ; 2 servent aux deux liaisons O–H, il en reste 4, soit 2 doublets non liants.</div>
+    </div>
+    <div class="question">
+      <p>Dans le schéma de Lewis du dioxyde de carbone, le carbone est relié à chaque oxygène par…</p>
+      <ul class="choix"><li class="bon">une liaison double</li><li>une liaison simple</li><li>une liaison triple</li><li>une liaison simple d'un côté, triple de l'autre</li></ul>
+      <div class="explication">O=C=O : avec des liaisons simples, C n'aurait que 4 électrons. Un doublet de chaque O bascule, et chacun garde son octet.</div>
+    </div>
+    <div class="question" data-reponse="8">
+      <p>Combien d'électrons de valence compte l'ion hydroxyde HO⁻ ?</p>
+      <div class="explication">$6+1=7$ pour les atomes, plus 1 pour la charge − : $n_v=8$, soit 4 doublets.</div>
+    </div>
+    <div class="question">
+      <p>Dans l'ion oxonium H₃O⁺, la charge + est portée par…</p>
+      <ul class="choix"><li class="bon">l'atome d'oxygène</li><li>un des atomes d'hydrogène</li><li>les trois hydrogènes à la fois</li><li>aucun atome : elle est autour de l'ion</li></ul>
+      <div class="explication">O possède $3+2=5$ électrons dans le schéma (un par liaison, deux pour son doublet non liant) contre 6 seul : il en a un de moins, il porte le +.</div>
+    </div>
+    <div class="question">
+      <p>Autour de l'atome de bore de BH₃, on trouve…</p>
+      <ul class="choix"><li class="bon">6 électrons et une lacune</li><li>8 électrons</li><li>6 électrons et un doublet non liant</li><li>3 électrons</li></ul>
+      <div class="explication">$n_v=3+3=6$ : trois doublets, tous dans les liaisons B–H. Le bore a 6 électrons ; le doublet qui manque pour l'octet est la lacune.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre : ★ compter et lire, ★★ établir un schéma, ★★★ des molécules de la vie courante, de bout en bout. Dessine d'abord sur ta feuille, puis ouvre la correction.</p>
+
+  <h3>Niveau 1 · Compter et lire</h3>
+
+  <article class="exercice" id="ex-electrons-de-valence-et-tableau-periodique" data-titre="Électrons de valence et tableau périodique" data-niveau="1" data-type="application" data-notions="valence" data-duree="8" data-calculatrice="non">
+    <p>On considère six atomes : H ($Z=1$), C ($Z=6$), N ($Z=7$), O ($Z=8$), S ($Z=16$) et Cl ($Z=17$).</p>
+    <p>1. Écrire la configuration électronique de l'oxygène et celle du chlore.<br>2. Pour chacun des six atomes, donner sa colonne dans le tableau périodique et son nombre d'électrons de valence.<br>3. En déduire combien de liaisons chacun forme dans une molécule, et combien de doublets non liants il garde.</p>
+    <details class="indice"><p>Pour la question 3 : combien d'électrons manque-t-il à chaque atome pour avoir 8 électrons sur sa couche externe (2 pour H) ?</p></details>
+    <details class="correction">
+      <p>1. O : $1s^2\,2s^2\,2p^4$, soit 6 électrons sur la couche externe. Cl : $1s^2\,2s^2\,2p^6\,3s^2\,3p^5$, soit 7 électrons sur la couche externe (la couche 3).</p>
+      <div class="defile"><table class="simple">
+        <thead><tr><th>Atome</th><th>H</th><th>C</th><th>N</th><th>O</th><th>S</th><th>Cl</th></tr></thead>
+        <tbody>
+          <tr><td>Colonne</td><td>1</td><td>14</td><td>15</td><td>16</td><td>16</td><td>17</td></tr>
+          <tr><td>Électrons de valence</td><td>1</td><td>4</td><td>5</td><td>6</td><td>6</td><td>7</td></tr>
+          <tr><td>Liaisons</td><td>1</td><td>4</td><td>3</td><td>2</td><td>2</td><td>1</td></tr>
+          <tr><td>Doublets non liants</td><td>0</td><td>0</td><td>1</td><td>2</td><td>2</td><td>3</td></tr>
+        </tbody>
+      </table></div>
+      <p>3. Chaque liaison apporte un électron de plus à l'atome : il en forme autant qu'il lui en manque pour l'octet ($8-6=2$ pour O, $8-7=1$ pour Cl, $2-1=1$ pour H). Les électrons qui restent vont par paires : O garde $6-2=4$ électrons, soit 2 doublets non liants. S est dans la même colonne que O : il se comporte de la même façon.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-lire-le-schema-de-l-ammoniac" data-titre="Lire le schéma de l'ammoniac" data-niveau="1" data-type="application" data-notions="lewis" data-duree="6" data-calculatrice="non">
+    <figure class="figure-svg petite"><svg data-figure="ex_nh3" viewBox="0 0 220 150" role="img" aria-label="Le schéma de Lewis de l'ammoniac NH₃ : N relié à trois H, un doublet non liant au-dessus de N."><g class="trace ep-2-5 t-ink"><line x1="88.0" y1="64.0" x2="50.0" y2="64.0"/></g><g class="trace ep-2-5 t-ink"><line x1="112.0" y1="64.0" x2="150.0" y2="64.0"/></g><g class="trace ep-2-5 t-ink"><line x1="100.0" y1="76.0" x2="100.0" y2="114.0"/></g><g class="trace ep-2-5 t-ink"><line x1="93.5" y1="48.0" x2="106.5" y2="48.0"/></g><text class="lettre" x="100.0" y="70.5" text-anchor="middle">N</text><text class="lettre" x="38.0" y="70.5" text-anchor="middle">H</text><text class="lettre" x="162.0" y="70.5" text-anchor="middle">H</text><text class="lettre" x="100.0" y="132.5" text-anchor="middle">H</text></svg></figure>
+    <p>Voici le schéma de Lewis de l'ammoniac NH₃.</p>
+    <p>1. Combien de doublets liants contient-il ? Combien de doublets non liants ?<br>2. Combien d'électrons entourent l'atome d'azote ? Et chaque atome d'hydrogène ? Les règles du duet et de l'octet sont-elles respectées ?<br>3. Vérifier que le nombre d'électrons dessinés est égal au nombre d'électrons de valence des quatre atomes.</p>
+    <details class="correction">
+      <p>1. 3 doublets liants (les trois liaisons N–H) et 1 doublet non liant, sur N.</p>
+      <p>2. N touche 4 tirets : $4\times2=8$ électrons, l'octet. Chaque H touche 1 tiret : 2 électrons, le duet. Les deux règles sont respectées.</p>
+      <p>3. 4 tirets dessinés, soit 8 électrons. Électrons de valence : $5+3\times1=8$. C'est bien le même nombre.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-duet-ou-octet" data-titre="Duet ou octet ?" data-niveau="1" data-type="application" data-notions="lewis" data-duree="10" data-calculatrice="non">
+    <figure class="figure-svg"><svg data-figure="ex_quatre" viewBox="0 0 640 170" role="img" aria-label="Quatre schémas notés a à d. a : H–Cl, trois doublets non liants sur Cl. b : O relié à deux H, sans doublet non liant. c : C relié à quatre H. d : C relié à deux H et à O par une liaison simple, trois doublets non liants sur O."><g class="trace ep-2-5 t-ink"><line x1="52.0" y1="66.0" x2="74.0" y2="66.0"/></g><text class="lettre" x="40.0" y="72.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="114.0" y1="59.5" x2="114.0" y2="72.5"/></g><g class="trace ep-2-5 t-ink"><line x1="85.5" y1="50.0" x2="98.5" y2="50.0"/></g><g class="trace ep-2-5 t-ink"><line x1="98.5" y1="82.0" x2="85.5" y2="82.0"/></g><text class="lettre" x="92.0" y="72.5" text-anchor="middle">Cl</text><g class="trace ep-2-5 t-ink"><line x1="205.4" y1="73.2" x2="183.0" y2="90.0"/></g><g class="trace ep-2-5 t-ink"><line x1="224.6" y1="73.2" x2="247.0" y2="90.0"/></g><text class="lettre" x="215.0" y="72.5" text-anchor="middle">O</text><text class="lettre" x="173.4" y="103.7" text-anchor="middle">H</text><text class="lettre" x="256.6" y="103.7" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="348.0" y1="66.0" x2="320.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="372.0" y1="66.0" x2="400.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="360.0" y1="54.0" x2="360.0" y2="26.0"/></g><g class="trace ep-2-5 t-ink"><line x1="360.0" y1="78.0" x2="360.0" y2="106.0"/></g><text class="lettre" x="360.0" y="72.5" text-anchor="middle">C</text><text class="lettre" x="308.0" y="72.5" text-anchor="middle">H</text><text class="lettre" x="412.0" y="72.5" text-anchor="middle">H</text><text class="lettre" x="360.0" y="20.5" text-anchor="middle">H</text><text class="lettre" x="360.0" y="124.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="512.0" y1="66.0" x2="540.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="491.5" y1="57.5" x2="472.1" y2="38.1"/></g><g class="trace ep-2-5 t-ink"><line x1="491.5" y1="74.5" x2="472.1" y2="93.9"/></g><text class="lettre" x="500.0" y="72.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="568.0" y1="59.5" x2="568.0" y2="72.5"/></g><g class="trace ep-2-5 t-ink"><line x1="545.5" y1="50.0" x2="558.5" y2="50.0"/></g><g class="trace ep-2-5 t-ink"><line x1="558.5" y1="82.0" x2="545.5" y2="82.0"/></g><text class="lettre" x="552.0" y="72.5" text-anchor="middle">O</text><text class="lettre" x="463.6" y="36.1" text-anchor="middle">H</text><text class="lettre" x="463.6" y="108.9" text-anchor="middle">H</text><text class="formule" x="66.0" y="146.0" text-anchor="middle">a</text><text class="formule" x="215.0" y="146.0" text-anchor="middle">b</text><text class="formule" x="360.0" y="146.0" text-anchor="middle">c</text><text class="formule" x="514.0" y="146.0" text-anchor="middle">d</text></svg></figure>
+    <p>Pour chacun des quatre schémas a, b, c et d, compter les électrons autour de chaque atome. Lesquels respectent les règles du duet et de l'octet ? Pour les autres, dire ce qui ne va pas.</p>
+    <details class="indice"><p>Autour d'un atome : tous les tirets qui le touchent, multipliés par deux. Un tiret entre deux atomes compte pour les deux.</p></details>
+    <details class="correction">
+      <p><strong>a (HCl).</strong> H : 1 tiret, 2 électrons. Cl : 1 liant + 3 non liants, 8 électrons. <strong>Respecté.</strong></p>
+      <p><strong>b (H₂O).</strong> Chaque H : 2 électrons. O : 2 tirets seulement, 4 électrons. <strong>Pas respecté</strong> : il manque les deux doublets non liants de l'oxygène.</p>
+      <p><strong>c (CH₄).</strong> C : 4 tirets, 8 électrons. Chaque H : 2. <strong>Respecté.</strong></p>
+      <p><strong>d (CH₂O).</strong> O : 1 liant + 3 non liants, 8 électrons. Chaque H : 2. C : 3 tirets, 6 électrons. <strong>Pas respecté</strong> : il manque deux électrons au carbone. Un doublet non liant de O doit devenir liant : la liaison C=O est double, et O ne garde que 2 doublets non liants.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-eau-pas-a-pas" data-titre="L'eau, pas à pas" data-niveau="1" data-type="application" data-notions="valence lewis" data-duree="8" data-calculatrice="non">
+    <p>Établir le schéma de Lewis de la molécule d'eau H₂O, dans laquelle l'oxygène est relié aux deux hydrogènes, en suivant les six étapes de la méthode du cours.</p>
+    <details class="correction">
+      <p>1. H : 1 électron de valence (colonne 1) ; O : 6 (colonne 16). $n_v=2\times1+6=8$.</p>
+      <p>2. $n_d=8/2=4$ doublets.</p>
+      <p>3. Le squelette H–O–H : 2 doublets placés, il en reste 2.</p>
+      <p>4. Les H ont leur duet ; les 2 doublets restants vont sur O, en doublets non liants.</p>
+      <p>5. O : 2 liants + 2 non liants = 8 électrons. Chaque H : 2 électrons.</p>
+      <p>6. 4 tirets dans le schéma : c'est juste.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_eau" viewBox="0 0 220 140" role="img" aria-label="Le schéma de Lewis de l'eau : O relié à deux H, deux doublets non liants sur O."><g class="trace ep-2-5 t-ink"><line x1="90.4" y1="63.2" x2="60.0" y2="86.0"/></g><g class="trace ep-2-5 t-ink"><line x1="109.6" y1="63.2" x2="140.0" y2="86.0"/></g><g class="trace ep-2-5 t-ink"><line x1="106.7" y1="40.1" x2="115.9" y2="49.3"/></g><g class="trace ep-2-5 t-ink"><line x1="84.1" y1="49.3" x2="93.3" y2="40.1"/></g><text class="lettre" x="100.0" y="62.5" text-anchor="middle">O</text><text class="lettre" x="50.4" y="99.7" text-anchor="middle">H</text><text class="lettre" x="149.6" y="99.7" text-anchor="middle">H</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-methane-et-le-chlorure-d-hydrogene" data-titre="Le méthane et le chlorure d'hydrogène" data-niveau="1" data-type="application" data-notions="lewis" data-duree="8" data-calculatrice="non">
+    <p>Le méthane CH₄ est le principal constituant du gaz de ville. Le chlorure d'hydrogène HCl, dissous dans l'eau, donne l'acide chlorhydrique.</p>
+    <p>Établir le schéma de Lewis de chacune des deux molécules (dans CH₄, le carbone est relié aux quatre hydrogènes).</p>
+    <details class="correction">
+      <p><strong>CH₄.</strong> $n_v=4+4\times1=8$, soit 4 doublets. Les quatre liaisons C–H les utilisent tous. C touche 4 tirets (8 électrons), chaque H 1 tiret (2 électrons). Aucun doublet non liant.</p>
+      <p><strong>HCl.</strong> $n_v=1+7=8$, soit 4 doublets. La liaison H–Cl en utilise 1 ; les 3 autres vont sur Cl en doublets non liants. Cl : 8 électrons ; H : 2.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_ch4_hcl" viewBox="0 0 380 160" role="img" aria-label="À gauche, le méthane : C relié à quatre H. À droite, le chlorure d'hydrogène : H–Cl, trois doublets non liants sur Cl."><g class="trace ep-2-5 t-ink"><line x1="78.0" y1="70.0" x2="46.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="102.0" y1="70.0" x2="134.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="90.0" y1="58.0" x2="90.0" y2="26.0"/></g><g class="trace ep-2-5 t-ink"><line x1="90.0" y1="82.0" x2="90.0" y2="114.0"/></g><text class="lettre" x="90.0" y="76.5" text-anchor="middle">C</text><text class="lettre" x="34.0" y="76.5" text-anchor="middle">H</text><text class="lettre" x="146.0" y="76.5" text-anchor="middle">H</text><text class="lettre" x="90.0" y="20.5" text-anchor="middle">H</text><text class="lettre" x="90.0" y="132.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="242.0" y1="70.0" x2="274.0" y2="70.0"/></g><text class="lettre" x="230.0" y="76.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="314.0" y1="63.5" x2="314.0" y2="76.5"/></g><g class="trace ep-2-5 t-ink"><line x1="285.5" y1="54.0" x2="298.5" y2="54.0"/></g><g class="trace ep-2-5 t-ink"><line x1="298.5" y1="86.0" x2="285.5" y2="86.0"/></g><text class="lettre" x="292.0" y="76.5" text-anchor="middle">Cl</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-trois-ions-monoatomiques" data-titre="Trois ions monoatomiques" data-niveau="1" data-type="application" data-notions="valence ions-lewis" data-duree="10" data-calculatrice="non">
+    <p>Le sel de cuisine contient des ions sodium Na⁺ et chlorure Cl⁻ ; de nombreux minéraux contiennent l'ion oxyde O²⁻.</p>
+    <p>Pour chacun de ces trois ions :<br>1. donner le nombre d'électrons de valence de l'atome dont il vient (Na : $Z=11$, colonne 1 ; Cl : $Z=17$ ; O : $Z=8$) ;<br>2. dire combien d'électrons l'atome a gagnés ou perdus ;<br>3. dessiner le schéma de Lewis de l'ion ;<br>4. dire de quel gaz noble l'ion a la couche externe.</p>
+    <details class="correction">
+      <p><strong>Na⁺.</strong> Na a 1 électron de valence. La charge + : il en a perdu 1. Il ne reste aucun électron sur l'ancienne couche externe : on écrit le symbole Na avec un + entouré, sans aucun tiret. Sa nouvelle couche externe, la couche 2, est complète avec 8 électrons, comme le <strong>néon</strong>.</p>
+      <p><strong>Cl⁻.</strong> Cl a 7 électrons de valence ; la charge − : il en a gagné 1. $7+1=8$ électrons, soit 4 doublets non liants autour de Cl, avec un − entouré. Couche externe de l'<strong>argon</strong>.</p>
+      <p><strong>O²⁻.</strong> O a 6 électrons de valence ; la charge 2− : il en a gagné 2. $6+2=8$ électrons, soit 4 doublets non liants, avec 2− entouré. Couche externe du <strong>néon</strong>.</p>
+      <p>Ces trois schémas sont dessinés dans le cours, section 6.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Établir un schéma</h3>
+
+  <article class="exercice" id="ex-une-deux-ou-trois-liaisons" data-titre="Une, deux ou trois liaisons" data-niveau="2" data-type="application" data-notions="lewis" data-duree="12" data-calculatrice="non">
+    <p>L'air contient du diazote N₂ et du dioxygène O₂ ; le dihydrogène H₂ est étudié comme carburant.</p>
+    <p>Établir le schéma de Lewis de H₂, de O₂ et de N₂. Pour chacun, préciser si la liaison entre les deux atomes est simple, double ou triple.</p>
+    <details class="indice"><p>Commence toujours par une liaison simple. Si, une fois les doublets placés, un atome n'a pas son octet, fais basculer un doublet non liant de l'autre atome.</p></details>
+    <details class="correction">
+      <p><strong>H₂.</strong> $n_v=2$, soit 1 doublet : H–H. Chaque H a son duet. Liaison <strong>simple</strong>.</p>
+      <p><strong>O₂.</strong> $n_v=2\times6=12$, soit 6 doublets. Avec O–O, il en reste 5 : 3 sur un O (8 électrons), 2 sur l'autre (6 électrons). Il manque 2 électrons au second : un doublet non liant du premier bascule. O=O, avec 2 doublets non liants sur chaque O. Chacun touche 4 tirets : 8 électrons. Liaison <strong>double</strong>.</p>
+      <p><strong>N₂.</strong> $n_v=2\times5=10$, soit 5 doublets. Avec N–N, il en reste 4 : 3 sur un N, 1 sur l'autre (4 électrons). Il en manque 4 : deux doublets basculent. N≡N, avec 1 doublet non liant sur chaque N. Liaison <strong>triple</strong>.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_diatomiques" viewBox="0 0 480 110" role="img" aria-label="Trois schémas : H–H ; O=O avec deux doublets non liants sur chaque O ; N≡N avec un doublet non liant sur chaque N."><g class="trace ep-2-5 t-ink"><line x1="42.0" y1="44.0" x2="76.0" y2="44.0"/></g><text class="lettre" x="30.0" y="50.5" text-anchor="middle">H</text><text class="lettre" x="88.0" y="50.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="192.0" y1="40.2" x2="230.0" y2="40.2"/><line x1="192.0" y1="47.8" x2="230.0" y2="47.8"/></g><g class="trace ep-2-5 t-ink"><line x1="164.1" y1="37.3" x2="173.3" y2="28.1"/></g><g class="trace ep-2-5 t-ink"><line x1="173.3" y1="59.9" x2="164.1" y2="50.7"/></g><text class="lettre" x="180.0" y="50.5" text-anchor="middle">O</text><g class="trace ep-2-5 t-ink"><line x1="248.7" y1="28.1" x2="257.9" y2="37.3"/></g><g class="trace ep-2-5 t-ink"><line x1="257.9" y1="50.7" x2="248.7" y2="59.9"/></g><text class="lettre" x="242.0" y="50.5" text-anchor="middle">O</text><g class="trace ep-2-5 t-ink"><line x1="362.0" y1="37.8" x2="400.0" y2="37.8"/><line x1="362.0" y1="44.0" x2="400.0" y2="44.0"/><line x1="362.0" y1="50.2" x2="400.0" y2="50.2"/></g><g class="trace ep-2-5 t-ink"><line x1="334.0" y1="50.5" x2="334.0" y2="37.5"/></g><text class="lettre" x="350.0" y="50.5" text-anchor="middle">N</text><g class="trace ep-2-5 t-ink"><line x1="428.0" y1="37.5" x2="428.0" y2="50.5"/></g><text class="lettre" x="412.0" y="50.5" text-anchor="middle">N</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-ethylene-des-fruits-murs" data-titre="L'éthylène des fruits mûrs" data-niveau="2" data-type="application" data-notions="lewis" data-duree="12" data-calculatrice="non">
+    <p>Une banane mûre dégage de l'éthylène C₂H₄, un gaz qui accélère le mûrissement des fruits voisins. Dans cette molécule, les deux carbones sont reliés entre eux, et chacun est relié à deux hydrogènes.</p>
+    <p>1. Calculer le nombre d'électrons de valence et le nombre de doublets.<br>2. Dessiner le squelette en liaisons simples, placer les doublets restants, puis vérifier chaque atome.<br>3. Corriger le schéma si un atome n'a pas son octet.</p>
+    <details class="correction">
+      <p>1. $n_v=2\times4+4\times1=12$, soit 6 doublets.</p>
+      <p>2. Le squelette : la liaison C–C et quatre liaisons C–H, soit 5 doublets. Il en reste 1, posé sur un des carbones. Ce carbone a 3 liaisons et 1 doublet non liant : 8 électrons. L'autre carbone n'a que 3 liaisons : 6 électrons.</p>
+      <p>3. Le doublet non liant du premier carbone bascule entre les deux carbones : la liaison C=C est double. Chaque carbone touche alors 4 tirets (8 électrons), et il n'y a plus aucun doublet non liant. On retrouve bien 4 liaisons par carbone.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_ethylene" viewBox="0 0 280 150" role="img" aria-label="L'éthylène : deux C reliés par une liaison double, chacun relié à deux H. Aucun doublet non liant."><g class="trace ep-2-5 t-ink"><line x1="112.0" y1="60.2" x2="148.0" y2="60.2"/><line x1="112.0" y1="67.8" x2="148.0" y2="67.8"/></g><g class="trace ep-2-5 t-ink"><line x1="91.5" y1="55.5" x2="66.5" y2="30.5"/></g><g class="trace ep-2-5 t-ink"><line x1="91.5" y1="72.5" x2="66.5" y2="97.5"/></g><g class="trace ep-2-5 t-ink"><line x1="168.5" y1="55.5" x2="193.5" y2="30.5"/></g><g class="trace ep-2-5 t-ink"><line x1="168.5" y1="72.5" x2="193.5" y2="97.5"/></g><text class="lettre" x="100.0" y="70.5" text-anchor="middle">C</text><text class="lettre" x="160.0" y="70.5" text-anchor="middle">C</text><text class="lettre" x="58.0" y="28.5" text-anchor="middle">H</text><text class="lettre" x="58.0" y="112.5" text-anchor="middle">H</text><text class="lettre" x="202.0" y="28.5" text-anchor="middle">H</text><text class="lettre" x="202.0" y="112.5" text-anchor="middle">H</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-ion-oxonium" data-titre="L'ion oxonium" data-niveau="2" data-type="application" data-notions="ions-lewis" data-duree="10" data-calculatrice="non">
+    <p>Toute solution acide contient des ions oxonium H₃O⁺, dans lesquels l'oxygène est relié aux trois hydrogènes.</p>
+    <p>1. Calculer le nombre d'électrons de valence de l'ion, puis le nombre de doublets.<br>2. Établir son schéma de Lewis et vérifier chaque atome.<br>3. Sur quel atome placer la charge ? Justifier.</p>
+    <details class="correction">
+      <p>1. $n_v=3\times1+6-1=8$ (la charge + retire un électron), soit 4 doublets.</p>
+      <p>2. Trois liaisons O–H : 3 doublets. Le quatrième va sur O, en doublet non liant. O : 3 liants + 1 non liant = 8 électrons ; chaque H : 2.</p>
+      <p>3. O possède un électron par liaison et deux pour son doublet non liant : $3+2=5$, un de moins que ses 6 électrons de valence. Il porte la charge +. Chaque H possède 1 électron, comme l'atome seul : aucune charge.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_oxonium" viewBox="0 0 220 160" role="img" aria-label="L'ion oxonium : O relié à trois H, un doublet non liant, un + entouré près de O."><g class="trace ep-2-5 t-ink"><line x1="88.0" y1="66.0" x2="52.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="112.0" y1="66.0" x2="148.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="100.0" y1="78.0" x2="100.0" y2="114.0"/></g><g class="trace ep-2-5 t-ink"><line x1="93.5" y1="50.0" x2="106.5" y2="50.0"/></g><circle class="contour ep-2 t-ink" cx="117.7" cy="48.3" r="9.0"/><text class="formule" x="117.7" y="53.8" text-anchor="middle">+</text><text class="lettre" x="100.0" y="72.5" text-anchor="middle">O</text><text class="lettre" x="40.0" y="72.5" text-anchor="middle">H</text><text class="lettre" x="160.0" y="72.5" text-anchor="middle">H</text><text class="lettre" x="100.0" y="132.5" text-anchor="middle">H</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-ion-hydroxyde" data-titre="L'ion hydroxyde" data-niveau="2" data-type="application" data-notions="ions-lewis" data-duree="10" data-calculatrice="non">
+    <p>L'ion hydroxyde HO⁻ est présent dans toute solution basique, comme les déboucheurs de canalisations à la soude.</p>
+    <p>Établir le schéma de Lewis de l'ion HO⁻ et y placer la charge.</p>
+    <details class="correction">
+      <p>$n_v=6+1+1=8$ : la charge − ajoute un électron. Soit 4 doublets.</p>
+      <p>La liaison O–H en utilise 1 ; les 3 autres vont sur O en doublets non liants. O : 1 liant + 3 non liants = 8 électrons ; H : 2.</p>
+      <p>O possède $1+3\times2=7$ électrons, un de plus que ses 6 électrons de valence : il porte la charge −, entourée à côté de lui.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_hydroxyde" viewBox="0 0 220 130" role="img" aria-label="L'ion hydroxyde : O relié à H, trois doublets non liants sur O, un − entouré près de O."><g class="trace ep-2-5 t-ink"><line x1="82.0" y1="56.0" x2="122.0" y2="56.0"/></g><g class="trace ep-2-5 t-ink"><line x1="63.5" y1="40.0" x2="76.5" y2="40.0"/></g><g class="trace ep-2-5 t-ink"><line x1="54.0" y1="62.5" x2="54.0" y2="49.5"/></g><g class="trace ep-2-5 t-ink"><line x1="76.5" y1="72.0" x2="63.5" y2="72.0"/></g><circle class="contour ep-2 t-ink" cx="87.7" cy="38.3" r="9.0"/><text class="formule" x="87.7" y="43.8" text-anchor="middle">−</text><text class="lettre" x="70.0" y="62.5" text-anchor="middle">O</text><text class="lettre" x="134.0" y="62.5" text-anchor="middle">H</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-ion-de-l-eau-de-javel" data-titre="L'ion de l'eau de Javel" data-niveau="2" data-type="probleme" data-notions="ions-lewis" data-duree="15" data-calculatrice="non">
+    <p>L'eau de Javel, qui désinfecte les sols des hôpitaux, doit son action à l'ion hypochlorite ClO⁻, dans lequel le chlore est relié à l'oxygène.</p>
+    <p>1. Calculer le nombre d'électrons de valence de l'ion et le nombre de doublets.<br>2. Établir son schéma de Lewis.<br>3. Sur quel atome placer la charge ? Le chlore et l'oxygène ont chacun 3 doublets non liants : pourquoi la charge n'est-elle pas sur le chlore ?</p>
+    <details class="indice"><p>Pour la charge, compte ce que chaque atome possède : un électron par liaison, deux par doublet non liant, et compare à ses électrons de valence.</p></details>
+    <details class="correction">
+      <p>1. Cl : 7 ; O : 6 ; plus 1 pour la charge −. $n_v=7+6+1=14$, soit 7 doublets.</p>
+      <p>2. La liaison Cl–O utilise 1 doublet ; il en reste 6 : 3 sur Cl, 3 sur O. Chacun a 1 liant + 3 non liants : 8 électrons.</p>
+      <p>3. Cl possède $1+6=7$ électrons, autant que ses 7 électrons de valence : il ne porte pas de charge. O possède $1+6=7$ électrons, un de plus que ses 6 : <strong>c'est O qui porte le −</strong>. Le même nombre de doublets ne veut pas dire la même charge : ce qui compte, c'est l'écart avec les électrons de valence de chaque atome.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_hypochlorite" viewBox="0 0 240 130" role="img" aria-label="L'ion hypochlorite : Cl relié à O, trois doublets non liants sur chacun, un − entouré près de O."><g class="trace ep-2-5 t-ink"><line x1="88.0" y1="56.0" x2="126.2" y2="56.0"/></g><g class="trace ep-2-5 t-ink"><line x1="63.5" y1="40.0" x2="76.5" y2="40.0"/></g><g class="trace ep-2-5 t-ink"><line x1="48.0" y1="62.5" x2="48.0" y2="49.5"/></g><g class="trace ep-2-5 t-ink"><line x1="76.5" y1="72.0" x2="63.5" y2="72.0"/></g><text class="lettre" x="70.0" y="62.5" text-anchor="middle">Cl</text><g class="trace ep-2-5 t-ink"><line x1="154.2" y1="49.5" x2="154.2" y2="62.5"/></g><g class="trace ep-2-5 t-ink"><line x1="131.7" y1="40.0" x2="144.7" y2="40.0"/></g><g class="trace ep-2-5 t-ink"><line x1="144.7" y1="72.0" x2="131.7" y2="72.0"/></g><circle class="contour ep-2 t-ink" cx="155.9" cy="38.3" r="9.0"/><text class="formule" x="155.9" y="43.8" text-anchor="middle">−</text><text class="lettre" x="138.2" y="62.5" text-anchor="middle">O</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-lacune-du-chlorure-d-aluminium" data-titre="La lacune du chlorure d'aluminium" data-niveau="2" data-type="probleme" data-notions="lacune ions-lewis" data-duree="15" data-calculatrice="non">
+    <p>Le chlorure d'aluminium AlCl₃ sert de catalyseur dans l'industrie chimique. L'aluminium ($Z=13$, colonne 13) y est relié aux trois chlores.</p>
+    <p>1. Calculer le nombre d'électrons de valence et le nombre de doublets. Établir le schéma de Lewis de AlCl₃.<br>2. Combien d'électrons entourent l'aluminium ? Que faut-il dessiner autour de lui ?<br>3. Un ion H⁺ porte, lui aussi, une lacune. Il s'approche d'une molécule d'ammoniac NH₃. Quel doublet de l'ammoniac peut former une liaison avec H⁺ ? Dessiner l'ion obtenu.</p>
+    <details class="correction">
+      <p>1. $n_v=3+3\times7=24$, soit 12 doublets. Trois liaisons Al–Cl (3 doublets) ; les 9 autres vont par 3 sur chaque Cl, qui a alors son octet.</p>
+      <p>2. Al touche 3 tirets : 6 électrons. Il manque un doublet pour l'octet, et il n'en reste aucun à placer : on dessine une <strong>lacune</strong>, un petit rectangle vide, près de Al.</p>
+      <p>3. Le seul doublet non liant de NH₃, celui de l'azote. Il vient se loger dans la lacune de H⁺ et devient le doublet d'une quatrième liaison N–H. On obtient l'ion ammonium NH₄⁺ : N relié à quatre H, sans doublet non liant, la charge + sur N (il possède 4 électrons contre 5 de valence).</p>
+      <figure class="figure-svg"><svg data-figure="ex_alcl3" viewBox="0 0 460 180" role="img" aria-label="À gauche, le chlorure d'aluminium : Al relié à trois Cl, chaque Cl portant trois doublets non liants, une lacune au-dessus de Al. À droite, l'ion ammonium : N relié à quatre H, un + entouré."><g class="trace ep-2-5 t-ink"><line x1="102.0" y1="66.0" x2="74.2" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="138.0" y1="66.0" x2="165.8" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="120.0" y1="78.0" x2="120.0" y2="117.8"/></g><polygon class="contour t-ink" points="113.0,51.0 113.0,45.0 127.0,45.0 127.0,51.0"/><text class="lettre" x="120.0" y="72.5" text-anchor="middle">Al</text><g class="trace ep-2-5 t-ink"><line x1="49.7" y1="50.0" x2="62.7" y2="50.0"/></g><g class="trace ep-2-5 t-ink"><line x1="34.2" y1="72.5" x2="34.2" y2="59.5"/></g><g class="trace ep-2-5 t-ink"><line x1="62.7" y1="82.0" x2="49.7" y2="82.0"/></g><text class="lettre" x="56.2" y="72.5" text-anchor="middle">Cl</text><g class="trace ep-2-5 t-ink"><line x1="205.8" y1="59.5" x2="205.8" y2="72.5"/></g><g class="trace ep-2-5 t-ink"><line x1="177.3" y1="50.0" x2="190.3" y2="50.0"/></g><g class="trace ep-2-5 t-ink"><line x1="190.3" y1="82.0" x2="177.3" y2="82.0"/></g><text class="lettre" x="183.8" y="72.5" text-anchor="middle">Cl</text><g class="trace ep-2-5 t-ink"><line x1="142.0" y1="123.3" x2="142.0" y2="136.3"/></g><g class="trace ep-2-5 t-ink"><line x1="98.0" y1="136.3" x2="98.0" y2="123.3"/></g><g class="trace ep-2-5 t-ink"><line x1="126.5" y1="145.8" x2="113.5" y2="145.8"/></g><text class="lettre" x="120.0" y="136.3" text-anchor="middle">Cl</text><g class="trace ep-2-5 t-ink"><line x1="328.0" y1="76.0" x2="300.0" y2="76.0"/></g><g class="trace ep-2-5 t-ink"><line x1="352.0" y1="76.0" x2="380.0" y2="76.0"/></g><g class="trace ep-2-5 t-ink"><line x1="340.0" y1="64.0" x2="340.0" y2="36.0"/></g><g class="trace ep-2-5 t-ink"><line x1="340.0" y1="88.0" x2="340.0" y2="116.0"/></g><circle class="contour ep-2 t-ink" cx="357.7" cy="58.3" r="9.0"/><text class="formule" x="357.7" y="63.8" text-anchor="middle">+</text><text class="lettre" x="340.0" y="82.5" text-anchor="middle">N</text><text class="lettre" x="288.0" y="82.5" text-anchor="middle">H</text><text class="lettre" x="392.0" y="82.5" text-anchor="middle">H</text><text class="lettre" x="340.0" y="30.5" text-anchor="middle">H</text><text class="lettre" x="340.0" y="134.5" text-anchor="middle">H</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-trois-schemas-faux" data-titre="Trois schémas faux" data-niveau="2" data-type="raisonnement" data-notions="lewis" data-duree="12" data-calculatrice="non">
+    <figure class="figure-svg"><svg data-figure="ex_faux" viewBox="0 0 620 185" role="img" aria-label="Trois schémas faux, notés a, b et c. a : N relié à trois H, sans doublet non liant. b : O relié à un H par une liaison double et à l'autre H par une liaison simple, un doublet non liant sur O. c : O=C≡O, deux doublets non liants sur l'O de gauche, un sur l'O de droite."><g class="trace ep-2-5 t-ink"><line x1="88.0" y1="70.0" x2="56.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="112.0" y1="70.0" x2="144.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="100.0" y1="82.0" x2="100.0" y2="114.0"/></g><text class="lettre" x="100.0" y="76.5" text-anchor="middle">N</text><text class="lettre" x="44.0" y="76.5" text-anchor="middle">H</text><text class="lettre" x="156.0" y="76.5" text-anchor="middle">H</text><text class="lettre" x="100.0" y="132.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="282.7" y1="80.2" x2="252.3" y2="103.0"/><line x1="278.1" y1="74.2" x2="247.7" y2="97.0"/></g><g class="trace ep-2-5 t-ink"><line x1="299.6" y1="77.2" x2="330.0" y2="100.0"/></g><g class="trace ep-2-5 t-ink"><line x1="283.5" y1="54.0" x2="296.5" y2="54.0"/></g><text class="lettre" x="290.0" y="76.5" text-anchor="middle">O</text><text class="lettre" x="240.4" y="113.7" text-anchor="middle">H</text><text class="lettre" x="339.6" y="113.7" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="436.0" y1="66.2" x2="468.0" y2="66.2"/><line x1="436.0" y1="73.8" x2="468.0" y2="73.8"/></g><g class="trace ep-2-5 t-ink"><line x1="492.0" y1="63.8" x2="524.0" y2="63.8"/><line x1="492.0" y1="70.0" x2="524.0" y2="70.0"/><line x1="492.0" y1="76.2" x2="524.0" y2="76.2"/></g><g class="trace ep-2-5 t-ink"><line x1="408.1" y1="63.3" x2="417.3" y2="54.1"/></g><g class="trace ep-2-5 t-ink"><line x1="417.3" y1="85.9" x2="408.1" y2="76.7"/></g><text class="lettre" x="424.0" y="76.5" text-anchor="middle">O</text><text class="lettre" x="480.0" y="76.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="552.0" y1="63.5" x2="552.0" y2="76.5"/></g><text class="lettre" x="536.0" y="76.5" text-anchor="middle">O</text><text class="formule" x="100.0" y="162.0" text-anchor="middle">a</text><text class="formule" x="290.0" y="162.0" text-anchor="middle">b</text><text class="formule" x="480.0" y="162.0" text-anchor="middle">c</text></svg></figure>
+    <p>Ces trois schémas de Lewis, de l'ammoniac (a), de l'eau (b) et du dioxyde de carbone (c), sont faux. Pour chacun, nommer l'atome qui ne respecte pas les règles, dire quelle est l'erreur, puis dessiner le schéma juste.</p>
+    <details class="indice"><p>Compte les électrons autour de chaque atome, et compte les doublets du schéma entier. Dans un des trois, le nombre total de doublets est juste : l'erreur est ailleurs.</p></details>
+    <details class="correction">
+      <p><strong>a.</strong> N ne touche que 3 tirets : 6 électrons. Le doublet non liant de l'azote a été oublié (et le schéma n'a que 3 doublets au lieu de 4).</p>
+      <p><strong>b.</strong> Le nombre de doublets est juste (4), O a bien 8 électrons, mais un des H touche 2 tirets : 4 électrons. Un hydrogène ne forme qu'une liaison simple. Le schéma juste : deux liaisons simples O–H et deux doublets non liants sur O.</p>
+      <p><strong>c.</strong> Les 8 doublets sont là et chaque O a 8 électrons, mais C touche 5 tirets : 10 électrons. Le carbone forme 4 liaisons, jamais plus. Le schéma juste : O=C=O, deux doublets non liants sur chaque O.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_faux_corr" viewBox="0 0 580 150" role="img" aria-label="Les trois schémas corrigés : l'ammoniac avec un doublet non liant sur N ; l'eau avec deux liaisons simples et deux doublets non liants ; O=C=O avec deux doublets non liants sur chaque O."><g class="trace ep-2-5 t-ink"><line x1="78.0" y1="60.0" x2="48.0" y2="60.0"/></g><g class="trace ep-2-5 t-ink"><line x1="102.0" y1="60.0" x2="132.0" y2="60.0"/></g><g class="trace ep-2-5 t-ink"><line x1="90.0" y1="72.0" x2="90.0" y2="102.0"/></g><g class="trace ep-2-5 t-ink"><line x1="83.5" y1="44.0" x2="96.5" y2="44.0"/></g><text class="lettre" x="90.0" y="66.5" text-anchor="middle">N</text><text class="lettre" x="36.0" y="66.5" text-anchor="middle">H</text><text class="lettre" x="144.0" y="66.5" text-anchor="middle">H</text><text class="lettre" x="90.0" y="120.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="265.4" y1="73.2" x2="236.6" y2="94.8"/></g><g class="trace ep-2-5 t-ink"><line x1="284.6" y1="73.2" x2="313.4" y2="94.8"/></g><g class="trace ep-2-5 t-ink"><line x1="281.7" y1="50.1" x2="290.9" y2="59.3"/></g><g class="trace ep-2-5 t-ink"><line x1="259.1" y1="59.3" x2="268.3" y2="50.1"/></g><text class="lettre" x="275.0" y="72.5" text-anchor="middle">O</text><text class="lettre" x="227.0" y="108.5" text-anchor="middle">H</text><text class="lettre" x="323.0" y="108.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="408.0" y1="56.2" x2="438.0" y2="56.2"/><line x1="408.0" y1="63.8" x2="438.0" y2="63.8"/></g><g class="trace ep-2-5 t-ink"><line x1="462.0" y1="56.2" x2="492.0" y2="56.2"/><line x1="462.0" y1="63.8" x2="492.0" y2="63.8"/></g><g class="trace ep-2-5 t-ink"><line x1="380.1" y1="53.3" x2="389.3" y2="44.1"/></g><g class="trace ep-2-5 t-ink"><line x1="389.3" y1="75.9" x2="380.1" y2="66.7"/></g><text class="lettre" x="396.0" y="66.5" text-anchor="middle">O</text><text class="lettre" x="450.0" y="66.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="510.7" y1="44.1" x2="519.9" y2="53.3"/></g><g class="trace ep-2-5 t-ink"><line x1="519.9" y1="66.7" x2="510.7" y2="75.9"/></g><text class="lettre" x="504.0" y="66.5" text-anchor="middle">O</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-eau-oxygenee-de-l-armoire-a-pharmacie" data-titre="L'eau oxygénée de l'armoire à pharmacie" data-niveau="2" data-type="probleme" data-notions="lewis" data-duree="15" data-calculatrice="non">
+    <p>L'eau oxygénée, utilisée pour nettoyer une plaie, est une solution de peroxyde d'hydrogène H₂O₂. Dans cette molécule, les deux oxygènes sont reliés entre eux, et chacun est relié à un hydrogène.</p>
+    <p>1. Établir le schéma de Lewis de H₂O₂.<br>2. Comparer avec la molécule d'eau : chaque oxygène a-t-il le même nombre de liaisons et de doublets non liants que dans l'eau ?<br>3. Au contact d'une plaie, l'eau oxygénée mousse : elle se décompose en eau et en dioxygène. Quelle liaison de H₂O₂ doit se rompre pour que cela arrive ?</p>
+    <details class="correction">
+      <p>1. $n_v=2\times1+2\times6=14$, soit 7 doublets. Le squelette H–O–O–H utilise 3 doublets ; les 4 autres vont par 2 sur chaque O. Chaque O : 2 liants + 2 non liants = 8 électrons ; chaque H : 2.</p>
+      <p>2. Oui : dans l'eau comme ici, chaque O forme 2 liaisons et garde 2 doublets non liants. Seul change le voisin d'une des liaisons, un O au lieu d'un H.</p>
+      <p>3. L'eau H₂O et le dioxygène O₂ n'ont aucune liaison entre deux oxygènes reliés chacun à un hydrogène : c'est la liaison simple O–O de H₂O₂ qui se rompt.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_h2o2" viewBox="0 0 280 130" role="img" aria-label="Le peroxyde d'hydrogène : H–O–O–H, deux doublets non liants sur chaque O."><g class="trace ep-2-5 t-ink"><line x1="102.0" y1="50.0" x2="140.0" y2="50.0"/></g><g class="trace ep-2-5 t-ink"><line x1="80.4" y1="57.2" x2="50.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="161.6" y1="57.2" x2="192.0" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="83.5" y1="34.0" x2="96.5" y2="34.0"/></g><g class="trace ep-2-5 t-ink"><line x1="96.5" y1="66.0" x2="83.5" y2="66.0"/></g><text class="lettre" x="90.0" y="56.5" text-anchor="middle">O</text><g class="trace ep-2-5 t-ink"><line x1="145.5" y1="34.0" x2="158.5" y2="34.0"/></g><g class="trace ep-2-5 t-ink"><line x1="158.5" y1="66.0" x2="145.5" y2="66.0"/></g><text class="lettre" x="152.0" y="56.5" text-anchor="middle">O</text><text class="lettre" x="40.4" y="93.7" text-anchor="middle">H</text><text class="lettre" x="201.6" y="93.7" text-anchor="middle">H</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="valence lewis" data-duree="10" data-calculatrice="non">
+    <p>Un élève a demandé à une IA d'établir le schéma de Lewis de l'eau. Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« Je compte d'abord les électrons de valence. L'oxygène a pour numéro atomique $Z=8$ : il possède donc 8 électrons de valence, et chaque hydrogène en apporte 1. Total : $8+2=10$ électrons, soit 5 doublets. Je relie l'oxygène aux deux hydrogènes par deux liaisons simples, ce qui utilise 2 doublets, et je place les 3 doublets restants sur l'oxygène. L'oxygène est alors entouré de $2+3=5$ doublets, soit 10 électrons : exactement comme le néon ($Z=10$), le gaz noble le plus proche. La molécule est donc stable. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 :</strong> le numéro atomique compte <strong>tous</strong> les électrons de l'atome, pas ses électrons de valence. O ($1s^2\,2s^2\,2p^4$, colonne 16) a 6 électrons de valence ; les 2 de la première couche ne participent pas aux liaisons.</p>
+      <p><strong>Erreur 2 :</strong> la règle de l'octet demande <strong>8 électrons autour de l'atome</strong>, comme la couche externe du néon. Les 10 électrons du néon, ce sont ses électrons au total (2 + 8). L'IA compare un nombre d'électrons de valence à un numéro atomique : la même confusion qu'à la première ligne, retournée.</p>
+      <p><strong>Erreur 3 :</strong> tout le reste en découle. La réponse correcte : $n_v=6+2\times1=8$, soit 4 doublets ; H–O–H en utilise 2 ; les 2 restants vont sur O. O : 2 liants + 2 non liants = 8 électrons ; chaque H : 2. L'oxygène porte <strong>2</strong> doublets non liants, pas 3.</p>
+      <p>Une réponse peut être fluide, enchaîner des « donc » et être fausse dès la première ligne. Le réflexe : vérifier que l'atome central a 8 électrons, pas plus, et que le nombre de tirets correspond aux électrons de valence.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Des molécules de la vie courante</h3>
+
+  <article class="exercice" id="ex-l-acide-du-vinaigre" data-titre="L'acide du vinaigre" data-niveau="3" data-type="probleme" data-notions="lewis" data-duree="20" data-calculatrice="non">
+    <p>Le vinaigre doit son goût à l'acide éthanoïque C₂H₄O₂. Dans cette molécule, un premier carbone est relié à trois hydrogènes et au second carbone ; le second carbone est relié aux deux oxygènes ; un seul des oxygènes est relié à un hydrogène.</p>
+    <p>1. Calculer le nombre d'électrons de valence et le nombre de doublets.<br>2. Dessiner le squelette en liaisons simples et compter les doublets qui restent.<br>3. Placer ces doublets, vérifier chaque atome et corriger le schéma si besoin.<br>4. Les deux oxygènes ont-ils le même nombre de liaisons ? Le même nombre de doublets non liants ?</p>
+    <details class="indice"><p>Le squelette compte 7 liaisons simples. Place les doublets restants sur les oxygènes, puis regarde le second carbone.</p></details>
+    <details class="correction">
+      <p>1. $n_v=2\times4+4\times1+2\times6=24$, soit 12 doublets.</p>
+      <p>2. Les liaisons simples : 3 C–H, C–C, 2 C–O et O–H, soit 7 doublets. Il en reste 5.</p>
+      <p>3. L'oxygène relié à H a 2 liaisons : il reçoit 2 doublets non liants (8 électrons). L'autre oxygène n'a qu'une liaison : il reçoit les 3 derniers (8 électrons). Mais le second carbone n'a que 3 liaisons : 6 électrons. Un doublet non liant de l'oxygène du bout bascule : la liaison C=O est double. Chaque atome a alors son octet ou son duet, et le schéma compte toujours 12 doublets.</p>
+      <p>4. Oui pour les liaisons : chaque oxygène en forme 2, l'une double (C=O), l'autre deux simples (C–O et O–H). Et chacun garde 2 doublets non liants : la règle « O : 2 liaisons, 2 doublets non liants » tient, une liaison double comptant pour deux.</p>
+      <figure class="figure-svg"><svg data-figure="ex_vinaigre" viewBox="0 0 350 200" role="img" aria-label="L'acide éthanoïque : un C relié à trois H et à un second C ; ce second C est relié à un O par une liaison double et à un autre O par une liaison simple, lui-même relié à H. Deux doublets non liants sur chaque O."><g class="trace ep-2-5 t-ink"><line x1="102.0" y1="90.0" x2="140.0" y2="90.0"/></g><g class="trace ep-2-5 t-ink"><line x1="157.4" y1="78.6" x2="184.4" y2="49.7"/><line x1="163.0" y1="83.8" x2="190.0" y2="54.9"/></g><g class="trace ep-2-5 t-ink"><line x1="162.2" y1="96.3" x2="197.6" y2="117.8"/></g><g class="trace ep-2-5 t-ink"><line x1="219.8" y1="124.1" x2="257.8" y2="124.1"/></g><g class="trace ep-2-5 t-ink"><line x1="78.0" y1="90.0" x2="40.0" y2="90.0"/></g><g class="trace ep-2-5 t-ink"><line x1="90.0" y1="78.0" x2="90.0" y2="40.0"/></g><g class="trace ep-2-5 t-ink"><line x1="90.0" y1="102.0" x2="90.0" y2="140.0"/></g><text class="lettre" x="90.0" y="96.5" text-anchor="middle">C</text><text class="lettre" x="152.0" y="96.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="211.4" y1="37.0" x2="211.4" y2="50.0"/></g><g class="trace ep-2-5 t-ink"><line x1="179.5" y1="36.8" x2="188.7" y2="27.6"/></g><text class="lettre" x="195.4" y="50.0" text-anchor="middle">O</text><g class="trace ep-2-5 t-ink"><line x1="201.3" y1="108.1" x2="214.3" y2="108.1"/></g><g class="trace ep-2-5 t-ink"><line x1="214.3" y1="140.1" x2="201.3" y2="140.1"/></g><text class="lettre" x="207.8" y="130.6" text-anchor="middle">O</text><text class="lettre" x="269.8" y="130.6" text-anchor="middle">H</text><text class="lettre" x="28.0" y="96.5" text-anchor="middle">H</text><text class="lettre" x="90.0" y="34.5" text-anchor="middle">H</text><text class="lettre" x="90.0" y="158.5" text-anchor="middle">H</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-uree-de-l-urine-aux-engrais" data-titre="L'urée, de l'urine aux engrais" data-niveau="3" data-type="probleme" data-notions="lewis" data-duree="20" data-calculatrice="non">
+    <p>L'urée CH₄N₂O est la molécule par laquelle le corps élimine l'azote dans l'urine ; fabriquée en usine, c'est aussi l'engrais azoté le plus utilisé au monde. Le carbone est relié à l'oxygène et aux deux azotes ; chaque azote est relié à deux hydrogènes.</p>
+    <p>1. Calculer le nombre d'électrons de valence et de doublets.<br>2. Établir le schéma de Lewis de l'urée.<br>3. Vérifier, avec le tableau du cours, le nombre de liaisons et de doublets non liants de chaque atome.</p>
+    <details class="correction">
+      <p>1. $n_v=4+4\times1+2\times5+6=24$, soit 12 doublets.</p>
+      <p>2. Les liaisons simples : C–O, 2 C–N et 4 N–H, soit 7 doublets ; il en reste 5. Chaque N a 3 liaisons : il reçoit 1 doublet non liant (8 électrons). O n'a qu'une liaison : il reçoit les 3 derniers. Le carbone n'a alors que 3 liaisons, 6 électrons : un doublet non liant de O bascule, la liaison C=O est double, et O garde 2 doublets non liants.</p>
+      <p>3. C : 4 liaisons (C=O compte pour deux), 0 doublet non liant. Chaque N : 3 liaisons, 1 doublet non liant. O : 2 liaisons, 2 doublets non liants. Chaque H : 1 liaison. Tout est conforme au tableau ; 12 doublets en tout.</p>
+      <figure class="figure-svg"><svg data-figure="ex_uree" viewBox="0 0 340 220" role="img" aria-label="L'urée : C au centre, relié à O par une liaison double et à deux N par des liaisons simples ; chaque N est relié à deux H et porte un doublet non liant ; O porte deux doublets non liants."><g class="trace ep-2-5 t-ink"><line x1="156.2" y1="78.0" x2="156.2" y2="44.0"/><line x1="163.8" y1="78.0" x2="163.8" y2="44.0"/></g><g class="trace ep-2-5 t-ink"><line x1="149.7" y1="96.2" x2="112.3" y2="118.6"/></g><g class="trace ep-2-5 t-ink"><line x1="170.3" y1="96.2" x2="207.7" y2="118.6"/></g><g class="trace ep-2-5 t-ink"><line x1="91.5" y1="119.0" x2="60.3" y2="101.6"/></g><g class="trace ep-2-5 t-ink"><line x1="102.0" y1="136.8" x2="102.0" y2="170.8"/></g><g class="trace ep-2-5 t-ink"><line x1="228.5" y1="119.0" x2="259.7" y2="101.6"/></g><g class="trace ep-2-5 t-ink"><line x1="218.0" y1="136.8" x2="218.0" y2="170.8"/></g><text class="lettre" x="160.0" y="96.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="166.7" y1="16.1" x2="175.9" y2="25.3"/></g><g class="trace ep-2-5 t-ink"><line x1="144.1" y1="25.3" x2="153.3" y2="16.1"/></g><text class="lettre" x="160.0" y="38.5" text-anchor="middle">O</text><g class="trace ep-2-5 t-ink"><line x1="95.5" y1="108.8" x2="108.5" y2="108.8"/></g><text class="lettre" x="102.0" y="131.3" text-anchor="middle">N</text><g class="trace ep-2-5 t-ink"><line x1="211.5" y1="108.8" x2="224.5" y2="108.8"/></g><text class="lettre" x="218.0" y="131.3" text-anchor="middle">N</text><text class="lettre" x="49.8" y="102.3" text-anchor="middle">H</text><text class="lettre" x="102.0" y="189.3" text-anchor="middle">H</text><text class="lettre" x="270.2" y="102.3" text-anchor="middle">H</text><text class="lettre" x="218.0" y="189.3" text-anchor="middle">H</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-methanol-et-le-methanal" data-titre="Le méthanol et le méthanal" data-niveau="3" data-type="probleme" data-notions="lewis" data-duree="20" data-calculatrice="non">
+    <p>Le méthanol CH₄O est un solvant toxique ; le méthanal CH₂O, en solution dans l'eau, est le formol qui servait à conserver les pièces anatomiques. Dans le méthanol, le carbone est relié à trois hydrogènes et à l'oxygène, lui-même relié au dernier hydrogène. Dans le méthanal, le carbone est relié à deux hydrogènes et à l'oxygène.</p>
+    <p>1. Établir les deux schémas de Lewis.<br>2. Les deux formules ne diffèrent que de deux atomes d'hydrogène. Quelle différence cela fait-il dans les schémas ? Expliquer en comptant les électrons.</p>
+    <details class="correction">
+      <p>1. <strong>Méthanol</strong> : $n_v=4+4\times1+6=14$, soit 7 doublets. Cinq liaisons simples (3 C–H, C–O, O–H) ; les 2 doublets restants vont sur O. Tout le monde a son octet ou son duet. <strong>Méthanal</strong> : $n_v=4+2\times1+6=12$, soit 6 doublets. Trois liaisons simples (2 C–H, C–O) ; les 3 restants vont sur O. C n'a que 3 liaisons, 6 électrons : un doublet de O bascule, C=O, et O garde 2 doublets non liants.</p>
+      <p>2. Deux H de moins, ce sont deux électrons de moins et deux liaisons C–H et O–H en moins. Le carbone et l'oxygène, qui ont chacun perdu un partenaire, se complètent l'un l'autre par une liaison de plus entre eux : la liaison C–O devient double.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_methanal_methanol" viewBox="0 0 460 180" role="img" aria-label="À gauche, le méthanol : C relié à trois H et à O, lui-même relié à H ; deux doublets non liants sur O. À droite, le méthanal : C relié à deux H et à O par une liaison double ; deux doublets non liants sur O."><g class="trace ep-2-5 t-ink"><line x1="82.0" y1="70.0" x2="112.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="58.0" y1="70.0" x2="28.0" y2="70.0"/></g><g class="trace ep-2-5 t-ink"><line x1="70.0" y1="58.0" x2="70.0" y2="28.0"/></g><g class="trace ep-2-5 t-ink"><line x1="70.0" y1="82.0" x2="70.0" y2="112.0"/></g><g class="trace ep-2-5 t-ink"><line x1="136.0" y1="70.0" x2="166.0" y2="70.0"/></g><text class="lettre" x="70.0" y="76.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="117.5" y1="54.0" x2="130.5" y2="54.0"/></g><g class="trace ep-2-5 t-ink"><line x1="130.5" y1="86.0" x2="117.5" y2="86.0"/></g><text class="lettre" x="124.0" y="76.5" text-anchor="middle">O</text><text class="lettre" x="16.0" y="76.5" text-anchor="middle">H</text><text class="lettre" x="70.0" y="22.5" text-anchor="middle">H</text><text class="lettre" x="70.0" y="130.5" text-anchor="middle">H</text><text class="lettre" x="178.0" y="76.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="342.0" y1="66.2" x2="378.0" y2="66.2"/><line x1="342.0" y1="73.8" x2="378.0" y2="73.8"/></g><g class="trace ep-2-5 t-ink"><line x1="321.5" y1="61.5" x2="296.5" y2="36.5"/></g><g class="trace ep-2-5 t-ink"><line x1="321.5" y1="78.5" x2="296.5" y2="103.5"/></g><text class="lettre" x="330.0" y="76.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="396.7" y1="54.1" x2="405.9" y2="63.3"/></g><g class="trace ep-2-5 t-ink"><line x1="405.9" y1="76.7" x2="396.7" y2="85.9"/></g><text class="lettre" x="390.0" y="76.5" text-anchor="middle">O</text><text class="lettre" x="288.0" y="34.5" text-anchor="middle">H</text><text class="lettre" x="288.0" y="118.5" text-anchor="middle">H</text><text class="note" x="125.0" y="160.0" text-anchor="middle">le méthanol CH₄O</text><text class="note" x="340.0" y="160.0" text-anchor="middle">le méthanal CH₂O</text></svg></figure>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-formule-deux-molecules" data-titre="Une formule, deux molécules" data-niveau="3" data-type="raisonnement" data-notions="lewis" data-duree="20" data-calculatrice="non">
+    <p>Deux molécules ont la même formule C₂H₆O. L'éthanol, l'alcool des boissons et des solutions hydroalcooliques, est un liquide qui bout à 78 °C. Le méthoxyméthane est un gaz qui bout à −24 °C. Dans l'éthanol, les atomes sont enchaînés C–C–O ; dans le méthoxyméthane, C–O–C ; les hydrogènes complètent.</p>
+    <p>1. Calculer le nombre d'électrons de valence et de doublets, le même pour les deux molécules.<br>2. Établir les deux schémas de Lewis.<br>3. Montrer que les deux respectent les règles du duet et de l'octet. Que peut-on en conclure sur ce qu'apporte une formule brute ?</p>
+    <details class="indice"><p>Dans les deux cas, chaque carbone doit avoir 4 liaisons : place les hydrogènes en conséquence. L'un des deux a un H relié à l'oxygène, l'autre non.</p></details>
+    <details class="correction">
+      <p>1. $n_v=2\times4+6\times1+6=20$, soit 10 doublets, pour les deux.</p>
+      <p>2. <strong>Éthanol</strong> : C–C–O–H, le premier C relié à trois H, le second à deux H ; 8 liaisons simples, et les 2 doublets restants sur O. <strong>Méthoxyméthane</strong> : C–O–C, chaque C relié à trois H ; 8 liaisons simples, et les 2 doublets restants sur O.</p>
+      <p>3. Dans les deux, chaque C a 4 liaisons (8 électrons), O a 2 liaisons et 2 doublets non liants (8 électrons), chaque H 1 liaison (2 électrons). Les deux schémas sont justes. Une formule brute ne suffit donc pas à décrire une molécule : il faut savoir comment les atomes sont reliés. Et ce n'est pas un détail : une structure différente donne des propriétés différentes, un liquide d'un côté, un gaz de l'autre. C'est le titre du chapitre : de la structure à la propriété.</p>
+      <figure class="figure-svg petite"><svg data-figure="ex_c2h6o" viewBox="0 0 610 172" role="img" aria-label="Deux molécules de formule C₂H₆O. À gauche, l'éthanol : C–C–O–H, chaque C complété par des H, deux doublets non liants sur O. À droite, le méthoxyméthane : C–O–C, chaque C relié à trois H, deux doublets non liants sur O."><g class="trace ep-2-5 t-ink"><line x1="84.0" y1="66.0" x2="108.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="132.0" y1="66.0" x2="156.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="180.0" y1="66.0" x2="204.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="60.0" y1="66.0" x2="36.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="72.0" y1="54.0" x2="72.0" y2="30.0"/></g><g class="trace ep-2-5 t-ink"><line x1="72.0" y1="78.0" x2="72.0" y2="102.0"/></g><g class="trace ep-2-5 t-ink"><line x1="120.0" y1="54.0" x2="120.0" y2="30.0"/></g><g class="trace ep-2-5 t-ink"><line x1="120.0" y1="78.0" x2="120.0" y2="102.0"/></g><text class="lettre" x="72.0" y="72.5" text-anchor="middle">C</text><text class="lettre" x="120.0" y="72.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="161.5" y1="50.0" x2="174.5" y2="50.0"/></g><g class="trace ep-2-5 t-ink"><line x1="174.5" y1="82.0" x2="161.5" y2="82.0"/></g><text class="lettre" x="168.0" y="72.5" text-anchor="middle">O</text><text class="lettre" x="216.0" y="72.5" text-anchor="middle">H</text><text class="lettre" x="24.0" y="72.5" text-anchor="middle">H</text><text class="lettre" x="72.0" y="24.5" text-anchor="middle">H</text><text class="lettre" x="72.0" y="120.5" text-anchor="middle">H</text><text class="lettre" x="120.0" y="24.5" text-anchor="middle">H</text><text class="lettre" x="120.0" y="120.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="402.0" y1="66.0" x2="426.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="450.0" y1="66.0" x2="474.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="378.0" y1="66.0" x2="354.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="390.0" y1="54.0" x2="390.0" y2="30.0"/></g><g class="trace ep-2-5 t-ink"><line x1="390.0" y1="78.0" x2="390.0" y2="102.0"/></g><g class="trace ep-2-5 t-ink"><line x1="498.0" y1="66.0" x2="522.0" y2="66.0"/></g><g class="trace ep-2-5 t-ink"><line x1="486.0" y1="54.0" x2="486.0" y2="30.0"/></g><g class="trace ep-2-5 t-ink"><line x1="486.0" y1="78.0" x2="486.0" y2="102.0"/></g><text class="lettre" x="390.0" y="72.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="431.5" y1="50.0" x2="444.5" y2="50.0"/></g><g class="trace ep-2-5 t-ink"><line x1="444.5" y1="82.0" x2="431.5" y2="82.0"/></g><text class="lettre" x="438.0" y="72.5" text-anchor="middle">O</text><text class="lettre" x="486.0" y="72.5" text-anchor="middle">C</text><text class="lettre" x="342.0" y="72.5" text-anchor="middle">H</text><text class="lettre" x="390.0" y="24.5" text-anchor="middle">H</text><text class="lettre" x="390.0" y="120.5" text-anchor="middle">H</text><text class="lettre" x="534.0" y="72.5" text-anchor="middle">H</text><text class="lettre" x="486.0" y="24.5" text-anchor="middle">H</text><text class="lettre" x="486.0" y="120.5" text-anchor="middle">H</text><text class="note" x="144.0" y="150.0" text-anchor="middle">l’éthanol</text><text class="note" x="438.0" y="150.0" text-anchor="middle">le méthoxyméthane</text></svg></figure>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi 8 électrons, et 2 pour l'hydrogène ?</summary>
+      <div><p>Parce que ce sont les couches externes complètes des gaz nobles, les éléments qui ne réagissent presque pas : 2 pour l'hélium, 8 pour le néon et l'argon. Un atome lié qui a autant d'électrons autour de lui que le gaz noble le plus proche est stable. L'hydrogène est sur la première ligne du tableau : le gaz noble de sa ligne est l'hélium, d'où le duet.</p></div></details>
+    <details><summary>Tirets ou paires de points : qui a raison ?</summary>
+      <div><p>Ce sont deux conventions pour la même chose. Ici, comme dans la plupart des manuels de lycée, chaque doublet est un tiret, liant ou non liant ; un point ne sert qu'à montrer un électron seul, dans le schéma d'un atome isolé. Certains livres dessinent les doublets non liants par deux points : le compte reste le même, deux électrons par doublet.</p></div></details>
+    <details><summary>Le schéma de Lewis montre-t-il la forme de la molécule ?</summary>
+      <div><p>Pas directement : c'est un dessin à plat, qui dit qui est relié à qui et où sont les doublets. La forme réelle, dans l'espace, se déduit du schéma de Lewis : les doublets autour d'un atome se repoussent et s'écartent au maximum. C'est la suite du programme, avec la polarité des molécules.</p></div></details>
+    <details><summary>Pourquoi un hydrogène n'a-t-il jamais de doublet non liant ?</summary>
+      <div><p>Il n'a qu'un électron de valence. Une seule liaison lui donne ses 2 électrons, son duet : il n'a plus rien à mettre de côté. C'est aussi pour cela qu'il est toujours au bout d'une chaîne, jamais au milieu.</p></div></details>
+    <details><summary>Et le sel de cuisine, NaCl : quel schéma de Lewis ?</summary>
+      <div><p>Le sel n'est pas fait de molécules mais d'ions Na⁺ et Cl⁻ empilés, qui s'attirent parce qu'ils sont de charges opposées. Il n'y a pas de doublet partagé entre Na et Cl : on dessine les deux ions séparément, Na⁺ sans tiret et Cl⁻ avec ses quatre doublets non liants.</p></div></details>
+    <details><summary>Le dioxygène est-il vraiment O=O ?</summary>
+      <div><p>C'est ce que donne le modèle de Lewis, et c'est ce qu'on attend de toi. Mais le dioxygène réel a une particularité que le modèle ne prévoit pas : il est attiré par un aimant, signe qu'il possède deux électrons célibataires. Un modèle n'est pas la réalité ; celui de Lewis est simple et juste dans l'immense majorité des cas, et on connaît les quelques cas où il a besoin d'aide.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

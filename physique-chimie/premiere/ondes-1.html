@@ -1,0 +1,643 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de ondes-1.figures.py.
+     Fabriquer la page : python3 outils/figures.py physique-chimie/premiere/ondes-1.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Les lentilles convergentes · Première</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=111fcfb17b">
+<script type="module" src="../../assets/js/site.js?v=3f5afb7ded"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-F75KB7KS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EPKCR5K2.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BE5PKHNW.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3CNZ7OVG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-P67FIC6Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BJIHOUEU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-HTI43ULB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-GQRJZIYF.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IYGWNPFQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-DH4MAWEA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RAUIN6RX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FQLVPLKF.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-F4JM3J26.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-L54GOF6F.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BTRIWATJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5NIYVSC6.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QWS2VV7Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-HPTJRXZZ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EVZXKJF4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/ondes-1.js?v=0ff60aab92">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/ondes-1.js?v=245cd322d7">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-AFI5TSO2.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="physique-chimie" data-chapitre="ondes-1" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Première spécialité physique-chimie · Ondes et signaux</span>
+  <h1>Les lentilles convergentes</h1>
+  <p class="chapeau">Le vidéoprojecteur de la salle, l'appareil photo de ton téléphone, ton œil : tous forment une image avec une lentille convergente. En seconde, tu construisais cette image à la règle. Cette année, tu la <strong>calcules</strong> : où elle se forme, quelle taille elle a, si elle est droite ou renversée, et si un écran peut la recueillir.</p>
+  <ul class="objectifs">
+    <li>Utiliser des distances algébriques sur l'axe optique</li><li>Trouver la position d'une image avec la relation de conjugaison</li><li>Trouver sa taille et son sens avec le grandissement</li><li>Dire si une image est réelle ou virtuelle</li><li>Estimer une distance focale au banc d'optique</li><li>Expliquer une mise au point</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Le vidéoprojecteur est accroché au plafond, à 3 m du tableau.</strong> À l'intérieur, un panneau lumineux de 2 cm de large : c'est l'objet ; sur le tableau, son image mesure plus d'un mètre. Pourquoi faut-il refaire la netteté quand on déplace l'appareil ? Pourquoi l'image n'est-elle pas à l'envers, alors que l'objectif renverse l'image ? Et comment ton téléphone fait-il la netteté sur une fleur à 8 cm, puis sur un paysage, en une fraction de seconde ?</p>
+    <p class="discret">Ils s'en servent : opticien-lunetier, orthoptiste, photographe, technicien en optique de précision, projectionniste. Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <h3 id="c-rappel">1. Ce que tu sais depuis la seconde</h3>
+
+  <div class="bloc definition" data-titre="La lentille mince convergente">
+    <p>Une lentille convergente est plus épaisse au centre qu'au bord. On la représente par un trait vertical terminé par deux pointes tournées vers l'extérieur.</p>
+    <ul>
+      <li>Son <strong>centre optique</strong> $O$ est au milieu ; l'<strong>axe optique</strong> est la droite qui la traverse en $O$, perpendiculairement.</li>
+      <li>Le <strong>foyer image</strong> $F'$ est le point de l'axe où convergent les rayons arrivés parallèles à l'axe. Il est <strong>après</strong> la lentille.</li>
+      <li>Le <strong>foyer objet</strong> $F$ est le symétrique de $F'$ par rapport à $O$, <strong>avant</strong> la lentille.</li>
+      <li>La <strong>distance focale</strong> $f'$ est la distance de $O$ à $F'$, en mètres (on la donne souvent en cm ou en mm).</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les trois rayons particuliers">
+    <ul>
+      <li>Un rayon qui passe par le centre optique $O$ n'est <strong>pas dévié</strong>.</li>
+      <li>Un rayon qui arrive <strong>parallèle à l'axe</strong> ressort en passant par le foyer image $F'$.</li>
+      <li>Un rayon qui passe par le foyer objet $F$ (ou dont le prolongement vers l'arrière y passe) ressort <strong>parallèle à l'axe</strong>.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="trois-rayons" viewBox="0 0 548 212" role="img" aria-label="Construction de l'image d'un objet AB par une lentille convergente de distance focale 4 cm, l'objet étant 6 cm avant la lentille. Trois rayons partent de B : celui qui arrive parallèle à l'axe ressort en passant par le foyer image F′ ; celui qui passe par le centre O n'est pas dévié ; celui qui passe par le foyer objet F ressort parallèle à l'axe. Ils se croisent en B′, 12 cm après la lentille, 4 cm sous l'axe : l'image A′B′ est renversée et deux fois plus grande."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="202"/><line x1="34" y1="10" x2="34" y2="202"/><line x1="58" y1="10" x2="58" y2="202"/><line x1="82" y1="10" x2="82" y2="202"/><line x1="106" y1="10" x2="106" y2="202"/><line x1="130" y1="10" x2="130" y2="202"/><line x1="154" y1="10" x2="154" y2="202"/><line x1="178" y1="10" x2="178" y2="202"/><line x1="202" y1="10" x2="202" y2="202"/><line x1="226" y1="10" x2="226" y2="202"/><line x1="250" y1="10" x2="250" y2="202"/><line x1="274" y1="10" x2="274" y2="202"/><line x1="298" y1="10" x2="298" y2="202"/><line x1="322" y1="10" x2="322" y2="202"/><line x1="346" y1="10" x2="346" y2="202"/><line x1="370" y1="10" x2="370" y2="202"/><line x1="394" y1="10" x2="394" y2="202"/><line x1="418" y1="10" x2="418" y2="202"/><line x1="442" y1="10" x2="442" y2="202"/><line x1="466" y1="10" x2="466" y2="202"/><line x1="490" y1="10" x2="490" y2="202"/><line x1="514" y1="10" x2="514" y2="202"/><line x1="538" y1="10" x2="538" y2="202"/><line x1="10" y1="202" x2="538" y2="202"/><line x1="10" y1="178" x2="538" y2="178"/><line x1="10" y1="154" x2="538" y2="154"/><line x1="10" y1="130" x2="538" y2="130"/><line x1="10" y1="106" x2="538" y2="106"/><line x1="10" y1="82" x2="538" y2="82"/><line x1="10" y1="58" x2="538" y2="58"/><line x1="10" y1="34" x2="538" y2="34"/><line x1="10" y1="10" x2="538" y2="10"/></g><g class="trace t-n"><line x1="10" y1="82" x2="530.2" y2="82.0"/><polygon points="538.0,82.0 525.0,87.8 525.0,76.2"/></g><g class="trace t-ink ep-2-5"><line x1="202" y1="14.8" x2="202" y2="197.2"/><polygon points="202,12.8 195,24.8 209,24.8"/><polygon points="202,199.2 195,187.2 209,187.2"/></g><g class="trace t-u fin"><line x1="58" y1="34" x2="202" y2="34"/></g><g class="trace t-u fin"><line x1="202" y1="34" x2="298" y2="82"/></g><g class="trace t-u fin"><line x1="298" y1="82" x2="538" y2="202"/></g><g class="trace t-u"><polygon points="135.0,34.0 125.0,38.5 125.0,29.5"/></g><g class="trace t-u"><polygon points="422.5,144.2 411.5,143.8 415.5,135.7"/></g><g class="trace t-u fin"><line x1="58" y1="34" x2="202" y2="82"/></g><g class="trace t-u fin"><line x1="202" y1="82" x2="538" y2="194.0"/></g><g class="trace t-u"><polygon points="134.7,59.6 123.8,60.7 126.7,52.1"/></g><g class="trace t-u"><polygon points="374.7,139.6 363.8,140.7 366.7,132.1"/></g><g class="trace t-u fin"><line x1="58" y1="34" x2="106" y2="82"/></g><g class="trace t-u fin"><line x1="106" y1="82" x2="202" y2="178"/></g><g class="trace t-u fin"><line x1="202" y1="178" x2="538" y2="178"/></g><g class="trace t-u"><polygon points="85.5,61.5 75.3,57.6 81.6,51.3"/></g><g class="trace t-u"><polygon points="375.0,178.0 365.0,182.5 365.0,173.5"/></g><g class="trace t-ink"><line x1="58" y1="82" x2="58.0" y2="41.8"/><polygon points="58.0,34.0 63.9,47.0 52.1,47.0"/></g><g class="trace t-v"><line x1="490" y1="82" x2="490.0" y2="170.2"/><polygon points="490.0,178.0 484.1,165.0 495.9,165.0"/></g><circle class="pt " cx="106" cy="82" r="4.5"/><text class="lettre" x="100.0" y="104.0">F</text><circle class="pt " cx="298" cy="82" r="4.5"/><text class="lettre" x="290.0" y="104.0">F′</text><circle class="pt " cx="202" cy="82" r="4.5"/><text class="lettre" x="208.0" y="104.0">O</text><circle class="pt " cx="58" cy="82" r="4.5"/><text class="lettre" x="52.0" y="114.0">A</text><circle class="pt " cx="58" cy="34" r="4.5"/><text class="lettre" x="36.0" y="42.0">B</text><circle class="pt " cx="490" cy="82" r="4.5"/><text class="lettre" x="480.0" y="76.0">A′</text><circle class="pt " cx="490" cy="178" r="4.5"/><text class="lettre" x="500.0" y="194.0">B′</text></svg><figcaption>Les trois rayons partis de $B$ se croisent en $B'$, l'image de $B$. $A'$ est sur l'axe, à la verticale de $B'$. Ici $f'=4$ cm et l'objet est 6 cm avant la lentille : l'image se forme 12 cm après, renversée et deux fois plus grande.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Construire l'image d'un objet AB">
+    <ol class="etapes">
+      <li><span>Je place $O$ au centre de la lentille, puis $F$ et $F'$ de part et d'autre, à la distance $f'$ de $O$.</span></li>
+      <li><span>Je trace deux des trois rayons particuliers partis de $B$, le haut de l'objet. Le troisième me sert de vérification.</span></li>
+      <li><span>$B'$ est là où les rayons sortis de la lentille se croisent.</span></li>
+      <li><span>$A'$ est sur l'axe, à la verticale de $B'$ : l'objet est perpendiculaire à l'axe, son image aussi.</span></li>
+    </ol>
+  </div>
+
+  <h3 id="c-algebrique">2. Des distances avec un signe</h3>
+
+  <div class="bloc definition" data-titre="Distance algébrique">
+    <p>On oriente l'axe optique dans le <strong>sens de propagation de la lumière</strong> : de gauche à droite sur les schémas. La distance algébrique $\overline{OA}$ est la distance de $O$ à $A$, comptée <strong>positivement</strong> si $A$ est après $O$ dans le sens de la lumière, <strong>négativement</strong> s'il est avant.</p>
+    <p>De même, sur la verticale orientée vers le haut, $\overline{AB}$ est positive si $B$ est au-dessus de l'axe, négative s'il est en dessous.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les signes à connaître">
+    <ul>
+      <li>Un objet réel est avant la lentille : $\overline{OA}&lt;0$.</li>
+      <li>Le foyer image est après : $\overline{OF'}=f'&gt;0$. Le foyer objet est avant : $\overline{OF}=-f'$.</li>
+      <li>Une image recueillie sur un écran est après la lentille : $\overline{OA'}&gt;0$.</li>
+      <li>Une image sous l'axe a $\overline{A'B'}&lt;0$.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="distances-algebriques" viewBox="0 0 548 140" role="img" aria-label="L'axe optique orienté dans le sens de la lumière, de gauche à droite, avec le centre O de la lentille. L'objet A est 6 cm avant O : la distance algébrique OA vaut −6 cm. Le foyer image F′ est 4 cm après O : OF′ = f′ = +4 cm. L'image A′ est 12 cm après O : OA′ = +12 cm."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="130"/><line x1="34" y1="10" x2="34" y2="130"/><line x1="58" y1="10" x2="58" y2="130"/><line x1="82" y1="10" x2="82" y2="130"/><line x1="106" y1="10" x2="106" y2="130"/><line x1="130" y1="10" x2="130" y2="130"/><line x1="154" y1="10" x2="154" y2="130"/><line x1="178" y1="10" x2="178" y2="130"/><line x1="202" y1="10" x2="202" y2="130"/><line x1="226" y1="10" x2="226" y2="130"/><line x1="250" y1="10" x2="250" y2="130"/><line x1="274" y1="10" x2="274" y2="130"/><line x1="298" y1="10" x2="298" y2="130"/><line x1="322" y1="10" x2="322" y2="130"/><line x1="346" y1="10" x2="346" y2="130"/><line x1="370" y1="10" x2="370" y2="130"/><line x1="394" y1="10" x2="394" y2="130"/><line x1="418" y1="10" x2="418" y2="130"/><line x1="442" y1="10" x2="442" y2="130"/><line x1="466" y1="10" x2="466" y2="130"/><line x1="490" y1="10" x2="490" y2="130"/><line x1="514" y1="10" x2="514" y2="130"/><line x1="538" y1="10" x2="538" y2="130"/><line x1="10" y1="130" x2="538" y2="130"/><line x1="10" y1="106" x2="538" y2="106"/><line x1="10" y1="82" x2="538" y2="82"/><line x1="10" y1="58" x2="538" y2="58"/><line x1="10" y1="34" x2="538" y2="34"/><line x1="10" y1="10" x2="538" y2="10"/></g><g class="trace t-n"><line x1="10" y1="82" x2="530.2" y2="82.0"/><polygon points="538.0,82.0 525.0,87.8 525.0,76.2"/></g><text class="petit" x="533.2" y="73.6" text-anchor="end">sens de la lumière</text><g class="trace t-ink ep-2-5"><line x1="202" y1="48.4" x2="202" y2="120.4"/><polygon points="202,46.4 195,58.4 209,58.4"/><polygon points="202,122.4 195,110.4 209,110.4"/></g><g class="trace t-w"><line x1="202" y1="58.0" x2="290.2" y2="58.0"/><polygon points="298.0,58.0 285.0,63.9 285.0,52.1"/></g><text class="note" x="250.0" y="51.0" text-anchor="middle"><tspan class="barre">OF′</tspan> = +4 cm</text><g class="trace t-v"><line x1="202" y1="29.2" x2="482.2" y2="29.2"/><polygon points="490.0,29.2 477.0,35.0 477.0,23.3"/></g><text class="note" x="394.0" y="22.2" text-anchor="middle"><tspan class="barre">OA′</tspan> = +12 cm</text><g class="trace t-ink"><line x1="202" y1="108.4" x2="65.8" y2="108.4"/><polygon points="58.0,108.4 71.0,102.6 71.0,114.2"/></g><text class="note" x="130.0" y="126.4" text-anchor="middle"><tspan class="barre">OA</tspan> = −6 cm</text><g class="trace t-n pointille"><line x1="298" y1="82" x2="298" y2="58.0"/></g><g class="trace t-n pointille"><line x1="490" y1="82" x2="490" y2="29.2"/></g><g class="trace t-n pointille"><line x1="58" y1="82" x2="58" y2="108.4"/></g><circle class="pt " cx="202" cy="82" r="4.5"/><text class="lettre" x="208.0" y="110.0">O</text><circle class="pt " cx="58" cy="82" r="4.5"/><text class="lettre" x="40.0" y="82.0">A</text><circle class="pt " cx="298" cy="82" r="4.5"/><text class="lettre" x="304.0" y="110.0">F′</text><circle class="pt " cx="490" cy="82" r="4.5"/><text class="lettre" x="496.0" y="110.0">A′</text></svg><figcaption>Sur l'axe orienté, l'objet $A$ est 6 cm avant $O$ : $\overline{OA}=-6$ cm. L'image $A'$ est 12 cm après : $\overline{OA'}=+12$ cm. Le foyer image : $\overline{OF'}=f'=+4$ cm. Chaque flèche part de $O$.</figcaption></figure>
+
+  <div class="bloc piege" data-titre="Le signe oublié">
+    <p>Tout le monde écrit $\overline{OA}=30$ cm pour un objet placé à 30 cm de la lentille. Mais l'objet est <strong>avant</strong> la lentille : $\overline{OA}=-30$ cm. Ce signe oublié fausse tout le reste : la position de l'image, sa taille et son sens.</p>
+  </div>
+
+  <h3 id="c-conjugaison">3. La relation de conjugaison</h3>
+
+  <div class="bloc propriete" data-titre="Relation de conjugaison d'une lentille mince convergente">
+    <p>La position de l'objet $A$ et celle de son image $A'$ sont liées par :</p>
+    $$\frac{1}{\overline{OA'}}-\frac{1}{\overline{OA}}=\frac{1}{f'}$$
+    <p>avec $f'=\overline{OF'}$, et toutes les longueurs dans la <strong>même unité</strong>. Dans un sujet, cette relation est <strong>donnée</strong> : ce qu'on attend de toi, c'est de savoir t'en servir, signes compris.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer la position de l'image">
+    <ol class="etapes">
+      <li><span>Je mets toutes les longueurs dans la même unité.</span></li>
+      <li><span>J'écris $\overline{OA}$ avec son signe : négatif pour un objet réel.</span></li>
+      <li><span>J'isole l'inconnue : $\dfrac{1}{\overline{OA'}}=\dfrac{1}{f'}+\dfrac{1}{\overline{OA}}$.</span></li>
+      <li><span>Je calcule le membre de droite, puis je prends son <strong>inverse</strong> pour obtenir $\overline{OA'}$.</span></li>
+      <li><span>Je lis le signe : positif, l'image est après la lentille, réelle ; négatif, elle est avant, virtuelle.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Une lentille a une distance focale de 5,0 cm. Un objet est placé 7,5 cm avant elle. Où se forme son image ?</p>
+      <ol class="pas">
+        <li><strong>Les données, avec leur signe.</strong> $f'=5{,}0$ cm et $\overline{OA}=-7{,}5$ cm.</li>
+        <li><strong>On isole.</strong> $\dfrac{1}{\overline{OA'}}=\dfrac{1}{5{,}0}+\dfrac{1}{-7{,}5}=0{,}2000-0{,}1333=0{,}0667\ \text{cm}^{-1}$.</li>
+        <li><strong>On inverse.</strong> $\overline{OA'}=\dfrac{1}{0{,}0667}\approx15$ cm. (Avec les fractions : $\frac{1}{5}-\frac{1}{7{,}5}=\frac{3-2}{15}=\frac{1}{15}$.)</li>
+        <li><strong>Conclusion.</strong> $\overline{OA'}=+15$ cm : l'image est réelle, 15 cm après la lentille. Un écran placé là la recueille.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Où placer l'objet ?">
+    <p>Au banc d'optique, l'écran est fixé 60 cm après une lentille de distance focale 20 cm. Où mettre l'objet pour que l'image soit nette ? On isole cette fois $\overline{OA}$ :</p>
+    $$\begin{aligned}\frac{1}{\overline{OA}}&=\frac{1}{\overline{OA'}}-\frac{1}{f'}\\&=\frac{1}{60}-\frac{1}{20}\\&=-\frac{1}{30}\end{aligned}$$
+    <p>donc $\overline{OA}=-30$ cm : l'objet va 30 cm avant la lentille. Le signe négatif est rassurant : un objet réel est avant.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Et la vergence ?">
+    <p>Chez l'opticien, on parle de <strong>vergence</strong> : $C=\dfrac{1}{f'}$, en dioptries (δ), avec $f'$ en mètres. Une lentille de 20 cm a une vergence de 5 δ. Ce mot n'est pas au programme de spécialité : si un sujet s'en sert, il le définit.</p>
+  </div>
+
+  <h3 id="c-grandissement">4. Le grandissement, et ce que dit son signe</h3>
+
+  <div class="bloc definition" data-titre="Grandissement">
+    <p>Le grandissement compare l'image à l'objet, avec leurs signes ; il n'a pas d'unité :</p>
+    $$\gamma=\frac{\overline{A'B'}}{\overline{AB}}$$
+    <ul>
+      <li>Sa <strong>valeur absolue</strong> dit la taille : $|\gamma|&gt;1$, l'image est plus grande que l'objet ; $|\gamma|&lt;1$, plus petite.</li>
+      <li>Son <strong>signe</strong> dit le sens : $\gamma&lt;0$, l'image est <strong>renversée</strong> ; $\gamma&gt;0$, elle est <strong>droite</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="Grandissement et positions">
+    $$\gamma=\frac{\overline{A'B'}}{\overline{AB}}=\frac{\overline{OA'}}{\overline{OA}}$$
+    <p>Comme la relation de conjugaison, elle est donnée dans un sujet.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="grandissement-thales" viewBox="0 0 548 212" role="img" aria-label="Le même objet et la même image qu'à la première figure, avec seulement le rayon qui passe par O. Les triangles OAB, côté objet, et OA′B′, côté image, sont grisés : ils ont le sommet O en commun et les côtés AB et A′B′ parallèles. A′B′ mesure 4 cm, AB 2 cm ; OA′ mesure 12 cm, OA 6 cm : les deux rapports valent 2."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="202"/><line x1="34" y1="10" x2="34" y2="202"/><line x1="58" y1="10" x2="58" y2="202"/><line x1="82" y1="10" x2="82" y2="202"/><line x1="106" y1="10" x2="106" y2="202"/><line x1="130" y1="10" x2="130" y2="202"/><line x1="154" y1="10" x2="154" y2="202"/><line x1="178" y1="10" x2="178" y2="202"/><line x1="202" y1="10" x2="202" y2="202"/><line x1="226" y1="10" x2="226" y2="202"/><line x1="250" y1="10" x2="250" y2="202"/><line x1="274" y1="10" x2="274" y2="202"/><line x1="298" y1="10" x2="298" y2="202"/><line x1="322" y1="10" x2="322" y2="202"/><line x1="346" y1="10" x2="346" y2="202"/><line x1="370" y1="10" x2="370" y2="202"/><line x1="394" y1="10" x2="394" y2="202"/><line x1="418" y1="10" x2="418" y2="202"/><line x1="442" y1="10" x2="442" y2="202"/><line x1="466" y1="10" x2="466" y2="202"/><line x1="490" y1="10" x2="490" y2="202"/><line x1="514" y1="10" x2="514" y2="202"/><line x1="538" y1="10" x2="538" y2="202"/><line x1="10" y1="202" x2="538" y2="202"/><line x1="10" y1="178" x2="538" y2="178"/><line x1="10" y1="154" x2="538" y2="154"/><line x1="10" y1="130" x2="538" y2="130"/><line x1="10" y1="106" x2="538" y2="106"/><line x1="10" y1="82" x2="538" y2="82"/><line x1="10" y1="58" x2="538" y2="58"/><line x1="10" y1="34" x2="538" y2="34"/><line x1="10" y1="10" x2="538" y2="10"/></g><g class="trace t-n"><line x1="10" y1="82" x2="530.2" y2="82.0"/><polygon points="538.0,82.0 525.0,87.8 525.0,76.2"/></g><polygon class="forme" points="202,82 58,82 58,34"/><polygon class="forme-image" points="202,82 490,82 490,178"/><g class="trace t-ink ep-2-5"><line x1="202" y1="14.8" x2="202" y2="197.2"/><polygon points="202,12.8 195,24.8 209,24.8"/><polygon points="202,199.2 195,187.2 209,187.2"/></g><g class="trace t-u fin"><line x1="58" y1="34" x2="202" y2="82"/></g><g class="trace t-u fin"><line x1="202" y1="82" x2="538" y2="194.0"/></g><g class="trace t-u"><polygon points="134.7,59.6 123.8,60.7 126.7,52.1"/></g><g class="trace t-u"><polygon points="374.7,139.6 363.8,140.7 366.7,132.1"/></g><g class="trace t-ink"><line x1="58" y1="82" x2="58.0" y2="41.8"/><polygon points="58.0,34.0 63.9,47.0 52.1,47.0"/></g><g class="trace t-v"><line x1="490" y1="82" x2="490.0" y2="170.2"/><polygon points="490.0,178.0 484.1,165.0 495.9,165.0"/></g><circle class="pt " cx="202" cy="82" r="4.5"/><text class="lettre" x="196.0" y="114.0">O</text><circle class="pt " cx="58" cy="82" r="4.5"/><text class="lettre" x="52.0" y="114.0">A</text><circle class="pt " cx="58" cy="34" r="4.5"/><text class="lettre" x="36.0" y="42.0">B</text><circle class="pt " cx="490" cy="82" r="4.5"/><text class="lettre" x="480.0" y="76.0">A′</text><circle class="pt " cx="490" cy="178" r="4.5"/><text class="lettre" x="500.0" y="194.0">B′</text><text class="petit" x="130.0" y="76.0" text-anchor="middle">6 cm</text><text class="petit" x="346.0" y="76.0" text-anchor="middle">12 cm</text><text class="petit" x="50.0" y="58.0" text-anchor="end">2 cm</text><text class="petit" x="498.0" y="130.0" text-anchor="start">4 cm</text></svg><figcaption>Le rayon qui passe par $O$ n'est pas dévié. Les triangles $OAB$ et $OA'B'$ ont le sommet $O$ en commun et les côtés $AB$ et $A'B'$ parallèles : le théorème de Thalès donne $\frac{A'B'}{AB}=\frac{OA'}{OA}$, ici $\frac{4}{2}=\frac{12}{6}=2$.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="D'où vient la formule : Thalès, puis les signes">
+    <p>$B$, $O$ et $B'$ sont alignés (le rayon par $O$ n'est pas dévié) ; $A$, $O$ et $A'$ aussi (l'axe) ; $(AB)$ et $(A'B')$ sont parallèles, toutes deux perpendiculaires à l'axe. Le théorème de Thalès donne, en longueurs : $\frac{A'B'}{AB}=\frac{OA'}{OA}$.</p>
+    <p>Avec les signes : quand $A$ et $A'$ sont de part et d'autre de $O$, $\overline{OA}$ et $\overline{OA'}$ sont de signes contraires, et $B$ et $B'$ sont de part et d'autre de l'axe, donc $\overline{AB}$ et $\overline{A'B'}$ aussi. Les deux quotients sont négatifs, de même valeur absolue : ils sont égaux. Quand $A$ et $A'$ sont du même côté (la loupe), $\overline{OA}$ et $\overline{OA'}$ sont de même signe, $\overline{AB}$ et $\overline{A'B'}$ aussi : les deux quotients sont positifs, et l'égalité tient encore.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Trouver la taille et le sens de l'image">
+    <ol class="etapes">
+      <li><span>Je calcule $\overline{OA'}$ avec la relation de conjugaison.</span></li>
+      <li><span>Je calcule $\gamma=\dfrac{\overline{OA'}}{\overline{OA}}$, en gardant les signes.</span></li>
+      <li><span>Je calcule $\overline{A'B'}=\gamma\times\overline{AB}$.</span></li>
+      <li><span>Je conclus en mots : le signe de $\gamma$ donne le sens, sa valeur absolue la taille.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> On reprend la lentille de 5,0 cm et l'objet placé 7,5 cm avant elle. L'objet mesure 1,0 cm. Décris son image.</p>
+      <ol class="pas">
+        <li><strong>La position.</strong> On l'a trouvée plus haut : $\overline{OA'}=+15$ cm.</li>
+        <li><strong>Le grandissement.</strong> $\gamma=\dfrac{\overline{OA'}}{\overline{OA}}=\dfrac{15}{-7{,}5}=-2{,}0$.</li>
+        <li><strong>La taille.</strong> $\overline{A'B'}=\gamma\times\overline{AB}=-2{,}0\times1{,}0=-2{,}0$ cm.</li>
+        <li><strong>Conclusion.</strong> L'image est réelle, renversée ($\gamma&lt;0$), deux fois plus grande que l'objet : 2,0 cm de haut, sous l'axe.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le vidéoprojecteur">
+    <p>L'objectif d'un vidéoprojecteur a une distance focale de 5,00 cm ; le tableau est à 3,00 m de lui, donc $\overline{OA'}=+300$ cm. Le panneau lumineux, à l'intérieur, est l'objet :</p>
+    $$\begin{aligned}\frac{1}{\overline{OA}}&=\frac{1}{300}-\frac{1}{5{,}00}\\&\approx-0{,}197\ \text{cm}^{-1}\end{aligned}$$
+    <p>donc $\overline{OA}\approx-5{,}08$ cm. Le panneau est à peine plus loin de l'objectif que le foyer objet. Le grandissement : $\gamma=\dfrac{300}{-5{,}08}\approx-59{,}0$. Un panneau de 2,00 cm donne une image de $59{,}0\times2{,}00\approx118$ cm, soit 1,18 m. Et elle est <strong>renversée</strong> : c'est pourquoi le panneau est monté à l'envers dans l'appareil.</p>
+  </div>
+
+  <h3 id="c-nature">5. Réelle ou virtuelle, droite ou renversée</h3>
+
+  <div class="bloc definition" data-titre="Image réelle, image virtuelle">
+    <ul>
+      <li>Une image <strong>réelle</strong> se forme là où les rayons sortis de la lentille <strong>se croisent vraiment</strong>. Un écran placé là la recueille. Pour une lentille convergente : $\overline{OA'}&gt;0$, l'image est après la lentille.</li>
+      <li>Une image <strong>virtuelle</strong> se forme là où se croisent les <strong>prolongements</strong> des rayons, vers l'arrière. Aucun rayon n'y passe : aucun écran ne peut la montrer. On la voit en regardant <strong>à travers</strong> la lentille. Ici $\overline{OA'}&lt;0$ : l'image est du même côté que l'objet.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="Où est l'objet, quelle image ?">
+    <p>Pour un objet réel, tout dépend de sa distance à la lentille, comparée à $f'$ :</p>
+    <div class="defile">
+      <table>
+        <thead><tr><th>L'objet est…</th><th>L'image est…</th><th>Sens et taille</th><th>Où on le voit</th></tr></thead>
+        <tbody>
+          <tr><td>très loin</td><td>réelle, presque en $F'$</td><td>renversée, très petite</td><td>l'appareil photo, l'œil</td></tr>
+          <tr><td>à plus de $2f'$</td><td>réelle, entre $f'$ et $2f'$ après la lentille</td><td>renversée, plus petite</td><td>l'appareil photo</td></tr>
+          <tr><td>à $2f'$ exactement</td><td>réelle, à $2f'$ après</td><td>renversée, même taille ($\gamma=-1$)</td><td>le photocopieur à 100 %</td></tr>
+          <tr><td>entre $f'$ et $2f'$</td><td>réelle, à plus de $2f'$ après</td><td>renversée, plus grande</td><td>le vidéoprojecteur</td></tr>
+          <tr><td>en $F$, à $f'$</td><td>rejetée à l'infini : pas d'image nette</td><td>—</td><td>le phare : un faisceau parallèle</td></tr>
+          <tr><td>entre $F$ et la lentille</td><td>virtuelle, avant la lentille</td><td>droite, plus grande</td><td>la loupe</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Retiens surtout ceci : une image réelle est toujours à plus de $f'$ après la lentille, et une image réelle est toujours renversée.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="image-virtuelle" viewBox="0 0 572 212" role="img" aria-label="La loupe : une lentille de distance focale 6 cm, l'objet AB (1,5 cm) placé 4 cm avant la lentille, entre le foyer objet F et la lentille. Après la lentille, les trois rayons partis de B s'écartent les uns des autres : ils ne se croisent jamais. Leurs prolongements vers l'arrière, en pointillés, se croisent en B′, 12 cm avant la lentille, 4,5 cm au-dessus de l'axe : l'image A′B′ est virtuelle, droite et trois fois plus grande. Un œil placé derrière la lentille la voit."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="202"/><line x1="34" y1="10" x2="34" y2="202"/><line x1="58" y1="10" x2="58" y2="202"/><line x1="82" y1="10" x2="82" y2="202"/><line x1="106" y1="10" x2="106" y2="202"/><line x1="130" y1="10" x2="130" y2="202"/><line x1="154" y1="10" x2="154" y2="202"/><line x1="178" y1="10" x2="178" y2="202"/><line x1="202" y1="10" x2="202" y2="202"/><line x1="226" y1="10" x2="226" y2="202"/><line x1="250" y1="10" x2="250" y2="202"/><line x1="274" y1="10" x2="274" y2="202"/><line x1="298" y1="10" x2="298" y2="202"/><line x1="322" y1="10" x2="322" y2="202"/><line x1="346" y1="10" x2="346" y2="202"/><line x1="370" y1="10" x2="370" y2="202"/><line x1="394" y1="10" x2="394" y2="202"/><line x1="418" y1="10" x2="418" y2="202"/><line x1="442" y1="10" x2="442" y2="202"/><line x1="466" y1="10" x2="466" y2="202"/><line x1="490" y1="10" x2="490" y2="202"/><line x1="514" y1="10" x2="514" y2="202"/><line x1="538" y1="10" x2="538" y2="202"/><line x1="562" y1="10" x2="562" y2="202"/><line x1="10" y1="202" x2="562" y2="202"/><line x1="10" y1="178" x2="562" y2="178"/><line x1="10" y1="154" x2="562" y2="154"/><line x1="10" y1="130" x2="562" y2="130"/><line x1="10" y1="106" x2="562" y2="106"/><line x1="10" y1="82" x2="562" y2="82"/><line x1="10" y1="58" x2="562" y2="58"/><line x1="10" y1="34" x2="562" y2="34"/><line x1="10" y1="10" x2="562" y2="10"/></g><g class="trace t-n"><line x1="10" y1="154" x2="554.2" y2="154.0"/><polygon points="562.0,154.0 549.0,159.8 549.0,148.2"/></g><g class="trace t-ink ep-2-5"><line x1="322" y1="26.8" x2="322" y2="192.4"/><polygon points="322,24.8 315,36.8 329,36.8"/><polygon points="322,194.4 315,182.4 329,182.4"/></g><g class="trace t-u fin"><line x1="226" y1="118.0" x2="322" y2="118.0"/></g><g class="trace t-u fin"><line x1="322" y1="118.0" x2="466" y2="154"/></g><g class="trace t-u fin"><line x1="466" y1="154" x2="562" y2="178"/></g><g class="trace t-u"><polygon points="279.0,118.0 269.0,122.5 269.0,113.5"/></g><g class="trace t-u"><polygon points="518.9,167.2 508.1,169.2 510.2,160.4"/></g><g class="trace t-u fin"><line x1="226" y1="118.0" x2="322" y2="154"/></g><g class="trace t-u fin"><line x1="322" y1="154" x2="422.8" y2="191.8"/></g><g class="trace t-u"><polygon points="278.7,137.8 267.7,138.5 270.9,130.0"/></g><g class="trace t-u"><polygon points="377.1,174.7 366.1,175.4 369.3,166.9"/></g><g class="trace t-n pointille"><line x1="178" y1="154" x2="226" y2="118.0"/></g><g class="trace t-u fin"><line x1="226" y1="118.0" x2="322" y2="46.0"/></g><g class="trace t-u fin"><line x1="322" y1="46.0" x2="562" y2="46.0"/></g><g class="trace t-u"><polygon points="278.0,79.0 272.7,88.6 267.3,81.4"/></g><g class="trace t-u"><polygon points="447.0,46.0 437.0,50.5 437.0,41.5"/></g><g class="trace t-u fin pointille"><line x1="322" y1="118.0" x2="34" y2="46.0"/></g><g class="trace t-u fin pointille"><line x1="226" y1="118.0" x2="34" y2="46.0"/></g><g class="trace t-u fin pointille"><line x1="322" y1="46.0" x2="34" y2="46.0"/></g><g class="trace t-ink"><line x1="226" y1="154" x2="226.0" y2="125.8"/><polygon points="226.0,118.0 231.8,131.0 220.2,131.0"/></g><g class="trace t-v pointille"><line x1="34" y1="154" x2="34.0" y2="53.8"/><polygon points="34.0,46.0 39.9,59.0 28.1,59.0"/></g><circle class="pt " cx="178" cy="154" r="4.5"/><text class="lettre" x="172.0" y="176.0">F</text><circle class="pt " cx="466" cy="154" r="4.5"/><text class="lettre" x="458.0" y="176.0">F′</text><circle class="pt " cx="322" cy="154" r="4.5"/><text class="lettre" x="328.0" y="176.0">O</text><circle class="pt " cx="226" cy="154" r="4.5"/><text class="lettre" x="220.0" y="186.0">A</text><circle class="pt " cx="226" cy="118.0" r="4.5"/><text class="lettre" x="234.0" y="138.0">B</text><circle class="pt " cx="34" cy="154" r="4.5"/><text class="lettre" x="26.0" y="186.0">A′</text><circle class="pt " cx="34" cy="46.0" r="4.5"/><text class="lettre" x="44.0" y="46.0">B′</text><path class="contour t-ink" d="M518.8,101.2 q14,-12 28,0 q-14,12 -28,0 z"/><circle class="pt" cx="532.8" cy="101.2" r="4"/><text class="petit" x="533.2" y="87.2" text-anchor="middle">œil</text></svg><figcaption>Objet entre $F$ et la lentille ($f'=6$ cm, objet 4 cm avant) : les rayons sortent en s'écartant, ils ne se croisent jamais. Leurs prolongements, en pointillés, se croisent en $B'$ : une image virtuelle, droite, trois fois plus grande. L'œil placé derrière la lentille la voit ; un écran ne la recueillerait pas.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="La loupe, en calcul">
+    <p>Avec $f'=6{,}0$ cm et $\overline{OA}=-4{,}0$ cm : $\dfrac{1}{\overline{OA'}}=\dfrac{1}{6}-\dfrac{1}{4}=\dfrac{2-3}{12}=-\dfrac{1}{12}$, donc $\overline{OA'}=-12$ cm. Le signe négatif dit : image virtuelle, 12 cm <strong>avant</strong> la lentille. Puis $\gamma=\dfrac{-12}{-4{,}0}=+3{,}0$ : droite, trois fois plus grande.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="L'image virtuelle cherchée sur l'écran">
+    <p>Tout le monde promène l'écran à la recherche de l'image d'une loupe. Aucun rayon ne passe par une image virtuelle : on ne la voit qu'en regardant à travers la lentille. Et quand le calcul donne $\overline{OA'}$ négatif, ce n'est pas une erreur : c'est une image virtuelle.</p>
+  </div>
+
+  <h3 id="c-focale">6. Au banc d'optique : estimer f′, tester la relation</h3>
+
+  <div class="bloc methode" data-titre="Estimer la distance focale avec un objet lointain">
+    <ol class="etapes">
+      <li><span>Je vise un objet très lointain : la fenêtre au fond de la salle, un arbre dehors.</span></li>
+      <li><span>Je déplace l'écran jusqu'à ce que l'image soit nette.</span></li>
+      <li><span>L'image d'un objet très lointain est presque en $F'$ : la distance lentille–écran est proche de $f'$.</span></li>
+      <li><span>Je garde en tête que c'est une <strong>estimation</strong>, un peu trop grande : plus l'objet est loin, meilleure elle est.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Avec une lentille de distance focale 20 cm, un élève vise un arbre à 10 m. À quelle distance de la lentille l'image est-elle nette ? De combien l'estimation de $f'$ se trompe-t-elle ?</p>
+      <ol class="pas">
+        <li><strong>Les données.</strong> $f'=20$ cm, $\overline{OA}=-1\,000$ cm.</li>
+        <li><strong>La conjugaison.</strong> $\dfrac{1}{\overline{OA'}}=\dfrac{1}{20}-\dfrac{1}{1\,000}=0{,}0500-0{,}0010=0{,}0490\ \text{cm}^{-1}$, donc $\overline{OA'}\approx20{,}4$ cm.</li>
+        <li><strong>Conclusion.</strong> L'élève lit 20,4 cm au lieu de 20 cm : 2 % de trop. L'estimation est bonne parce que l'arbre est cinquante fois plus loin que $f'$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Tester la relation de conjugaison">
+    <ol class="etapes">
+      <li><span>Je place l'objet à plusieurs distances de la lentille. Pour chacune, je cherche la position de l'écran où l'image est nette.</span></li>
+      <li><span>Je relève $\overline{OA}$ et $\overline{OA'}$ avec leurs signes, en mètres.</span></li>
+      <li><span>Je calcule $\dfrac{1}{\overline{OA}}$ et $\dfrac{1}{\overline{OA'}}$, en m⁻¹.</span></li>
+      <li><span>Je trace $\dfrac{1}{\overline{OA'}}$ en fonction de $\dfrac{1}{\overline{OA}}$. La relation s'écrit $\dfrac{1}{\overline{OA'}}=\dfrac{1}{\overline{OA}}+\dfrac{1}{f'}$ : si elle est vraie, les points sont alignés sur une droite de <strong>pente 1</strong>.</span></li>
+      <li><span>L'ordonnée à l'origine de cette droite vaut $\dfrac{1}{f'}$ : j'en déduis $f'$.</span></li>
+    </ol>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="droite-conjugaison" viewBox="0 0 332 262" role="img" aria-label="Le graphique de 1/OA′ en fonction de 1/OA, en m⁻¹, pour cinq mesures faites au banc avec la même lentille. Les cinq points sont alignés sur une droite de pente 1, qui coupe l'axe vertical à 8 m⁻¹ : c'est 1/f′, donc f′ = 0,125 m."><line class="quadrillage-trait" x1="34.0" y1="221.2" x2="34.0" y2="23.2"/><line class="quadrillage-trait" x1="74.0" y1="221.2" x2="74.0" y2="23.2"/><line class="quadrillage-trait" x1="114.0" y1="221.2" x2="114.0" y2="23.2"/><line class="quadrillage-trait" x1="154.0" y1="221.2" x2="154.0" y2="23.2"/><line class="quadrillage-trait" x1="194.0" y1="221.2" x2="194.0" y2="23.2"/><line class="quadrillage-trait" x1="234.0" y1="221.2" x2="234.0" y2="23.2"/><line class="quadrillage-trait" x1="274.0" y1="221.2" x2="274.0" y2="23.2"/><line class="quadrillage-trait" x1="34.0" y1="221.2" x2="274.0" y2="221.2"/><line class="quadrillage-trait" x1="34.0" y1="199.2" x2="274.0" y2="199.2"/><line class="quadrillage-trait" x1="34.0" y1="177.2" x2="274.0" y2="177.2"/><line class="quadrillage-trait" x1="34.0" y1="155.2" x2="274.0" y2="155.2"/><line class="quadrillage-trait" x1="34.0" y1="133.2" x2="274.0" y2="133.2"/><line class="quadrillage-trait" x1="34.0" y1="111.2" x2="274.0" y2="111.2"/><line class="quadrillage-trait" x1="34.0" y1="89.2" x2="274.0" y2="89.2"/><line class="quadrillage-trait" x1="34.0" y1="67.2" x2="274.0" y2="67.2"/><line class="quadrillage-trait" x1="34.0" y1="45.2" x2="274.0" y2="45.2"/><line class="quadrillage-trait" x1="34.0" y1="23.2" x2="274.0" y2="23.2"/><g class="trace t-n"><line x1="18.0" y1="221.2" x2="306.2" y2="221.2"/><polygon points="314.0,221.2 301.0,227.0 301.0,215.3"/></g><g class="trace t-n"><line x1="274.0" y1="234.4" x2="274.0" y2="22.2"/><polygon points="274.0,14.4 279.9,27.4 268.1,27.4"/></g><text class="petit" x="34.0" y="239.2" text-anchor="middle">−6</text><text class="petit" x="74.0" y="239.2" text-anchor="middle">−5</text><text class="petit" x="114.0" y="239.2" text-anchor="middle">−4</text><text class="petit" x="154.0" y="239.2" text-anchor="middle">−3</text><text class="petit" x="194.0" y="239.2" text-anchor="middle">−2</text><text class="petit" x="234.0" y="239.2" text-anchor="middle">−1</text><text class="petit" x="282.0" y="182.2" text-anchor="start">2</text><text class="petit" x="282.0" y="138.2" text-anchor="start">4</text><text class="petit" x="282.0" y="94.2" text-anchor="start">6</text><text class="petit" x="18.0" y="257.2" text-anchor="start">1/<tspan class="barre">OA</tspan> (m⁻¹)</text><text class="petit" x="266.0" y="18.4" text-anchor="end">1/<tspan class="barre">OA′</tspan> (m⁻¹)</text><g class="trace t-u"><line x1="14.0" y1="188.2" x2="274.0" y2="45.2"/></g><circle class="pt pt-v" cx="74.0" cy="155.5" r="4.5"/><circle class="pt pt-v" cx="114.0" cy="132.5" r="4.5"/><circle class="pt pt-v" cx="140.7" cy="118.9" r="4.5"/><circle class="pt pt-v" cx="174.0" cy="99.7" r="4.5"/><circle class="pt pt-v" cx="207.3" cy="82.0" r="4.5"/><circle class="pt pt-u" cx="274.0" cy="45.2" r="4.5"/><text class="note" x="284.0" y="39.2" text-anchor="start">1/f′ = 8 m⁻¹</text></svg><figcaption>Cinq mesures au banc avec la même lentille. Les points sont alignés sur une droite de pente 1 : la relation de conjugaison est vérifiée. La droite coupe l'axe vertical à 8 m⁻¹ : $\frac{1}{f'}=8$ m⁻¹, donc $f'=0{,}125$ m, soit 12,5 cm.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Pourquoi tracer les inverses ?">
+    <p>Si l'on trace $\overline{OA'}$ en fonction de $\overline{OA}$, on obtient une courbe, et l'œil ne sait pas dire si elle a la bonne forme. Avec les inverses, la relation devient celle d'une droite : on voit tout de suite si les points sont alignés, et $f'$ se lit sur l'axe.</p>
+  </div>
+
+  <h3 id="c-mise-au-point">7. Faire la mise au point</h3>
+
+  <div class="bloc definition" data-titre="Mise au point">
+    <p>Faire la mise au point, c'est amener l'image nette sur le récepteur : l'écran, le capteur d'un appareil photo, la rétine. D'après la relation de conjugaison, on peut :</p>
+    <ul>
+      <li>changer la <strong>géométrie du montage</strong> : la distance entre la lentille et le récepteur, c'est ce que fait l'appareil photo ; au banc d'optique, on peut aussi déplacer l'objet ;</li>
+      <li>changer la <strong>distance focale</strong> de la lentille : c'est ce que fait l'œil.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="L'objet se rapproche, l'image s'éloigne">
+    <p>Pour un objet réel, à la distance $d$ de la lentille, la relation s'écrit $\dfrac{1}{\overline{OA'}}=\dfrac{1}{f'}-\dfrac{1}{d}$. Si l'objet est au-delà de $F$, $\overline{OA'}&gt;0$, et quand l'objet se rapproche, $d$ diminue, $\frac{1}{d}$ augmente, $\frac{1}{\overline{OA'}}$ diminue : $\overline{OA'}$ <strong>augmente</strong>. L'image s'éloigne de la lentille.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="appareil-photo" viewBox="0 0 580 320" role="img" aria-label="La mise au point d'un appareil photo, en deux temps. En haut : un objet très loin, les rayons arrivent parallèles à l'axe et convergent au foyer image F′, où est le capteur : l'image est nette. En bas : un objet proche ; ses rayons convergent plus loin que F′. Pour que l'image retombe sur le capteur, qui ne bouge pas, on éloigne l'objectif du capteur : il avance vers l'objet."><text class="note" x="20" y="33">Objet très loin : l’image se forme en F′</text><g class="trace t-n"><line x1="20" y1="95" x2="540" y2="95"/></g><rect class="forme" x="430" y="60" width="10" height="70"/><text class="petit" x="435" y="147" text-anchor="middle">capteur</text><text class="note" x="20" y="178">Objet proche : l’image se forme plus loin</text><g class="trace t-n"><line x1="20" y1="240" x2="540" y2="240"/></g><rect class="forme" x="430" y="205" width="10" height="70"/><text class="petit" x="435" y="292" text-anchor="middle">capteur</text><g class="trace t-u fin"><line x1="40" y1="69" x2="370" y2="69"/><line x1="370" y1="69" x2="430" y2="95"/></g><g class="trace t-u fin"><line x1="40" y1="95" x2="370" y2="95"/><line x1="370" y1="95" x2="430" y2="95"/></g><g class="trace t-u fin"><line x1="40" y1="121" x2="370" y2="121"/><line x1="370" y1="121" x2="430" y2="95"/></g><circle class="pt" cx="430" cy="95" r="4"/><text class="lettre" x="448" y="87">F′</text><text class="petit" x="370" y="147" text-anchor="middle">objectif</text><g class="trace t-n pointille"><line x1="370" y1="206" x2="370" y2="274"/></g><g class="trace t-u fin"><line x1="160" y1="240" x2="340" y2="214"/><line x1="340" y1="214" x2="430" y2="240"/></g><g class="trace t-u fin"><line x1="160" y1="240" x2="340" y2="240"/><line x1="340" y1="240" x2="430" y2="240"/></g><g class="trace t-u fin"><line x1="160" y1="240" x2="340" y2="266"/><line x1="340" y1="266" x2="430" y2="240"/></g><circle class="pt" cx="160" cy="240" r="4.5"/><text class="lettre" x="160" y="266" text-anchor="middle">A</text><circle class="pt-v" cx="430" cy="240" r="4.5"/><g class="trace t-v"><line x1="366" y1="194" x2="350" y2="194"/><polygon points="342,194 352,189 352,199"/></g><text class="note" x="20" y="296">on éloigne l’objectif du capteur</text><g class="trace t-ink ep-2-5"><line x1="370" y1="59" x2="370" y2="131"/><polygon points="370,57 363,69 377,69"/><polygon points="370,133 363,121 377,121"/></g><g class="trace t-ink ep-2-5"><line x1="340" y1="204" x2="340" y2="276"/><polygon points="340,202 333,214 347,214"/><polygon points="340,278 333,266 347,266"/></g></svg><figcaption>En haut, un objet très loin : l'image se forme en $F'$, sur le capteur. En bas, un objet proche : l'image se forme plus loin. Pour la ramener sur le capteur, qui ne bouge pas, l'objectif s'éloigne du capteur (en pointillés, sa place d'avant).</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="L'appareil du téléphone">
+    <p>L'objectif a une distance focale de 4,00 mm. Pour un paysage, très loin, le capteur est à 4,00 mm de l'objectif. Pour une fleur à 10 cm, $\overline{OA}=-100$ mm :</p>
+    $$\begin{aligned}\frac{1}{\overline{OA'}}&=\frac{1}{4{,}00}-\frac{1}{100}\\&=0{,}240\ \text{mm}^{-1}\end{aligned}$$
+    <p>donc $\overline{OA'}\approx4{,}17$ mm. L'objectif doit s'éloigner du capteur de 0,17 mm, moins de deux dixièmes de millimètre : c'est un petit moteur qui le fait.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="oeil-accommode" viewBox="0 0 580 320" role="img" aria-label="L'œil réduit, en deux temps : une lentille, le cristallin, et un écran, la rétine, à distance fixe. En haut : un objet très loin, les rayons arrivent parallèles, le cristallin au repos les fait converger sur la rétine. En bas : un objet proche ; le cristallin s'est bombé, sa distance focale a diminué, et les rayons convergent encore sur la rétine. La rétine n'a pas bougé."><text class="note" x="20" y="33">Objet très loin : le cristallin est au repos</text><g class="trace t-n"><line x1="20" y1="95" x2="430" y2="95"/></g><ellipse class="contour t-n" cx="352" cy="95" rx="72" ry="50"/><ellipse class="forme" cx="330" cy="95" rx="7" ry="30"/><g class="trace t-v ep-4"><line x1="420" y1="65" x2="420" y2="125"/></g><text class="petit" x="434" y="100">rétine</text><text class="petit" x="330" y="161" text-anchor="middle">cristallin</text><circle class="pt" cx="420" cy="95" r="4"/><text class="note" x="20" y="178">Objet proche : le cristallin se bombe, f′ diminue</text><g class="trace t-n"><line x1="20" y1="240" x2="430" y2="240"/></g><ellipse class="contour t-n" cx="352" cy="240" rx="72" ry="50"/><ellipse class="forme" cx="330" cy="240" rx="13" ry="30"/><g class="trace t-v ep-4"><line x1="420" y1="210" x2="420" y2="270"/></g><text class="petit" x="434" y="245">rétine</text><text class="petit" x="330" y="306" text-anchor="middle">cristallin</text><circle class="pt" cx="420" cy="240" r="4"/><g class="trace t-u fin"><line x1="40" y1="75" x2="330" y2="75"/><line x1="330" y1="75" x2="420" y2="95"/></g><g class="trace t-u fin"><line x1="40" y1="95" x2="330" y2="95"/><line x1="330" y1="95" x2="420" y2="95"/></g><g class="trace t-u fin"><line x1="40" y1="115" x2="330" y2="115"/><line x1="330" y1="115" x2="420" y2="95"/></g><g class="trace t-u fin"><line x1="60" y1="240" x2="330" y2="220"/><line x1="330" y1="220" x2="420" y2="240"/></g><g class="trace t-u fin"><line x1="60" y1="240" x2="330" y2="240"/><line x1="330" y1="240" x2="420" y2="240"/></g><g class="trace t-u fin"><line x1="60" y1="240" x2="330" y2="260"/><line x1="330" y1="260" x2="420" y2="240"/></g><circle class="pt" cx="60" cy="240" r="4.5"/><text class="lettre" x="60" y="266" text-anchor="middle">A</text></svg><figcaption>Le modèle de l'œil réduit : une lentille (le cristallin) et un écran (la rétine), à distance fixe. Pour un objet proche, le cristallin se bombe : sa distance focale diminue et l'image revient sur la rétine. C'est l'<strong>accommodation</strong>.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="L'œil qui lit">
+    <p>Dans le modèle de l'œil réduit, la rétine est à 17 mm du cristallin. Pour un objet très loin, il faut $f'=17$ mm. Pour lire une page à 25 cm, $\overline{OA}=-250$ mm et $\overline{OA'}=+17$ mm, et cette fois l'inconnue est $f'$ :</p>
+    $$\begin{aligned}\frac{1}{f'}&=\frac{1}{17}-\frac{1}{-250}\\&=\frac{1}{17}+\frac{1}{250}\\&\approx0{,}0628\ \text{mm}^{-1}\end{aligned}$$
+    <p>donc $f'\approx15{,}9$ mm. Le cristallin se bombe juste assez pour passer de 17 mm à 15,9 mm.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Faire le point sans rien bouger : la lentille liquide">
+    <p>Certains appareils font la mise au point avec une <strong>lentille à focale variable</strong> : une goutte de liquide dont une tension électrique change la courbure. Comme l'œil, ils changent $f'$ au lieu de déplacer l'objectif.</p>
+  </div>
+
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs qui coûtent des points">
+    <ul>
+      <li><strong>Le signe de $\overline{OA}$ oublié.</strong> Un objet réel est avant la lentille : $\overline{OA}&lt;0$. Avec $+30$ cm au lieu de $-30$ cm, tout le calcul part faux.</li>
+      <li><strong>L'inverse oublié.</strong> Le calcul donne d'abord $\frac{1}{\overline{OA'}}$ ; tout le monde a déjà recopié ce nombre comme si c'était $\overline{OA'}$. Autre raccourci faux : écrire $\overline{OA'}=f'+\overline{OA}$, comme si l'on pouvait « enlever les inverses » terme à terme. On calcule la somme des inverses, puis on inverse le résultat.</li>
+      <li><strong>Deux unités dans la même relation.</strong> $f'$ en mm, $\overline{OA}$ en cm, ou un mélange de cm et de m : le résultat est faux sans que rien ne le signale. Tout dans la même unité d'abord.</li>
+      <li><strong>Le sens de γ mal lu.</strong> $\gamma=-2$ veut dire : renversée, deux fois <strong>plus grande</strong>. Le signe moins parle du sens, pas de la taille.</li>
+      <li><strong>$F$ et $F'$ échangés.</strong> Le rayon qui arrive parallèle à l'axe ressort par $F'$, le foyer qui est <strong>après</strong> la lentille.</li>
+      <li><strong>Le rayon qui passe par $O$, dévié.</strong> Il continue tout droit : c'est lui qui donne Thalès.</li>
+      <li><strong>L'image virtuelle cherchée sur l'écran.</strong> Elle ne se voit qu'à travers la lentille.</li>
+      <li><strong>La rétine qui recule.</strong> Dans l'œil, la distance cristallin–rétine ne change pas : c'est $f'$ qui change.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Construire l'image d'un objet, pas à pas"></div>
+    <div class="video" data-titre="La relation de conjugaison, signes compris"></div>
+    <div class="video" data-titre="TP : estimer une distance focale au banc d'optique"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Quatre laboratoires, dans l'ordre du cours : le banc d'optique, où tu cherches l'image nette ; les trois rayons, à placer toi-même ; la loupe ; et la mise au point d'un appareil photo et d'un œil.</p>
+  <div class="labo" data-labo="ondes-1" data-outil="banc"></div>
+  <div class="labo" data-labo="ondes-1" data-outil="rayons"></div>
+  <div class="labo" data-labo="ondes-1" data-outil="loupe"></div>
+  <div class="labo" data-labo="ondes-1" data-outil="mise-au-point"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des lentilles et des objets au hasard : signes, position et taille de l'image, nature de l'image, lecture d'un schéma, mise au point. Le quiz reprend les réflexes du chapitre. Le contrôle blanc s'ajoute en bas.</p>
+
+  <div class="jeu" data-generateurs="ondes-1" data-questions="10" data-titre="Le défi des lentilles"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Un objet est placé à 25 cm d'une lentille, avant elle. Que vaut $\overline{OA}$ ?</p>
+      <ul class="choix">
+        <li class="bon">$-25$ cm</li><li>$+25$ cm</li><li>$-\frac{1}{25}$ cm</li><li>$25$ cm, une distance n'a pas de signe</li>
+      </ul>
+      <div class="explication">L'axe est orienté dans le sens de la lumière : l'objet est avant $O$, donc $\overline{OA}=-25$ cm. C'est une distance <em>algébrique</em> : elle porte un signe.</div>
+    </div>
+    <div class="question" data-reponse="15" data-tolerance="0,2">
+      <p>Une lentille a une distance focale de 10 cm ; $\overline{OA}=-30$ cm. Calcule $\overline{OA'}$ en cm.</p>
+      <div class="explication">$\frac{1}{\overline{OA'}}=\frac{1}{10}+\frac{1}{-30}=\frac{3-1}{30}=\frac{2}{30}$, donc $\overline{OA'}=15$ cm. Positif : l'image est réelle, après la lentille.</div>
+    </div>
+    <div class="question" data-reponse="-0,5" data-tolerance="0,01">
+      <p>Toujours avec $\overline{OA}=-30$ cm et $\overline{OA'}=15$ cm : calcule le grandissement $\gamma$.</p>
+      <div class="explication">$\gamma=\frac{\overline{OA'}}{\overline{OA}}=\frac{15}{-30}=-0{,}5$ : l'image est renversée et deux fois plus petite que l'objet.</div>
+    </div>
+    <div class="question">
+      <p>Le grandissement vaut $\gamma=-3$. L'image est…</p>
+      <ul class="choix">
+        <li class="bon">renversée et trois fois plus grande que l'objet</li><li>droite et trois fois plus grande</li><li>renversée et trois fois plus petite</li><li>virtuelle</li>
+      </ul>
+      <div class="explication">Le signe moins dit le sens : renversée. La valeur absolue, 3, dit la taille : trois fois plus grande. Une image renversée par une lentille convergente est réelle.</div>
+    </div>
+    <div class="question">
+      <p>Un rayon arrive sur la lentille parallèlement à l'axe optique. Après la lentille, il…</p>
+      <ul class="choix">
+        <li class="bon">passe par le foyer image $F'$</li><li>passe par le foyer objet $F$</li><li>continue sans être dévié</li><li>ressort parallèle à l'axe</li>
+      </ul>
+      <div class="explication">C'est la définition du foyer image : les rayons arrivés parallèles à l'axe convergent en $F'$, après la lentille. C'est le rayon qui passe par $F$, avant la lentille, qui ressort parallèle.</div>
+    </div>
+    <div class="question">
+      <p>Le calcul donne $\overline{OA'}=-12$ cm. Que conclure ?</p>
+      <ul class="choix">
+        <li class="bon">L'image est virtuelle : on la voit à travers la lentille, aucun écran ne la recueille</li><li>Il y a une erreur de calcul : une distance ne peut pas être négative</li><li>L'image est réelle, 12 cm avant la lentille</li><li>On place l'écran 12 cm avant la lentille</li>
+      </ul>
+      <div class="explication">Un $\overline{OA'}$ négatif place l'image avant la lentille, du côté de l'objet : là, les rayons ne se croisent pas, seuls leurs prolongements. C'est une image virtuelle, celle de la loupe.</div>
+    </div>
+    <div class="question" data-reponse="20" data-tolerance="0,5">
+      <p>Au banc d'optique, la droite $\frac{1}{\overline{OA'}}$ en fonction de $\frac{1}{\overline{OA}}$ coupe l'axe vertical à 5,0 m⁻¹. Quelle est la distance focale, en cm ?</p>
+      <div class="explication">L'ordonnée à l'origine vaut $\frac{1}{f'}$ : $f'=\frac{1}{5{,}0}=0{,}20$ m, soit 20 cm.</div>
+    </div>
+    <div class="question">
+      <p>Tu prends en photo une fleur de près après avoir photographié un paysage. Pour faire la mise au point, l'objectif…</p>
+      <ul class="choix">
+        <li class="bon">s'éloigne du capteur</li><li>se rapproche du capteur</li><li>ne bouge pas : c'est le capteur qui change de distance focale</li><li>ne bouge pas : une image est toujours nette en $F'$</li>
+      </ul>
+      <div class="explication">Quand l'objet se rapproche, l'image s'éloigne de la lentille. Le capteur ne bouge pas : l'objectif s'en éloigne pour que l'image retombe dessus.</div>
+    </div>
+    <div class="question">
+      <p>Comment l'œil fait-il la netteté sur un objet proche ?</p>
+      <ul class="choix">
+        <li class="bon">Le cristallin se bombe : sa distance focale diminue</li><li>La rétine recule</li><li>Le cristallin avance</li><li>L'œil s'allonge</li>
+      </ul>
+      <div class="explication">La distance cristallin–rétine est fixe. L'œil change la distance focale du cristallin : c'est l'accommodation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre. Rédige d'abord, signes compris, puis ouvre la correction.</p>
+
+  <h3>Niveau 1 · Les signes et les relations</h3>
+
+  <article class="exercice" id="ex-lire-les-signes" data-titre="Lire les signes sur le banc" data-niveau="1" data-type="application" data-notions="conjugaison" data-duree="8" data-calculatrice="non">
+    <p>Sur un banc d'optique gradué en centimètres, la lumière va dans le sens des graduations croissantes. La lentille est à la graduation 50 cm, l'objet à 20 cm, et l'image est nette sur un écran placé à 110 cm.</p>
+    <p>1. Donne $\overline{OA}$ et $\overline{OA'}$.<br>2. L'image est-elle réelle ou virtuelle ?<br>3. Vérifie que la lentille a une distance focale de 20 cm.</p>
+    <details class="indice"><p>Une distance algébrique se lit « position d'arrivée moins position de départ » : $\overline{OA}=x_A-x_O$.</p></details>
+    <details class="correction">
+      <p>1. $\overline{OA}=20-50=-30$ cm (l'objet est avant la lentille) ; $\overline{OA'}=110-50=+60$ cm.</p>
+      <p>2. L'image est recueillie sur un écran, et $\overline{OA'}&gt;0$ : elle est réelle.</p>
+      <p>3. $\frac{1}{f'}=\frac{1}{\overline{OA'}}-\frac{1}{\overline{OA}}=\frac{1}{60}-\frac{1}{-30}=\frac{1}{60}+\frac{2}{60}=\frac{3}{60}=\frac{1}{20}$, donc $f'=20$ cm.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-construire-l-image-a-la-regle" data-titre="Construire l'image à la règle" data-niveau="1" data-type="application" data-notions="lentille nature-image" data-duree="12" data-calculatrice="non">
+    <p>Sur du papier quadrillé (1 carreau = 1 cm), trace l'axe optique et une lentille convergente de distance focale 3 cm. Place un objet $AB$ de 2 cm, perpendiculaire à l'axe, 5 cm avant la lentille.</p>
+    <p>1. Construis l'image $A'B'$ avec les trois rayons particuliers.<br>2. Lis $\overline{OA'}$ et $\overline{A'B'}$ sur ton schéma.<br>3. Vérifie par le calcul.</p>
+    <details class="indice"><p>Commence par placer $F$ et $F'$ à 3 cm de part et d'autre de $O$. Le rayon par $O$ est le plus simple à tracer.</p></details>
+    <details class="correction">
+      <figure class="figure-svg"><svg data-figure="construction-exercice" viewBox="0 0 428 212" role="img" aria-label="La correction de l'exercice : une lentille de distance focale 3 cm, un objet AB de 2 cm placé 5 cm avant la lentille. Les trois rayons partis de B se croisent en B′ : A′ est 7,5 cm après la lentille, et l'image A′B′ descend de 3 cm sous l'axe, renversée."><g class="quadrillage"><line x1="10" y1="10" x2="10" y2="202"/><line x1="34" y1="10" x2="34" y2="202"/><line x1="58" y1="10" x2="58" y2="202"/><line x1="82" y1="10" x2="82" y2="202"/><line x1="106" y1="10" x2="106" y2="202"/><line x1="130" y1="10" x2="130" y2="202"/><line x1="154" y1="10" x2="154" y2="202"/><line x1="178" y1="10" x2="178" y2="202"/><line x1="202" y1="10" x2="202" y2="202"/><line x1="226" y1="10" x2="226" y2="202"/><line x1="250" y1="10" x2="250" y2="202"/><line x1="274" y1="10" x2="274" y2="202"/><line x1="298" y1="10" x2="298" y2="202"/><line x1="322" y1="10" x2="322" y2="202"/><line x1="346" y1="10" x2="346" y2="202"/><line x1="370" y1="10" x2="370" y2="202"/><line x1="394" y1="10" x2="394" y2="202"/><line x1="418" y1="10" x2="418" y2="202"/><line x1="10" y1="202" x2="418" y2="202"/><line x1="10" y1="178" x2="418" y2="178"/><line x1="10" y1="154" x2="418" y2="154"/><line x1="10" y1="130" x2="418" y2="130"/><line x1="10" y1="106" x2="418" y2="106"/><line x1="10" y1="82" x2="418" y2="82"/><line x1="10" y1="58" x2="418" y2="58"/><line x1="10" y1="34" x2="418" y2="34"/><line x1="10" y1="10" x2="418" y2="10"/></g><g class="trace t-n"><line x1="10" y1="82" x2="410.2" y2="82.0"/><polygon points="418.0,82.0 405.0,87.8 405.0,76.2"/></g><g class="trace t-ink ep-2-5"><line x1="178" y1="14.8" x2="178" y2="182.8"/><polygon points="178,12.8 171,24.8 185,24.8"/><polygon points="178,184.8 171,172.8 185,172.8"/></g><g class="trace t-u fin"><line x1="58" y1="34" x2="178" y2="34"/></g><g class="trace t-u fin"><line x1="178" y1="34" x2="250" y2="82"/></g><g class="trace t-u fin"><line x1="250" y1="82" x2="400.0" y2="182.0"/></g><g class="trace t-u"><polygon points="123.0,34.0 113.0,38.5 113.0,29.5"/></g><g class="trace t-u"><polygon points="329.2,134.8 318.3,133.0 323.3,125.5"/></g><g class="trace t-u fin"><line x1="58" y1="34" x2="178" y2="82"/></g><g class="trace t-u fin"><line x1="178" y1="82" x2="406.0" y2="173.2"/></g><g class="trace t-u"><polygon points="122.6,59.9 111.7,60.3 115.0,52.0"/></g><g class="trace t-u"><polygon points="296.6,129.5 285.7,129.9 289.0,121.6"/></g><g class="trace t-u fin"><line x1="58" y1="34" x2="106" y2="82"/></g><g class="trace t-u fin"><line x1="106" y1="82" x2="178" y2="154"/></g><g class="trace t-u fin"><line x1="178" y1="154" x2="418" y2="154"/></g><g class="trace t-u"><polygon points="85.5,61.5 75.3,57.6 81.6,51.3"/></g><g class="trace t-u"><polygon points="303.0,154.0 293.0,158.5 293.0,149.5"/></g><g class="trace t-ink"><line x1="58" y1="82" x2="58.0" y2="41.8"/><polygon points="58.0,34.0 63.9,47.0 52.1,47.0"/></g><g class="trace t-v"><line x1="358.0" y1="82" x2="358.0" y2="146.2"/><polygon points="358.0,154.0 352.1,141.0 363.9,141.0"/></g><circle class="pt " cx="106" cy="82" r="4.5"/><text class="lettre" x="100.0" y="104.0">F</text><circle class="pt " cx="250" cy="82" r="4.5"/><text class="lettre" x="242.0" y="104.0">F′</text><circle class="pt " cx="178" cy="82" r="4.5"/><text class="lettre" x="184.0" y="104.0">O</text><circle class="pt " cx="58" cy="82" r="4.5"/><text class="lettre" x="52.0" y="114.0">A</text><circle class="pt " cx="58" cy="34" r="4.5"/><text class="lettre" x="36.0" y="42.0">B</text><circle class="pt " cx="358.0" cy="82" r="4.5"/><text class="lettre" x="348.0" y="76.0">A′</text><circle class="pt " cx="358.0" cy="154" r="4.5"/><text class="lettre" x="368.0" y="172.0">B′</text></svg><figcaption>Les trois rayons partis de $B$ se croisent en $B'$, 7,5 cm après la lentille et 3 cm sous l'axe.</figcaption></figure>
+      <p>2. On lit $\overline{OA'}\approx7{,}5$ cm et $\overline{A'B'}\approx-3$ cm : l'image est réelle, renversée, plus grande.</p>
+      <p>3. $\frac{1}{\overline{OA'}}=\frac{1}{3}+\frac{1}{-5}=\frac{5-3}{15}=\frac{2}{15}$, donc $\overline{OA'}=7{,}5$ cm. Puis $\gamma=\frac{7{,}5}{-5}=-1{,}5$ et $\overline{A'B'}=-1{,}5\times2=-3$ cm. Le calcul et le dessin sont d'accord.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-ou-se-forme-l-image" data-titre="Où se forme l'image ?" data-niveau="1" data-type="application" data-notions="conjugaison" data-duree="8" data-calculatrice="oui">
+    <p>Une lentille a une distance focale de 8,00 cm.</p>
+    <p>1. Un objet est placé 12,0 cm avant elle. Calcule $\overline{OA'}$.<br>2. On l'éloigne à 40,0 cm de la lentille. Calcule le nouveau $\overline{OA'}$.<br>3. Que devient l'image quand l'objet s'éloigne beaucoup ?</p>
+    <details class="correction">
+      <p>1. $\frac{1}{\overline{OA'}}=\frac{1}{8{,}00}+\frac{1}{-12{,}0}=\frac{3-2}{24}=\frac{1}{24}$, donc $\overline{OA'}=24{,}0$ cm.</p>
+      <p>2. $\frac{1}{\overline{OA'}}=\frac{1}{8{,}00}-\frac{1}{40{,}0}=\frac{5-1}{40}=\frac{4}{40}$, donc $\overline{OA'}=10{,}0$ cm.</p>
+      <p>3. L'image se rapproche de la lentille, vers le foyer image : quand l'objet est très loin, $\frac{1}{\overline{OA}}$ devient très petit et $\overline{OA'}$ tend vers $f'=8{,}00$ cm.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-objet-a-deux-focales" data-titre="L'objet à deux focales" data-niveau="1" data-type="raisonnement" data-notions="conjugaison nature-image" data-duree="8" data-calculatrice="non">
+    <p>Un objet réel est placé à une distance $2f'$ avant une lentille convergente de distance focale $f'$ : $\overline{OA}=-2f'$.</p>
+    <p>1. Montre que son image se forme à $2f'$ après la lentille.<br>2. Calcule le grandissement et décris l'image.<br>3. Quelle est alors la distance entre l'objet et l'écran ?</p>
+    <details class="indice"><p>Garde $f'$ comme une lettre : $\frac{1}{\overline{OA'}}=\frac{1}{f'}+\frac{1}{-2f'}$, et mets au même dénominateur.</p></details>
+    <details class="correction">
+      <p>1. $\frac{1}{\overline{OA'}}=\frac{1}{f'}-\frac{1}{2f'}=\frac{2-1}{2f'}=\frac{1}{2f'}$, donc $\overline{OA'}=2f'$ : l'image est à $2f'$ après la lentille.</p>
+      <p>2. $\gamma=\frac{2f'}{-2f'}=-1$ : l'image est réelle, renversée, de même taille que l'objet.</p>
+      <p>3. L'objet est $2f'$ avant la lentille, l'écran $2f'$ après : ils sont à $4f'$ l'un de l'autre. Avec une lentille de 10 cm, 40 cm.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-droite-ou-renversee" data-titre="Droite ou renversée ?" data-niveau="1" data-type="application" data-notions="nature-image" data-duree="6" data-calculatrice="non">
+    <p>Une lentille convergente donne quatre images de quatre objets réels. Leurs grandissements valent : $\gamma_1=-2$ ; $\gamma_2=-0{,}5$ ; $\gamma_3=+3$ ; $\gamma_4=-1$.</p>
+    <p>Pour chacune, dis si l'image est droite ou renversée, plus grande ou plus petite, réelle ou virtuelle.</p>
+    <details class="indice"><p>Le signe donne le sens ; la valeur absolue donne la taille. Pour une lentille convergente, une image renversée est réelle, une image droite est virtuelle.</p></details>
+    <details class="correction">
+      <p>$\gamma_1=-2$ : renversée, deux fois plus grande, réelle (le vidéoprojecteur).</p>
+      <p>$\gamma_2=-0{,}5$ : renversée, deux fois plus petite, réelle (l'appareil photo).</p>
+      <p>$\gamma_3=+3$ : droite, trois fois plus grande, virtuelle (la loupe).</p>
+      <p>$\gamma_4=-1$ : renversée, de même taille, réelle (objet à $2f'$).</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Des situations</h3>
+
+  <article class="exercice" id="ex-le-videoprojecteur" data-titre="Le vidéoprojecteur de la salle" data-niveau="2" data-type="probleme" data-notions="conjugaison nature-image" data-duree="15" data-calculatrice="oui">
+    <p>L'objectif d'un vidéoprojecteur est modélisé par une lentille convergente de distance focale 5,00 cm. Le tableau est à 3,00 m de l'objectif. Le panneau lumineux, à l'intérieur, mesure 2,00 cm de large.</p>
+    <p>1. À quelle distance de l'objectif faut-il placer le panneau pour que l'image soit nette sur le tableau ?<br>2. Calcule le grandissement. Quelle est la largeur de l'image ?<br>3. Pourquoi le panneau est-il monté à l'envers dans l'appareil ?<br>4. On recule le vidéoprojecteur : le tableau est maintenant à 4,00 m. De combien, et dans quel sens, faut-il déplacer l'objectif par rapport au panneau ?</p>
+    <details class="indice"><p>Ici, c'est l'image qu'on connaît : $\overline{OA'}=+300$ cm. Isole $\frac{1}{\overline{OA}}$.</p></details>
+    <details class="indice"><p>Pour la question 4, refais le calcul de la question 1 avec $\overline{OA'}=+400$ cm et compare les deux distances.</p></details>
+    <details class="correction">
+      <p>1. $\frac{1}{\overline{OA}}=\frac{1}{\overline{OA'}}-\frac{1}{f'}=\frac{1}{300}-\frac{1}{5{,}00}=\frac{1-60}{300}=-\frac{59}{300}$, donc $\overline{OA}=-\frac{300}{59}\approx-5{,}08$ cm. Le panneau est 5,08 cm avant l'objectif, à peine plus loin que le foyer objet.</p>
+      <p>2. $\gamma=\frac{\overline{OA'}}{\overline{OA}}=\frac{300}{-300/59}=-59{,}0$. L'image mesure $59{,}0\times2{,}00\approx118$ cm, soit 1,18 m de large.</p>
+      <p>3. $\gamma&lt;0$ : l'image est renversée. Pour qu'elle soit à l'endroit sur le tableau, on monte le panneau à l'envers.</p>
+      <p>4. $\frac{1}{\overline{OA}}=\frac{1}{400}-\frac{1}{5{,}00}=-\frac{79}{400}$, donc $\overline{OA}=-\frac{400}{79}\approx-5{,}063$ cm, contre $-5{,}085$ cm à 3 m. Le panneau doit être un peu plus près de l'objectif : l'objectif se rapproche du panneau d'environ $5{,}085-5{,}063\approx0{,}021$ cm, soit 0,2 mm. C'est le réglage de netteté qu'on refait en reculant l'appareil.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-loupe-de-l-horloger" data-titre="La loupe de l'horloger" data-niveau="2" data-type="probleme" data-notions="nature-image conjugaison" data-duree="12" data-calculatrice="oui">
+    <p>Un horloger examine une pièce de 1,00 mm avec une loupe de distance focale 2,50 cm, placée 2,30 cm au-dessus de la pièce. On oriente l'axe optique de la pièce vers l'œil, dans le sens de la lumière : la pièce joue le rôle de l'objet, « avant » la loupe.</p>
+    <p>1. Calcule $\overline{OA'}$. Où est l'image ?<br>2. Calcule le grandissement et la taille de l'image. Est-elle droite ?<br>3. Peut-on recueillir cette image sur un écran ?<br>4. L'horloger relève la loupe à 3,00 cm de la pièce. Que devient l'image ?</p>
+    <details class="indice"><p>La pièce est plus près de la loupe que le foyer objet : attends-toi à un $\overline{OA'}$ négatif.</p></details>
+    <details class="correction">
+      <p>1. $\frac{1}{\overline{OA'}}=\frac{1}{2{,}50}+\frac{1}{-2{,}30}=0{,}4000-0{,}4348=-0{,}0348\ \text{cm}^{-1}$, donc $\overline{OA'}\approx-28{,}8$ cm. L'image est 28,8 cm avant la loupe, du côté de la pièce : à peu près la distance de lecture, où l'œil la voit sans effort.</p>
+      <p>2. $\gamma=\frac{-28{,}8}{-2{,}30}\approx+12{,}5$ ; l'image mesure $12{,}5\times1{,}00=12{,}5$ mm. $\gamma&gt;0$ : elle est droite.</p>
+      <p>3. Non : elle est virtuelle ($\overline{OA'}&lt;0$). Aucun rayon ne passe par elle ; on la voit en regardant à travers la loupe.</p>
+      <p>4. $\frac{1}{\overline{OA'}}=\frac{1}{2{,}50}-\frac{1}{3{,}00}=0{,}4000-0{,}3333=0{,}0667\ \text{cm}^{-1}$, donc $\overline{OA'}=+15{,}0$ cm, et $\gamma=\frac{15{,}0}{-3{,}00}=-5{,}00$. La pièce est maintenant au-delà du foyer objet : l'image est réelle et renversée. Ce n'est plus une loupe.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-fenetre-au-fond-de-la-salle" data-titre="La fenêtre au fond de la salle" data-niveau="2" data-type="probleme" data-notions="conjugaison" data-duree="10" data-calculatrice="oui">
+    <p>Pour estimer la distance focale d'une lentille, Inès vise la fenêtre au fond de la salle, à 8,0 m. L'image de la fenêtre est nette sur un écran placé à 20,5 cm de la lentille.</p>
+    <p>1. Quelle estimation de $f'$ Inès en tire-t-elle ?<br>2. Calcule la distance focale avec la relation de conjugaison.<br>3. De combien, en pourcentage, son estimation se trompe-t-elle ? La méthode est-elle bonne ?</p>
+    <details class="indice"><p>Un objet très lointain donne une image presque en $F'$. Pour la question 2, l'inconnue est $f'$ : $\frac{1}{f'}=\frac{1}{\overline{OA'}}-\frac{1}{\overline{OA}}$, avec $\overline{OA}=-800$ cm.</p></details>
+    <details class="correction">
+      <p>1. La fenêtre est loin : son image est presque en $F'$. Inès estime $f'\approx20{,}5$ cm.</p>
+      <p>2. $\frac{1}{f'}=\frac{1}{20{,}5}-\frac{1}{-800}=0{,}04878+0{,}00125=0{,}05003\ \text{cm}^{-1}$, donc $f'\approx20{,}0$ cm.</p>
+      <p>3. $\frac{20{,}5-20{,}0}{20{,}0}\approx0{,}025$ : 2,5 % de trop. C'est une bonne estimation, parce que la fenêtre est quarante fois plus loin que $f'$. Avec un objet à 1 m, elle serait bien moins bonne.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-tp-du-banc-d-optique" data-titre="Le TP du banc d'optique" data-niveau="2" data-type="probleme" data-notions="conjugaison" data-duree="20" data-calculatrice="oui">
+    <p>Au banc d'optique, un groupe relève, pour cinq positions de l'objet, la position de l'écran où l'image est nette :</p>
+    <div class="defile">
+      <table>
+        <thead><tr><th>$\overline{OA}$ (cm)</th><td>−15</td><td>−20</td><td>−25</td><td>−30</td><td>−40</td></tr></thead>
+        <tbody><tr><th>$\overline{OA'}$ (cm)</th><td>30,4</td><td>19,8</td><td>16,6</td><td>15,1</td><td>13,4</td></tr></tbody>
+      </table>
+    </div>
+    <p>1. Calcule $\frac{1}{\overline{OA}}$ et $\frac{1}{\overline{OA'}}$ en m⁻¹ pour chaque mesure.<br>2. Trace $\frac{1}{\overline{OA'}}$ en fonction de $\frac{1}{\overline{OA}}$. Les points sont-ils alignés sur une droite de pente 1 ?<br>3. Déduis-en la distance focale de la lentille.</p>
+    <details class="indice"><p>Passe d'abord en mètres : $\overline{OA}=-15$ cm $=-0{,}15$ m, donc $\frac{1}{\overline{OA}}\approx-6{,}67$ m⁻¹.</p></details>
+    <details class="indice"><p>Pour la pente, calcule $\frac{1}{\overline{OA'}}-\frac{1}{\overline{OA}}$ pour chaque mesure : si c'est presque toujours le même nombre, les points sont sur une droite de pente 1, et ce nombre est l'ordonnée à l'origine.</p></details>
+    <details class="correction">
+      <p>1. En m⁻¹ : $\frac{1}{\overline{OA}}$ vaut −6,67 ; −5,00 ; −4,00 ; −3,33 ; −2,50. $\frac{1}{\overline{OA'}}$ vaut 3,29 ; 5,05 ; 6,02 ; 6,62 ; 7,46.</p>
+      <p>2. Les points sont alignés : quand $\frac{1}{\overline{OA}}$ augmente de 1, $\frac{1}{\overline{OA'}}$ augmente de 1. Les différences $\frac{1}{\overline{OA'}}-\frac{1}{\overline{OA}}$ valent 9,96 ; 10,05 ; 10,02 ; 9,96 ; 9,96 m⁻¹ : presque constantes. La droite a une pente 1, la relation de conjugaison est vérifiée.</p>
+      <p>3. L'ordonnée à l'origine vaut environ 10,0 m⁻¹ $=\frac{1}{f'}$, donc $f'\approx0{,}100$ m, soit 10,0 cm. Les petits écarts viennent de la difficulté à juger où l'image est la plus nette.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-appareil-du-telephone" data-titre="L'appareil du téléphone" data-niveau="2" data-type="probleme" data-notions="mise-au-point conjugaison" data-duree="12" data-calculatrice="oui">
+    <p>L'objectif d'un téléphone est modélisé par une lentille convergente de distance focale 4,00 mm.</p>
+    <p>1. Pour photographier un paysage très lointain, à quelle distance de l'objectif doit être le capteur ?<br>2. Maintenant, une fleur à 8,00 cm de l'objectif. Où se forme son image ?<br>3. Le capteur ne bouge pas. De combien, et dans quel sens, l'objectif doit-il se déplacer pour une photo nette de la fleur ?</p>
+    <details class="indice"><p>Tout en millimètres : la fleur est à $\overline{OA}=-80{,}0$ mm.</p></details>
+    <details class="correction">
+      <p>1. L'image d'un objet très lointain est en $F'$ : le capteur est à 4,00 mm de l'objectif.</p>
+      <p>2. $\frac{1}{\overline{OA'}}=\frac{1}{4{,}00}+\frac{1}{-80{,}0}=0{,}2500-0{,}0125=0{,}2375\ \text{mm}^{-1}$, donc $\overline{OA'}\approx4{,}21$ mm.</p>
+      <p>3. L'image se forme 4,21 mm après l'objectif, au lieu de 4,00 mm : l'objectif doit s'éloigner du capteur de 0,21 mm environ. L'objet s'est rapproché, l'image s'est éloignée.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-oeil-qui-accommode" data-titre="L'œil qui accommode" data-niveau="2" data-type="probleme" data-notions="mise-au-point" data-duree="12" data-calculatrice="oui">
+    <p>Dans le modèle de l'œil réduit, le cristallin est une lentille convergente, et la rétine un écran placé à 17,0 mm derrière elle.</p>
+    <p>1. Quelle distance focale le cristallin doit-il avoir pour voir net un objet très lointain ?<br>2. Et pour lire un texte à 25,0 cm ?<br>3. Un enfant voit encore net à 10,0 cm. Quelle distance focale son cristallin atteint-il alors ?<br>4. Explique en une phrase ce qu'est l'accommodation.</p>
+    <details class="indice"><p>L'image se forme toujours sur la rétine : $\overline{OA'}=+17{,}0$ mm. L'inconnue est $f'$.</p></details>
+    <details class="correction">
+      <p>1. L'image d'un objet très lointain se forme en $F'$ : il faut $f'=17{,}0$ mm.</p>
+      <p>2. $\frac{1}{f'}=\frac{1}{17{,}0}-\frac{1}{-250}=0{,}0588+0{,}0040=0{,}0628\ \text{mm}^{-1}$, donc $f'\approx15{,}9$ mm.</p>
+      <p>3. $\frac{1}{f'}=\frac{1}{17{,}0}+\frac{1}{100}=0{,}0588+0{,}0100=0{,}0688\ \text{mm}^{-1}$, donc $f'\approx14{,}5$ mm.</p>
+      <p>4. Accommoder, c'est bomber le cristallin pour diminuer sa distance focale, et ramener sur la rétine, qui ne bouge pas, l'image d'un objet qui se rapproche.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-ou-placer-l-objet" data-titre="Où placer l'objet ?" data-niveau="2" data-type="application" data-notions="conjugaison nature-image" data-duree="10" data-calculatrice="oui">
+    <p>Au banc d'optique, l'écran est fixé 50 cm après une lentille de distance focale 10 cm. L'objet, une lettre « F » lumineuse, mesure 1,5 cm.</p>
+    <p>1. Où placer l'objet pour que son image soit nette sur l'écran ?<br>2. Quelle est la taille de l'image ? Dans quel sens voit-on la lettre ?</p>
+    <details class="correction">
+      <p>1. $\frac{1}{\overline{OA}}=\frac{1}{50}-\frac{1}{10}=\frac{1-5}{50}=-\frac{4}{50}$, donc $\overline{OA}=-12{,}5$ cm : l'objet va 12,5 cm avant la lentille.</p>
+      <p>2. $\gamma=\frac{50}{-12{,}5}=-4{,}0$, donc $\overline{A'B'}=-4{,}0\times1{,}5=-6{,}0$ cm. L'image mesure 6,0 cm et elle est renversée : c'est l'objet tourné d'un demi-tour autour de l'axe optique. Vue depuis la lentille, comme au banc, la lettre « F » a la tête en bas.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="conjugaison nature-image" data-duree="12" data-calculatrice="oui">
+    <p>Un élève a demandé à une IA : « Un objet de 1,0 cm est placé à 20 cm d'une lentille convergente de distance focale 15 cm. Décris son image. » Voici la réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« On applique la relation de conjugaison avec $\overline{OA}=20$ cm : $\frac{1}{\overline{OA'}}=\frac{1}{15}+\frac{1}{20}=\frac{7}{60}$, donc $\overline{OA'}=\frac{60}{7}\approx8{,}6$ cm. L'image se forme donc à 8,6 cm de la lentille, entre la lentille et le foyer image. Le grandissement vaut $\gamma=\frac{8{,}6}{20}=0{,}43$ : il est positif, donc l'image est droite, et elle mesure 0,43 cm. C'est logique : une lentille convergente donne toujours une image plus petite que l'objet, comme dans un appareil photo. »</blockquote>
+    <details class="indice"><p>Relis la première ligne : de quel côté de la lentille est l'objet ? Quel signe a donc $\overline{OA}$ ?</p></details>
+    <details class="correction">
+      <p><strong>Erreur 1 : le signe de $\overline{OA}$.</strong> L'objet est avant la lentille : $\overline{OA}=-20$ cm, pas $+20$ cm. Tout le reste en découle.</p>
+      <p><strong>Erreur 2 : une image après la lentille, entre $O$ et $F'$.</strong> C'est impossible avec un objet réel : après la lentille, une image se forme toujours à plus de $f'$. Cette phrase aurait dû alerter.</p>
+      <p><strong>Erreur 3 : le grandissement et le sens.</strong> Avec le bon signe, $\gamma$ ne peut pas être positif ici : l'objet est au-delà de $F$, l'image est renversée.</p>
+      <p><strong>Erreur 4 : « toujours plus petite ».</strong> Faux : tout dépend de la position de l'objet. Le vidéoprojecteur donne une image plus grande, la loupe aussi.</p>
+      <p><strong>La bonne réponse.</strong> $\frac{1}{\overline{OA'}}=\frac{1}{15}+\frac{1}{-20}=\frac{4-3}{60}=\frac{1}{60}$, donc $\overline{OA'}=+60$ cm : image réelle, 60 cm après la lentille. $\gamma=\frac{60}{-20}=-3{,}0$ et $\overline{A'B'}=-3{,}0$ cm : l'image est renversée et trois fois plus grande que l'objet.</p>
+      <p>Une réponse peut être fluide et fausse dès la première ligne. Le réflexe : vérifier les signes, puis comparer au tableau des positions du cours.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Synthèse</h3>
+
+  <article class="exercice" id="ex-l-objet-et-l-ecran-a-un-metre" data-titre="L'objet et l'écran à un mètre" data-niveau="3" data-type="probleme" data-notions="conjugaison nature-image" data-duree="25" data-calculatrice="oui">
+    <p>Au banc d'optique, l'objet et l'écran sont fixés à 100 cm l'un de l'autre. On déplace entre eux une lentille de distance focale 16 cm. On note $x$ la distance de l'objet à la lentille, en cm.</p>
+    <p>1. Exprime $\overline{OA}$ et $\overline{OA'}$ en fonction de $x$.<br>2. Montre que l'image est nette sur l'écran quand $x^2-100x+1\,600=0$.<br>3. Résous cette équation. Combien de positions de la lentille donnent une image nette ?<br>4. Pour chacune, calcule le grandissement. Laquelle donne la plus grande image ?<br>5. Avec une lentille de 30 cm, trouverait-on une image nette ? Pourquoi ?</p>
+    <details class="indice"><p>L'objet est $x$ cm avant la lentille, l'écran est $100-x$ cm après.</p></details>
+    <details class="indice"><p>Pour la question 2, multiplie la relation $\frac{1}{100-x}+\frac{1}{x}=\frac{1}{16}$ par $16x(100-x)$.</p></details>
+    <details class="correction">
+      <p>1. $\overline{OA}=-x$ et $\overline{OA'}=100-x$.</p>
+      <p>2. La relation de conjugaison donne $\frac{1}{100-x}-\frac{1}{-x}=\frac{1}{16}$, soit $\frac{1}{100-x}+\frac{1}{x}=\frac{1}{16}$. En multipliant par $16x(100-x)$ : $16x+16(100-x)=x(100-x)$, soit $1\,600=100x-x^2$, donc $x^2-100x+1\,600=0$.</p>
+      <p>3. $\Delta=100^2-4\times1\,600=10\,000-6\,400=3\,600=60^2$. Deux solutions : $x=\frac{100-60}{2}=20$ cm et $x=\frac{100+60}{2}=80$ cm. Deux positions de la lentille donnent une image nette.</p>
+      <p>4. Pour $x=20$ cm : $\overline{OA'}=80$ cm, $\gamma=\frac{80}{-20}=-4$, image renversée quatre fois plus grande. Pour $x=80$ cm : $\overline{OA'}=20$ cm, $\gamma=\frac{20}{-80}=-0{,}25$, image renversée quatre fois plus petite. La première donne la plus grande image.</p>
+      <p>5. Avec $f'=30$ cm, l'équation devient $x^2-100x+3\,000=0$ : $\Delta=10\,000-12\,000&lt;0$, pas de solution. Il n'y a pas d'image nette. En général, pour une distance objet–écran $D$, l'équation est $x^2-Dx+f'D=0$ et $\Delta=D^2-4f'D=D(D-4f')$ : il faut $D\geqslant4f'$, et $4\times30=120$ cm dépasse 100 cm.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-lentille-liquide" data-titre="La lentille liquide" data-niveau="3" data-type="probleme" data-notions="mise-au-point conjugaison" data-duree="15" data-calculatrice="oui">
+    <p>Un petit appareil fait la mise au point avec une lentille liquide dont la distance focale varie. Son capteur est fixé 6,00 mm derrière la lentille, et ne bouge jamais.</p>
+    <p>1. Quelle distance focale faut-il pour un objet très lointain ?<br>2. Et pour un objet à 30,0 cm ? À 10,0 cm ?<br>3. La distance focale de cette lentille ne descend pas sous 5,50 mm. Quel est l'objet le plus proche qu'on peut photographier net ?<br>4. Compare avec l'œil : en quoi fonctionnent-ils de la même façon ?</p>
+    <details class="indice"><p>Le capteur ne bouge pas : $\overline{OA'}=+6{,}00$ mm dans tous les cas. Pour la question 3, l'inconnue est $\overline{OA}$.</p></details>
+    <details class="correction">
+      <p>1. Objet très lointain : l'image est en $F'$, donc $f'=6{,}00$ mm.</p>
+      <p>2. À 30,0 cm : $\frac{1}{f'}=\frac{1}{6{,}00}+\frac{1}{300}=0{,}1667+0{,}0033=0{,}1700\ \text{mm}^{-1}$, donc $f'\approx5{,}88$ mm. À 10,0 cm : $\frac{1}{f'}=\frac{1}{6{,}00}+\frac{1}{100}\approx0{,}1767\ \text{mm}^{-1}$, donc $f'\approx5{,}66$ mm.</p>
+      <p>3. $\frac{1}{\overline{OA}}=\frac{1}{\overline{OA'}}-\frac{1}{f'}=\frac{1}{6{,}00}-\frac{1}{5{,}50}\approx-0{,}01515\ \text{mm}^{-1}$, donc $\overline{OA}\approx-66{,}0$ mm. L'objet le plus proche est à 6,60 cm environ ; plus près, l'image reste floue.</p>
+      <p>4. Comme l'œil, l'appareil garde fixe la distance lentille–récepteur et change la distance focale pour faire le point.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-demontrer-le-grandissement" data-titre="Démontrer le grandissement" data-niveau="3" data-type="raisonnement" data-notions="conjugaison nature-image" data-duree="20" data-calculatrice="non">
+    <p>On considère un objet réel $AB$ et son image réelle $A'B'$ par une lentille convergente de centre $O$.</p>
+    <p>1. Justifie que $B$, $O$ et $B'$ sont alignés, et que $(AB)$ et $(A'B')$ sont parallèles.<br>2. Avec le théorème de Thalès, montre que $\frac{A'B'}{AB}=\frac{OA'}{OA}$ (en longueurs).<br>3. En regardant les signes, déduis-en $\gamma=\frac{\overline{OA'}}{\overline{OA}}$. Vérifie que l'égalité tient aussi quand l'image est virtuelle (objet entre $F$ et $O$).<br>4. À partir de la relation de conjugaison, montre que $\gamma=\frac{f'}{f'+\overline{OA}}$.<br>5. Déduis-en que, pour un objet réel, $\gamma$ n'est jamais compris entre 0 et 1.</p>
+    <details class="indice"><p>Pour la question 4, isole $\overline{OA'}$ dans la relation de conjugaison : $\overline{OA'}=\frac{f'\,\overline{OA}}{f'+\overline{OA}}$.</p></details>
+    <details class="indice"><p>Pour la question 5, distingue deux cas selon le signe de $f'+\overline{OA}$, c'est-à-dire selon que l'objet est au-delà de $F$ ou entre $F$ et $O$.</p></details>
+    <details class="correction">
+      <p>1. $B'$ est l'image de $B$ : le rayon parti de $B$ qui passe par $O$ n'est pas dévié et passe donc par $B'$. $(AB)$ et $(A'B')$ sont toutes deux perpendiculaires à l'axe optique, donc parallèles.</p>
+      <p>2. Les droites $(AA')$ et $(BB')$ se coupent en $O$, et $(AB)\parallel(A'B')$ : d'après le théorème de Thalès, $\frac{OA'}{OA}=\frac{OB'}{OB}=\frac{A'B'}{AB}$.</p>
+      <p>3. Image réelle d'un objet réel : $A$ et $A'$ sont de part et d'autre de $O$, donc $\overline{OA}$ et $\overline{OA'}$ sont de signes contraires ; $B$ et $B'$ sont de part et d'autre de l'axe, donc $\overline{AB}$ et $\overline{A'B'}$ aussi. Les deux quotients algébriques sont négatifs et ont la même valeur absolue : $\frac{\overline{A'B'}}{\overline{AB}}=\frac{\overline{OA'}}{\overline{OA}}$, c'est-à-dire $\gamma=\frac{\overline{OA'}}{\overline{OA}}$. Image virtuelle : $A$ et $A'$ sont du même côté de $O$, $B$ et $B'$ du même côté de l'axe ; $\overline{OA}$ et $\overline{OA'}$ sont de même signe, $\overline{AB}$ et $\overline{A'B'}$ aussi, et Thalès s'applique encore (les triangles ne sont plus opposés par le sommet, mais emboîtés) : les deux quotients sont positifs et égaux.</p>
+      <p>4. $\frac{1}{\overline{OA'}}=\frac{1}{f'}+\frac{1}{\overline{OA}}=\frac{\overline{OA}+f'}{f'\,\overline{OA}}$, donc $\overline{OA'}=\frac{f'\,\overline{OA}}{f'+\overline{OA}}$ et $\gamma=\frac{\overline{OA'}}{\overline{OA}}=\frac{f'}{f'+\overline{OA}}$.</p>
+      <p>5. Si l'objet est au-delà de $F$ : $\overline{OA}&lt;-f'$, donc $f'+\overline{OA}&lt;0$ et $\gamma&lt;0$. S'il est entre $F$ et $O$ : $-f'&lt;\overline{OA}&lt;0$, donc $0&lt;f'+\overline{OA}&lt;f'$ et $\gamma&gt;1$. Dans aucun cas $0&lt;\gamma&lt;1$ : une lentille convergente ne donne jamais d'un objet réel une image droite et plus petite.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi mettre un signe moins à une distance ?</summary>
+      <div><p>Parce qu'une seule relation sert alors pour tous les cas : l'objet loin ou près, l'image réelle ou virtuelle, droite ou renversée. Le signe porte l'information « avant ou après la lentille », « au-dessus ou au-dessous de l'axe ». Sans lui, il faudrait une formule par cas.</p></div></details>
+    <details><summary>Faut-il apprendre la relation de conjugaison par cœur ?</summary>
+      <div><p>Le programme dit qu'elle est fournie dans les sujets. La connaître te fait gagner du temps et t'évite une erreur de recopie. Mais l'essentiel est ailleurs : savoir t'en servir, signes et unités compris.</p></div></details>
+    <details><summary>Pourquoi l'image du vidéoprojecteur est-elle à l'endroit, si la lentille renverse ?</summary>
+      <div><p>Parce que le panneau est monté à l'envers dans l'appareil. La lentille le renverse une seconde fois : l'image arrive à l'endroit sur le tableau. Le panneau est aussi retourné de gauche à droite, pour la même raison.</p></div></details>
+    <details><summary>Une image virtuelle, ça existe vraiment ?</summary>
+      <div><p>Tu la vois, et tu peux la photographier en mettant l'appareil derrière la loupe : l'objectif de l'appareil en fait une image réelle sur son capteur, comme ton œil sur ta rétine. Mais aucun rayon ne passe par l'endroit où elle semble être : un écran posé là ne montre aucune image.</p></div></details>
+    <details><summary>Que se passe-t-il si l'objet est exactement au foyer objet ?</summary>
+      <div><p>La relation donne $\frac{1}{\overline{OA'}}=0$ : l'image est rejetée à l'infini. Les rayons sortent parallèles entre eux, et aucun écran ne montre d'image nette. C'est le principe du phare : la lampe est au foyer, et la lumière part en faisceau parallèle.</p></div></details>
+    <details><summary>Ma loupe ne grossit plus quand je l'éloigne de la page. Pourquoi ?</summary>
+      <div><p>La page est passée au-delà du foyer objet : l'image n'est plus virtuelle et droite, mais réelle et renversée, et elle se forme après la loupe, souvent entre la loupe et ton œil. En reculant la tête, tu vois parfois le texte à l'envers, flottant devant la loupe.</p></div></details>
+    <details><summary>Comment savoir si mon résultat est plausible ?</summary>
+      <div><p>Trois vérifications rapides. Un objet réel a $\overline{OA}&lt;0$. Une image réelle est toujours à plus de $f'$ après la lentille, et toujours renversée ($\gamma&lt;0$). Une image virtuelle est droite et plus grande ($\gamma&gt;1$), et plus loin de la lentille que l'objet.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
