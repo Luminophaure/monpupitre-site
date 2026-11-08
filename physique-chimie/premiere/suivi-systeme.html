@@ -1,0 +1,565 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de suivi-systeme.figures.py.
+     Fabriquer la page : python3 outils/figures.py physique-chimie/premiere/suivi-systeme.source.html
+     Entrée « suivi-systeme » du catalogue : la page commence par la quantité de matière (BO, Matière 1 A) ;
+     l'avancement et le titrage viendront plus tard. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>La mole · Première spécialité</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=111fcfb17b">
+<script type="module" src="../../assets/js/site.js?v=de14560c64"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MRZFMPWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-XOXLQWFR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UEGVYPL5.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-HRK5MYTL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-JDAOHTFS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MAPOG2VJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-M5YGRZWY.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-WSEHARO5.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-F4CZNIVT.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TFIIFSP5.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RGKS5W3Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-2576576G.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-JLGXSKSM.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-D2N3WJRM.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TPTMWANI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UCYB4KPO.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-DKFJG3RC.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IH4HU6GP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ZAUKTEBE.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/suivi-systeme.js?v=4eedad29bc">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/suivi-systeme.js?v=000af17190">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-T7JYEROO.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="physique-chimie" data-chapitre="suivi-systeme" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Première spécialité · Constitution et transformations de la matière</span>
+  <h1>La mole</h1>
+  <p class="chapeau">Une ampoule de potassium, un ballon d'hélium, un flacon de sulfate de cuivre : pour savoir combien d'entités il y a dedans, le chimiste ne les compte pas une à une. Il pèse, il mesure un volume, il lit une concentration. Ce chapitre donne les trois ponts qui mènent à la <strong>quantité de matière</strong> : la masse molaire, le volume molaire d'un gaz et la concentration en quantité de matière. L'avancement d'une réaction et le titrage viendront ensuite.</p>
+  <ul class="objectifs">
+    <li>Calculer une masse molaire à partir du tableau périodique</li><li>Passer d'une masse, d'un volume de gaz ou d'une concentration à une quantité de matière</li><li>Préparer une solution de concentration en quantité de matière donnée</li><li>Déterminer la quantité de matière de chaque constituant d'un mélange</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>En cardiologie, une infirmière prépare une perfusion. L'ampoule de chlorure de potassium qu'elle tient porte deux indications : « 1 g pour 10 mL » et « 13,4 mmol de K⁺ ».</strong> Selon les services, la prescription s'écrit en grammes ou en millimoles, l'analyse de sang du patient parle en millimoles par litre, et sur ce produit une erreur de conversion n'est pas une faute de calcul sans conséquence : elle se lit sur le cœur du patient. Comment passe-t-on des grammes aux moles ? Pourquoi les deux nombres de l'ampoule disent-ils la même chose ? Et pourquoi le chimiste préfère-t-il compter en moles ? Ce chapitre y répond, et l'exercice « L'ampoule de potassium » refait le calcul.</p>
+    <p class="discret">Ils s'en servent : les infirmiers et les pharmaciens (doses en mmol), les préparateurs en pharmacie (préparations), les techniciens de laboratoire (solutions, analyses), les chimistes et les ingénieurs procédés (quantités de réactifs). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-rappel-mole">1. Rappel de seconde : compter par paquets</h3>
+
+  <div class="bloc definition" data-titre="La mole (rappel de seconde)">
+    <p>Les atomes, les molécules et les ions sont beaucoup trop petits et trop nombreux pour être comptés un à un. On les compte par <strong>paquets</strong>, comme les œufs par douzaines : une <strong>mole</strong> est un paquet d'exactement $6{,}022\,140\,76\times10^{23}$ entités. La <strong>quantité de matière</strong> $n$ d'un échantillon est le nombre de ces paquets ; son unité est la <strong>mole</strong> (mol).</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="paquets" viewBox="0 0 700 220" role="img" aria-label="Trois façons de compter par paquets : une douzaine, c'est 12 œufs ; une rame, c'est 500 feuilles ; une mole, c'est 6,02 fois dix puissance 23 entités, trop nombreuses et trop petites pour qu'on dessine ce que le paquet contient."><rect class="fond-carte" x="30.0" y="50.0" width="170.0" height="74.0" rx="8"/><ellipse class="forme-3" cx="52" cy="72" rx="10" ry="12"/><ellipse class="forme-3" cx="52" cy="102" rx="10" ry="12"/><ellipse class="forme-3" cx="77" cy="72" rx="10" ry="12"/><ellipse class="forme-3" cx="77" cy="102" rx="10" ry="12"/><ellipse class="forme-3" cx="102" cy="72" rx="10" ry="12"/><ellipse class="forme-3" cx="102" cy="102" rx="10" ry="12"/><ellipse class="forme-3" cx="127" cy="72" rx="10" ry="12"/><ellipse class="forme-3" cx="127" cy="102" rx="10" ry="12"/><ellipse class="forme-3" cx="152" cy="72" rx="10" ry="12"/><ellipse class="forme-3" cx="152" cy="102" rx="10" ry="12"/><ellipse class="forme-3" cx="177" cy="72" rx="10" ry="12"/><ellipse class="forme-3" cx="177" cy="102" rx="10" ry="12"/><text class="note" x="115.0" y="150.0" text-anchor="middle">une douzaine</text><text class="petit" x="115.0" y="170.0" text-anchor="middle">12 œufs</text><rect class="fond-carte" x="275" y="112" width="130" height="12" rx="2"/><rect class="fond-carte" x="273" y="103" width="130" height="12" rx="2"/><rect class="fond-carte" x="271" y="94" width="130" height="12" rx="2"/><rect class="fond-carte" x="269" y="85" width="130" height="12" rx="2"/><rect class="fond-carte" x="267" y="76" width="130" height="12" rx="2"/><rect class="fond-carte" x="265" y="67" width="130" height="12" rx="2"/><rect class="fond-carte" x="263" y="58" width="130" height="12" rx="2"/><text class="note" x="335.0" y="150.0" text-anchor="middle">une rame</text><text class="petit" x="335.0" y="170.0" text-anchor="middle">500 feuilles</text><path class="forme-4" d="M500,124 Q492,70 520,52 L532,40 L588,40 L600,52 Q628,70 620,124 Z"/><line class="bord t-n ep-2" x1="528" y1="46" x2="592" y2="46"/><circle class="grain" cx="530" cy="70" r="2.4"/><circle class="grain" cx="548" cy="64" r="2.4"/><circle class="grain" cx="566" cy="72" r="2.4"/><circle class="grain" cx="584" cy="66" r="2.4"/><circle class="grain" cx="598" cy="78" r="2.4"/><circle class="grain" cx="518" cy="92" r="2.4"/><circle class="grain" cx="538" cy="86" r="2.4"/><circle class="grain" cx="556" cy="96" r="2.4"/><circle class="grain" cx="574" cy="88" r="2.4"/><circle class="grain" cx="592" cy="98" r="2.4"/><circle class="grain" cx="608" cy="104" r="2.4"/><circle class="grain" cx="524" cy="112" r="2.4"/><circle class="grain" cx="544" cy="110" r="2.4"/><circle class="grain" cx="562" cy="116" r="2.4"/><circle class="grain" cx="582" cy="112" r="2.4"/><circle class="grain" cx="600" cy="118" r="2.4"/><text class="note" x="560.0" y="150.0" text-anchor="middle">une mole</text><text class="petit" x="560.0" y="170.0" text-anchor="middle">6,02 × 10²³ entités</text><text class="petit" x="560.0" y="26.0" text-anchor="middle">trop nombreuses pour être dessinées</text></svg><figcaption>Une douzaine, une rame, une mole : trois paquets. Seul le dernier contient des entités trop nombreuses et trop petites pour être dessinées.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Nombre d'entités et quantité de matière">
+    <p>Le nombre d'entités $N$ et la quantité de matière $n$ sont reliés par la <strong>constante d'Avogadro</strong> $N_A=6{,}02\times10^{23}$ mol⁻¹, le nombre d'entités par mole : $$N=n\times N_A\qquad\text{soit}\qquad n=\frac{N}{N_A}.$$ $N$ est un nombre sans unité ; $n$ est en mol.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Un nombre fixé, pas mesuré">
+    <p>Depuis le 20 mai 2019, la valeur $6{,}022\,140\,76\times10^{23}$ mol⁻¹ est <strong>exacte par définition</strong> : c'est elle qui définit la mole. Pour fixer les idées : une gorgée d'eau de 18 g contient une mole de molécules d'eau.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-masse-molaire">2. La masse molaire</h3>
+
+  <div class="bloc definition" data-titre="Masse molaire atomique">
+    <p>La <strong>masse molaire atomique</strong> $M$ d'un élément est la masse d'une mole de ses atomes. Elle s'exprime en <strong>g/mol</strong> (g·mol⁻¹) et se lit dans le tableau périodique.</p>
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Élément</th><th>H</th><th>He</th><th>C</th><th>N</th><th>O</th><th>Na</th><th>S</th><th>Cl</th><th>K</th><th>Ca</th><th>Fe</th><th>Cu</th><th>Zn</th></tr></thead>
+      <tbody><tr><td>M (g/mol)</td><td>1,0</td><td>4,0</td><td>12,0</td><td>14,0</td><td>16,0</td><td>23,0</td><td>32,1</td><td>35,5</td><td>39,1</td><td>40,1</td><td>55,8</td><td>63,5</td><td>65,4</td></tr></tbody>
+    </table></div>
+  </div>
+
+  <div class="bloc definition" data-titre="Masse molaire d'une espèce">
+    <p>La masse molaire d'une espèce (une molécule, un ion, un solide ionique comme NaCl) est la <strong>somme</strong> des masses molaires atomiques des éléments de sa formule, chacune <strong>multipliée par son indice</strong>. Pour un ion, on fait de même : la masse des électrons gagnés ou perdus est négligeable. Pour un solide hydraté, comme $\text{CuSO}_4\cdot5\text{H}_2\text{O}$, les molécules d'eau écrites après le point font partie du solide : leur masse compte.</p>
+    <p class="discret">Exemples : $M(\text{H}_2\text{O})=2\times1{,}0+16{,}0=18{,}0$ g/mol ; $M(\text{CO}_2)=12{,}0+2\times16{,}0=44{,}0$ g/mol ; $M(\text{SO}_4^{2-})=32{,}1+4\times16{,}0=96{,}1$ g/mol.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Masse molaire et masse d'une entité">
+    <p>Une mole contient $N_A$ entités : sa masse est donc celle d'une entité multipliée par $N_A$. $$M=m_{\text{entité}}\times N_A\qquad\text{soit}\qquad m_{\text{entité}}=\frac{M}{N_A}.$$ Pour une molécule d'eau : $m=\dfrac{18{,}0}{6{,}02\times10^{23}}=2{,}99\times10^{-23}$ g.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer une masse molaire">
+    <ol class="etapes">
+      <li><span>Je lis la formule et je compte les atomes de chaque élément. Un indice porte sur l'élément qu'il suit ; un indice après une parenthèse porte sur toute la parenthèse ; un « · 5H₂O » ajoute cinq molécules d'eau.</span></li>
+      <li><span>Je lis la masse molaire atomique de chaque élément.</span></li>
+      <li><span>Je multiplie chacune par le nombre d'atomes, puis j'additionne.</span></li>
+      <li><span>J'écris l'unité : g/mol.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Calculer la masse molaire du sulfate de cuivre pentahydraté $\text{CuSO}_4\cdot5\text{H}_2\text{O}$.</p>
+      <ol class="pas">
+        <li><strong>Compter.</strong> 1 Cu, 1 S, 4 + 5 = 9 O, 10 H.</li>
+        <li><strong>Lire.</strong> $M(\text{Cu})=63{,}5$ ; $M(\text{S})=32{,}1$ ; $M(\text{O})=16{,}0$ ; $M(\text{H})=1{,}0$ g/mol.</li>
+        <li><strong>Multiplier et additionner.</strong> $M=63{,}5+32{,}1+9\times16{,}0+10\times1{,}0=249{,}6$ g/mol.</li>
+        <li><strong>Comparer.</strong> Sans l'eau, $M(\text{CuSO}_4)=159{,}6$ g/mol : les cinq molécules d'eau pèsent 90,0 g par mole, plus d'un tiers du solide.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="L'atome n'est pas la molécule">
+    <p>Le dioxygène de l'air est fait de molécules $\text{O}_2$ : sa masse molaire est $M(\text{O}_2)=32{,}0$ g/mol, pas 16,0 g/mol. De même $M(\text{N}_2)=28{,}0$ et $M(\text{Cl}_2)=71{,}0$ g/mol. Tout le monde prend un jour la masse de l'atome pour celle de la molécule : relis la formule avant de calculer.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-masse-quantite">3. De la masse à la quantité de matière</h3>
+
+  <div class="bloc propriete" data-titre="Masse et quantité de matière">
+    <p>Pour un échantillon d'une espèce de masse molaire $M$ : $$n=\frac{m}{M}\qquad\text{soit}\qquad m=n\times M$$ avec $m$ en g, $M$ en g/mol et $n$ en mol.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Passer d'une masse à une quantité de matière, puis à un nombre d'entités">
+    <ol class="etapes">
+      <li><span>J'écris la masse en grammes (500 mg $=0{,}500$ g).</span></li>
+      <li><span>Je calcule la masse molaire de l'espèce.</span></li>
+      <li><span>Je calcule $n=m/M$, en mol.</span></li>
+      <li><span>Si on me demande le nombre d'entités : $N=n\times N_A$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un comprimé contient 500 mg d'aspirine $\text{C}_9\text{H}_8\text{O}_4$. Quelle quantité de matière d'aspirine contient-il ? Combien de molécules ?</p>
+      <ol class="pas">
+        <li><strong>La masse en grammes.</strong> $m=500$ mg $=0{,}500$ g.</li>
+        <li><strong>La masse molaire.</strong> $M=9\times12{,}0+8\times1{,}0+4\times16{,}0=180{,}0$ g/mol.</li>
+        <li><strong>La quantité de matière.</strong> $n=\dfrac{0{,}500}{180{,}0}=2{,}78\times10^{-3}$ mol, soit 2,78 mmol.</li>
+        <li><strong>Le nombre de molécules.</strong> $N=2{,}78\times10^{-3}\times6{,}02\times10^{23}=1{,}67\times10^{21}$ molécules.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc definition" data-titre="Un liquide pur : passer par la masse volumique">
+    <p>Pour un liquide, on mesure plus souvent un volume qu'une masse. La <strong>masse volumique</strong> $\rho=\dfrac{m}{V}$ fait le lien : $m=\rho\times V$, puis $n=\dfrac{m}{M}$. Attention aux unités : avec $\rho$ en g/mL, le volume s'écrit en mL.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="10,0 mL d'éthanol">
+    <p>L'éthanol $\text{C}_2\text{H}_6\text{O}$ a une masse volumique $\rho=0{,}789$ g/mL. Pour $V=10{,}0$ mL : $m=0{,}789\times10{,}0=7{,}89$ g. Avec $M=2\times12{,}0+6\times1{,}0+16{,}0=46{,}0$ g/mol : $n=\dfrac{7{,}89}{46{,}0}=0{,}172$ mol.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-gaz">4. Le volume molaire d'un gaz</h3>
+
+  <div class="bloc definition" data-titre="Volume molaire">
+    <p>Le <strong>volume molaire</strong> $V_m$ est le volume occupé par une mole de gaz. Il s'exprime en <strong>L/mol</strong>. À une température et une pression données, il est <strong>le même pour tous les gaz</strong> : des volumes égaux de gaz différents, pris à la même température et à la même pression, contiennent le même nombre d'entités : des molécules, ou des atomes pour les gaz nobles comme l'hélium (loi d'Avogadro-Ampère).</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="meme_volume" viewBox="0 0 700 250" role="img" aria-label="Deux flacons identiques de 24,0 litres, à 20 °C et sous la même pression de 1 013 hectopascals : l'un contient du dihydrogène, l'autre du dioxyde de carbone. Chacun contient le même nombre de molécules, une mole ; leurs masses sont très différentes : 2,0 grammes et 44,0 grammes."><rect class="verre" x="70" y="20" width="220" height="130" rx="14"/><circle class="plein t-u" cx="122.4" cy="57.5" r="5"/><circle class="plein t-u" cx="189.6" cy="49.8" r="5"/><circle class="plein t-u" cx="237.6" cy="68.5" r="5"/><circle class="plein t-u" cx="141.6" cy="90.5" r="5"/><circle class="plein t-u" cx="208.8" cy="96.0" r="5"/><circle class="plein t-u" cx="112.8" cy="120.2" r="5"/><circle class="plein t-u" cx="176.2" cy="123.5" r="5"/><circle class="plein t-u" cx="241.4" cy="118.0" r="5"/><circle class="plein t-u" cx="160.8" cy="68.5" r="5"/><circle class="plein t-u" cx="218.4" cy="76.2" r="5"/><circle class="plein t-u" cx="132.0" cy="107.0" r="5"/><circle class="plein t-u" cx="199.2" cy="112.5" r="5"/><text class="note" x="180.0" y="172.0" text-anchor="middle">dihydrogène (H₂)</text><text class="petit" x="180.0" y="194.0" text-anchor="middle">V = 24,0 L · n = 1,00 mol</text><text class="note" x="180.0" y="214.0" text-anchor="middle">m = 2,0 g</text><rect class="verre" x="390" y="20" width="220" height="130" rx="14"/><circle class="plein t-v" cx="442.4" cy="57.5" r="9"/><circle class="plein t-v" cx="509.6" cy="49.8" r="9"/><circle class="plein t-v" cx="557.6" cy="68.5" r="9"/><circle class="plein t-v" cx="461.6" cy="90.5" r="9"/><circle class="plein t-v" cx="528.8" cy="96.0" r="9"/><circle class="plein t-v" cx="432.8" cy="120.2" r="9"/><circle class="plein t-v" cx="496.2" cy="123.5" r="9"/><circle class="plein t-v" cx="561.4" cy="118.0" r="9"/><circle class="plein t-v" cx="480.8" cy="68.5" r="9"/><circle class="plein t-v" cx="538.4" cy="76.2" r="9"/><circle class="plein t-v" cx="452.0" cy="107.0" r="9"/><circle class="plein t-v" cx="519.2" cy="112.5" r="9"/><text class="note" x="500.0" y="172.0" text-anchor="middle">dioxyde de carbone (CO₂)</text><text class="petit" x="500.0" y="194.0" text-anchor="middle">V = 24,0 L · n = 1,00 mol</text><text class="note" x="500.0" y="214.0" text-anchor="middle">m = 44,0 g</text><text class="lettre" x="340.0" y="90.0" text-anchor="middle">=</text></svg><figcaption>Même volume, même température, même pression : autant de molécules de chaque côté. Les masses, elles, n'ont rien à voir.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Volume d'un gaz et quantité de matière">
+    <p>Pour un gaz de volume $V$ : $$n=\frac{V}{V_m}\qquad\text{soit}\qquad V=n\times V_m$$ avec $V$ en L, $V_m$ en L/mol et $n$ en mol.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le volume molaire dépend de la température">
+    <p>Sous la pression atmosphérique normale (1 013 hPa) : $V_m=22{,}4$ L/mol à 0 °C, $V_m=24{,}0$ L/mol à 20 °C, $V_m=25{,}5$ L/mol à 37 °C. Plus il fait chaud, plus une mole de gaz prend de place. Un énoncé donne toujours $V_m$ avec sa température : c'est celle-là qu'on utilise.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Passer du volume d'un gaz à sa masse">
+    <ol class="etapes">
+      <li><span>J'écris le volume du gaz en litres.</span></li>
+      <li><span>Je choisis le volume molaire qui correspond à la température de l'énoncé.</span></li>
+      <li><span>Je calcule $n=V/V_m$.</span></li>
+      <li><span>Je calcule $m=n\times M$, avec la masse molaire de la molécule.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un ballon de baudruche contient 3,6 L d'hélium à 20 °C ($V_m=24{,}0$ L/mol, $M(\text{He})=4{,}0$ g/mol). Quelle masse d'hélium contient-il ?</p>
+      <ol class="pas">
+        <li><strong>Le volume.</strong> $V=3{,}6$ L.</li>
+        <li><strong>Le volume molaire.</strong> À 20 °C, $V_m=24{,}0$ L/mol.</li>
+        <li><strong>La quantité de matière.</strong> $n=\dfrac{3{,}6}{24{,}0}=0{,}15$ mol.</li>
+        <li><strong>La masse.</strong> $m=0{,}15\times4{,}0=0{,}60$ g : un ballon de plusieurs litres contient à peine plus d'un demi-gramme d'hélium.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Le volume molaire ne vaut que pour un gaz">
+    <p>Tout le monde l'a fait une fois : diviser un volume de liquide par 24 L/mol. Or une mole d'eau <em>liquide</em> pèse 18,0 g et occupe 18 mL : une gorgée, pas 24 litres. Dans un liquide ou un solide, les entités se touchent, et le volume dépend de chacune. Dans un gaz, elles sont très éloignées les unes des autres : seul leur nombre compte. Avant d'utiliser $V_m$, vérifie que l'espèce est un gaz dans les conditions de l'énoncé.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Et la pression ?">
+    <p>Le volume molaire dépend aussi de la pression : comprime un gaz, il prend moins de place. La relation qui relie pression, volume, température et quantité de matière (la loi des gaz parfaits) se voit en terminale ; cette année, $V_m$ est toujours donné.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-concentration">5. La concentration en quantité de matière</h3>
+
+  <div class="bloc definition" data-titre="Concentration en quantité de matière">
+    <p>La <strong>concentration en quantité de matière</strong> $c$ d'un soluté (on dit aussi concentration molaire) est la quantité de soluté dissoute par litre de <strong>solution</strong> : $$c=\frac{n}{V}$$ avec $n$ en mol, $V$ le volume de la solution en L, et $c$ en <strong>mol/L</strong> (mol·L⁻¹). Réciproquement, $n=c\times V$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Deux concentrations, un pont">
+    <p>La concentration en masse de seconde, $C_m=\dfrac{m}{V}$ en g/L, et la concentration en quantité de matière sont reliées par la masse molaire du soluté : $$C_m=c\times M\qquad\text{soit}\qquad c=\frac{C_m}{M}.$$</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Préparer une solution de concentration donnée">
+    <ol class="etapes">
+      <li><span>Je calcule la quantité de soluté nécessaire : $n=c\times V$, avec $V$ en litres.</span></li>
+      <li><span>Je calcule la masse à peser : $m=n\times M$, avec la masse molaire du solide <em>tel qu'il est dans le flacon</em> (hydraté ou non).</span></li>
+      <li><span>Je pèse cette masse, je la verse dans une fiole jaugée du volume voulu avec un entonnoir, et je rince la coupelle et l'entonnoir à l'eau distillée au-dessus de la fiole.</span></li>
+      <li><span>J'ajoute de l'eau distillée aux trois quarts, je dissous, je complète jusqu'au trait de jauge, je bouche et j'homogénéise.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Préparer 100,0 mL d'une solution de sulfate de cuivre à $c=0{,}100$ mol/L, à partir du solide pentahydraté ($M=249{,}6$ g/mol).</p>
+      <ol class="pas">
+        <li><strong>La quantité de soluté.</strong> $V=100{,}0$ mL $=0{,}1000$ L, donc $n=0{,}100\times0{,}1000=1{,}00\times10^{-2}$ mol.</li>
+        <li><strong>La masse à peser.</strong> $m=1{,}00\times10^{-2}\times249{,}6=2{,}50$ g.</li>
+        <li><strong>Les gestes.</strong> Peser 2,50 g, les verser dans une fiole jaugée de 100,0 mL, dissoudre dans de l'eau distillée, compléter au trait, boucher, retourner plusieurs fois.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="preparer" viewBox="0 0 700 250" role="img" aria-label="Préparer 100,0 millilitres de solution de sulfate de cuivre à 0,100 mole par litre, en deux calculs puis les gestes : la quantité de matière n égale c fois V, soit 0,0100 mole ; la masse m égale n fois M, avec M égale 249,6 grammes par mole pour le solide hydraté, soit 2,50 grammes ; on pèse, on dissout dans la fiole jaugée de 100,0 millilitres, puis on complète au trait."><rect class="fond-carte" x="6.0" y="40.0" width="128.0" height="92.0" rx="8"/><text class="formule" x="70.0" y="66.0" text-anchor="middle">n = c × V</text><text class="petit" x="70.0" y="92.0" text-anchor="middle">0,100 × 0,1000</text><text class="note" x="70.0" y="116.0" text-anchor="middle">= 0,0100 mol</text><rect class="fond-carte" x="161.0" y="40.0" width="128.0" height="92.0" rx="8"/><text class="formule" x="225.0" y="66.0" text-anchor="middle">m = n × M</text><text class="petit" x="225.0" y="92.0" text-anchor="middle">0,0100 × 249,6</text><text class="note" x="225.0" y="116.0" text-anchor="middle">= 2,50 g</text><g class="trace t-n"><line x1="138" y1="86" x2="151.1" y2="86.0"/><polygon points="156.0,86.0 147.9,89.6 147.9,82.4"/></g><g class="trace t-n"><line x1="293" y1="86" x2="322.2" y2="86.0"/><polygon points="330.0,86.0 317.0,91.8 317.0,80.2"/></g><rect class="fond-carte" x="340" y="104" width="90" height="26" rx="5"/><rect class="fond-sombre" x="350" y="109" width="62" height="16" rx="2"/><text class="petit plein t-inverse" x="381" y="122" text-anchor="middle">2,50 g</text><path class="verre" d="M360,96 Q385,110 410,96"/><circle class="grain" cx="385" cy="96" r="2.6"/><circle class="grain" cx="391" cy="93" r="2.6"/><circle class="grain" cx="379" cy="93" r="2.6"/><circle class="grain" cx="388" cy="90" r="2.6"/><circle class="grain" cx="382" cy="91" r="2.6"/><text class="note" x="385.0" y="160.0" text-anchor="middle">peser</text><g class="trace t-n"><line x1="440" y1="86" x2="468.2" y2="86.0"/><polygon points="476.0,86.0 463.0,91.8 463.0,80.2"/></g><clipPath id="fiole540"><circle cx="540" cy="114.0" r="36.0"/><rect x="533.0" y="30.0" width="14.0" height="84.0"/></clipPath><rect class="liquide sol-1" clip-path="url(#fiole540)" x="504.0" y="44.0" width="72.0" height="106.0"/><path class="verre" d="M533.0,30.0 L533.0,92.4 A36.0,36.0 0 1 0 547.0,92.4 L547.0,30.0" /><line class="verre" x1="533.0" y1="30.0" x2="547.0" y2="30.0"/><line class="trait-jauge" x1="529.0" y1="44.0" x2="551.0" y2="44.0"/><text class="note" x="540.0" y="172.0" text-anchor="middle">dissoudre, compléter</text><text class="petit" x="540.0" y="190.0" text-anchor="middle">au trait de 100,0 mL</text><text class="petit" x="150.0" y="172.0" text-anchor="middle">c = 0,100 mol/L ; V = 100,0 mL = 0,1000 L</text><text class="petit" x="150.0" y="190.0" text-anchor="middle">M(CuSO₄·5H₂O) = 249,6 g/mol</text></svg><figcaption>Deux calculs, puis les gestes : la quantité de matière d'abord, la masse ensuite, avec la masse molaire du solide hydraté.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Une ampoule de potassium à 7,46 %">
+    <p>Une ampoule de 10,0 mL contient 0,746 g de chlorure de potassium KCl, de masse molaire $M=39{,}1+35{,}5=74{,}6$ g/mol. Donc $n=\dfrac{0{,}746}{74{,}6}=1{,}00\times10^{-2}$ mol $=10{,}0$ mmol. Chaque « KCl » libère un ion $\text{K}^+$ dans l'eau : l'ampoule contient 10,0 mmol d'ions potassium. Sa concentration est $c=\dfrac{1{,}00\times10^{-2}}{0{,}0100}=1{,}00$ mol/L, soit $C_m=74{,}6$ g/L. L'ampoule de la « Vraie vie » se calcule de la même façon : c'est l'exercice « L'ampoule de potassium ».</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Le volume de la solution, en litres">
+    <p>Une erreur que tout le monde fait un jour : dans $c=n/V$, $V$ est le volume de la <strong>solution</strong> (celui de la fiole jaugée), pas celui de l'eau versée. Et il s'écrit en <strong>litres</strong> : 250 mL $=0{,}250$ L. Laisser les millilitres donne une concentration 1 000 fois trop petite.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-melange">6. La composition d'un mélange</h3>
+
+  <div class="bloc definition" data-titre="Pourcentage en masse">
+    <p>La composition d'un mélange solide ou liquide se donne souvent en <strong>pourcentage en masse</strong> : la masse d'un constituant divisée par la masse totale, exprimée en pourcentage. Un laiton « à 63 % de cuivre » contient 63 g de cuivre pour 100 g de laiton.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="La quantité de matière d'un constituant">
+    <ol class="etapes">
+      <li><span>Si on connaît un volume de mélange, je calcule sa masse : $m=\rho\times V$.</span></li>
+      <li><span>Je calcule la masse du constituant : $m_i=\text{pourcentage}\times m$ (63 % $=0{,}63$).</span></li>
+      <li><span>Je divise par sa masse molaire : $n_i=\dfrac{m_i}{M_i}$.</span></li>
+    </ol>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="laiton" viewBox="0 0 700 170" role="img" aria-label="Une barre de 100 grammes de laiton partagée selon sa composition en masse : 63 grammes de cuivre et 37 grammes de zinc. Chaque masse, divisée par la masse molaire de son élément, donne la quantité de matière : 0,99 mole de cuivre et 0,57 mole de zinc."><rect class="plein t-chaud op-70" x="40" y="40" width="378.0" height="44" rx="6"/><rect class="plein t-n op-50" x="418.0" y="40" width="222.0" height="44" rx="6"/><text class="note" x="229.0" y="68.0" text-anchor="middle">cuivre : 63 %</text><text class="note" x="529.0" y="68.0" text-anchor="middle">zinc : 37 %</text><text class="note" x="340.0" y="24.0" text-anchor="middle">100 g de laiton</text><text class="petit" x="229.0" y="112.0" text-anchor="middle">m = 63 g</text><text class="formule" x="229.0" y="132.0" text-anchor="middle">n = 63 / 63,5 ≈ 0,99 mol</text><text class="petit" x="529.0" y="112.0" text-anchor="middle">m = 37 g</text><text class="formule" x="529.0" y="132.0" text-anchor="middle">n = 37 / 65,4 ≈ 0,57 mol</text></svg><figcaption>100 g de laiton : le pourcentage donne la masse de chaque métal, la masse molaire donne sa quantité de matière.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="L'air qu'on respire">
+    <p>Pour un mélange de gaz, la composition se donne en <strong>pourcentage en volume</strong>, et c'est aussi un pourcentage en quantité de matière (même volume, même nombre de molécules). L'air sec contient 21 % de dioxygène : dans 24,0 L d'air à 20 °C, il y a $0{,}21\times24{,}0=5{,}0$ L de dioxygène, soit $n=\dfrac{5{,}0}{24{,}0}=0{,}21$ mol, ou $m=0{,}21\times32{,}0=6{,}7$ g.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-carrefour">7. Le carrefour de la quantité de matière</h3>
+
+  <figure class="figure-svg large"><svg data-figure="carrefour" viewBox="0 0 700 320" role="img" aria-label="La quantité de matière n, en moles, au centre de quatre chemins. À gauche, la masse m : on divise par la masse molaire M pour aller vers n, on multiplie par M pour revenir. À droite, le nombre d'entités N : on divise par la constante d'Avogadro. En haut, le volume V d'un gaz : on divise par le volume molaire. En bas, une espèce dissoute : n égale c fois V, le volume de la solution."><circle class="fond-carte" cx="350" cy="150" r="46"/><text class="lettre" x="350.0" y="152.0" text-anchor="middle">n</text><text class="petit" x="350.0" y="172.0" text-anchor="middle">en mol</text><rect class="fond-carte" x="26.0" y="124.0" width="148.0" height="54.0" rx="8"/><text class="note" x="100.0" y="146.0" text-anchor="middle">masse m</text><text class="petit" x="100.0" y="166.0" text-anchor="middle">en g</text><g class="trace t-u"><line x1="178" y1="136" x2="292.2" y2="136.0"/><polygon points="300.0,136.0 287.0,141.8 287.0,130.2"/></g><g class="trace t-v"><line x1="300" y1="164" x2="185.8" y2="164.0"/><polygon points="178.0,164.0 191.0,158.2 191.0,169.8"/></g><text class="formule" x="239.0" y="124.0" text-anchor="middle">÷ M</text><text class="formule" x="239.0" y="190.0" text-anchor="middle">× M</text><rect class="fond-carte" x="526.0" y="124.0" width="148.0" height="54.0" rx="8"/><text class="note" x="600.0" y="146.0" text-anchor="middle">nombre d'entités N</text><text class="petit" x="600.0" y="166.0" text-anchor="middle">sans unité</text><g class="trace t-u"><line x1="522" y1="136" x2="407.8" y2="136.0"/><polygon points="400.0,136.0 413.0,130.2 413.0,141.8"/></g><g class="trace t-v"><line x1="400" y1="164" x2="514.2" y2="164.0"/><polygon points="522.0,164.0 509.0,169.8 509.0,158.2"/></g><text class="formule" x="461.0" y="124.0" text-anchor="middle">÷ N<tspan class="ind" dy="4">A</tspan><tspan dy="-4"> </tspan></text><text class="formule" x="461.0" y="190.0" text-anchor="middle">× N<tspan class="ind" dy="4">A</tspan><tspan dy="-4"> </tspan></text><rect class="fond-carte" x="270.0" y="8.0" width="160.0" height="52.0" rx="8"/><text class="note" x="350.0" y="30.0" text-anchor="middle">volume V d'un gaz</text><text class="petit" x="350.0" y="50.0" text-anchor="middle">en L</text><g class="trace t-u"><line x1="334" y1="64" x2="334.0" y2="96.2"/><polygon points="334.0,104.0 328.1,91.0 339.9,91.0"/></g><g class="trace t-v"><line x1="366" y1="104" x2="366.0" y2="71.8"/><polygon points="366.0,64.0 371.9,77.0 360.1,77.0"/></g><text class="formule" x="326.0" y="90.0" text-anchor="end">÷ V<tspan class="ind" dy="4">m</tspan><tspan dy="-4"> </tspan></text><text class="formule" x="374.0" y="90.0" text-anchor="start">× V<tspan class="ind" dy="4">m</tspan><tspan dy="-4"> </tspan></text><rect class="fond-carte" x="250.0" y="242.0" width="200.0" height="52.0" rx="8"/><text class="note" x="350.0" y="264.0" text-anchor="middle">concentration c, volume V</text><text class="petit" x="350.0" y="284.0" text-anchor="middle">en mol/L et en L</text><g class="trace t-u"><line x1="334" y1="238" x2="334.0" y2="205.8"/><polygon points="334.0,198.0 339.9,211.0 328.1,211.0"/></g><g class="trace t-v"><line x1="366" y1="198" x2="366.0" y2="230.2"/><polygon points="366.0,238.0 360.1,225.0 371.9,225.0"/></g><text class="formule" x="326.0" y="222.0" text-anchor="end">n = c × V</text><text class="formule" x="374.0" y="222.0" text-anchor="start">c = n / V</text></svg><figcaption>Quatre chemins, un seul centre : quelle que soit la donnée de départ, on passe par $n$.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Les quatre relations du chapitre">
+    <ul>
+      <li>Une masse : $n=\dfrac{m}{M}$.</li>
+      <li>Un nombre d'entités : $n=\dfrac{N}{N_A}$.</li>
+      <li>Un volume de gaz : $n=\dfrac{V}{V_m}$.</li>
+      <li>Une espèce dissoute : $n=c\times V$.</li>
+    </ul>
+    <p>Pour passer d'une grandeur à une autre (d'un volume de gaz à une masse, d'une masse à un nombre de molécules), on calcule d'abord $n$, puis on repart de $n$.</p>
+  </div>
+
+  <h3 id="c-pieges">8. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait un jour">
+    <ul>
+      <li><strong>$m$ et $M$.</strong> La masse $m$ de l'échantillon (en g) n'est pas la masse molaire $M$ de l'espèce (en g/mol). L'unité les distingue : écris-la à chaque ligne.</li>
+      <li><strong>Le facteur 1 000.</strong> mg et g, mL et L, mmol et mol : une conversion oubliée, et le résultat est faux d'un facteur 1 000.</li>
+      <li><strong>L'atome pour la molécule.</strong> $M(\text{O}_2)=32{,}0$ g/mol, pas 16,0 ; $M(\text{H}_2\text{O})=18{,}0$ g/mol, pas 17,0 : l'indice compte.</li>
+      <li><strong>L'eau de cristallisation oubliée.</strong> Le solide $\text{CuSO}_4\cdot5\text{H}_2\text{O}$ a une masse molaire de 249,6 g/mol, pas 159,6.</li>
+      <li><strong>Les deux concentrations.</strong> $C_m$ en g/L et $c$ en mol/L ne sont pas la même grandeur : $C_m=c\times M$.</li>
+      <li><strong>Le volume molaire pour un liquide.</strong> $V_m$ ne vaut que pour un gaz : une mole d'eau liquide occupe 18 mL.</li>
+      <li><strong>22,4 L/mol partout.</strong> C'est la valeur à 0 °C et 1 013 hPa ; à 20 °C, $V_m=24{,}0$ L/mol. On prend celle de l'énoncé.</li>
+      <li><strong>$N$ et $n$.</strong> $N$ compte des entités (un nombre immense, sans unité) ; $n$ compte des paquets (en mol).</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">9. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="La masse molaire, pas à pas"></div>
+    <div class="video" data-titre="Préparer une solution de concentration donnée"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, dans l'ordre du cours : peser des moles sur une balance, préparer une solution en mol/L avec la fiole jaugée, et remplir une seringue avec une quantité de gaz donnée.</p>
+  <div class="labo" data-labo="suivi-systeme" data-outil="paquets"></div>
+  <div class="labo" data-labo="suivi-systeme" data-outil="fiole"></div>
+  <div class="labo" data-labo="suivi-systeme" data-outil="gaz"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie : masses molaires, quantités de matière, nombres d'entités, gaz, concentrations, mélanges. Le quiz vérifie les réflexes du cours. En bas, le contrôle blanc.</p>
+
+  <div class="jeu" data-generateurs="suivi-systeme" data-questions="10" data-titre="Le défi des moles"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question" data-reponse="44" data-tolerance="0,2">
+      <p>Calculer la masse molaire du dioxyde de carbone $\text{CO}_2$, en g/mol ($M(\text{C})=12{,}0$ ; $M(\text{O})=16{,}0$ g/mol).</p>
+      <div class="explication">$M=12{,}0+2\times16{,}0=44{,}0$ g/mol : l'indice 2 porte sur l'oxygène.</div>
+    </div>
+    <div class="question">
+      <p>La masse molaire du dioxygène $\text{O}_2$ est…</p>
+      <ul class="choix"><li class="bon">32,0 g/mol</li><li>16,0 g/mol</li><li>8,0 g/mol</li><li>32,0 mol</li></ul>
+      <div class="explication">La molécule compte deux atomes d'oxygène : $M=2\times16{,}0=32{,}0$ g/mol. 16,0 g/mol est la masse molaire de l'atome seul.</div>
+    </div>
+    <div class="question" data-reponse="0,5" data-tolerance="0,01">
+      <p>Quelle quantité de matière d'eau ($M=18{,}0$ g/mol) y a-t-il dans 9,0 g d'eau, en mol ?</p>
+      <div class="explication">$n=\dfrac{m}{M}=\dfrac{9{,}0}{18{,}0}=0{,}50$ mol.</div>
+    </div>
+    <div class="question">
+      <p>Combien de molécules contient un échantillon de 0,10 mol de méthane ?</p>
+      <ul class="choix"><li class="bon">$6{,}0\times10^{22}$</li><li>$6{,}0\times10^{24}$</li><li>$6{,}0\times10^{23}$</li><li>0,10</li></ul>
+      <div class="explication">$N=n\times N_A=0{,}10\times6{,}02\times10^{23}=6{,}0\times10^{22}$ molécules.</div>
+    </div>
+    <div class="question" data-reponse="0,05" data-tolerance="0,002">
+      <p>Quelle quantité de matière de dioxyde de carbone y a-t-il dans 1,2 L de ce gaz à 20 °C ($V_m=24{,}0$ L/mol), en mol ?</p>
+      <div class="explication">$n=\dfrac{V}{V_m}=\dfrac{1{,}2}{24{,}0}=0{,}050$ mol.</div>
+    </div>
+    <div class="question">
+      <p>Deux ballons de même volume, à la même température et à la même pression, contiennent l'un de l'hélium, l'autre du dioxygène. Ils contiennent…</p>
+      <ul class="choix"><li class="bon">le même nombre d'entités (atomes d'hélium, molécules de dioxygène)</li><li>la même masse de gaz</li><li>plus de molécules de dioxygène, plus lourdes</li><li>plus d'atomes d'hélium, plus petits</li></ul>
+      <div class="explication">C'est la loi d'Avogadro-Ampère : même volume, même température, même pression, même quantité de matière. Les masses diffèrent : $M(\text{O}_2)=32{,}0$ g/mol, $M(\text{He})=4{,}0$ g/mol.</div>
+    </div>
+    <div class="question">
+      <p>On peut utiliser le volume molaire $V_m=24{,}0$ L/mol pour…</p>
+      <ul class="choix"><li class="bon">du diazote à 20 °C et 1 013 hPa</li><li>de l'eau liquide à 20 °C</li><li>du sucre en poudre à 20 °C</li><li>n'importe quelle espèce à 20 °C</li></ul>
+      <div class="explication">Le volume molaire ne vaut que pour un gaz. Une mole d'eau liquide occupe 18 mL, pas 24 L.</div>
+    </div>
+    <div class="question" data-reponse="0,08" data-tolerance="0,002">
+      <p>On dissout 0,020 mol de chlorure de potassium et on obtient 250 mL de solution. Quelle est la concentration en quantité de matière, en mol/L ?</p>
+      <div class="explication">$V=250$ mL $=0{,}250$ L, donc $c=\dfrac{n}{V}=\dfrac{0{,}020}{0{,}250}=0{,}080$ mol/L.</div>
+    </div>
+    <div class="question" data-reponse="5,85" data-tolerance="0,06">
+      <p>Quelle masse de chlorure de sodium ($M=58{,}5$ g/mol) faut-il peser pour préparer 200,0 mL de solution à 0,500 mol/L, en g ?</p>
+      <div class="explication">$n=c\times V=0{,}500\times0{,}2000=0{,}100$ mol, puis $m=n\times M=0{,}100\times58{,}5=5{,}85$ g.</div>
+    </div>
+    <div class="question" data-reponse="18" data-tolerance="0,2">
+      <p>Une solution de glucose ($M=180{,}0$ g/mol) a une concentration $c=0{,}10$ mol/L. Quelle est sa concentration en masse, en g/L ?</p>
+      <div class="explication">$C_m=c\times M=0{,}10\times180{,}0=18$ g/L.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre : ★ appliquer une relation, ★★ enchaîner sur une situation, ★★★ raisonner sur un cas réel. Rédige d'abord, avec les unités à chaque ligne, puis ouvre la correction. Les masses molaires atomiques sont dans le tableau du cours.</p>
+
+  <h3>Niveau 1 · Appliquer une relation</h3>
+
+  <article class="exercice" id="ex-calculer-une-masse-molaire" data-titre="Calculer une masse molaire" data-niveau="1" data-type="application" data-notions="masse-molaire" data-duree="8" data-calculatrice="oui">
+    <p>Calculer la masse molaire de : le méthane $\text{CH}_4$ ; l'ammoniac $\text{NH}_3$ ; le carbonate de calcium $\text{CaCO}_3$ ($M(\text{Ca})=40{,}1$ g/mol) ; la vitamine C $\text{C}_6\text{H}_8\text{O}_6$ ; l'ion sulfate $\text{SO}_4^{2-}$.</p>
+    <details class="correction">
+      <p>$M(\text{CH}_4)=12{,}0+4\times1{,}0=16{,}0$ g/mol. $M(\text{NH}_3)=14{,}0+3\times1{,}0=17{,}0$ g/mol.</p>
+      <p>$M(\text{CaCO}_3)=40{,}1+12{,}0+3\times16{,}0=100{,}1$ g/mol.</p>
+      <p>$M(\text{C}_6\text{H}_8\text{O}_6)=6\times12{,}0+8\times1{,}0+6\times16{,}0=176{,}0$ g/mol.</p>
+      <p>$M(\text{SO}_4^{2-})=32{,}1+4\times16{,}0=96{,}1$ g/mol : la charge ne change rien, la masse des deux électrons gagnés est négligeable.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-verre-d-eau" data-titre="Combien de molécules dans un verre d'eau ?" data-niveau="1" data-type="application" data-notions="masse-molaire mole" data-duree="10" data-calculatrice="oui">
+    <p>Un verre contient 200 mL d'eau. La masse volumique de l'eau est $\rho=1{,}00$ g/mL.</p>
+    <p>1. Calculer la masse d'eau dans le verre.<br>2. Calculer la quantité de matière d'eau.<br>3. Calculer le nombre de molécules d'eau dans le verre.</p>
+    <details class="correction">
+      <p>1. $m=\rho\times V=1{,}00\times200=200$ g.</p>
+      <p>2. $M(\text{H}_2\text{O})=18{,}0$ g/mol, donc $n=\dfrac{200}{18{,}0}=11{,}1$ mol.</p>
+      <p>3. $N=n\times N_A=11{,}1\times6{,}02\times10^{23}=6{,}68\times10^{24}$ molécules : près de sept millions de milliards de milliards.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-molecule-de-cafeine" data-titre="La masse d'une molécule de caféine" data-niveau="1" data-type="application" data-notions="masse-molaire mole" data-duree="10" data-calculatrice="oui">
+    <p>La caféine a pour formule $\text{C}_8\text{H}_{10}\text{N}_4\text{O}_2$. Une tasse de café en contient environ 80 mg.</p>
+    <p>1. Calculer la masse molaire de la caféine.<br>2. Calculer la masse d'une molécule de caféine.<br>3. Calculer la quantité de matière de caféine dans la tasse, puis le nombre de molécules.</p>
+    <details class="correction">
+      <p>1. $M=8\times12{,}0+10\times1{,}0+4\times14{,}0+2\times16{,}0=194{,}0$ g/mol.</p>
+      <p>2. $m_{\text{molécule}}=\dfrac{M}{N_A}=\dfrac{194{,}0}{6{,}02\times10^{23}}=3{,}22\times10^{-22}$ g.</p>
+      <p>3. $m=80$ mg $=0{,}080$ g, donc $n=\dfrac{0{,}080}{194{,}0}=4{,}1\times10^{-4}$ mol, et $N=4{,}1\times10^{-4}\times6{,}02\times10^{23}=2{,}5\times10^{20}$ molécules. Vérification par l'autre chemin : $\dfrac{0{,}080}{3{,}22\times10^{-22}}=2{,}5\times10^{20}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-ballon-d-helium" data-titre="Un ballon d'hélium" data-niveau="1" data-type="application" data-notions="volume-molaire masse-molaire" data-duree="8" data-calculatrice="oui">
+    <p>Un ballon contient 5,0 L d'hélium à 20 °C ($V_m=24{,}0$ L/mol ; $M(\text{He})=4{,}0$ g/mol).</p>
+    <p>1. Calculer la quantité de matière d'hélium.<br>2. Calculer la masse d'hélium.<br>3. Le ballon passe la nuit dehors, à 0 °C ($V_m=22{,}4$ L/mol), sans perdre de gaz. Quel volume occupe alors l'hélium ?</p>
+    <details class="correction">
+      <p>1. $n=\dfrac{V}{V_m}=\dfrac{5{,}0}{24{,}0}=0{,}21$ mol.</p>
+      <p>2. $m=n\times M=0{,}208\times4{,}0=0{,}83$ g (avec la valeur non arrondie de $n$).</p>
+      <p>3. La quantité de matière n'a pas changé : $V=n\times V_m=0{,}208\times22{,}4=4{,}7$ L. Le ballon s'est un peu dégonflé dans le froid.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-g-l-aux-mol-l" data-titre="Des grammes par litre aux moles par litre" data-niveau="1" data-type="application" data-notions="concentration-molaire" data-duree="8" data-calculatrice="oui">
+    <p>1. Une solution de sulfate de cuivre anhydre $\text{CuSO}_4$ ($M=159{,}6$ g/mol) a une concentration en masse $C_m=16{,}0$ g/L. Calculer sa concentration en quantité de matière.<br>2. Une solution de glucose ($M=180{,}0$ g/mol) a une concentration $c=0{,}25$ mol/L. Calculer sa concentration en masse.<br>3. Un vinaigre contient de l'acide éthanoïque $\text{C}_2\text{H}_4\text{O}_2$ à $c=0{,}80$ mol/L. Calculer sa concentration en masse.</p>
+    <details class="correction">
+      <p>1. $c=\dfrac{C_m}{M}=\dfrac{16{,}0}{159{,}6}=0{,}100$ mol/L.</p>
+      <p>2. $C_m=c\times M=0{,}25\times180{,}0=45$ g/L.</p>
+      <p>3. $M=2\times12{,}0+4\times1{,}0+2\times16{,}0=60{,}0$ g/mol, donc $C_m=0{,}80\times60{,}0=48$ g/L.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Enchaîner sur une situation</h3>
+
+  <article class="exercice" id="ex-le-sulfate-de-cuivre-hydrate" data-titre="Le sulfate de cuivre hydraté" data-niveau="2" data-type="probleme" data-notions="masse-molaire concentration-molaire" data-duree="15" data-calculatrice="oui">
+    <p>Lina doit préparer 250,0 mL de solution de sulfate de cuivre à $c=0{,}0500$ mol/L. Le flacon porte l'étiquette « sulfate de cuivre pentahydraté, $\text{CuSO}_4\cdot5\text{H}_2\text{O}$ ».</p>
+    <p>1. Calculer la masse molaire du solide du flacon.<br>2. Calculer la masse que Lina doit peser.<br>3. Son voisin a fait le calcul avec $M(\text{CuSO}_4)=159{,}6$ g/mol. Quelle masse a-t-il pesée ? Quelle concentration a-t-il réellement obtenue ?<br>4. Citer le matériel et les gestes de la préparation.</p>
+    <details class="indice"><p>Pour la question 3, la masse pesée est celle du solide hydraté : divise-la par la bonne masse molaire pour savoir combien de moles sont vraiment dans la fiole.</p></details>
+    <details class="correction">
+      <p>1. $M=63{,}5+32{,}1+4\times16{,}0+5\times18{,}0=249{,}6$ g/mol.</p>
+      <p>2. $n=c\times V=0{,}0500\times0{,}2500=1{,}25\times10^{-2}$ mol, donc $m=n\times M=1{,}25\times10^{-2}\times249{,}6=3{,}12$ g.</p>
+      <p>3. Le voisin a pesé $1{,}25\times10^{-2}\times159{,}6=2{,}00$ g de solide hydraté. Ces 2,00 g contiennent $n=\dfrac{2{,}00}{249{,}6}=8{,}01\times10^{-3}$ mol de sulfate de cuivre, d'où $c=\dfrac{8{,}01\times10^{-3}}{0{,}2500}=0{,}0321$ mol/L : un peu moins des deux tiers (64 %) de la concentration voulue.</p>
+      <p>4. Une balance (au centième de gramme), une coupelle, un entonnoir, une fiole jaugée de 250,0 mL avec son bouchon, de l'eau distillée. On pèse, on verse dans la fiole par l'entonnoir en rinçant la coupelle, on remplit aux trois quarts, on dissout, on complète jusqu'au trait de jauge, on bouche et on retourne plusieurs fois.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-gel-hydroalcoolique" data-titre="Le gel hydroalcoolique" data-niveau="2" data-type="probleme" data-notions="masse-molaire" data-duree="15" data-calculatrice="oui">
+    <p>Un flacon contient 300 mL de gel hydroalcoolique, de masse volumique 0,87 g/mL. Le gel contient 70 % d'éthanol $\text{C}_2\text{H}_6\text{O}$ en masse.</p>
+    <p>1. Calculer la masse de gel dans le flacon.<br>2. Calculer la masse d'éthanol.<br>3. Calculer la quantité de matière d'éthanol.<br>4. Quel volume d'éthanol pur ($\rho=0{,}789$ g/mL) faudrait-il pour apporter cette quantité ?</p>
+    <details class="indice"><p>Le pourcentage s'applique à la masse du gel, pas à son volume : commence par la masse volumique.</p></details>
+    <details class="correction">
+      <p>1. $m_{\text{gel}}=\rho\times V=0{,}87\times300=261$ g, soit $2{,}6\times10^{2}$ g avec deux chiffres significatifs, comme les données.</p>
+      <p>2. $m_{\text{éthanol}}=0{,}70\times261=182{,}7$ g, soit $1{,}8\times10^{2}$ g (on garde la valeur non arrondie pour la suite).</p>
+      <p>3. $M(\text{C}_2\text{H}_6\text{O})=46{,}0$ g/mol, donc $n=\dfrac{182{,}7}{46{,}0}=4{,}0$ mol.</p>
+      <p>4. $V=\dfrac{m}{\rho}=\dfrac{182{,}7}{0{,}789}=2{,}3\times10^{2}$ mL d'éthanol pur, environ 230 mL.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-laiton" data-titre="Le laiton d'une poignée de porte" data-niveau="2" data-type="application" data-notions="masse-molaire" data-duree="12" data-calculatrice="oui">
+    <p>Une poignée de porte de 150 g est en laiton : 63 % de cuivre et 37 % de zinc, en masse.</p>
+    <p>1. Calculer la masse puis la quantité de matière de cuivre.<br>2. Même question pour le zinc.<br>3. Calculer le nombre total d'atomes métalliques dans la poignée.</p>
+    <details class="correction">
+      <p>1. $m(\text{Cu})=0{,}63\times150=94{,}5$ g, donc $n(\text{Cu})=\dfrac{94{,}5}{63{,}5}=1{,}5$ mol (deux chiffres significatifs, comme 63 %).</p>
+      <p>2. $m(\text{Zn})=0{,}37\times150=55{,}5$ g, donc $n(\text{Zn})=\dfrac{55{,}5}{65{,}4}=0{,}85$ mol.</p>
+      <p>3. Avec les valeurs non arrondies : $N=(1{,}488+0{,}849)\times6{,}02\times10^{23}=1{,}4\times10^{24}$ atomes.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-eau-gazeuse" data-titre="Le gaz d'une eau gazeuse" data-niveau="2" data-type="probleme" data-notions="volume-molaire concentration-molaire masse-molaire" data-duree="15" data-calculatrice="oui">
+    <p>Une bouteille de 1,00 L d'eau gazeuse contient 6,6 g de dioxyde de carbone dissous.</p>
+    <p>1. Calculer la quantité de matière de dioxyde de carbone.<br>2. En déduire la concentration en quantité de matière du dioxyde de carbone dissous.<br>3. Si tout ce gaz s'échappait de la bouteille ouverte, à 20 °C ($V_m=24{,}0$ L/mol), quel volume occuperait-il ? Comparer au volume de la bouteille.</p>
+    <details class="correction">
+      <p>1. $M(\text{CO}_2)=44{,}0$ g/mol, donc $n=\dfrac{6{,}6}{44{,}0}=0{,}15$ mol.</p>
+      <p>2. $c=\dfrac{n}{V}=\dfrac{0{,}15}{1{,}00}=0{,}15$ mol/L.</p>
+      <p>3. $V=n\times V_m=0{,}15\times24{,}0=3{,}6$ L : plus de trois fois le volume de la bouteille. Ouverte calmement, la bouteille relâche ce gaz peu à peu ; secouée, elle le relâche d'un coup et déborde.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-ranger-des-quantites" data-titre="Ranger des quantités sans calculatrice" data-niveau="2" data-type="raisonnement" data-notions="masse-molaire volume-molaire mole" data-duree="10" data-calculatrice="non">
+    <p>Ranger ces cinq échantillons par quantité de matière croissante, sans calculatrice (des égalités sont possibles) : A. 1,0 g de dihydrogène $\text{H}_2$ ; B. 16 g de dioxygène $\text{O}_2$ ; C. 12 L de diazote à 20 °C ($V_m=24$ L/mol) ; D. 18 mL d'eau liquide ($\rho=1{,}0$ g/mL) ; E. $3{,}0\times10^{23}$ atomes de fer. On prendra $N_A\approx6{,}0\times10^{23}$ mol⁻¹.</p>
+    <details class="indice"><p>Calcule $n$ pour chacun avec la relation qui correspond à la donnée : masse, volume de gaz, volume de liquide, nombre d'entités.</p></details>
+    <details class="correction">
+      <p>A. $n=\dfrac{1{,}0}{2{,}0}=0{,}50$ mol. B. $n=\dfrac{16}{32}=0{,}50$ mol (avec $M(\text{O}_2)=32$, pas 16). C. $n=\dfrac{12}{24}=0{,}50$ mol. E. $n=\dfrac{3{,}0\times10^{23}}{6{,}0\times10^{23}}=0{,}50$ mol.</p>
+      <p>D. L'eau est liquide : pas de volume molaire. $m=1{,}0\times18=18$ g, donc $n=\dfrac{18}{18}=1{,}0$ mol.</p>
+      <p>Le classement : A = B = C = E (0,50 mol) &lt; D (1,0 mol). Un gramme, seize grammes, douze litres, un nombre immense d'atomes : quatre échantillons qui ne se ressemblent pas et qui contiennent autant d'entités.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="masse-molaire volume-molaire mole" data-duree="12" data-calculatrice="oui">
+    <p>Un élève a demandé à une IA combien de molécules contient un verre de 18 mL d'eau. Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« On utilise le volume molaire : une mole de n'importe quelle substance occupe 22,4 L. Donc $n=18/22{,}4=0{,}80$ mol. Comme la masse molaire de l'eau est $M=\text{H}+\text{O}=17$ g/mol, la masse du verre est $m=0{,}80\times17=13{,}6$ g. Enfin $N=n\times6{,}02\times10^{23}=4{,}8\times10^{23}$ molécules. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 :</strong> le volume molaire ne vaut que pour un <strong>gaz</strong>. L'eau du verre est liquide : $V_m$ n'a rien à faire ici.</p>
+      <p><strong>Erreur 2 :</strong> même pour un gaz, 22,4 L/mol n'est valable qu'à 0 °C et 1 013 hPa ; l'IA ne précise aucune température.</p>
+      <p><strong>Erreur 3 :</strong> les unités. Le volume est de 18 <strong>mL</strong>, et l'IA l'a divisé par des litres par mole comme s'il s'agissait de 18 L.</p>
+      <p><strong>Erreur 4 :</strong> $M(\text{H}_2\text{O})=2\times1{,}0+16{,}0=18{,}0$ g/mol : l'indice 2 compte deux atomes d'hydrogène.</p>
+      <p><strong>Erreur 5 :</strong> aucun contrôle de vraisemblance. 18 mL d'eau pèsent 18 g ($\rho=1{,}00$ g/mL), pas 13,6 g.</p>
+      <p><strong>La bonne réponse :</strong> $m=\rho\times V=1{,}00\times18=18$ g, $n=\dfrac{18}{18{,}0}=1{,}0$ mol, $N=1{,}0\times6{,}02\times10^{23}=6{,}0\times10^{23}$ molécules.</p>
+      <p>La réponse était fluide et sûre d'elle, et quatre de ses erreurs sont celles du cours : le volume molaire pour un liquide, 22,4 partout, le facteur 1 000 entre mL et L, l'indice oublié.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Raisonner sur un cas réel</h3>
+
+  <article class="exercice" id="ex-l-ampoule-de-potassium" data-titre="L'ampoule de potassium" data-niveau="3" data-type="probleme" data-notions="masse-molaire concentration-molaire" data-duree="20" data-calculatrice="oui">
+    <p>Une ampoule de 10,0 mL contient une solution de chlorure de potassium : 1,00 g de KCl dissous. L'étiquette indique aussi « 13,4 mmol de K⁺ ».</p>
+    <p>1. Calculer la masse molaire du chlorure de potassium.<br>2. Calculer la quantité de matière de KCl dans l'ampoule, puis celle des ions $\text{K}^+$. Retrouver l'indication de l'étiquette.<br>3. Calculer la concentration en quantité de matière et la concentration en masse de la solution de l'ampoule.<br>4. Une perfusion est prescrite à « 2 g de KCl par litre ». Combien d'ampoules faut-il ajouter à une poche d'un litre ? Quelle quantité d'ions potassium cela représente-t-il ?<br>5. Pourquoi l'étiquette donne-t-elle à la fois des grammes et des millimoles ?</p>
+    <details class="indice"><p>Dans l'eau, le chlorure de potassium se sépare en ions : un KCl donne un ion $\text{K}^+$ et un ion $\text{Cl}^-$.</p></details>
+    <details class="correction">
+      <p>1. $M(\text{KCl})=39{,}1+35{,}5=74{,}6$ g/mol.</p>
+      <p>2. $n(\text{KCl})=\dfrac{1{,}00}{74{,}6}=1{,}34\times10^{-2}$ mol $=13{,}4$ mmol. Chaque KCl libère un ion $\text{K}^+$ : $n(\text{K}^+)=13{,}4$ mmol, ce que dit l'étiquette.</p>
+      <p>3. $V=10{,}0$ mL $=0{,}0100$ L : $c=\dfrac{1{,}34\times10^{-2}}{0{,}0100}=1{,}34$ mol/L, et $C_m=\dfrac{1{,}00}{0{,}0100}=100$ g/L (on vérifie : $1{,}34\times74{,}6=100$).</p>
+      <p>4. 2 g de KCl, c'est deux ampoules, soit $2\times13{,}4=26{,}8$ mmol d'ions potassium.</p>
+      <p>5. Le fabricant et le pharmacien travaillent avec une balance : en grammes, et selon les services on prescrit en grammes ou en millimoles. Le corps, lui, compte des ions : ce qui agit sur le cœur et les muscles, c'est le nombre d'ions $\text{K}^+$, et l'analyse de sang (la kaliémie) parle en millimoles par litre. La masse molaire fait le pont entre les deux, et l'étiquette donne les deux indications pour éviter une erreur de conversion au lit du patient.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-air-de-la-salle" data-titre="L'air de la salle de classe" data-niveau="3" data-type="probleme" data-notions="volume-molaire masse-molaire" data-duree="25" data-calculatrice="oui">
+    <p>Une salle de classe mesure 8,0 m × 7,0 m × 3,0 m. L'air y est à 20 °C ($V_m=24{,}0$ L/mol). L'air contient 21 % de dioxygène en volume. Au repos, un élève consomme environ 15 L de dioxygène par heure.</p>
+    <p>1. Calculer le volume de la salle en litres, puis la quantité de matière d'air qu'elle contient.<br>2. Calculer la quantité de matière, puis la masse de dioxygène dans la salle.<br>3. Trente élèves passent une heure dans la salle fermée. Quelle part du dioxygène consomment-ils ?<br>4. Pourtant, une salle fermée devient vite pénible. Proposer une explication.</p>
+    <details class="indice"><p>1 m³ = 1 000 L. Pour un gaz, un pourcentage en volume est aussi un pourcentage en quantité de matière.</p></details>
+    <details class="correction">
+      <p>1. $V=8{,}0\times7{,}0\times3{,}0=168$ m³ $=1{,}68\times10^{5}$ L, donc $n_{\text{air}}=\dfrac{1{,}68\times10^{5}}{24{,}0}=7{,}0\times10^{3}$ mol.</p>
+      <p>2. $n(\text{O}_2)=0{,}21\times7{,}0\times10^{3}=1{,}47\times10^{3}$ mol, soit environ $1{,}5\times10^{3}$ mol, et $m=1{,}47\times10^{3}\times32{,}0=4{,}7\times10^{4}$ g : environ 47 kg de dioxygène.</p>
+      <p>3. $30\times15=450$ L de dioxygène, soit $\dfrac{450}{24{,}0}=19$ mol : environ 1,3 % du dioxygène de la salle. Le dioxygène ne risque pas de manquer.</p>
+      <p>4. La respiration rejette du dioxyde de carbone (et de la vapeur d'eau, de la chaleur), qui s'accumule dans une salle fermée. C'est l'accumulation du dioxyde de carbone, de la chaleur et de l'humidité, et non le manque de dioxygène, qui rend l'air pénible et fatigue : d'où l'aération régulière.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-fer-des-lentilles" data-titre="Le fer d'un plat de lentilles" data-niveau="3" data-type="probleme" data-notions="masse-molaire mole" data-duree="20" data-calculatrice="oui">
+    <p>Un sachet de lentilles cuites indique : « fer : 2,5 mg pour 100 g ». La valeur nutritionnelle de référence en fer, celle des étiquettes, est de 14 mg par jour.</p>
+    <p>1. Une assiette contient 250 g de lentilles. Calculer la masse de fer, la quantité de matière de fer, puis le nombre d'entités de fer (atomes ou ions).<br>2. Quelle masse de lentilles apporte 14 mg de fer ?<br>3. Un complément alimentaire apporte ces 14 mg de fer sous forme de sulfate de fer(II) $\text{FeSO}_4$. Quelle masse de sulfate de fer contient-il ?</p>
+    <details class="indice"><p>Pour la question 3, chaque $\text{FeSO}_4$ contient un ion fer $\text{Fe}^{2+}$, donc un élément fer : la quantité de matière de sulfate de fer est celle du fer.</p></details>
+    <details class="correction">
+      <p>1. $m=2{,}5\times\dfrac{250}{100}=6{,}25$ mg, soit environ 6,3 mg $=6{,}3\times10^{-3}$ g ; $n=\dfrac{6{,}25\times10^{-3}}{55{,}8}=1{,}1\times10^{-4}$ mol ; $N=1{,}12\times10^{-4}\times6{,}02\times10^{23}=6{,}7\times10^{19}$ entités de fer. Les données ont deux chiffres significatifs : les résultats aussi.</p>
+      <p>2. $\dfrac{14}{2{,}5}\times100=560$ g de lentilles.</p>
+      <p>3. $n(\text{Fe})=\dfrac{14\times10^{-3}}{55{,}8}=2{,}5\times10^{-4}$ mol $=n(\text{FeSO}_4)$. $M(\text{FeSO}_4)=55{,}8+32{,}1+4\times16{,}0=151{,}9$ g/mol, donc $m=2{,}51\times10^{-4}\times151{,}9=3{,}8\times10^{-2}$ g, soit 38 mg de sulfate de fer pour 14 mg de fer : la masse du composé n'est pas celle de l'élément.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-d-ou-vient-la-masse-molaire" data-titre="D'où vient la masse molaire ?" data-niveau="3" data-type="raisonnement" data-notions="masse-molaire mole" data-duree="15" data-calculatrice="non">
+    <p>Un atome de carbone a une masse d'environ $1{,}99\times10^{-23}$ g. On prendra $N_A\approx6{,}0\times10^{23}$ mol⁻¹.</p>
+    <p>1. Sans calculatrice, montrer que la masse d'une mole d'atomes de carbone vaut environ 12 g.<br>2. Un échantillon de masse $m$ contient $N$ entités, chacune de masse $m_{\text{entité}}$. À partir de $N=\dfrac{m}{m_{\text{entité}}}$ et de $n=\dfrac{N}{N_A}$, montrer que $n=\dfrac{m}{M}$ avec $M=m_{\text{entité}}\times N_A$.<br>3. Sans calculatrice, estimer la masse d'une molécule de dioxygène ($M=32$ g/mol).</p>
+    <details class="correction">
+      <p>1. $1{,}99\times10^{-23}\times6{,}0\times10^{23}\approx2\times6=12$ g : c'est la masse molaire atomique du carbone, $M(\text{C})=12{,}0$ g/mol.</p>
+      <p>2. $n=\dfrac{N}{N_A}=\dfrac{m}{m_{\text{entité}}\times N_A}$. Le dénominateur est la masse de $N_A$ entités, c'est-à-dire la masse d'une mole : $M=m_{\text{entité}}\times N_A$. Donc $n=\dfrac{m}{M}$.</p>
+      <p>3. $m_{\text{molécule}}=\dfrac{M}{N_A}\approx\dfrac{32}{6{,}0\times10^{23}}\approx5{,}3\times10^{-23}$ g (32 divisé par 6, c'est un peu plus de 5).</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi compter en moles plutôt qu'en grammes ?</summary>
+      <div><p>Parce qu'une réaction chimique se fait entité contre entité : une molécule de méthane réagit avec deux molécules de dioxygène, quelle que soit leur masse. Pour savoir si on a mis assez de réactif, il faut donc compter des entités, et la mole est la façon de les compter par paquets. La balance donne des grammes ; la masse molaire les traduit en moles.</p></div></details>
+    <details><summary>La masse molaire, c'est la masse de quoi ?</summary>
+      <div><p>D'une mole d'entités : $6{,}02\times10^{23}$ atomes, molécules ou ions. C'est pour cela que son unité est le g/mol, « des grammes par mole ». La masse d'un échantillon, elle, s'écrit en grammes tout court.</p></div></details>
+    <details><summary>Pourquoi 22,4 L/mol dans un exercice et 24,0 L/mol dans un autre ?</summary>
+      <div><p>Parce que le volume molaire dépend de la température (et de la pression). Sous la pression atmosphérique, il vaut 22,4 L/mol à 0 °C et 24,0 L/mol à 20 °C. Un énoncé donne toujours la valeur qui correspond à sa situation : c'est celle-là qu'on prend.</p></div></details>
+    <details><summary>Dans $c=n/V$, c'est le volume d'eau ou le volume de solution ?</summary>
+      <div><p>Le volume de solution, celui de la fiole jaugée une fois complétée au trait. Si on dissout un solide dans 250 mL d'eau, le volume final n'est pas exactement 250 mL : c'est pour cela qu'on complète « jusqu'au trait » au lieu de verser un volume d'eau fixé.</p></div></details>
+    <details><summary>Pourquoi l'ion $\text{K}^+$ a-t-il la même masse molaire que l'atome K ?</summary>
+      <div><p>Parce qu'un électron est environ 1 800 fois plus léger qu'un proton ou un neutron. Perdre ou gagner un ou deux électrons ne change pas la masse au dixième de gramme par mole près. On calcule donc la masse molaire d'un ion comme celle de l'atome ou de la molécule dont il vient.</p></div></details>
+    <details><summary>Une mole, c'est beaucoup ou peu ?</summary>
+      <div><p>Ça dépend de quoi. Une mole d'eau, c'est 18 g, une gorgée. Une mole de sucre de table, c'est 342 g, une bonne part d'un paquet. Une mole de gaz, c'est 24 L à 20 °C : un cube de 29 cm de côté. Mais en nombre d'entités, c'est toujours immense : $6{,}02\times10^{23}$, plus que le nombre de grains de sable de toutes les plages de la Terre.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
