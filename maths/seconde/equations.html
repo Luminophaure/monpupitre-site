@@ -1,0 +1,709 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de equations.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/seconde/equations.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Équations et inéquations · Seconde</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=111fcfb17b">
+<script type="module" src="../../assets/js/site.js?v=8e0426bb28"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FYHII6FD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5ICHLVNG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FQMGHO33.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Y4E4LUGI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TXQJ4LFT.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-A7TVHOEX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BQVG5Y6W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VSNMPXAG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LFIQUW6Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-F4TDOHJ7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IRIHGH3W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-AXEUPRJR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-54DBUP5W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7AWFOZ4Q.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5CQ7V5XH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-W5F6LKUU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-633SPKER.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-XHIOKJ62.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BHLY6PDJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/equations.js?v=99abf88201">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/equations.js?v=26b58de0ce">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-FJDOJX6R.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-QCVEE7MZ.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="equations" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Seconde · Nombres et calculs</span>
+  <h1>Équations et inéquations</h1>
+  <p class="chapeau">Une équation pose une question : pour quelles valeurs de l'inconnue l'égalité est-elle vraie ? Une inéquation pose la même question avec « plus petit » ou « plus grand ». On apprend à y répondre par le calcul, à écrire <strong>toutes</strong> les réponses, et à mettre un problème en équation.</p>
+  <ul class="objectifs">
+    <li>Tester si un nombre est solution</li><li>Résoudre une équation du premier degré</li><li>Résoudre une équation produit nul et $x^2=a$</li><li>Repérer une valeur interdite</li><li>Résoudre une inéquation et écrire ses solutions en intervalle</li><li>Mettre un problème en équation</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Pour un week-end, Inès compare deux loueurs de vélos électriques.</strong> Le loueur A demande 14 € plus 0,25 € par kilomètre ; le loueur B, 6 € plus 0,45 € par kilomètre. Lequel choisir ? Tout dépend de la distance $x$ qu'elle compte parcourir. Les deux prix sont égaux quand $14+0{,}25x=6+0{,}45x$ : c'est une <strong>équation</strong>. Le loueur A est moins cher quand $14+0{,}25x\lt 6+0{,}45x$ : c'est une <strong>inéquation</strong>. Tout le chapitre tient dans ces deux lignes ; la réponse est dans la partie 8.</p>
+    <p class="discret">Ils s'en servent : les conseillers de vente qui comparent des offres, les gestionnaires d'une flotte de véhicules, les comptables et les contrôleurs de gestion (à partir de combien de ventes une boutique gagne-t-elle de l'argent ? c'est une inéquation), les techniciens qui dosent un mélange. Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-equation">1. Équation, solution, ensemble des solutions</h3>
+
+  <div class="bloc definition" data-titre="Équation, solution">
+    <p>Une <strong>équation</strong> d'inconnue $x$ est une égalité qui contient $x$. Elle a deux <strong>membres</strong>, de part et d'autre du signe $=$.</p>
+    <p>Un nombre est <strong>solution</strong> de l'équation si, quand on remplace $x$ par ce nombre, les deux membres prennent la même valeur.</p>
+    <p><strong>Résoudre</strong> l'équation, c'est trouver <strong>toutes</strong> ses solutions. On les rassemble dans l'<strong>ensemble des solutions</strong>, noté $S$ : par exemple $S=\{-5\,;\,5\}$.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Tester une valeur">
+    <p>L'équation $3x+5=x+1$. Je teste $x=-2$ : à gauche, $3\times(-2)+5=-1$ ; à droite, $-2+1=-1$. Les deux membres sont égaux : $-2$ est solution.</p>
+    <p>Je teste $x=0$ : à gauche, $5$ ; à droite, $1$. Ils sont différents : $0$ n'est pas solution.</p>
+    <p>Tester sert à <strong>vérifier</strong> une réponse. Pour trouver toutes les solutions, on transforme l'équation.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="balance" viewBox="0 0 468 193" role="img" aria-label="Une balance à deux plateaux, en équilibre. Sur le plateau de gauche, trois boîtes marquées x et un poids de 2. Sur le plateau de droite, une boîte marquée x et un poids de 8. Au-dessus, l'équation 3x + 2 = x + 8."><polygon class="forme-4" points="214.4,178.0 253.6,178.0 234,116.4"/><g class="trace t-n"><line x1="189.2" y1="178.0" x2="278.8" y2="178.0"/></g><rect class="forme-4" x="71.6" y="107.4" width="324.8" height="9.0"/><g class="trace t-n"><line x1="110.8" y1="107.4" x2="110.8" y2="91.2"/></g><g class="trace t-n"><line x1="357.2" y1="107.4" x2="357.2" y2="91.2"/></g><rect class="forme-4" x="35.2" y="84.2" width="151.2" height="7.0"/><rect class="forme-4" x="281.6" y="84.2" width="151.2" height="7.0"/><rect class="forme" x="40.8" y="56.2" width="28.0" height="28.0"/><text class="lettre" x="49.8" y="75.8">x</text><rect class="forme" x="73.0" y="56.2" width="28.0" height="28.0"/><text class="lettre" x="82.0" y="75.8">x</text><rect class="forme" x="105.2" y="56.2" width="28.0" height="28.0"/><text class="lettre" x="114.2" y="75.8">x</text><rect class="forme-3" x="140.2" y="61.8" width="36.4" height="22.4"/><text class="lettre" x="152.8" y="75.8">2</text><rect class="forme" x="292.8" y="56.2" width="28.0" height="28.0"/><text class="lettre" x="301.8" y="75.8">x</text><rect class="forme-3" x="346.0" y="50.6" width="42.0" height="33.6"/><text class="lettre" x="361.4" y="75.8">8</text><text class="lettre" x="71.6" y="31.0">3x + 2</text><text class="lettre" x="227.0" y="31.0">=</text><text class="lettre" x="326.4" y="31.0">x + 8</text></svg><figcaption>La balance est en équilibre : $3x+2=x+8$. On retire une boîte de chaque plateau, puis 2 de chaque plateau : elle reste en équilibre, et il reste $2x=6$. Chaque boîte pèse 3.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Les deux règles qui gardent les solutions">
+    <p>On ne change pas les solutions d'une équation quand :</p>
+    <ul>
+      <li>on <strong>ajoute</strong> ou on <strong>soustrait</strong> un même nombre (ou une même expression) aux deux membres ;</li>
+      <li>on <strong>multiplie</strong> ou on <strong>divise</strong> les deux membres par un même nombre <strong>non nul</strong>.</li>
+    </ul>
+    <p>Deux équations qui ont les mêmes solutions sont dites <strong>équivalentes</strong>. Résoudre, c'est écrire une suite d'équations équivalentes, jusqu'à une équation dont on lit les solutions (le plus souvent $x=\ldots$).</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-premier-degre">2. Les équations du premier degré</h3>
+
+  <div class="bloc definition" data-titre="Équation du premier degré">
+    <p>Une équation est du <strong>premier degré</strong> quand, après avoir développé et réduit, elle s'écrit $ax+b=0$ avec $a\neq0$ : des $x$, mais pas de $x^2$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Une seule solution">
+    <p>Si $a\neq0$, l'équation $ax=c$ a une seule solution : $x=\dfrac{c}{a}$. On écrit $S=\left\{\dfrac ca\right\}$. Par exemple, $ax+b=0$ donne $ax=-b$, puis $x=-\dfrac ba$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Résoudre une équation du premier degré">
+    <ol class="etapes">
+      <li><span>S'il y a des parenthèses, je développe et je réduis chaque membre.</span></li>
+      <li><span>Je regroupe les termes en $x$ d'un côté et les nombres de l'autre, en ajoutant ou en soustrayant la même chose aux deux membres.</span></li>
+      <li><span>Je divise les deux membres par le coefficient de $x$.</span></li>
+      <li><span>Je vérifie en remplaçant $x$ dans l'équation de départ.</span></li>
+      <li><span>J'écris l'ensemble des solutions.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Résous $4(x-2)=7x+1$.</p>
+      <ol class="pas">
+        <li><strong>Je développe.</strong> $4x-8=7x+1$.</li>
+        <li><strong>Je regroupe.</strong> Je soustrais $7x$ et j'ajoute $8$ aux deux membres : $4x-7x=1+8$, soit $-3x=9$.</li>
+        <li><strong>Je divise par $-3$.</strong> $x=\dfrac{9}{-3}=-3$.</li>
+        <li><strong>Je vérifie.</strong> À gauche, $4\times(-3-2)=4\times(-5)=-20$ ; à droite, $7\times(-3)+1=-20$. Égaux.</li>
+        <li><strong>Conclusion.</strong> $S=\{-3\}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Avec un dénominateur">
+    <p>$\dfrac{2x+1}{3}=5$. Je multiplie les deux membres par $3$ : $2x+1=15$, puis $2x=14$, et $x=7$. Vérification : $\dfrac{2\times7+1}{3}=\dfrac{15}{3}=5$. Donc $S=\{7\}$.</p>
+    <p>Quand il y a plusieurs dénominateurs, je multiplie les deux membres par un nombre que tous divisent : pour $\dfrac x4$ et $\dfrac x6$, par $12$.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Quand les x disparaissent">
+    <p>$2(x+3)=2x+5$ devient $2x+6=2x+5$, puis $6=5$ : c'est faux quel que soit $x$. L'équation <strong>n'a pas de solution</strong>. On écrit aussi $S=\varnothing$ : c'est l'<strong>ensemble vide</strong>, l'ensemble qui ne contient aucun nombre.</p>
+    <p>$2(x+3)=2x+6$ devient $6=6$ : c'est vrai quel que soit $x$. <strong>Tous les réels</strong> sont solutions : $S=\mathbb R$.</p>
+    <p>Ces deux équations ne sont pas du premier degré : une fois réduites, il n'y reste plus de $x$.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-isoler">3. Isoler une lettre dans une formule</h3>
+
+  <div class="bloc methode" data-titre="Exprimer une lettre en fonction des autres">
+    <ol class="etapes">
+      <li><span>Je repère la lettre que je cherche : c'est mon inconnue. Les autres lettres sont des nombres connus.</span></li>
+      <li><span>J'applique les deux règles des équations, comme si les autres lettres étaient des nombres.</span></li>
+      <li><span>Quand je divise par une lettre, je vérifie qu'elle ne peut pas valoir $0$.</span></li>
+      <li><span>Je contrôle avec les unités, ou avec des valeurs simples.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> La loi d'Ohm s'écrit $U=RI$ (tension en volts, résistance en ohms, intensité en ampères). Exprime $I$, puis calcule-la pour $U=12$ V et $R=48\ \Omega$.</p>
+      <ol class="pas">
+        <li><strong>L'inconnue.</strong> C'est $I$ ; $U$ et $R$ sont connues, et $R\neq0$.</li>
+        <li><strong>Je divise les deux membres par $R$.</strong> $\dfrac UR=I$, donc $I=\dfrac UR$.</li>
+        <li><strong>Je calcule.</strong> $I=\dfrac{12}{48}=0{,}25$ A.</li>
+        <li><strong>Je contrôle.</strong> $48\times0{,}25=12$ : on retrouve $U$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Deux formules de plus">
+    <p>La dose d'un médicament prescrit à 15 mg par kilogramme de masse corporelle s'écrit $D=15m$. Pour une dose de 600 mg, $m=\dfrac{D}{15}=\dfrac{600}{15}=40$ kg.</p>
+    <p>L'aire d'un disque s'écrit $S=\pi r^2$. Pour exprimer $r$ : $r^2=\dfrac S\pi$. Cette équation a deux solutions (partie 5), $\sqrt{\dfrac S\pi}$ et son opposé ; un rayon est positif, on garde $r=\sqrt{\dfrac S\pi}$.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-produit-nul">4. L'équation produit nul</h3>
+
+  <div class="bloc propriete" data-titre="Produit nul">
+    <p>Un produit de facteurs est nul <strong>si et seulement si</strong> l'un au moins de ses facteurs est nul :</p>
+    $$A\times B=0 \iff A=0 \text{ ou } B=0$$
+    <p>Cette règle ne vaut <strong>que pour le nombre $0$</strong>.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Se ramener à un produit nul">
+    <ol class="etapes">
+      <li><span>Je fais passer tous les termes du même côté, pour avoir « $\ldots=0$ ».</span></li>
+      <li><span>Je factorise (facteur commun, identité remarquable : chapitre « Calcul littéral »).</span></li>
+      <li><span>J'applique le produit nul : l'un au moins des facteurs vaut $0$, donc j'écris une équation par facteur.</span></li>
+      <li><span>Je résous chaque petite équation, et j'écris <strong>toutes</strong> les solutions dans $S$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Résous $x^2=5x$.</p>
+      <ol class="pas">
+        <li><strong>Tout d'un côté.</strong> $x^2-5x=0$.</li>
+        <li><strong>Je factorise par $x$.</strong> $x(x-5)=0$.</li>
+        <li><strong>Produit nul.</strong> $x=0$ ou $x-5=0$.</li>
+        <li><strong>Les solutions.</strong> $x=0$ ou $x=5$. Vérification : $0^2=5\times0$ et $5^2=25=5\times5$. Donc $S=\{0\,;\,5\}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Deux facteurs du premier degré">
+    <p>$(2x-3)(x+4)=0$ : $2x-3=0$ ou $x+4=0$, soit $x=\dfrac32$ ou $x=-4$. Donc $S=\left\{-4\,;\,\dfrac32\right\}$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Diviser par x">
+    <p>Dans $x^2=5x$, tout le monde a envie de diviser par $x$ : on trouve $x=5$… et on perd la solution $0$. On ne divise jamais par une expression qui peut valoir $0$ : on factorise.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Un produit égal à 4">
+    <p>$(x-1)(x+2)=4$ ne donne pas « $x-1=4$ ou $x+2=4$ ». Pour $x=5$, le premier facteur vaut bien $4$, mais le produit vaut $4\times7=28$. Ici, on passe le $4$ à gauche et on développe : $x^2+x-6=0$. On vérifie en développant que $x^2+x-6=(x-2)(x+3)$ (en première, tu sauras trouver ce genre de factorisation toi-même) : $(x-2)(x+3)=0$, et $S=\{-3\,;\,2\}$.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-carre">5. Les équations $x^2=a$</h3>
+
+  <div class="bloc propriete" data-titre="Les solutions de x² = a">
+    <ul>
+      <li>Si $a\gt 0$ : <strong>deux solutions</strong>, $\sqrt a$ et $-\sqrt a$. $S=\{-\sqrt a\,;\,\sqrt a\}$.</li>
+      <li>Si $a=0$ : <strong>une solution</strong>, $0$.</li>
+      <li>Si $a\lt 0$ : <strong>aucune solution</strong>, car un carré n'est jamais négatif.</li>
+    </ul>
+    <p>Pourquoi deux solutions ? Pour $a\gt 0$, $x^2=a$ devient $x^2-a=0$, soit $(x-\sqrt a)(x+\sqrt a)=0$ : une équation produit nul.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="carre" viewBox="0 0 394 145" role="img" aria-label="Une droite graduée de −5 à 5. Les points −3 et 3 sont marqués ; deux flèches montrent qu'ils sont tous deux à la distance 3 de 0. Au-dessus : (−3)² = 9 et 3² = 9."><g class="trace t-n"><line x1="13.4" y1="98.4" x2="372.8" y2="98.4"/><polygon points="380.6,98.4 367.6,104.2 367.6,92.6"/></g><g class="trace t-n"><line x1="61.0" y1="102.5" x2="61.0" y2="94.3"/></g><g class="trace t-n"><line x1="95.0" y1="102.5" x2="95.0" y2="94.3"/></g><g class="trace t-n"><line x1="129.0" y1="102.5" x2="129.0" y2="94.3"/></g><g class="trace t-n"><line x1="163.0" y1="102.5" x2="163.0" y2="94.3"/></g><g class="trace t-n"><line x1="197.0" y1="102.5" x2="197.0" y2="94.3"/></g><g class="trace t-n"><line x1="231.0" y1="102.5" x2="231.0" y2="94.3"/></g><g class="trace t-n"><line x1="265.0" y1="102.5" x2="265.0" y2="94.3"/></g><g class="trace t-n"><line x1="299.0" y1="102.5" x2="299.0" y2="94.3"/></g><g class="trace t-n"><line x1="333.0" y1="102.5" x2="333.0" y2="94.3"/></g><g class="trace t-n"><line x1="367.0" y1="102.5" x2="367.0" y2="94.3"/></g><text class="petit" x="16.8" y="119.5">−5</text><text class="petit" x="50.8" y="119.5">−4</text><text class="petit" x="84.8" y="119.5">−3</text><text class="petit" x="118.8" y="119.5">−2</text><text class="petit" x="152.8" y="119.5">−1</text><text class="petit" x="192.9" y="119.5">0</text><text class="petit" x="226.9" y="119.5">1</text><text class="petit" x="260.9" y="119.5">2</text><text class="petit" x="294.9" y="119.5">3</text><text class="petit" x="328.9" y="119.5">4</text><text class="petit" x="362.9" y="119.5">5</text><circle class="pt pt-v" cx="95.0" cy="98.4" r="4.5"/><circle class="pt pt-v" cx="299.0" cy="98.4" r="4.5"/><g class="trace t-n"><line x1="146.0" y1="71.2" x2="102.8" y2="71.2"/><polygon points="95.0,71.2 108.0,65.4 108.0,77.0"/></g><g class="trace t-n"><line x1="146.0" y1="71.2" x2="189.2" y2="71.2"/><polygon points="197.0,71.2 184.0,77.0 184.0,65.4"/></g><text class="moyen" x="142.0" y="63.2">3</text><g class="trace t-n"><line x1="248.0" y1="71.2" x2="204.8" y2="71.2"/><polygon points="197.0,71.2 210.0,65.4 210.0,77.0"/></g><g class="trace t-n"><line x1="248.0" y1="71.2" x2="291.2" y2="71.2"/><polygon points="299.0,71.2 286.0,77.0 286.0,65.4"/></g><text class="moyen" x="244.0" y="63.2">3</text><text class="moyen" x="40.6" y="33.8">(−3)² = 9</text><text class="moyen" x="275.2" y="33.8">3² = 9</text></svg><figcaption>$x^2=9$ : les nombres dont le carré vaut 9 sont à la distance 3 de 0, d'un côté ou de l'autre. Il y en a deux, $-3$ et $3$.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Quatre exemples">
+    <p>$x^2=25$ : $S=\{-5\,;\,5\}$. · $x^2=10$ : $S=\{-\sqrt{10}\,;\,\sqrt{10}\}$. · $x^2=-9$ : pas de solution.</p>
+    <p>$(x-1)^2=9$ : $x-1=3$ ou $x-1=-3$, donc $x=4$ ou $x=-2$, et $S=\{-2\,;\,4\}$.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-quotient">6. L'équation quotient</h3>
+
+  <div class="bloc definition" data-titre="Valeur interdite">
+    <p>L'expression $\dfrac{A(x)}{B(x)}$ n'existe que si $B(x)\neq0$ : on ne divise pas par $0$. Les valeurs de $x$ qui annulent le dénominateur sont <strong>interdites</strong>. Elles ne peuvent jamais être solutions.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Quotient nul">
+    <p>Un quotient est nul si et seulement si son numérateur est nul et son dénominateur ne l'est pas :</p>
+    $$\frac AB=0 \iff A=0 \text{ et } B\neq0$$
+  </div>
+
+  <div class="bloc methode" data-titre="Résoudre une équation quotient">
+    <ol class="etapes">
+      <li><span>Je cherche la valeur interdite : je résous « dénominateur $=0$ ».</span></li>
+      <li><span>Si le second membre est $0$, je résous « numérateur $=0$ ». Sinon, je multiplie les deux membres par le dénominateur, qui n'est pas nul.</span></li>
+      <li><span>J'écarte toute solution interdite.</span></li>
+      <li><span>J'écris l'ensemble des solutions.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Résous $\dfrac{3x-12}{x+2}=0$.</p>
+      <ol class="pas">
+        <li><strong>La valeur interdite.</strong> $x+2=0$ pour $x=-2$ : $-2$ est interdite.</li>
+        <li><strong>Le numérateur.</strong> $3x-12=0$, soit $x=4$.</li>
+        <li><strong>Je contrôle.</strong> $4\neq-2$ : la solution est permise.</li>
+        <li><strong>Conclusion.</strong> $S=\{4\}$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Avec un second membre non nul">
+    <p>$\dfrac{12}{x}=3$ : $x=0$ est interdite. Je multiplie par $x$ : $12=3x$, donc $x=4$, et $S=\{4\}$.</p>
+    <p>$\dfrac{x+3}{x-1}=2$ : $x=1$ est interdite. Je multiplie par $x-1$ : $x+3=2(x-1)=2x-2$, donc $x=5$. Vérification : $\dfrac{8}{4}=2$. $S=\{5\}$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="La solution interdite">
+    <p>$\dfrac{x^2-4}{x-2}=0$ : le numérateur s'annule pour $2$ et pour $-2$. Mais $2$ annule aussi le dénominateur : il est interdit. Il ne reste que $S=\{-2\}$.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-inequations">7. Les inéquations du premier degré</h3>
+
+  <div class="bloc definition" data-titre="Inéquation, ensemble des solutions">
+    <p>Une <strong>inéquation</strong> compare deux membres avec $\lt$, $\leqslant$, $\gt$ ou $\geqslant$. Un nombre est <strong>solution</strong> si l'inégalité est vraie quand on remplace $x$ par ce nombre.</p>
+    <p>Une inéquation du premier degré a en général une infinité de solutions. On écrit leur ensemble sous forme d'<strong>intervalle</strong> (les notations sont dans le chapitre « Nombres et intervalles »), et on le dessine sur une droite graduée.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les règles des inégalités, pour résoudre">
+    <ul>
+      <li>Ajouter ou soustraire un même nombre (ou une même expression) aux deux membres : <strong>le sens ne change pas</strong>.</li>
+      <li>Multiplier ou diviser les deux membres par un même nombre <strong>strictement positif</strong> : le sens ne change pas.</li>
+      <li>Multiplier ou diviser les deux membres par un même nombre <strong>strictement négatif</strong> : <strong>le sens change</strong>. $\lt$ devient $\gt$, et $\leqslant$ devient $\geqslant$.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="retournement" viewBox="0 0 410 236" role="img" aria-label="Une droite graduée de −6 à 6. Les points 2 et 5 sont marqués à droite de 0 ; leurs opposés −2 et −5 à gauche. Deux arcs en pointillés relient 2 à −2 et 5 à −5 en passant au-dessus de 0. À droite, 2 < 5 ; à gauche, −5 < −2 : l'ordre s'est inversé."><g class="trace t-n"><line x1="13.0" y1="190" x2="389.2" y2="190.0"/><polygon points="397.0,190.0 384.0,195.8 384.0,184.2"/></g><g class="trace t-n"><line x1="55.0" y1="193.6" x2="55.0" y2="186.4"/></g><g class="trace t-n"><line x1="85.0" y1="193.6" x2="85.0" y2="186.4"/></g><g class="trace t-n"><line x1="115.0" y1="193.6" x2="115.0" y2="186.4"/></g><g class="trace t-n"><line x1="145.0" y1="193.6" x2="145.0" y2="186.4"/></g><g class="trace t-n"><line x1="175.0" y1="193.6" x2="175.0" y2="186.4"/></g><g class="trace t-n"><line x1="205.0" y1="193.6" x2="205.0" y2="186.4"/></g><g class="trace t-n"><line x1="235.0" y1="193.6" x2="235.0" y2="186.4"/></g><g class="trace t-n"><line x1="265.0" y1="193.6" x2="265.0" y2="186.4"/></g><g class="trace t-n"><line x1="295.0" y1="193.6" x2="295.0" y2="186.4"/></g><g class="trace t-n"><line x1="325.0" y1="193.6" x2="325.0" y2="186.4"/></g><g class="trace t-n"><line x1="355.0" y1="193.6" x2="355.0" y2="186.4"/></g><g class="trace t-n"><line x1="385.0" y1="193.6" x2="385.0" y2="186.4"/></g><text class="petit" x="46.0" y="208.6">−5</text><text class="petit" x="136.0" y="208.6">−2</text><text class="petit" x="201.4" y="208.6">0</text><text class="petit" x="261.4" y="208.6">2</text><text class="petit" x="351.4" y="208.6">5</text><g class="trace t-n pointille"><path d="M265.0,190.0 A60.0,60.0 0 0 0 145.0,190.0"/></g><g class="trace t-n pointille"><path d="M355.0,190.0 A150.0,150.0 0 0 0 55.0,190.0"/></g><circle class="pt pt-u" cx="265.0" cy="190" r="4.5"/><circle class="pt pt-u" cx="355.0" cy="190" r="4.5"/><circle class="pt pt-v" cx="145.0" cy="190" r="4.5"/><circle class="pt pt-v" cx="55.0" cy="190" r="4.5"/><text class="moyen" x="281.5" y="176.5">2 &lt; 5</text><text class="moyen" x="68.5" y="176.5">−5 &lt; −2</text><text class="lettre" x="176.5" y="29.5">× (−1)</text></svg><figcaption>$2\lt 5$. Multiplier par $-1$ envoie chaque nombre de l'autre côté de 0 : $5$, le plus loin à droite, devient $-5$, le plus loin à gauche. L'ordre s'inverse : $-5\lt -2$, soit $-2\gt -5$.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Résoudre une inéquation du premier degré">
+    <ol class="etapes">
+      <li><span>Je regroupe les $x$ d'un côté et les nombres de l'autre, comme pour une équation.</span></li>
+      <li><span>Je divise par le coefficient de $x$. <strong>S'il est négatif, je retourne le symbole.</strong></span></li>
+      <li><span>J'écris l'ensemble des solutions en intervalle : crochet tourné vers l'intérieur si la borne est solution ($\leqslant$, $\geqslant$), vers l'extérieur sinon ($\lt$, $\gt$), et toujours vers l'extérieur du côté de l'infini.</span></li>
+      <li><span>Je contrôle avec un nombre <strong>dans</strong> l'intervalle, loin de la borne, et un nombre dehors.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Résous $5-2x\gt 11$.</p>
+      <ol class="pas">
+        <li><strong>Je regroupe.</strong> Je soustrais $5$ : $-2x\gt 6$.</li>
+        <li><strong>Je divise par $-2$, un nombre négatif : je retourne le symbole.</strong> $x\lt \dfrac{6}{-2}$, soit $x\lt -3$.</li>
+        <li><strong>L'intervalle.</strong> $S=\left]-\infty\,;\,-3\right[$ : la borne $-3$ n'est pas solution ($5+6=11$, et $11\gt 11$ est faux).</li>
+        <li><strong>Je contrôle.</strong> $x=-5$ (dans $S$) : $5+10=15\gt 11$, vrai. $x=0$ (dehors) : $5\gt 11$, faux.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="intervalle" viewBox="0 0 470 200" role="img" aria-label="Deux droites graduées. Sur la première, la partie à gauche de 5 est coloriée, avec un crochet fermé en 5 : x ⩽ 5, S = ]−∞ ; 5]. Sur la seconde, la partie à droite de −1 est coloriée, avec un crochet ouvert en −1 : x > −1, S = ]−1 ; +∞[."><g class="trace t-n"><line x1="13.0" y1="52.0" x2="449.2" y2="52.0"/><polygon points="457.0,52.0 444.0,57.9 444.0,46.1"/></g><g class="trace t-n"><line x1="70" y1="55.6" x2="70" y2="48.4"/></g><g class="trace t-n"><line x1="100" y1="55.6" x2="100" y2="48.4"/></g><g class="trace t-n"><line x1="130" y1="55.6" x2="130" y2="48.4"/></g><g class="trace t-n"><line x1="160" y1="55.6" x2="160" y2="48.4"/></g><g class="trace t-n"><line x1="190" y1="55.6" x2="190" y2="48.4"/></g><g class="trace t-n"><line x1="220" y1="55.6" x2="220" y2="48.4"/></g><g class="trace t-n"><line x1="250" y1="55.6" x2="250" y2="48.4"/></g><g class="trace t-n"><line x1="280" y1="55.6" x2="280" y2="48.4"/></g><g class="trace t-n"><line x1="310" y1="55.6" x2="310" y2="48.4"/></g><g class="trace t-n"><line x1="340" y1="55.6" x2="340" y2="48.4"/></g><g class="trace t-n"><line x1="370" y1="55.6" x2="370" y2="48.4"/></g><g class="trace t-n"><line x1="400" y1="55.6" x2="400" y2="48.4"/></g><g class="trace t-n"><line x1="430" y1="55.6" x2="430" y2="48.4"/></g><text class="petit" x="181.0" y="79.0">−1</text><text class="petit" x="216.4" y="79.0">0</text><text class="petit" x="366.4" y="79.0">5</text><g class="trace t-u ep-6"><line x1="13.0" y1="52.0" x2="370" y2="52.0"/></g><g class="trace t-u ep-3"><line x1="361.6" y1="40.6" x2="370" y2="40.6"/></g><g class="trace t-u ep-3"><line x1="370" y1="40.6" x2="370" y2="63.4"/></g><g class="trace t-u ep-3"><line x1="370" y1="63.4" x2="361.6" y2="63.4"/></g><text class="moyen" x="16.0" y="28.0">x ⩽ 5</text><text class="moyen" x="118.0" y="28.0">S = ]−∞ ; 5]</text><g class="trace t-n"><line x1="13.0" y1="140.5" x2="449.2" y2="140.5"/><polygon points="457.0,140.5 444.0,146.3 444.0,134.7"/></g><g class="trace t-n"><line x1="70" y1="144.1" x2="70" y2="136.9"/></g><g class="trace t-n"><line x1="100" y1="144.1" x2="100" y2="136.9"/></g><g class="trace t-n"><line x1="130" y1="144.1" x2="130" y2="136.9"/></g><g class="trace t-n"><line x1="160" y1="144.1" x2="160" y2="136.9"/></g><g class="trace t-n"><line x1="190" y1="144.1" x2="190" y2="136.9"/></g><g class="trace t-n"><line x1="220" y1="144.1" x2="220" y2="136.9"/></g><g class="trace t-n"><line x1="250" y1="144.1" x2="250" y2="136.9"/></g><g class="trace t-n"><line x1="280" y1="144.1" x2="280" y2="136.9"/></g><g class="trace t-n"><line x1="310" y1="144.1" x2="310" y2="136.9"/></g><g class="trace t-n"><line x1="340" y1="144.1" x2="340" y2="136.9"/></g><g class="trace t-n"><line x1="370" y1="144.1" x2="370" y2="136.9"/></g><g class="trace t-n"><line x1="400" y1="144.1" x2="400" y2="136.9"/></g><g class="trace t-n"><line x1="430" y1="144.1" x2="430" y2="136.9"/></g><text class="petit" x="181.0" y="167.5">−1</text><text class="petit" x="216.4" y="167.5">0</text><text class="petit" x="366.4" y="167.5">5</text><g class="trace t-v ep-6"><line x1="190" y1="140.5" x2="448.0" y2="140.5"/></g><g class="trace t-v ep-3"><line x1="181.6" y1="129.1" x2="190" y2="129.1"/></g><g class="trace t-v ep-3"><line x1="190" y1="129.1" x2="190" y2="151.9"/></g><g class="trace t-v ep-3"><line x1="190" y1="151.9" x2="181.6" y2="151.9"/></g><text class="moyen" x="16.0" y="116.5">x &gt; −1</text><text class="moyen" x="118.0" y="116.5">S = ]−1 ; +∞[</text></svg><figcaption>En haut, $x\leqslant 5$ : la borne est solution, le crochet est tourné vers la partie coloriée. En bas, $x\gt -1$ : la borne n'est pas solution, le crochet est tourné vers l'extérieur.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Des x des deux côtés">
+    <p>$3x-4\leqslant x+6$. Je soustrais $x$ et j'ajoute $4$ : $2x\leqslant 10$. Je divise par $2$, positif : le sens reste, $x\leqslant 5$. Donc $S=\left]-\infty\,;\,5\right]$ (le dessin du haut). Contrôle : $x=0$ donne $-4\leqslant 6$, vrai.</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-modeliser">8. Mettre un problème en équation ou en inéquation</h3>
+
+  <div class="bloc methode" data-titre="Mettre en équation">
+    <ol class="etapes">
+      <li><span>Je choisis l'inconnue, je l'écris en toutes lettres, avec son unité : « $x$, le nombre de kilomètres ».</span></li>
+      <li><span>Je traduis l'énoncé. « Autant que », « égal » : une équation. « Au moins », « au plus », « moins cher que » : une inéquation.</span></li>
+      <li><span>Je résous.</span></li>
+      <li><span>Je vérifie dans l'<strong>énoncé</strong>, pas seulement dans l'équation.</span></li>
+      <li><span>Je réponds par une phrase, en regardant si la réponse a du sens : un nombre de places est entier, une longueur est positive.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Les vélos d'Inès (début du cours) : pour quelle distance les deux loueurs coûtent-ils le même prix ? Quand le loueur A est-il le moins cher ?</p>
+      <ol class="pas">
+        <li><strong>L'inconnue.</strong> $x$, le nombre de kilomètres parcourus ($x\geqslant0$).</li>
+        <li><strong>Le même prix.</strong> $14+0{,}25x=6+0{,}45x$, donc $8=0{,}2x$, et $x=40$.</li>
+        <li><strong>Je vérifie dans l'énoncé.</strong> Pour 40 km : A coûte $14+10=24$ €, B coûte $6+18=24$ €.</li>
+        <li><strong>A moins cher.</strong> $14+0{,}25x\lt 6+0{,}45x$, donc $8\lt 0{,}2x$ ; je divise par $0{,}2$, positif : $40\lt x$.</li>
+        <li><strong>La réponse.</strong> Les deux loueurs coûtent 24 € pour 40 km. Au-delà de 40 km, le loueur A est le moins cher ; en dessous, c'est B.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="barres" viewBox="0 0 380 164" role="img" aria-label="Un schéma en barres. Léo : une barre marquée x. Sam : une barre marquée x, suivie d'une barre de 8 €. Une accolade à droite indique que les deux lignes ensemble font 52 €. En dessous : x + x + 8 = 52."><text class="lettre" x="13.0" y="55.0">Léo</text><rect class="forme" x="64.0" y="34.0" width="135.0" height="30.0"/><text class="lettre" x="125.5" y="55.0">x</text><text class="lettre" x="13.0" y="109.0">Sam</text><rect class="forme" x="64.0" y="88.0" width="135.0" height="30.0"/><text class="lettre" x="125.5" y="109.0">x</text><rect class="forme-3" x="199.0" y="88.0" width="60.0" height="30.0"/><text class="lettre" x="212.5" y="109.0">8 €</text><g class="trace t-n"><line x1="289.0" y1="76.0" x2="289.0" y2="110.2"/><polygon points="289.0,118.0 283.1,105.0 294.9,105.0"/></g><g class="trace t-n"><line x1="289.0" y1="76.0" x2="289.0" y2="41.8"/><polygon points="289.0,34.0 294.9,47.0 283.1,47.0"/></g><text class="moyen" x="301.0" y="82.0">52 €</text><text class="moyen" x="64.0" y="146.5">x + x + 8 = 52</text></svg><figcaption>« Léo et Sam ont 52 € à eux deux ; Sam a 8 € de plus que Léo. » Le schéma en barres donne l'équation $x+x+8=52$, d'où $2x=44$ et $x=22$ : Léo a 22 €, Sam 30 €.</figcaption></figure>
+
+  <!-- ===== Pièges ===== -->
+  <h3 id="c-pieges">9. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait">
+    <ul>
+      <li><strong>Le sens qui ne change pas.</strong> En divisant $-3x\leqslant 9$ par $-3$, on écrit $x\leqslant -3$. Diviser par un négatif retourne le symbole : $x\geqslant -3$.</li>
+      <li><strong>Diviser par $x$.</strong> $x^2=5x$ « donc » $x=5$ : la solution $0$ a disparu. On factorise au lieu de diviser.</li>
+      <li><strong>$x^2=9$ « donc » $x=3$.</strong> $-3$ aussi : $(-3)^2=9$.</li>
+      <li><strong>Le produit nul hors de $0$.</strong> $(x-1)(x+2)=4$ ne se coupe pas en deux. On passe d'abord tout d'un côté.</li>
+      <li><strong>Le crochet.</strong> Strict ($\lt$, $\gt$) : la borne n'est pas solution, crochet ouvert. Large ($\leqslant$, $\geqslant$) : elle l'est, crochet fermé. Du côté de l'infini, toujours ouvert.</li>
+      <li><strong>La valeur interdite oubliée.</strong> Une solution qui annule un dénominateur n'en est pas une.</li>
+      <li><strong>Le signe perdu devant une parenthèse.</strong> $-(x+4)=-x-4$ : les deux termes changent de signe.</li>
+      <li><strong>La solution jamais vérifiée.</strong> Remplacer $x$ dans l'équation de départ prend trente secondes et attrape presque toutes les erreurs de signe.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">10. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Résoudre une équation du premier degré"></div>
+    <div class="video" data-titre="Résoudre une inéquation"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois expériences, dans l'ordre du cours : garder une balance en équilibre en faisant la même chose des deux côtés ; construire l'ensemble des solutions d'une inéquation sur la droite ; chercher quand un produit vaut 0, puis quand il vaut un autre nombre.</p>
+
+  <div class="labo" data-labo="equations" data-outil="balance"></div>
+  <div class="labo" data-labo="equations" data-outil="droite"></div>
+  <div class="labo" data-labo="equations" data-outil="produit"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le défi tire des questions au hasard : tester une solution, résoudre, le produit nul, $x^2=a$, la valeur interdite, les inéquations en intervalle, traduire un énoncé, isoler une lettre. Le quiz reprend les réflexes du cours. Sans calculatrice.</p>
+
+  <div class="jeu" data-generateurs="equations" data-questions="10" data-titre="Le défi des équations"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Le nombre $4$ est-il solution de $2x-3=13-2x$ ?</p>
+      <ul class="choix">
+        <li class="bon">Oui : les deux membres valent $5$</li><li>Non, car $2\times4-3\neq0$</li><li>On ne peut pas savoir sans résoudre l'équation</li>
+      </ul>
+      <div class="explication">À gauche, $2\times4-3=5$ ; à droite, $13-8=5$. Les deux membres sont égaux, donc $4$ est solution. Tester une valeur, c'est remplacer $x$ des deux côtés : pas besoin de résoudre.</div>
+    </div>
+    <div class="question" data-reponse="4">
+      <p>Résous $5x-7=2x+5$. Donne la solution.</p>
+      <div class="explication">$5x-2x=5+7$, soit $3x=12$, et $x=4$. Vérification : $20-7=13$ et $8+5=13$.</div>
+    </div>
+    <div class="question">
+      <p>Quel est l'ensemble des solutions de $x^2=16$ ?</p>
+      <ul class="choix">
+        <li>$S=\{4\}$</li><li class="bon">$S=\{-4\,;\,4\}$</li><li>$S=\{8\}$</li><li>Pas de solution</li>
+      </ul>
+      <div class="explication">$16\gt 0$ : deux solutions, $\sqrt{16}=4$ et $-4$, car $(-4)^2=16$ aussi. Oublier $-4$ est l'erreur la plus fréquente.</div>
+    </div>
+    <div class="question">
+      <p>Quel est l'ensemble des solutions de $(x-2)(3x+6)=0$ ?</p>
+      <ul class="choix">
+        <li>$S=\{2\,;\,-6\}$</li><li class="bon">$S=\{-2\,;\,2\}$</li><li>$S=\{2\,;\,6\}$</li><li>$S=\{2\}$</li>
+      </ul>
+      <div class="explication">Produit nul : $x-2=0$ ou $3x+6=0$. La première donne $x=2$ ; la seconde, $3x=-6$, soit $x=-2$ (et pas $-6$ : il faut encore diviser par $3$).</div>
+    </div>
+    <div class="question">
+      <p>Quelle est la valeur interdite de $\dfrac{x+5}{2x-8}$ ?</p>
+      <ul class="choix">
+        <li class="bon">$4$</li><li>$-5$</li><li>$8$</li><li>Il n'y en a pas</li>
+      </ul>
+      <div class="explication">La valeur interdite annule le <strong>dénominateur</strong> : $2x-8=0$ pour $x=4$. $-5$ annule le numérateur : pour $x=-5$, le quotient vaut $0$, ce qui est permis.</div>
+    </div>
+    <div class="question">
+      <p>L'inéquation $-4x\lt 12$ équivaut à :</p>
+      <ul class="choix">
+        <li class="bon">$x\gt -3$</li><li>$x\lt -3$</li><li>$x\gt 3$</li><li>$x\lt 3$</li>
+      </ul>
+      <div class="explication">Je divise par $-4$, un nombre négatif : le symbole se retourne. $x\gt \dfrac{12}{-4}$, soit $x\gt -3$. Contrôle : $x=0$ donne $0\lt 12$, vrai, et $0\gt -3$.</div>
+    </div>
+    <div class="question">
+      <p>Quel est l'ensemble des solutions de $2x-1\geqslant 5$ ?</p>
+      <ul class="choix">
+        <li class="bon">$\left[3\,;\,+\infty\right[$</li><li>$\left]3\,;\,+\infty\right[$</li><li>$\left]-\infty\,;\,3\right]$</li><li>$\left[2\,;\,+\infty\right[$</li>
+      </ul>
+      <div class="explication">$2x\geqslant 6$, puis $x\geqslant 3$ (division par $2$, positif : le sens reste). L'inégalité est large : $3$ est solution, le crochet est fermé de son côté.</div>
+    </div>
+    <div class="question" data-reponse="5">
+      <p>La puissance d'un appareil électrique s'écrit $P=UI$. Une bouilloire de $P=1\,150$ W est branchée sur $U=230$ V. Que vaut l'intensité $I$, en ampères ?</p>
+      <div class="explication">$I=\dfrac PU=\dfrac{1\,150}{230}=5$ A. Contrôle : $230\times5=1\,150$.</div>
+    </div>
+    <div class="question">
+      <p>Combien de solutions l'équation $x^2=-9$ a-t-elle ?</p>
+      <ul class="choix">
+        <li class="bon">Aucune</li><li>Une, $-3$</li><li>Deux, $-3$ et $3$</li><li>Une, $3$</li>
+      </ul>
+      <div class="explication">Un carré n'est jamais négatif : $(-3)^2=9$, pas $-9$. Aucun réel n'a pour carré $-9$.</div>
+    </div>
+    <div class="question" data-reponse="10">
+      <p>Une baignoire contient déjà 30 L d'eau, et le robinet en ajoute 12 L par minute. Au bout de combien de minutes contient-elle 150 L ?</p>
+      <div class="explication">Avec $t$ en minutes : $30+12t=150$, donc $12t=120$ et $t=10$. Vérification : $30+120=150$.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Pas de correction à ouvrir : tu écris chaque ligne de ta résolution, et le vérificateur te dit si elle a les mêmes solutions que la précédente. Écris <code>0,3x</code> pour $0{,}3x$, et termine par une ligne du type <code>x=5</code> (<code>t=…</code> pour les cuves) ; si la solution n'est pas entière, une fraction simplifiée (<code>x=3/4</code>) ou son écriture décimale exacte (<code>x=0,75</code>). Si tu bloques, demande un indice, mais cherche d'abord seul.</p>
+
+  <article class="exercice" id="ex-les-x-d-un-cote" data-titre="Les x d'un côté" data-niveau="1" data-type="guide" data-notions="equation" data-duree="4" data-calculatrice="non">
+    <p>Résous l'équation. Commence par regrouper les $x$ du même côté.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="eq-cote" data-depart="5x-7=2x+8" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-un-coefficient-negatif" data-titre="Un coefficient négatif" data-niveau="1" data-type="guide" data-notions="equation" data-duree="5" data-calculatrice="non">
+    <p>Résous l'équation. Tu peux regrouper les $x$ à gauche ou à droite : les deux chemins mènent à la même solution.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="eq-negatif" data-depart="3x-7=5x+1" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-une-fraction-pour-reponse" data-titre="Une fraction pour réponse" data-niveau="1" data-type="guide" data-notions="equation" data-duree="5" data-calculatrice="non">
+    <p>Résous l'équation. La solution n'est pas entière : donne-la sous forme de fraction simplifiée.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="eq-fraction" data-depart="6x+4=2x+7" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-les-deux-imprimeurs" data-titre="Les deux imprimeurs" data-niveau="2" data-type="guide" data-notions="equation mise-en-equation" data-duree="6" data-calculatrice="non">
+    <p>Pour les affiches d'un concert, l'imprimeur A demande 12 € de mise en route plus 0,30 € par affiche ; l'imprimeur B, 5 € plus 0,50 € par affiche. Avec $x$ le nombre d'affiches, les deux devis sont égaux quand $12+0{,}3x=5+0{,}5x$. Résous cette équation, puis dis pour combien d'affiches les devis sont égaux.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="eq-imprimeurs" data-depart="12+0,3x=5+0,5x" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-les-deux-cuves" data-titre="Les deux cuves" data-niveau="2" data-type="guide" data-notions="equation mise-en-equation" data-duree="6" data-calculatrice="non">
+    <p>Une cuve contient déjà 8 L d'eau et se remplit de 1,5 L par minute ; une autre, vide au départ, se remplit de 2 L par minute. Avec $t$ le temps en minutes, elles contiennent autant d'eau quand $8+1{,}5t=2t$. Résous, puis vérifie dans l'énoncé que les deux cuves contiennent alors autant d'eau.</p>
+    <div class="tuteur" data-tuteur="equation" data-lettre="t" data-id="eq-cuves" data-depart="8+1,5t=2t" data-consigne="Résous :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ appliquer le cours, ★★ des situations et des preuves, ★★★ des problèmes complets. Rédige avant d'ouvrir la correction, et termine toujours par l'ensemble des solutions ou une phrase. Sans calculatrice, sauf si l'énoncé le dit.</p>
+
+  <h3>Niveau 1 · Appliquer le cours</h3>
+
+  <article class="exercice" id="ex-solution-ou-pas" data-titre="Solution ou pas ?" data-niveau="1" data-type="application" data-notions="equation" data-duree="6" data-calculatrice="non">
+    <p>On considère l'équation $2x^2-3x=5$. Parmi les nombres $-1$, $0$, $\dfrac52$ et $2$, lesquels sont solutions ?</p>
+    <details class="correction">
+      <p>Je remplace $x$ dans le membre de gauche, et je compare à $5$.</p>
+      <p>$x=-1$ : $2\times1-3\times(-1)=2+3=5$. Solution.</p>
+      <p>$x=0$ : $0-0=0\neq5$. Pas solution.</p>
+      <p>$x=\dfrac52$ : $2\times\dfrac{25}{4}-3\times\dfrac52=\dfrac{25}{2}-\dfrac{15}{2}=\dfrac{10}{2}=5$. Solution.</p>
+      <p>$x=2$ : $2\times4-6=2\neq5$. Pas solution.</p>
+      <p>Les solutions parmi ces nombres sont $-1$ et $\dfrac52$. Tester dit si un nombre est solution ; pour savoir s'il en existe d'autres, il faut résoudre (ici, il n'y en a pas d'autre : tu le verras en première).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-quatre-equations" data-titre="Quatre équations du premier degré" data-niveau="1" data-type="application" data-notions="equation" data-duree="10" data-calculatrice="non">
+    <p>Résous chaque équation, et vérifie ta solution.</p>
+    <p>a) $7x=-21$ · b) $4-3x=19$ · c) $6x-5=2x+9$ · d) $3(x-4)-(x+2)=0$</p>
+    <details class="indice"><p>Pour d), le signe « $-$ » devant la parenthèse change le signe de <strong>chacun</strong> de ses termes.</p></details>
+    <details class="correction">
+      <p>a) Je divise par $7$ : $x=-3$. $S=\{-3\}$.</p>
+      <p>b) Je soustrais $4$ : $-3x=15$. Je divise par $-3$ : $x=-5$. Vérification : $4+15=19$. $S=\{-5\}$.</p>
+      <p>c) $6x-2x=9+5$, soit $4x=14$, et $x=\dfrac{14}{4}=\dfrac72=3{,}5$. Vérification : $21-5=16$ et $7+9=16$. $S=\left\{\dfrac72\right\}$.</p>
+      <p>d) Je développe : $3x-12-x-2=0$, soit $2x-14=0$, donc $x=7$. Vérification : $3\times3-9=0$. $S=\{7\}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-fractions-dans-l-equation" data-titre="Des fractions dans l'équation" data-niveau="1" data-type="application" data-notions="equation" data-duree="10" data-calculatrice="non">
+    <p>Résous chaque équation.</p>
+    <p>a) $\dfrac x4=\dfrac32$ · b) $\dfrac x3+2=\dfrac x2$ · c) $\dfrac{x-1}{2}=\dfrac{x+4}{5}$</p>
+    <details class="indice"><p>Multiplie les deux membres par un nombre que tous les dénominateurs divisent : $4$ pour a), $6$ pour b), $10$ pour c).</p></details>
+    <details class="correction">
+      <p>a) Je multiplie par $4$ : $x=\dfrac{12}{2}=6$. $S=\{6\}$.</p>
+      <p>b) Je multiplie par $6$ : $2x+12=3x$, donc $x=12$. Vérification : $4+2=6$ et $\dfrac{12}{2}=6$. $S=\{12\}$.</p>
+      <p>c) Je multiplie par $10$ : $5(x-1)=2(x+4)$, soit $5x-5=2x+8$, donc $3x=13$ et $x=\dfrac{13}{3}$. Vérification : $\dfrac{13/3-1}{2}=\dfrac{10/3}{2}=\dfrac53$ et $\dfrac{13/3+4}{5}=\dfrac{25/3}{5}=\dfrac53$. $S=\left\{\dfrac{13}{3}\right\}$ (la valeur exacte, pas $4{,}33$).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-carres" data-titre="Des carrés" data-niveau="1" data-type="application" data-notions="produit-nul" data-duree="6" data-calculatrice="non">
+    <p>Résous chaque équation.</p>
+    <p>a) $x^2=49$ · b) $x^2=0$ · c) $x^2+4=0$ · d) $x^2=7$ · e) $3x^2=75$</p>
+    <details class="correction">
+      <p>a) $49\gt 0$ : $S=\{-7\,;\,7\}$.</p>
+      <p>b) Une seule solution : $S=\{0\}$.</p>
+      <p>c) $x^2=-4$ : un carré n'est jamais négatif, pas de solution.</p>
+      <p>d) $S=\{-\sqrt7\,;\,\sqrt7\}$ : on garde la valeur exacte.</p>
+      <p>e) Je divise par $3$ : $x^2=25$, donc $S=\{-5\,;\,5\}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-produits-nuls" data-titre="Des produits nuls" data-niveau="1" data-type="application" data-notions="produit-nul" data-duree="8" data-calculatrice="non">
+    <p>Résous chaque équation.</p>
+    <p>a) $(x-3)(2x+5)=0$ · b) $x(4x-1)=0$ · c) $(3-x)(x+3)=0$ · d) $(2x+1)^2=0$</p>
+    <details class="indice"><p>Pour d), un carré est un produit : $(2x+1)^2=(2x+1)(2x+1)$.</p></details>
+    <details class="correction">
+      <p>a) $x-3=0$ ou $2x+5=0$ : $x=3$ ou $x=-\dfrac52$. $S=\left\{-\dfrac52\,;\,3\right\}$.</p>
+      <p>b) $x=0$ ou $4x-1=0$ : $S=\left\{0\,;\,\dfrac14\right\}$.</p>
+      <p>c) $3-x=0$ ou $x+3=0$ : $x=3$ ou $x=-3$. $S=\{-3\,;\,3\}$.</p>
+      <p>d) Les deux facteurs sont les mêmes : $2x+1=0$, donc une seule solution, $S=\left\{-\dfrac12\right\}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-quatre-inequations" data-titre="Quatre inéquations" data-niveau="1" data-type="application" data-notions="inequation" data-duree="10" data-calculatrice="non">
+    <p>Résous chaque inéquation. Donne l'ensemble des solutions en intervalle, et dessine-le sur une droite graduée.</p>
+    <p>a) $x+7\lt 3$ · b) $3x\geqslant -12$ · c) $-5x\lt 20$ · d) $2-3x\gt x+10$</p>
+    <details class="indice"><p>Avant de diviser, regarde le signe du nombre par lequel tu divises.</p></details>
+    <details class="correction">
+      <p>a) Je soustrais $7$ : $x\lt -4$. $S=\left]-\infty\,;\,-4\right[$.</p>
+      <p>b) Je divise par $3$, positif : $x\geqslant -4$. $S=\left[-4\,;\,+\infty\right[$.</p>
+      <p>c) Je divise par $-5$, négatif : <strong>le sens change</strong>, $x\gt -4$. $S=\left]-4\,;\,+\infty\right[$. Contrôle : $x=0$ donne $0\lt 20$, vrai.</p>
+      <p>d) Je soustrais $x$ et $2$ : $-4x\gt 8$. Je divise par $-4$ : $x\lt -2$. $S=\left]-\infty\,;\,-2\right[$. Contrôle : $x=-3$ donne $11\gt 7$, vrai.</p>
+      <p>b) et c) ont la même borne et le même sens, mais pas le même crochet : $-4$ est solution de b) ($-12\geqslant-12$), pas de c) ($20\lt 20$ est faux).</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Des situations et des preuves</h3>
+
+  <article class="exercice" id="ex-se-ramener-a-un-produit-nul" data-titre="Se ramener à un produit nul" data-niveau="2" data-type="application" data-notions="produit-nul factoriser" data-duree="12" data-calculatrice="non">
+    <p>Résous chaque équation en te ramenant à un produit nul.</p>
+    <p>a) $2x^2=6x$ · b) $(x+3)(x-3)=(x+3)(2x-1)$ · c) $x^2-16=0$ · d) $(2x-1)^2-25=0$</p>
+    <details class="indice"><p>Commence toujours par tout passer à gauche, pour avoir « $\ldots=0$ ».</p></details>
+    <details class="indice"><p>Pour b), $(x+3)$ est dans les deux membres : ne divise pas par lui, mets-le en facteur. Pour d), pense à $A^2-B^2=(A-B)(A+B)$.</p></details>
+    <details class="correction">
+      <p>a) $2x^2-6x=0$, soit $2x(x-3)=0$ : $x=0$ ou $x=3$. $S=\{0\,;\,3\}$.</p>
+      <p>b) $(x+3)(x-3)-(x+3)(2x-1)=0$, soit $(x+3)\big[(x-3)-(2x-1)\big]=0$, soit $(x+3)(-x-2)=0$. Donc $x=-3$ ou $x=-2$. $S=\{-3\,;\,-2\}$.</p>
+      <p>c) $(x-4)(x+4)=0$ : $S=\{-4\,;\,4\}$ (ou directement $x^2=16$).</p>
+      <p>d) $(2x-1)^2-5^2=(2x-1-5)(2x-1+5)=(2x-6)(2x+4)=0$ : $x=3$ ou $x=-2$. Vérification : $5^2-25=0$ et $(-5)^2-25=0$. $S=\{-2\,;\,3\}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-equations-quotients" data-titre="Des équations quotients" data-niveau="2" data-type="application" data-notions="equation" data-duree="12" data-calculatrice="non">
+    <p>Pour chaque équation, donne la valeur interdite, puis résous.</p>
+    <p>a) $\dfrac{2x-6}{x+1}=0$ · b) $\dfrac5x=2$ · c) $\dfrac{x^2-4x}{x-4}=0$ · d) $\dfrac{x+1}{x-2}=3$</p>
+    <details class="correction">
+      <p>a) $-1$ est interdite. $2x-6=0$ donne $x=3$, permis. $S=\{3\}$.</p>
+      <p>b) $0$ est interdite. Je multiplie par $x$ : $5=2x$, donc $x=\dfrac52$. $S=\left\{\dfrac52\right\}$.</p>
+      <p>c) $4$ est interdite. $x^2-4x=x(x-4)=0$ donne $0$ ou $4$ ; $4$ est interdite. $S=\{0\}$.</p>
+      <p>d) $2$ est interdite. Je multiplie par $x-2$ : $x+1=3x-6$, donc $7=2x$ et $x=\dfrac72$, permis. Vérification : $\dfrac{9/2}{3/2}=3$. $S=\left\{\dfrac72\right\}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-isoler-une-lettre" data-titre="Isoler une lettre dans une formule" data-niveau="2" data-type="application" data-notions="equation" data-duree="12" data-calculatrice="oui">
+    <p>a) $U=RI$ : exprime $R$.<br>b) $d=vt$ : exprime $v$, puis calcule la vitesse moyenne d'un trajet de 150 km fait en 2 h.<br>c) $V=\pi r^2h$ (le volume d'un cylindre) : exprime $h$.<br>d) $P=2(L+\ell)$ (le périmètre d'un rectangle) : exprime $L$.<br>e) $F=1{,}8C+32$ convertit des degrés Celsius en degrés Fahrenheit : exprime $C$, puis convertis 98,6 °F en degrés Celsius.</p>
+    <details class="correction">
+      <p>a) Je divise par $I$ (non nul) : $R=\dfrac UI$.</p>
+      <p>b) $v=\dfrac dt=\dfrac{150}{2}=75$ km/h.</p>
+      <p>c) Je divise par $\pi r^2$ (non nul) : $h=\dfrac{V}{\pi r^2}$.</p>
+      <p>d) Je divise par $2$ : $\dfrac P2=L+\ell$, puis je soustrais $\ell$ : $L=\dfrac P2-\ell$.</p>
+      <p>e) Je soustrais $32$ : $F-32=1{,}8C$, puis je divise par $1{,}8$ : $C=\dfrac{F-32}{1{,}8}$. Pour $98{,}6$ °F : $C=\dfrac{66{,}6}{1{,}8}=37$ °C, la température du corps.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-salle-de-sport" data-titre="La salle de sport" data-niveau="2" data-type="probleme" data-notions="mise-en-equation inequation" data-duree="15" data-calculatrice="non">
+    <p>Une salle de sport propose deux formules. Formule A : 6 € la séance. Formule B : un abonnement de 45 € pour l'année, puis 3,50 € la séance.</p>
+    <p>1. Écris le prix de chaque formule pour $n$ séances dans l'année.<br>2. Pour combien de séances les deux formules coûtent-elles le même prix ?<br>3. À partir de combien de séances la formule B est-elle la moins chère ?</p>
+    <details class="correction">
+      <p>1. Formule A : $6n$ euros. Formule B : $45+3{,}5n$ euros.</p>
+      <p>2. $6n=45+3{,}5n$, donc $2{,}5n=45$ et $n=18$. Vérification : $6\times18=108$ et $45+63=108$. Pour 18 séances, les deux coûtent 108 €.</p>
+      <p>3. $45+3{,}5n\lt 6n$, donc $45\lt 2{,}5n$ ; je divise par $2{,}5$, positif : $n\gt 18$. Un nombre de séances est entier : la formule B est la moins chère <strong>à partir de 19 séances</strong>.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-sortie-au-musee" data-titre="La sortie au musée" data-niveau="2" data-type="probleme" data-notions="mise-en-equation inequation" data-duree="12" data-calculatrice="non">
+    <p>Pour une sortie, un lycée loue un car pour 180 €, et l'entrée au musée coûte 12 € par élève. Le budget est de 600 €. Combien d'élèves peuvent partir, au plus ?</p>
+    <details class="indice"><p>« Le budget est de 600 € » : le prix total ne doit pas dépasser 600 €, mais il peut l'atteindre.</p></details>
+    <details class="correction">
+      <p>Avec $n$ le nombre d'élèves, le prix est $180+12n$, et il ne doit pas dépasser 600 : $180+12n\leqslant 600$.</p>
+      <p>$12n\leqslant 420$, puis $n\leqslant 35$ (division par $12$, positif).</p>
+      <p>Vérification : pour 35 élèves, $180+420=600$ € ; pour 36, $612$ €, trop. <strong>Au plus 35 élèves</strong> peuvent partir.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-rectangle" data-titre="Le rectangle" data-niveau="2" data-type="probleme" data-notions="mise-en-equation equation" data-duree="10" data-calculatrice="non">
+    <p>La longueur d'un rectangle mesure 3 cm de plus que sa largeur, et son périmètre vaut 34 cm. Quelles sont ses dimensions ? Quelle est son aire ?</p>
+    <details class="correction">
+      <p>Avec $x$ la largeur en cm, la longueur vaut $x+3$, et le périmètre $2\big(x+(x+3)\big)=4x+6$.</p>
+      <p>$4x+6=34$, donc $4x=28$ et $x=7$.</p>
+      <p>Vérification : $7+10=17$ et $2\times17=34$. Le rectangle mesure <strong>7 cm sur 10 cm</strong>, et son aire vaut $70\ \text{cm}^2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-melange" data-titre="Le mélange" data-niveau="2" data-type="probleme" data-notions="mise-en-equation equation" data-duree="15" data-calculatrice="non">
+    <p>On veut préparer 1 L d'une solution sucrée à 16 % en mélangeant une solution à 10 % et une solution à 25 % (pourcentages en masse de sucre, pour des solutions qu'on suppose de même masse volumique). Quel volume de chaque solution faut-il ?</p>
+    <details class="indice"><p>Si $x$ est le volume de solution à 10 %, en litres, quel est le volume de l'autre ? Écris que la quantité de sucre du mélange est la somme des deux.</p></details>
+    <details class="correction">
+      <p>Avec $x$ le volume de solution à 10 % (en L), l'autre volume est $1-x$. Le sucre se conserve : $0{,}10x+0{,}25(1-x)=0{,}16\times1$.</p>
+      <p>$0{,}10x+0{,}25-0{,}25x=0{,}16$, soit $-0{,}15x=-0{,}09$, et $x=\dfrac{0{,}09}{0{,}15}=0{,}6$.</p>
+      <p>Vérification : $0{,}10\times0{,}6+0{,}25\times0{,}4=0{,}06+0{,}10=0{,}16$. Il faut <strong>0,6 L de solution à 10 % et 0,4 L de solution à 25 %</strong>.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-prouver-une-inegalite" data-titre="Prouver une inégalité" data-niveau="2" data-type="raisonnement" data-notions="inequation" data-duree="8" data-calculatrice="non">
+    <p>1. Montre que si $x\gt 2$, alors $-3x+1\lt -5$.<br>2. Réciproquement, si $-3x+1\lt -5$, que peut-on dire de $x$ ?<br>3. Si $x\geqslant 2$, a-t-on encore $-3x+1\lt -5$ ?</p>
+    <details class="correction">
+      <p>1. Si $x\gt 2$, je multiplie par $-3$, négatif, et le sens change : $-3x\lt -6$. J'ajoute $1$ : $-3x+1\lt -5$.</p>
+      <p>2. $-3x+1\lt -5$ donne $-3x\lt -6$, puis (division par $-3$) $x\gt 2$. Les deux inégalités sont équivalentes.</p>
+      <p>3. Non : pour $x=2$, $-3\times2+1=-5$, et $-5\lt -5$ est faux. Il faut $x$ strictement plus grand que $2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="inequation" data-duree="10" data-calculatrice="non">
+    <p>Un élève a demandé à une IA de résoudre l'inéquation $-3x+2\leqslant 11$. Voici sa réponse. Trouve les erreurs, et rédige la bonne réponse.</p>
+    <blockquote class="copie-ia">« On isole $x$. On soustrait 2 des deux côtés : $-3x\leqslant 9$. On divise par $-3$ : $x\leqslant -3$. L'ensemble des solutions est donc $S=\left]-\infty\,;\,-3\right]$. Vérification : pour $x=-3$, on a $-3\times(-3)+2=11$, et $11\leqslant 11$ est vrai. Le résultat est donc juste. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 : le sens n'a pas changé.</strong> En divisant par $-3$, un nombre négatif, il faut retourner le symbole : $-3x\leqslant 9$ donne $x\geqslant -3$.</p>
+      <p><strong>Erreur 2 : la vérification ne vérifie rien.</strong> La borne $-3$ est la même dans la bonne et dans la mauvaise réponse : la tester ne peut pas dire de quel côté sont les solutions. Il faut tester un nombre <strong>dans</strong> l'ensemble annoncé, loin de la borne. Avec $x=-4$, qui est dans l'ensemble de l'IA : $-3\times(-4)+2=14$, et $14\leqslant 11$ est faux. Avec $x=0$ : $2\leqslant 11$, vrai, alors que $0$ n'est pas dans l'ensemble de l'IA.</p>
+      <p><strong>La bonne réponse :</strong> $-3x\leqslant 9$, puis $x\geqslant -3$, et $S=\left[-3\,;\,+\infty\right[$.</p>
+      <p>Une réponse peut être fluide, assurée, et même « vérifiée », et fausse dès la deuxième ligne. Le réflexe : pour une inéquation, tester un nombre loin de la borne.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Des problèmes complets</h3>
+
+  <article class="exercice" id="ex-aucune-solution-ou-toutes" data-titre="Aucune solution, ou toutes ?" data-niveau="3" data-type="raisonnement" data-notions="equation" data-duree="10" data-calculatrice="non">
+    <p>1. Résous : a) $4(x-1)=4x+3$ · b) $2(x+1)-x=x+2$ · c) $5x-(2x-1)=3x-1$.<br>2. Explique pourquoi une équation qui se réduit à $0x=0$ a pour solutions tous les réels, et une équation qui se réduit à $0x=7$ n'en a aucune.<br>3. Écris une équation de la forme $ax+b=cx+d$ qui a pour seule solution $x=2$.</p>
+    <details class="correction">
+      <p>1. a) $4x-4=4x+3$, soit $-4=3$ : faux pour tout $x$, pas de solution. b) $2x+2-x=x+2$, soit $x+2=x+2$ : vrai pour tout $x$, $S=\mathbb R$. c) $5x-2x+1=3x-1$, soit $3x+1=3x-1$, puis $1=-1$ : pas de solution.</p>
+      <p>2. $0\times x$ vaut $0$ quel que soit $x$. L'égalité $0=0$ est toujours vraie : tout réel convient. L'égalité $0=7$ n'est jamais vraie : aucun réel ne convient.</p>
+      <p>3. Une possibilité : il faut $a\neq c$, et que $x=2$ rende les deux membres égaux. Par exemple $3x+1=x+5$ : $3\times2+1=7$ et $2+5=7$. Il y a une infinité d'autres réponses.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-solution-qui-disparait" data-titre="Une solution qui disparaît" data-niveau="3" data-type="raisonnement" data-notions="produit-nul factoriser" data-duree="12" data-calculatrice="non">
+    <p>Pour résoudre $(x-1)(x+4)=2(x-1)$, Camille divise les deux membres par $(x-1)$ : elle obtient $x+4=2$, donc $x=-2$.</p>
+    <p>1. Vérifie que $-2$ est bien solution.<br>2. Vérifie que $1$ est aussi solution.<br>3. À quelle étape Camille a-t-elle perdu cette solution ?<br>4. Résous l'équation correctement.</p>
+    <details class="correction">
+      <p>1. $(-3)\times2=-6$ et $2\times(-3)=-6$ : égaux.</p>
+      <p>2. $0\times5=0$ et $2\times0=0$ : égaux.</p>
+      <p>3. En divisant par $x-1$, qui vaut $0$ quand $x=1$. Diviser par $0$ est impossible : la division n'est permise que pour $x\neq1$, et c'est justement en $x=1$ que se trouvait l'autre solution.</p>
+      <p>4. $(x-1)(x+4)-2(x-1)=0$, soit $(x-1)(x+4-2)=0$, soit $(x-1)(x+2)=0$. Donc $x=1$ ou $x=-2$ : $S=\{-2\,;\,1\}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-pour-quelle-valeur-de-m" data-titre="Pour quelle valeur de m ?" data-niveau="3" data-type="raisonnement" data-notions="equation" data-duree="12" data-calculatrice="non">
+    <p>Soit $m$ un nombre réel, et l'équation d'inconnue $x$ : $mx+2=3x-1$.</p>
+    <p>1. Résous-la pour $m=5$.<br>2. Que se passe-t-il pour $m=3$ ?<br>3. Pour $m\neq3$, montre qu'il y a une seule solution, et exprime-la en fonction de $m$.<br>4. Pour quelle valeur de $m$ la solution est-elle $1$ ?</p>
+    <details class="correction">
+      <p>1. $5x+2=3x-1$, donc $2x=-3$ et $x=-\dfrac32$.</p>
+      <p>2. $3x+2=3x-1$ donne $2=-1$ : faux, pas de solution.</p>
+      <p>3. $mx-3x=-1-2$, soit $(m-3)x=-3$. Si $m\neq3$, on peut diviser par $m-3$ : $x=\dfrac{-3}{m-3}=\dfrac{3}{3-m}$, une seule solution.</p>
+      <p>4. $\dfrac{3}{3-m}=1$ donne $3=3-m$, donc $m=0$. Vérification : $0\times x+2=3x-1$ donne $x=1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-seuil-de-rentabilite" data-titre="Le seuil de rentabilité" data-niveau="3" data-type="probleme" data-notions="mise-en-equation inequation" data-duree="20" data-calculatrice="non">
+    <p>Un artisan fabrique des bougies. Chaque mois, il paie 240 € de frais fixes (loyer de l'atelier, assurance). Chaque bougie lui coûte 3,20 € de matière, et il la vend 9,20 €. On suppose qu'il vend toutes les bougies qu'il fabrique.</p>
+    <p>1. Exprime son bénéfice $B$ du mois en fonction du nombre $n$ de bougies vendues.<br>2. À partir de combien de bougies vendues gagne-t-il de l'argent ?<br>3. Il veut un bénéfice d'au moins 600 € par mois. Combien de bougies doit-il vendre ?</p>
+    <details class="indice"><p>Le bénéfice, c'est ce que rapportent les ventes, moins tout ce qu'il dépense.</p></details>
+    <details class="correction">
+      <p>1. Les ventes rapportent $9{,}2n$ ; il dépense $3{,}2n+240$. Donc $B=9{,}2n-3{,}2n-240=6n-240$.</p>
+      <p>2. Il gagne de l'argent quand $B\gt 0$ : $6n-240\gt 0$, soit $n\gt 40$. Un nombre de bougies est entier : <strong>à partir de 41 bougies</strong>. (Pour 40, $B=0$ : il ne perd rien, mais ne gagne rien.)</p>
+      <p>3. $6n-240\geqslant 600$, soit $6n\geqslant 840$, et $n\geqslant 140$. Il doit vendre <strong>au moins 140 bougies</strong>. Vérification : $6\times140-240=600$.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>« On passe de l'autre côté en changeant le signe » : c'est faux ?</summary>
+      <div><p>C'est un raccourci, pas une règle. Ce qu'on fait vraiment, c'est soustraire (ou ajouter) la même chose aux deux membres : de $x+7=10$, on passe à $x=10-7$ parce qu'on a soustrait $7$ des deux côtés. Le raccourci trompe dès qu'il y a un produit : de $3x=12$, on ne passe pas à $x=12-3$, on divise par $3$.</p></div></details>
+    <details><summary>Faut-il vraiment toujours vérifier ?</summary>
+      <div><p>Oui : remplacer $x$ dans l'équation de départ prend trente secondes et attrape presque toutes les erreurs de signe. Pour une inéquation, on teste un nombre à l'intérieur de l'ensemble trouvé, loin de la borne, et si possible un nombre dehors.</p></div></details>
+    <details><summary>Pourquoi n'a-t-on pas le droit de diviser par x ?</summary>
+      <div><p>Parce que $x$ peut valoir $0$, et qu'on ne divise jamais par $0$. Diviser par $x$, c'est supposer sans le dire que $x\neq0$ : si $0$ est une solution, elle disparaît. À la place, on met $x$ en facteur et on applique le produit nul.</p></div></details>
+    <details><summary>Pourquoi le sens change-t-il quand on multiplie par un négatif ?</summary>
+      <div><p>Multiplier par $-1$ envoie chaque nombre de l'autre côté de $0$, comme dans un miroir : ce qui était le plus à droite devient le plus à gauche. $2\lt 5$, mais $-2\gt -5$. Multiplier par $-3$, c'est multiplier par $-1$ puis par $3$ : le miroir retourne l'ordre, et le $3$ ne change rien de plus.</p></div></details>
+    <details><summary>Comment écrire qu'il n'y a pas de solution ?</summary>
+      <div><p>Une phrase suffit : « l'équation n'a pas de solution ». On peut aussi écrire $S=\varnothing$, l'ensemble vide. Et si tous les réels sont solutions, $S=\mathbb R$.</p></div></details>
+    <details><summary>Fraction ou nombre à virgule ?</summary>
+      <div><p>On donne la valeur <strong>exacte</strong>. $\dfrac72$ peut s'écrire $3{,}5$, qui est exact. Mais $\dfrac{13}{3}$ n'est pas $4{,}33$ : on garde la fraction, et on donne une valeur approchée seulement si l'énoncé la demande. De même, on garde $\sqrt7$.</p></div></details>
+    <details><summary>Dans un problème, équation ou inéquation ?</summary>
+      <div><p>Écoute les mots de l'énoncé. « Autant que », « le même prix », « égal » : une équation. « Au moins », « au plus », « moins cher que », « dépasser » : une inéquation. Et à la fin, regarde si la réponse doit être entière : « $n\gt 18$ » devient « à partir de 19 séances ».</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

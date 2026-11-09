@@ -1,0 +1,837 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de nombres.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/seconde/nombres.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Nombres et intervalles · Seconde</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=111fcfb17b">
+<script type="module" src="../../assets/js/site.js?v=8e0426bb28"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FYHII6FD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5ICHLVNG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FQMGHO33.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Y4E4LUGI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TXQJ4LFT.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-A7TVHOEX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BQVG5Y6W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VSNMPXAG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LFIQUW6Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-F4TDOHJ7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IRIHGH3W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-AXEUPRJR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-54DBUP5W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7AWFOZ4Q.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5CQ7V5XH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-W5F6LKUU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-633SPKER.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-XHIOKJ62.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BHLY6PDJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/nombres.js?v=07e18c998c">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/nombres.js?v=f33911b15b">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-FJDOJX6R.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="nombres" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Seconde · Nombres et calculs</span>
+  <h1>Nombres et intervalles</h1>
+  <p class="chapeau">Certains nombres s'écrivent avec une virgule qui s'arrête, d'autres jamais. On les range dans des ensembles, on les place sur une droite, et on décrit d'un seul coup tous les nombres compris entre deux bornes : c'est un <strong>intervalle</strong>.</p>
+  <ul class="objectifs">
+    <li>Reconnaître multiples, diviseurs et nombres premiers</li><li>Ranger un nombre dans $\mathbb N$, $\mathbb Z$, $\mathbb D$, $\mathbb Q$ ou $\mathbb R$</li><li>Écrire et dessiner un intervalle</li><li>Trouver une réunion, une intersection</li><li>Traduire une distance avec la valeur absolue</li><li>Encadrer et arrondir un nombre</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Sur le compte rendu d'une prise de sang, chaque résultat est suivi d'un intervalle de référence</strong>, imprimé par le laboratoire. Pour la glycémie à jeun (le sucre dans le sang), il est souvent de 0,70 à 1,10 g/L. Un résultat de 0,92 g/L est-il dedans ? À quelle distance du milieu se trouve-t-il ? Et que veut dire « 0,92 » quand l'appareil mesure au centième près ? Ce chapitre donne les mots et les écritures pour répondre.</p>
+    <p class="discret">Ils s'en servent aussi : les techniciens de laboratoire médical, les techniciens du contrôle qualité (une pièce de 20 mm « à 0,05 mm près » doit mesurer entre 19,95 et 20,05 mm), les développeurs (un ordinateur ne connaît pas 0,1 exactement : en Python, <code>0.1 + 0.2</code> affiche <code>0.30000000000000004</code>). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-entiers">1. Entiers, multiples et nombres premiers</h3>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Entiers naturels, entiers relatifs">
+      <p>Les <strong>entiers naturels</strong> forment l'ensemble $\mathbb N=\{0\,;1\,;2\,;3\,;\dots\}$.</p>
+      <p>Les <strong>entiers relatifs</strong> forment l'ensemble $\mathbb Z=\{\dots\,;-2\,;-1\,;0\,;1\,;2\,;\dots\}$.</p>
+      <p>On écrit $5\in\mathbb N$ (« 5 appartient à $\mathbb N$ »), $-3\notin\mathbb N$ et $-3\in\mathbb Z$.</p>
+    </div>
+    <div class="bloc definition" data-titre="Multiple, diviseur">
+      <p>Soient $a$ et $b$ deux entiers relatifs. $a$ est un <strong>multiple</strong> de $b$ s'il existe un entier relatif $k$ tel que $a=k\times b$.</p>
+      <p>Quand $b\neq0$, on dit aussi que $b$ est un <strong>diviseur</strong> de $a$, ou que $b$ divise $a$.</p>
+      <p>$42=6\times7$ : 42 est un multiple de 7, et 7 est un diviseur de 42. $-12=(-4)\times3$ : $-12$ est un multiple de 3.</p>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="diviseurs_12" viewBox="0 0 420 230" role="img" aria-label="Douze carreaux rangés en rectangles : une rangée de 12, deux rangées de 6, trois rangées de 4. Sept carreaux ne se rangent qu'en une seule rangée de 7."><rect class="carreau" x="20" y="18" width="18" height="18"/><rect class="carreau" x="38" y="18" width="18" height="18"/><rect class="carreau" x="56" y="18" width="18" height="18"/><rect class="carreau" x="74" y="18" width="18" height="18"/><rect class="carreau" x="92" y="18" width="18" height="18"/><rect class="carreau" x="110" y="18" width="18" height="18"/><rect class="carreau" x="128" y="18" width="18" height="18"/><rect class="carreau" x="146" y="18" width="18" height="18"/><rect class="carreau" x="164" y="18" width="18" height="18"/><rect class="carreau" x="182" y="18" width="18" height="18"/><rect class="carreau" x="200" y="18" width="18" height="18"/><rect class="carreau" x="218" y="18" width="18" height="18"/><text class="moyen" x="246.0" y="33.0" text-anchor="start">1 × 12</text><rect class="carreau" x="20" y="66" width="18" height="18"/><rect class="carreau" x="20" y="84" width="18" height="18"/><rect class="carreau" x="38" y="66" width="18" height="18"/><rect class="carreau" x="38" y="84" width="18" height="18"/><rect class="carreau" x="56" y="66" width="18" height="18"/><rect class="carreau" x="56" y="84" width="18" height="18"/><rect class="carreau" x="74" y="66" width="18" height="18"/><rect class="carreau" x="74" y="84" width="18" height="18"/><rect class="carreau" x="92" y="66" width="18" height="18"/><rect class="carreau" x="92" y="84" width="18" height="18"/><rect class="carreau" x="110" y="66" width="18" height="18"/><rect class="carreau" x="110" y="84" width="18" height="18"/><text class="moyen" x="138.0" y="90.0" text-anchor="start">2 × 6</text><rect class="carreau" x="220" y="66" width="18" height="18"/><rect class="carreau" x="220" y="84" width="18" height="18"/><rect class="carreau" x="220" y="102" width="18" height="18"/><rect class="carreau" x="238" y="66" width="18" height="18"/><rect class="carreau" x="238" y="84" width="18" height="18"/><rect class="carreau" x="238" y="102" width="18" height="18"/><rect class="carreau" x="256" y="66" width="18" height="18"/><rect class="carreau" x="256" y="84" width="18" height="18"/><rect class="carreau" x="256" y="102" width="18" height="18"/><rect class="carreau" x="274" y="66" width="18" height="18"/><rect class="carreau" x="274" y="84" width="18" height="18"/><rect class="carreau" x="274" y="102" width="18" height="18"/><text class="moyen" x="302.0" y="99.0" text-anchor="start">3 × 4</text><rect class="carreau" x="20" y="172" width="18" height="18"/><rect class="carreau" x="38" y="172" width="18" height="18"/><rect class="carreau" x="56" y="172" width="18" height="18"/><rect class="carreau" x="74" y="172" width="18" height="18"/><rect class="carreau" x="92" y="172" width="18" height="18"/><rect class="carreau" x="110" y="172" width="18" height="18"/><rect class="carreau" x="128" y="172" width="18" height="18"/><text class="moyen" x="156.0" y="187.0" text-anchor="start">7 = 1 × 7 seulement</text><text class="note" x="20.0" y="158.0" text-anchor="start">et 7 carreaux ?</text></svg><figcaption>Les diviseurs positifs de 12 se voient en rangeant 12 carreaux en rectangles : 1, 2, 3, 4, 6 et 12. Sept carreaux ne se rangent qu'en une seule rangée.</figcaption></figure>
+
+  <div class="bloc definition" data-titre="Pair, impair">
+    <p>Un entier <strong>pair</strong> est un multiple de 2 : il s'écrit $2k$, avec $k$ entier. Un entier <strong>impair</strong> s'écrit $2k+1$, avec $k$ entier. Tout entier est soit pair, soit impair, jamais les deux.</p>
+    <p>$14=2\times7$ est pair ; $15=2\times7+1$ est impair ; $-3=2\times(-2)+1$ est impair.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Somme de deux multiples">
+      <p>La somme de deux multiples de 7 est un multiple de 7. Plus généralement, pour un entier $a$ donné, la somme de deux multiples de $a$ est un multiple de $a$.</p>
+      <div class="deroule">
+        <p class="consigne"><strong>Démonstration.</strong> Prouve que la somme de deux multiples de 7 est un multiple de 7.</p>
+        <ol class="pas">
+          <li><strong>J'écris les deux multiples.</strong> Le premier s'écrit $7k$ et le second $7k'$, avec $k$ et $k'$ entiers (deux lettres : ils ne sont pas forcément égaux).</li>
+          <li><strong>J'ajoute et je factorise.</strong> $7k+7k'=7(k+k')$.</li>
+          <li><strong>Je conclus.</strong> $k+k'$ est un entier, donc $7k+7k'$ est un multiple de 7. Le même calcul marche en remplaçant 7 par n'importe quel entier $a$.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="bloc propriete" data-titre="Le carré d'un nombre impair">
+      <p>Le carré d'un entier impair est impair.</p>
+      <div class="deroule">
+        <p class="consigne"><strong>Démonstration.</strong> Soit $n$ un entier impair. Prouve que $n^2$ est impair.</p>
+        <ol class="pas">
+          <li><strong>J'écris $n$.</strong> $n$ est impair, donc $n=2k+1$ avec $k$ entier.</li>
+          <li><strong>Je développe.</strong> $n^2=(2k+1)(2k+1)=4k^2+2k+2k+1=4k^2+4k+1$.</li>
+          <li><strong>Je fais apparaître $2\times\dots+1$.</strong> $n^2=2(2k^2+2k)+1$, et $2k^2+2k$ est un entier.</li>
+          <li><strong>Je conclus.</strong> $n^2$ s'écrit $2\times(\text{un entier})+1$ : il est impair.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="carre_impair" viewBox="0 0 380 270" role="img" aria-label="Un carré de 7 sur 7 points, soit 49 points : quatre rectangles de 3 sur 4 points, de quatre couleurs, tournent autour du point central. 49 = 4 × 12 + 1, un nombre pair plus 1."><rect class="forme" x="19.0" y="13.0" width="106.0" height="78.0" rx="8"/><rect class="forme-3" x="131.0" y="13.0" width="78.0" height="106.0" rx="8"/><rect class="forme-4" x="103.0" y="125.0" width="106.0" height="78.0" rx="8"/><rect class="forme-image" x="19.0" y="97.0" width="78.0" height="106.0" rx="8"/><circle class="pt" cx="30" cy="24" r="5"/><circle class="pt" cx="30" cy="52" r="5"/><circle class="pt" cx="30" cy="80" r="5"/><circle class="pt" cx="30" cy="108" r="5"/><circle class="pt" cx="30" cy="136" r="5"/><circle class="pt" cx="30" cy="164" r="5"/><circle class="pt" cx="30" cy="192" r="5"/><circle class="pt" cx="58" cy="24" r="5"/><circle class="pt" cx="58" cy="52" r="5"/><circle class="pt" cx="58" cy="80" r="5"/><circle class="pt" cx="58" cy="108" r="5"/><circle class="pt" cx="58" cy="136" r="5"/><circle class="pt" cx="58" cy="164" r="5"/><circle class="pt" cx="58" cy="192" r="5"/><circle class="pt" cx="86" cy="24" r="5"/><circle class="pt" cx="86" cy="52" r="5"/><circle class="pt" cx="86" cy="80" r="5"/><circle class="pt" cx="86" cy="108" r="5"/><circle class="pt" cx="86" cy="136" r="5"/><circle class="pt" cx="86" cy="164" r="5"/><circle class="pt" cx="86" cy="192" r="5"/><circle class="pt" cx="114" cy="24" r="5"/><circle class="pt" cx="114" cy="52" r="5"/><circle class="pt" cx="114" cy="80" r="5"/><circle class="pt pt-v" cx="114" cy="108" r="5"/><circle class="pt" cx="114" cy="136" r="5"/><circle class="pt" cx="114" cy="164" r="5"/><circle class="pt" cx="114" cy="192" r="5"/><circle class="pt" cx="142" cy="24" r="5"/><circle class="pt" cx="142" cy="52" r="5"/><circle class="pt" cx="142" cy="80" r="5"/><circle class="pt" cx="142" cy="108" r="5"/><circle class="pt" cx="142" cy="136" r="5"/><circle class="pt" cx="142" cy="164" r="5"/><circle class="pt" cx="142" cy="192" r="5"/><circle class="pt" cx="170" cy="24" r="5"/><circle class="pt" cx="170" cy="52" r="5"/><circle class="pt" cx="170" cy="80" r="5"/><circle class="pt" cx="170" cy="108" r="5"/><circle class="pt" cx="170" cy="136" r="5"/><circle class="pt" cx="170" cy="164" r="5"/><circle class="pt" cx="170" cy="192" r="5"/><circle class="pt" cx="198" cy="24" r="5"/><circle class="pt" cx="198" cy="52" r="5"/><circle class="pt" cx="198" cy="80" r="5"/><circle class="pt" cx="198" cy="108" r="5"/><circle class="pt" cx="198" cy="136" r="5"/><circle class="pt" cx="198" cy="164" r="5"/><circle class="pt" cx="198" cy="192" r="5"/><text class="formule" x="250.0" y="70.0" text-anchor="start">7 × 7 = 49</text><text class="formule" x="250.0" y="100.0" text-anchor="start">= 4 × 12 + 1</text><text class="note" x="250.0" y="140.0" text-anchor="start">quatre rectangles</text><text class="note" x="250.0" y="158.0" text-anchor="start">de 3 × 4 points</text><text class="note" x="250.0" y="176.0" text-anchor="start">et le point du milieu</text></svg><figcaption>Le même résultat en points : un carré de côté impair, c'est quatre rectangles identiques autour d'un point. $7^2=4\times12+1$, et en général $(2k+1)^2=4k(k+1)+1$ : un nombre pair, plus 1.</figcaption></figure>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Nombre premier (rappel de troisième)">
+      <p>Un <strong>nombre premier</strong> est un entier naturel qui a <strong>exactement deux</strong> diviseurs positifs : 1 et lui-même.</p>
+      <p>Les premiers jusqu'à 30 : 2, 3, 5, 7, 11, 13, 17, 19, 23, 29. <strong>1 n'est pas premier</strong> : il n'a qu'un seul diviseur positif.</p>
+    </div>
+    <div class="bloc propriete" data-titre="Décomposition en facteurs premiers">
+      <p>Tout entier supérieur ou égal à 2 s'écrit comme un produit de nombres premiers, et d'une seule façon, à l'ordre près.</p>
+      <p>$84=2^2\times3\times7$ ; $126=2\times3^2\times7$ ; $10^3=2^3\times5^3$.</p>
+    </div>
+  </div>
+
+  <div class="bloc definition" data-titre="Fraction irréductible">
+    <p>Une fraction $\dfrac pq$ est <strong>irréductible</strong> quand $p$ et $q$ n'ont pas d'autre diviseur positif commun que 1. Toute fraction peut être simplifiée jusqu'à devenir irréductible.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Rendre une fraction irréductible">
+    <ol class="etapes">
+      <li><span>Je décompose le numérateur et le dénominateur en produits de facteurs premiers.</span></li>
+      <li><span>Je simplifie par chaque facteur premier commun, autant de fois qu'il apparaît des deux côtés.</span></li>
+      <li><span>Je vérifie : il ne reste plus aucun facteur premier commun.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Rendre irréductible la fraction $\dfrac{84}{126}$.</p>
+      <ol class="pas">
+        <li><strong>Les décompositions.</strong> $84=2\times2\times3\times7$ et $126=2\times3\times3\times7$.</li>
+        <li><strong>Les facteurs communs.</strong> 2, 3 et 7 : $\dfrac{84}{126}=\dfrac{2\times3\times7\times2}{2\times3\times7\times3}=\dfrac23$.</li>
+        <li><strong>La vérification.</strong> 2 et 3 n'ont aucun facteur premier commun : $\dfrac23$ est irréductible.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Savoir si un nombre est premier">
+    <ol class="etapes">
+      <li><span>Pour un entier $n\geqslant2$, j'essaie de le diviser par les nombres premiers 2, 3, 5, 7, 11…, tant que leur carré ne dépasse pas $n$.</span></li>
+      <li><span>Si une de ces divisions tombe juste, $n$ n'est pas premier.</span></li>
+      <li><span>Si aucune ne tombe juste, $n$ est premier.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> 91 est-il premier ? Et 97 ?</p>
+      <ol class="pas">
+        <li><strong>91.</strong> Ni 2, ni 3, ni 5 ne le divisent ; mais $91=7\times13$. 91 n'est pas premier.</li>
+        <li><strong>97.</strong> On essaie 2, 3, 5 et 7 (le premier suivant, 11, a pour carré 121, qui dépasse 97) : aucun ne divise 97. 97 est premier.</li>
+        <li><strong>Pourquoi s'arrêter là ?</strong> Si $97=a\times b$ avec $2\leqslant a\leqslant b$, alors $a\times a\leqslant 97$, donc $a\leqslant9$. Un facteur premier de $a$, plus petit que 11, diviserait alors 97 : on l'aurait trouvé.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="En Python">
+    <p>L'opération <code>a % b</code> donne le reste de la division de <code>a</code> par <code>b</code> : <code>a</code> est un multiple de <code>b</code> quand ce reste vaut 0. La méthode ci-dessus devient :</p>
+<pre class="code">def est_premier(n):
+    if n &lt; 2:
+        return False
+    d = 2
+    while d * d &lt;= n:
+        if n % d == 0:
+            return False
+        d = d + 1
+    return True</pre>
+    <p><code>est_premier(91)</code> renvoie <code>False</code> (la boucle s'arrête à <code>d = 7</code>) ; <code>est_premier(97)</code> renvoie <code>True</code>. Pour rester simple, la fonction essaie tous les entiers à partir de 2, pas seulement les premiers : le résultat est le même, il faut juste un peu plus d'essais.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-reels">2. Des décimaux aux réels</h3>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Nombres décimaux">
+      <p>Un nombre <strong>décimal</strong> peut s'écrire $\dfrac{a}{10^n}$, avec $a$ entier relatif et $n$ entier naturel : son écriture décimale <strong>s'arrête</strong>. Leur ensemble se note $\mathbb D$.</p>
+      <p>$0{,}25=\dfrac{25}{100}$ ; $-3{,}7=\dfrac{-37}{10}$ ; $\dfrac34=0{,}75$ est décimal.</p>
+    </div>
+    <div class="bloc definition" data-titre="Nombres rationnels">
+      <p>Un nombre <strong>rationnel</strong> peut s'écrire $\dfrac pq$, avec $p$ et $q$ entiers relatifs et $q\neq0$. Leur ensemble se note $\mathbb Q$.</p>
+      <p>$\dfrac13$, $-\dfrac57$, $0{,}25=\dfrac14$ et $4=\dfrac41$ sont rationnels.</p>
+    </div>
+  </div>
+
+  <div class="bloc definition" data-titre="Nombres réels, nombres irrationnels">
+    <p>Les <strong>nombres réels</strong> sont toutes les abscisses des points d'une droite graduée. Leur ensemble se note $\mathbb R$.</p>
+    <p>Un réel qui n'est pas rationnel est dit <strong>irrationnel</strong>. La géométrie en fournit : $\sqrt2$, la longueur de la diagonale d'un carré de côté 1 ; $\pi$, la longueur d'un demi-cercle de rayon 1 (son irrationalité est admise).</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les ensembles emboîtés">
+    <p>Tout entier naturel est un entier relatif, tout entier relatif est décimal, tout décimal est rationnel, tout rationnel est réel :</p>
+    $$\mathbb N\subset\mathbb Z\subset\mathbb D\subset\mathbb Q\subset\mathbb R$$
+    <p>Le symbole $\subset$ se lit « est inclus dans ». Pour ranger un nombre, on cherche le <strong>plus petit</strong> ensemble qui le contient, après avoir simplifié son écriture : $-\dfrac{12}{4}=-3$ est dans $\mathbb Z$, $\sqrt9=3$ est dans $\mathbb N$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="ensembles" viewBox="0 0 580 310" role="img" aria-label="Cinq ensembles emboîtés : N dans Z, Z dans D, D dans Q, Q dans R. Exemples : 0, 7 et racine de 9 dans N ; moins 3 et moins 12 quarts dans Z ; 0,25 et trois quarts dans D ; un tiers et moins 2 septièmes dans Q ; racine de 2 et pi dans R seulement."><rect class="fond-carte" x="10" y="20" width="550" height="280" rx="14"/><text class="lettre" x="26.0" y="44.0" text-anchor="start">ℝ</text><rect class="forme-4" x="10" y="74" width="450" height="226" rx="14"/><text class="lettre" x="26.0" y="98.0" text-anchor="start">ℚ</text><rect class="forme-image" x="10" y="128" width="350" height="172" rx="14"/><text class="lettre" x="26.0" y="152.0" text-anchor="start">𝔻</text><rect class="forme-3" x="10" y="182" width="250" height="118" rx="14"/><text class="lettre" x="26.0" y="206.0" text-anchor="start">ℤ</text><rect class="forme" x="10" y="236" width="150" height="64" rx="14"/><text class="lettre" x="26.0" y="260.0" text-anchor="start">ℕ</text><text class="moyen" x="510.0" y="280.0" text-anchor="middle">√2</text><text class="moyen" x="510.0" y="260.0" text-anchor="middle">π</text><text class="moyen" x="410.0" y="280.0" text-anchor="middle">1/3</text><text class="moyen" x="410.0" y="260.0" text-anchor="middle">−2/7</text><text class="moyen" x="310.0" y="280.0" text-anchor="middle">0,25</text><text class="moyen" x="310.0" y="260.0" text-anchor="middle">3/4</text><text class="moyen" x="210.0" y="280.0" text-anchor="middle">−3</text><text class="moyen" x="210.0" y="260.0" text-anchor="middle">−12/4</text><text class="moyen" x="102.0" y="286.0" text-anchor="middle">0</text><text class="moyen" x="102.0" y="270.0" text-anchor="middle">7</text><text class="moyen" x="102.0" y="254.0" text-anchor="middle">√9</text></svg><figcaption>Chaque ensemble contient le précédent. Un nombre est rangé dans l'anneau le plus intérieur où il entre.</figcaption></figure>
+
+  <div class="colonnes">
+    <div class="bloc theoreme" data-titre="1/3 n'est pas décimal">
+      <p>Le rationnel $\dfrac13$ n'est pas un nombre décimal.</p>
+      <div class="deroule">
+        <p class="consigne"><strong>Démonstration, par l'absurde.</strong> On suppose que $\dfrac13$ est décimal, et on cherche une contradiction.</p>
+        <ol class="pas">
+          <li><strong>La supposition.</strong> $\dfrac13=\dfrac{a}{10^n}$, avec $a$ entier et $n$ entier naturel non nul ($n=0$ ferait de $\dfrac13$ un entier, ce qu'il n'est pas).</li>
+          <li><strong>Le produit en croix.</strong> $10^n=3a$ : $10^n$ serait un multiple de 3.</li>
+          <li><strong>Ce que vaut vraiment $10^n$.</strong> $10^n=99\dots9+1$, et $99\dots9=3\times33\dots3$ est un multiple de 3. Donc $10^n$ est un multiple de 3 plus 1 : le reste de sa division par 3 vaut 1.</li>
+          <li><strong>La contradiction.</strong> $10^n$ ne peut pas être à la fois un multiple de 3 et un multiple de 3 plus 1 : sinon, 1 serait la différence de deux multiples de 3, donc un multiple de 3. La supposition est fausse : $\dfrac13$ n'est pas décimal.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="bloc theoreme" data-titre="√2 est irrationnel">
+      <p>Le réel $\sqrt2$ n'est pas rationnel.</p>
+      <div class="deroule">
+        <p class="consigne"><strong>Démonstration, par l'absurde.</strong> On suppose que $\sqrt2$ est rationnel.</p>
+        <ol class="pas">
+          <li><strong>La supposition.</strong> $\sqrt2=\dfrac pq$ avec $p$ et $q$ entiers naturels non nuls, et la fraction <strong>irréductible</strong> (on peut toujours la simplifier jusque-là).</li>
+          <li><strong>J'élève au carré.</strong> $2=\dfrac{p^2}{q^2}$, donc $p^2=2q^2$ : $p^2$ est pair.</li>
+          <li><strong>$p$ est pair.</strong> Si $p$ était impair, $p^2$ serait impair (partie 1), alors qu'il est pair. Donc $p$ est pair : $p=2k$, avec $k$ entier.</li>
+          <li><strong>$q$ est pair aussi.</strong> $p^2=4k^2=2q^2$ donne $q^2=2k^2$ : $q^2$ est pair, et comme ci-dessus $q$ est pair.</li>
+          <li><strong>La contradiction.</strong> $p$ et $q$ sont tous les deux pairs : 2 les divise tous les deux, alors que la fraction était irréductible. Donc $\sqrt2$ n'est pas rationnel.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="diagonale" viewBox="0 0 299 218" role="img" aria-label="Un carré de côté 1 posé sur la droite graduée entre 0 et 1. Sa diagonale mesure racine de 2 ; un arc de cercle centré en 0 la rabat sur la droite, au point d'abscisse racine de 2, environ 1,414."><polygon class="forme" points="55.0,154.0 145.0,154.0 145.0,64.0 55.0,64.0"/><line class="axe-trait" x1="19.0" y1="154.0" x2="275.5" y2="154.0"/><polygon class="pt" points="284.5,154.0 274.5,149.0 274.5,159.0"/><line class="axe-trait" x1="55.0" y1="149.0" x2="55.0" y2="159.0"/><text class="petit" x="55.0" y="178.0" text-anchor="middle">0</text><line class="axe-trait" x1="145.0" y1="149.0" x2="145.0" y2="159.0"/><text class="petit" x="145.0" y="178.0" text-anchor="middle">1</text><line class="axe-trait" x1="235.0" y1="149.0" x2="235.0" y2="159.0"/><text class="petit" x="235.0" y="178.0" text-anchor="middle">2</text><g class="trace t-u"><line x1="55.0" y1="154.0" x2="145.0" y2="64.0"/></g><g class="trace t-v tirets-5"><path d="M182.3,154.0 A127.3,127.3 0 0 0 145.0,64.0"/></g><circle class="pt pt-v" cx="182.3" cy="154.0" r="4.5"/><text class="formule halo" x="187.3" y="142.0" text-anchor="start">√2 = 1,414…</text><text class="formule halo" x="92.8" y="98.2" text-anchor="middle">√2</text><text class="petit" x="100.0" y="56.0" text-anchor="middle">1</text></svg><figcaption>La diagonale d'un carré de côté 1 mesure $\sqrt2$ (Pythagore : $1^2+1^2=2$). Rabattue au compas, elle place $\sqrt2$ sur la droite graduée : un vrai point, mais pas une fraction.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Pour aller plus loin : l'écriture décimale illimitée">
+    <p>Un rationnel qui n'est pas décimal a une écriture décimale <strong>illimitée qui se répète</strong> : $\dfrac13=0{,}333\dots$, $\dfrac17=0{,}142857\,142857\dots$ Un irrationnel a une écriture illimitée qui <strong>ne se répète jamais</strong> : $\sqrt2=1{,}41421356\dots$, $\pi=3{,}14159265\dots$</p>
+    <p>Ce que la calculatrice affiche n'est donc souvent qu'une <strong>valeur approchée</strong> : $1{,}414^2=1{,}999396$, pas 2. Calculatrices et logiciels calculent presque toujours de façon approchée.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Quelles fractions sont décimales ?">
+    <p>Une fraction irréductible est décimale quand son dénominateur n'a pas d'autre facteur premier que 2 et 5 (on l'admet). $\dfrac34$ ($4=2^2$) et $\dfrac7{20}$ ($20=2^2\times5$) sont décimales ; $\dfrac13$ et $\dfrac56$ ($6=2\times3$) ne le sont pas.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-droite">3. La droite numérique et les intervalles</h3>
+
+  <div class="bloc definition" data-titre="Droite numérique">
+    <p>Sur une droite graduée (une origine, une unité), chaque point correspond à un réel, son <strong>abscisse</strong>, et chaque réel à un point. Plus un nombre est grand, plus son point est à droite.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Intervalles">
+    <p>Un <strong>intervalle</strong> est l'ensemble des réels $x$ qui vérifient une ou deux inégalités. Avec deux réels $a&lt;b$ :</p>
+    <div class="defile">
+      <table>
+        <thead><tr><th>Les réels $x$ tels que</th><th>Intervalle</th><th>Les bornes</th></tr></thead>
+        <tbody>
+          <tr><td>$a\leqslant x\leqslant b$</td><td>$[a\,;b]$</td><td>$a$ et $b$ comprises (intervalle fermé)</td></tr>
+          <tr><td>$a&lt;x&lt;b$</td><td>$]a\,;b[$</td><td>$a$ et $b$ exclues (intervalle ouvert)</td></tr>
+          <tr><td>$a\leqslant x&lt;b$</td><td>$[a\,;b[$</td><td>$a$ comprise, $b$ exclue</td></tr>
+          <tr><td>$a&lt;x\leqslant b$</td><td>$]a\,;b]$</td><td>$a$ exclue, $b$ comprise</td></tr>
+          <tr><td>$x\geqslant a$</td><td>$[a\,;+\infty[$</td><td>$a$ comprise, pas de borne à droite</td></tr>
+          <tr><td>$x&gt;a$</td><td>$]a\,;+\infty[$</td><td>$a$ exclue, pas de borne à droite</td></tr>
+          <tr><td>$x\leqslant b$</td><td>$]-\infty\,;b]$</td><td>pas de borne à gauche, $b$ comprise</td></tr>
+          <tr><td>$x&lt;b$</td><td>$]-\infty\,;b[$</td><td>pas de borne à gauche, $b$ exclue</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>$\mathbb R$ tout entier s'écrit $]-\infty\,;+\infty[$. Le symbole $+\infty$ (« plus l'infini ») n'est pas un nombre : <strong>son crochet est toujours ouvert</strong>.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="intervalles" viewBox="0 0 490 200" role="img" aria-label="Deux intervalles sur des droites graduées. En haut, de moins 1 compris à 3 exclu : le crochet de moins 1 est tourné vers les nombres gardés, celui de 3 vers l'extérieur. En bas, de 2 exclu jusqu'à plus l'infini : le trait continue jusqu'au bout de la flèche."><line class="axe-trait" x1="26.0" y1="62.0" x2="438.0" y2="62.0"/><polygon class="pt" points="444.0,62.0 434.0,57.0 434.0,67.0"/><line class="axe-trait" x1="40.0" y1="57.0" x2="40.0" y2="67.0"/><line class="axe-trait" x1="83.3" y1="57.0" x2="83.3" y2="67.0"/><line class="axe-trait" x1="126.7" y1="57.0" x2="126.7" y2="67.0"/><line class="axe-trait" x1="170.0" y1="57.0" x2="170.0" y2="67.0"/><line class="axe-trait" x1="213.3" y1="57.0" x2="213.3" y2="67.0"/><line class="axe-trait" x1="256.7" y1="57.0" x2="256.7" y2="67.0"/><line class="axe-trait" x1="300.0" y1="57.0" x2="300.0" y2="67.0"/><line class="axe-trait" x1="343.3" y1="57.0" x2="343.3" y2="67.0"/><line class="axe-trait" x1="386.7" y1="57.0" x2="386.7" y2="67.0"/><line class="axe-trait" x1="430.0" y1="57.0" x2="430.0" y2="67.0"/><text class="petit" x="40.0" y="91.0" text-anchor="middle">−3</text><text class="petit" x="83.3" y="91.0" text-anchor="middle">−2</text><text class="petit" x="126.7" y="91.0" text-anchor="middle">−1</text><text class="petit" x="170.0" y="91.0" text-anchor="middle">0</text><text class="petit" x="213.3" y="91.0" text-anchor="middle">1</text><text class="petit" x="256.7" y="91.0" text-anchor="middle">2</text><text class="petit" x="300.0" y="91.0" text-anchor="middle">3</text><text class="petit" x="343.3" y="91.0" text-anchor="middle">4</text><text class="petit" x="386.7" y="91.0" text-anchor="middle">5</text><text class="petit" x="430.0" y="91.0" text-anchor="middle">6</text><g class="trace t-u ep-6"><line x1="126.7" y1="62.0" x2="300.0" y2="62.0"/></g><g class="trace t-u ep-3"><path d="M133.7,50.0 L126.7,50.0 L126.7,74.0 L133.7,74.0"/></g><g class="trace t-u ep-3"><path d="M307.0,50.0 L300.0,50.0 L300.0,74.0 L307.0,74.0"/></g><text class="formule halo" x="213.3" y="40.0" text-anchor="middle">[−1 ; 3[</text><line class="axe-trait" x1="26.0" y1="146.0" x2="438.0" y2="146.0"/><polygon class="pt" points="444.0,146.0 434.0,141.0 434.0,151.0"/><line class="axe-trait" x1="40.0" y1="141.0" x2="40.0" y2="151.0"/><line class="axe-trait" x1="83.3" y1="141.0" x2="83.3" y2="151.0"/><line class="axe-trait" x1="126.7" y1="141.0" x2="126.7" y2="151.0"/><line class="axe-trait" x1="170.0" y1="141.0" x2="170.0" y2="151.0"/><line class="axe-trait" x1="213.3" y1="141.0" x2="213.3" y2="151.0"/><line class="axe-trait" x1="256.7" y1="141.0" x2="256.7" y2="151.0"/><line class="axe-trait" x1="300.0" y1="141.0" x2="300.0" y2="151.0"/><line class="axe-trait" x1="343.3" y1="141.0" x2="343.3" y2="151.0"/><line class="axe-trait" x1="386.7" y1="141.0" x2="386.7" y2="151.0"/><line class="axe-trait" x1="430.0" y1="141.0" x2="430.0" y2="151.0"/><text class="petit" x="40.0" y="175.0" text-anchor="middle">−3</text><text class="petit" x="83.3" y="175.0" text-anchor="middle">−2</text><text class="petit" x="126.7" y="175.0" text-anchor="middle">−1</text><text class="petit" x="170.0" y="175.0" text-anchor="middle">0</text><text class="petit" x="213.3" y="175.0" text-anchor="middle">1</text><text class="petit" x="256.7" y="175.0" text-anchor="middle">2</text><text class="petit" x="300.0" y="175.0" text-anchor="middle">3</text><text class="petit" x="343.3" y="175.0" text-anchor="middle">4</text><text class="petit" x="386.7" y="175.0" text-anchor="middle">5</text><text class="petit" x="430.0" y="175.0" text-anchor="middle">6</text><g class="trace t-v ep-6"><line x1="256.7" y1="146.0" x2="434.0" y2="146.0"/></g><g class="trace t-v ep-3"><path d="M249.7,134.0 L256.7,134.0 L256.7,158.0 L249.7,158.0"/></g><text class="formule halo" x="345.3" y="124.0" text-anchor="middle">]2 ; +∞[</text></svg><figcaption>Le crochet tourné <strong>vers</strong> les nombres gardés : la borne est comprise. Tourné vers l'extérieur : elle est exclue. Du côté de l'infini, le trait va jusqu'au bout de la flèche.</figcaption></figure>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Appartenir à un intervalle">
+      <p>$x\in[a\,;b]$ veut dire $a\leqslant x\leqslant b$. Ainsi $3\in[-1\,;3]$, mais $3\notin[-1\,;3[$.</p>
+    </div>
+    <div class="bloc remarque" data-titre="Pourquoi un point-virgule ?">
+      <p>Parce que la virgule sert déjà aux nombres : $[1{,}5\,;2]$ se lit sans hésiter, alors que « [1,5,2] » est illisible.</p>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Traduire une inégalité par un intervalle">
+    <ol class="etapes">
+      <li><span>Je repère les bornes, et je les écris dans l'ordre : la plus petite à gauche.</span></li>
+      <li><span>Pour chaque borne : $\leqslant$ ou $\geqslant$, elle est comprise, crochet tourné vers l'intérieur ; $&lt;$ ou $&gt;$, elle est exclue, crochet tourné vers l'extérieur.</span></li>
+      <li><span>S'il n'y a pas de borne d'un côté, j'écris $-\infty$ ou $+\infty$, avec un crochet ouvert.</span></li>
+      <li><span>Je vérifie avec un nombre de l'intervalle et un nombre qui n'y est pas.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Écris avec un intervalle l'ensemble des réels $x$ tels que : a) $-2&lt;x\leqslant5$ ; b) $x&lt;4$ ; c) $x$ est au moins égal à 1,5 ; d) $7&gt;x\geqslant-1$.</p>
+      <ol class="pas">
+        <li><strong>a)</strong> $-2$ exclue, 5 comprise : $]-2\,;5]$.</li>
+        <li><strong>b)</strong> Pas de borne à gauche, 4 exclue : $]-\infty\,;4[$.</li>
+        <li><strong>c)</strong> « Au moins égal », c'est $x\geqslant1{,}5$ : $[1{,}5\,;+\infty[$.</li>
+        <li><strong>d)</strong> L'inégalité est écrite à l'envers : $-1\leqslant x&lt;7$, donc $[-1\,;7[$. Vérification : $0$ convient ($7&gt;0\geqslant-1$), $7$ non.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-reunion">4. Réunion et intersection</h3>
+
+  <div class="bloc definition" data-titre="Intersection, réunion">
+    <p>Soient $I$ et $J$ deux intervalles.</p>
+    <ul>
+      <li>L'<strong>intersection</strong> $I\cap J$ (« $I$ inter $J$ ») est l'ensemble des réels qui sont dans $I$ <strong>et</strong> dans $J$.</li>
+      <li>La <strong>réunion</strong> $I\cup J$ (« $I$ union $J$ ») est l'ensemble des réels qui sont dans $I$ <strong>ou</strong> dans $J$ (dans l'un au moins).</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="reunion_intersection" viewBox="0 0 520 330" role="img" aria-label="Quatre droites graduées l'une sous l'autre. I va de moins 2 à 3, bornes comprises ; J va de 1 exclu à 5 compris. Leur intersection, les nombres dans I et dans J, va de 1 exclu à 3 compris. Leur réunion, les nombres dans I ou dans J, va de moins 2 à 5, bornes comprises."><g class="trace t-n pointille"><line x1="275.6" y1="34" x2="275.6" y2="284"/></g><g class="trace t-n pointille"><line x1="353.3" y1="34" x2="353.3" y2="284"/></g><line class="axe-trait" x1="106.0" y1="52.0" x2="478.0" y2="52.0"/><polygon class="pt" points="484.0,52.0 474.0,47.0 474.0,57.0"/><line class="axe-trait" x1="120.0" y1="47.0" x2="120.0" y2="57.0"/><line class="axe-trait" x1="158.9" y1="47.0" x2="158.9" y2="57.0"/><line class="axe-trait" x1="197.8" y1="47.0" x2="197.8" y2="57.0"/><line class="axe-trait" x1="236.7" y1="47.0" x2="236.7" y2="57.0"/><line class="axe-trait" x1="275.6" y1="47.0" x2="275.6" y2="57.0"/><line class="axe-trait" x1="314.4" y1="47.0" x2="314.4" y2="57.0"/><line class="axe-trait" x1="353.3" y1="47.0" x2="353.3" y2="57.0"/><line class="axe-trait" x1="392.2" y1="47.0" x2="392.2" y2="57.0"/><line class="axe-trait" x1="431.1" y1="47.0" x2="431.1" y2="57.0"/><line class="axe-trait" x1="470.0" y1="47.0" x2="470.0" y2="57.0"/><text class="petit" x="120.0" y="81.0" text-anchor="middle">−3</text><text class="petit" x="158.9" y="81.0" text-anchor="middle">−2</text><text class="petit" x="197.8" y="81.0" text-anchor="middle">−1</text><text class="petit" x="236.7" y="81.0" text-anchor="middle">0</text><text class="petit" x="275.6" y="81.0" text-anchor="middle">1</text><text class="petit" x="314.4" y="81.0" text-anchor="middle">2</text><text class="petit" x="353.3" y="81.0" text-anchor="middle">3</text><text class="petit" x="392.2" y="81.0" text-anchor="middle">4</text><text class="petit" x="431.1" y="81.0" text-anchor="middle">5</text><text class="petit" x="470.0" y="81.0" text-anchor="middle">6</text><g class="trace t-u ep-6"><line x1="158.9" y1="52.0" x2="353.3" y2="52.0"/></g><g class="trace t-u ep-3"><path d="M165.9,40.0 L158.9,40.0 L158.9,64.0 L165.9,64.0"/></g><g class="trace t-u ep-3"><path d="M346.3,40.0 L353.3,40.0 L353.3,64.0 L346.3,64.0"/></g><text class="formule halo" x="256.1" y="34.0" text-anchor="middle">[−2 ; 3]</text><text class="lettre" x="18.0" y="58.0" text-anchor="start">I</text><line class="axe-trait" x1="106.0" y1="122.0" x2="478.0" y2="122.0"/><polygon class="pt" points="484.0,122.0 474.0,117.0 474.0,127.0"/><line class="axe-trait" x1="120.0" y1="117.0" x2="120.0" y2="127.0"/><line class="axe-trait" x1="158.9" y1="117.0" x2="158.9" y2="127.0"/><line class="axe-trait" x1="197.8" y1="117.0" x2="197.8" y2="127.0"/><line class="axe-trait" x1="236.7" y1="117.0" x2="236.7" y2="127.0"/><line class="axe-trait" x1="275.6" y1="117.0" x2="275.6" y2="127.0"/><line class="axe-trait" x1="314.4" y1="117.0" x2="314.4" y2="127.0"/><line class="axe-trait" x1="353.3" y1="117.0" x2="353.3" y2="127.0"/><line class="axe-trait" x1="392.2" y1="117.0" x2="392.2" y2="127.0"/><line class="axe-trait" x1="431.1" y1="117.0" x2="431.1" y2="127.0"/><line class="axe-trait" x1="470.0" y1="117.0" x2="470.0" y2="127.0"/><text class="petit" x="120.0" y="151.0" text-anchor="middle">−3</text><text class="petit" x="158.9" y="151.0" text-anchor="middle">−2</text><text class="petit" x="197.8" y="151.0" text-anchor="middle">−1</text><text class="petit" x="236.7" y="151.0" text-anchor="middle">0</text><text class="petit" x="275.6" y="151.0" text-anchor="middle">1</text><text class="petit" x="314.4" y="151.0" text-anchor="middle">2</text><text class="petit" x="353.3" y="151.0" text-anchor="middle">3</text><text class="petit" x="392.2" y="151.0" text-anchor="middle">4</text><text class="petit" x="431.1" y="151.0" text-anchor="middle">5</text><text class="petit" x="470.0" y="151.0" text-anchor="middle">6</text><g class="trace t-v ep-6"><line x1="275.6" y1="122.0" x2="431.1" y2="122.0"/></g><g class="trace t-v ep-3"><path d="M268.6,110.0 L275.6,110.0 L275.6,134.0 L268.6,134.0"/></g><g class="trace t-v ep-3"><path d="M424.1,110.0 L431.1,110.0 L431.1,134.0 L424.1,134.0"/></g><text class="formule halo" x="353.3" y="104.0" text-anchor="middle">]1 ; 5]</text><text class="lettre" x="18.0" y="128.0" text-anchor="start">J</text><line class="axe-trait" x1="106.0" y1="196.0" x2="478.0" y2="196.0"/><polygon class="pt" points="484.0,196.0 474.0,191.0 474.0,201.0"/><line class="axe-trait" x1="120.0" y1="191.0" x2="120.0" y2="201.0"/><line class="axe-trait" x1="158.9" y1="191.0" x2="158.9" y2="201.0"/><line class="axe-trait" x1="197.8" y1="191.0" x2="197.8" y2="201.0"/><line class="axe-trait" x1="236.7" y1="191.0" x2="236.7" y2="201.0"/><line class="axe-trait" x1="275.6" y1="191.0" x2="275.6" y2="201.0"/><line class="axe-trait" x1="314.4" y1="191.0" x2="314.4" y2="201.0"/><line class="axe-trait" x1="353.3" y1="191.0" x2="353.3" y2="201.0"/><line class="axe-trait" x1="392.2" y1="191.0" x2="392.2" y2="201.0"/><line class="axe-trait" x1="431.1" y1="191.0" x2="431.1" y2="201.0"/><line class="axe-trait" x1="470.0" y1="191.0" x2="470.0" y2="201.0"/><text class="petit" x="120.0" y="225.0" text-anchor="middle">−3</text><text class="petit" x="158.9" y="225.0" text-anchor="middle">−2</text><text class="petit" x="197.8" y="225.0" text-anchor="middle">−1</text><text class="petit" x="236.7" y="225.0" text-anchor="middle">0</text><text class="petit" x="275.6" y="225.0" text-anchor="middle">1</text><text class="petit" x="314.4" y="225.0" text-anchor="middle">2</text><text class="petit" x="353.3" y="225.0" text-anchor="middle">3</text><text class="petit" x="392.2" y="225.0" text-anchor="middle">4</text><text class="petit" x="431.1" y="225.0" text-anchor="middle">5</text><text class="petit" x="470.0" y="225.0" text-anchor="middle">6</text><g class="trace t-w ep-6"><line x1="275.6" y1="196.0" x2="353.3" y2="196.0"/></g><g class="trace t-w ep-3"><path d="M268.6,184.0 L275.6,184.0 L275.6,208.0 L268.6,208.0"/></g><g class="trace t-w ep-3"><path d="M346.3,184.0 L353.3,184.0 L353.3,208.0 L346.3,208.0"/></g><text class="formule halo" x="314.4" y="178.0" text-anchor="middle">]1 ; 3]</text><text class="lettre" x="18.0" y="202.0" text-anchor="start">I ∩ J</text><line class="axe-trait" x1="106.0" y1="270.0" x2="478.0" y2="270.0"/><polygon class="pt" points="484.0,270.0 474.0,265.0 474.0,275.0"/><line class="axe-trait" x1="120.0" y1="265.0" x2="120.0" y2="275.0"/><line class="axe-trait" x1="158.9" y1="265.0" x2="158.9" y2="275.0"/><line class="axe-trait" x1="197.8" y1="265.0" x2="197.8" y2="275.0"/><line class="axe-trait" x1="236.7" y1="265.0" x2="236.7" y2="275.0"/><line class="axe-trait" x1="275.6" y1="265.0" x2="275.6" y2="275.0"/><line class="axe-trait" x1="314.4" y1="265.0" x2="314.4" y2="275.0"/><line class="axe-trait" x1="353.3" y1="265.0" x2="353.3" y2="275.0"/><line class="axe-trait" x1="392.2" y1="265.0" x2="392.2" y2="275.0"/><line class="axe-trait" x1="431.1" y1="265.0" x2="431.1" y2="275.0"/><line class="axe-trait" x1="470.0" y1="265.0" x2="470.0" y2="275.0"/><text class="petit" x="120.0" y="299.0" text-anchor="middle">−3</text><text class="petit" x="158.9" y="299.0" text-anchor="middle">−2</text><text class="petit" x="197.8" y="299.0" text-anchor="middle">−1</text><text class="petit" x="236.7" y="299.0" text-anchor="middle">0</text><text class="petit" x="275.6" y="299.0" text-anchor="middle">1</text><text class="petit" x="314.4" y="299.0" text-anchor="middle">2</text><text class="petit" x="353.3" y="299.0" text-anchor="middle">3</text><text class="petit" x="392.2" y="299.0" text-anchor="middle">4</text><text class="petit" x="431.1" y="299.0" text-anchor="middle">5</text><text class="petit" x="470.0" y="299.0" text-anchor="middle">6</text><g class="trace t-ink ep-6"><line x1="158.9" y1="270.0" x2="431.1" y2="270.0"/></g><g class="trace t-ink ep-3"><path d="M165.9,258.0 L158.9,258.0 L158.9,282.0 L165.9,282.0"/></g><g class="trace t-ink ep-3"><path d="M424.1,258.0 L431.1,258.0 L431.1,282.0 L424.1,282.0"/></g><text class="formule halo" x="295.0" y="252.0" text-anchor="middle">[−2 ; 5]</text><text class="lettre" x="18.0" y="276.0" text-anchor="start">I ∪ J</text></svg><figcaption>$I=[-2\,;3]$ et $J=]1\,;5]$. L'intersection garde ce qui est couvert deux fois : $]1\,;3]$. La réunion garde ce qui est couvert au moins une fois : $[-2\,;5]$.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Trouver une intersection ou une réunion">
+    <ol class="etapes">
+      <li><span>Je dessine $I$ et $J$ sur la même droite graduée, chacun d'une couleur.</span></li>
+      <li><span>Intersection : je garde la partie couverte par les deux couleurs. Réunion : la partie couverte par au moins une couleur.</span></li>
+      <li><span>Je lis les bornes ; chaque borne garde le crochet de l'intervalle d'où elle vient. Si les deux intervalles ont la même borne, elle est comprise dans l'intersection quand elle l'est dans les deux, dans la réunion quand elle l'est dans l'un des deux.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> 1. $I=]-\infty\,;2]$ et $J=]-1\,;4[$. Détermine $I\cap J$ et $I\cup J$. 2. Même question avec $K=[0\,;1]$ et $L=[3\,;5]$.</p>
+      <ol class="pas">
+        <li><strong>1. L'intersection.</strong> Les deux couleurs se recouvrent de $-1$ à 2. La borne $-1$ vient de $J$ (exclue), la borne 2 vient de $I$ (comprise) : $I\cap J=]-1\,;2]$.</li>
+        <li><strong>1. La réunion.</strong> Au moins une couleur depuis $-\infty$ jusqu'à 4, exclu : $I\cup J=]-\infty\,;4[$.</li>
+        <li><strong>2. L'intersection.</strong> Aucun réel n'est à la fois entre 0 et 1 et entre 3 et 5 : l'intersection est <strong>vide</strong>.</li>
+        <li><strong>2. La réunion.</strong> Les deux morceaux ne se touchent pas : $K\cup L=[0\,;1]\cup[3\,;5]$, qu'on ne peut pas écrire avec un seul intervalle (2 n'y est pas).</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="L'ensemble vide">
+    <p>L'ensemble qui ne contient aucun nombre s'appelle l'<strong>ensemble vide</strong>. On le note parfois $\varnothing$ : $[0\,;1]\cap[3\,;5]=\varnothing$.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-distance">5. Valeur absolue et distance</h3>
+
+  <div class="bloc definition" data-titre="Valeur absolue, distance">
+    <p>La <strong>valeur absolue</strong> d'un réel $a$, notée $|a|$, est la distance entre $a$ et 0 sur la droite graduée : $|5|=5$, $|-5|=5$, $|0|=0$.</p>
+    <p>La <strong>distance</strong> entre deux réels $a$ et $b$ est la longueur du segment qui joint leurs points : le plus grand moins le plus petit. C'est la valeur absolue de leur différence, $|a-b|$ (« valeur absolue de $a$ moins $b$ ») : retrancher $b$ aux deux nombres fait glisser leurs deux points ensemble, $b$ arrive en 0 et $a$ en $a-b$, sans que leur écart change. Une distance n'est <strong>jamais négative</strong>, et $|a-b|=|b-a|$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="distance" viewBox="0 0 490 148" role="img" aria-label="Sur une droite graduée, les points d'abscisses moins 2 et 3. Le segment qui les joint mesure 5 : la distance entre moins 2 et 3 est 5, qu'on écrit valeur absolue de 3 moins moins 2."><line class="axe-trait" x1="26.0" y1="84.0" x2="438.0" y2="84.0"/><polygon class="pt" points="444.0,84.0 434.0,79.0 434.0,89.0"/><line class="axe-trait" x1="40.0" y1="79.0" x2="40.0" y2="89.0"/><line class="axe-trait" x1="83.3" y1="79.0" x2="83.3" y2="89.0"/><line class="axe-trait" x1="126.7" y1="79.0" x2="126.7" y2="89.0"/><line class="axe-trait" x1="170.0" y1="79.0" x2="170.0" y2="89.0"/><line class="axe-trait" x1="213.3" y1="79.0" x2="213.3" y2="89.0"/><line class="axe-trait" x1="256.7" y1="79.0" x2="256.7" y2="89.0"/><line class="axe-trait" x1="300.0" y1="79.0" x2="300.0" y2="89.0"/><line class="axe-trait" x1="343.3" y1="79.0" x2="343.3" y2="89.0"/><line class="axe-trait" x1="386.7" y1="79.0" x2="386.7" y2="89.0"/><line class="axe-trait" x1="430.0" y1="79.0" x2="430.0" y2="89.0"/><text class="petit" x="40.0" y="113.0" text-anchor="middle">−4</text><text class="petit" x="83.3" y="113.0" text-anchor="middle">−3</text><text class="petit" x="126.7" y="113.0" text-anchor="middle">−2</text><text class="petit" x="170.0" y="113.0" text-anchor="middle">−1</text><text class="petit" x="213.3" y="113.0" text-anchor="middle">0</text><text class="petit" x="256.7" y="113.0" text-anchor="middle">1</text><text class="petit" x="300.0" y="113.0" text-anchor="middle">2</text><text class="petit" x="343.3" y="113.0" text-anchor="middle">3</text><text class="petit" x="386.7" y="113.0" text-anchor="middle">4</text><text class="petit" x="430.0" y="113.0" text-anchor="middle">5</text><circle class="pt pt-v" cx="126.7" cy="84" r="5.5"/><circle class="pt pt-v" cx="343.3" cy="84" r="5.5"/><g class="trace t-v ep-2"><line x1="235.0" y1="46" x2="134.7" y2="46"/></g><polygon class="pt pt-v" points="126.7,46 137.7,41 137.7,51"/><g class="trace t-v ep-2"><line x1="235.0" y1="46" x2="335.3" y2="46"/></g><polygon class="pt pt-v" points="343.3,46 332.3,41 332.3,51"/><text class="formule halo" x="235.0" y="34.0" text-anchor="middle">|3 − (−2)| = 5</text></svg><figcaption>Entre $-2$ et $3$, il y a 5 unités : $|3-(-2)|=|5|=5$, et aussi $|-2-3|=|-5|=5$.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Un intervalle par son centre et son rayon">
+    <p>Soient $a$ un réel et $r$ un réel strictement positif. Dire que $|x-a|\leqslant r$, c'est dire que $x$ est à une distance au plus $r$ de $a$ :</p>
+    $$|x-a|\leqslant r \iff a-r\leqslant x\leqslant a+r \iff x\in[a-r\,;a+r]$$
+    <p>$a$ est le <strong>centre</strong> de l'intervalle et $r$ son <strong>rayon</strong>, la moitié de sa longueur. Avec $|x-a|&lt;r$, les bornes sont exclues : $x\in]a-r\,;a+r[$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="centre_rayon" viewBox="0 0 490 154" role="img" aria-label="Sur une droite graduée, l'intervalle de moins 1 à 3, bornes comprises, et son centre 1. De 1 à chaque borne, il y a 2 : c'est le rayon. Les nombres x de l'intervalle sont ceux dont la distance à 1 ne dépasse pas 2."><line class="axe-trait" x1="26.0" y1="92.0" x2="438.0" y2="92.0"/><polygon class="pt" points="444.0,92.0 434.0,87.0 434.0,97.0"/><line class="axe-trait" x1="40.0" y1="87.0" x2="40.0" y2="97.0"/><line class="axe-trait" x1="88.8" y1="87.0" x2="88.8" y2="97.0"/><line class="axe-trait" x1="137.5" y1="87.0" x2="137.5" y2="97.0"/><line class="axe-trait" x1="186.2" y1="87.0" x2="186.2" y2="97.0"/><line class="axe-trait" x1="235.0" y1="87.0" x2="235.0" y2="97.0"/><line class="axe-trait" x1="283.8" y1="87.0" x2="283.8" y2="97.0"/><line class="axe-trait" x1="332.5" y1="87.0" x2="332.5" y2="97.0"/><line class="axe-trait" x1="381.2" y1="87.0" x2="381.2" y2="97.0"/><line class="axe-trait" x1="430.0" y1="87.0" x2="430.0" y2="97.0"/><text class="petit" x="40.0" y="121.0" text-anchor="middle">−3</text><text class="petit" x="88.8" y="121.0" text-anchor="middle">−2</text><text class="petit" x="137.5" y="121.0" text-anchor="middle">−1</text><text class="petit" x="186.2" y="121.0" text-anchor="middle">0</text><text class="petit" x="235.0" y="121.0" text-anchor="middle">1</text><text class="petit" x="283.8" y="121.0" text-anchor="middle">2</text><text class="petit" x="332.5" y="121.0" text-anchor="middle">3</text><text class="petit" x="381.2" y="121.0" text-anchor="middle">4</text><text class="petit" x="430.0" y="121.0" text-anchor="middle">5</text><g class="trace t-u ep-6"><line x1="137.5" y1="92.0" x2="332.5" y2="92.0"/></g><g class="trace t-u ep-3"><path d="M144.5,80.0 L137.5,80.0 L137.5,104.0 L144.5,104.0"/></g><g class="trace t-u ep-3"><path d="M325.5,80.0 L332.5,80.0 L332.5,104.0 L325.5,104.0"/></g><circle class="pt pt-v" cx="235.0" cy="92" r="6"/><g class="trace t-v ep-2"><line x1="235.0" y1="52" x2="145.5" y2="52"/></g><polygon class="pt pt-v" points="137.5,52 148.5,47 148.5,57"/><text class="formule halo" x="186.2" y="42.0" text-anchor="middle">r = 2</text><g class="trace t-v ep-2"><line x1="235.0" y1="52" x2="324.5" y2="52"/></g><polygon class="pt pt-v" points="332.5,52 321.5,47 321.5,57"/><text class="formule halo" x="283.8" y="42.0" text-anchor="middle">r = 2</text><g class="trace t-v ep-2 tirets-5"><line x1="235.0" y1="52" x2="235.0" y2="86"/></g><text class="note" x="242.0" y="74.0" text-anchor="start">centre</text></svg><figcaption>$|x-1|\leqslant2$ : les nombres à une distance au plus 2 de 1, c'est-à-dire $[-1\,;3]$.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Passer de |x − a| ≤ r à un intervalle, et retour">
+    <ol class="etapes">
+      <li><span>Je fais apparaître une différence $x-a$ : $|x+3|=|x-(-3)|$, donc le centre est $-3$.</span></li>
+      <li><span>Je retire et j'ajoute le rayon au centre : $[a-r\,;a+r]$.</span></li>
+      <li><span>Dans l'autre sens, pour $[m\,;M]$ : le centre est le milieu $\dfrac{m+M}2$, le rayon la demi-longueur $\dfrac{M-m}2$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> a) Écris avec un intervalle les réels $x$ tels que $|x+3|\leqslant2$. b) Écris l'intervalle $[1{,}2\,;3]$ sous la forme $|x-a|\leqslant r$.</p>
+      <ol class="pas">
+        <li><strong>a) Le centre.</strong> $|x+3|=|x-(-3)|$ : le centre est $-3$, le rayon 2.</li>
+        <li><strong>a) L'intervalle.</strong> $[-3-2\,;-3+2]=[-5\,;-1]$.</li>
+        <li><strong>b) Le centre et le rayon.</strong> Centre $\dfrac{1{,}2+3}2=2{,}1$ ; rayon $\dfrac{3-1{,}2}2=0{,}9$.</li>
+        <li><strong>b) L'écriture.</strong> $x\in[1{,}2\,;3]\iff|x-2{,}1|\leqslant0{,}9$. Vérification : $2{,}1-0{,}9=1{,}2$ et $2{,}1+0{,}9=3$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="L'intervalle de référence">
+    <p>L'intervalle de référence $[0{,}70\,;1{,}10]$ (en g/L) a pour centre 0,90 et pour rayon 0,20 : une glycémie $g$ est dedans quand $|g-0{,}9|\leqslant0{,}2$. Le résultat 0,92 g/L est à $|0{,}92-0{,}9|=0{,}02$ g/L du centre : il est dedans, bien au milieu.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-encadrer">6. Comparer, encadrer, arrondir</h3>
+
+  <div class="bloc methode" data-titre="Comparer deux nombres par leur différence ou leur quotient">
+    <ol class="etapes">
+      <li><span>Je calcule la différence $a-b$ : si elle est positive, $a\geqslant b$ ; si elle est négative, $a\leqslant b$.</span></li>
+      <li><span>Quand $a$ et $b$ sont strictement positifs, je peux aussi calculer le quotient $\dfrac ab$ : s'il dépasse 1, $a&gt;b$ ; s'il est inférieur à 1, $a&lt;b$.</span></li>
+      <li><span>Je dis ce que le calcul veut dire : la différence est un écart (« de combien ? »), le quotient un rapport (« combien de fois ? »).</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> a) Compare $\dfrac13$ et $0{,}33$. b) Compare $2^{10}$ et $10^3$.</p>
+      <ol class="pas">
+        <li><strong>a) La différence.</strong> $\dfrac13-0{,}33=\dfrac{100}{300}-\dfrac{99}{300}=\dfrac1{300}$, positive : $\dfrac13&gt;0{,}33$, avec un écart de $\dfrac1{300}$.</li>
+        <li><strong>b) Le quotient.</strong> $2^{10}=1\,024$, et $\dfrac{1\,024}{1\,000}=1{,}024&gt;1$ : $2^{10}&gt;10^3$. Le rapport dit de combien : $2^{10}$ dépasse $10^3$ de 2,4 %.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Inégalités et opérations">
+    <p>Pour tous réels $a$, $b$, $c$ et $d$ :</p>
+    <ul>
+      <li>si $a\leqslant b$, alors $a+c\leqslant b+c$ : ajouter ou retirer un même nombre <strong>garde le sens</strong> ;</li>
+      <li>si $a\leqslant b$ et $c&gt;0$, alors $ac\leqslant bc$ : multiplier par un nombre <strong>positif</strong> garde le sens ;</li>
+      <li>si $a\leqslant b$ et $c&lt;0$, alors $ac\geqslant bc$ : multiplier par un nombre <strong>négatif</strong> <strong>change le sens</strong> ;</li>
+      <li>si $a\leqslant b$ et $c\leqslant d$, alors $a+c\leqslant b+d$ : on peut ajouter deux inégalités de même sens.</li>
+    </ul>
+    <p>Les mêmes règles valent avec des inégalités strictes ($&lt;$).</p>
+    <p>Avec $1{,}4&lt;\sqrt2&lt;1{,}5$ : $2{,}8&lt;2\sqrt2&lt;3$ ; $-1{,}5&lt;-\sqrt2&lt;-1{,}4$ ; $3{,}4&lt;\sqrt2+2&lt;3{,}5$.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Encadrement">
+    <p><strong>Encadrer</strong> un réel $x$, c'est trouver deux nombres $m$ et $M$ tels que $m\leqslant x\leqslant M$. L'<strong>amplitude</strong> de l'encadrement est $M-m$.</p>
+    <p>Un encadrement décimal <strong>à $10^{-n}$ près</strong> est un encadrement par deux décimaux à $n$ chiffres après la virgule, d'amplitude $10^{-n}$ : $1{,}41&lt;\sqrt2&lt;1{,}42$ est un encadrement de $\sqrt2$ à $10^{-2}$ près.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Encadrer √2 par balayage">
+    <ol class="etapes">
+      <li><span>Je cherche le nombre positif dont le carré vaut 2 : j'avance de 0,1 en 0,1 tant que le carré reste inférieur à 2.</span></li>
+      <li><span>Quand le carré dépasse 2, j'ai un encadrement d'amplitude 0,1.</span></li>
+      <li><span>Je recommence entre ces deux bornes, de 0,01 en 0,01, et ainsi de suite.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Encadre $\sqrt2$ à $10^{-2}$ près, sans la touche $\sqrt{\ }$.</p>
+      <ol class="pas">
+        <li><strong>Au dixième.</strong> $1{,}4^2=1{,}96&lt;2$ et $1{,}5^2=2{,}25&gt;2$. Comme $\sqrt2$ est positif et que les carrés sont rangés comme les nombres positifs : $1{,}4&lt;\sqrt2&lt;1{,}5$.</li>
+        <li><strong>Au centième.</strong> $1{,}41^2=1{,}9881&lt;2$ et $1{,}42^2=2{,}0164&gt;2$ : $1{,}41&lt;\sqrt2&lt;1{,}42$.</li>
+        <li><strong>La suite.</strong> On continue de la même façon : $1{,}414&lt;\sqrt2&lt;1{,}415$, et l'écriture décimale de $\sqrt2$ ne s'arrête jamais.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="balayage" viewBox="0 0 540 218" role="img" aria-label="Deux droites graduées. En haut, de 1 à 2, graduée de 0,1 en 0,1 : racine de 2 est entre 1,4 et 1,5. En bas, un zoom sur l'intervalle de 1,4 à 1,5, gradué de 0,01 en 0,01 : racine de 2 est entre 1,41 et 1,42."><line class="axe-trait" x1="16.0" y1="48.0" x2="498.0" y2="48.0"/><polygon class="pt" points="504.0,48.0 494.0,43.0 494.0,53.0"/><line class="axe-trait" x1="30.0" y1="43.0" x2="30.0" y2="53.0"/><line class="axe-trait" x1="76.0" y1="43.0" x2="76.0" y2="53.0"/><line class="axe-trait" x1="122.0" y1="43.0" x2="122.0" y2="53.0"/><line class="axe-trait" x1="168.0" y1="43.0" x2="168.0" y2="53.0"/><line class="axe-trait" x1="214.0" y1="43.0" x2="214.0" y2="53.0"/><line class="axe-trait" x1="260.0" y1="43.0" x2="260.0" y2="53.0"/><line class="axe-trait" x1="306.0" y1="43.0" x2="306.0" y2="53.0"/><line class="axe-trait" x1="352.0" y1="43.0" x2="352.0" y2="53.0"/><line class="axe-trait" x1="398.0" y1="43.0" x2="398.0" y2="53.0"/><line class="axe-trait" x1="444.0" y1="43.0" x2="444.0" y2="53.0"/><line class="axe-trait" x1="490.0" y1="43.0" x2="490.0" y2="53.0"/><text class="petit" x="30.0" y="77.0" text-anchor="middle">1</text><text class="petit" x="214.0" y="77.0" text-anchor="middle">1,4</text><text class="petit" x="260.0" y="77.0" text-anchor="middle">1,5</text><text class="petit" x="490.0" y="77.0" text-anchor="middle">2</text><line class="axe-trait" x1="16.0" y1="150.0" x2="498.0" y2="150.0"/><polygon class="pt" points="504.0,150.0 494.0,145.0 494.0,155.0"/><line class="axe-trait" x1="30.0" y1="145.0" x2="30.0" y2="155.0"/><line class="axe-trait" x1="76.0" y1="145.0" x2="76.0" y2="155.0"/><line class="axe-trait" x1="122.0" y1="145.0" x2="122.0" y2="155.0"/><line class="axe-trait" x1="168.0" y1="145.0" x2="168.0" y2="155.0"/><line class="axe-trait" x1="214.0" y1="145.0" x2="214.0" y2="155.0"/><line class="axe-trait" x1="260.0" y1="145.0" x2="260.0" y2="155.0"/><line class="axe-trait" x1="306.0" y1="145.0" x2="306.0" y2="155.0"/><line class="axe-trait" x1="352.0" y1="145.0" x2="352.0" y2="155.0"/><line class="axe-trait" x1="398.0" y1="145.0" x2="398.0" y2="155.0"/><line class="axe-trait" x1="444.0" y1="145.0" x2="444.0" y2="155.0"/><line class="axe-trait" x1="490.0" y1="145.0" x2="490.0" y2="155.0"/><text class="petit" x="30.0" y="179.0" text-anchor="middle">1,40</text><text class="petit" x="76.0" y="179.0" text-anchor="middle">1,41</text><text class="petit" x="122.0" y="179.0" text-anchor="middle">1,42</text><text class="petit" x="490.0" y="179.0" text-anchor="middle">1,50</text><g class="trace t-n pointille"><line x1="214.0" y1="56" x2="30" y2="142"/></g><g class="trace t-n pointille"><line x1="260.0" y1="56" x2="490" y2="142"/></g><g class="trace t-u ep-6"><line x1="214.0" y1="48.0" x2="260.0" y2="48.0"/></g><g class="trace t-u ep-3"><path d="M207.0,36.0 L214.0,36.0 L214.0,60.0 L207.0,60.0"/></g><g class="trace t-u ep-3"><path d="M267.0,36.0 L260.0,36.0 L260.0,60.0 L267.0,60.0"/></g><g class="trace t-u ep-6"><line x1="76.0" y1="150.0" x2="122.0" y2="150.0"/></g><g class="trace t-u ep-3"><path d="M69.0,138.0 L76.0,138.0 L76.0,162.0 L69.0,162.0"/></g><g class="trace t-u ep-3"><path d="M129.0,138.0 L122.0,138.0 L122.0,162.0 L129.0,162.0"/></g><circle class="pt pt-v" cx="220.5" cy="48" r="5"/><circle class="pt pt-v" cx="95.4" cy="150" r="5"/><text class="formule halo" x="220.5" y="26.0" text-anchor="middle">√2</text><text class="formule halo" x="95.4" y="128.0" text-anchor="middle">√2</text></svg><figcaption>Chaque étape fait un zoom par 10 : l'encadrement se resserre, sans jamais tomber pile sur $\sqrt2$.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Le balayage en Python">
+<pre class="code">def balayage(pas):
+    x = 0
+    while x**2 &lt; 2:
+        x = x + pas
+    return x - pas, x</pre>
+    <p><code>balayage(0.01)</code> renvoie <code>(1.410000000000001, 1.420000000000001)</code> : l'encadrement est le bon, et les chiffres en trop viennent de ce que l'ordinateur ne connaît pas 0,01 exactement.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc definition" data-titre="Arrondi, troncature">
+      <p>La <strong>troncature</strong> à $10^{-n}$ coupe le nombre après le $n$-ième chiffre après la virgule.</p>
+      <p>L'<strong>arrondi</strong> à $10^{-n}$ est le nombre à $n$ chiffres après la virgule <strong>le plus proche</strong> : si le chiffre suivant est 5, 6, 7, 8 ou 9, on augmente de 1 le dernier chiffre gardé, avec la retenue s'il le faut ($7{,}96$ arrondi au dixième donne $8{,}0$). Pour un nombre pile au milieu, comme $2{,}45$ au dixième, c'est une convention : on arrondit au-dessus.</p>
+      <p>Pour $2{,}4567$ au centième : troncature 2,45, arrondi 2,46. Pour $\pi=3{,}14159\dots$ au millième : troncature 3,141, arrondi 3,142.</p>
+    </div>
+    <div class="bloc definition" data-titre="Chiffres significatifs">
+      <p>Les <strong>chiffres significatifs</strong> d'une valeur sont tous ses chiffres, à partir du premier chiffre non nul en partant de la gauche.</p>
+      <p>$0{,}0450$ en a trois (4, 5 et 0) ; $25{,}0$ en a trois ; $8{,}4$ en a deux. Les zéros de tête ne comptent pas ; les zéros écrits à la fin, après la virgule, comptent. Pour un entier comme $4\,200$, on ne sait pas : l'écriture scientifique lève le doute, $4{,}2\times10^3$ en a deux, $4{,}200\times10^3$ quatre.</p>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="arrondi" viewBox="0 0 520 166" role="img" aria-label="Une droite graduée de 2,45 à 2,46 par millièmes. Le nombre 2,4567 est à droite du milieu 2,455 : il est plus proche de 2,46. Son arrondi au centième est 2,46 ; sa troncature au centième, qui coupe simplement après le chiffre des centièmes, est 2,45."><line class="axe-trait" x1="26.0" y1="90.0" x2="468.0" y2="90.0"/><polygon class="pt" points="474.0,90.0 464.0,85.0 464.0,95.0"/><line class="axe-trait" x1="40.0" y1="85.0" x2="40.0" y2="95.0"/><line class="axe-trait" x1="82.0" y1="85.0" x2="82.0" y2="95.0"/><line class="axe-trait" x1="124.0" y1="85.0" x2="124.0" y2="95.0"/><line class="axe-trait" x1="166.0" y1="85.0" x2="166.0" y2="95.0"/><line class="axe-trait" x1="208.0" y1="85.0" x2="208.0" y2="95.0"/><line class="axe-trait" x1="250.0" y1="85.0" x2="250.0" y2="95.0"/><line class="axe-trait" x1="292.0" y1="85.0" x2="292.0" y2="95.0"/><line class="axe-trait" x1="334.0" y1="85.0" x2="334.0" y2="95.0"/><line class="axe-trait" x1="376.0" y1="85.0" x2="376.0" y2="95.0"/><line class="axe-trait" x1="418.0" y1="85.0" x2="418.0" y2="95.0"/><line class="axe-trait" x1="460.0" y1="85.0" x2="460.0" y2="95.0"/><text class="petit" x="40.0" y="119.0" text-anchor="middle">2,45</text><text class="petit" x="250.0" y="119.0" text-anchor="middle">2,455</text><text class="petit" x="460.0" y="119.0" text-anchor="middle">2,46</text><g class="trace t-n pointille"><line x1="250.0" y1="36" x2="250.0" y2="84"/></g><circle class="pt pt-v" cx="321.4" cy="90" r="6"/><text class="formule halo" x="321.4" y="66.0" text-anchor="middle">2,4567</text><text class="note" x="44.0" y="40.0" text-anchor="start">← troncature : 2,45</text><text class="note" x="456.0" y="40.0" text-anchor="end">arrondi : 2,46 →</text></svg><figcaption>2,4567 est au-delà du milieu 2,455 : l'arrondi au centième est 2,46. La troncature, elle, ne regarde pas où est le nombre : elle coupe.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Arrondir un résultat avec le bon nombre de chiffres">
+    <ol class="etapes">
+      <li><span>Je compte les chiffres significatifs de chaque donnée mesurée.</span></li>
+      <li><span>Je fais le calcul sans arrondir en cours de route.</span></li>
+      <li><span>Pour un produit ou un quotient de mesures, j'arrondis le résultat avec autant de chiffres significatifs que la donnée qui en a le moins.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Le rayon d'un disque, mesuré à la règle, est de 2,3 cm. Donne son aire.</p>
+      <ol class="pas">
+        <li><strong>La donnée.</strong> 2,3 a deux chiffres significatifs.</li>
+        <li><strong>Le calcul.</strong> $\pi\times2{,}3^2=16{,}619\dots$ cm².</li>
+        <li><strong>Le résultat.</strong> Arrondi à deux chiffres significatifs : environ 17 cm². Écrire 16,619 cm² prétendrait une précision que la règle n'a pas.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Estimer un ordre de grandeur">
+    <ol class="etapes">
+      <li><span>J'arrondis chaque nombre à un seul chiffre significatif.</span></li>
+      <li><span>Je calcule de tête avec ces valeurs simples.</span></li>
+      <li><span>Je compare au résultat de la calculatrice : s'ils sont très éloignés, il y a une erreur quelque part.</span></li>
+    </ol>
+    <p>$3\,812\times0{,}021\approx4\,000\times0{,}02=80$. La calculatrice donne $80{,}052$ : c'est vraisemblable. Si elle affichait 8 ou 800, une touche aurait été mal tapée.</p>
+  </div>
+
+  <!-- ===== Pièges ===== -->
+  <h3 id="c-pieges">7. Les pièges classiques</h3>
+
+  <div class="bloc piege" data-titre="Les ensembles de nombres">
+    <ul>
+      <li><strong>« $\dfrac13=0{,}333$, donc $\dfrac13$ est décimal. »</strong> $0{,}333$ n'est qu'une valeur approchée : $3\times0{,}333=0{,}999$, pas 1. L'écriture de $\dfrac13$ ne s'arrête jamais.</li>
+      <li><strong>« $\sqrt4$ est irrationnel, c'est une racine. »</strong> $\sqrt4=2$ : on simplifie avant de ranger. De même, $\dfrac{18}6=3$ est un entier naturel.</li>
+      <li><strong>« $\pi=3{,}14$ », « $\sqrt2=1{,}414$ ».</strong> Ce sont des valeurs approchées ; $\pi$ et $\sqrt2$ sont irrationnels, ils ne valent aucune fraction, pas même $\dfrac{22}7$.</li>
+      <li><strong>« $-3$ est un entier naturel. »</strong> Les naturels sont positifs : $-3\in\mathbb Z$, mais $-3\notin\mathbb N$.</li>
+      <li><strong>« 1 est premier », « 21 est impair, donc premier ».</strong> 1 n'a qu'un diviseur positif ; $21=3\times7$, comme $9$, $15$, $27$… Un premier est impair (sauf 2), mais un impair n'est pas forcément premier.</li>
+    </ul>
+  </div>
+
+  <div class="bloc piege" data-titre="Les intervalles et la valeur absolue">
+    <ul>
+      <li><strong>Le crochet tourné du mauvais côté.</strong> Borne comprise : crochet tourné vers les nombres gardés. $2\leqslant x$ donne $[2\,;\dots$, pas $]2\,;\dots$</li>
+      <li><strong>Le crochet fermé en l'infini.</strong> $[3\,;+\infty]$ n'existe pas : l'infini n'est pas un nombre qu'on pourrait atteindre.</li>
+      <li><strong>Réunion et intersection inversées.</strong> $\cap$ : dans les deux (« et ») ; $\cup$ : dans l'un au moins (« ou »). L'intersection est contenue dans chacun des deux.</li>
+      <li><strong>Le signe du centre.</strong> $|x+3|\leqslant2$ a pour centre $-3$, pas 3 : $|x+3|=|x-(-3)|$.</li>
+      <li><strong>Le rayon pris pour la longueur.</strong> $[2\,;8]$ a pour longueur 6 mais pour rayon 3 : $|x-5|\leqslant3$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc piege" data-titre="Encadrer et arrondir">
+    <ul>
+      <li><strong>Multiplier par un négatif sans changer le sens.</strong> De $2&lt;x&lt;3$, on tire $-6&lt;-2x&lt;-4$ : le sens change, et les bornes échangent leur place.</li>
+      <li><strong>Couper au lieu d'arrondir.</strong> 2,4567 arrondi au centième, c'est 2,46 ; 2,45 est la troncature.</li>
+      <li><strong>Compter les zéros de tête.</strong> 0,050 a deux chiffres significatifs (5 et le dernier 0), pas quatre.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">8. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Les ensembles de nombres"></div>
+    <div class="video" data-titre="Intervalles, réunion et intersection"></div>
+    <div class="video" data-titre="Valeur absolue et distance"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Quatre défis : ranger des nombres dans leurs ensembles, tracer des intervalles, régler un centre et un rayon, puis resserrer un encadrement jusqu'à l'arrondi.</p>
+
+  <div class="labo" data-labo="nombres" data-outil="ranger"></div>
+  <div class="labo" data-labo="nombres" data-outil="intervalle"></div>
+  <div class="labo" data-labo="nombres" data-outil="distance"></div>
+  <div class="labo" data-labo="nombres" data-outil="balayage"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie, souvent avec une droite graduée. Le quiz vérifie les réflexes du cours.</p>
+
+  <div class="jeu" data-generateurs="nombres" data-questions="10" data-titre="Le défi des nombres"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Quel est le plus petit ensemble qui contient $-\dfrac{12}{4}$ ?</p>
+      <ul class="choix"><li>$\mathbb N$</li><li class="bon">$\mathbb Z$</li><li>$\mathbb D$</li><li>$\mathbb Q$</li></ul>
+      <div class="explication">$-\dfrac{12}4=-3$ : un entier, mais négatif. Il est dans $\mathbb Z$, pas dans $\mathbb N$.</div>
+    </div>
+    <div class="question">
+      <p>Lequel de ces nombres n'est pas décimal ?</p>
+      <ul class="choix"><li>$\dfrac34$</li><li>$\dfrac7{20}$</li><li class="bon">$\dfrac23$</li><li>$-\dfrac58$</li></ul>
+      <div class="explication">$\dfrac34=0{,}75$, $\dfrac7{20}=0{,}35$, $-\dfrac58=-0{,}625$ : leurs écritures s'arrêtent. $\dfrac23=0{,}666\dots$ ne s'arrête jamais, comme $\dfrac13$.</div>
+    </div>
+    <div class="question">
+      <p>L'ensemble des réels $x$ tels que $-1\leqslant x&lt;4$ est…</p>
+      <ul class="choix"><li class="bon">$[-1\,;4[$</li><li>$]-1\,;4]$</li><li>$[-1\,;4]$</li><li>$]-1\,;4[$</li></ul>
+      <div class="explication">$-1$ est comprise ($\leqslant$) : crochet tourné vers l'intérieur. 4 est exclue ($&lt;$) : crochet tourné vers l'extérieur.</div>
+    </div>
+    <div class="question">
+      <p>Les réels $x$ tels que $x\geqslant7$ forment l'intervalle…</p>
+      <ul class="choix"><li class="bon">$[7\,;+\infty[$</li><li>$]7\,;+\infty[$</li><li>$[7\,;+\infty]$</li><li>$]-\infty\,;7]$</li></ul>
+      <div class="explication">7 est compris, et il n'y a pas de borne à droite. Le crochet de $+\infty$ est toujours ouvert.</div>
+    </div>
+    <div class="question" data-reponse="5">
+      <p>Combien d'entiers relatifs appartiennent à l'intervalle $]-2\,;3]$ ?</p>
+      <div class="explication">$-2$ est exclu, 3 est compris : $-1$, 0, 1, 2 et 3, soit 5 entiers.</div>
+    </div>
+    <div class="question">
+      <p>$[-2\,;3]\cap]1\,;5]=$</p>
+      <ul class="choix"><li class="bon">$]1\,;3]$</li><li>$[-2\,;5]$</li><li>$[1\,;3]$</li><li>$]1\,;3[$</li></ul>
+      <div class="explication">Les nombres dans les deux : de 1 (exclu, comme dans $]1\,;5]$) à 3 (compris, comme dans $[-2\,;3]$). $[-2\,;5]$ est la réunion.</div>
+    </div>
+    <div class="question">
+      <p>Les réels $x$ tels que $|x-4|\leqslant1{,}5$ forment l'intervalle…</p>
+      <ul class="choix"><li class="bon">$[2{,}5\,;5{,}5]$</li><li>$[-5{,}5\,;-2{,}5]$</li><li>$[4\,;5{,}5]$</li><li>$[-1{,}5\,;1{,}5]$</li></ul>
+      <div class="explication">Centre 4, rayon 1,5 : $[4-1{,}5\,;4+1{,}5]=[2{,}5\,;5{,}5]$.</div>
+    </div>
+    <div class="question" data-reponse="9">
+      <p>Quelle est la distance entre $-7$ et $2$ ?</p>
+      <div class="explication">$|2-(-7)|=|9|=9$. Sur la droite, 7 unités de $-7$ à 0, puis 2 de 0 à 2.</div>
+    </div>
+    <div class="question">
+      <p>Si $2&lt;x&lt;3$, alors…</p>
+      <ul class="choix"><li class="bon">$-6&lt;-2x&lt;-4$</li><li>$-4&lt;-2x&lt;-6$</li><li>$-6&gt;-2x&gt;-4$</li><li>$4&lt;-2x&lt;6$</li></ul>
+      <div class="explication">On multiplie par $-2$, un nombre négatif : le sens change. $-4&gt;-2x&gt;-6$, qu'on écrit dans l'ordre $-6&lt;-2x&lt;-4$.</div>
+    </div>
+    <div class="question">
+      <p>L'arrondi au centième de $5{,}8473$ est…</p>
+      <ul class="choix"><li class="bon">$5{,}85$</li><li>$5{,}84$</li><li>$5{,}8$</li><li>$5{,}847$</li></ul>
+      <div class="explication">Après 5,84 vient le chiffre 7 : on augmente le 4. $5{,}84$ est la troncature.</div>
+    </div>
+    <div class="question" data-reponse="3">
+      <p>Combien de chiffres significatifs compte $0{,}0306$ ?</p>
+      <div class="explication">On commence au premier chiffre non nul, le 3 : 3, 0 et 6, soit trois chiffres.</div>
+    </div>
+    <div class="question">
+      <p>91 est-il un nombre premier ?</p>
+      <ul class="choix"><li class="bon">Non : $91=7\times13$</li><li>Oui : il n'est divisible ni par 2, ni par 3, ni par 5</li><li>Oui : il est impair</li></ul>
+      <div class="explication">Il faut essayer les premiers jusqu'à ce que leur carré dépasse 91 : 2, 3, 5, puis 7, qui divise 91.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre. Rédige d'abord, puis ouvre la correction. Sans calculatrice, sauf quand c'est indiqué.</p>
+
+  <h3>Niveau 1 · Appliquer</h3>
+
+  <article class="exercice" id="ex-le-tri-des-nombres" data-titre="Le tri des nombres" data-niveau="1" data-type="application" data-notions="reels" data-duree="8" data-calculatrice="non">
+    <p>Pour chaque nombre, donne le plus petit des ensembles $\mathbb N$, $\mathbb Z$, $\mathbb D$, $\mathbb Q$, $\mathbb R$ qui le contient.</p>
+    <p>a) $-7$ · b) $\dfrac{18}6$ · c) $0{,}125$ · d) $-\dfrac23$ · e) $\sqrt{49}$ · f) $\sqrt5$ · g) $\dfrac74$ · h) $\dfrac43$ · i) $1{,}333$</p>
+    <details class="indice"><p>Simplifie d'abord chaque écriture : un entier peut se cacher derrière une fraction ou une racine.</p></details>
+    <details class="correction">
+      <p>a) $-7$ : entier négatif, $\mathbb Z$. b) $\dfrac{18}6=3$ : $\mathbb N$. c) $0{,}125$ : son écriture s'arrête, $\mathbb D$. d) $-\dfrac23=-0{,}666\dots$ ne s'arrête pas : $\mathbb Q$.</p>
+      <p>e) $\sqrt{49}=7$ : $\mathbb N$. f) $\sqrt5$ n'est pas rationnel (on l'admet ; la preuve ressemble à celle de $\sqrt2$) : $\mathbb R$. g) $\dfrac74=1{,}75$ : $\mathbb D$.</p>
+      <p>h) $\dfrac43=1{,}333\dots$ ne s'arrête pas : $\mathbb Q$. i) $1{,}333$, lui, s'arrête après trois chiffres : $\mathbb D$. Ce n'est pas le même nombre que $\dfrac43$, seulement une valeur approchée.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-multiples-et-diviseurs" data-titre="Multiples et diviseurs" data-niveau="1" data-type="application" data-notions="entiers" data-duree="8" data-calculatrice="non">
+    <p>1. Donne tous les diviseurs positifs de 36.<br>2. 221 est-il un multiple de 13 ?<br>3. Parmi 51, 53, 57 et 59, lesquels sont premiers ?<br>4. Décompose 360 en produit de facteurs premiers.</p>
+    <details class="correction">
+      <p>1. Par paires : $36=1\times36=2\times18=3\times12=4\times9=6\times6$. Les diviseurs sont 1, 2, 3, 4, 6, 9, 12, 18 et 36.</p>
+      <p>2. $13\times17=221$ : oui, 221 est un multiple de 13.</p>
+      <p>3. $51=3\times17$ et $57=3\times19$ ne sont pas premiers. 53 et 59 ne sont divisibles ni par 2, ni par 3, ni par 5, ni par 7, et $11^2=121$ les dépasse : ils sont premiers.</p>
+      <p>4. $360=2\times180=2\times2\times90=2\times2\times2\times45=2^3\times3^2\times5$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-inegalites-aux-intervalles" data-titre="Des inégalités aux intervalles" data-niveau="1" data-type="application" data-notions="intervalles" data-duree="8" data-calculatrice="non">
+    <p>1. Écris avec un intervalle l'ensemble des réels $x$ tels que : a) $2\leqslant x\leqslant9$ ; b) $-3&lt;x\leqslant0$ ; c) $x&gt;-1$ ; d) $x\leqslant1{,}5$ ; e) $5&gt;x\geqslant-2$ ; f) $x$ est positif.</p>
+    <p>2. Traduis par une inégalité : a) $x\in]-4\,;7[$ ; b) $x\in[\pi\,;+\infty[$.</p>
+    <details class="correction">
+      <p>1. a) $[2\,;9]$. b) $]-3\,;0]$. c) $]-1\,;+\infty[$. d) $]-\infty\,;1{,}5]$. e) On remet dans l'ordre : $-2\leqslant x&lt;5$, donc $[-2\,;5[$. f) « Positif » comprend 0 : $x\geqslant0$, donc $[0\,;+\infty[$.</p>
+      <p>2. a) $-4&lt;x&lt;7$. b) $x\geqslant\pi$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-lire-sur-la-droite" data-titre="Lire sur la droite" data-niveau="1" data-type="application" data-notions="intervalles" data-duree="6" data-calculatrice="non">
+    <figure class="figure-svg"><svg data-figure="lire_droite" viewBox="0 0 490 278" role="img" aria-label="Trois intervalles dessinés, à écrire. a) de moins 3, crochet tourné vers l'intérieur, à 1, crochet tourné vers l'extérieur. b) de 2, crochet tourné vers l'extérieur, jusqu'au bout de la flèche. c) depuis le début de la droite jusqu'à moins 1, crochet tourné vers l'intérieur."><line class="axe-trait" x1="56.0" y1="58.0" x2="448.0" y2="58.0"/><polygon class="pt" points="454.0,58.0 444.0,53.0 444.0,63.0"/><line class="axe-trait" x1="70.0" y1="53.0" x2="70.0" y2="63.0"/><line class="axe-trait" x1="111.1" y1="53.0" x2="111.1" y2="63.0"/><line class="axe-trait" x1="152.2" y1="53.0" x2="152.2" y2="63.0"/><line class="axe-trait" x1="193.3" y1="53.0" x2="193.3" y2="63.0"/><line class="axe-trait" x1="234.4" y1="53.0" x2="234.4" y2="63.0"/><line class="axe-trait" x1="275.6" y1="53.0" x2="275.6" y2="63.0"/><line class="axe-trait" x1="316.7" y1="53.0" x2="316.7" y2="63.0"/><line class="axe-trait" x1="357.8" y1="53.0" x2="357.8" y2="63.0"/><line class="axe-trait" x1="398.9" y1="53.0" x2="398.9" y2="63.0"/><line class="axe-trait" x1="440.0" y1="53.0" x2="440.0" y2="63.0"/><text class="petit" x="70.0" y="87.0" text-anchor="middle">−4</text><text class="petit" x="111.1" y="87.0" text-anchor="middle">−3</text><text class="petit" x="152.2" y="87.0" text-anchor="middle">−2</text><text class="petit" x="193.3" y="87.0" text-anchor="middle">−1</text><text class="petit" x="234.4" y="87.0" text-anchor="middle">0</text><text class="petit" x="275.6" y="87.0" text-anchor="middle">1</text><text class="petit" x="316.7" y="87.0" text-anchor="middle">2</text><text class="petit" x="357.8" y="87.0" text-anchor="middle">3</text><text class="petit" x="398.9" y="87.0" text-anchor="middle">4</text><text class="petit" x="440.0" y="87.0" text-anchor="middle">5</text><g class="trace t-u ep-6"><line x1="111.1" y1="58.0" x2="275.6" y2="58.0"/></g><g class="trace t-u ep-3"><path d="M118.1,46.0 L111.1,46.0 L111.1,70.0 L118.1,70.0"/></g><g class="trace t-u ep-3"><path d="M282.6,46.0 L275.6,46.0 L275.6,70.0 L282.6,70.0"/></g><text class="lettre" x="16.0" y="64.0" text-anchor="start">a)</text><line class="axe-trait" x1="56.0" y1="140.0" x2="448.0" y2="140.0"/><polygon class="pt" points="454.0,140.0 444.0,135.0 444.0,145.0"/><line class="axe-trait" x1="70.0" y1="135.0" x2="70.0" y2="145.0"/><line class="axe-trait" x1="111.1" y1="135.0" x2="111.1" y2="145.0"/><line class="axe-trait" x1="152.2" y1="135.0" x2="152.2" y2="145.0"/><line class="axe-trait" x1="193.3" y1="135.0" x2="193.3" y2="145.0"/><line class="axe-trait" x1="234.4" y1="135.0" x2="234.4" y2="145.0"/><line class="axe-trait" x1="275.6" y1="135.0" x2="275.6" y2="145.0"/><line class="axe-trait" x1="316.7" y1="135.0" x2="316.7" y2="145.0"/><line class="axe-trait" x1="357.8" y1="135.0" x2="357.8" y2="145.0"/><line class="axe-trait" x1="398.9" y1="135.0" x2="398.9" y2="145.0"/><line class="axe-trait" x1="440.0" y1="135.0" x2="440.0" y2="145.0"/><text class="petit" x="70.0" y="169.0" text-anchor="middle">−4</text><text class="petit" x="111.1" y="169.0" text-anchor="middle">−3</text><text class="petit" x="152.2" y="169.0" text-anchor="middle">−2</text><text class="petit" x="193.3" y="169.0" text-anchor="middle">−1</text><text class="petit" x="234.4" y="169.0" text-anchor="middle">0</text><text class="petit" x="275.6" y="169.0" text-anchor="middle">1</text><text class="petit" x="316.7" y="169.0" text-anchor="middle">2</text><text class="petit" x="357.8" y="169.0" text-anchor="middle">3</text><text class="petit" x="398.9" y="169.0" text-anchor="middle">4</text><text class="petit" x="440.0" y="169.0" text-anchor="middle">5</text><g class="trace t-v ep-6"><line x1="316.7" y1="140.0" x2="444.0" y2="140.0"/></g><g class="trace t-v ep-3"><path d="M309.7,128.0 L316.7,128.0 L316.7,152.0 L309.7,152.0"/></g><text class="lettre" x="16.0" y="146.0" text-anchor="start">b)</text><line class="axe-trait" x1="56.0" y1="222.0" x2="448.0" y2="222.0"/><polygon class="pt" points="454.0,222.0 444.0,217.0 444.0,227.0"/><line class="axe-trait" x1="70.0" y1="217.0" x2="70.0" y2="227.0"/><line class="axe-trait" x1="111.1" y1="217.0" x2="111.1" y2="227.0"/><line class="axe-trait" x1="152.2" y1="217.0" x2="152.2" y2="227.0"/><line class="axe-trait" x1="193.3" y1="217.0" x2="193.3" y2="227.0"/><line class="axe-trait" x1="234.4" y1="217.0" x2="234.4" y2="227.0"/><line class="axe-trait" x1="275.6" y1="217.0" x2="275.6" y2="227.0"/><line class="axe-trait" x1="316.7" y1="217.0" x2="316.7" y2="227.0"/><line class="axe-trait" x1="357.8" y1="217.0" x2="357.8" y2="227.0"/><line class="axe-trait" x1="398.9" y1="217.0" x2="398.9" y2="227.0"/><line class="axe-trait" x1="440.0" y1="217.0" x2="440.0" y2="227.0"/><text class="petit" x="70.0" y="251.0" text-anchor="middle">−4</text><text class="petit" x="111.1" y="251.0" text-anchor="middle">−3</text><text class="petit" x="152.2" y="251.0" text-anchor="middle">−2</text><text class="petit" x="193.3" y="251.0" text-anchor="middle">−1</text><text class="petit" x="234.4" y="251.0" text-anchor="middle">0</text><text class="petit" x="275.6" y="251.0" text-anchor="middle">1</text><text class="petit" x="316.7" y="251.0" text-anchor="middle">2</text><text class="petit" x="357.8" y="251.0" text-anchor="middle">3</text><text class="petit" x="398.9" y="251.0" text-anchor="middle">4</text><text class="petit" x="440.0" y="251.0" text-anchor="middle">5</text><g class="trace t-w ep-6"><line x1="56.0" y1="222.0" x2="193.3" y2="222.0"/></g><g class="trace t-w ep-3"><path d="M186.3,210.0 L193.3,210.0 L193.3,234.0 L186.3,234.0"/></g><text class="lettre" x="16.0" y="228.0" text-anchor="start">c)</text></svg></figure>
+    <p>1. Écris chacun des trois intervalles dessinés.<br>2. Le nombre 1 appartient-il à l'intervalle a) ? Le nombre $-1$ à l'intervalle c) ?</p>
+    <details class="correction">
+      <p>1. a) De $-3$ compris à 1 exclu : $[-3\,;1[$. b) De 2 exclu jusqu'à l'infini : $]2\,;+\infty[$. c) Depuis l'infini négatif jusqu'à $-1$ compris : $]-\infty\,;-1]$.</p>
+      <p>2. Non : le crochet de 1 est tourné vers l'extérieur, $1\notin[-3\,;1[$. Oui : $-1\in]-\infty\,;-1]$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-dans-les-deux-ou-dans-l-un" data-titre="Dans les deux ou dans l'un" data-niveau="1" data-type="application" data-notions="intervalles" data-duree="10" data-calculatrice="non">
+    <p>1. $I=[-4\,;2]$ et $J=]0\,;6[$. Détermine $I\cap J$ et $I\cup J$.</p>
+    <p>2. $K=]-\infty\,;-1]$ et $L=[1\,;+\infty[$. Détermine $K\cap L$ et $K\cup L$. Le nombre 0 est-il dans $K\cup L$ ?</p>
+    <details class="indice"><p>Dessine les deux intervalles sur la même droite graduée, chacun d'une couleur.</p></details>
+    <details class="correction">
+      <p>1. Les deux se recouvrent de 0 (exclu, à cause de $J$) à 2 (compris, à cause de $I$) : $I\cap J=]0\,;2]$. Au moins l'un des deux, de $-4$ compris à 6 exclu : $I\cup J=[-4\,;6[$.</p>
+      <p>2. Aucun réel n'est à la fois $\leqslant-1$ et $\geqslant1$ : $K\cap L$ est vide. $K\cup L=]-\infty\,;-1]\cup[1\,;+\infty[$ : tous les réels sauf ceux de $]-1\,;1[$. 0 n'y est donc pas.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-distances-sur-la-droite" data-titre="Distances sur la droite" data-niveau="1" data-type="application" data-notions="valeur-absolue" data-duree="8" data-calculatrice="non">
+    <p>1. Calcule : $|-8|$ ; $|3-11|$ ; $|-2{,}5-4|$ ; $|\pi-4|$.<br>2. Quelle est la distance entre $-6$ et $1{,}5$ ? Écris-la avec une valeur absolue.<br>3. Donne les deux réels situés à une distance 3 de $-1$.</p>
+    <details class="correction">
+      <p>1. $|-8|=8$ ; $|3-11|=|-8|=8$ ; $|-2{,}5-4|=|-6{,}5|=6{,}5$. Comme $\pi&lt;4$ ($\pi\approx3{,}14$), la différence $\pi-4$ est négative : $|\pi-4|=4-\pi$.</p>
+      <p>2. $1{,}5-(-6)=7{,}5$ : la distance est 7,5, qui s'écrit $|1{,}5-(-6)|$ ou $|-6-1{,}5|$.</p>
+      <p>3. On part de $-1$ et on fait 3 pas de chaque côté : $-1-3=-4$ et $-1+3=2$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-arrondi-ou-troncature" data-titre="Arrondi ou troncature" data-niveau="1" data-type="application" data-notions="encadrer" data-duree="6" data-calculatrice="non">
+    <p>On donne $x=7{,}28461$.</p>
+    <p>1. Donne la troncature puis l'arrondi de $x$ au dixième, puis au millième.<br>2. Donne l'arrondi de $x$ à l'unité.<br>3. Donne un encadrement de $x$ à $10^{-2}$ près.</p>
+    <details class="correction">
+      <p>1. Au dixième : troncature 7,2 ; le chiffre suivant est 8, donc l'arrondi est 7,3. Au millième : troncature 7,284 ; le chiffre suivant est 6, donc l'arrondi est 7,285.</p>
+      <p>2. Le chiffre des dixièmes est 2 : l'arrondi à l'unité est 7.</p>
+      <p>3. $7{,}28\leqslant x\leqslant7{,}29$ (amplitude 0,01).</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Enchaîner</h3>
+
+  <article class="exercice" id="ex-la-fraction-irreductible" data-titre="La fraction irréductible" data-niveau="2" data-type="application" data-notions="entiers" data-duree="10" data-calculatrice="non">
+    <p>1. Rends irréductibles : a) $\dfrac{126}{210}$ ; b) $\dfrac{1\,155}{1\,365}$ ; c) $\dfrac{252}{392}$.</p>
+    <p>2. Explique pourquoi la fraction obtenue en c) est bien irréductible.</p>
+    <details class="indice"><p>Commence par les décompositions en facteurs premiers. Pour 1 155 et 1 365, essaie 3, 5, 7…</p></details>
+    <details class="correction">
+      <p>1. a) $126=2\times3^2\times7$ et $210=2\times3\times5\times7$ : on simplifie par $2\times3\times7=42$, et $\dfrac{126}{210}=\dfrac35$.</p>
+      <p>b) $1\,155=3\times5\times7\times11$ et $1\,365=3\times5\times7\times13$ : $\dfrac{1\,155}{1\,365}=\dfrac{11}{13}$.</p>
+      <p>c) $252=2^2\times3^2\times7$ et $392=2^3\times7^2$ : on simplifie par $2^2\times7=28$, et $\dfrac{252}{392}=\dfrac9{14}$.</p>
+      <p>2. $9=3^2$ et $14=2\times7$ n'ont aucun facteur premier commun : leur seul diviseur positif commun est 1.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-pair-impair" data-titre="Pair, impair : sommes et produits" data-niveau="2" data-type="raisonnement" data-notions="entiers" data-duree="12" data-calculatrice="non">
+    <p>1. Montre que la somme de deux entiers impairs est paire.<br>2. Montre que le produit de deux entiers impairs est impair.<br>3. Soit $n$ un entier. Montre que $n^2+n$ est toujours pair, en distinguant deux cas.</p>
+    <details class="indice"><p>Écris les deux impairs $2k+1$ et $2k'+1$ : deux lettres, car ils ne sont pas forcément égaux.</p></details>
+    <details class="correction">
+      <p>1. $(2k+1)+(2k'+1)=2k+2k'+2=2(k+k'+1)$, et $k+k'+1$ est entier : la somme est paire.</p>
+      <p>2. $(2k+1)(2k'+1)=4kk'+2k+2k'+1=2(2kk'+k+k')+1$ : le produit est impair.</p>
+      <p>3. $n^2+n=n(n+1)$. Premier cas, $n$ pair : $n=2k$, et $n(n+1)=2\times k(n+1)$ est pair. Second cas, $n$ impair : $n+1$ est pair, $n+1=2k$, et $n(n+1)=2\times nk$ est pair. Dans les deux cas, $n^2+n$ est pair.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-centre-et-rayon" data-titre="Centre et rayon" data-niveau="2" data-type="application" data-notions="valeur-absolue intervalles" data-duree="12" data-calculatrice="non">
+    <p>1. Écris avec un intervalle l'ensemble des réels $x$ tels que : a) $|x-5|\leqslant2$ ; b) $|x+1|&lt;4$ ; c) $|x|\leqslant0{,}5$.</p>
+    <p>2. Écris sous la forme $|x-a|\leqslant r$ : a) $x\in[-1\,;9]$ ; b) $x\in[-7\,;-3]$ ; c) $x\in[0{,}2\,;1]$.</p>
+    <details class="correction">
+      <p>1. a) Centre 5, rayon 2 : $[3\,;7]$. b) $|x+1|=|x-(-1)|$ : centre $-1$, rayon 4, bornes exclues : $]-5\,;3[$. c) $|x|=|x-0|$ : $[-0{,}5\,;0{,}5]$.</p>
+      <p>2. a) Centre $\dfrac{-1+9}2=4$, rayon $\dfrac{9-(-1)}2=5$ : $|x-4|\leqslant5$. b) Centre $-5$, rayon 2 : $|x-(-5)|\leqslant2$, c'est-à-dire $|x+5|\leqslant2$. c) Centre 0,6, rayon 0,4 : $|x-0{,}6|\leqslant0{,}4$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-intervalle-de-reference" data-titre="L'intervalle de référence" data-niveau="2" data-type="probleme" data-notions="valeur-absolue intervalles" data-duree="15" data-calculatrice="non">
+    <p>Sur le compte rendu d'une prise de sang, le laboratoire donne pour la glycémie à jeun l'intervalle de référence $[0{,}70\,;1{,}10]$, en g/L. (Les valeurs sont celles de l'exercice : chaque laboratoire imprime les siennes.)</p>
+    <p>1. Quatre patients ont pour résultats 0,68 ; 1,10 ; 0,95 et 1,23 g/L. Lesquels sont dans l'intervalle ?<br>2. Écris l'intervalle sous la forme $|g-a|\leqslant r$.<br>3. Un résultat est à 0,15 g/L du centre de l'intervalle. Est-il dans l'intervalle ? Quelles valeurs peut-il avoir ?<br>4. L'appareil affiche les résultats arrondis au centième. Il affiche 1,10 g/L. Peut-on être sûr que la vraie valeur est dans l'intervalle ?</p>
+    <details class="correction">
+      <p>1. 1,10 (la borne est comprise) et 0,95 sont dedans ; 0,68 est trop bas, 1,23 trop haut.</p>
+      <p>2. Centre $\dfrac{0{,}70+1{,}10}2=0{,}90$, rayon $\dfrac{1{,}10-0{,}70}2=0{,}20$ : $|g-0{,}9|\leqslant0{,}2$.</p>
+      <p>3. Oui, car $0{,}15\leqslant0{,}2$. Il vaut $0{,}9-0{,}15=0{,}75$ ou $0{,}9+0{,}15=1{,}05$ g/L.</p>
+      <p>4. Non. Une valeur arrondie à 1,10 peut valoir n'importe quel nombre de $[1{,}095\,;1{,}105[$ : par exemple 1,103, qui dépasse 1,10. Une valeur affichée sur une borne ne permet pas de conclure.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-encadrer-racine-de-trois" data-titre="Encadrer √3" data-niveau="2" data-type="application" data-notions="encadrer reels" data-duree="12" data-calculatrice="oui">
+    <p>La calculatrice est permise, mais pas sa touche $\sqrt{\ }$.</p>
+    <p>1. Montre que $1&lt;\sqrt3&lt;2$.<br>2. Calcule $1{,}7^2$ et $1{,}8^2$, puis donne un encadrement de $\sqrt3$ d'amplitude 0,1.<br>3. Continue au centième.<br>4. Déduis-en un encadrement de $2\sqrt3+1$ et de $5-\sqrt3$.<br>5. Donne l'arrondi de $\sqrt3$ au dixième.</p>
+    <details class="correction">
+      <p>1. $1^2=1&lt;3$ et $2^2=4&gt;3$. $\sqrt3$ est le nombre positif dont le carré vaut 3 : il est entre 1 et 2.</p>
+      <p>2. $1{,}7^2=2{,}89&lt;3$ et $1{,}8^2=3{,}24&gt;3$ : $1{,}7&lt;\sqrt3&lt;1{,}8$.</p>
+      <p>3. $1{,}73^2=2{,}9929&lt;3$ et $1{,}74^2=3{,}0276&gt;3$ : $1{,}73&lt;\sqrt3&lt;1{,}74$.</p>
+      <p>4. On multiplie par 2 (positif) puis on ajoute 1 : $4{,}46&lt;2\sqrt3+1&lt;4{,}48$. On multiplie par $-1$ (négatif : le sens change) puis on ajoute 5 : $-1{,}74&lt;-\sqrt3&lt;-1{,}73$, donc $3{,}26&lt;5-\sqrt3&lt;3{,}27$.</p>
+      <p>5. $\sqrt3$ est entre 1,73 et 1,74, donc plus près de 1,7 que de 1,8 : l'arrondi au dixième est 1,7.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-mesure-et-ses-chiffres" data-titre="La mesure et ses chiffres" data-niveau="2" data-type="probleme" data-notions="encadrer" data-duree="12" data-calculatrice="oui">
+    <p>Le diamètre d'un comprimé rond, mesuré au pied à coulisse, est de 8,4 mm.</p>
+    <p>1. Combien cette mesure a-t-elle de chiffres significatifs ?<br>2. Calcule l'aire d'une face du comprimé, puis arrondis-la avec le bon nombre de chiffres significatifs.<br>3. La mesure 8,4 mm veut dire que le diamètre est entre 8,35 et 8,45 mm. Calcule l'aire pour ces deux valeurs. Pourquoi écrire « 55,4176 mm² » n'a-t-il pas de sens ?<br>4. Combien de chiffres significatifs ont 0,0084 m et 8,40 mm ? Que dit le second de plus que 8,4 mm ?</p>
+    <details class="correction">
+      <p>1. Deux : 8 et 4.</p>
+      <p>2. Le rayon est 4,2 mm : $\pi\times4{,}2^2=55{,}4176\dots$ mm². Avec deux chiffres significatifs : environ 55 mm².</p>
+      <p>3. $\pi\times4{,}175^2\approx54{,}76$ mm² et $\pi\times4{,}225^2\approx56{,}08$ mm². La vraie aire est entre ces deux valeurs : déjà le chiffre des unités n'est pas sûr, alors les décimales n'ont aucun sens.</p>
+      <p>4. 0,0084 m en a deux (les zéros de tête ne comptent pas) : c'est la même mesure que 8,4 mm. 8,40 mm en a trois : il dit que la mesure est précise au centième de millimètre.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-ordres-de-grandeur" data-titre="Les battements du cœur" data-niveau="2" data-type="probleme" data-notions="encadrer" data-duree="10" data-calculatrice="non">
+    <p>Au repos, un cœur bat environ 70 fois par minute.</p>
+    <p>1. Estime, sans calculatrice, le nombre de battements en une journée.<br>2. Estime le nombre de battements en 80 ans.<br>3. Un élève annonce 8 000 000 battements en 80 ans. Est-ce vraisemblable ?</p>
+    <details class="correction">
+      <p>1. $70\times60=4\,200$ battements par heure, puis, avec un chiffre significatif, $4\,200\times24\approx4\,000\times20=80\,000$ : de l'ordre de $10^5$ battements par jour (la calculatrice donne 100 800).</p>
+      <p>2. $80\times365\approx80\times400=32\,000$, soit environ $30\,000$ jours, et $10^5\times3\times10^4=3\times10^9$. Environ 3 milliards de battements.</p>
+      <p>3. Non : 8 000 000, c'est ce que le cœur fait en 80 jours environ ($8\,000\,000\div100\,000=80$). L'élève a sans doute multiplié les battements d'un jour par 80, en oubliant les 365 jours de chaque année.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="intervalles valeur-absolue" data-duree="10" data-calculatrice="non">
+    <p>Un élève a demandé à une IA : « On note $I$ l'ensemble des réels $x$ tels que $-1&lt;x\leqslant4$, et $J$ l'ensemble des réels $x$ tels que $|x+2|\leqslant3$. Écris $I$ et $J$ avec des intervalles, puis détermine $I\cap J$. » Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« Pour $J$, $|x+2|\leqslant3$ signifie que $x$ est à une distance au plus 3 de 2, donc $J=[-1\,;5]$. Pour $I$, on a directement $I=]-1\,;4]$. L'intersection rassemble tous les nombres de $I$ et tous ceux de $J$, donc $I\cap J=[-1\,;5]$. On peut le vérifier : $J$, ce sont les $x\leqslant5$, c'est-à-dire $J=[-\infty\,;5]$, qui contient bien $I$. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1, dès la première phrase : le centre.</strong> $|x+2|=|x-(-2)|$ : c'est la distance à $-2$, pas à 2. Donc $J=[-2-3\,;-2+3]=[-5\,;1]$.</p>
+      <p><strong>Erreur 2 : intersection et réunion.</strong> « Tous les nombres de $I$ et tous ceux de $J$ », c'est la réunion. L'intersection garde les nombres qui sont dans les deux à la fois.</p>
+      <p><strong>Erreur 3 : la « vérification ».</strong> $J$ n'est pas l'ensemble des $x\leqslant5$ : la borne de gauche a disparu. Et $[-\infty\,;5]$ n'existe pas : le crochet de l'infini est toujours ouvert.</p>
+      <p><strong>La bonne réponse.</strong> $I=]-1\,;4]$ (seule ligne juste), $J=[-5\,;1]$, et $I\cap J=]-1\,;1]$ : de $-1$ exclu (borne de $I$) à 1 compris (borne de $J$).</p>
+      <p>Une réponse peut être fluide et fausse dès la première ligne. Le réflexe : dessiner les deux intervalles avant de conclure, et vérifier avec un nombre ($x=3$ est-il vraiment dans $J$ ? $|3+2|=5&gt;3$ : non).</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Démontrer et chercher</h3>
+
+  <article class="exercice" id="ex-un-septieme" data-titre="Pourquoi 1/7 se répète" data-niveau="3" data-type="raisonnement" data-notions="reels" data-duree="15" data-calculatrice="non">
+    <p>1. Pose la division de 1 par 7 jusqu'à la huitième décimale. Que remarques-tu ?<br>2. À chaque étape de la division, le reste est un entier entre 0 et 6. Explique pourquoi un reste finit forcément par revenir, au bout d'au plus 7 étapes, et pourquoi les chiffres se répètent ensuite.<br>3. Explique pourquoi l'écriture décimale de $\dfrac17$ ne peut pas s'arrêter.<br>4. Sans poser de division, donne l'écriture décimale de $\dfrac37$.</p>
+    <details class="indice"><p>Pour la question 3, raisonne comme pour $\dfrac13$ : suppose $\dfrac17=\dfrac{a}{10^n}$, et regarde la décomposition de $10^n$.</p></details>
+    <details class="correction">
+      <p>1. $\dfrac17=0{,}14285714\dots$ : le bloc 142857 recommence.</p>
+      <p>2. Si un reste valait 0, la division s'arrêterait (la question 3 montre que ce n'est jamais le cas). Le reste prend donc une des 6 valeurs de 1 à 6 : en 7 étapes, il y a 7 restes pour 6 valeurs possibles, deux sont égaux. Or la suite de la division ne dépend que du reste : à partir du moment où un reste revient, les mêmes chiffres reviennent, dans le même ordre.</p>
+      <p>3. Si l'écriture s'arrêtait, on aurait $\dfrac17=\dfrac{a}{10^n}$, donc $10^n=7a$, et 7 apparaîtrait dans la décomposition de $10^n$. Or $10^n=2^n\times5^n$, et la décomposition est unique : pas de 7. C'est impossible.</p>
+      <p>4. $\dfrac37=3\times\dfrac17=3\times0{,}142857\,142857\dots=0{,}428571\,428571\dots$</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-racine-de-trois" data-titre="√3 est irrationnel" data-niveau="3" data-type="raisonnement" data-notions="entiers reels" data-duree="20" data-calculatrice="non">
+    <p>1. Tout entier naturel $n$ s'écrit $3k$, $3k+1$ ou $3k+2$, avec $k$ entier. Calcule $n^2$ dans les deux derniers cas, et montre que si $n$ n'est pas un multiple de 3, alors $n^2$ non plus.<br>2. Déduis-en que si $n^2$ est un multiple de 3, alors $n$ est un multiple de 3.<br>3. On suppose que $\sqrt3=\dfrac pq$, avec $p$ et $q$ entiers naturels non nuls et la fraction irréductible. Montre que $p^2=3q^2$, puis que $p$ et $q$ sont tous les deux des multiples de 3. Conclus.</p>
+    <details class="indice"><p>Développe $(3k+1)^2$ et $(3k+2)^2$, puis regroupe les termes qui ont un facteur 3 : il reste toujours 1.</p></details>
+    <details class="correction">
+      <p>1. $(3k+1)^2=9k^2+6k+1=3(3k^2+2k)+1$ et $(3k+2)^2=9k^2+12k+4=3(3k^2+4k+1)+1$. Dans les deux cas, $n^2$ est un multiple de 3 plus 1 : ce n'est pas un multiple de 3 (sinon, 1 serait la différence de deux multiples de 3, donc un multiple de 3).</p>
+      <p>2. Si $n$ n'était pas un multiple de 3, $n^2$ ne le serait pas non plus (question 1). Donc, quand $n^2$ est un multiple de 3, $n$ en est un.</p>
+      <p>3. $3=\dfrac{p^2}{q^2}$ donne $p^2=3q^2$ : $p^2$ est un multiple de 3, donc $p$ aussi, $p=3m$. Alors $9m^2=3q^2$, soit $q^2=3m^2$ : $q^2$ est un multiple de 3, donc $q$ aussi. 3 divise $p$ et $q$, alors que la fraction était irréductible : contradiction. $\sqrt3$ est irrationnel.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-deux-conditions-a-la-fois" data-titre="Deux conditions à la fois" data-niveau="3" data-type="probleme" data-notions="valeur-absolue intervalles" data-duree="15" data-calculatrice="non">
+    <p>Un réel $x$ vérifie $|x-2|\leqslant3$ et $|x-6|&lt;2$.</p>
+    <p>1. Traduis chacune des deux conditions par un intervalle.<br>2. Donne l'ensemble des réels qui vérifient les deux conditions.<br>3. Donne l'ensemble des réels qui vérifient au moins l'une des deux.<br>4. Peut-on écrire l'ensemble de la question 2 sous la forme $|x-a|\leqslant r$, ou sous la forme $|x-a|&lt;r$ ? Explique.</p>
+    <details class="correction">
+      <p>1. $|x-2|\leqslant3$ : $[-1\,;5]$. $|x-6|&lt;2$ : $]4\,;8[$.</p>
+      <p>2. C'est l'intersection : $[-1\,;5]\cap]4\,;8[=]4\,;5]$.</p>
+      <p>3. C'est la réunion : $[-1\,;5]\cup]4\,;8[=[-1\,;8[$.</p>
+      <p>4. Non. $|x-a|\leqslant r$ donne un intervalle fermé des deux côtés, $|x-a|&lt;r$ un intervalle ouvert des deux côtés. $]4\,;5]$ est ouvert d'un côté et fermé de l'autre : aucune des deux écritures ne convient.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-plus-grand-multiple" data-titre="Le plus grand multiple, en Python" data-niveau="3" data-type="probleme" data-notions="entiers" data-duree="15" data-calculatrice="non">
+    <p>On donne la fonction Python suivante, où <code>a</code> et <code>b</code> sont des entiers naturels et <code>a</code> n'est pas nul.</p>
+<pre class="code">def plus_grand_multiple(a, b):
+    m = 0
+    while m + a &lt;= b:
+        m = m + a
+    return m</pre>
+    <p>1. Que renvoie <code>plus_grand_multiple(7, 50)</code> ? Explique ce que fait la boucle.<br>2. Que renvoie <code>plus_grand_multiple(5, 3)</code> ? Est-ce bien un multiple de 5 ?<br>3. L'opération <code>b % a</code> donne le reste de la division de <code>b</code> par <code>a</code>. Écris une fonction <code>est_multiple(b, a)</code> qui renvoie <code>True</code> si <code>b</code> est un multiple de <code>a</code>, et <code>False</code> sinon.<br>4. Explique pourquoi <code>plus_grand_multiple(a, b)</code> vaut <code>b - b % a</code>.</p>
+    <details class="correction">
+      <p>1. <code>m</code> part de 0 et avance de 7 en 7 (7, 14, …, 49) tant que le multiple suivant ne dépasse pas 50. Après 49, <code>49 + 7 = 56</code> dépasse 50 : la boucle s'arrête et la fonction renvoie 49.</p>
+      <p>2. <code>0 + 5 = 5</code> dépasse déjà 3 : la boucle ne tourne pas, la fonction renvoie 0. Et $0=0\times5$ est bien un multiple de 5, le plus grand qui ne dépasse pas 3.</p>
+      <p>3. Une réponse possible :</p>
+<pre class="code">def est_multiple(b, a):
+    return b % a == 0</pre>
+      <p>4. La division de $b$ par $a$ s'écrit $b=a\times q+r$, avec un reste $r$ entre 0 et $a-1$. $a\times q=b-r$ est un multiple de $a$ qui ne dépasse pas $b$, et le suivant, $a\times q+a$, dépasse $b$ puisque $r&lt;a$. C'est donc le plus grand : <code>b - b % a</code>. Pour $a=7$ et $b=50$ : $50=7\times7+1$, et $50-1=49$.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>0, c'est positif ? Pair ? Un multiple de 7 ?</summary>
+      <div><p>Les trois. En France, 0 est à la fois positif et négatif (on dit « strictement positif » pour exclure 0). $0=2\times0$ est pair, et $0=7\times0$ est un multiple de 7, comme de tout entier.</p></div></details>
+    <details><summary>Est-ce que $0{,}999\dots$, avec des 9 à l'infini, vaut 1 ?</summary>
+      <div><p>Oui. $\dfrac13=0{,}333\dots$, et en multipliant par 3 : $1=0{,}999\dots$ Autre façon de le voir : l'écart entre 1 et $0{,}99\dots9$, écrit avec $n$ chiffres 9, vaut $10^{-n}$, qui devient plus petit que n'importe quel nombre strictement positif quand $n$ grandit ; avec une infinité de 9, il ne reste aucun écart. Seuls les décimaux non nuls ont ainsi deux écritures. La droite graduée ne laisse aucune place entre les deux : il n'existe pas de nombre « juste avant 1 ».</p></div></details>
+    <details><summary>Pourquoi l'ordinateur dit-il que 0,1 + 0,2 ne fait pas 0,3 ?</summary>
+      <div><p>Parce qu'il compte en base 2, pas en base 10. En base 2, $\dfrac1{10}$ a une écriture illimitée qui se répète, comme $\dfrac13$ en base 10 : l'ordinateur en garde une valeur approchée, et les petites erreurs s'ajoutent. C'est pour cela qu'on teste rarement l'égalité de deux nombres à virgule en Python.</p></div></details>
+    <details><summary>Alors $\pi$, c'est 3,14 ou $\dfrac{22}7$ ?</summary>
+      <div><p>Ni l'un ni l'autre : $\pi$ est irrationnel, il ne vaut aucune fraction. $3{,}14$ et $\dfrac{22}7=3{,}142857\dots$ sont deux valeurs approchées de $\pi=3{,}141592\dots$, assez bonnes pour beaucoup de calculs.</p></div></details>
+    <details><summary>Une intersection d'intervalles peut-elle ne contenir qu'un seul nombre ?</summary>
+      <div><p>Oui : $[-2\,;3]\cap[3\,;5]$ ne contient que 3. On l'écrit $\{3\}$, avec des accolades, qui servent à donner la liste des éléments d'un ensemble.</p></div></details>
+    <details><summary>À quoi sert la valeur absolue, si elle ne fait qu'enlever le signe moins ?</summary>
+      <div><p>Elle ne fait pas qu'enlever le signe : $|a-b|$ mesure l'écart entre deux nombres, quel que soit leur ordre. C'est ce dont on a besoin pour une tolérance (« à 0,05 mm près »), une marge d'erreur ou un écart à une valeur cible.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

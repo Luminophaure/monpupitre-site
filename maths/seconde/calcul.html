@@ -1,0 +1,728 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de calcul.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/seconde/calcul.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Calcul littéral · Seconde</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=111fcfb17b">
+<script type="module" src="../../assets/js/site.js?v=8e0426bb28"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FYHII6FD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5ICHLVNG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FQMGHO33.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Y4E4LUGI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TXQJ4LFT.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-A7TVHOEX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BQVG5Y6W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VSNMPXAG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LFIQUW6Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-F4TDOHJ7.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-IRIHGH3W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-AXEUPRJR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-54DBUP5W.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7AWFOZ4Q.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5CQ7V5XH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-W5F6LKUU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-633SPKER.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-XHIOKJ62.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BHLY6PDJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/calcul.js?v=fd0bda9dd9">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/labos/litteral.js?v=0d53893d8c">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/calcul.js?v=f93b00b3f1">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-FJDOJX6R.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-QCVEE7MZ.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="calcul" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Seconde · Nombres et calculs</span>
+  <h1>Calcul littéral</h1>
+  <p class="chapeau">Une même expression peut s'écrire de plusieurs façons. Ici, on apprend à passer de l'une à l'autre <strong>sans changer sa valeur</strong> : puissances, racines carrées, fractions, et les trois identités remarquables, dans les deux sens.</p>
+  <ul class="objectifs">
+    <li>Calculer avec des puissances</li><li>Simplifier une racine carrée</li><li>Calculer avec des fractions</li><li>Développer avec les identités</li><li>Factoriser complètement</li><li>Choisir la forme adaptée</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Deux formules, une seule réponse.</strong> Inès gère les devis d'une entreprise de jardins. Pour l'aire d'une allée de 3 m de large autour d'un bassin carré de côté $x$ (dans la cellule A2), elle tape <code>=(A2+6)^2-A2^2</code>. Son collègue tape <code>=12*A2+36</code>. Sur des centaines de lignes, les deux colonnes donnent exactement les mêmes nombres. Ce n'est pas un hasard : c'est <strong>la même expression, écrite deux fois</strong>. Le calcul littéral sert à le prouver, et à choisir l'écriture la plus simple à calculer.</p>
+    <p class="discret">Ils s'en servent tous les jours : les comptables et les contrôleurs de gestion (des formules de tableur à vérifier), les développeurs (une formule simplifiée calcule plus vite), les techniciens de bureau d'études et les géomètres (des aires, des volumes, des cotes). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-puissances">1. Puissances d'exposant entier relatif</h3>
+
+  <div class="bloc definition" data-titre="Puissance d'un nombre">
+    <p>Soit $a$ un nombre réel et $n$ un entier supérieur ou égal à $1$. La <strong>puissance $n$-ième</strong> de $a$ est le produit de $n$ facteurs égaux à $a$ :</p>
+    <p class="formule">$a^n=\underbrace{a\times a\times\dots\times a}_{n\text{ facteurs}}$</p>
+    <p>Pour $a\neq0$, on pose aussi $a^0=1$ et $a^{-n}=\dfrac{1}{a^n}$. Par exemple $2^{-3}=\dfrac{1}{2^3}=\dfrac18=0{,}125$ et $10^{-2}=\dfrac{1}{100}=0{,}01$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les règles de calcul">
+    <p>Pour $a$ et $b$ non nuls, et $m$ et $n$ entiers relatifs :</p>
+    <ul>
+      <li>$a^m\times a^n=a^{m+n}$ &nbsp;(même base : on <strong>ajoute</strong> les exposants) ;</li>
+      <li>$\dfrac{a^m}{a^n}=a^{m-n}$ &nbsp;(on <strong>soustrait</strong>) ;</li>
+      <li>$\left(a^m\right)^n=a^{m\times n}$ &nbsp;(une puissance de puissance : on <strong>multiplie</strong>) ;</li>
+      <li>$(a\times b)^n=a^n\times b^n$ et $\left(\dfrac ab\right)^n=\dfrac{a^n}{b^n}$ &nbsp;(même exposant, pour un <strong>produit</strong> ou un <strong>quotient</strong>).</li>
+    </ul>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pourquoi a⁰ = 1 et a⁻ⁿ = 1/aⁿ ?">
+    <p>Pour que la règle du quotient reste vraie. $\dfrac{a^3}{a^3}=1$, et la règle donne $a^{3-3}=a^0$ : il faut donc $a^0=1$. De même, $\dfrac{a^2}{a^5}=\dfrac{a\times a}{a\times a\times a\times a\times a}=\dfrac{1}{a^3}$, et la règle donne $a^{2-5}=a^{-3}$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Écrire sous la forme d'une seule puissance">
+    <ol class="etapes">
+      <li><span>Je vérifie que toutes les puissances ont la <strong>même base</strong> (sinon, la règle ne s'applique pas).</span></li>
+      <li><span>Je traite d'abord les puissances de puissances, puis les produits, puis le quotient.</span></li>
+      <li><span>J'écris chaque calcul d'exposant entre parenthèses quand un exposant est négatif.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Écrire $A=\dfrac{3^2\times3^{-5}}{\left(3^4\right)^{-1}}$ sous la forme $3^n$.</p>
+      <ol class="pas">
+        <li><span><strong>Le numérateur.</strong> $3^2\times3^{-5}=3^{2+(-5)}=3^{-3}$.</span></li>
+        <li><span><strong>Le dénominateur.</strong> $\left(3^4\right)^{-1}=3^{4\times(-1)}=3^{-4}$.</span></li>
+        <li><span><strong>Le quotient.</strong> $A=\dfrac{3^{-3}}{3^{-4}}=3^{-3-(-4)}=3^{1}=3$.</span></li>
+        <li><span><strong>Le contrôle.</strong> Le numérateur vaut $\dfrac{1}{27}$, le dénominateur $\dfrac{1}{81}$ ; $\dfrac{1}{27}\div\dfrac{1}{81}=\dfrac{81}{27}=3$. Les deux chemins donnent la même valeur.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Ce que l'exposant touche">
+    <p>L'exposant ne s'applique qu'à ce qui est <strong>juste avant lui</strong> : $(-3)^2=(-3)\times(-3)=9$, mais $-3^2=-(3\times3)=-9$. Et $(3x)^2=9x^2$, alors que $3x^2=3\times x^2$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Des règles qui n'existent pas">
+    <p class="faux">$2^3\times2^4=2^{12}$ &nbsp; $2^3\times3^2=6^5$ &nbsp; $2^{-3}=-8$</p>
+    <p>Pour un produit de même base, on <strong>ajoute</strong> les exposants : $2^3\times2^4=2^7$. Deux bases différentes ne se regroupent pas : $2^3\times3^2=8\times9=72$. Et un exposant négatif donne un <strong>inverse</strong>, jamais un nombre négatif : $2^{-3}=\dfrac18$.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Rappel : l'écriture scientifique">
+    <p>Tout nombre décimal non nul s'écrit $a\times10^n$, avec $1\leqslant a&lt;10$ et $n$ entier relatif : $0{,}000\,34=3{,}4\times10^{-4}$, $45\,000\,000=4{,}5\times10^{7}$. Pour un produit, on regroupe les nombres d'un côté, les puissances de 10 de l'autre : $(3\times10^5)\times(4\times10^{-2})=12\times10^{3}=1{,}2\times10^{4}$.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-racines">2. Racines carrées</h3>
+
+  <div class="bloc definition" data-titre="Racine carrée">
+    <p>Soit $a$ un réel <strong>positif</strong>. La <strong>racine carrée</strong> de $a$, notée $\sqrt a$, est le nombre <strong>positif</strong> dont le carré vaut $a$ :</p>
+    <p class="formule">$\sqrt a\geqslant0$ &nbsp; et &nbsp; $\left(\sqrt a\right)^2=a$.</p>
+    <p>Ainsi $\sqrt{49}=7$, $\sqrt{0{,}09}=0{,}3$, $\sqrt 0=0$. La racine carrée d'un nombre négatif n'existe pas dans $\mathbb R$ : aucun carré n'est négatif.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="La racine d'un carré">
+    <p>Pour tout réel $a$ : $\sqrt{a^2}=|a|$. Par exemple $\sqrt{(-5)^2}=\sqrt{25}=5=|-5|$, et non $-5$ : une racine carrée n'est jamais négative. (La valeur absolue est au chapitre « Nombres et intervalles ».)</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Produit et quotient">
+    <p>Pour $a\geqslant0$ et $b\geqslant0$ : $\sqrt{ab}=\sqrt a\times\sqrt b$. &nbsp;Pour $a\geqslant0$ et $b&gt;0$ : $\sqrt{\dfrac ab}=\dfrac{\sqrt a}{\sqrt b}$.</p>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Démonstration, au programme">
+    <p>Soit $a$ et $b$ positifs. Le nombre $\sqrt a\times\sqrt b$ est positif, comme produit de deux nombres positifs. Et son carré vaut $\left(\sqrt a\times\sqrt b\right)^2=\left(\sqrt a\right)^2\times\left(\sqrt b\right)^2=a\times b$. C'est donc <strong>le</strong> nombre positif dont le carré vaut $ab$ : par définition, c'est $\sqrt{ab}$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Simplifier une racine carrée">
+    <ol class="etapes">
+      <li><span>Je cherche le <strong>plus grand carré parfait</strong> ($4$, $9$, $16$, $25$, $36$, $49$, $64$, $81$, $100$…) qui divise le nombre sous la racine.</span></li>
+      <li><span>J'écris le nombre comme ce carré fois un autre facteur, et je sépare : $\sqrt{k^2\times m}=k\sqrt m$.</span></li>
+      <li><span>Je vérifie qu'il ne reste plus aucun carré (autre que $1$) dans $m$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Écrire $\sqrt{72}$, puis $B=3\sqrt{12}-\sqrt{27}$, sous la forme $a\sqrt b$ avec $b$ entier le plus petit possible.</p>
+      <ol class="pas">
+        <li><span><strong>Les carrés qui divisent 72.</strong> $4$, $9$ et $36$ ; le plus grand est $36$, et $72=36\times2$.</span></li>
+        <li><span><strong>On sépare.</strong> $\sqrt{72}=\sqrt{36}\times\sqrt2=6\sqrt2$. Il ne reste aucun carré dans $2$.</span></li>
+        <li><span><strong>Chaque racine de B.</strong> $\sqrt{12}=\sqrt{4\times3}=2\sqrt3$ et $\sqrt{27}=\sqrt{9\times3}=3\sqrt3$.</span></li>
+        <li><span><strong>On regroupe, comme des termes semblables.</strong> $B=3\times2\sqrt3-3\sqrt3=6\sqrt3-3\sqrt3=3\sqrt3$.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="La racine d'une somme">
+    <p class="faux">$\sqrt{9+16}=\sqrt9+\sqrt{16}=7$</p>
+    <p>La racine se sépare sur un <strong>produit</strong>, jamais sur une somme : $\sqrt{9+16}=\sqrt{25}=5$. On calcule d'abord ce qui est sous la racine.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-fractions">3. Écritures fractionnaires</h3>
+
+  <div class="bloc propriete" data-titre="Les règles de calcul">
+    <p>Pour $b$, $d$ non nuls (et $c$ non nul pour le quotient) :</p>
+    <ul>
+      <li>$\dfrac ab+\dfrac cb=\dfrac{a+c}{b}$ : on additionne des fractions <strong>de même dénominateur</strong> ;</li>
+      <li>$\dfrac ab\times\dfrac cd=\dfrac{ac}{bd}$ ;</li>
+      <li>$\dfrac{a}{b}\div\dfrac{c}{d}=\dfrac ab\times\dfrac dc$ : diviser, c'est multiplier par l'inverse ;</li>
+      <li>$\dfrac{k\times a}{k\times b}=\dfrac ab$ pour $k\neq0$ : on simplifie par un <strong>facteur</strong> commun.</li>
+    </ul>
+    <p>Une fraction est <strong>irréductible</strong> quand on ne peut plus la simplifier : $\dfrac{18}{24}=\dfrac{6\times3}{6\times4}=\dfrac34$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Additionner ou soustraire deux fractions">
+    <ol class="etapes">
+      <li><span>Je cherche un dénominateur commun, de préférence le plus petit multiple commun aux deux.</span></li>
+      <li><span>Je transforme chaque fraction : je multiplie son numérateur et son dénominateur par le même nombre.</span></li>
+      <li><span>J'ajoute (ou je soustrais) les numérateurs, je garde le dénominateur, puis je simplifie.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Calculer $C=\dfrac56-\dfrac34$, puis $D=\dfrac23-\dfrac13\times\dfrac52$.</p>
+      <ol class="pas">
+        <li><span><strong>Un dénominateur commun pour C.</strong> $12$ est multiple de $6$ et de $4$ : $\dfrac56=\dfrac{10}{12}$ et $\dfrac34=\dfrac{9}{12}$.</span></li>
+        <li><span><strong>On soustrait.</strong> $C=\dfrac{10-9}{12}=\dfrac{1}{12}$, irréductible.</span></li>
+        <li><span><strong>D : la priorité d'abord.</strong> Le produit passe avant la soustraction : $\dfrac13\times\dfrac52=\dfrac56$.</span></li>
+        <li><span><strong>On soustrait.</strong> $D=\dfrac46-\dfrac56=-\dfrac16$.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Avec des lettres">
+    <p>Les mêmes règles valent quand les fractions contiennent une lettre. $\dfrac x2+\dfrac x3=\dfrac{3x}{6}+\dfrac{2x}{6}=\dfrac{5x}{6}$. Et pour $x\neq0$ et $x\neq-1$ : $\dfrac1x+\dfrac{1}{x+1}=\dfrac{x+1}{x(x+1)}+\dfrac{x}{x(x+1)}=\dfrac{2x+1}{x(x+1)}$.</p>
+    <p>Un dénominateur ne doit jamais valoir $0$ : c'est pourquoi on précise les valeurs <strong>interdites</strong>, ici $0$ et $-1$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Barrer un terme d'une somme">
+    <p class="faux">$\dfrac{x+6}{6}=x+1$ &nbsp; $\dfrac12+\dfrac13=\dfrac25$</p>
+    <p>On ne simplifie que des <strong>facteurs</strong>, jamais un terme d'une somme : $\dfrac{x+6}{6}=\dfrac x6+\dfrac66=\dfrac x6+1$. Et on n'additionne pas les dénominateurs : $\dfrac12+\dfrac13=\dfrac36+\dfrac26=\dfrac56$.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-developper">4. Développer et réduire</h3>
+
+  <div class="bloc propriete" data-titre="Rappel : la distributivité">
+    <p>Pour tous réels $a$, $b$, $c$, $d$, $k$ : &nbsp; $k(a+b)=ka+kb$ &nbsp; et &nbsp; $(a+b)(c+d)=ac+ad+bc+bd$.</p>
+    <p>Un signe « $-$ » devant une parenthèse change le signe de <strong>chaque</strong> terme : $-(a-b)=-a+b$ et $a-(b+c)=a-b-c$. (Le chapitre de quatrième reprend tout cela pas à pas.)</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Développer et réduire une expression">
+    <ol class="etapes">
+      <li><span>Je repère les produits à développer.</span></li>
+      <li><span>Je développe chaque produit <strong>entre parenthèses</strong> quand un « $-$ » le précède.</span></li>
+      <li><span>Je supprime ces parenthèses en changeant tous les signes.</span></li>
+      <li><span>Je réduis : je regroupe les $x^2$, les $x$ et les nombres.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Développer et réduire $E=(2x-1)(x+3)-(x-4)(x+1)$.</p>
+      <ol class="pas">
+        <li><span><strong>Le premier produit.</strong> $(2x-1)(x+3)=2x^2+6x-x-3=2x^2+5x-3$.</span></li>
+        <li><span><strong>Le second, entre parenthèses.</strong> $(x-4)(x+1)=x^2+x-4x-4=x^2-3x-4$, donc $E=2x^2+5x-3-\left(x^2-3x-4\right)$.</span></li>
+        <li><span><strong>Le « − » change tous les signes.</strong> $E=2x^2+5x-3-x^2+3x+4$.</span></li>
+        <li><span><strong>On réduit.</strong> $E=x^2+8x+1$.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Un produit n'est pas une somme">
+    <p class="faux">$2x\times3x=6x$</p>
+    <p>$2x\times3x=2\times3\times x\times x=6x^2$. On confond avec $2x+3x=5x$, où l'on additionne des termes semblables.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-identites">5. Les identités remarquables</h3>
+
+  <div class="colonnes">
+    <div class="bloc propriete" data-titre="Les trois identités remarquables">
+      <p>Pour tous réels $a$ et $b$ :</p>
+      <p class="formule">$(a+b)^2=a^2+2ab+b^2$</p>
+      <p class="formule">$(a-b)^2=a^2-2ab+b^2$</p>
+      <p class="formule">$(a+b)(a-b)=a^2-b^2$</p>
+      <p>Elles se lisent dans les deux sens : de gauche à droite, on <strong>développe</strong> ; de droite à gauche, on <strong>factorise</strong>.</p>
+    </div>
+    <figure class="figure-svg"><svg data-figure="carre_somme" viewBox="0 0 308 288" role="img" aria-label="Un carré de côté a + b découpé en quatre morceaux : un carré d'aire a au carré, deux rectangles d'aire a b, un petit carré d'aire b au carré."><rect class="forme" x="42" y="42" width="160" height="160"/><rect class="forme-image" x="202" y="42" width="64" height="160"/><rect class="forme-image" x="42" y="202" width="160" height="64"/><rect class="forme-3" x="202" y="202" width="64" height="64"/><text class="lettre" x="122.0" y="128.0" text-anchor="middle">a²</text><text class="lettre" x="234.0" y="128.0" text-anchor="middle">ab</text><text class="lettre" x="122.0" y="240.0" text-anchor="middle">ab</text><text class="lettre" x="234.0" y="240.0" text-anchor="middle">b²</text><text class="moyen" x="122.0" y="36.8" text-anchor="middle">a</text><text class="moyen" x="234.0" y="36.8" text-anchor="middle">b</text><text class="moyen" x="27.6" y="128.0" text-anchor="middle">a</text><text class="moyen" x="27.6" y="240.0" text-anchor="middle">b</text></svg><figcaption>Le carré de côté $a+b$ contient $a^2$, $b^2$ et <strong>deux</strong> rectangles $ab$ : c'est le $2ab$ qu'on oublie.</figcaption></figure>
+  </div>
+
+  <div class="bloc remarque" data-titre="D'où elles viennent">
+    <p>Ce sont des doubles distributivités qu'on a faites une fois pour toutes : $(a+b)^2=(a+b)(a+b)=a^2+ab+ba+b^2=a^2+2ab+b^2$. De même, $(a+b)(a-b)=a^2-ab+ba-b^2=a^2-b^2$ : les deux termes du milieu s'annulent.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Développer avec une identité">
+    <ol class="etapes">
+      <li><span>Je reconnais la forme : un carré d'une somme, d'une différence, ou le produit d'une somme par une différence.</span></li>
+      <li><span>J'identifie $a$ et $b$ <strong>avec leur coefficient</strong> : dans $(3x-2)^2$, $a=3x$ et $b=2$.</span></li>
+      <li><span>J'écris l'identité avec des parenthèses, puis je calcule chaque terme.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Développer $F=(3x-2)^2$ et $G=(2x+5)(2x-5)$.</p>
+      <ol class="pas">
+        <li><span><strong>F est un carré d'une différence.</strong> $a=3x$, $b=2$ : $F=(3x)^2-2\times3x\times2+2^2$.</span></li>
+        <li><span><strong>On calcule chaque terme.</strong> $(3x)^2=9x^2$ (le carré s'applique aussi au $3$) : $F=9x^2-12x+4$.</span></li>
+        <li><span><strong>G est une somme fois une différence.</strong> $a=2x$, $b=5$ : $G=(2x)^2-5^2=4x^2-25$.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <figure class="figure-svg"><svg data-figure="carre_difference" viewBox="0 0 356 308" role="img" aria-label="Un carré de côté a. Dans le coin en haut à gauche, le carré de côté a moins b. On enlève au grand carré une bande a fois b à droite (en pointillés roses) et une bande a fois b en bas (en pointillés bleus) : le petit carré b au carré du coin appartient aux deux bandes, il a été enlevé deux fois."><rect class="forme" x="58.0" y="58.0" width="150.0" height="150.0"/><rect class="forme-image" x="208.0" y="58.0" width="60.0" height="150.0"/><rect class="forme-image" x="58.0" y="208.0" width="150.0" height="60.0"/><rect class="forme-3" x="208.0" y="208.0" width="60.0" height="60.0"/><text class="lettre" x="133.0" y="139.0" text-anchor="middle">(a − b)²</text><text class="lettre" x="238.0" y="244.0" text-anchor="middle">b²</text><g class="trace t-v pointille"><line x1="211.6" y1="264.4" x2="264.4" y2="264.4"/></g><g class="trace t-v pointille"><line x1="264.4" y1="264.4" x2="264.4" y2="61.6"/></g><g class="trace t-v pointille"><line x1="264.4" y1="61.6" x2="211.6" y2="61.6"/></g><g class="trace t-v pointille"><line x1="211.6" y1="61.6" x2="211.6" y2="264.4"/></g><g class="trace t-u pointille"><line x1="61.6" y1="264.4" x2="264.4" y2="264.4"/></g><g class="trace t-u pointille"><line x1="264.4" y1="264.4" x2="264.4" y2="211.6"/></g><g class="trace t-u pointille"><line x1="264.4" y1="211.6" x2="61.6" y2="211.6"/></g><g class="trace t-u pointille"><line x1="61.6" y1="211.6" x2="61.6" y2="264.4"/></g><text class="moyen" x="275.5" y="139.0" text-anchor="start">a × b</text><text class="moyen" x="133.0" y="290.5" text-anchor="middle">a × b</text><g class="trace t-n"><line x1="163.0" y1="41.5" x2="65.8" y2="41.5"/><polygon points="58.0,41.5 71.0,35.6 71.0,47.4"/></g><g class="trace t-n"><line x1="163.0" y1="41.5" x2="260.2" y2="41.5"/><polygon points="268.0,41.5 255.0,47.4 255.0,35.6"/></g><text class="moyen" x="163.0" y="41.5"></text><text class="moyen" x="163.0" y="38.5" text-anchor="middle">a</text><text class="moyen" x="43.0" y="139.0" text-anchor="end">a − b</text><text class="moyen" x="43.0" y="244.0" text-anchor="end">b</text></svg><figcaption>$(a-b)^2$ : du grand carré $a^2$, on enlève les deux bandes $a\times b$ en pointillés. Elles se recouvrent sur le coin $b^2$, enlevé deux fois : on le rajoute une fois. D'où $a^2-2ab+b^2$.</figcaption></figure>
+    <figure class="figure-svg"><svg data-figure="difference_carres" viewBox="0 0 418 255" role="img" aria-label="À gauche, un carré de côté a dont on a retiré un petit carré de côté b dans un coin : il reste une forme en L d'aire a au carré moins b au carré, faite de deux rectangles. À droite, le plus petit rectangle a été tourné et posé sur l'autre : on obtient un rectangle de largeur a moins b et de hauteur a plus b."><rect class="forme" x="38.8" y="86.8" width="96.0" height="144.0"/><rect class="forme-image" x="134.8" y="134.8" width="48.0" height="96.0"/><g class="trace t-n pointille"><line x1="134.8" y1="86.8" x2="182.8" y2="86.8"/></g><g class="trace t-n pointille"><line x1="182.8" y1="134.8" x2="182.8" y2="86.8"/></g><text class="petit" x="158.8" y="116.8" text-anchor="middle">b²</text><text class="moyen" x="86.8" y="245.2" text-anchor="middle">a − b</text><text class="moyen" x="158.8" y="245.2" text-anchor="middle">b</text><text class="moyen" x="28.0" y="164.8" text-anchor="middle">a</text><text class="petit" x="86.8" y="164.8" text-anchor="middle">a² − b²</text><g class="trace t-u"><line x1="197.2" y1="158.8" x2="237.4" y2="158.8"/><polygon points="245.2,158.8 232.2,164.7 232.2,153.0"/></g><rect class="forme" x="269.2" y="86.8" width="96.0" height="144.0"/><rect class="forme-image" x="269.2" y="38.8" width="96.0" height="48.0"/><text class="moyen" x="317.2" y="245.2" text-anchor="middle">a − b</text><text class="moyen" x="372.4" y="140.8" text-anchor="start">a + b</text><text class="petit" x="317.2" y="68.8" text-anchor="middle">déplacé</text></svg><figcaption>$a^2-b^2$ : on retire le coin $b^2$, puis on déplace un morceau. Le rectangle obtenu mesure $a-b$ sur $a+b$.</figcaption></figure>
+  </div>
+
+  <div class="bloc piege" data-titre="Le double produit oublié">
+    <p class="faux">$(a+b)^2=a^2+b^2$</p>
+    <p>Avec des nombres, on le voit tout de suite : $(3+4)^2=7^2=49$, alors que $3^2+4^2=25$. Il manque $2\times3\times4=24$. Sur la figure, ce sont les deux rectangles.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le calcul mental">
+    <p>$101^2=(100+1)^2=10\,000+200+1=10\,201$. &nbsp; $49\times51=(50-1)(50+1)=2\,500-1=2\,499$.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-factoriser">6. Factoriser</h3>
+
+  <div class="bloc definition" data-titre="Factoriser">
+    <p><strong>Factoriser</strong>, c'est transformer une somme en un <strong>produit</strong>. On factorise <strong>complètement</strong> quand aucun facteur ne peut plus se factoriser.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Factoriser par un facteur commun">
+    <ol class="etapes">
+      <li><span>Je cherche le facteur présent dans <strong>chaque</strong> terme : un nombre, une lettre, ou une parenthèse entière.</span></li>
+      <li><span>Je le mets devant, et j'écris entre crochets ce qui reste de chaque terme, avec son signe.</span></li>
+      <li><span>Je réduis ce qui est entre crochets.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Factoriser $H=6x^2-15x$, puis $K=(x-2)(3x+1)-(x-2)^2$.</p>
+      <ol class="pas">
+        <li><span><strong>Le facteur commun de H.</strong> $6x^2=3x\times2x$ et $15x=3x\times5$ : $H=3x(2x-5)$. Avec seulement $x(6x-15)$, on pourrait encore sortir $3$.</span></li>
+        <li><span><strong>Le facteur commun de K.</strong> La parenthèse $(x-2)$ est dans les deux termes : $(x-2)^2=(x-2)(x-2)$.</span></li>
+        <li><span><strong>On la met devant.</strong> $K=(x-2)\left[(3x+1)-(x-2)\right]$ : le « $-$ » du second terme reste devant son crochet.</span></li>
+        <li><span><strong>On réduit le crochet.</strong> $3x+1-x+2=2x+3$, donc $K=(x-2)(2x+3)$.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Factoriser avec une identité">
+    <ol class="etapes">
+      <li><span>Je cherche une différence de deux carrés, $A^2-B^2$, ou trois termes de la forme $A^2\pm2AB+B^2$.</span></li>
+      <li><span>J'écris chaque carré sous la forme $A^2$ et $B^2$, puis j'applique l'identité de droite à gauche.</span></li>
+      <li><span>Je réduis chaque facteur, et je regarde s'il se factorise encore.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Factoriser $L=9x^2-25$, $M=x^2-10x+25$ et $N=(x+1)^2-16$.</p>
+      <ol class="pas">
+        <li><span><strong>L.</strong> $9x^2=(3x)^2$ et $25=5^2$ : $L=(3x)^2-5^2=(3x-5)(3x+5)$.</span></li>
+        <li><span><strong>M.</strong> $x^2=A^2$ avec $A=x$, $25=B^2$ avec $B=5$, et on vérifie le double produit : $2\times x\times5=10x$. Donc $M=(x-5)^2$.</span></li>
+        <li><span><strong>N.</strong> $A=x+1$ et $B=4$ : $N=(x+1-4)(x+1+4)=(x-3)(x+5)$.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="La factorisation laissée en route">
+    <p class="faux">$2x^2-8=2\left(x^2-4\right)$</p>
+    <p>C'est juste, mais pas fini : $x^2-4=(x-2)(x+2)$. La factorisation complète est $2x^2-8=2(x-2)(x+2)$. Et $x^2+9$, une <strong>somme</strong> de carrés, ne se factorise pas avec les identités.</p>
+  </div>
+
+  <div class="bloc remarque">
+    <p>Une factorisation se vérifie en <strong>redéveloppant</strong> : on doit retrouver l'expression de départ. C'est le contrôle le plus sûr, et il prend dix secondes.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-forme">7. Choisir la forme adaptée</h3>
+
+  <div class="bloc exemple" data-titre="Une expression, trois écritures">
+    <p>$f(x)=(x-1)(x+3)$ peut aussi s'écrire $f(x)=x^2+2x-3$ (forme développée) ou $f(x)=(x+1)^2-4$. Chaque écriture répond mieux à une question :</p>
+    <div class="defile">
+      <table>
+        <thead><tr><th>Question</th><th>Forme la plus commode</th><th>Calcul</th></tr></thead>
+        <tbody>
+          <tr><td>Calculer $f(0)$</td><td>développée</td><td>$f(0)=-3$</td></tr>
+          <tr><td>Résoudre $f(x)=0$</td><td>factorisée</td><td>un produit nul : $x=1$ ou $x=-3$</td></tr>
+          <tr><td>Calculer $f(-1)$</td><td>$(x+1)^2-4$</td><td>$f(-1)=0^2-4=-4$</td></tr>
+          <tr><td>Calculer $f\left(\sqrt2\right)$</td><td>développée</td><td>$2+2\sqrt2-3=2\sqrt2-1$</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Prouver que deux expressions sont égales">
+    <ol class="etapes">
+      <li><span>Je développe et je réduis chacune des deux (ou je transforme l'une jusqu'à obtenir l'autre).</span></li>
+      <li><span>Si j'obtiens la même forme réduite, elles sont égales <strong>pour tout $x$</strong>.</span></li>
+      <li><span>Pour montrer qu'elles <strong>ne sont pas</strong> égales, une seule valeur de $x$ qui donne deux résultats différents suffit : c'est un <strong>contre-exemple</strong>.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Prouver que les formules d'Inès et de son collègue, $(x+6)^2-x^2$ et $12x+36$, sont égales pour tout $x$.</p>
+      <ol class="pas">
+        <li><span><strong>On développe la première.</strong> $(x+6)^2=x^2+12x+36$, donc $(x+6)^2-x^2=x^2+12x+36-x^2$.</span></li>
+        <li><span><strong>On réduit.</strong> Les $x^2$ s'annulent : il reste $12x+36$, la seconde formule.</span></li>
+        <li><span><strong>On conclut.</strong> Les deux expressions sont égales pour tout $x$ : les deux colonnes du tableur donneront toujours les mêmes nombres.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Vérifier sur une seule valeur">
+    <p>Essayer $x=0$ ne prouve rien : $(x+3)^2$ et $x^2+9$ valent toutes deux $9$ en $x=0$, et pourtant elles sont différentes ($16$ et $10$ en $x=1$). Une valeur peut <strong>réfuter</strong> une égalité, jamais la <strong>prouver</strong>.</p>
+  </div>
+
+  <h3 id="c-pieges">Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait au moins une fois">
+    <ol>
+      <li><strong>$(a+b)^2=a^2+b^2$.</strong> Il manque le double produit : $(x+3)^2=x^2+6x+9$.</li>
+      <li><strong>$-(x-3)=-x-3$.</strong> Le « $-$ » change le signe de chaque terme : $-(x-3)=-x+3$.</li>
+      <li><strong>$2x\times3x=6x$.</strong> C'est $6x^2$ : $x\times x=x^2$.</li>
+      <li><strong>$-3^2=9$, ou $(-3)^2=-9$.</strong> $-3^2=-9$ et $(-3)^2=9$ : l'exposant ne touche que ce qui est juste avant lui.</li>
+      <li><strong>$(3x)^2=3x^2$.</strong> Le carré s'applique aussi au coefficient : $(3x)^2=9x^2$.</li>
+      <li><strong>$\sqrt{a+b}=\sqrt a+\sqrt b$.</strong> $\sqrt{9+16}=5$, pas $7$.</li>
+      <li><strong>$a^m\times a^n=a^{mn}$.</strong> On ajoute les exposants : $2^3\times2^4=2^7$. Et $2^{-3}=\dfrac18$, pas $-8$.</li>
+      <li><strong>Une factorisation laissée en route.</strong> $2(x^2-4)$ se factorise encore en $2(x-2)(x+2)$.</li>
+      <li><strong>Barrer un terme d'une somme.</strong> $\dfrac{x+6}{6}=\dfrac x6+1$, pas $x+1$.</li>
+      <li><strong>Une égalité « vérifiée » sur une valeur.</strong> Une seule valeur ne prouve jamais une égalité pour tout $x$.</li>
+    </ol>
+  </div>
+
+  <h3 id="c-videos">Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Les règles des puissances en cinq minutes"></div>
+    <div class="video" data-titre="Simplifier une racine carrée"></div>
+    <div class="video" data-titre="Les identités remarquables, dans les deux sens"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Quatre laboratoires. Chacun te lance un défi ; quand tu te trompes, il te dit quelle erreur tu viens de faire. Le troisième vient du chapitre de quatrième : il rappelle la double distributivité, d'où sortent les identités.</p>
+
+  <div class="labo" data-labo="calcul" data-outil="puissances"></div>
+  <div class="labo" data-labo="calcul" data-outil="racines"></div>
+  <div class="labo" data-labo="litteral" data-outil="rectangles"></div>
+  <div class="labo" data-labo="calcul" data-outil="carres"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des calculs nouveaux à chaque partie ; quand tu te trompes, l'explication montre le calcul. Le quiz vérifie les réflexes du cours. Tout se fait sans calculatrice.</p>
+
+  <div class="jeu" data-generateurs="calcul" data-questions="10" data-titre="Le défi du calcul"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>$2^{-3}=$</p>
+      <ul class="choix"><li class="bon">$\dfrac18$</li><li>$-8$</li><li>$-6$</li><li>$\dfrac16$</li></ul>
+      <div class="explication">Un exposant négatif donne un inverse : $2^{-3}=\dfrac{1}{2^3}=\dfrac18$. Il ne rend jamais le nombre négatif.</div>
+    </div>
+    <div class="question" data-reponse="-9">
+      <p>Combien vaut $-3^2$ ?</p>
+      <div class="explication">L'exposant ne touche que le $3$ : $-3^2=-(3\times3)=-9$. Avec des parenthèses, $(-3)^2=9$.</div>
+    </div>
+    <div class="question">
+      <p>$5^4\times5^{-6}=$</p>
+      <ul class="choix"><li class="bon">$5^{-2}$</li><li>$5^{-24}$</li><li>$25^{-2}$</li><li>$5^{10}$</li></ul>
+      <div class="explication">Même base : on ajoute les exposants, $4+(-6)=-2$. On ne les multiplie pas, et la base ne change pas.</div>
+    </div>
+    <div class="question" data-reponse="5">
+      <p>Combien vaut $\sqrt{9+16}$ ?</p>
+      <div class="explication">On calcule d'abord sous la racine : $\sqrt{25}=5$. La réponse $7$, c'est $\sqrt9+\sqrt{16}$ : la racine ne se sépare pas sur une somme.</div>
+    </div>
+    <div class="question">
+      <p>$\sqrt{48}=$</p>
+      <ul class="choix"><li class="bon">$4\sqrt3$</li><li>$16\sqrt3$</li><li>$3\sqrt4$</li><li>$6\sqrt8$</li></ul>
+      <div class="explication">$48=16\times3$ et $16$ est un carré : $\sqrt{48}=\sqrt{16}\times\sqrt3=4\sqrt3$. On sort la racine de $16$, pas $16$.</div>
+    </div>
+    <div class="question">
+      <p>$(x-4)^2=$</p>
+      <ul class="choix"><li class="bon">$x^2-8x+16$</li><li>$x^2-16$</li><li>$x^2+16$</li><li>$x^2-4x+16$</li></ul>
+      <div class="explication">$(a-b)^2=a^2-2ab+b^2$ avec $a=x$ et $b=4$ : le double produit vaut $2\times x\times4=8x$.</div>
+    </div>
+    <div class="question">
+      <p>Une forme factorisée de $9x^2-1$ est…</p>
+      <ul class="choix"><li class="bon">$(3x-1)(3x+1)$</li><li>$(9x-1)(9x+1)$</li><li>$(3x-1)^2$</li><li>$9(x-1)(x+1)$</li></ul>
+      <div class="explication">$9x^2=(3x)^2$ et $1=1^2$ : $a^2-b^2=(a-b)(a+b)$ avec $a=3x$ et $b=1$. Et $9(x-1)(x+1)=9x^2-9$.</div>
+    </div>
+    <div class="question" data-reponse="7/12">
+      <p>Calcule $\dfrac13+\dfrac14$ (sous forme de fraction).</p>
+      <div class="explication">Dénominateur commun $12$ : $\dfrac{4}{12}+\dfrac{3}{12}=\dfrac{7}{12}$. On n'additionne pas les dénominateurs.</div>
+    </div>
+    <div class="question">
+      <p>$\dfrac{x+6}{6}=$</p>
+      <ul class="choix"><li class="bon">$\dfrac x6+1$</li><li>$x+1$</li><li>$x$</li><li>$\dfrac{7x}{6}$</li></ul>
+      <div class="explication">On ne barre pas un terme d'une somme : on sépare la fraction, $\dfrac x6+\dfrac66=\dfrac x6+1$.</div>
+    </div>
+    <div class="question">
+      <p>$2x\times3x=$</p>
+      <ul class="choix"><li class="bon">$6x^2$</li><li>$6x$</li><li>$5x^2$</li><li>$5x$</li></ul>
+      <div class="explication">$2\times3=6$ et $x\times x=x^2$. Le $5x$, c'est $2x+3x$ : une somme, pas un produit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Ici, pas de correction à ouvrir : tu écris ton calcul ligne par ligne, et le vérificateur te dit si chaque ligne est juste. Écris <code>x^2</code> ou <code>x²</code> pour $x^2$, <code>(2x-5)^2</code> pour un carré, et <code>x/2</code> pour $\dfrac x2$. Si tu bloques, demande un indice, mais essaie d'abord seul : la réussite sans aide compte le plus.</p>
+
+  <article class="exercice" id="ex-developper-un-carre" data-titre="Développer un carré" data-niveau="1" data-type="guide" data-notions="identites developper" data-duree="5" data-calculatrice="non">
+    <p>Développe et réduis $(2x-5)^2$ avec l'identité $(a-b)^2=a^2-2ab+b^2$. Attention : ici $a=2x$, pas $x$.</p>
+    <div class="tuteur" data-tuteur="expression" data-id="calcul-carre" data-depart="(2x-5)^2" data-consigne="Développe et réduis :"></div>
+  </article>
+
+  <article class="exercice" id="ex-un-produit-moins-un-carre" data-titre="Un produit moins un carré" data-niveau="2" data-type="guide" data-notions="identites developper reduire" data-duree="8" data-calculatrice="non">
+    <p>Développe et réduis $(x-3)(x+3)-(x-3)^2$. Développe chaque morceau avec une identité, en gardant le second entre parenthèses à cause du « $-$ ».</p>
+    <div class="tuteur" data-tuteur="expression" data-id="calcul-difference" data-depart="(x-3)(x+3)-(x-3)^2" data-consigne="Développe et réduis :"></div>
+  </article>
+
+  <article class="exercice" id="ex-factoriser-une-difference-de-carres" data-titre="Factoriser une différence de carrés" data-niveau="1" data-type="guide" data-notions="identites factoriser" data-duree="5" data-calculatrice="non">
+    <p>Factorise $4x^2-25$. Écris d'abord chaque terme comme un carré.</p>
+    <div class="tuteur" data-tuteur="factoriser" data-id="calcul-factoriser" data-depart="4x^2-25" data-consigne="Factorise :"></div>
+  </article>
+
+  <article class="exercice" id="ex-deux-fractions-avec-des-lettres" data-titre="Deux fractions avec des lettres" data-niveau="1" data-type="guide" data-notions="ecritures-fractionnaires reduire" data-duree="5" data-calculatrice="non">
+    <p>Écris $\dfrac x2+\dfrac x3$ sous la forme d'une seule fraction. Mets d'abord les deux fractions sur le même dénominateur.</p>
+    <div class="tuteur" data-tuteur="expression" data-id="calcul-fractions" data-depart="x/2+x/3" data-consigne="Réduis :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ appliquer les règles, ★★ enchaîner et choisir, ★★★ démontrer. Tout se fait sans calculatrice, comme aux automatismes de l'épreuve de première. Rédige ta réponse avant d'ouvrir la correction.</p>
+
+  <h3>Niveau 1 · Appliquer les règles</h3>
+
+  <article class="exercice" id="ex-une-seule-puissance" data-titre="Une seule puissance" data-niveau="1" data-type="application" data-notions="puissances" data-duree="10" data-calculatrice="non">
+    <p>Écrire sous la forme d'une seule puissance : a) $5^3\times5^{-7}$ &nbsp; b) $\left(2^{-3}\right)^4$ &nbsp; c) $\dfrac{7^4}{7^{-2}}$ &nbsp; d) $\dfrac{10^2\times10^{-5}}{10^{-4}}$ &nbsp; e) $\dfrac{3^5\times3}{\left(3^2\right)^3}$</p>
+    <details class="indice"><p>Un nombre écrit sans exposant, comme le $3$ du e), c'est $3^1$.</p></details>
+    <details class="correction">
+      <p>a) $5^{3+(-7)}=5^{-4}$. &nbsp; b) $2^{-3\times4}=2^{-12}$. &nbsp; c) $7^{4-(-2)}=7^{6}$. &nbsp; d) $10^{2+(-5)-(-4)}=10^{1}$, soit $10$.</p>
+      <p>e) Le numérateur vaut $3^{5+1}=3^6$, le dénominateur $3^{2\times3}=3^6$ : le quotient vaut $3^0=1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-signe-et-les-parentheses" data-titre="Le signe et les parenthèses" data-niveau="1" data-type="application" data-notions="puissances" data-duree="8" data-calculatrice="non">
+    <p>Calculer : a) $(-2)^4$ &nbsp; b) $-2^4$ &nbsp; c) $(-2)^3$ &nbsp; d) $-(-2)^2$ &nbsp; e) $(-1)^{2027}$ &nbsp; f) $2^{-2}\times(-2)^2$</p>
+    <details class="correction">
+      <p>a) $(-2)\times(-2)\times(-2)\times(-2)=16$ : un nombre pair de facteurs négatifs donne un résultat positif. &nbsp; b) L'exposant ne touche que le $2$ : $-2^4=-16$.</p>
+      <p>c) Trois facteurs négatifs : $(-2)^3=-8$. &nbsp; d) $(-2)^2=4$, donc $-(-2)^2=-4$. &nbsp; e) $2027$ est impair : $(-1)^{2027}=-1$. &nbsp; f) $\dfrac14\times4=1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-ecriture-scientifique" data-titre="L'écriture scientifique" data-niveau="1" data-type="application" data-notions="puissances" data-duree="10" data-calculatrice="non">
+    <p>Donner l'écriture scientifique de : a) $45\,000\,000$ &nbsp; b) $0{,}000\,72$ &nbsp; c) $(3\times10^5)\times(4\times10^{-2})$ &nbsp; d) $\dfrac{8\times10^{-3}}{2\times10^{-7}}$ &nbsp; e) $0{,}5\times10^{-4}$</p>
+    <details class="correction">
+      <p>a) $4{,}5\times10^7$. &nbsp; b) $7{,}2\times10^{-4}$.</p>
+      <p>c) $(3\times4)\times10^{5+(-2)}=12\times10^3$ ; or $12$ n'est pas entre $1$ et $10$ : $12=1{,}2\times10$, donc le résultat est $1{,}2\times10^4$.</p>
+      <p>d) $\dfrac82\times10^{-3-(-7)}=4\times10^4$. &nbsp; e) $0{,}5=5\times10^{-1}$, donc $5\times10^{-1}\times10^{-4}=5\times10^{-5}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-simplifier-des-racines" data-titre="Simplifier des racines" data-niveau="1" data-type="application" data-notions="racines" data-duree="10" data-calculatrice="non">
+    <p>Écrire sous la forme la plus simple : a) $\sqrt{50}$ &nbsp; b) $\sqrt{75}$ &nbsp; c) $\sqrt{\dfrac49}$ &nbsp; d) $\sqrt{18}\times\sqrt2$ &nbsp; e) $2\sqrt{12}-\sqrt{27}+\sqrt3$</p>
+    <details class="indice"><p>Pour chaque nombre, cherche le plus grand carré parfait qui le divise : $25$ pour $50$ et $75$, $4$ pour $12$, $9$ pour $27$.</p></details>
+    <details class="correction">
+      <p>a) $\sqrt{25\times2}=5\sqrt2$. &nbsp; b) $\sqrt{25\times3}=5\sqrt3$. &nbsp; c) $\dfrac{\sqrt4}{\sqrt9}=\dfrac23$. &nbsp; d) $\sqrt{18\times2}=\sqrt{36}=6$.</p>
+      <p>e) $2\sqrt{12}=2\times2\sqrt3=4\sqrt3$ et $\sqrt{27}=3\sqrt3$ : $4\sqrt3-3\sqrt3+\sqrt3=2\sqrt3$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-calculer-avec-des-fractions" data-titre="Calculer avec des fractions" data-niveau="1" data-type="application" data-notions="ecritures-fractionnaires" data-duree="12" data-calculatrice="non">
+    <p>Donner le résultat sous forme de fraction irréductible : a) $\dfrac56-\dfrac38$ &nbsp; b) $\dfrac49\times\dfrac{15}{8}$ &nbsp; c) $\dfrac23\div\dfrac89$ &nbsp; d) $1-\dfrac25\times\dfrac34$ &nbsp; e) $\dfrac{\frac12+\frac13}{1-\frac16}$</p>
+    <details class="indice"><p>Au d), le produit passe avant la soustraction. Au e), calcule séparément le haut et le bas.</p></details>
+    <details class="correction">
+      <p>a) $\dfrac{20}{24}-\dfrac{9}{24}=\dfrac{11}{24}$. &nbsp; b) $\dfrac{4\times15}{9\times8}=\dfrac{60}{72}=\dfrac56$ (on peut simplifier avant : $\dfrac{4\times3\times5}{3\times3\times4\times2}$).</p>
+      <p>c) $\dfrac23\times\dfrac98=\dfrac{18}{24}=\dfrac34$. &nbsp; d) $\dfrac25\times\dfrac34=\dfrac{6}{20}=\dfrac{3}{10}$, donc $1-\dfrac{3}{10}=\dfrac{7}{10}$.</p>
+      <p>e) En haut, $\dfrac36+\dfrac26=\dfrac56$ ; en bas, $\dfrac66-\dfrac16=\dfrac56$. Le quotient vaut $1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-developper-avec-les-identites" data-titre="Développer avec les identités" data-niveau="1" data-type="application" data-notions="identites developper" data-duree="10" data-calculatrice="non">
+    <p>Développer et réduire : a) $(x+7)^2$ &nbsp; b) $(3-2x)^2$ &nbsp; c) $(5x+1)(5x-1)$ &nbsp; d) $\left(\dfrac x2+3\right)^2$ &nbsp; e) $\left(\sqrt3+1\right)^2$</p>
+    <details class="correction">
+      <p>a) $x^2+2\times x\times7+49=x^2+14x+49$. &nbsp; b) $a=3$, $b=2x$ : $9-12x+4x^2$.</p>
+      <p>c) $(5x)^2-1^2=25x^2-1$. &nbsp; d) $\dfrac{x^2}{4}+2\times\dfrac x2\times3+9=\dfrac{x^2}{4}+3x+9$.</p>
+      <p>e) $\left(\sqrt3\right)^2+2\sqrt3+1=3+2\sqrt3+1=4+2\sqrt3$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-factoriser-avec-les-identites" data-titre="Factoriser avec les identités" data-niveau="1" data-type="application" data-notions="identites factoriser" data-duree="12" data-calculatrice="non">
+    <p>Factoriser complètement : a) $x^2-36$ &nbsp; b) $16x^2-9$ &nbsp; c) $x^2+8x+16$ &nbsp; d) $9x^2-12x+4$ &nbsp; e) $(2x+1)^2-25$</p>
+    <details class="indice"><p>Au c) et au d), vérifie le double produit avant de conclure. Au e), une fois l'identité appliquée, regarde si chaque facteur a encore un facteur commun.</p></details>
+    <details class="correction">
+      <p>a) $(x-6)(x+6)$. &nbsp; b) $(4x)^2-3^2=(4x-3)(4x+3)$.</p>
+      <p>c) $x^2+2\times x\times4+4^2=(x+4)^2$. &nbsp; d) $(3x)^2-2\times3x\times2+2^2=(3x-2)^2$.</p>
+      <p>e) $(2x+1-5)(2x+1+5)=(2x-4)(2x+6)$. Ce n'est pas fini : $2x-4=2(x-2)$ et $2x+6=2(x+3)$, donc $(2x+1)^2-25=4(x-2)(x+3)$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Enchaîner et choisir</h3>
+
+  <article class="exercice" id="ex-la-formule-du-tableur" data-titre="La formule du tableur" data-niveau="2" data-type="probleme" data-notions="identites forme-adaptee developper" data-duree="15" data-calculatrice="non">
+    <p>Un bassin carré de côté $x$ mètres est entouré d'une allée de $3$ m de large. Dans un tableur, $x$ est en colonne A. Inès calcule l'aire de l'allée avec <code>=(A2+6)^2-A2^2</code>, Malo avec <code>=12*A2+36</code>, et Lucas avec <code>=4*3*A2</code>.</p>
+    <figure class="figure-svg"><svg data-figure="allee" viewBox="0 0 308 320" role="img" aria-label="Un bassin carré de côté x, entouré d'une allée de 3 mètres de large : le grand carré, bassin et allée compris, a pour côté x plus 6."><rect class="forme-image" x="28.0" y="52.0" width="240.0" height="240.0"/><rect class="forme" x="73.0" y="97.0" width="150.0" height="150.0"/><text class="moyen" x="148.0" y="178.0" text-anchor="middle">bassin</text><text class="petit" x="148.0" y="275.5" text-anchor="middle">allée</text><text class="lettre" x="148.0" y="242.5" text-anchor="middle">x</text><text class="moyen" x="50.5" y="178.0" text-anchor="middle">3</text><g class="trace t-n"><line x1="148.0" y1="40.0" x2="35.8" y2="40.0"/><polygon points="28.0,40.0 41.0,34.1 41.0,45.9"/></g><g class="trace t-n"><line x1="148.0" y1="40.0" x2="260.2" y2="40.0"/><polygon points="268.0,40.0 255.0,45.9 255.0,34.1"/></g><text class="moyen" x="148.0" y="40.0"></text><text class="moyen" x="148.0" y="31.0" text-anchor="middle">x + 6</text></svg></figure>
+    <ol>
+      <li>Expliquer la formule d'Inès.</li>
+      <li>Prouver que la formule de Malo donne toujours le même résultat que celle d'Inès.</li>
+      <li>Montrer que la formule de Lucas est fausse, et dire ce qu'il a oublié.</li>
+    </ol>
+    <details class="indice"><p>Pour la question 3, une seule valeur de $x$ suffit pour montrer qu'une formule est fausse. Pour comprendre l'oubli, découpe l'allée en morceaux sur la figure.</p></details>
+    <details class="correction">
+      <ol>
+        <li>Le grand carré (bassin et allée) a pour côté $x+3+3=x+6$, donc pour aire $(x+6)^2$. On retire l'aire du bassin, $x^2$ : il reste l'allée, $(x+6)^2-x^2$.</li>
+        <li>$(x+6)^2-x^2=x^2+12x+36-x^2=12x+36$ pour tout $x$ : c'est la formule de Malo.</li>
+        <li>Pour $x=1$ : Inès trouve $7^2-1=48$, Lucas $12$. La formule de Lucas est donc fausse. Il a compté quatre bandes de $x$ sur $3$ le long du bassin ($4\times3x=12x$), mais il a oublié les <strong>quatre coins</strong>, des carrés de $3$ m de côté : $4\times9=36$ m².</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-calcul-astucieux" data-titre="Calcul astucieux" data-niveau="2" data-type="application" data-notions="identites" data-duree="10" data-calculatrice="non">
+    <p>Sans calculatrice, et en écrivant l'identité utilisée : a) $101^2$ &nbsp; b) $99^2$ &nbsp; c) $49\times51$ &nbsp; d) $998\times1\,002$ &nbsp; e) $1\,001^2-999^2$</p>
+    <details class="correction">
+      <p>a) $(100+1)^2=10\,000+200+1=10\,201$. &nbsp; b) $(100-1)^2=10\,000-200+1=9\,801$. &nbsp; c) $(50-1)(50+1)=2\,500-1=2\,499$.</p>
+      <p>d) $(1\,000-2)(1\,000+2)=1\,000\,000-4=999\,996$. &nbsp; e) $a^2-b^2=(a-b)(a+b)=2\times2\,000=4\,000$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-choisir-la-bonne-forme" data-titre="Choisir la bonne forme" data-niveau="2" data-type="probleme" data-notions="forme-adaptee identites" data-duree="15" data-calculatrice="non">
+    <p>On pose $f(x)=(2x-1)^2-9$.</p>
+    <ol>
+      <li>Développer et réduire $f(x)$.</li>
+      <li>Factoriser complètement $f(x)$.</li>
+      <li>En choisissant à chaque fois la forme la plus commode, calculer $f(0)$, $f\left(\dfrac12\right)$, $f\left(\sqrt2\right)$, puis résoudre $f(x)=0$.</li>
+    </ol>
+    <details class="indice"><p>Pour factoriser, vois $f(x)$ comme une différence de deux carrés : $A=2x-1$ et $B=3$.</p></details>
+    <details class="correction">
+      <ol>
+        <li>$f(x)=4x^2-4x+1-9=4x^2-4x-8$.</li>
+        <li>$f(x)=(2x-1-3)(2x-1+3)=(2x-4)(2x+2)=2(x-2)\times2(x+1)=4(x-2)(x+1)$.</li>
+        <li>$f(0)=-8$ (forme développée). $f\left(\dfrac12\right)=0^2-9=-9$ (forme de l'énoncé : la parenthèse s'annule). $f\left(\sqrt2\right)=4\times2-4\sqrt2-8=-4\sqrt2$ (forme développée). $f(x)=0$ : avec la forme factorisée, un produit est nul si l'un de ses facteurs l'est, donc $x=2$ ou $x=-1$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-fractions-avec-des-lettres" data-titre="Des fractions avec des lettres" data-niveau="2" data-type="application" data-notions="ecritures-fractionnaires" data-duree="12" data-calculatrice="non">
+    <p>Écrire sous la forme d'une seule fraction : a) $\dfrac x3-\dfrac x4$ &nbsp; b) $\dfrac2x+3$ pour $x\neq0$ &nbsp; c) $\dfrac1x-\dfrac{1}{x+2}$ pour $x\neq0$ et $x\neq-2$ &nbsp; d) $\dfrac{x+1}{2}-\dfrac{x-3}{5}$</p>
+    <details class="indice"><p>Au b), $3=\dfrac{3x}{x}$. Au d), garde les numérateurs entre parenthèses avant de soustraire.</p></details>
+    <details class="correction">
+      <p>a) $\dfrac{4x}{12}-\dfrac{3x}{12}=\dfrac{x}{12}$. &nbsp; b) $\dfrac2x+\dfrac{3x}{x}=\dfrac{3x+2}{x}$.</p>
+      <p>c) $\dfrac{x+2}{x(x+2)}-\dfrac{x}{x(x+2)}=\dfrac{2}{x(x+2)}$.</p>
+      <p>d) $\dfrac{5(x+1)}{10}-\dfrac{2(x-3)}{10}=\dfrac{5x+5-2x+6}{10}=\dfrac{3x+11}{10}$. Le « $-$ » change le signe de $-6$ : c'est l'erreur la plus fréquente ici.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-racines-dans-les-identites" data-titre="Des racines dans les identités" data-niveau="2" data-type="application" data-notions="racines identites" data-duree="12" data-calculatrice="non">
+    <p>Développer et réduire : a) $\left(\sqrt5-\sqrt2\right)\left(\sqrt5+\sqrt2\right)$ &nbsp; b) $\left(2\sqrt3+1\right)^2$ &nbsp; c) $\left(\sqrt7-3\right)^2$. Puis montrer que $\left(1+\sqrt2\right)^2-2\sqrt2$ est un nombre entier.</p>
+    <details class="correction">
+      <p>a) $\left(\sqrt5\right)^2-\left(\sqrt2\right)^2=5-2=3$. &nbsp; b) $\left(2\sqrt3\right)^2+2\times2\sqrt3\times1+1=12+4\sqrt3+1=13+4\sqrt3$, car $\left(2\sqrt3\right)^2=4\times3=12$.</p>
+      <p>c) $7-6\sqrt7+9=16-6\sqrt7$. &nbsp; Enfin $\left(1+\sqrt2\right)^2=1+2\sqrt2+2=3+2\sqrt2$, donc $\left(1+\sqrt2\right)^2-2\sqrt2=3$ : un entier.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-factoriser-par-une-parenthese" data-titre="Factoriser par une parenthèse" data-niveau="2" data-type="application" data-notions="factoriser" data-duree="12" data-calculatrice="non">
+    <p>Factoriser : a) $(x+2)(3x-1)+(x+2)(x+4)$ &nbsp; b) $(2x-1)^2-(2x-1)(x+3)$ &nbsp; c) $5x(x-4)-(x-4)$ &nbsp; d) $(x-3)^2+2(x-3)$</p>
+    <details class="indice"><p>Au c), $x-4=1\times(x-4)$ : il reste $1$, pas $0$.</p></details>
+    <details class="correction">
+      <p>a) $(x+2)\left[(3x-1)+(x+4)\right]=(x+2)(4x+3)$. &nbsp; b) $(2x-1)\left[(2x-1)-(x+3)\right]=(2x-1)(x-4)$.</p>
+      <p>c) $(x-4)(5x-1)$. &nbsp; d) $(x-3)\left[(x-3)+2\right]=(x-3)(x-1)$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="identites developper" data-duree="10" data-calculatrice="non">
+    <p>On a demandé à une IA de développer $(x+3)^2$. Elle répond avec assurance. Trouve ses deux erreurs.</p>
+    <blockquote class="copie-ia">« Le carré se distribue sur chaque terme de la parenthèse : $(x+3)^2=x^2+3^2=x^2+9$. Je vérifie : pour $x=0$, $(0+3)^2=9$ et $0^2+9=9$. L'égalité est donc vraie pour tout $x$, et on en déduit au passage que $(x+3)^2-x^2=9$. »</blockquote>
+    <details class="correction">
+      <p><strong>Première erreur : le carré ne se distribue pas sur une somme.</strong> $(x+3)^2=(x+3)(x+3)=x^2+3x+3x+9=x^2+6x+9$. Il manque le double produit $2\times x\times3=6x$.</p>
+      <p><strong>Deuxième erreur : une valeur ne prouve pas une égalité.</strong> L'IA a choisi $x=0$, justement la valeur où le terme oublié, $6x$, vaut $0$. Un seul essai peut montrer qu'une égalité est <strong>fausse</strong>, jamais qu'elle est vraie pour tout $x$ : avec $x=1$, on trouve $16$ d'un côté et $10$ de l'autre.</p>
+      <p>La conclusion est donc fausse aussi : $(x+3)^2-x^2=6x+9$, et non $9$. Une réponse fluide, avec une « vérification », n'est pas une preuve.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Démontrer</h3>
+
+  <article class="exercice" id="ex-quatre-entiers-consecutifs" data-titre="Quatre entiers consécutifs" data-niveau="3" data-type="raisonnement" data-notions="developper identites" data-duree="25" data-calculatrice="non">
+    <p>Calculer $1\times2\times3\times4+1$, puis $2\times3\times4\times5+1$ et $3\times4\times5\times6+1$. Que remarque-t-on ? Démontrer que pour tout entier $n$, $n(n+1)(n+2)(n+3)+1=\left(n^2+3n+1\right)^2$.</p>
+    <details class="indice"><p>Regroupe les facteurs deux par deux : $n(n+3)$ d'un côté, $(n+1)(n+2)$ de l'autre. Les deux résultats se ressemblent beaucoup.</p></details>
+    <details class="indice"><p>Pose $u=n^2+3n$. Le produit devient $u(u+2)+1$ : reconnais une identité.</p></details>
+    <details class="correction">
+      <p>On trouve $25=5^2$, $121=11^2$ et $361=19^2$ : chaque fois un carré.</p>
+      <p>$n(n+3)=n^2+3n$ et $(n+1)(n+2)=n^2+3n+2$. Avec $u=n^2+3n$, l'expression vaut $u(u+2)+1=u^2+2u+1=(u+1)^2$, c'est-à-dire $\left(n^2+3n+1\right)^2$.</p>
+      <p>Contrôle avec $n=1$ : $1+3+1=5$, et $5^2=25$. Le produit de quatre entiers consécutifs, plus $1$, est toujours un carré.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-racine-d-une-somme" data-titre="La racine d'une somme" data-niveau="3" data-type="raisonnement" data-notions="racines identites" data-duree="20" data-calculatrice="non">
+    <p>Soit $a$ et $b$ deux réels strictement positifs. On veut démontrer que $\sqrt{a+b}&lt;\sqrt a+\sqrt b$.</p>
+    <ol>
+      <li>Vérifier l'inégalité pour $a=9$ et $b=16$.</li>
+      <li>Développer $\left(\sqrt a+\sqrt b\right)^2$ et comparer avec $\left(\sqrt{a+b}\right)^2$.</li>
+      <li>Soit $u$ et $v$ deux nombres positifs tels que $u^2&lt;v^2$. En factorisant $v^2-u^2$, montrer que $u&lt;v$. Conclure.</li>
+    </ol>
+    <details class="indice"><p>À la question 3, $v^2-u^2=(v-u)(v+u)$ est positif, et $v+u$ aussi. Que dire alors de $v-u$ ?</p></details>
+    <details class="correction">
+      <ol>
+        <li>$\sqrt{25}=5$ et $\sqrt9+\sqrt{16}=7$ : on a bien $5&lt;7$.</li>
+        <li>$\left(\sqrt a+\sqrt b\right)^2=a+2\sqrt a\sqrt b+b$, alors que $\left(\sqrt{a+b}\right)^2=a+b$. La différence vaut $2\sqrt a\sqrt b$, strictement positive : $\left(\sqrt{a+b}\right)^2&lt;\left(\sqrt a+\sqrt b\right)^2$.</li>
+        <li>$v^2-u^2=(v-u)(v+u)&gt;0$. Comme $u$ et $v$ sont positifs et que $v$ n'est pas nul, $v+u&gt;0$ ; un produit strictement positif dont un facteur est strictement positif a son autre facteur strictement positif : $v-u&gt;0$, soit $u&lt;v$. Avec $u=\sqrt{a+b}$ et $v=\sqrt a+\sqrt b$, positifs, on conclut $\sqrt{a+b}&lt;\sqrt a+\sqrt b$.</li>
+      </ol>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-carres-de-deux-impairs" data-titre="Carrés de deux impairs" data-niveau="3" data-type="raisonnement" data-notions="identites factoriser" data-duree="15" data-calculatrice="non">
+    <p>Calculer $3^2-1^2$, $5^2-3^2$, $7^2-5^2$. Démontrer que la différence des carrés de deux nombres impairs consécutifs est toujours un multiple de $8$.</p>
+    <details class="indice"><p>Deux impairs consécutifs s'écrivent $2n-1$ et $2n+1$, avec $n$ entier.</p></details>
+    <details class="correction">
+      <p>On trouve $8$, $16$ et $24$ : des multiples de $8$.</p>
+      <p>Avec $n$ entier, $(2n+1)^2-(2n-1)^2=\left[(2n+1)-(2n-1)\right]\left[(2n+1)+(2n-1)\right]=2\times4n=8n$. Comme $n$ est entier, $8n$ est un multiple de $8$. (En développant, on trouve aussi $4n^2+4n+1-4n^2+4n-1=8n$.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-boite-sans-couvercle" data-titre="La boîte sans couvercle" data-niveau="3" data-type="probleme" data-notions="developper forme-adaptee" data-duree="20" data-calculatrice="non">
+    <p>Dans une plaque carrée de carton de $20$ cm de côté, on découpe un carré de côté $x$ cm à chaque coin, puis on relève les bords pour former une boîte sans couvercle ($0&lt;x&lt;10$).</p>
+    <ol>
+      <li>Justifier que le volume de la boîte, en cm³, est $V(x)=x(20-2x)^2$.</li>
+      <li>Développer et réduire $V(x)$.</li>
+      <li>Avec la forme la plus commode, calculer $V(5)$. Que vaudrait $V(10)$, et pourquoi la boîte n'existe-t-elle plus ?</li>
+    </ol>
+    <details class="correction">
+      <ol>
+        <li>Le fond est un carré de côté $20-2x$ (on retire $x$ de chaque côté), et la hauteur vaut $x$ : $V(x)=(20-2x)^2\times x$.</li>
+        <li>$(20-2x)^2=400-80x+4x^2$, donc $V(x)=4x^3-80x^2+400x$.</li>
+        <li>La forme de l'énoncé est la plus commode : $V(5)=5\times10^2=500$ cm³. $V(10)=10\times0^2=0$ : le fond aurait un côté nul, la plaque serait entièrement découpée.</li>
+      </ol>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>À quoi sert de factoriser, si développer marche toujours ?</summary>
+      <div><p>Les deux servent, à des moments différents. Une forme développée se calcule vite pour une valeur de $x$ ; une forme factorisée dit quand l'expression s'annule (un produit est nul si l'un de ses facteurs l'est) et donne son signe. Le bon réflexe : se demander d'abord ce qu'on veut en faire.</p></div></details>
+    <details><summary>Pourquoi $a^0=1$ ? On ne multiplie rien du tout.</summary>
+      <div><p>C'est une convention, choisie pour que les règles restent vraies : $\dfrac{a^3}{a^3}=1$, et la règle du quotient donne $a^{3-3}=a^0$. Toute autre valeur casserait la règle.</p></div></details>
+    <details><summary>$\sqrt{x^2}$, c'est $x$ ?</summary>
+      <div><p>Seulement si $x$ est positif. En général $\sqrt{x^2}=|x|$ : pour $x=-5$, $\sqrt{25}=5$, pas $-5$. Une racine carrée n'est jamais négative.</p></div></details>
+    <details><summary>Comment savoir qu'une factorisation est finie ?</summary>
+      <div><p>Regarde chaque facteur : a-t-il encore un facteur commun (un nombre, une lettre) ? Est-ce une différence de deux carrés ? Si aucun ne se factorise plus, c'est fini. $2(x^2-4)$ ne l'est pas, $2(x-2)(x+2)$ l'est.</p></div></details>
+    <details><summary>Faut-il apprendre les identités par cœur ?</summary>
+      <div><p>Oui, dans les deux sens : elles reviennent sans cesse, en première avec le second degré et la forme canonique, et aux automatismes de l'épreuve. Mais si un jour tu doutes, tu peux toujours les retrouver en développant $(a+b)(a+b)$, ou les contrôler avec des nombres : $(3+4)^2=49$.</p></div></details>
+    <details><summary>Je n'ai jamais vu $(a+b)^2$ au collège. C'est normal ?</summary>
+      <div><p>Oui. Le programme de troisième en vigueur jusqu'en 2028 ne demande que $a^2-b^2$ ; les deux carrés $(a+b)^2$ et $(a-b)^2$ sont donc nouveaux en seconde. C'est pour ça que ce chapitre les reprend depuis le début, avec les figures.</p></div></details>
+    <details><summary>Certaines calculatrices savent développer. Pourquoi apprendre ?</summary>
+      <div><p>Parce qu'il faut savoir quoi lui demander, et vérifier ce qu'elle répond. Et parce que les automatismes de l'épreuve de première se font sans calculatrice. Sur une expression simple, l'identité va plus vite que la machine.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
