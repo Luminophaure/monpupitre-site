@@ -1,0 +1,724 @@
+<!doctype html>
+<!-- Chapitre « Raisonnement par récurrence » (terminale spécialité, id suites-t). Source : les
+     {{figure:…}} sont remplacés par les dessins de recurrence.figures.py ;
+     fabrication : python3 outils/figures.py maths/terminale/recurrence.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Raisonnement par récurrence · Terminale spécialité</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=111fcfb17b">
+<script type="module" src="../../assets/js/site.js?v=8fb4aef943"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-4NW6AEDL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-D5WRB4B3.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FV2Y3PJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UJEUZTVQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3LMZC75G.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5WC53BBX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LI7F4B7Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MNT6VINX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BVZ42VFF.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-TXGOSXNE.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-DUEZNRSY.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UY3EPW23.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CIFLTXOQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-W2KDPFX3.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YEB662EC.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-WOJQX3NH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OCBB7UQS.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FWYQKGLU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5MLWLW3T.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/recurrence.js?v=039e9f8c75">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/recurrence.js?v=9818a974cb">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-R524CF5K.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-UMMRCQIH.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="suites-t" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Mathématiques · Terminale spécialité</span>
+  <h1>Raisonnement par récurrence</h1>
+  <p class="chapeau">Vérifier une formule pour $n=1$, $n=2$, $n=3$… ne prouve rien pour $n=1\,000$. Il y a une infinité d'entiers, et on ne peut pas tous les essayer. La récurrence prouve une propriété pour <strong>tous</strong> les entiers en deux vérifications seulement, comme une file de dominos qu'on fait tomber d'une seule pichenette.</p>
+  <ul class="objectifs">
+    <li>Comprendre pourquoi l'initialisation et l'hérédité suffisent</li>
+    <li>Rédiger une récurrence en trois temps, sans supposer ce qu'on veut montrer</li>
+    <li>Prouver une formule, une somme, une inégalité, une divisibilité</li>
+    <li>Encadrer une suite $u_{n+1}=f(u_n)$ et prouver qu'elle est monotone</li>
+    <li>Reconnaître une fausse récurrence</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Le métro sans conducteur.</strong> La ligne 14 du métro parisien roule sans conducteur depuis 1998. Le programme qui la pilote tourne en boucle, sans arrêt : lire les capteurs, calculer, freiner ou accélérer. Personne ne peut tester tous les passages de cette boucle : il y en a des millions par jour. Avant la mise en service, les ingénieurs ont donc <strong>prouvé</strong> le logiciel de sécurité. Le principe : montrer qu'une règle (« deux rames ne sont jamais trop près l'une de l'autre ») est vraie au démarrage, et que si elle est vraie à un passage de la boucle, elle l'est encore au passage suivant. Elle est alors vraie à tous les passages, sans avoir à les tester un par un. Ce raisonnement, c'est la récurrence. Trois questions : pourquoi ces deux vérifications suffisent-elles ? Pourquoi « vrai pour les cent premiers » ne suffit-il pas ? Et comment rédiger pour que la preuve soit inattaquable ?</p>
+    <p class="discret">Ils s'en servent : les ingénieurs en sûreté de fonctionnement (ferroviaire, aéronautique, nucléaire), les développeurs (prouver qu'une boucle ne se trompe jamais, au millionième tour comme au premier), les chercheurs en informatique, les actuaires (des modèles calculés d'une année sur la suivante). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-principe">1. Le principe : une infinité de dominos</h3>
+
+  <div class="bloc definition" data-titre="Une propriété qui dépend d'un entier">
+    <p>On note $P(n)$ une phrase qui parle d'un entier $n$ et qui est, pour chaque $n$, soit vraie, soit fausse. Par exemple :</p>
+    <ul>
+      <li>$P(n)$ : « $2^n\geq n+1$ » ;</li>
+      <li>$P(n)$ : « $1+3+5+\dots+(2n-1)=n^2$ » ;</li>
+      <li>$P(n)$ : « $4^n-1$ est un multiple de $3$ » ;</li>
+      <li>$P(n)$ : « $0\leq u_n\leq4$ ».</li>
+    </ul>
+    <p>$P(n)$ n'est pas un nombre : c'est une <strong>affirmation</strong>. $P(3)$ est l'affirmation qu'on obtient en remplaçant $n$ par $3$ partout.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="dominos" viewBox="0 0 660 220" role="img" aria-label="Sept dominos debout en file, nommés P(0), P(1), jusqu'à P(6), puis des points de suspension. Le premier, P(0), penche déjà vers le suivant : c'est l'initialisation. Des flèches courbes vont de P(1) à P(2), de P(2) à P(3), et ainsi de suite : si l'un tombe, il fait tomber le suivant, c'est l'hérédité."><g class="trace t-n"><line x1="18.0" y1="168.0" x2="636.0" y2="168.0"/></g><polygon class="forme-3" points="43.5,156.0 62.0,168.0 118.6,80.8 100.2,68.8"/><rect class="forme" x="120.0" y="64.0" width="22.0" height="104.0"/><rect class="forme" x="200.0" y="64.0" width="22.0" height="104.0"/><rect class="forme" x="280.0" y="64.0" width="22.0" height="104.0"/><rect class="forme" x="360.0" y="64.0" width="22.0" height="104.0"/><rect class="forme" x="440.0" y="64.0" width="22.0" height="104.0"/><rect class="forme" x="520.0" y="64.0" width="22.0" height="104.0"/><text class="formule" x="51.0" y="190.0" text-anchor="middle">P(0)</text><text class="formule" x="131.0" y="190.0" text-anchor="middle">P(1)</text><text class="formule" x="211.0" y="190.0" text-anchor="middle">P(2)</text><text class="formule" x="291.0" y="190.0" text-anchor="middle">P(3)</text><text class="formule" x="371.0" y="190.0" text-anchor="middle">P(4)</text><text class="formule" x="451.0" y="190.0" text-anchor="middle">P(5)</text><text class="formule" x="531.0" y="190.0" text-anchor="middle">P(6)</text><text class="lettre" x="614.0" y="128.0" text-anchor="middle">…</text><g class="trace t-w ep-2"><path d="M135.0,56.0 Q171.0,32.0 199.5,51.0"/><polygon points="207.0,56.0 197.0,54.8 202.0,47.3"/></g><g class="trace t-w ep-2"><path d="M215.0,56.0 Q251.0,32.0 279.5,51.0"/><polygon points="287.0,56.0 277.0,54.8 282.0,47.3"/></g><g class="trace t-w ep-2"><path d="M295.0,56.0 Q331.0,32.0 359.5,51.0"/><polygon points="367.0,56.0 357.0,54.8 362.0,47.3"/></g><g class="trace t-w ep-2"><path d="M375.0,56.0 Q411.0,32.0 439.5,51.0"/><polygon points="447.0,56.0 437.0,54.8 442.0,47.3"/></g><g class="trace t-w ep-2"><path d="M455.0,56.0 Q491.0,32.0 519.5,51.0"/><polygon points="527.0,56.0 517.0,54.8 522.0,47.3"/></g><text class="note" x="12.0" y="26.0">initialisation : le premier tombe</text><g class="trace t-v"><line x1="48.0" y1="32.0" x2="80.0" y2="68.0"/></g><text class="note" x="331.0" y="26.0" text-anchor="middle">hérédité : si P(n) tombe, P(n + 1) tombe aussi</text></svg><figcaption>Pour que tous les dominos tombent, deux choses suffisent : le premier tombe (l'initialisation), et chacun, en tombant, fait tomber le suivant (l'hérédité). Aucune des deux ne suffit seule.</figcaption></figure>
+
+  <div class="bloc theoreme" data-titre="Le principe de récurrence (admis)">
+    <p>Soit $n_0$ un entier naturel et $P(n)$ une propriété. Si :</p>
+    <ul>
+      <li><strong>initialisation</strong> : $P(n_0)$ est vraie ;</li>
+      <li><strong>hérédité</strong> : pour tout entier $n\geq n_0$, si $P(n)$ est vraie, alors $P(n+1)$ est vraie ;</li>
+    </ul>
+    <p>alors $P(n)$ est vraie pour <strong>tout</strong> entier $n\geq n_0$.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pourquoi on peut l'admettre">
+    <p>Imagine que $P$ soit fausse quelque part après $n_0$. Parmi les rangs où elle est fausse, il y en a un plus petit, appelons-le $m$. Ce n'est pas $n_0$ (l'initialisation dit que $P(n_0)$ est vraie), donc $m-1\geq n_0$, et $P(m-1)$ est vraie puisque $m$ est le premier rang faux. L'hérédité donne alors $P(m)$ vraie : contradiction. Ce raisonnement repose sur une propriété des entiers (toute partie non vide de $\mathbb N$ a un plus petit élément), que les mathématiciens prennent comme point de départ. Pascal s'est servi de la récurrence dès 1654, Peano l'a mise parmi les axiomes des entiers en 1889.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Vérifier n'est pas prouver">
+    <p>$P(n)$ : « $n^2+n+41$ est un nombre premier ». Elle est vraie pour $n=0$ ($41$), $n=1$ ($43$), $n=2$ ($47$), … et ainsi de suite jusqu'à $n=39$ ($1\,601$, premier). Quarante cas vrais d'affilée. Et pourtant, pour $n=40$ : $40^2+40+41=1\,681=41^2$. Fausse. Aucun nombre de vérifications, même énorme, ne remplace une preuve.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-rediger">2. Rédiger en trois temps</h3>
+
+  <div class="bloc methode" data-titre="Rédiger une récurrence">
+    <ol class="etapes">
+      <li><span>J'écris la propriété en entier : « Pour tout entier $n\geq n_0$, on note $P(n)$ : … ». Je repère $n_0$ dans l'énoncé (« pour tout $n\in\mathbb N$ » donne $n_0=0$, « pour tout $n\geq1$ » donne $n_0=1$).</span></li>
+      <li><span><strong>Initialisation.</strong> Je calcule <em>séparément</em> les deux côtés de $P(n_0)$, et je constate qu'ils vérifient la propriété. Je conclus : « $P(n_0)$ est vraie ».</span></li>
+      <li><span><strong>Hérédité.</strong> Je suppose que $P(n)$ est vraie pour <strong>un</strong> entier $n\geq n_0$ fixé : c'est l'<em>hypothèse de récurrence</em>, pas « pour tout $n$ ». J'écris ce que je veux obtenir, $P(n+1)$. Puis je pars de ce que je connais (le terme $u_{n+1}$, la somme jusqu'au rang $n+1$, la puissance $2^{n+1}$), et j'utilise l'hypothèse pour arriver à $P(n+1)$.</span></li>
+      <li><span><strong>Conclusion.</strong> « Par récurrence, $P(n)$ est vraie pour tout entier $n\geq n_0$. »</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Montrer que pour tout entier $n\geq1$, $1+2+\dots+n=\dfrac{n(n+1)}{2}$. (En première, tu l'as prouvé autrement, avec l'astuce de Gauss.)</p>
+      <ol class="pas">
+        <li><strong>La propriété.</strong> Pour tout $n\geq1$, on note $P(n)$ : « $1+2+\dots+n=\dfrac{n(n+1)}{2}$ ».</li>
+        <li><strong>Initialisation.</strong> Pour $n=1$ : à gauche, la somme ne contient que $1$ ; à droite, $\dfrac{1\times2}{2}=1$. Les deux sont égaux : $P(1)$ est vraie.</li>
+        <li><strong>Hérédité : le but.</strong> Soit $n\geq1$ un entier tel que $P(n)$ est vraie. Je veux montrer $P(n+1)$ : « $1+2+\dots+n+(n+1)=\dfrac{(n+1)(n+2)}{2}$ ».</li>
+        <li><strong>Hérédité : le calcul.</strong> $1+2+\dots+n+(n+1)=\dfrac{n(n+1)}{2}+(n+1)$ par hypothèse de récurrence. Je factorise par $(n+1)$ : $=(n+1)\left(\dfrac n2+1\right)=(n+1)\times\dfrac{n+2}{2}=\dfrac{(n+1)(n+2)}{2}$. C'est $P(n+1)$.</li>
+        <li><strong>Conclusion.</strong> Par récurrence, $1+2+\dots+n=\dfrac{n(n+1)}{2}$ pour tout entier $n\geq1$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Écrire P(n+1) sans se tromper">
+    <p>On remplace $n$ par $n+1$ <strong>partout</strong>, entre parenthèses. Avec $P(n)$ : « $1+2+\dots+n=\dfrac{n(n+1)}{2}$ », le $n$ du dernier terme devient $n+1$, et dans la formule $n(n+1)$ devient $(n+1)\big((n+1)+1\big)=(n+1)(n+2)$. Écrire $P(n+1)$ avant de calculer, c'est savoir où l'on va.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-formule">3. Prouver une formule explicite</h3>
+
+  <p>Une suite définie par récurrence ($u_{n+1}$ en fonction de $u_n$) oblige à calculer tous les termes d'avant. Une formule explicite ($u_n$ en fonction de $n$) donne n'importe quel terme d'un coup. On la devine sur les premiers termes, puis on la prouve.</p>
+
+  <figure class="figure-svg large"><svg data-figure="hanoi" viewBox="0 0 720 214" role="img" aria-label="Les tours de Hanoï en trois temps, avec quatre disques : un grand et trois petits. Au départ, tous sont sur la tige de gauche. Après u indice n coups, les trois petits sont sur la tige du milieu. Après un coup de plus, le grand est sur la tige de droite. Il reste u indice n coups pour reposer les petits sur le grand : u indice n plus 1 égale 2 u indice n plus 1."><g class="trace t-n"><line x1="10.0" y1="140.0" x2="194.0" y2="140.0"/></g><g class="trace t-n"><line x1="40.0" y1="54.0" x2="40.0" y2="140.0"/></g><g class="trace t-n"><line x1="102.0" y1="54.0" x2="102.0" y2="140.0"/></g><g class="trace t-n"><line x1="164.0" y1="54.0" x2="164.0" y2="140.0"/></g><rect class="forme-4" x="12.0" y="128.0" width="56.0" height="12.0"/><rect class="forme-3" x="18.0" y="116.0" width="44.0" height="12.0"/><rect class="forme-3" x="23.0" y="104.0" width="34.0" height="12.0"/><rect class="forme-3" x="28.0" y="92.0" width="24.0" height="12.0"/><text class="note" x="102.0" y="24.0" text-anchor="middle">Départ</text><g class="trace t-n"><line x1="258.0" y1="140.0" x2="442.0" y2="140.0"/></g><g class="trace t-n"><line x1="288.0" y1="54.0" x2="288.0" y2="140.0"/></g><g class="trace t-n"><line x1="350.0" y1="54.0" x2="350.0" y2="140.0"/></g><g class="trace t-n"><line x1="412.0" y1="54.0" x2="412.0" y2="140.0"/></g><rect class="forme-4" x="260.0" y="128.0" width="56.0" height="12.0"/><rect class="forme-3" x="328.0" y="128.0" width="44.0" height="12.0"/><rect class="forme-3" x="333.0" y="116.0" width="34.0" height="12.0"/><rect class="forme-3" x="338.0" y="104.0" width="24.0" height="12.0"/><text class="note" x="350.0" y="24.0" text-anchor="middle">Les petits au milieu</text><g class="trace t-n"><line x1="506.0" y1="140.0" x2="690.0" y2="140.0"/></g><g class="trace t-n"><line x1="536.0" y1="54.0" x2="536.0" y2="140.0"/></g><g class="trace t-n"><line x1="598.0" y1="54.0" x2="598.0" y2="140.0"/></g><g class="trace t-n"><line x1="660.0" y1="54.0" x2="660.0" y2="140.0"/></g><rect class="forme-3" x="576.0" y="128.0" width="44.0" height="12.0"/><rect class="forme-3" x="581.0" y="116.0" width="34.0" height="12.0"/><rect class="forme-3" x="586.0" y="104.0" width="24.0" height="12.0"/><rect class="forme-4" x="632.0" y="128.0" width="56.0" height="12.0"/><text class="note" x="598.0" y="24.0" text-anchor="middle">Le grand à droite</text><g class="trace t-v ep-2"><line x1="200.0" y1="96.0" x2="244.0" y2="96.0"/></g><g class="trace t-v"><polygon points="252.0,96 242.0,91 242.0,101"/></g><text class="note" x="226.0" y="84.0" text-anchor="middle">u<tspan class="ind" dy="5">n</tspan><tspan dy="-5"></tspan> coups</text><g class="trace t-v ep-2"><line x1="448.0" y1="96.0" x2="492.0" y2="96.0"/></g><g class="trace t-v"><polygon points="500.0,96 490.0,91 490.0,101"/></g><text class="note" x="474.0" y="84.0" text-anchor="middle">1 coup</text><text class="formule" x="350.0" y="176.0" text-anchor="middle">puis encore u<tspan class="ind" dy="5">n</tspan><tspan dy="-5"></tspan> coups pour reposer les petits sur le grand : u<tspan class="ind" dy="5">n+1</tspan><tspan dy="-5"></tspan> = 2u<tspan class="ind" dy="5">n</tspan><tspan dy="-5"></tspan> + 1</text></svg><figcaption>Les tours de Hanoï : déplacer une pile de disques d'une tige à une autre, un disque à la fois, sans jamais poser un disque sur un plus petit. Pour déplacer $n+1$ disques, on déplace les $n$ petits, puis le grand, puis à nouveau les $n$ petits.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Les tours de Hanoï">
+    <p>On note $u_n$ le nombre de coups de la méthode de la figure pour déplacer $n$ disques. Sans disque, aucun coup : $u_0=0$. Et la figure montre que $u_{n+1}=u_n+1+u_n=2u_n+1$.</p>
+    <div class="defile">
+    <table>
+      <tr><th>$n$</th><td>$0$</td><td>$1$</td><td>$2$</td><td>$3$</td><td>$4$</td><td>$5$</td></tr>
+      <tr><th>$u_n$</th><td>$0$</td><td>$1$</td><td>$3$</td><td>$7$</td><td>$15$</td><td>$31$</td></tr>
+    </table>
+    </div>
+    <p>Chaque terme est une puissance de $2$ moins $1$ : on <strong>conjecture</strong> $u_n=2^n-1$. Une conjecture n'est pas une preuve (souviens-toi de $n^2+n+41$) : il reste à la démontrer.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Conjecturer, puis prouver une formule explicite">
+    <ol class="etapes">
+      <li><span>Je calcule les premiers termes et je devine une formule.</span></li>
+      <li><span>Je pose $P(n)$ : « $u_n=$ (la formule) ».</span></li>
+      <li><span>Initialisation : je compare $u_{n_0}$, donné par l'énoncé, à la formule au rang $n_0$.</span></li>
+      <li><span>Hérédité : je pars de la relation de récurrence $u_{n+1}=\dots u_n\dots$, je remplace $u_n$ par la formule (c'est l'hypothèse), et je réduis jusqu'à la formule au rang $n+1$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> $u_0=0$ et $u_{n+1}=2u_n+1$. Montrer que $u_n=2^n-1$ pour tout $n\in\mathbb N$.</p>
+      <ol class="pas">
+        <li><strong>La propriété.</strong> Pour tout $n\in\mathbb N$, $P(n)$ : « $u_n=2^n-1$ ».</li>
+        <li><strong>Initialisation.</strong> $u_0=0$ et $2^0-1=1-1=0$ : $P(0)$ est vraie.</li>
+        <li><strong>Hérédité.</strong> Soit $n\in\mathbb N$ tel que $u_n=2^n-1$. Je veux $u_{n+1}=2^{n+1}-1$. Or $u_{n+1}=2u_n+1=2(2^n-1)+1=2^{n+1}-2+1=2^{n+1}-1$. C'est $P(n+1)$.</li>
+        <li><strong>Conclusion.</strong> Par récurrence, $u_n=2^n-1$ pour tout $n$. Avec $64$ disques, comme dans la légende des tours de Hanoï, il faut $2^{64}-1$ coups : à un coup par seconde, plus de cinq cents milliards d'années.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="u(n+1) n'est pas u(n) + 1">
+    <p>$u_{n+1}$ est le terme <em>suivant</em>, au rang $n+1$. $u_n+1$ est le terme $u_n$ auquel on ajoute $1$. Avec $u_n=2^n-1$ : $u_{n+1}=2^{n+1}-1$, alors que $u_n+1=2^n$. Écris les indices bien en dessous de la ligne, et garde le $+1$ dans l'indice.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-sommes">4. Prouver une somme</h3>
+
+  <p>Une somme $S_n$ dont le nombre de termes dépend de $n$ se prouve très bien par récurrence. Tout tient dans une remarque : pour passer de $S_n$ à $S_{n+1}$, on ajoute <strong>un seul terme</strong>, le terme de rang $n+1$.</p>
+
+  <figure class="figure-svg"><svg data-figure="gnomons" viewBox="0 0 540 206" role="img" aria-label="Un carré de 5 sur 5 cases, découpé en cinq équerres emboîtées de 1, 3, 5, 7 et 9 cases, de couleurs alternées. À droite, les sommes : 1 égale 1 au carré, 1 plus 3 égale 2 au carré, et ainsi de suite jusqu'à 1 plus 3 plus 5 plus 7 plus 9 égale 5 au carré."><rect class="forme-3" x="20.0" y="14.0" width="32.0" height="32.0"/><rect class="forme" x="52.0" y="14.0" width="32.0" height="32.0"/><rect class="forme" x="20.0" y="46.0" width="32.0" height="32.0"/><rect class="forme" x="52.0" y="46.0" width="32.0" height="32.0"/><rect class="forme-4" x="84.0" y="14.0" width="32.0" height="32.0"/><rect class="forme-4" x="20.0" y="78.0" width="32.0" height="32.0"/><rect class="forme-4" x="84.0" y="46.0" width="32.0" height="32.0"/><rect class="forme-4" x="52.0" y="78.0" width="32.0" height="32.0"/><rect class="forme-4" x="84.0" y="78.0" width="32.0" height="32.0"/><rect class="forme-3" x="116.0" y="14.0" width="32.0" height="32.0"/><rect class="forme-3" x="20.0" y="110.0" width="32.0" height="32.0"/><rect class="forme-3" x="116.0" y="46.0" width="32.0" height="32.0"/><rect class="forme-3" x="52.0" y="110.0" width="32.0" height="32.0"/><rect class="forme-3" x="116.0" y="78.0" width="32.0" height="32.0"/><rect class="forme-3" x="84.0" y="110.0" width="32.0" height="32.0"/><rect class="forme-3" x="116.0" y="110.0" width="32.0" height="32.0"/><rect class="forme" x="148.0" y="14.0" width="32.0" height="32.0"/><rect class="forme" x="20.0" y="142.0" width="32.0" height="32.0"/><rect class="forme" x="148.0" y="46.0" width="32.0" height="32.0"/><rect class="forme" x="52.0" y="142.0" width="32.0" height="32.0"/><rect class="forme" x="148.0" y="78.0" width="32.0" height="32.0"/><rect class="forme" x="84.0" y="142.0" width="32.0" height="32.0"/><rect class="forme" x="148.0" y="110.0" width="32.0" height="32.0"/><rect class="forme" x="116.0" y="142.0" width="32.0" height="32.0"/><rect class="forme" x="148.0" y="142.0" width="32.0" height="32.0"/><rect class="forme-3" x="222.0" y="17.0" width="16.0" height="16.0"/><text class="formule" x="248.0" y="31.0">1 = 1²</text><rect class="forme" x="222.0" y="49.0" width="16.0" height="16.0"/><text class="formule" x="248.0" y="63.0">1 + 3 = 2²</text><rect class="forme-4" x="222.0" y="81.0" width="16.0" height="16.0"/><text class="formule" x="248.0" y="95.0">1 + 3 + 5 = 3²</text><rect class="forme-3" x="222.0" y="113.0" width="16.0" height="16.0"/><text class="formule" x="248.0" y="127.0">1 + 3 + 5 + 7 = 4²</text><rect class="forme" x="222.0" y="145.0" width="16.0" height="16.0"/><text class="formule" x="248.0" y="159.0">1 + 3 + 5 + 7 + 9 = 5²</text><text class="note" x="222.0" y="196.0">chaque équerre ajoute le nombre impair suivant</text></svg><figcaption>Chaque équerre ajoute le nombre impair suivant, et le carré grandit d'une rangée : $1+3+5+\dots+(2n-1)=n^2$. La figure le fait voir, la récurrence le prouve pour tous les $n$.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Le terme ajouté">
+    <ol class="etapes">
+      <li><span>J'écris le terme général de la somme (le $k$-ième terme) : pour $1+3+5+\dots$, c'est $2k-1$.</span></li>
+      <li><span>Le terme ajouté pour passer au rang $n+1$ est ce terme général pour $k=n+1$ : ici $2(n+1)-1=2n+1$.</span></li>
+      <li><span>Dans l'hérédité : $S_{n+1}=S_n+(\text{terme de rang }n+1)$, puis je remplace $S_n$ par la formule (l'hypothèse) et je transforme jusqu'à la formule au rang $n+1$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Montrer que pour tout $n\geq1$, $1^2+2^2+\dots+n^2=\dfrac{n(n+1)(2n+1)}{6}$.</p>
+      <ol class="pas">
+        <li><strong>La propriété.</strong> $P(n)$ : « $1^2+2^2+\dots+n^2=\dfrac{n(n+1)(2n+1)}{6}$ ».</li>
+        <li><strong>Initialisation.</strong> Pour $n=1$ : à gauche $1^2=1$, à droite $\dfrac{1\times2\times3}{6}=1$. $P(1)$ est vraie.</li>
+        <li><strong>Le but.</strong> Soit $n\geq1$ tel que $P(n)$ est vraie. Je veux $1^2+\dots+n^2+(n+1)^2=\dfrac{(n+1)(n+2)(2n+3)}{6}$ (j'ai remplacé $n$ par $n+1$ : $2(n+1)+1=2n+3$).</li>
+        <li><strong>Le calcul.</strong> $1^2+\dots+n^2+(n+1)^2=\dfrac{n(n+1)(2n+1)}{6}+(n+1)^2=\dfrac{(n+1)\big(n(2n+1)+6(n+1)\big)}{6}=\dfrac{(n+1)(2n^2+7n+6)}{6}$.</li>
+        <li><strong>On reconnaît le but.</strong> En développant, $(n+2)(2n+3)=2n^2+3n+4n+6=2n^2+7n+6$. Donc la somme vaut $\dfrac{(n+1)(n+2)(2n+3)}{6}$ : c'est $P(n+1)$. Par récurrence, la formule est vraie pour tout $n\geq1$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Factoriser plutôt que tout développer">
+    <p>Dans l'hérédité d'une somme, le but contient souvent le facteur $(n+1)$. Le mettre en facteur tout de suite garde le calcul court. Si tu développes tout, développe aussi le but, et compare les deux formes réduites : c'est plus long, mais tout aussi juste.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="La notation Σ">
+    <p>On écrit aussi $\displaystyle\sum_{k=1}^{n}k^2$ pour $1^2+2^2+\dots+n^2$ : « la somme des $k^2$ pour $k$ allant de $1$ à $n$ ». C'est une écriture compacte ; dans ce chapitre, on garde les points de suspension, plus parlants. La somme $1+q+q^2+\dots+q^n=\dfrac{1-q^{n+1}}{1-q}$ ($q\neq1$), vue <a href="../premiere/suites.html#c-geometriques">en première</a>, se prouve aussi par récurrence : essaie.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-inegalites">5. Prouver une inégalité</h3>
+
+  <p>Pour une inégalité, l'hérédité ne se fait pas en une ligne de calcul. On part de l'hypothèse, on fait une opération qui garde le sens de l'inégalité, puis on franchit la dernière marche avec un argument à part.</p>
+
+  <div class="bloc methode" data-titre="Prouver une inégalité par récurrence">
+    <ol class="etapes">
+      <li><span>Je pars de l'hypothèse $P(n)$ et je la transforme pour faire apparaître le membre de gauche de $P(n+1)$ : multiplier par un nombre <strong>positif</strong>, ajouter un même nombre aux deux membres.</span></li>
+      <li><span>J'obtiens « membre de gauche de $P(n+1)\geq$ quelque chose ». Il reste à comparer ce « quelque chose » au membre de droite de $P(n+1)$ : c'est la <strong>dernière marche</strong>, qui demande souvent une condition sur $n$.</span></li>
+      <li><span>Si cette condition n'est vraie qu'à partir d'un certain rang, l'initialisation doit se faire à un rang où elle l'est.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Montrer que $2^n\geq n^2$ pour tout entier $n\geq4$.</p>
+      <ol class="pas">
+        <li><strong>Initialisation.</strong> $2^4=16$ et $4^2=16$ : $16\geq16$, $P(4)$ est vraie.</li>
+        <li><strong>Hérédité.</strong> Soit $n\geq4$ tel que $2^n\geq n^2$. Je veux $2^{n+1}\geq(n+1)^2$. Je multiplie l'hypothèse par $2&gt;0$ : $2^{n+1}\geq2n^2$.</li>
+        <li><strong>La dernière marche.</strong> Il reste à voir que $2n^2\geq(n+1)^2$, c'est-à-dire $2n^2\geq n^2+2n+1$, soit $n^2-2n-1\geq0$. Or $n^2-2n-1=n(n-2)-1$, et pour $n\geq4$ : $n(n-2)\geq4\times2=8$, donc $n^2-2n-1\geq7&gt;0$.</li>
+        <li><strong>Conclusion de l'hérédité.</strong> $2^{n+1}\geq2n^2\geq(n+1)^2$ : $P(n+1)$ est vraie. Par récurrence, $2^n\geq n^2$ pour tout $n\geq4$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="deux-puissances" viewBox="0 0 620 234" role="img" aria-label="Un tableau pour n de 0 à 8 : 2 puissance n vaut 1, 2, 4, 8, 16, 32, 64, 128, 256 ; n au carré vaut 0, 1, 4, 9, 16, 25, 36, 49, 64. La propriété « 2 puissance n supérieur ou égal à n carré » est vraie pour n égal 0, 1 et 2, fausse pour n égal 3 (8 contre 9), puis vraie à partir de 4. Dessous, des flèches vertes d'un rang au suivant à partir de 3 : l'hérédité se prouve dès n égal 3 ; la flèche de 2 à 3 est rouge : là, elle casse."><text class="formule" x="14.0" y="33.0">n</text><text class="formule" x="14.0" y="63.0">2<tspan dy="-7" class="ind">n</tspan><tspan dy="7"></tspan></text><text class="formule" x="14.0" y="93.0">n²</text><text class="formule" x="14.0" y="123.0">2<tspan dy="-7" class="ind">n</tspan><tspan dy="7"></tspan> ≥ n² ?</text><rect class="fond-carte" x="104.0" y="12.0" width="52.0" height="30.0"/><rect class="fond-carte" x="104.0" y="42.0" width="52.0" height="30.0"/><rect class="fond-carte" x="104.0" y="72.0" width="52.0" height="30.0"/><rect class="plein t-w op-30" x="104.0" y="102.0" width="52.0" height="30.0"/><text class="formule" x="130.0" y="33.0" text-anchor="middle">0</text><text class="formule" x="130.0" y="63.0" text-anchor="middle">1</text><text class="formule" x="130.0" y="93.0" text-anchor="middle">0</text><text class="note" x="130.0" y="122.0" text-anchor="middle">vraie</text><rect class="fond-carte" x="156.0" y="12.0" width="52.0" height="30.0"/><rect class="fond-carte" x="156.0" y="42.0" width="52.0" height="30.0"/><rect class="fond-carte" x="156.0" y="72.0" width="52.0" height="30.0"/><rect class="plein t-w op-30" x="156.0" y="102.0" width="52.0" height="30.0"/><text class="formule" x="182.0" y="33.0" text-anchor="middle">1</text><text class="formule" x="182.0" y="63.0" text-anchor="middle">2</text><text class="formule" x="182.0" y="93.0" text-anchor="middle">1</text><text class="note" x="182.0" y="122.0" text-anchor="middle">vraie</text><rect class="fond-carte" x="208.0" y="12.0" width="52.0" height="30.0"/><rect class="fond-carte" x="208.0" y="42.0" width="52.0" height="30.0"/><rect class="fond-carte" x="208.0" y="72.0" width="52.0" height="30.0"/><rect class="plein t-w op-30" x="208.0" y="102.0" width="52.0" height="30.0"/><text class="formule" x="234.0" y="33.0" text-anchor="middle">2</text><text class="formule" x="234.0" y="63.0" text-anchor="middle">4</text><text class="formule" x="234.0" y="93.0" text-anchor="middle">4</text><text class="note" x="234.0" y="122.0" text-anchor="middle">vraie</text><rect class="fond-carte" x="260.0" y="12.0" width="52.0" height="30.0"/><rect class="fond-carte" x="260.0" y="42.0" width="52.0" height="30.0"/><rect class="fond-carte" x="260.0" y="72.0" width="52.0" height="30.0"/><rect class="plein t-v op-30" x="260.0" y="102.0" width="52.0" height="30.0"/><text class="formule" x="286.0" y="33.0" text-anchor="middle">3</text><text class="formule" x="286.0" y="63.0" text-anchor="middle">8</text><text class="formule" x="286.0" y="93.0" text-anchor="middle">9</text><text class="note" x="286.0" y="122.0" text-anchor="middle">fausse</text><rect class="fond-carte" x="312.0" y="12.0" width="52.0" height="30.0"/><rect class="fond-carte" x="312.0" y="42.0" width="52.0" height="30.0"/><rect class="fond-carte" x="312.0" y="72.0" width="52.0" height="30.0"/><rect class="plein t-w op-30" x="312.0" y="102.0" width="52.0" height="30.0"/><text class="formule" x="338.0" y="33.0" text-anchor="middle">4</text><text class="formule" x="338.0" y="63.0" text-anchor="middle">16</text><text class="formule" x="338.0" y="93.0" text-anchor="middle">16</text><text class="note" x="338.0" y="122.0" text-anchor="middle">vraie</text><rect class="fond-carte" x="364.0" y="12.0" width="52.0" height="30.0"/><rect class="fond-carte" x="364.0" y="42.0" width="52.0" height="30.0"/><rect class="fond-carte" x="364.0" y="72.0" width="52.0" height="30.0"/><rect class="plein t-w op-30" x="364.0" y="102.0" width="52.0" height="30.0"/><text class="formule" x="390.0" y="33.0" text-anchor="middle">5</text><text class="formule" x="390.0" y="63.0" text-anchor="middle">32</text><text class="formule" x="390.0" y="93.0" text-anchor="middle">25</text><text class="note" x="390.0" y="122.0" text-anchor="middle">vraie</text><rect class="fond-carte" x="416.0" y="12.0" width="52.0" height="30.0"/><rect class="fond-carte" x="416.0" y="42.0" width="52.0" height="30.0"/><rect class="fond-carte" x="416.0" y="72.0" width="52.0" height="30.0"/><rect class="plein t-w op-30" x="416.0" y="102.0" width="52.0" height="30.0"/><text class="formule" x="442.0" y="33.0" text-anchor="middle">6</text><text class="formule" x="442.0" y="63.0" text-anchor="middle">64</text><text class="formule" x="442.0" y="93.0" text-anchor="middle">36</text><text class="note" x="442.0" y="122.0" text-anchor="middle">vraie</text><rect class="fond-carte" x="468.0" y="12.0" width="52.0" height="30.0"/><rect class="fond-carte" x="468.0" y="42.0" width="52.0" height="30.0"/><rect class="fond-carte" x="468.0" y="72.0" width="52.0" height="30.0"/><rect class="plein t-w op-30" x="468.0" y="102.0" width="52.0" height="30.0"/><text class="formule" x="494.0" y="33.0" text-anchor="middle">7</text><text class="formule" x="494.0" y="63.0" text-anchor="middle">128</text><text class="formule" x="494.0" y="93.0" text-anchor="middle">49</text><text class="note" x="494.0" y="122.0" text-anchor="middle">vraie</text><rect class="fond-carte" x="520.0" y="12.0" width="52.0" height="30.0"/><rect class="fond-carte" x="520.0" y="42.0" width="52.0" height="30.0"/><rect class="fond-carte" x="520.0" y="72.0" width="52.0" height="30.0"/><rect class="plein t-w op-30" x="520.0" y="102.0" width="52.0" height="30.0"/><text class="formule" x="546.0" y="33.0" text-anchor="middle">8</text><text class="formule" x="546.0" y="63.0" text-anchor="middle">256</text><text class="formule" x="546.0" y="93.0" text-anchor="middle">64</text><text class="note" x="546.0" y="122.0" text-anchor="middle">vraie</text><g class="trace t-w ep-2"><path d="M289.0,146.0 Q312.0,164.0 327.9,151.5"/><polygon points="335.0,146.0 330.7,155.1 325.1,148.0"/></g><g class="trace t-w ep-2"><path d="M341.0,146.0 Q364.0,164.0 379.9,151.5"/><polygon points="387.0,146.0 382.7,155.1 377.1,148.0"/></g><g class="trace t-w ep-2"><path d="M393.0,146.0 Q416.0,164.0 431.9,151.5"/><polygon points="439.0,146.0 434.7,155.1 429.1,148.0"/></g><g class="trace t-w ep-2"><path d="M445.0,146.0 Q468.0,164.0 483.9,151.5"/><polygon points="491.0,146.0 486.7,155.1 481.1,148.0"/></g><g class="trace t-w ep-2"><path d="M497.0,146.0 Q520.0,164.0 535.9,151.5"/><polygon points="543.0,146.0 538.7,155.1 533.1,148.0"/></g><g class="trace t-v ep-2"><path d="M237.0,146.0 Q260.0,164.0 275.9,151.5"/><polygon points="283.0,146.0 278.7,155.1 273.1,148.0"/></g><text class="note" x="234.0" y="184.0" text-anchor="middle">de 2 à 3 : l’hérédité casse</text><text class="note" x="416.0" y="184.0" text-anchor="middle">hérédité prouvée dès n = 3</text><text class="note" x="416.0" y="202.0" text-anchor="middle">initialisation à 4 : vraie pour tout n ≥ 4</text></svg><figcaption>$2^n\geq n^2$ est vraie pour $n=0$, $1$, $2$, fausse pour $n=3$, puis vraie pour toujours. La preuve de l'hérédité (la dernière marche, $2n^2\geq(n+1)^2$) ne couvre que $n\geq3$ ; comme $P(3)$ est fausse, on initialise à $4$.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="La démonstration du programme">
+    <p>L'inégalité de Bernoulli, $(1+a)^n\geq1+na$ pour $a&gt;0$, se démontre exactement ainsi. Elle est rédigée dans le chapitre <a href="limites-suites.html#c-geometrique">Limites de suites</a>, où elle sert à trouver la limite de $q^n$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Multiplier une inégalité">
+    <p>Multiplier les deux membres par un nombre <strong>négatif</strong> retourne l'inégalité. Dans l'hérédité, vérifie le signe de ce par quoi tu multiplies : $2&gt;0$, $n+1&gt;0$, $q&gt;0$… et écris-le.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-divisibilite">6. Prouver une divisibilité</h3>
+
+  <div class="bloc definition" data-titre="Multiple, divisible">
+    <p>Un entier $a$ est un <strong>multiple</strong> de l'entier $d$ (on dit aussi : $a$ est divisible par $d$) s'il existe un entier $k$ tel que $a=d\times k$. Exemples : $12=3\times4$ est un multiple de $3$ ; $0=3\times0$ aussi.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Faire apparaître l'hypothèse">
+    <ol class="etapes">
+      <li><span>J'écris l'hypothèse avec un entier : « il existe un entier $k$ tel que $4^n-1=3k$ ».</span></li>
+      <li><span>Dans l'expression au rang $n+1$, je fais apparaître l'expression au rang $n$ : $4^{n+1}=4\times4^n$, et j'ajoute et retranche ce qu'il faut.</span></li>
+      <li><span>Je remplace par $3k$, puis je mets $3$ en facteur : l'autre facteur doit être un entier.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Montrer que pour tout $n\in\mathbb N$, $4^n-1$ est un multiple de $3$.</p>
+      <ol class="pas">
+        <li><strong>Initialisation.</strong> $4^0-1=0=3\times0$ : $P(0)$ est vraie.</li>
+        <li><strong>Hérédité.</strong> Soit $n\in\mathbb N$ tel que $4^n-1$ est un multiple de $3$ : il existe un entier $k$ tel que $4^n-1=3k$, c'est-à-dire $4^n=3k+1$.</li>
+        <li><strong>Le calcul.</strong> $4^{n+1}-1=4\times4^n-1=4(3k+1)-1=12k+3=3(4k+1)$.</li>
+        <li><strong>Conclusion.</strong> $4k+1$ est un entier, donc $4^{n+1}-1$ est un multiple de $3$ : $P(n+1)$ est vraie. Par récurrence, $4^n-1$ est un multiple de $3$ pour tout $n$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Avec un polynôme : n³ − n">
+    <p>Pour montrer que $n^3-n$ est un multiple de $3$ pour tout $n\in\mathbb N$ : $0^3-0=0$ pour l'initialisation ; pour l'hérédité, avec $n^3-n=3k$, on développe $(n+1)^3-(n+1)=n^3+3n^2+3n+1-n-1=(n^3-n)+3n^2+3n=3k+3(n^2+n)=3(k+n^2+n)$, et $k+n^2+n$ est un entier.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-suites">7. Encadrer une suite $u_{n+1}=f(u_n)$</h3>
+
+  <p>C'est l'usage le plus fréquent au bac : une suite définie par $u_0$ et $u_{n+1}=f(u_n)$, et une question « Montrer par récurrence que $0\leq u_n\leq u_{n+1}\leq4$ ». Une seule propriété fait tout le travail.</p>
+
+  <div class="bloc propriete" data-titre="Une fonction croissante garde l'ordre">
+    <p>Si $f$ est croissante sur un intervalle $I$, et si $a$ et $b$ sont dans $I$ avec $a\leq b$, alors $f(a)\leq f(b)$. Appliquer $f$ aux membres d'une inégalité ne change pas son sens.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Encadrer une suite u(n+1) = f(u(n))">
+    <ol class="etapes">
+      <li><span>J'étudie $f$ : je montre qu'elle est croissante sur un intervalle $I$ qui contient l'encadrement voulu (dérivée positive, ou fonctions de référence).</span></li>
+      <li><span>Je pose $P(n)$ : « $m\leq u_n\leq u_{n+1}\leq M$ » (pour la croissance et l'encadrement d'un coup), ou seulement « $m\leq u_n\leq M$ ».</span></li>
+      <li><span>Initialisation : je calcule $u_0$ et $u_1$.</span></li>
+      <li><span>Hérédité : j'applique $f$, croissante sur $I$, aux membres de $P(n)$. Je calcule $f(m)$ et $f(M)$, et je compare à $m$ et à $M$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> $u_0=0$ et $u_{n+1}=\sqrt{3u_n+4}$. Montrer que pour tout $n\in\mathbb N$, $0\leq u_n\leq u_{n+1}\leq4$.</p>
+      <ol class="pas">
+        <li><strong>La fonction.</strong> $u_{n+1}=f(u_n)$ avec $f(x)=\sqrt{3x+4}$, définie pour $x\geq-\frac43$. Sur $[0\,;4]$, $x\mapsto3x+4$ est croissante et positive, et la racine carrée est croissante : $f$ est croissante sur $[0\,;4]$.</li>
+        <li><strong>Initialisation.</strong> $u_0=0$ et $u_1=\sqrt{4}=2$ : $0\leq0\leq2\leq4$, $P(0)$ est vraie.</li>
+        <li><strong>Hérédité.</strong> Soit $n$ tel que $0\leq u_n\leq u_{n+1}\leq4$. Ces quatre nombres sont dans $[0\,;4]$, où $f$ est croissante : $f(0)\leq f(u_n)\leq f(u_{n+1})\leq f(4)$.</li>
+        <li><strong>On calcule.</strong> $f(0)=2$ et $f(4)=\sqrt{16}=4$. Donc $2\leq u_{n+1}\leq u_{n+2}\leq4$, et comme $0\leq2$ : $0\leq u_{n+1}\leq u_{n+2}\leq4$. C'est $P(n+1)$.</li>
+        <li><strong>Conclusion.</strong> Par récurrence, pour tout $n$, $0\leq u_n\leq u_{n+1}\leq4$ : la suite est croissante et majorée par $4$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="toile" viewBox="0 0 360 354" role="img" aria-label="Dans un repère, la courbe de f(x) égale racine de 3x plus 4, croissante, et la droite y égale x, qui se coupent au point (4 ; 4). Un escalier part de u0 égal 0 : u1 égal 2, u2 environ 3,16, u3 environ 3,67, et monte vers 4 sans le dépasser. Sur l'axe des abscisses, l'intervalle de 0 à 4 est surligné ; son image par f, de 2 à 4, est surlignée sur l'axe des ordonnées : elle reste dans l'intervalle."><g class="trace t-n"><line x1="20.8" y1="290.8" x2="331.6" y2="290.8"/><polygon points="339.4,290.8 326.4,296.7 326.4,284.9"/></g><g class="trace t-n"><line x1="47.8" y1="323.2" x2="47.8" y2="23.2"/><polygon points="47.8,15.4 53.6,28.4 41.9,28.4"/></g><g class="trace t-n"><line x1="101.8" y1="295.1" x2="101.8" y2="286.5"/></g><text class="petit" x="97.5" y="313.5">1</text><g class="trace t-n"><line x1="43.5" y1="236.8" x2="52.1" y2="236.8"/></g><text class="petit" x="25.1" y="242.2">1</text><g class="trace t-n"><line x1="155.8" y1="295.1" x2="155.8" y2="286.5"/></g><text class="petit" x="151.5" y="313.5">2</text><g class="trace t-n"><line x1="43.5" y1="182.8" x2="52.1" y2="182.8"/></g><text class="petit" x="25.1" y="188.2">2</text><g class="trace t-n"><line x1="209.8" y1="295.1" x2="209.8" y2="286.5"/></g><text class="petit" x="205.5" y="313.5">3</text><g class="trace t-n"><line x1="43.5" y1="128.8" x2="52.1" y2="128.8"/></g><text class="petit" x="25.1" y="134.2">3</text><g class="trace t-n"><line x1="263.8" y1="295.1" x2="263.8" y2="286.5"/></g><text class="petit" x="259.5" y="313.5">4</text><g class="trace t-n"><line x1="43.5" y1="74.8" x2="52.1" y2="74.8"/></g><text class="petit" x="25.1" y="80.2">4</text><g class="trace t-n"><line x1="317.8" y1="295.1" x2="317.8" y2="286.5"/></g><text class="petit" x="313.5" y="313.5">5</text><g class="trace t-n"><line x1="43.5" y1="20.8" x2="52.1" y2="20.8"/></g><text class="petit" x="25.1" y="26.2">5</text><text class="petit" x="28.4" y="313.5">0</text><g class="trace t-w ep-6"><line x1="47.8" y1="290.8" x2="263.8" y2="290.8"/></g><g class="trace t-w ep-6"><line x1="47.8" y1="182.8" x2="47.8" y2="74.8"/></g><g class="trace t-n pointille"><path d="M26.2,312.4 L27.4,311.2 L28.7,309.9 L29.9,308.7 L31.1,307.5 L32.4,306.2 L33.6,305.0 L34.9,303.7 L36.1,302.5 L37.3,301.3 L38.6,300.0 L39.8,298.8 L41.0,297.6 L42.3,296.3 L43.5,295.1 L44.8,293.8 L46.0,292.6 L47.2,291.4 L48.5,290.1 L49.7,288.9 L50.9,287.6 L52.2,286.4 L53.4,285.2 L54.7,283.9 L55.9,282.7 L57.1,281.5 L58.4,280.2 L59.6,279.0 L60.9,277.8 L62.1,276.5 L63.3,275.3 L64.6,274.0 L65.8,272.8 L67.0,271.6 L68.3,270.3 L69.5,269.1 L70.8,267.9 L72.0,266.6 L73.2,265.4 L74.5,264.1 L75.7,262.9 L76.9,261.7 L78.2,260.4 L79.4,259.2 L80.6,258.0 L81.9,256.7 L83.1,255.5 L84.4,254.2 L85.6,253.0 L86.8,251.8 L88.1,250.5 L89.3,249.3 L90.5,248.0 L91.8,246.8 L93.0,245.6 L94.3,244.3 L95.5,243.1 L96.7,241.9 L98.0,240.6 L99.2,239.4 L100.4,238.2 L101.7,236.9 L102.9,235.7 L104.2,234.4 L105.4,233.2 L106.6,232.0 L107.9,230.7 L109.1,229.5 L110.3,228.3 L111.6,227.0 L112.8,225.8 L114.1,224.5 L115.3,223.3 L116.5,222.1 L117.8,220.8 L119.0,219.6 L120.3,218.3 L121.5,217.1 L122.7,215.9 L124.0,214.6 L125.2,213.4 L126.4,212.2 L127.7,210.9 L128.9,209.7 L130.1,208.5 L131.4,207.2 L132.6,206.0 L133.9,204.7 L135.1,203.5 L136.3,202.3 L137.6,201.0 L138.8,199.8 L140.0,198.6 L141.3,197.3 L142.5,196.1 L143.8,194.8 L145.0,193.6 L146.2,192.4 L147.5,191.1 L148.7,189.9 L150.0,188.7 L151.2,187.4 L152.4,186.2 L153.7,184.9 L154.9,183.7 L156.1,182.5 L157.4,181.2 L158.6,180.0 L159.9,178.8 L161.1,177.5 L162.3,176.3 L163.6,175.0 L164.8,173.8 L166.0,172.6 L167.3,171.3 L168.5,170.1 L169.7,168.9 L171.0,167.6 L172.2,166.4 L173.5,165.1 L174.7,163.9 L175.9,162.7 L177.2,161.4 L178.4,160.2 L179.7,158.9 L180.9,157.7 L182.1,156.5 L183.4,155.2 L184.6,154.0 L185.8,152.8 L187.1,151.5 L188.3,150.3 L189.6,149.1 L190.8,147.8 L192.0,146.6 L193.3,145.3 L194.5,144.1 L195.7,142.9 L197.0,141.6 L198.2,140.4 L199.5,139.2 L200.7,137.9 L201.9,136.7 L203.2,135.4 L204.4,134.2 L205.6,133.0 L206.9,131.7 L208.1,130.5 L209.3,129.2 L210.6,128.0 L211.8,126.8 L213.1,125.5 L214.3,124.3 L215.5,123.1 L216.8,121.8 L218.0,120.6 L219.2,119.3 L220.5,118.1 L221.7,116.9 L223.0,115.6 L224.2,114.4 L225.4,113.2 L226.7,111.9 L227.9,110.7 L229.2,109.5 L230.4,108.2 L231.6,107.0 L232.9,105.7 L234.1,104.5 L235.3,103.3 L236.6,102.0 L237.8,100.8 L239.1,99.5 L240.3,98.3 L241.5,97.1 L242.8,95.8 L244.0,94.6 L245.2,93.4 L246.5,92.1 L247.7,90.9 L248.9,89.7 L250.2,88.4 L251.4,87.2 L252.7,85.9 L253.9,84.7 L255.1,83.5 L256.4,82.2 L257.6,81.0 L258.9,79.7 L260.1,78.5 L261.3,77.3 L262.6,76.0 L263.8,74.8 L265.0,73.6 L266.3,72.3 L267.5,71.1 L268.7,69.9 L270.0,68.6 L271.2,67.4 L272.5,66.1 L273.7,64.9 L274.9,63.7 L276.2,62.4 L277.4,61.2 L278.6,60.0 L279.9,58.7 L281.1,57.5 L282.4,56.2 L283.6,55.0 L284.8,53.8 L286.1,52.5 L287.3,51.3 L288.6,50.1 L289.8,48.8 L291.0,47.6 L292.3,46.3 L293.5,45.1 L294.7,43.9 L296.0,42.6 L297.2,41.4 L298.4,40.2 L299.7,38.9 L300.9,37.7 L302.2,36.4 L303.4,35.2 L304.6,34.0 L305.9,32.7 L307.1,31.5 L308.3,30.3 L309.6,29.0 L310.8,27.8 L312.1,26.5 L313.3,25.3 L314.5,24.1 L315.8,22.8 L317.0,21.6 L318.2,20.4 L319.5,19.1 L320.7,17.9 L322.0,16.6 L323.2,15.4"/></g><g class="trace t-u"><path d="M47.8,182.8 L49.0,181.9 L50.1,181.1 L51.3,180.2 L52.5,179.3 L53.6,178.5 L54.8,177.7 L56.0,176.8 L57.2,176.0 L58.3,175.2 L59.5,174.4 L60.7,173.5 L61.8,172.7 L63.0,171.9 L64.2,171.1 L65.3,170.4 L66.5,169.6 L67.7,168.8 L68.9,168.0 L70.0,167.2 L71.2,166.5 L72.4,165.7 L73.5,165.0 L74.7,164.2 L75.9,163.5 L77.0,162.7 L78.2,162.0 L79.4,161.3 L80.6,160.5 L81.7,159.8 L82.9,159.1 L84.1,158.4 L85.2,157.6 L86.4,156.9 L87.6,156.2 L88.8,155.5 L89.9,154.8 L91.1,154.1 L92.3,153.4 L93.4,152.8 L94.6,152.1 L95.8,151.4 L96.9,150.7 L98.1,150.0 L99.3,149.4 L100.4,148.7 L101.6,148.0 L102.8,147.4 L104.0,146.7 L105.1,146.1 L106.3,145.4 L107.5,144.8 L108.6,144.1 L109.8,143.5 L111.0,142.8 L112.1,142.2 L113.3,141.5 L114.5,140.9 L115.7,140.3 L116.8,139.6 L118.0,139.0 L119.2,138.4 L120.3,137.8 L121.5,137.2 L122.7,136.5 L123.9,135.9 L125.0,135.3 L126.2,134.7 L127.4,134.1 L128.5,133.5 L129.7,132.9 L130.9,132.3 L132.0,131.7 L133.2,131.1 L134.4,130.5 L135.6,129.9 L136.7,129.3 L137.9,128.8 L139.1,128.2 L140.2,127.6 L141.4,127.0 L142.6,126.4 L143.7,125.9 L144.9,125.3 L146.1,124.7 L147.2,124.1 L148.4,123.6 L149.6,123.0 L150.8,122.4 L151.9,121.9 L153.1,121.3 L154.3,120.8 L155.4,120.2 L156.6,119.7 L157.8,119.1 L158.9,118.5 L160.1,118.0 L161.3,117.5 L162.5,116.9 L163.6,116.4 L164.8,115.8 L166.0,115.3 L167.1,114.7 L168.3,114.2 L169.5,113.7 L170.6,113.1 L171.8,112.6 L173.0,112.1 L174.2,111.5 L175.3,111.0 L176.5,110.5 L177.7,110.0 L178.8,109.4 L180.0,108.9 L181.2,108.4 L182.3,107.9 L183.5,107.4 L184.7,106.8 L185.9,106.3 L187.0,105.8 L188.2,105.3 L189.4,104.8 L190.5,104.3 L191.7,103.8 L192.9,103.3 L194.0,102.8 L195.2,102.3 L196.4,101.8 L197.6,101.3 L198.7,100.8 L199.9,100.3 L201.1,99.8 L202.2,99.3 L203.4,98.8 L204.6,98.3 L205.8,97.8 L206.9,97.3 L208.1,96.8 L209.3,96.3 L210.4,95.8 L211.6,95.4 L212.8,94.9 L213.9,94.4 L215.1,93.9 L216.3,93.4 L217.5,92.9 L218.6,92.5 L219.8,92.0 L221.0,91.5 L222.1,91.0 L223.3,90.6 L224.5,90.1 L225.6,89.6 L226.8,89.1 L228.0,88.7 L229.2,88.2 L230.3,87.7 L231.5,87.3 L232.7,86.8 L233.8,86.3 L235.0,85.9 L236.2,85.4 L237.3,85.0 L238.5,84.5 L239.7,84.0 L240.9,83.6 L242.0,83.1 L243.2,82.7 L244.4,82.2 L245.5,81.8 L246.7,81.3 L247.9,80.9 L249.0,80.4 L250.2,80.0 L251.4,79.5 L252.5,79.1 L253.7,78.6 L254.9,78.2 L256.1,77.7 L257.2,77.3 L258.4,76.8 L259.6,76.4 L260.7,76.0 L261.9,75.5 L263.1,75.1 L264.2,74.6 L265.4,74.2 L266.6,73.8 L267.8,73.3 L268.9,72.9 L270.1,72.5 L271.3,72.0 L272.4,71.6 L273.6,71.2 L274.8,70.7 L275.9,70.3 L277.1,69.9 L278.3,69.4 L279.5,69.0 L280.6,68.6 L281.8,68.2 L283.0,67.7 L284.1,67.3 L285.3,66.9 L286.5,66.5 L287.6,66.0 L288.8,65.6 L290.0,65.2 L291.2,64.8 L292.3,64.4 L293.5,63.9 L294.7,63.5 L295.8,63.1 L297.0,62.7 L298.2,62.3 L299.4,61.9 L300.5,61.4 L301.7,61.0 L302.9,60.6 L304.0,60.2 L305.2,59.8 L306.4,59.4 L307.5,59.0 L308.7,58.6 L309.9,58.2 L311.1,57.8 L312.2,57.3 L313.4,56.9 L314.6,56.5 L315.7,56.1 L316.9,55.7 L318.1,55.3 L319.2,54.9 L320.4,54.5 L321.6,54.1 L322.8,53.7 L323.9,53.3 L325.1,52.9 L326.3,52.5 L327.4,52.1 L328.6,51.7"/></g><g class="trace t-v fin"><line x1="47.8" y1="290.8" x2="47.8" y2="182.8"/></g><g class="trace t-v fin"><line x1="47.8" y1="182.8" x2="155.8" y2="182.8"/></g><g class="trace t-v fin"><line x1="155.8" y1="182.8" x2="155.8" y2="120.0"/></g><g class="trace t-v fin"><line x1="155.8" y1="120.0" x2="218.6" y2="120.0"/></g><g class="trace t-v fin"><line x1="218.6" y1="120.0" x2="218.6" y2="92.5"/></g><g class="trace t-v fin"><line x1="218.6" y1="92.5" x2="246.1" y2="92.5"/></g><g class="trace t-v fin"><line x1="246.1" y1="92.5" x2="246.1" y2="81.5"/></g><g class="trace t-v fin"><line x1="246.1" y1="81.5" x2="257.1" y2="81.5"/></g><g class="trace t-v fin"><line x1="257.1" y1="81.5" x2="257.1" y2="77.3"/></g><g class="trace t-v fin"><line x1="257.1" y1="77.3" x2="261.3" y2="77.3"/></g><g class="trace t-v fin"><line x1="261.3" y1="77.3" x2="261.3" y2="75.8"/></g><g class="trace t-v fin"><line x1="261.3" y1="75.8" x2="262.8" y2="75.8"/></g><circle class="pt pt-v" cx="47.8" cy="290.8" r="4.5"/><text class="moyen" x="53.2" y="274.6">u<tspan class="ind" dy="5">0</tspan><tspan dy="-5"></tspan></text><circle class="pt pt-v" cx="155.8" cy="290.8" r="4.5"/><text class="moyen" x="150.4" y="274.6">u<tspan class="ind" dy="5">1</tspan><tspan dy="-5"></tspan></text><circle class="pt pt-v" cx="218.6" cy="290.8" r="4.5"/><text class="moyen" x="213.2" y="274.6">u<tspan class="ind" dy="5">2</tspan><tspan dy="-5"></tspan></text><circle class="pt pt-v" cx="246.1" cy="290.8" r="4.5"/><text class="moyen" x="240.7" y="274.6">u<tspan class="ind" dy="5">3</tspan><tspan dy="-5"></tspan></text><circle class="pt pt-u" cx="263.8" cy="74.8" r="4.5"/><text class="moyen" x="271.9" y="96.4">f(4) = 4</text><text class="petit" x="293.5" y="34.3">y = x</text><text class="petit" x="112.6" y="115.3">courbe de f</text><text class="moyen" x="188.2" y="338.3">[0 ; 4]</text><text class="moyen" x="58.6" y="50.5">son image [2 ; 4]</text></svg><figcaption>L'escalier monte vers $4$ sans le dépasser. Pourquoi l'hérédité marche : l'image de $[0\,;4]$ par $f$ est $[2\,;4]$, qui reste dans $[0\,;4]$. Un terme dans l'intervalle donne un terme suivant dans l'intervalle.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Et après ?">
+    <p>Croissante et majorée : la suite converge, c'est le théorème de la limite monotone (chapitre <a href="limites-suites.html#c-monotone">Limites de suites</a>). Sa limite est $4$, l'abscisse du point où la courbe de $f$ coupe la droite $y=x$ ; on le justifiera au chapitre « Continuité ». La récurrence, elle, ne donne pas la limite : elle prépare le terrain.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Une fonction décroissante retourne l'ordre">
+    <p>Avec $u_{n+1}=-0{,}5\,u_n+3$, la fonction $f(x)=-0{,}5x+3$ est décroissante : de $u_n\leq u_{n+1}$ on déduit $f(u_n)\geq f(u_{n+1})$, c'est-à-dire $u_{n+1}\geq u_{n+2}$. La croissance ne se transmet pas : les termes montent et descendent tour à tour (sauf si $u_0=2$, où la suite est constante). Avant d'appliquer $f$, vérifie qu'elle est croissante <strong>sur l'intervalle où sont les termes</strong>.</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-fausses">8. Les fausses récurrences</h3>
+
+  <p>Une récurrence tient sur deux pieds. Si l'un manque, tout s'effondre, même quand le reste a l'air parfait. Voici quatre façons de se tromper, à reconnaître.</p>
+
+  <div class="bloc piege" data-titre="L'hérédité sans initialisation">
+    <p>$P(n)$ : « $4^n+1$ est un multiple de $3$ ». L'hérédité marche : si $4^n+1=3k$, alors $4^{n+1}+1=4(4^n+1)-3=12k-3=3(4k-1)$. Mais $4^0+1=2$, $4^1+1=5$, $4^2+1=17$ : aucun n'est un multiple de $3$, et aucun ne le sera ($4^n+1$ a toujours pour reste $2$ dans la division par $3$). Sans premier domino, rien ne tombe.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Une hérédité qui casse sur un seul pas">
+    <p>« Tous les crayons d'une trousse ont la même couleur. » Fausse preuve : vrai pour un crayon ; si c'est vrai pour $n$ crayons, prends-en $n+1$, mets de côté le premier : les $n$ autres ont la même couleur ; remets-le et mets de côté le dernier : les $n$ autres aussi ; les deux groupes se recouvrent, donc tous ont la même couleur. L'erreur : pour passer de $1$ à $2$ crayons, les deux groupes d'un crayon ne se recouvrent pas. L'hérédité doit marcher pour <strong>chaque</strong> $n\geq n_0$, le premier compris.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Supposer ce qu'on veut montrer">
+    <p>« Supposons que $P(n)$ soit vraie pour tout $n$ » : c'est la conclusion, pas l'hypothèse. L'hypothèse de récurrence porte sur <strong>un</strong> entier $n$, fixé. De même, partir de $P(n+1)$ et le transformer jusqu'à tomber sur quelque chose de vrai ne prouve rien, sauf si chaque étape est une <strong>équivalence</strong> (comme la dernière marche de la partie 5) : on peut déduire une chose vraie d'une chose fausse ($1=2$ donne $0\times1=0\times2$).</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Vrai longtemps, puis faux">
+    <p>C'est le cas de $n^2+n+41$ (partie 1) : quarante cas vrais, aucune hérédité, et un contre-exemple au rang $40$. Une propriété qui a « l'air vraie » se prouve, ou se teste encore, mais ne s'affirme pas.</p>
+  </div>
+
+  <!-- ===== 9 ===== -->
+  <h3 id="c-python">9. Calculer des termes en Python</h3>
+
+  <p>Une boucle calcule les termes d'une suite de proche en proche, exactement comme la récurrence les construit : $u_0$, puis $u_1$ à partir de $u_0$, puis $u_2$… La boucle <em>constate</em> sur les rangs qu'elle a calculés ; la récurrence <em>prouve</em> pour tous les rangs.</p>
+
+  <div class="bloc methode" data-titre="Un terme, puis la liste des termes">
+    <ol class="etapes">
+      <li><span>Une variable <code>u</code> reçoit $u_0$.</span></li>
+      <li><span>Une boucle <code>for k in range(n)</code> fait <strong>$n$ passages</strong> : à chaque passage, <code>u</code> reçoit le terme suivant. Après $n$ passages, <code>u</code> contient $u_n$.</span></li>
+      <li><span>Pour la liste, j'ajoute chaque terme à une liste avec <code>append</code>.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Écrire une fonction qui renvoie $u_n$ pour la suite de Hanoï ($u_0=0$, $u_{n+1}=2u_n+1$), puis une qui renvoie la liste $[u_0,u_1,\dots,u_n]$.</p>
+      <ol class="pas">
+        <li><strong>Un terme.</strong>
+<pre class="code">def terme(n):
+    u = 0
+    for k in range(n):
+        u = 2 * u + 1
+    return u</pre>
+          <code>terme(5)</code> renvoie $31$, comme le tableau de la partie 3.</li>
+        <li><strong>La liste.</strong>
+<pre class="code">def liste(n):
+    u = 0
+    L = [u]
+    for k in range(n):
+        u = 2 * u + 1
+        L.append(u)
+    return L</pre>
+          <code>liste(5)</code> renvoie <code>[0, 1, 3, 7, 15, 31]</code> : six termes, de $u_0$ à $u_5$.</li>
+        <li><strong>Constater, puis prouver.</strong> <code>all(terme(n) == 2**n - 1 for n in range(50))</code> renvoie <code>True</code> : la formule est juste pour les cinquante premiers rangs. Ce n'est pas une preuve ; la récurrence de la partie 3 en est une.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Un passage de trop">
+    <p>Avec <code>for k in range(n + 1)</code>, la boucle fait $n+1$ passages et renvoie $u_{n+1}$, pas $u_n$. Pour vérifier une fonction, demande-lui $u_0$ et $u_1$ : <code>terme(0)</code> doit renvoyer $0$, <code>terme(1)</code> doit renvoyer $1$.</p>
+  </div>
+
+  <!-- ===== 10 ===== -->
+  <h3 id="c-pieges">10. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs qui coûtent des points">
+    <ul>
+      <li><strong>« Supposons $P(n)$ vraie pour tout $n$ ».</strong> C'est ce qu'on veut démontrer. L'hypothèse porte sur <em>un</em> entier $n\geq n_0$, fixé.</li>
+      <li><strong>Partir de $P(n+1)$ et le transformer jusqu'à du vrai.</strong> On part de ce qu'on connaît ($u_{n+1}=\dots$, $S_{n+1}=S_n+\dots$, $2^{n+1}=2\times2^n$) et on arrive à $P(n+1)$, pas l'inverse (sauf avec des équivalences, écrites comme telles).</li>
+      <li><strong>Oublier l'initialisation, ou l'écrire sans calcul.</strong> « $P(0)$ est évidente » ne prouve rien : calcule les deux membres et compare. Et initialise au rang de l'énoncé ($n\geq1$ : on commence à $1$).</li>
+      <li><strong>Une hérédité qui n'utilise pas l'hypothèse.</strong> Si $P(n)$ n'apparaît nulle part dans ton calcul, ce n'est pas une récurrence (soit elle est inutile, soit le calcul est faux).</li>
+      <li><strong>Mal écrire $P(n+1)$.</strong> On remplace $n$ par $n+1$ partout, entre parenthèses : $\dfrac{n(n+1)}{2}$ devient $\dfrac{(n+1)(n+2)}{2}$, pas $\dfrac{(n+1)(n+1)}{2}$.</li>
+      <li><strong>Ajouter le mauvais terme.</strong> $S_{n+1}=S_n+(\text{terme de rang }n+1)$. Pour $1+3+\dots+(2n-1)$, on ajoute $2n+1$, pas $2n-1$.</li>
+      <li><strong>Appliquer $f$ sans vérifier qu'elle est croissante</strong> sur l'intervalle où sont les termes, ou multiplier par un nombre sans regarder son signe.</li>
+      <li><strong>La conclusion incomplète.</strong> « Donc $P(n)$ est vraie » : pour quels $n$ ? Écris « pour tout entier $n\geq n_0$ ».</li>
+    </ul>
+  </div>
+
+  <!-- ===== 11 ===== -->
+  <h3 id="c-videos">11. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Le principe de récurrence, avec les dominos"></div>
+    <div class="video" data-titre="Rédiger une récurrence : une somme, pas à pas"></div>
+    <div class="video" data-titre="Encadrer une suite u(n+1) = f(u(n)) comme au bac"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois laboratoires, dans l'ordre du cours : faire tomber les dominos (le principe et le rang de départ), deviner une formule puis la soumettre à l'initialisation et à l'hérédité, et chercher l'intervalle qui tient pour une suite $u_{n+1}=f(u_n)$.</p>
+
+  <div class="labo" data-labo="recurrence" data-outil="dominos"></div>
+  <div class="labo" data-labo="recurrence" data-outil="formule"></div>
+  <div class="labo" data-labo="recurrence" data-outil="intervalle"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions sur chaque étape d'une récurrence : écrire $P(n+1)$, le terme ajouté, le rang de départ, l'hérédité d'une formule, d'une divisibilité, d'un encadrement. Le quiz reprend les réflexes du chapitre. Le contrôle blanc s'ajoute seul en bas.</p>
+
+  <div class="jeu" data-generateurs="recurrence" data-questions="10" data-titre="Le défi de la récurrence"></div>
+
+  <div class="quiz" data-titre="Les réflexes de la récurrence">
+    <div class="question">
+      <p>Quelle phrase commence correctement l'hérédité ?</p>
+      <ul class="choix">
+        <li class="bon">« Soit $n\geq n_0$ un entier tel que $P(n)$ est vraie. »</li>
+        <li>« Supposons que $P(n)$ est vraie pour tout $n\geq n_0$. »</li>
+        <li>« Supposons que $P(n+1)$ est vraie. »</li>
+        <li>« Vérifions que $P(n_0)$ est vraie. »</li>
+      </ul>
+      <div class="explication">L'hypothèse porte sur <strong>un</strong> entier $n$ fixé. « Pour tout $n$ », c'est la conclusion qu'on cherche ; « $P(n+1)$ », c'est le but ; « $P(n_0)$ », c'est l'initialisation.</div>
+    </div>
+    <div class="question" data-reponse="1">
+      <p>$P(n)$ : « $3^n\geq n+2$ ». Quel est le plus petit entier $n_0$ à partir duquel on peut prouver $P(n)$ par récurrence ? (L'hérédité marche pour tout $n\geq0$.)</p>
+      <div class="explication">$P(0)$ : $3^0=1$ et $0+2=2$, fausse. $P(1)$ : $3\geq3$, vraie. Comme l'hérédité marche toujours ($3^{n+1}\geq3(n+2)=3n+6\geq n+3$), on initialise à $n_0=1$.</div>
+    </div>
+    <div class="question">
+      <p>$S_n=1+3+5+\dots+(2n-1)$. Quel terme ajoute-t-on à $S_n$ pour obtenir $S_{n+1}$ ?</p>
+      <ul class="choix">
+        <li class="bon">$2n+1$</li><li>$2n-1$</li><li>$2n+3$</li><li>$n+1$</li>
+      </ul>
+      <div class="explication">Le terme général est $2k-1$ ; le terme de rang $n+1$ est $2(n+1)-1=2n+1$. $2n-1$ est le dernier terme de $S_n$, déjà dedans.</div>
+    </div>
+    <div class="question">
+      <p>$P(n)$ : « $u_n=\dfrac{(n+1)(n+2)}{2}$ ». Comment s'écrit $P(n+1)$ ?</p>
+      <ul class="choix">
+        <li class="bon">$u_{n+1}=\dfrac{(n+2)(n+3)}{2}$</li>
+        <li>$u_{n+1}=\dfrac{(n+1)(n+2)}{2}+1$</li>
+        <li>$u_{n+1}=\dfrac{(n+1)(n+3)}{2}$</li>
+        <li>$u_{n+1}=\dfrac{(n+2)(n+2)}{2}$</li>
+      </ul>
+      <div class="explication">On remplace $n$ par $n+1$ partout : $(n+1)+1=n+2$ et $(n+1)+2=n+3$.</div>
+    </div>
+    <div class="question" data-reponse="31">
+      <p>$u_0=0$ et $u_{n+1}=2u_n+1$. Que vaut $u_5$ ?</p>
+      <div class="explication">$u_1=1$, $u_2=3$, $u_3=7$, $u_4=15$, $u_5=31$. C'est bien $2^5-1$.</div>
+    </div>
+    <div class="question">
+      <p>Une propriété est héréditaire, mais on ne trouve aucun rang où elle est vraie. Que peut-on en dire ?</p>
+      <ul class="choix">
+        <li class="bon">Rien : l'hérédité seule ne prouve rien.</li>
+        <li>Elle est vraie pour tout $n$.</li>
+        <li>Elle est vraie à partir d'un certain rang.</li>
+        <li>Elle est vraie pour $n=0$.</li>
+      </ul>
+      <div class="explication">« $4^n+1$ est un multiple de $3$ » est héréditaire et toujours fausse. Sans initialisation, aucun domino ne tombe.</div>
+    </div>
+    <div class="question">
+      <p>$n^2+n+41$ est un nombre premier pour $n=0$, $1$, … , $39$. Que dire de « $n^2+n+41$ est premier pour tout $n$ » ?</p>
+      <ul class="choix">
+        <li class="bon">Elle est fausse : au rang $40$, on trouve $41^2$.</li>
+        <li>Elle est vraie : quarante vérifications suffisent.</li>
+        <li>Elle est vraie par récurrence.</li>
+        <li>On ne peut pas savoir.</li>
+      </ul>
+      <div class="explication">$40^2+40+41=1\,681=41\times41$. Vérifier n'est pas prouver.</div>
+    </div>
+    <div class="question" data-reponse="3">
+      <p>Dans l'hérédité de « $4^n-1$ est un multiple de $3$ », on écrit $4^{n+1}-1=4(4^n-1)+a$. Que vaut $a$ ?</p>
+      <div class="explication">$4(4^n-1)=4^{n+1}-4$, donc $4^{n+1}-1=4(4^n-1)+3$. Avec $4^n-1=3k$ : $4^{n+1}-1=12k+3=3(4k+1)$.</div>
+    </div>
+    <div class="question">
+      <p>$f(x)=\sqrt{x+2}$ est croissante sur $[0\,;+\infty[$, et $u_{n+1}=f(u_n)$. Si $0\leq u_n\leq2$, en appliquant $f$, on obtient $f(0)\leq u_{n+1}\leq f(2)$, c'est-à-dire :</p>
+      <ul class="choix">
+        <li class="bon">$\sqrt2\leq u_{n+1}\leq2$</li>
+        <li>$0\leq u_{n+1}\leq\sqrt2$</li>
+        <li>$2\leq u_{n+1}\leq4$</li>
+        <li>$\sqrt2\leq u_{n+1}\leq\sqrt2+2$</li>
+      </ul>
+      <div class="explication">$f(0)=\sqrt{0+2}=\sqrt2$ et $f(2)=\sqrt4=2$ (sans oublier le $+2$ sous la racine). Comme $\sqrt2\geq0$, on en déduit $0\leq u_{n+1}\leq2$ : c'est l'hérédité de « $0\leq u_n\leq2$ ».</div>
+    </div>
+    <div class="question">
+      <p>$u_{n+1}=-2u_n+5$ et l'on sait que $u_n\leq u_{n+1}$. Qu'en déduit-on ?</p>
+      <ul class="choix">
+        <li class="bon">$u_{n+1}\geq u_{n+2}$</li>
+        <li>$u_{n+1}\leq u_{n+2}$</li>
+        <li>$u_n\geq u_{n+1}$</li>
+        <li>Rien du tout.</li>
+      </ul>
+      <div class="explication">$f(x)=-2x+5$ est décroissante : elle retourne l'ordre. $f(u_n)\geq f(u_{n+1})$, c'est-à-dire $u_{n+1}\geq u_{n+2}$. La croissance ne se transmet pas.</div>
+    </div>
+    <div class="question" data-reponse="17">
+      <p>Que renvoie <code>terme(3)</code> ?</p>
+<pre class="code">def terme(n):
+    u = 3
+    for k in range(n):
+        u = 2 * u - 1
+    return u</pre>
+      <div class="explication">Trois passages : $u$ vaut $3$, puis $2\times3-1=5$, puis $9$, puis $17$. La fonction renvoie $u_3=17$ (et $u_n=2^{n+1}+1$, à prouver par récurrence).</div>
+    </div>
+    <div class="question">
+      <p>Dans l'hérédité de « $2^n\geq n^2$ », on a obtenu $2^{n+1}\geq2n^2$. Que faut-il encore établir ?</p>
+      <ul class="choix">
+        <li class="bon">$2n^2\geq(n+1)^2$, ce qui est vrai dès $n\geq3$.</li>
+        <li>$2n^2\geq n^2$, toujours vrai.</li>
+        <li>$2^{n+1}\geq2^n$.</li>
+        <li>Rien : c'est fini.</li>
+      </ul>
+      <div class="explication">Le but est $2^{n+1}\geq(n+1)^2$. Il manque la dernière marche $2n^2\geq(n+1)^2$, soit $n^2-2n-1\geq0$, vraie pour $n\geq3$ ($9-6-1=2$) et fausse pour $n=2$ ($4-4-1=-1$).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre. Rédige d'abord sur ton cahier, en trois temps, puis ouvre la correction. Les exercices guidés se font avec le tuteur, ligne par ligne.</p>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Le tuteur vérifie chaque ligne du calcul de l'hérédité et ne donne jamais la réponse. La lettre est $n$. L'initialisation et la rédaction restent à écrire sur ton cahier.</p>
+
+  <article class="exercice" id="ex-l-heredite-des-impairs" data-titre="L'hérédité des impairs" data-niveau="1" data-type="guide" data-notions="recurrence" data-duree="6" data-calculatrice="non">
+    <p>On veut montrer que $1+3+5+\dots+(2n-1)=n^2$ pour tout entier $n\geq1$. L'initialisation : au rang $1$, $1=1^2$. Pour l'hérédité, on suppose $1+3+\dots+(2n-1)=n^2$ ; le terme suivant est $2(n+1)-1$, donc $1+3+\dots+(2n-1)+\big(2(n+1)-1\big)=n^2+2(n+1)-1$. Réduis puis factorise ce membre : tu dois arriver à $(n+1)^2$.</p>
+    <div class="tuteur" data-tuteur="factoriser" data-lettre="n" data-id="rec-impairs" data-depart="n^2+2(n+1)-1" data-consigne="Réduis puis factorise $n^2+2(n+1)-1$ :"></div>
+  </article>
+
+  <article class="exercice" id="ex-une-formule-a-prouver" data-titre="Une formule à prouver" data-niveau="2" data-type="guide" data-notions="recurrence" data-duree="8" data-calculatrice="non">
+    <p>$u_0=1$ et $u_{n+1}=u_n+2n+3$. Les premiers termes sont $1$, $4$, $9$, $16$ : on conjecture $u_n=(n+1)^2$. Pour l'hérédité, si $u_n=(n+1)^2$, alors $u_{n+1}=(n+1)^2+2n+3$. Développe et réduis cette expression. Puis, sur ton cahier, développe $(n+2)^2$ (le membre de droite de $P(n+1)$) et compare : as-tu prouvé que $u_{n+1}=(n+2)^2$ ?</p>
+    <div class="tuteur" data-tuteur="expression" data-lettre="n" data-id="rec-formule" data-depart="(n+1)^2+2n+3" data-consigne="Développe et réduis $u_{n+1}=(n+1)^2+2n+3$ :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+
+  <h3>Niveau 1 · Reconnaître et appliquer</h3>
+
+  <article class="exercice" id="ex-ecrire-p-n-1" data-titre="Écrire P(n+1)" data-niveau="1" data-type="application" data-notions="recurrence" data-duree="6" data-calculatrice="non">
+    <p>Pour chaque propriété, écris $P(n+1)$.</p>
+    <p>a. $P(n)$ : « $2^n\geq n+1$ ».<br>b. $P(n)$ : « $1+2+\dots+n=\dfrac{n(n+1)}{2}$ ».<br>c. $P(n)$ : « $u_n=3\times2^n-1$ ».<br>d. $P(n)$ : « $5^n-1$ est un multiple de $4$ ».</p>
+    <details class="correction">
+      <p>On remplace $n$ par $n+1$ partout, entre parenthèses.</p>
+      <p>a. « $2^{n+1}\geq n+2$ » (car $(n+1)+1=n+2$).</p>
+      <p>b. « $1+2+\dots+n+(n+1)=\dfrac{(n+1)(n+2)}{2}$ » : un terme de plus à gauche, et $n(n+1)$ devient $(n+1)(n+2)$.</p>
+      <p>c. « $u_{n+1}=3\times2^{n+1}-1$ » : l'indice et l'exposant changent tous les deux.</p>
+      <p>d. « $5^{n+1}-1$ est un multiple de $4$ ».</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-remettre-la-preuve-dans-l-ordre" data-titre="Remettre la preuve dans l'ordre" data-niveau="1" data-type="raisonnement" data-notions="recurrence encadrer-suite" data-duree="8" data-calculatrice="non">
+    <p>$u_0=3$ et $u_{n+1}=0{,}5\,u_n+1$. Une élève a écrit la preuve de « $u_n\geq2$ pour tout $n\in\mathbb N$ » sur six bouts de papier, qui se sont mélangés. Remets-les dans l'ordre. Un des bouts ne doit pas figurer dans la preuve : lequel, et pourquoi ?</p>
+    <p>A. Donc $0{,}5\,u_n+1\geq2$, c'est-à-dire $u_{n+1}\geq2$.<br>B. Pour $n\in\mathbb N$, on note $P(n)$ : « $u_n\geq2$ ».<br>C. Par récurrence, $u_n\geq2$ pour tout entier naturel $n$.<br>D. $u_0=3\geq2$ : $P(0)$ est vraie.<br>E. Soit $n$ un entier naturel tel que $u_n\geq2$. Alors $0{,}5\,u_n\geq1$.<br>F. Supposons que $u_n\geq2$ pour tout entier $n$.</p>
+    <details class="indice"><p>Les trois temps : initialisation, hérédité, conclusion. Lequel des bouts suppose déjà ce qu'on veut montrer ?</p></details>
+    <details class="correction">
+      <p><strong>L'ordre :</strong> B (la propriété), D (l'initialisation), E puis A (l'hérédité : de $u_n\geq2$, on multiplie par $0{,}5&gt;0$, puis on ajoute $1$), C (la conclusion).</p>
+      <p><strong>L'intrus : F.</strong> « Pour tout entier $n$ », c'est exactement ce qu'on veut démontrer. L'hypothèse de récurrence porte sur un entier $n$ fixé : c'est E.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-somme-des-nombres-pairs" data-titre="La somme des nombres pairs" data-niveau="1" data-type="application" data-notions="recurrence" data-duree="10" data-calculatrice="non">
+    <p>Montre par récurrence que pour tout entier $n\geq1$ : $2+4+6+\dots+2n=n(n+1)$.</p>
+    <details class="indice"><p>Le terme général est $2k$ : quel terme ajoute-t-on pour passer au rang $n+1$ ? Écris aussi $P(n+1)$ avant de calculer.</p></details>
+    <details class="correction">
+      <p><strong>La propriété.</strong> Pour $n\geq1$, $P(n)$ : « $2+4+\dots+2n=n(n+1)$ ».</p>
+      <p><strong>Initialisation.</strong> Pour $n=1$ : à gauche $2$, à droite $1\times2=2$. $P(1)$ est vraie.</p>
+      <p><strong>Hérédité.</strong> Soit $n\geq1$ tel que $P(n)$ est vraie. Je veux $2+4+\dots+2n+2(n+1)=(n+1)(n+2)$. Or $2+4+\dots+2n+2(n+1)=n(n+1)+2(n+1)$ par hypothèse, et en factorisant par $(n+1)$ : $=(n+1)(n+2)$. C'est $P(n+1)$.</p>
+      <p><strong>Conclusion.</strong> Par récurrence, $2+4+\dots+2n=n(n+1)$ pour tout $n\geq1$.</p>
+      <p>Autre chemin, sans récurrence : $2+4+\dots+2n=2(1+2+\dots+n)=2\times\dfrac{n(n+1)}{2}$. Quand une formule déjà prouvée s'applique, on peut s'en servir.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-bon-rang-de-depart" data-titre="Le bon rang de départ" data-niveau="1" data-type="application" data-notions="recurrence" data-duree="10" data-calculatrice="non">
+    <p>On note $P(n)$ : « $2^n\geq2n+1$ ».</p>
+    <p>1. Pour $n$ de $0$ à $4$, dis si $P(n)$ est vraie.<br>2. Montre que si $n\geq1$ et $P(n)$ est vraie, alors $P(n+1)$ est vraie.<br>3. Une élève dit : « $P(0)$ est vraie, et la propriété est héréditaire, donc elle est vraie pour tout $n$. » Qu'en penses-tu ?<br>4. Pour quels entiers $n$ la propriété est-elle vraie ? Justifie.</p>
+    <details class="correction">
+      <p><strong>1.</strong> $n=0$ : $1\geq1$, vraie. $n=1$ : $2\geq3$, fausse. $n=2$ : $4\geq5$, fausse. $n=3$ : $8\geq7$, vraie. $n=4$ : $16\geq9$, vraie.</p>
+      <p><strong>2.</strong> Si $2^n\geq2n+1$, alors $2^{n+1}=2\times2^n\geq4n+2$. Il reste la dernière marche : $4n+2\geq2(n+1)+1=2n+3$ équivaut à $2n\geq1$, vrai pour $n\geq1$. Donc $2^{n+1}\geq2n+3$ : c'est $P(n+1)$.</p>
+      <p><strong>3.</strong> Faux : l'hérédité n'a été prouvée que pour $n\geq1$. De $0$ à $1$, elle casse : $P(0)$ est vraie mais $P(1)$ est fausse. La question 1 le montre directement.</p>
+      <p><strong>4.</strong> $P(3)$ est vraie, et l'hérédité marche pour tout $n\geq3$ (puisque $3\geq1$) : par récurrence, $P(n)$ est vraie pour tout $n\geq3$. Avec la question 1 : $P(n)$ est vraie pour $n=0$ et pour tout $n\geq3$, fausse pour $n=1$ et $n=2$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Rédiger une récurrence</h3>
+
+  <article class="exercice" id="ex-une-formule-pour-u-n" data-titre="Une formule pour u(n)" data-niveau="2" data-type="raisonnement" data-notions="recurrence" data-duree="12" data-calculatrice="non">
+    <p>$u_0=2$ et $u_{n+1}=3u_n-2$.</p>
+    <p>1. Calcule $u_1$, $u_2$, $u_3$.<br>2. Compare ces termes aux puissances de $3$, et conjecture une formule explicite.<br>3. Démontre-la par récurrence.</p>
+    <details class="correction">
+      <p><strong>1.</strong> $u_1=3\times2-2=4$, $u_2=3\times4-2=10$, $u_3=3\times10-2=28$.</p>
+      <p><strong>2.</strong> $3^0=1$, $3^1=3$, $3^2=9$, $3^3=27$ : chaque terme est la puissance de $3$ plus $1$. Conjecture : $u_n=3^n+1$.</p>
+      <p><strong>3.</strong> $P(n)$ : « $u_n=3^n+1$ ». Initialisation : $u_0=2$ et $3^0+1=2$, $P(0)$ est vraie. Hérédité : soit $n$ tel que $u_n=3^n+1$ ; alors $u_{n+1}=3u_n-2=3(3^n+1)-2=3^{n+1}+3-2=3^{n+1}+1$, c'est $P(n+1)$. Conclusion : par récurrence, $u_n=3^n+1$ pour tout $n\in\mathbb N$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-multiple-de-7" data-titre="Un multiple de 7" data-niveau="2" data-type="raisonnement" data-notions="recurrence" data-duree="10" data-calculatrice="non">
+    <p>1. Démontre par récurrence que pour tout $n\in\mathbb N$, $8^n-1$ est un multiple de $7$.<br>2. Déduis-en que $2^{3n}-1$ est un multiple de $7$ pour tout $n$. Quel est le reste de la division de $2^{30}$ par $7$ ?</p>
+    <details class="correction">
+      <p><strong>1.</strong> Initialisation : $8^0-1=0=7\times0$. Hérédité : soit $n$ tel que $8^n-1=7k$ avec $k$ entier, donc $8^n=7k+1$. Alors $8^{n+1}-1=8\times8^n-1=8(7k+1)-1=56k+7=7(8k+1)$, et $8k+1$ est un entier : $P(n+1)$ est vraie. Par récurrence, $8^n-1$ est un multiple de $7$ pour tout $n$.</p>
+      <p><strong>2.</strong> $2^{3n}=(2^3)^n=8^n$, donc $2^{3n}-1=8^n-1$, multiple de $7$. Avec $n=10$ : $2^{30}-1$ est un multiple de $7$, donc il existe un entier $q$ tel que $2^{30}=7q+1$ ; comme $0\leq1&lt;7$, le reste de la division de $2^{30}$ par $7$ est $1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-factorielle-et-puissance" data-titre="Factorielle et puissance" data-niveau="2" data-type="raisonnement" data-notions="recurrence" data-duree="12" data-calculatrice="non">
+    <p>Rappel : $n!=1\times2\times\dots\times n$ (et $0!=1$), donc $(n+1)!=(n+1)\times n!$.</p>
+    <p>1. Compare $n!$ et $2^n$ pour $n$ de $0$ à $4$.<br>2. Démontre que $n!\geq2^n$ pour tout entier $n\geq4$.<br>3. Pourquoi ne peut-on pas initialiser à $n=3$ ?</p>
+    <details class="correction">
+      <p><strong>1.</strong> $0!=1\geq1$ ; $1!=1&lt;2$ ; $2!=2&lt;4$ ; $3!=6&lt;8$ ; $4!=24\geq16$.</p>
+      <p><strong>2.</strong> Initialisation : $4!=24\geq16=2^4$. Hérédité : soit $n\geq4$ tel que $n!\geq2^n$. Je multiplie par $n+1&gt;0$ : $(n+1)!=(n+1)\times n!\geq(n+1)\times2^n$. Dernière marche : $n+1\geq2$ (car $n\geq4$), donc $(n+1)\times2^n\geq2\times2^n=2^{n+1}$. Ainsi $(n+1)!\geq2^{n+1}$ : $P(n+1)$ est vraie. Par récurrence, $n!\geq2^n$ pour tout $n\geq4$.</p>
+      <p><strong>3.</strong> $P(3)$ est fausse ($6&lt;8$) : pas de premier domino à $3$. L'hérédité, elle, marcherait dès $n\geq1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-suite-qui-descend" data-titre="Une suite qui descend" data-niveau="2" data-type="application" data-notions="recurrence encadrer-suite" data-duree="12" data-calculatrice="non">
+    <p>$u_0=10$ et $u_{n+1}=0{,}5\,u_n+3$.</p>
+    <p>1. Calcule $u_1$ et $u_2$.<br>2. On pose $f(x)=0{,}5x+3$. Quel est le sens de variation de $f$ ? Calcule $f(6)$.<br>3. Démontre par récurrence que pour tout $n$, $6\leq u_{n+1}\leq u_n\leq10$. Que peux-tu dire de la suite $(u_n)$ ?</p>
+    <details class="correction">
+      <p><strong>1.</strong> $u_1=0{,}5\times10+3=8$ ; $u_2=0{,}5\times8+3=7$.</p>
+      <p><strong>2.</strong> $f$ est affine de coefficient $0{,}5&gt;0$ : elle est croissante sur $\mathbb R$. $f(6)=3+3=6$.</p>
+      <p><strong>3.</strong> $P(n)$ : « $6\leq u_{n+1}\leq u_n\leq10$ ». Initialisation : $u_1=8$ et $u_0=10$, donc $6\leq8\leq10\leq10$ : $P(0)$ est vraie. Hérédité : soit $n$ tel que $6\leq u_{n+1}\leq u_n\leq10$. $f$ est croissante, donc $f(6)\leq f(u_{n+1})\leq f(u_n)\leq f(10)$, c'est-à-dire $6\leq u_{n+2}\leq u_{n+1}\leq8$, et $8\leq10$ : $P(n+1)$ est vraie. Conclusion : pour tout $n$, $6\leq u_{n+1}\leq u_n\leq10$. La suite est <strong>décroissante</strong> et <strong>minorée</strong> par $6$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-programme-qui-compte" data-titre="Le programme qui compte" data-niveau="2" data-type="probleme" data-notions="recurrence suites" data-duree="15" data-calculatrice="non">
+    <p>On considère la fonction Python ci-dessous.</p>
+<pre class="code">def terme(n):
+    u = 0
+    for k in range(n):
+        u = u + k + 1
+    return u</pre>
+    <p>1. Que renvoie <code>terme(4)</code> ? Détaille les passages dans la boucle.<br>2. La fonction calcule les termes d'une suite $(u_n)$ avec $u_0=0$. Quelle est la relation entre $u_{n+1}$ et $u_n$ ?<br>3. Écris une fonction <code>liste(n)</code> qui renvoie $[u_0,u_1,\dots,u_n]$.<br>4. Conjecture une formule explicite pour $u_n$, puis démontre-la par récurrence.<br>5. Un élève a remplacé <code>range(n)</code> par <code>range(n + 1)</code>. Que renvoie alors <code>terme(4)</code> ?</p>
+    <details class="correction">
+      <p><strong>1.</strong> $k=0$ : $u=1$ ; $k=1$ : $u=3$ ; $k=2$ : $u=6$ ; $k=3$ : $u=10$. <code>terme(4)</code> renvoie $10$.</p>
+      <p><strong>2.</strong> Au passage numéro $k$ (en partant de $0$), on passe de $u_k$ à $u_{k+1}=u_k+k+1$. Donc $u_{n+1}=u_n+n+1$.</p>
+      <p><strong>3.</strong></p>
+<pre class="code">def liste(n):
+    u = 0
+    L = [u]
+    for k in range(n):
+        u = u + k + 1
+        L.append(u)
+    return L</pre>
+      <p><strong>4.</strong> $0$, $1$, $3$, $6$, $10$ : on reconnaît $1+2+\dots+n$, et l'on conjecture $u_n=\dfrac{n(n+1)}{2}$. Initialisation : $u_0=0=\dfrac{0\times1}{2}$. Hérédité : si $u_n=\dfrac{n(n+1)}{2}$, alors $u_{n+1}=\dfrac{n(n+1)}{2}+(n+1)=(n+1)\left(\dfrac n2+1\right)=\dfrac{(n+1)(n+2)}{2}$. Par récurrence, $u_n=\dfrac{n(n+1)}{2}$ pour tout $n$.</p>
+      <p><strong>5.</strong> Cinq passages : la fonction renvoie $u_5=15$. Un passage de trop donne le terme suivant.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-somme-de-fractions" data-titre="Une somme de fractions" data-niveau="2" data-type="raisonnement" data-notions="recurrence" data-duree="15" data-calculatrice="non">
+    <p>Pour $n\geq1$, on pose $S_n=\dfrac{1}{1\times2}+\dfrac{1}{2\times3}+\dots+\dfrac{1}{n(n+1)}$.</p>
+    <p>1. Calcule $S_1$, $S_2$, $S_3$ sous forme de fractions irréductibles, et conjecture une formule.<br>2. Démontre-la par récurrence.<br>3. Que vaut $S_{99}$ ?</p>
+    <details class="correction">
+      <p><strong>1.</strong> $S_1=\dfrac12$ ; $S_2=\dfrac12+\dfrac16=\dfrac46=\dfrac23$ ; $S_3=\dfrac23+\dfrac1{12}=\dfrac{9}{12}=\dfrac34$. Conjecture : $S_n=\dfrac{n}{n+1}$.</p>
+      <p><strong>2.</strong> Initialisation : $S_1=\dfrac12=\dfrac{1}{1+1}$. Hérédité : soit $n\geq1$ tel que $S_n=\dfrac{n}{n+1}$. Le terme ajouté est $\dfrac{1}{(n+1)(n+2)}$, donc $S_{n+1}=\dfrac{n}{n+1}+\dfrac{1}{(n+1)(n+2)}=\dfrac{n(n+2)+1}{(n+1)(n+2)}=\dfrac{n^2+2n+1}{(n+1)(n+2)}=\dfrac{(n+1)^2}{(n+1)(n+2)}=\dfrac{n+1}{n+2}$. C'est $P(n+1)$. Par récurrence, $S_n=\dfrac{n}{n+1}$ pour tout $n\geq1$.</p>
+      <p><strong>3.</strong> $S_{99}=\dfrac{99}{100}=0{,}99$.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Démontrer, comme au bac</h3>
+
+  <article class="exercice" id="ex-les-algues-du-lac" data-titre="Les algues du lac" data-niveau="3" data-type="probleme" data-notions="recurrence encadrer-suite" data-duree="25" data-calculatrice="oui">
+    <p>Une algue envahit un petit lac. On note $u_n$ la surface couverte (en m²) au bout de $n$ semaines. On a $u_0=10$ et, pour tout $n$, $u_{n+1}=1{,}2\,u_n-0{,}002\,u_n^2$.</p>
+    <p>1. Calcule $u_1$ et $u_2$ (arrondi au centième).<br>2. On pose $f(x)=1{,}2x-0{,}002x^2$. Étudie les variations de $f$ sur $[0\,;300]$, et calcule $f(100)$.<br>3. Démontre par récurrence que pour tout $n\in\mathbb N$, $0\leq u_n\leq u_{n+1}\leq100$.<br>4. La surface couverte peut-elle dépasser $100$ m² ? En admettant le théorème de la limite monotone (chapitre Limites de suites), que peut-on dire de la suite $(u_n)$ ?</p>
+    <details class="correction">
+      <p><strong>1.</strong> $u_1=1{,}2\times10-0{,}002\times100=12-0{,}2=11{,}8$ ; $u_2=1{,}2\times11{,}8-0{,}002\times11{,}8^2=14{,}16-0{,}27848\approx13{,}88$.</p>
+      <p><strong>2.</strong> $f'(x)=1{,}2-0{,}004x$, positive pour $x\leq300$ : $f$ est croissante sur $[0\,;300]$. $f(100)=120-20=100$ (et $f(0)=0$).</p>
+      <p><strong>3.</strong> $P(n)$ : « $0\leq u_n\leq u_{n+1}\leq100$ ». Initialisation : $0\leq10\leq11{,}8\leq100$, $P(0)$ est vraie. Hérédité : soit $n$ tel que $0\leq u_n\leq u_{n+1}\leq100$. Ces nombres sont dans $[0\,;300]$, où $f$ est croissante : $f(0)\leq f(u_n)\leq f(u_{n+1})\leq f(100)$, soit $0\leq u_{n+1}\leq u_{n+2}\leq100$. C'est $P(n+1)$. Par récurrence, $P(n)$ est vraie pour tout $n$.</p>
+      <p><strong>4.</strong> Non : pour tout $n$, $u_n\leq100$. La suite est croissante (la surface augmente chaque semaine) et majorée par $100$ : d'après le théorème de la limite monotone, elle converge. (On montrera dans les chapitres suivants que sa limite est $100$.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-suite-homographique" data-titre="Une suite homographique" data-niveau="3" data-type="raisonnement" data-notions="recurrence encadrer-suite" data-duree="25" data-calculatrice="non">
+    <p>$u_0=0$ et $u_{n+1}=\dfrac{4u_n+2}{u_n+3}$. On pose $f(x)=\dfrac{4x+2}{x+3}$ pour $x\geq0$.</p>
+    <p>1. Calcule $u_1$ et $u_2$ (fractions).<br>2. Montre que $f$ est croissante sur $[0\,;+\infty[$.<br>3. Démontre par récurrence que pour tout $n$, $0\leq u_n\leq u_{n+1}\leq2$.<br>4. Une autre méthode pour la majoration : montre que $2-u_{n+1}=\dfrac{2(2-u_n)}{u_n+3}$, et explique pourquoi cette égalité permet, elle aussi, de prouver par récurrence que $u_n\leq2$.</p>
+    <details class="correction">
+      <p><strong>1.</strong> $u_1=\dfrac{2}{3}$ ; $u_2=\dfrac{\frac83+2}{\frac23+3}=\dfrac{\frac{14}{3}}{\frac{11}{3}}=\dfrac{14}{11}$.</p>
+      <p><strong>2.</strong> $f'(x)=\dfrac{4(x+3)-(4x+2)\times1}{(x+3)^2}$, soit $f'(x)=\dfrac{10}{(x+3)^2}&gt;0$ : $f$ est croissante sur $[0\,;+\infty[$.</p>
+      <p><strong>3.</strong> Initialisation : $0\leq0\leq\dfrac23\leq2$. Hérédité : soit $n$ tel que $0\leq u_n\leq u_{n+1}\leq2$ ; $f$ est croissante sur $[0\,;+\infty[$ : $f(0)\leq u_{n+1}\leq u_{n+2}\leq f(2)$, avec $f(0)=\dfrac23\geq0$ et $f(2)=\dfrac{10}{5}=2$. Donc $0\leq u_{n+1}\leq u_{n+2}\leq2$. Par récurrence, l'encadrement est vrai pour tout $n$.</p>
+      <p><strong>4.</strong> $2-u_{n+1}=\dfrac{2(u_n+3)-(4u_n+2)}{u_n+3}$, c'est-à-dire $2-u_{n+1}=\dfrac{4-2u_n}{u_n+3}=\dfrac{2(2-u_n)}{u_n+3}$. Récurrence sur « $0\leq u_n\leq2$ ». Initialisation : $u_0=0$, et $0\leq0\leq2$. Hérédité : si $0\leq u_n\leq2$, alors $2-u_n\geq0$ et $u_n+3&gt;0$, donc $2-u_{n+1}\geq0$, c'est-à-dire $u_{n+1}\leq2$ ; et $u_{n+1}\geq0$ comme quotient de deux nombres positifs. Par récurrence, $0\leq u_n\leq2$ pour tout $n$. Étudier le <strong>signe</strong> d'une différence est l'autre grande méthode, utile quand $f$ n'est pas croissante.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-somme-des-cubes" data-titre="La somme des cubes" data-niveau="3" data-type="raisonnement" data-notions="recurrence" data-duree="20" data-calculatrice="non">
+    <p>1. Calcule $1^3+2^3+\dots+n^3$ pour $n=1$, $2$, $3$, $4$, et compare avec $(1+2+\dots+n)^2$.<br>2. Démontre par récurrence que pour tout $n\geq1$ : $1^3+2^3+\dots+n^3=\left(\dfrac{n(n+1)}{2}\right)^2$.</p>
+    <details class="indice"><p>Dans l'hérédité, mets $(n+1)^2$ en facteur dès la première ligne.</p></details>
+    <details class="correction">
+      <p><strong>1.</strong> $1$ ; $9$ ; $36$ ; $100$. Et $1^2=1$, $3^2=9$, $6^2=36$, $10^2=100$ : c'est le carré de $1+2+\dots+n$.</p>
+      <p><strong>2.</strong> Initialisation : $1^3=1$ et $\left(\dfrac{1\times2}{2}\right)^2=1$. Hérédité : soit $n\geq1$ tel que $P(n)$ est vraie. Le but : $1^3+\dots+(n+1)^3=\left(\dfrac{(n+1)(n+2)}{2}\right)^2=\dfrac{(n+1)^2(n+2)^2}{4}$. Or $1^3+\dots+n^3+(n+1)^3=\dfrac{n^2(n+1)^2}{4}+(n+1)^3=(n+1)^2\left(\dfrac{n^2}{4}+n+1\right)=(n+1)^2\times\dfrac{n^2+4n+4}{4}=\dfrac{(n+1)^2(n+2)^2}{4}$. C'est $P(n+1)$. Par récurrence, la formule est vraie pour tout $n\geq1$ : la somme des cubes est le carré de la somme des entiers.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="3" data-type="corrige-ia" data-notions="recurrence" data-duree="15" data-calculatrice="non">
+    <p>Un élève a demandé à une IA de démontrer que $2^n\geq n^2$ pour tout entier $n\geq1$. Voici sa réponse. Trouve les erreurs (il y en a au moins trois), puis dis pour quels entiers la propriété est vraie, avec une preuve.</p>
+    <blockquote class="copie-ia">« Montrons par récurrence que $2^n\geq n^2$ pour tout entier $n\geq1$. <strong>Initialisation</strong> : $2^1=2\geq1=1^2$, c'est vrai. <strong>Hérédité</strong> : supposons que $2^n\geq n^2$ pour tout $n\geq1$. Alors $2^{n+1}=2\times2^n\geq2n^2$. Or $2n^2=n^2+n^2\geq n^2+2n+1=(n+1)^2$, car $n^2\geq2n+1$ pour tout entier $n$. Donc $2^{n+1}\geq(n+1)^2$. <strong>Conclusion</strong> : la propriété est vraie pour tout $n\geq1$. On peut d'ailleurs vérifier : $2^{10}=1\,024\geq100=10^2$. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 : l'hypothèse « pour tout $n\geq1$ ».</strong> C'est la conclusion qu'on cherche. L'hypothèse de récurrence porte sur un entier $n$ fixé.</p>
+      <p><strong>Erreur 2 : « $n^2\geq2n+1$ pour tout entier $n$ ».</strong> Faux pour $n=1$ ($1\geq3$ ?) et pour $n=2$ ($4\geq5$ ?). Cette dernière marche n'est vraie qu'à partir de $n=3$ ($9\geq7$) : la justification de l'hérédité ne vaut ni pour $n=1$, ni pour $n=2$. Et de $2$ à $3$, l'hérédité est réellement fausse : $P(2)$ est vraie, $P(3)$ ne l'est pas.</p>
+      <p><strong>Erreur 3 : la conclusion est fausse.</strong> $P(3)$ : $2^3=8$ et $3^2=9$, $8&lt;9$. La propriété n'est pas vraie pour tout $n\geq1$, et une IA qui « démontre » une chose fausse doit alerter.</p>
+      <p><strong>Erreur 4 : la vérification pour $n=10$.</strong> Un cas vrai ne prouve rien (voir $n^2+n+41$). Ici il est vrai, mais il ne dit rien du rang $3$.</p>
+      <p><strong>La réponse correcte.</strong> $P(n)$ est vraie pour $n=1$ et $n=2$ ($2\geq1$, $4\geq4$), fausse pour $n=3$, et vraie pour tout $n\geq4$ : initialisation $2^4=16\geq16$ ; hérédité pour $n\geq4$ : $2^{n+1}\geq2n^2$ et $2n^2-(n+1)^2=n^2-2n-1=n(n-2)-1\geq7&gt;0$. C'est la démonstration de la partie 5 du cours. La réponse de l'IA était fluide, bien présentée, et fausse dès l'hérédité.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Supposer $P(n)$ pour prouver $P(n+1)$, ce n'est pas tricher ?</summary>
+      <div><p>Non. L'hérédité ne dit pas « $P(n)$ est vraie » : elle dit « <strong>si</strong> $P(n)$ est vraie, alors $P(n+1)$ l'est ». C'est un lien entre deux rangs, comme un domino placé assez près du suivant. C'est l'initialisation qui fait tomber le premier, et le principe de récurrence qui fait le reste. Supposer « pour tout $n$ », en revanche, ce serait tricher.</p></div></details>
+    <details><summary>Faut-il toujours commencer à $n=0$ ?</summary>
+      <div><p>Non : on commence au rang de l'énoncé (« pour tout $n\geq1$ » : au rang $1$), ou au premier rang où la propriété est vraie et d'où l'hérédité part (pour $2^n\geq n^2$ : au rang $4$). La conclusion dit alors « pour tout $n\geq n_0$ », avec ce $n_0$.</p></div></details>
+    <details><summary>J'ai vérifié sur cent valeurs avec la calculatrice : pourquoi ça ne suffit pas ?</summary>
+      <div><p>Parce qu'il reste une infinité de valeurs non vérifiées. $n^2+n+41$ est premier pour les quarante premières valeurs, et pas pour la quarante et unième. Les vérifications servent à <strong>deviner</strong> une formule ; la récurrence sert à la <strong>prouver</strong>.</p></div></details>
+    <details><summary>Comment trouver la formule à prouver, quand l'énoncé ne la donne pas ?</summary>
+      <div><p>Calcule les cinq ou six premiers termes, et compare-les à des suites que tu connais : puissances ($2^n$, $3^n$), carrés, $\dfrac{n(n+1)}{2}$, un écart constant. Regarde aussi les différences entre termes successifs. Au bac, la formule est presque toujours donnée : il reste à la prouver.</p></div></details>
+    <details><summary>Dans l'hérédité, je pars de quoi ?</summary>
+      <div><p>De ce que tu sais calculer au rang $n+1$ : $u_{n+1}$ par la relation de récurrence, $S_{n+1}=S_n+\text{(terme ajouté)}$, $2^{n+1}=2\times2^n$, $f(u_n)$. Puis tu y fais entrer l'hypothèse $P(n)$, et tu transformes jusqu'à reconnaître $P(n+1)$, que tu as écrit avant de commencer.</p></div></details>
+    <details><summary>Pourquoi le principe de récurrence est-il admis ?</summary>
+      <div><p>Parce qu'il décrit ce que sont les entiers : on part de $0$, et on passe de chacun au suivant. Le mathématicien Peano l'a pris comme l'un des axiomes des entiers. On peut aussi le relier au fait que tout ensemble non vide d'entiers a un plus petit élément (voir la remarque de la partie 1).</p></div></details>
+    <details><summary>La récurrence, ça sert ailleurs que dans les suites ?</summary>
+      <div><p>Oui : en dénombrement (le nombre de parties d'un ensemble à $n$ éléments), en arithmétique (des divisibilités), en informatique (prouver qu'une boucle ou une fonction qui s'appelle elle-même fait ce qu'on attend), et partout où un objet se construit étape par étape.</p></div></details>
+    <details><summary>Au bac, qu'est-ce qu'on me demande ?</summary>
+      <div><p>Le plus souvent, une question de l'exercice sur les suites : « Montrer par récurrence que $0\leq u_n\leq u_{n+1}\leq\dots$ » pour une suite $u_{n+1}=f(u_n)$, suivie de la convergence (théorème de la limite monotone). La partie 7 du cours et les exercices de niveau 3 t'y préparent. La rédaction en trois temps rapporte des points à elle seule : soigne-la.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
