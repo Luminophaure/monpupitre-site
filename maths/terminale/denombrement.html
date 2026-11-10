@@ -1,0 +1,890 @@
+<!doctype html>
+<!-- Chapitre « Combinatoire et dénombrement » (terminale spécialité). Source : les {{figure:…}} sont
+     remplacés par les dessins de denombrement.figures.py ;
+     fabrication : python3 outils/figures.py maths/terminale/denombrement.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Combinatoire et dénombrement · Terminale spécialité</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=111fcfb17b">
+<script type="module" src="../../assets/js/site.js?v=dd057f3905"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-CBF45RMN.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-73L5TGX4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ED4O3DMZ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-AUZ6DIAX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BN75LYXP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-2HRHMG6X.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KKF2TLLQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-M27KJO3Y.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-4I2KG6DG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-4QWLCXUN.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-WM4OMO7L.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-6J4ZEFB6.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-2Q4LILSK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-S2JW6LVR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LOLN3VUP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EUH46OUQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-W4QDARNJ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-DHVTJWJV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-44JTW4NQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/denombrement.js?v=18cce83f06">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/denombrement.js?v=f199e46218">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-AZH4C3TQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="denombrement" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Mathématiques · Terminale spécialité</span>
+  <h1>Combinatoire et dénombrement</h1>
+  <p class="chapeau">Combien de codes, de mots de passe, de podiums, de mains de cartes ? Bien trop pour les écrire tous. Ce chapitre t'apprend à les <strong>compter sans les lister</strong> : deux principes, trois formules, et deux questions à te poser à chaque fois.</p>
+  <ul class="objectifs">
+    <li>Décrire précisément ce qu'on compte, et choisir entre additionner et multiplier</li>
+    <li>Compter les $k$-uplets, les permutations et les combinaisons</li>
+    <li>Calculer $\dbinom nk$ et construire le triangle de Pascal</li>
+    <li>Démontrer la relation de Pascal et l'égalité $\displaystyle\sum_{k=0}^{n}\binom nk=2^n$</li>
+    <li>Compter les issues d'une expérience pour calculer une probabilité</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Ton code de carte bancaire a quatre chiffres.</strong> Dix choix pour le premier, dix pour le deuxième, dix pour le troisième, dix pour le quatrième : $10\times10\times10\times10=10\,000$ codes. Un voleur qui tape au hasard a droit à trois essais avant que la carte se bloque, soit $3$ chances sur $10\,000$. Un mot de passe, lui, n'a pas cette protection quand un pirate a dérobé la base des mots de passe d'un site : imagine un ordinateur qui en essaie dix milliards par seconde. Avec huit lettres minuscules, il y a $26^8\approx2\times10^{11}$ mots de passe : une vingtaine de secondes lui suffit. Avec les majuscules et les chiffres, $62$ caractères, $62^8\approx2\times10^{14}$ : six heures. Avec douze caractères : environ dix mille ans. Chaque caractère ajouté multiplie le travail par $62$. Compter sans tout écrire, savoir quand on multiplie et quand on additionne, repérer ce qui peut se répéter : c'est tout le chapitre.</p>
+    <p class="discret">Ils s'en servent : les experts en cybersécurité (la robustesse d'un mot de passe, d'une clé de chiffrement), les développeurs (combien de cas un programme doit tester), les bio-informaticiens (les $4^3=64$ « mots » de trois lettres de l'ADN codent une vingtaine d'acides aminés), les logisticiens (une tournée de dix livraisons peut se faire dans $3\,628\,800$ ordres différents), les statisticiens (combien d'échantillons on peut tirer d'une population). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-principes">1. Compter sans tout écrire : les deux principes</h3>
+  <p>Dénombrer, c'est compter les éléments d'un ensemble <strong>fini</strong>. Tout le chapitre repose sur deux principes que tu utilises déjà sans les nommer.</p>
+
+  <div class="bloc definition" data-titre="Cardinal d'un ensemble fini">
+    <p>Le <strong>cardinal</strong> d'un ensemble fini $E$ est son nombre d'éléments. On le note $\mathrm{Card}(E)$. Par exemple, si $E=\{\text{pile}\,;\text{face}\}$, $\mathrm{Card}(E)=2$ ; l'ensemble vide $\varnothing$ a pour cardinal $0$.</p>
+    <p>Deux ensembles $A$ et $B$ sont <strong>disjoints</strong> quand ils n'ont aucun élément commun : $A\cap B=\varnothing$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Principe additif">
+    <p>Si $A$ et $B$ sont deux ensembles finis <strong>disjoints</strong>, alors $\mathrm{Card}(A\cup B)=\mathrm{Card}(A)+\mathrm{Card}(B)$.</p>
+    <p>Plus généralement, le cardinal d'une réunion d'ensembles <strong>deux à deux disjoints</strong> est la somme de leurs cardinaux. En pratique : je découpe ce que je compte en cas <strong>qui ne se chevauchent pas</strong>, je compte chaque cas, j'additionne.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Produit cartésien, couple">
+    <p>Le <strong>produit cartésien</strong> de $A$ et de $B$, noté $A\times B$, est l'ensemble des <strong>couples</strong> $(a\,;b)$ où $a\in A$ et $b\in B$. Dans un couple, l'ordre compte : $(a\,;b)$ et $(b\,;a)$ sont deux couples différents (sauf si $a=b$).</p>
+    <p>De même, $A_1\times A_2\times\dots\times A_k$ est l'ensemble des listes $(a_1\,;a_2\,;\dots\,;a_k)$ où chaque $a_i$ est pris dans $A_i$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Principe multiplicatif">
+    <p>Si $A$ et $B$ sont finis, $\mathrm{Card}(A\times B)=\mathrm{Card}(A)\times\mathrm{Card}(B)$. Plus généralement, $\mathrm{Card}(A_1\times\dots\times A_k)=\mathrm{Card}(A_1)\times\dots\times\mathrm{Card}(A_k)$.</p>
+    <p>En pratique : quand un objet se construit par une <strong>suite de choix</strong> (un premier choix, <em>puis</em> un deuxième…) et que le nombre de possibilités à chaque étape ne dépend pas des choix d'avant, je multiplie les nombres de possibilités.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="arbre-choix" viewBox="0 0 540 370" role="img" aria-label="L'arbre des menus d'un self. De la racine partent deux branches, les entrées C (carottes râpées) et S (soupe). De chaque entrée partent trois branches, les plats P (poisson), L (lasagnes) et K (curry). Au bout, six menus : (C ; P), (C ; L), (C ; K), (S ; P), (S ; L), (S ; K). Le chemin qui va à S puis à L est en couleur. En haut : entrée, 2 choix ; plat, 3 choix ; 2 fois 3 égale 6 menus."><text class="petit" x="180" y="26" text-anchor="middle">entrée : 2 choix</text><text class="petit" x="330" y="26" text-anchor="middle">plat : 3 choix</text><text class="formule t-u plein" x="524" y="26" text-anchor="end">2 × 3 = 6 menus</text><circle class="pt" cx="40" cy="205" r="4"/><g class="trace ep-2-5"><line x1="40" y1="205" x2="166" y2="125"/></g><text class="lettre" x="180" y="131" text-anchor="middle">C</text><g class="trace ep-2-5"><line x1="194" y1="125" x2="316" y2="71"/></g><text class="lettre" x="330" y="77" text-anchor="middle">P</text><text class="formule" x="356" y="77">(C ; P)</text><g class="trace ep-2-5"><line x1="194" y1="125" x2="316" y2="125"/></g><text class="lettre" x="330" y="131" text-anchor="middle">L</text><text class="formule" x="356" y="131">(C ; L)</text><g class="trace ep-2-5"><line x1="194" y1="125" x2="316" y2="179"/></g><text class="lettre" x="330" y="185" text-anchor="middle">K</text><text class="formule" x="356" y="185">(C ; K)</text><g class="trace t-u ep-3"><line x1="40" y1="205" x2="166" y2="285"/></g><text class="lettre" x="180" y="291" text-anchor="middle">S</text><g class="trace ep-2-5"><line x1="194" y1="285" x2="316" y2="231"/></g><text class="lettre" x="330" y="237" text-anchor="middle">P</text><text class="formule" x="356" y="237">(S ; P)</text><g class="trace t-u ep-3"><line x1="194" y1="285" x2="316" y2="285"/></g><text class="lettre" x="330" y="291" text-anchor="middle">L</text><text class="formule t-u plein" x="356" y="291">(S ; L)</text><g class="trace ep-2-5"><line x1="194" y1="285" x2="316" y2="339"/></g><text class="lettre" x="330" y="345" text-anchor="middle">K</text><text class="formule" x="356" y="345">(S ; K)</text></svg><figcaption>L'arbre des menus « entrée puis plat » d'un self : $2$ entrées (carottes râpées $C$, soupe $S$), puis $3$ plats (poisson $P$, lasagnes $L$, curry $K$). Chaque entrée porte les mêmes trois branches : $2\times3=6$ menus, et chaque menu est un couple, comme $(S\,;L)$.</figcaption></figure>
+
+  <figure class="figure-svg"><svg data-figure="produit-cartesien" viewBox="0 0 360 220" role="img" aria-label="Un tableau à double entrée : trois rangées A, B, C en lignes, quatre numéros 1, 2, 3, 4 en colonnes. Chaque case est une place de parking, de A1 à C4 ; la case B3 est en couleur. En dessous : 3 rangées fois 4 numéros égale 12 places."><text class="lettre" x="110" y="30" text-anchor="middle">1</text><text class="lettre" x="170" y="30" text-anchor="middle">2</text><text class="lettre" x="230" y="30" text-anchor="middle">3</text><text class="lettre" x="290" y="30" text-anchor="middle">4</text><text class="lettre" x="40" y="70" text-anchor="middle">A</text><rect class="fond-carte" x="84" y="48" width="52" height="32" rx="10"/><text class="formule" x="110" y="70" text-anchor="middle">A1</text><rect class="fond-carte" x="144" y="48" width="52" height="32" rx="10"/><text class="formule" x="170" y="70" text-anchor="middle">A2</text><rect class="fond-carte" x="204" y="48" width="52" height="32" rx="10"/><text class="formule" x="230" y="70" text-anchor="middle">A3</text><rect class="fond-carte" x="264" y="48" width="52" height="32" rx="10"/><text class="formule" x="290" y="70" text-anchor="middle">A4</text><text class="lettre" x="40" y="110" text-anchor="middle">B</text><rect class="fond-carte" x="84" y="88" width="52" height="32" rx="10"/><text class="formule" x="110" y="110" text-anchor="middle">B1</text><rect class="fond-carte" x="144" y="88" width="52" height="32" rx="10"/><text class="formule" x="170" y="110" text-anchor="middle">B2</text><rect class="fond-carte" x="204" y="88" width="52" height="32" rx="10"/><text class="formule t-u plein" x="230" y="110" text-anchor="middle">B3</text><rect class="fond-carte" x="264" y="88" width="52" height="32" rx="10"/><text class="formule" x="290" y="110" text-anchor="middle">B4</text><text class="lettre" x="40" y="150" text-anchor="middle">C</text><rect class="fond-carte" x="84" y="128" width="52" height="32" rx="10"/><text class="formule" x="110" y="150" text-anchor="middle">C1</text><rect class="fond-carte" x="144" y="128" width="52" height="32" rx="10"/><text class="formule" x="170" y="150" text-anchor="middle">C2</text><rect class="fond-carte" x="204" y="128" width="52" height="32" rx="10"/><text class="formule" x="230" y="150" text-anchor="middle">C3</text><rect class="fond-carte" x="264" y="128" width="52" height="32" rx="10"/><text class="formule" x="290" y="150" text-anchor="middle">C4</text><text class="petit" x="200.0" y="196" text-anchor="middle">3 rangées × 4 numéros = 12 places</text></svg><figcaption>Les places d'un parking, repérées par une rangée ($A$, $B$ ou $C$) et un numéro ($1$ à $4$) : c'est le produit cartésien $\{A\,;B\,;C\}\times\{1\,;2\,;3\,;4\}$. Le tableau a $3$ lignes de $4$ cases : $3\times4=12$ places. La place en couleur, $B3$, est le couple $(B\,;3)$.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Additionner ou multiplier ?">
+    <ol class="etapes">
+      <li><span>Je décris <strong>un</strong> objet à compter, précisément : « un menu, c'est une entrée <em>puis</em> un plat ».</span></li>
+      <li><span>Si l'objet se construit en <strong>plusieurs étapes successives</strong> (« et puis »), je multiplie les nombres de choix de chaque étape.</span></li>
+      <li><span>Si les objets se rangent en <strong>plusieurs cas</strong> (« soit… soit… »), je compte chaque cas et j'additionne, après avoir vérifié que les cas ne se chevauchent pas.</span></li>
+      <li><span>Souvent, les deux se mélangent : je découpe en cas, et dans chaque cas, je multiplie.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Au self, il y a $2$ entrées, $3$ plats et $4$ desserts. La formule du jour, c'est un plat avec soit une entrée, soit un dessert (pas les deux). Combien de formules différentes ?</p>
+      <ol class="pas">
+        <li><strong>Découper en cas.</strong> Une formule est soit « entrée et plat », soit « plat et dessert ». Une formule ne peut pas être dans les deux cas : elle a une entrée ou un dessert, pas les deux. Les cas sont disjoints.</li>
+        <li><strong>Premier cas.</strong> Une entrée puis un plat : $2\times3=6$ formules.</li>
+        <li><strong>Second cas.</strong> Un plat puis un dessert : $3\times4=12$ formules.</li>
+        <li><strong>Conclusion.</strong> Par le principe additif, $6+12=18$ formules. On peut aussi l'écrire $3\times(2+4)=18$ : un plat, puis un « complément » à choisir parmi $2+4=6$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Additionner quand il faut multiplier">
+    <p>« J'ai $4$ chemises et $3$ pantalons, donc $7$ tenues. » Tout le monde l'a pensé au moins une fois. Mais une tenue, c'est une chemise <em>et</em> un pantalon. Chaque chemise se porte avec chacun des $3$ pantalons : $4\times3=12$ tenues. On additionne seulement quand on choisit <em>soit</em> l'un <em>soit</em> l'autre : $4+3=7$ vêtements à mettre dans la valise.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-uplets">2. Les $k$-uplets : l'ordre compte, les répétitions sont permises</h3>
+  <p>Le principe multiplicatif répété donne le premier outil de comptage : les listes où chaque place peut recevoir n'importe quel élément.</p>
+
+  <div class="bloc definition" data-titre="k-uplet">
+    <p>Soit $E$ un ensemble à $n$ éléments et $k$ un entier naturel non nul. Un <strong>$k$-uplet</strong> d'éléments de $E$ est une liste ordonnée $(x_1\,;x_2\,;\dots\,;x_k)$ de $k$ éléments de $E$, <strong>pas forcément distincts</strong>. C'est un élément de $E^k=E\times E\times\dots\times E$ ($k$ fois).</p>
+    <p>Pour $k=2$, on dit un couple ; pour $k=3$, un triplet. On dit aussi « une liste de longueur $k$ » ou « un mot de $k$ lettres écrit avec l'alphabet $E$ ».</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Nombre de k-uplets">
+    <p>Le nombre de $k$-uplets d'un ensemble à $n$ éléments est $\mathrm{Card}(E^k)=n^k$.</p>
+    <p>Il y a $n$ choix pour la première place, $n$ pour la deuxième, …, $n$ pour la $k$-ième : $n\times n\times\dots\times n=n^k$ (principe multiplicatif).</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Codes, mots, ADN">
+    <ul>
+      <li><strong>Un code de cadenas à $3$ molettes</strong>, chacune de $0$ à $9$ : un triplet de $\{0\,;1\,;\dots\,;9\}$, donc $10^3=1\,000$ codes. Le code $0\,0\,7$ est permis : les répétitions le sont.</li>
+      <li><strong>Les « mots » de $5$ lettres</strong>, qu'ils aient un sens ou non : $26^5=11\,881\,376$.</li>
+      <li><strong>L'ADN</strong> s'écrit avec quatre lettres, $A$, $C$, $G$, $T$. Un codon est un mot de $3$ lettres : $4^3=64$ codons, pour une vingtaine d'acides aminés. Plusieurs codons codent donc le même acide aminé.</li>
+      <li><strong>Des tirages successifs avec remise</strong> : on tire $k$ fois une boule dans une urne de $n$ boules numérotées, en la remettant à chaque fois et en notant les numéros dans l'ordre. Un résultat est un $k$-uplet : $n^k$ résultats possibles.</li>
+    </ul>
+  </div>
+
+  <div class="bloc piege" data-titre="La base et l'exposant">
+    <p>Un code de $4$ chiffres : $10^4$, pas $4^{10}$. <strong>La base est le nombre de choix par place</strong> ($10$ chiffres), <strong>l'exposant est le nombre de places</strong> ($4$). Un doute ? Fais le calcul sur un cas minuscule : un code d'un seul chiffre, c'est $10$ codes, soit $10^1$, et pas $1^{10}=1$.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-parties">3. Les parties d'un ensemble</h3>
+  <p>Choisir une partie de $E$, c'est décider, pour chaque élément, s'il est dedans ou pas. Ce « oui ou non » ramène tout aux $k$-uplets.</p>
+
+  <div class="bloc definition" data-titre="Partie d'un ensemble">
+    <p>Une <strong>partie</strong> (ou sous-ensemble) de $E$ est un ensemble $A$ dont tous les éléments sont dans $E$ ; on note $A\subset E$. L'ensemble vide $\varnothing$ et $E$ lui-même sont des parties de $E$.</p>
+    <p>Les parties de $E=\{a\,;b\,;c\}$ sont : $\varnothing$ ; $\{a\}$, $\{b\}$, $\{c\}$ ; $\{a\,;b\}$, $\{a\,;c\}$, $\{b\,;c\}$ ; $\{a\,;b\,;c\}$. Il y en a $8$. Dans une partie, il n'y a ni ordre ni répétition : $\{a\,;c\}=\{c\,;a\}$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Nombre de parties">
+    <p>Un ensemble à $n$ éléments a $2^n$ parties.</p>
+    <p><strong>Pourquoi.</strong> Range les éléments de $E$ dans un ordre fixé. À chaque partie $A$, associe le mot de $n$ chiffres $0$ ou $1$ qui dit, élément par élément, s'il est dans $A$ ($1$) ou non ($0$). À chaque partie correspond un et un seul mot, et à chaque mot une et une seule partie. Le nombre de parties est donc le nombre de $n$-uplets de $\{0\,;1\}$, soit $2^n$. (Pour $n=0$, $E=\varnothing$ a une seule partie, $\varnothing$ elle-même : $2^0=1$.)</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="parties-binaire" viewBox="0 0 650 270" role="img" aria-label="Les huit parties de l'ensemble {a ; b ; c}, en huit cartes. Sur chaque carte, trois disques a, b, c : plein si l'élément est dans la partie, vide sinon ; en dessous, le mot de trois chiffres (1 pour pris, 0 pour laissé) et la partie. Première rangée : 000, ensemble vide ; 100, {a} ; 010, {b} ; 001, {c}. Deuxième rangée : 110, {a ; b} ; 101, {a ; c} ; 011, {b ; c} ; 111, {a ; b ; c}."><rect class="fond-carte" x="16" y="12" width="140" height="112" rx="10"/><circle class="contour t-n" cx="50" cy="38" r="12"/><text class="formule" x="50" y="70" text-anchor="middle">a</text><text class="lettre" x="50" y="94" text-anchor="middle">0</text><circle class="contour t-n" cx="86" cy="38" r="12"/><text class="formule" x="86" y="70" text-anchor="middle">b</text><text class="lettre" x="86" y="94" text-anchor="middle">0</text><circle class="contour t-n" cx="122" cy="38" r="12"/><text class="formule" x="122" y="70" text-anchor="middle">c</text><text class="lettre" x="122" y="94" text-anchor="middle">0</text><text class="petit" x="86" y="116" text-anchor="middle">∅</text><rect class="fond-carte" x="170" y="12" width="140" height="112" rx="10"/><circle class="plein t-u" cx="204" cy="38" r="12"/><text class="formule" x="204" y="70" text-anchor="middle">a</text><text class="lettre t-u plein" x="204" y="94" text-anchor="middle">1</text><circle class="contour t-n" cx="240" cy="38" r="12"/><text class="formule" x="240" y="70" text-anchor="middle">b</text><text class="lettre" x="240" y="94" text-anchor="middle">0</text><circle class="contour t-n" cx="276" cy="38" r="12"/><text class="formule" x="276" y="70" text-anchor="middle">c</text><text class="lettre" x="276" y="94" text-anchor="middle">0</text><text class="petit" x="240" y="116" text-anchor="middle">{a}</text><rect class="fond-carte" x="324" y="12" width="140" height="112" rx="10"/><circle class="contour t-n" cx="358" cy="38" r="12"/><text class="formule" x="358" y="70" text-anchor="middle">a</text><text class="lettre" x="358" y="94" text-anchor="middle">0</text><circle class="plein t-u" cx="394" cy="38" r="12"/><text class="formule" x="394" y="70" text-anchor="middle">b</text><text class="lettre t-u plein" x="394" y="94" text-anchor="middle">1</text><circle class="contour t-n" cx="430" cy="38" r="12"/><text class="formule" x="430" y="70" text-anchor="middle">c</text><text class="lettre" x="430" y="94" text-anchor="middle">0</text><text class="petit" x="394" y="116" text-anchor="middle">{b}</text><rect class="fond-carte" x="478" y="12" width="140" height="112" rx="10"/><circle class="contour t-n" cx="512" cy="38" r="12"/><text class="formule" x="512" y="70" text-anchor="middle">a</text><text class="lettre" x="512" y="94" text-anchor="middle">0</text><circle class="contour t-n" cx="548" cy="38" r="12"/><text class="formule" x="548" y="70" text-anchor="middle">b</text><text class="lettre" x="548" y="94" text-anchor="middle">0</text><circle class="plein t-u" cx="584" cy="38" r="12"/><text class="formule" x="584" y="70" text-anchor="middle">c</text><text class="lettre t-u plein" x="584" y="94" text-anchor="middle">1</text><text class="petit" x="548" y="116" text-anchor="middle">{c}</text><rect class="fond-carte" x="16" y="136" width="140" height="112" rx="10"/><circle class="plein t-u" cx="50" cy="162" r="12"/><text class="formule" x="50" y="194" text-anchor="middle">a</text><text class="lettre t-u plein" x="50" y="218" text-anchor="middle">1</text><circle class="plein t-u" cx="86" cy="162" r="12"/><text class="formule" x="86" y="194" text-anchor="middle">b</text><text class="lettre t-u plein" x="86" y="218" text-anchor="middle">1</text><circle class="contour t-n" cx="122" cy="162" r="12"/><text class="formule" x="122" y="194" text-anchor="middle">c</text><text class="lettre" x="122" y="218" text-anchor="middle">0</text><text class="petit" x="86" y="240" text-anchor="middle">{a ; b}</text><rect class="fond-carte" x="170" y="136" width="140" height="112" rx="10"/><circle class="plein t-u" cx="204" cy="162" r="12"/><text class="formule" x="204" y="194" text-anchor="middle">a</text><text class="lettre t-u plein" x="204" y="218" text-anchor="middle">1</text><circle class="contour t-n" cx="240" cy="162" r="12"/><text class="formule" x="240" y="194" text-anchor="middle">b</text><text class="lettre" x="240" y="218" text-anchor="middle">0</text><circle class="plein t-u" cx="276" cy="162" r="12"/><text class="formule" x="276" y="194" text-anchor="middle">c</text><text class="lettre t-u plein" x="276" y="218" text-anchor="middle">1</text><text class="petit" x="240" y="240" text-anchor="middle">{a ; c}</text><rect class="fond-carte" x="324" y="136" width="140" height="112" rx="10"/><circle class="contour t-n" cx="358" cy="162" r="12"/><text class="formule" x="358" y="194" text-anchor="middle">a</text><text class="lettre" x="358" y="218" text-anchor="middle">0</text><circle class="plein t-u" cx="394" cy="162" r="12"/><text class="formule" x="394" y="194" text-anchor="middle">b</text><text class="lettre t-u plein" x="394" y="218" text-anchor="middle">1</text><circle class="plein t-u" cx="430" cy="162" r="12"/><text class="formule" x="430" y="194" text-anchor="middle">c</text><text class="lettre t-u plein" x="430" y="218" text-anchor="middle">1</text><text class="petit" x="394" y="240" text-anchor="middle">{b ; c}</text><rect class="fond-carte" x="478" y="136" width="140" height="112" rx="10"/><circle class="plein t-u" cx="512" cy="162" r="12"/><text class="formule" x="512" y="194" text-anchor="middle">a</text><text class="lettre t-u plein" x="512" y="218" text-anchor="middle">1</text><circle class="plein t-u" cx="548" cy="162" r="12"/><text class="formule" x="548" y="194" text-anchor="middle">b</text><text class="lettre t-u plein" x="548" y="218" text-anchor="middle">1</text><circle class="plein t-u" cx="584" cy="162" r="12"/><text class="formule" x="584" y="194" text-anchor="middle">c</text><text class="lettre t-u plein" x="584" y="218" text-anchor="middle">1</text><text class="petit" x="548" y="240" text-anchor="middle">{a ; b ; c}</text></svg><figcaption>Les huit parties de $\{a\,;b\,;c\}$. Sous chacune, son mot de trois chiffres : $1$ pour un élément pris (disque plein), $0$ pour un élément laissé. Les huit mots de $000$ à $111$ sont tous là, une fois chacun : $2^3=8$.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="La pizza à composer">
+    <p>Une pizzeria propose $8$ garnitures, chacune à mettre ou non. Une pizza est une partie de l'ensemble des $8$ garnitures : $2^8=256$ pizzas différentes, en comptant la pizza sans garniture ($\varnothing$) et celle qui a tout ($E$). Avec au moins une garniture : $256-1=255$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="2ⁿ n'est pas n²">
+    <p>Pour $n=3$, $2^3=8$ et $3^2=9$ : les deux se ressemblent et tout le monde finit un jour par les confondre. Pour $n=10$, $2^{10}=1\,024$ et $10^2=100$ ; pour $n=20$, plus d'un million contre $400$. C'est $2$, le nombre de choix (dedans ou dehors), qui est à la puissance $n$, le nombre d'éléments.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-distincts">4. Sans répétition : $k$-uplets d'éléments distincts, factorielle et permutations</h3>
+  <p>Sur un podium, un même coureur ne peut pas avoir deux médailles. L'ordre compte toujours, mais un élément pris ne revient plus : à chaque étape, il y a un choix de moins.</p>
+
+  <div class="bloc definition" data-titre="k-uplet d'éléments distincts">
+    <p>Soit $E$ un ensemble à $n$ éléments et $k$ un entier tel que $1\leq k\leq n$. Un <strong>$k$-uplet d'éléments distincts</strong> de $E$ est un $k$-uplet $(x_1\,;\dots\,;x_k)$ dont les $k$ éléments sont deux à deux différents. L'ordre compte, les répétitions sont interdites.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Nombre de k-uplets d'éléments distincts">
+    <p>Le nombre de $k$-uplets d'éléments distincts d'un ensemble à $n$ éléments est</p>
+    $$n\times(n-1)\times(n-2)\times\dots\times(n-k+1)\qquad(k\text{ facteurs}).$$
+    <p>$n$ choix pour la première place, puis $n-1$ (l'élément déjà pris ne revient pas), puis $n-2$, …, et $n-k+1$ pour la $k$-ième.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="arbre-distincts" viewBox="0 0 540 380" role="img" aria-label="L'arbre des deux premières places parmi quatre coureurs A, B, C, D. De la racine partent quatre branches, le premier : A, B, C ou D. De chacun partent trois branches seulement, le deuxième, parmi les trois autres coureurs. Au bout, douze classements, de (A ; B) à (D ; C). En haut : premier, 4 choix ; deuxième, 3 choix ; 4 fois 3 égale 12."><text class="petit" x="170" y="26" text-anchor="middle">1er : 4 choix</text><text class="petit" x="300" y="26" text-anchor="middle">2e : 3 choix</text><text class="formule t-u plein" x="524" y="26" text-anchor="end">4 × 3 = 12</text><circle class="pt" cx="40" cy="204" r="4"/><g class="trace t-u ep-2-5"><line x1="40" y1="204" x2="156" y2="84"/></g><text class="lettre t-u plein" x="170" y="90" text-anchor="middle">A</text><g class="trace ep-2"><line x1="184" y1="84" x2="288" y2="60"/></g><text class="lettre" x="300" y="66" text-anchor="middle">B</text><text class="formule" x="322" y="66">(A ; B)</text><g class="trace ep-2"><line x1="184" y1="84" x2="288" y2="84"/></g><text class="lettre" x="300" y="90" text-anchor="middle">C</text><text class="formule" x="322" y="90">(A ; C)</text><g class="trace ep-2"><line x1="184" y1="84" x2="288" y2="108"/></g><text class="lettre" x="300" y="114" text-anchor="middle">D</text><text class="formule" x="322" y="114">(A ; D)</text><g class="trace t-u ep-2-5"><line x1="40" y1="204" x2="156" y2="164"/></g><text class="lettre t-u plein" x="170" y="170" text-anchor="middle">B</text><g class="trace ep-2"><line x1="184" y1="164" x2="288" y2="140"/></g><text class="lettre" x="300" y="146" text-anchor="middle">A</text><text class="formule" x="322" y="146">(B ; A)</text><g class="trace ep-2"><line x1="184" y1="164" x2="288" y2="164"/></g><text class="lettre" x="300" y="170" text-anchor="middle">C</text><text class="formule" x="322" y="170">(B ; C)</text><g class="trace ep-2"><line x1="184" y1="164" x2="288" y2="188"/></g><text class="lettre" x="300" y="194" text-anchor="middle">D</text><text class="formule" x="322" y="194">(B ; D)</text><g class="trace t-u ep-2-5"><line x1="40" y1="204" x2="156" y2="244"/></g><text class="lettre t-u plein" x="170" y="250" text-anchor="middle">C</text><g class="trace ep-2"><line x1="184" y1="244" x2="288" y2="220"/></g><text class="lettre" x="300" y="226" text-anchor="middle">A</text><text class="formule" x="322" y="226">(C ; A)</text><g class="trace ep-2"><line x1="184" y1="244" x2="288" y2="244"/></g><text class="lettre" x="300" y="250" text-anchor="middle">B</text><text class="formule" x="322" y="250">(C ; B)</text><g class="trace ep-2"><line x1="184" y1="244" x2="288" y2="268"/></g><text class="lettre" x="300" y="274" text-anchor="middle">D</text><text class="formule" x="322" y="274">(C ; D)</text><g class="trace t-u ep-2-5"><line x1="40" y1="204" x2="156" y2="324"/></g><text class="lettre t-u plein" x="170" y="330" text-anchor="middle">D</text><g class="trace ep-2"><line x1="184" y1="324" x2="288" y2="300"/></g><text class="lettre" x="300" y="306" text-anchor="middle">A</text><text class="formule" x="322" y="306">(D ; A)</text><g class="trace ep-2"><line x1="184" y1="324" x2="288" y2="324"/></g><text class="lettre" x="300" y="330" text-anchor="middle">B</text><text class="formule" x="322" y="330">(D ; B)</text><g class="trace ep-2"><line x1="184" y1="324" x2="288" y2="348"/></g><text class="lettre" x="300" y="354" text-anchor="middle">C</text><text class="formule" x="322" y="354">(D ; C)</text></svg><figcaption>Quatre coureurs $A$, $B$, $C$, $D$ et deux places, la première et la deuxième. L'arbre perd une branche à l'étage suivant : le coureur arrivé premier ne peut pas être aussi deuxième. $4\times3=12$ classements.</figcaption></figure>
+
+  <div class="bloc definition" data-titre="Factorielle">
+    <p>Pour tout entier $n\geq1$, la <strong>factorielle</strong> de $n$ est $n!=n\times(n-1)\times\dots\times2\times1$ (lire « factorielle $n$ »). Par convention, $0!=1$.</p>
+    <p>$1!=1$ ; $2!=2$ ; $3!=6$ ; $4!=24$ ; $5!=120$ ; $6!=720$ ; $10!=3\,628\,800$. Elle grandit très vite : $n!=n\times(n-1)!$, chaque rang multiplie par $n$.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Permutation">
+    <p>Une <strong>permutation</strong> d'un ensemble $E$ à $n$ éléments est un $n$-uplet d'éléments distincts de $E$ : une façon de ranger <strong>tous</strong> les éléments de $E$ dans un ordre.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Nombre de permutations">
+    <p>Un ensemble à $n$ éléments a $n!$ permutations (c'est le cas $k=n$ de la propriété précédente). Et pour $1\leq k\leq n$ :</p>
+    $$n\times(n-1)\times\dots\times(n-k+1)=\frac{n!}{(n-k)!}.$$
+    <p>Le quotient retire de $n!$ les facteurs de $(n-k)$ à $1$, qui ne servent pas. Pour $k=0$, on convient qu'un produit sans aucun facteur vaut $1$, comme $\dfrac{n!}{n!}$ : la formule reste vraie.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Podiums, anagrammes, étagères">
+    <ul>
+      <li><strong>Un podium</strong> parmi $8$ finalistes : $8\times7\times6=336$ podiums. Le classement complet des $8$ : $8!=40\,320$.</li>
+      <li><strong>Les anagrammes</strong> de MATHS (cinq lettres toutes différentes), qu'elles aient un sens ou non : $5!=120$.</li>
+      <li><strong>Des tirages successifs sans remise</strong> : on tire $k$ boules l'une après l'autre, sans les remettre, en notant l'ordre. Un résultat est un $k$-uplet d'éléments distincts : $n(n-1)\cdots(n-k+1)$ résultats.</li>
+    </ul>
+  </div>
+
+  <div class="bloc methode" data-titre="Ranger avec une contrainte">
+    <ol class="etapes">
+      <li><span>Je repère la contrainte (des objets côte à côte, une place imposée…) et je la traite <strong>en premier</strong>.</span></li>
+      <li><span>Des objets qui doivent rester côte à côte : je les colle en un seul « bloc », je range les blocs, puis je range l'intérieur du bloc.</span></li>
+      <li><span>Je multiplie les nombres de choix des étapes successives.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> On range $10$ livres différents sur une étagère, dont les $3$ tomes d'un même roman. De combien de façons, si les trois tomes doivent être côte à côte (dans n'importe quel ordre entre eux) ?</p>
+      <ol class="pas">
+        <li><strong>Sans contrainte</strong>, ce serait $10!=3\,628\,800$ rangements. On ne s'en sert pas, mais c'est un ordre de grandeur.</li>
+        <li><strong>Le bloc.</strong> Les trois tomes collés forment un bloc. Il reste à ranger $7$ livres et $1$ bloc, soit $8$ objets : $8!=40\,320$ façons.</li>
+        <li><strong>L'intérieur du bloc.</strong> Les trois tomes s'y rangent de $3!=6$ façons.</li>
+        <li><strong>Conclusion.</strong> Un rangement des $8$ objets, <em>puis</em> un ordre dans le bloc : $8!\times3!=241\,920$ façons, soit $\dfrac{3!\times8!}{10!}=\dfrac1{15}$ des rangements possibles.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Le mot « arrangement »">
+    <p>Les manuels et l'enseignement supérieur appellent souvent « arrangement » un $k$-uplet d'éléments distincts, et notent $A_n^k=\dfrac{n!}{(n-k)!}$ leur nombre. Le programme de terminale ne demande ni le mot ni la notation : tu peux les rencontrer ailleurs, et c'est la même chose sous un autre nom.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pourquoi 0! = 1">
+    <p>La formule $\dfrac{n!}{(n-k)!}$ doit donner $n!$ quand $k=n$ (ranger les $n$ éléments) : il faut donc $\dfrac{n!}{0!}=n!$, c'est-à-dire $0!=1$. On peut aussi le dire avec des mots : il y a exactement une façon de ranger zéro objet, ne rien faire. Et la relation $n!=n\times(n-1)!$ donne, pour $n=1$, $1=1\times0!$.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Les factorielles qui se simplifient mal">
+    <ul>
+      <li><strong>$\dfrac{n!}{k!}$ n'est pas $(n-k)!$.</strong> $\dfrac{6!}{3!}=\dfrac{720}{6}=120=6\times5\times4$, alors que $3!=6$. On simplifie en écrivant le plus grand : $6!=6\times5\times4\times3!$.</li>
+      <li><strong>$(2n)!$ n'est pas $2\times n!$.</strong> $(2\times3)!=720$, $2\times3!=12$.</li>
+      <li><strong>$0!$ vaut $1$, pas $0$.</strong> Sinon toutes les formules du chapitre diviseraient par zéro.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-combinaisons">5. Les combinaisons : on choisit, sans ordre</h3>
+  <p>Choisir deux délégués, ce n'est pas faire un podium : élire Léa puis Tom, ou Tom puis Léa, donne le même binôme. Quand l'ordre ne compte plus, on compte des <strong>parties</strong>.</p>
+
+  <div class="bloc definition" data-titre="Combinaison, coefficient binomial">
+    <p>Soit $E$ un ensemble à $n$ éléments et $k$ un entier tel que $0\leq k\leq n$. Une <strong>combinaison de $k$ éléments</strong> de $E$ est une partie de $E$ à $k$ éléments. Pas d'ordre, pas de répétition.</p>
+    <p>Leur nombre se note $\dbinom nk$, et se lit « <strong>$k$ parmi $n$</strong> ». On l'appelle un <strong>coefficient binomial</strong>.</p>
+    <p>Par exemple, les combinaisons de $2$ éléments de $\{a\,;b\,;c\,;d\}$ sont $\{a\,;b\}$, $\{a\,;c\}$, $\{a\,;d\}$, $\{b\,;c\}$, $\{b\,;d\}$, $\{c\,;d\}$ : $\dbinom42=6$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les deux formules">
+    <p>Pour $0\leq k\leq n$ :</p>
+    $$\binom nk=\frac{n(n-1)\cdots(n-k+1)}{k!}=\frac{n!}{k!\,(n-k)!}.$$
+    <p><strong>Pourquoi.</strong> Compte les $k$-uplets d'éléments distincts de deux façons. D'une part, il y en a $n(n-1)\cdots(n-k+1)$. D'autre part, on peut les fabriquer en choisissant d'abord une combinaison de $k$ éléments ($\dbinom nk$ choix), <em>puis</em> un ordre pour ces $k$ éléments ($k!$ choix). Donc $n(n-1)\cdots(n-k+1)=\dbinom nk\times k!$, et on divise par $k!$. Pour $k=0$, les trois membres valent $1$ (un produit sans facteur vaut $1$, et $0!=1$).</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="regroupement" viewBox="0 0 650 320" role="img" aria-label="Quatre piles de six mots. Chaque pile regroupe les six ordres des mêmes trois lettres : la pile {A ; B ; C} contient ABC, ACB, BAC, BCA, CAB, CBA ; puis les piles {A ; B ; D}, {A ; C ; D} et {B ; C ; D}. En dessous : 24 triplets, soit 4 piles de 6 ordres."><rect class="fond-carte" x="16" y="10" width="140" height="252" rx="10"/><text class="formule t-u plein" x="86" y="40" text-anchor="middle">{A ; B ; C}</text><g class="trace t-n"><line x1="34" y1="54" x2="138" y2="54"/></g><text class="lettre" x="86" y="84" text-anchor="middle">ABC</text><text class="lettre" x="86" y="116" text-anchor="middle">ACB</text><text class="lettre" x="86" y="148" text-anchor="middle">BAC</text><text class="lettre" x="86" y="180" text-anchor="middle">BCA</text><text class="lettre" x="86" y="212" text-anchor="middle">CAB</text><text class="lettre" x="86" y="244" text-anchor="middle">CBA</text><rect class="fond-carte" x="170" y="10" width="140" height="252" rx="10"/><text class="formule t-u plein" x="240" y="40" text-anchor="middle">{A ; B ; D}</text><g class="trace t-n"><line x1="188" y1="54" x2="292" y2="54"/></g><text class="lettre" x="240" y="84" text-anchor="middle">ABD</text><text class="lettre" x="240" y="116" text-anchor="middle">ADB</text><text class="lettre" x="240" y="148" text-anchor="middle">BAD</text><text class="lettre" x="240" y="180" text-anchor="middle">BDA</text><text class="lettre" x="240" y="212" text-anchor="middle">DAB</text><text class="lettre" x="240" y="244" text-anchor="middle">DBA</text><rect class="fond-carte" x="324" y="10" width="140" height="252" rx="10"/><text class="formule t-u plein" x="394" y="40" text-anchor="middle">{A ; C ; D}</text><g class="trace t-n"><line x1="342" y1="54" x2="446" y2="54"/></g><text class="lettre" x="394" y="84" text-anchor="middle">ACD</text><text class="lettre" x="394" y="116" text-anchor="middle">ADC</text><text class="lettre" x="394" y="148" text-anchor="middle">CAD</text><text class="lettre" x="394" y="180" text-anchor="middle">CDA</text><text class="lettre" x="394" y="212" text-anchor="middle">DAC</text><text class="lettre" x="394" y="244" text-anchor="middle">DCA</text><rect class="fond-carte" x="478" y="10" width="140" height="252" rx="10"/><text class="formule t-u plein" x="548" y="40" text-anchor="middle">{B ; C ; D}</text><g class="trace t-n"><line x1="496" y1="54" x2="600" y2="54"/></g><text class="lettre" x="548" y="84" text-anchor="middle">BCD</text><text class="lettre" x="548" y="116" text-anchor="middle">BDC</text><text class="lettre" x="548" y="148" text-anchor="middle">CBD</text><text class="lettre" x="548" y="180" text-anchor="middle">CDB</text><text class="lettre" x="548" y="212" text-anchor="middle">DBC</text><text class="lettre" x="548" y="244" text-anchor="middle">DCB</text><text class="petit" x="325.0" y="290" text-anchor="middle">24 triplets = 4 piles × 3! ordres, donc 4 combinaisons</text></svg><figcaption>Les $4\times3\times2=24$ triplets d'éléments distincts de $\{A\,;B\,;C\,;D\}$, rangés en piles : une pile par combinaison. Chaque pile contient les $3!=6$ ordres des mêmes trois lettres. Il y a donc $\dfrac{24}{6}=4$ piles : $\dbinom43=4$.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Valeurs à connaître et symétrie">
+    <ul>
+      <li>$\dbinom n0=1$ (une seule partie vide) et $\dbinom nn=1$ (une seule partie pleine, $E$).</li>
+      <li>$\dbinom n1=n$ (une partie à un élément, c'est un élément).</li>
+      <li>$\dbinom n2=\dfrac{n(n-1)}2$ (les paires : $n(n-1)$ couples d'éléments distincts, et chaque paire est comptée deux fois).</li>
+      <li><strong>Symétrie</strong> : $\dbinom nk=\dbinom n{n-k}$. Choisir les $k$ éléments qu'on prend, c'est choisir les $n-k$ qu'on laisse. Par exemple $\dbinom{30}{28}=\dbinom{30}2=435$.</li>
+    </ul>
+  </div>
+
+  <div class="bloc exemple" data-titre="Délégués, mains de cartes">
+    <ul>
+      <li><strong>Deux délégués</strong> dans une classe de $28$ : $\dbinom{28}2=\dfrac{28\times27}2=378$ binômes. <strong>Un délégué et un suppléant</strong> : les rôles sont différents, l'ordre compte, $28\times27=756$, soit deux fois plus.</li>
+      <li><strong>Une main de $5$ cartes</strong> dans un jeu de $32$ : $\dbinom{32}5=\dfrac{32\times31\times30\times29\times28}{5!}$, soit $201\,376$ mains.</li>
+      <li><strong>Des tirages simultanés</strong> : on prend $k$ boules d'un coup dans une urne de $n$ boules. Un résultat est une combinaison : $\dbinom nk$ résultats.</li>
+    </ul>
+    <p>Ta calculatrice donne $\dbinom nk$ (touche ou menu « Combinaison », souvent <code>nCr</code>) et $n!$ (menu des probabilités).</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Des mots et des chemins">
+    <p>$\dbinom nk$ est aussi le nombre de <strong>mots de $n$ lettres</strong> formés de $k$ lettres $S$ et de $n-k$ lettres $E$ : écrire un tel mot, c'est choisir les $k$ positions des $S$ parmi les $n$.</p>
+    <p>Sur un quadrillage, un <strong>chemin</strong> qui va d'un coin au coin opposé par des pas « droite » ($D$) et « haut » ($H$), avec $p$ pas $D$ et $q$ pas $H$, est un mot de $p+q$ lettres. Il y a $\dbinom{p+q}{q}$ chemins.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="chemins-grille" viewBox="0 0 460 320" role="img" aria-label="Un quadrillage de 5 carreaux de large sur 3 de haut, de A en bas à gauche à B en haut à droite. Un chemin en couleur fait les pas droite, droite, haut, droite, haut, droite, droite, haut. Chaque pas porte sa lettre, D ou H. En dessous, le mot du chemin : D D H D H D D H."><line class="quadrillage-trait" x1="50" y1="236" x2="50" y2="44"/><line class="quadrillage-trait" x1="114" y1="236" x2="114" y2="44"/><line class="quadrillage-trait" x1="178" y1="236" x2="178" y2="44"/><line class="quadrillage-trait" x1="242" y1="236" x2="242" y2="44"/><line class="quadrillage-trait" x1="306" y1="236" x2="306" y2="44"/><line class="quadrillage-trait" x1="370" y1="236" x2="370" y2="44"/><line class="quadrillage-trait" x1="50" y1="236" x2="370" y2="236"/><line class="quadrillage-trait" x1="50" y1="172" x2="370" y2="172"/><line class="quadrillage-trait" x1="50" y1="108" x2="370" y2="108"/><line class="quadrillage-trait" x1="50" y1="44" x2="370" y2="44"/><g class="trace t-u ep-4"><path d="M50,236 L114,236 L178,236 L178,172 L242,172 L242,108 L306,108 L370,108 L370,44"/></g><text class="formule t-u plein halo" x="82.0" y="227.0" text-anchor="middle">D</text><text class="formule t-u plein halo" x="146.0" y="227.0" text-anchor="middle">D</text><text class="formule t-u plein halo" x="191.0" y="210.0" text-anchor="middle">H</text><text class="formule t-u plein halo" x="210.0" y="163.0" text-anchor="middle">D</text><text class="formule t-u plein halo" x="255.0" y="146.0" text-anchor="middle">H</text><text class="formule t-u plein halo" x="274.0" y="99.0" text-anchor="middle">D</text><text class="formule t-u plein halo" x="338.0" y="99.0" text-anchor="middle">D</text><text class="formule t-u plein halo" x="383.0" y="82.0" text-anchor="middle">H</text><circle class="pt" cx="50" cy="236" r="5"/><circle class="pt" cx="370" cy="44" r="5"/><text class="lettre" x="32" y="254" text-anchor="middle">A</text><text class="lettre" x="388" y="38" text-anchor="middle">B</text><text class="lettre t-u plein" x="210.0" y="290" text-anchor="middle">D D H D H D D H</text></svg><figcaption>Un chemin de $A$ à $B$ sur un quadrillage de $5$ carreaux sur $3$ : il fait $5$ pas vers la droite et $3$ vers le haut, dans un certain ordre, et s'écrit $DDHDHDDH$. Choisir un chemin, c'est choisir les $3$ places des $H$ parmi les $8$ : $\dbinom83=56$ chemins.</figcaption></figure>
+
+  <div class="bloc piege" data-titre="Les erreurs avec k parmi n">
+    <ul>
+      <li><strong>$\dbinom nk$ n'est pas une fraction.</strong> Ce n'est pas $\dfrac nk$ : $\dbinom42=6$, alors que $\dfrac42=2$.</li>
+      <li><strong>L'ordre compté en trop.</strong> « Deux délégués parmi $28$ : $28\times27=756$ » compte chaque binôme deux fois (Léa puis Tom, Tom puis Léa). Si les deux élus ont le même rôle, il faut diviser par $2!$.</li>
+      <li><strong>Le haut et le bas inversés.</strong> « $k$ parmi $n$ » s'écrit avec $n$ en haut : $\dbinom{28}2$, pas $\dbinom2{28}$ (qui vaut $0$ : on ne choisit pas $28$ objets parmi $2$).</li>
+    </ul>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-pascal">6. La relation et le triangle de Pascal</h3>
+  <p>Les $\dbinom nk$ se calculent aussi sans factorielle, de proche en proche, par une addition. C'est la première démonstration du chapitre, et elle se fait de deux façons.</p>
+
+  <div class="bloc propriete" data-titre="Relation de Pascal">
+    <p>Pour tous entiers $n$ et $k$ tels que $0\leq k\leq n-1$ :</p>
+    $$\binom nk+\binom n{k+1}=\binom{n+1}{k+1}.$$
+  </div>
+
+  <div class="bloc methode" data-titre="Démonstration par une méthode combinatoire (au programme)" data-ouvert>
+    <p>On compte les parties à $k+1$ éléments d'un ensemble à $n+1$ éléments, en les rangeant en deux cas. Cherche les deux cas avant de dévoiler.</p>
+    <div class="deroule">
+      <p class="consigne"><strong>À démontrer.</strong> $\dbinom nk+\dbinom n{k+1}=\dbinom{n+1}{k+1}$, en comptant les parties à $k+1$ éléments d'un ensemble $F$ à $n+1$ éléments.</p>
+      <ol class="pas">
+        <li><strong>Un élément à part.</strong> Je fixe un élément $x$ de $F$. Il reste un ensemble $E$ de $n$ éléments : $F=E\cup\{x\}$. Une partie de $F$ à $k+1$ éléments contient $x$, ou ne le contient pas : deux cas disjoints.</li>
+        <li><strong>Celles qui contiennent $x$.</strong> Une telle partie, c'est $x$ et $k$ autres éléments, choisis dans $E$. En retirant $x$, on obtient une partie de $E$ à $k$ éléments, et chaque partie de $E$ à $k$ éléments s'obtient ainsi une seule fois : il y en a $\dbinom nk$.</li>
+        <li><strong>Celles qui ne contiennent pas $x$.</strong> Ses $k+1$ éléments sont tous choisis dans $E$ : il y en a $\dbinom n{k+1}$.</li>
+        <li><strong>Conclusion.</strong> Par le principe additif, le nombre de parties de $F$ à $k+1$ éléments, qui vaut $\dbinom{n+1}{k+1}$ par définition, est aussi $\dbinom nk+\dbinom n{k+1}$. ∎</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="pascal-combinatoire" viewBox="0 0 680 280" role="img" aria-label="À gauche, un ensemble F de six éléments : x, en couleur, et 1, 2, 3, 4, 5. Deux flèches mènent à deux cadres. En haut, les parties à 3 éléments qui contiennent x : x et 2 éléments parmi les 5 autres, 2 parmi 5 égale 10. En bas, celles qui ne contiennent pas x : 3 éléments parmi les 5 autres, 3 parmi 5 égale 10. À droite : en tout, 3 parmi 6 égale 20."><text class="petit" x="100" y="64" text-anchor="middle">F : 6 éléments</text><rect class="fond-carte" x="20" y="78" width="160" height="128" rx="10"/><circle class="contour t-v ep-3" cx="55" cy="116" r="17"/><text class="lettre t-v plein" x="55" y="122" text-anchor="middle">x</text><circle class="contour t-n" cx="100" cy="116" r="17"/><text class="formule" x="100" y="122" text-anchor="middle">1</text><circle class="contour t-n" cx="145" cy="116" r="17"/><text class="formule" x="145" y="122" text-anchor="middle">2</text><circle class="contour t-n" cx="55" cy="170" r="17"/><text class="formule" x="55" y="176" text-anchor="middle">3</text><circle class="contour t-n" cx="100" cy="170" r="17"/><text class="formule" x="100" y="176" text-anchor="middle">4</text><circle class="contour t-n" cx="145" cy="170" r="17"/><text class="formule" x="145" y="176" text-anchor="middle">5</text><g class="trace t-n ep-2"><line x1="186" y1="120" x2="221.1" y2="76.1"/><polygon points="226.0,70.0 222.4,83.8 213.3,76.5"/></g><g class="trace t-n ep-2"><line x1="186" y1="164" x2="219.9" y2="191.1"/><polygon points="226.0,196.0 212.2,192.4 219.5,183.3"/></g><rect class="fond-carte" x="232" y="12" width="290" height="108" rx="10"/><text class="formule t-v plein" x="248" y="38">contiennent x</text><text class="note" x="248" y="62">x et 2 éléments parmi les 5 autres</text><g class="trace ep-2"><path d="M259.5,73.0 Q251.5,92.0 259.5,111.0"/><path d="M272.5,73.0 Q280.5,92.0 272.5,111.0"/></g><text class="formule" x="266" y="89" text-anchor="middle">5</text><text class="formule" x="266" y="107" text-anchor="middle">2</text><text class="formule" x="287.5" y="98">= 10</text><rect class="fond-carte" x="232" y="140" width="290" height="108" rx="10"/><text class="formule" x="248" y="166">ne contiennent pas x</text><text class="note" x="248" y="190">3 éléments parmi les 5 autres</text><g class="trace ep-2"><path d="M259.5,201.0 Q251.5,220.0 259.5,239.0"/><path d="M272.5,201.0 Q280.5,220.0 272.5,239.0"/></g><text class="formule" x="266" y="217" text-anchor="middle">5</text><text class="formule" x="266" y="235" text-anchor="middle">3</text><text class="formule" x="287.5" y="226">= 10</text><text class="petit" x="596" y="98" text-anchor="middle">en tout</text><g class="trace ep-2"><path d="M565.5,111.0 Q557.5,130.0 565.5,149.0"/><path d="M578.5,111.0 Q586.5,130.0 578.5,149.0"/></g><text class="formule" x="572" y="127" text-anchor="middle">6</text><text class="formule" x="572" y="145" text-anchor="middle">3</text><text class="formule t-u plein" x="591.5" y="136">= 20</text></svg><figcaption>Le cas $n=5$, $k=2$. L'ensemble $F$ a $6$ éléments, dont $x$, mis à part. Ses parties à $3$ éléments contiennent $x$ (et $2$ éléments parmi les $5$ autres : $\dbinom52=10$), ou ne le contiennent pas ($3$ parmi les $5$ autres : $\dbinom53=10$). En tout, $\dbinom63=20$.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Démonstration par le calcul (au programme)" data-ouvert>
+    <p>Cette fois, on part des factorielles. L'outil : $(k+1)!=(k+1)\times k!$ et $(n-k)!=(n-k)\times(n-k-1)!$.</p>
+    <div class="deroule">
+      <p class="consigne"><strong>À démontrer.</strong> La même égalité, en écrivant $\dbinom nk$ et $\dbinom n{k+1}$ avec des factorielles et en les ajoutant.</p>
+      <ol class="pas">
+        <li><strong>Les deux fractions.</strong> $\dbinom nk+\dbinom n{k+1}=\dfrac{n!}{k!\,(n-k)!}+\dfrac{n!}{(k+1)!\,(n-k-1)!}$.</li>
+        <li><strong>Un dénominateur commun.</strong> Il est $(k+1)!\,(n-k)!$ : on multiplie la première fraction par $\dfrac{k+1}{k+1}$, la seconde par $\dfrac{n-k}{n-k}$. On obtient $\dfrac{n!\,(k+1)+n!\,(n-k)}{(k+1)!\,(n-k)!}$.</li>
+        <li><strong>On factorise par $n!$.</strong> Le numérateur vaut $n!\,(k+1+n-k)=n!\,(n+1)=(n+1)!$.</li>
+        <li><strong>Conclusion.</strong> La somme vaut $\dfrac{(n+1)!}{(k+1)!\,(n-k)!}$. Or $n-k=(n+1)-(k+1)$ : c'est exactement $\dbinom{n+1}{k+1}$. ∎</li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="triangle-pascal" viewBox="0 0 640 330" role="img" aria-label="Le triangle de Pascal, de la ligne 0 à la ligne 7, centré. Ligne 0 : 1. Ligne 1 : 1, 1. Ligne 2 : 1, 2, 1. Ligne 3 : 1, 3, 3, 1. Ligne 4 : 1, 4, 6, 4, 1. Ligne 5 : 1, 5, 10, 10, 5, 1. Ligne 6 : 1, 6, 15, 20, 15, 6, 1. Ligne 7 : 1, 7, 21, 35, 35, 21, 7, 1. Le 4 et le 6 de la ligne 4 sont en couleur, avec deux flèches vers le 10 de la ligne 5, en couleur aussi : 4 plus 6 égale 10. À gauche, le numéro de chaque ligne ; à droite, sa somme : 1, 2, 4, 8, 16, 32, 64, 128."><text class="petit" x="18" y="39">ligne 0</text><text class="petit" x="624" y="39" text-anchor="end">somme 1</text><text class="formule" x="300.0" y="40" text-anchor="middle">1</text><text class="petit" x="18" y="75">ligne 1</text><text class="petit" x="624" y="75" text-anchor="end">somme 2</text><text class="formule" x="276.0" y="76" text-anchor="middle">1</text><text class="formule" x="324.0" y="76" text-anchor="middle">1</text><text class="petit" x="18" y="111">ligne 2</text><text class="petit" x="624" y="111" text-anchor="end">somme 4</text><text class="formule" x="252.0" y="112" text-anchor="middle">1</text><text class="formule" x="300.0" y="112" text-anchor="middle">2</text><text class="formule" x="348.0" y="112" text-anchor="middle">1</text><text class="petit" x="18" y="147">ligne 3</text><text class="petit" x="624" y="147" text-anchor="end">somme 8</text><text class="formule" x="228.0" y="148" text-anchor="middle">1</text><text class="formule" x="276.0" y="148" text-anchor="middle">3</text><text class="formule" x="324.0" y="148" text-anchor="middle">3</text><text class="formule" x="372.0" y="148" text-anchor="middle">1</text><text class="petit" x="18" y="183">ligne 4</text><text class="petit" x="624" y="183" text-anchor="end">somme 16</text><text class="formule" x="204.0" y="184" text-anchor="middle">1</text><text class="formule t-u plein" x="252.0" y="184" text-anchor="middle">4</text><text class="formule t-u plein" x="300.0" y="184" text-anchor="middle">6</text><text class="formule" x="348.0" y="184" text-anchor="middle">4</text><text class="formule" x="396.0" y="184" text-anchor="middle">1</text><text class="petit" x="18" y="219">ligne 5</text><text class="petit" x="624" y="219" text-anchor="end">somme 32</text><text class="formule" x="180.0" y="220" text-anchor="middle">1</text><text class="formule" x="228.0" y="220" text-anchor="middle">5</text><text class="formule t-u plein" x="276.0" y="220" text-anchor="middle">10</text><text class="formule" x="324.0" y="220" text-anchor="middle">10</text><text class="formule" x="372.0" y="220" text-anchor="middle">5</text><text class="formule" x="420.0" y="220" text-anchor="middle">1</text><text class="petit" x="18" y="255">ligne 6</text><text class="petit" x="624" y="255" text-anchor="end">somme 64</text><text class="formule" x="156.0" y="256" text-anchor="middle">1</text><text class="formule" x="204.0" y="256" text-anchor="middle">6</text><text class="formule" x="252.0" y="256" text-anchor="middle">15</text><text class="formule" x="300.0" y="256" text-anchor="middle">20</text><text class="formule" x="348.0" y="256" text-anchor="middle">15</text><text class="formule" x="396.0" y="256" text-anchor="middle">6</text><text class="formule" x="444.0" y="256" text-anchor="middle">1</text><text class="petit" x="18" y="291">ligne 7</text><text class="petit" x="624" y="291" text-anchor="end">somme 128</text><text class="formule" x="132.0" y="292" text-anchor="middle">1</text><text class="formule" x="180.0" y="292" text-anchor="middle">7</text><text class="formule" x="228.0" y="292" text-anchor="middle">21</text><text class="formule" x="276.0" y="292" text-anchor="middle">35</text><text class="formule" x="324.0" y="292" text-anchor="middle">35</text><text class="formule" x="372.0" y="292" text-anchor="middle">21</text><text class="formule" x="420.0" y="292" text-anchor="middle">7</text><text class="formule" x="468.0" y="292" text-anchor="middle">1</text><g class="trace t-u ep-2"><line x1="258" y1="188" x2="266.8" y2="198.2"/><polygon points="270.0,202.0 261.8,198.1 267.4,193.3"/></g><g class="trace t-u ep-2"><line x1="294" y1="188" x2="285.2" y2="198.2"/><polygon points="282.0,202.0 284.6,193.3 290.2,198.1"/></g></svg><figcaption>Le triangle de Pascal, de la ligne $0$ à la ligne $7$. La ligne $n$ contient $\dbinom n0$, $\dbinom n1$, …, $\dbinom nn$, et chaque nombre est la somme des deux nombres au-dessus de lui : ici $4+6=10$, c'est-à-dire $\dbinom41+\dbinom42=\dbinom52$. Chaque ligne est symétrique, et sa somme est $2^n$ (à droite).</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Construire le triangle, lire un coefficient">
+    <ol class="etapes">
+      <li><span>La ligne $0$ est $1$. Chaque ligne commence et finit par $1$ ($\dbinom n0=\dbinom nn=1$).</span></li>
+      <li><span>Chaque nombre intérieur est la somme des deux nombres de la ligne d'au-dessus qui l'encadrent.</span></li>
+      <li><span>Pour lire $\dbinom nk$ : ligne $n$, $k$-ième nombre <strong>en comptant à partir de $0$</strong>. $\dbinom73$ est le quatrième nombre de la huitième ligne écrite : $35$.</span></li>
+      <li><span>Je vérifie avec la symétrie : chaque ligne se lit pareil dans les deux sens.</span></li>
+    </ol>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-somme">7. Toutes les parties : $\displaystyle\sum_{k=0}^{n}\binom nk=2^n$</h3>
+  <p>Deuxième démonstration du programme : une égalité qui se prouve en comptant <strong>la même chose de deux façons</strong>, sans aucun calcul.</p>
+
+  <div class="bloc theoreme" data-titre="Somme d'une ligne du triangle">
+    <p>Pour tout entier naturel $n$ :</p>
+    $$\binom n0+\binom n1+\binom n2+\dots+\binom nn=\sum_{k=0}^{n}\binom nk=2^n.$$
+  </div>
+
+  <div class="bloc methode" data-titre="Démonstration par dénombrement (au programme)" data-ouvert>
+    <p>Une idée sert partout en combinatoire : si on compte le même ensemble de deux manières, les deux résultats sont égaux. Quel ensemble a $2^n$ éléments ? Cherche avant de dévoiler.</p>
+    <div class="deroule">
+      <p class="consigne"><strong>À démontrer.</strong> $\displaystyle\sum_{k=0}^{n}\binom nk=2^n$, en comptant les parties d'un ensemble $E$ à $n$ éléments.</p>
+      <ol class="pas">
+        <li><strong>Première façon.</strong> D'après la partie 3, $E$ a $2^n$ parties.</li>
+        <li><strong>Deuxième façon : par le nombre d'éléments.</strong> Une partie de $E$ a $0$, ou $1$, …, ou $n$ éléments. Ces $n+1$ cas sont deux à deux disjoints (une partie n'a qu'un seul nombre d'éléments) et couvrent toutes les parties.</li>
+        <li><strong>Chaque cas.</strong> Le nombre de parties à $k$ éléments est $\dbinom nk$. Par le principe additif, le nombre de parties est $\dbinom n0+\dbinom n1+\dots+\dbinom nn$.</li>
+        <li><strong>Conclusion.</strong> On a compté le même ensemble deux fois : $\displaystyle\sum_{k=0}^{n}\binom nk=2^n$. (Le cas $n=0$ se vérifie aussi directement : $\dbinom00=1=2^0$.) ∎</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="La pizza, garniture par garniture">
+    <p>La ligne $8$ du triangle est $1$, $8$, $28$, $56$, $70$, $56$, $28$, $8$, $1$, et sa somme est $256=2^8$ : ce sont les $256$ pizzas de la partie 3, rangées par nombre de garnitures. Les pizzas d'au moins deux garnitures : $256-1-8=247$ (on retire la pizza nue et les $8$ pizzas d'une seule garniture).</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-probas">8. Compter pour calculer une probabilité</h3>
+  <p>C'est là que le dénombrement sert le plus, au bac comme ailleurs : quand toutes les issues ont la même chance, une probabilité est un quotient de deux nombres d'issues.</p>
+
+  <div class="bloc propriete" data-titre="Équiprobabilité (rappel de seconde)">
+    <p>Si l'univers $\Omega$ est fini et que toutes ses issues ont la même probabilité, alors pour tout événement $A$ :</p>
+    $$P(A)=\frac{\mathrm{Card}(A)}{\mathrm{Card}(\Omega)}=\frac{\text{nombre d'issues favorables}}{\text{nombre d'issues possibles}}.$$
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer une probabilité en comptant">
+    <ol class="etapes">
+      <li><span>Je décris <strong>une issue</strong> : un $k$-uplet, un $k$-uplet d'éléments distincts, une combinaison ? Je justifie l'équiprobabilité (« au hasard », « indiscernables au toucher »).</span></li>
+      <li><span>Je compte $\Omega$ avec ce modèle.</span></li>
+      <li><span>Je compte $A$ <strong>avec le même modèle</strong>, souvent par le principe multiplicatif (« $2$ rouges <em>et</em> $1$ verte »).</span></li>
+      <li><span>Pour « au moins un », je passe par le contraire, « aucun » : $P(A)=1-P(\bar A)$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Une urne contient $4$ boules rouges et $6$ vertes, indiscernables au toucher. On en tire $3$ simultanément. Calcule la probabilité d'obtenir exactement $2$ rouges, puis celle d'obtenir au moins une rouge.</p>
+      <ol class="pas">
+        <li><strong>Les issues.</strong> Un tirage simultané est une combinaison de $3$ boules parmi $10$, toutes ont la même chance : $\mathrm{Card}(\Omega)=\dbinom{10}3=120$.</li>
+        <li><strong>Exactement $2$ rouges.</strong> $2$ rouges parmi $4$, <em>et</em> $1$ verte parmi $6$ : $\dbinom42\times\dbinom61=6\times6=36$ tirages. $P=\dfrac{36}{120}=0{,}3$.</li>
+        <li><strong>Le contraire de « au moins une rouge ».</strong> C'est « aucune rouge », $3$ vertes parmi $6$ : $\dbinom63=20$ tirages, de probabilité $\dfrac{20}{120}=\dfrac16$.</li>
+        <li><strong>Conclusion.</strong> $P(\text{au moins une rouge})=1-\dfrac16=\dfrac56\approx0{,}833$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Avec l'ordre, le même résultat">
+    <p>On peut aussi tirer les $3$ boules l'une après l'autre sans remise, et compter avec l'ordre : $\mathrm{Card}(\Omega)=10\times9\times8=720$. Pour « exactement $2$ rouges », la verte est la $1^{re}$, la $2^e$ ou la $3^e$ ($3$ places), puis on remplit : $3\times(6\times4\times3)=216$. Et $\dfrac{216}{720}=0{,}3$ : la même probabilité. L'important n'est pas le modèle choisi, c'est d'utiliser <strong>le même</strong> en haut et en bas.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Un numérateur et un dénominateur comptés différemment">
+    <p>« $\dbinom42\times\dbinom61=36$ tirages favorables sur $10\times9\times8=720$, donc $P=0{,}05$. » Tout le monde s'y fait prendre une fois : le numérateur compte des combinaisons (sans ordre), le dénominateur des listes ordonnées. Chaque combinaison correspond à $3!=6$ listes ; la vraie réponse est six fois plus grande, $0{,}3$. Un résultat qui paraît bien petit est un signal pour vérifier.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le Loto">
+    <p>Une grille de Loto, c'est $5$ numéros parmi $49$ et un numéro « chance » parmi $10$ : $\dbinom{49}5\times10=1\,906\,884\times10=19\,068\,840$ grilles. Une grille jouée a donc une chance sur un peu plus de dix-neuf millions de gagner le gros lot : environ $5\times10^{-8}$.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Et après ? La loi binomiale">
+    <p>En première, tu as compté sur un arbre les chemins qui mènent à exactement deux réussites en trois tirs : il y en avait $3$. C'était $\dbinom32$ : un chemin, c'est un mot de $3$ lettres $S$ ou $\bar S$, et on choisit les $2$ places des $S$. Pour $n$ épreuves, les chemins à $k$ succès sont au nombre de $\dbinom nk$, et on n'a plus besoin de dessiner l'arbre. C'est le point de départ du chapitre « Loi binomiale ».</p>
+  </div>
+
+  <!-- ===== 9 ===== -->
+  <h3 id="c-choisir">9. Face à un dénombrement : quel outil ?</h3>
+  <p>Presque tous les exercices se ramènent à deux questions, dans cet ordre.</p>
+
+  <figure class="figure-svg large"><svg data-figure="deux-questions" viewBox="0 0 740 350" role="img" aria-label="Un organigramme. En haut : l'ordre compte-t-il ? Si non, à gauche : des combinaisons, sans répétition, k parmi n, tirages simultanés. Si oui, à droite, une deuxième question : un élément peut-il revenir ? Si oui : des k-uplets, n puissance k, tirages successifs avec remise. Si non : des k-uplets d'éléments distincts, n factorielle sur n moins k factorielle, tirages successifs sans remise, et n factorielle quand on range tout."><rect class="fond-carte" x="230" y="10" width="220" height="48" rx="10"/><text class="formule" x="340" y="40" text-anchor="middle">L'ordre compte-t-il ?</text><g class="trace t-n ep-2"><line x1="260" y1="58" x2="147.0" y2="112.6"/><polygon points="140.0,116.0 149.2,105.1 154.3,115.6"/></g><text class="petit" x="182" y="80" text-anchor="end">non</text><rect class="fond-carte" x="20" y="120" width="240" height="130" rx="10"/><text class="formule t-u plein" x="140" y="144" text-anchor="middle">des combinaisons</text><text class="note" x="140" y="164" text-anchor="middle">sans répétition</text><g class="trace ep-2"><path d="M133.5,179.0 Q125.5,198.0 133.5,217.0"/><path d="M146.5,179.0 Q154.5,198.0 146.5,217.0"/></g><text class="formule" x="140" y="195" text-anchor="middle">n</text><text class="formule" x="140" y="213" text-anchor="middle">k</text><text class="petit" x="140" y="240" text-anchor="middle">tirages simultanés</text><g class="trace t-n ep-2"><line x1="420" y1="58" x2="512.7" y2="93.2"/><polygon points="520.0,96.0 505.8,96.9 509.9,85.9"/></g><text class="petit" x="486" y="70">oui</text><rect class="fond-carte" x="396" y="98" width="300" height="48" rx="10"/><text class="formule" x="546" y="128" text-anchor="middle">Un élément peut-il revenir ?</text><g class="trace t-n ep-2"><line x1="470" y1="146" x2="416.0" y2="191.0"/><polygon points="410.0,196.0 416.2,183.2 423.7,192.2"/></g><text class="petit" x="426" y="168" text-anchor="end">oui</text><rect class="fond-carte" x="290" y="198" width="196" height="122" rx="10"/><text class="formule t-u plein" x="388" y="224" text-anchor="middle">des k-uplets</text><text class="lettre" x="388" y="260" text-anchor="middle">n<tspan class="ind" dy="-7">k</tspan><tspan dy="7"> </tspan></text><text class="petit" x="388" y="290" text-anchor="middle">successifs,</text><text class="petit" x="388" y="308" text-anchor="middle">avec remise</text><g class="trace t-n ep-2"><line x1="620" y1="146" x2="616.6" y2="188.2"/><polygon points="616.0,196.0 611.2,182.6 622.9,183.5"/></g><text class="petit" x="630" y="174">non</text><rect class="fond-carte" x="502" y="198" width="214" height="122" rx="10"/><text class="formule t-u plein" x="609" y="222" text-anchor="middle">des k-uplets</text><text class="note t-u plein" x="609" y="240" text-anchor="middle">d'éléments distincts</text><text class="formule" x="609" y="266" text-anchor="middle">n! / (n − k)!</text><text class="petit" x="609" y="290" text-anchor="middle">successifs, sans remise</text><text class="petit" x="609" y="308" text-anchor="middle">tout ranger (k = n) : n!</text></svg><figcaption>Les deux questions à se poser. L'ordre compte-t-il ? Si non, ce sont des combinaisons, qui n'ont pas de répétition (sans ordre et avec répétition, c'est hors programme). Si oui, un élément peut-il revenir ? Oui : des $k$-uplets ; non : des $k$-uplets d'éléments distincts, et des permutations quand on range tout.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Les deux questions" data-ouvert>
+    <ol class="etapes">
+      <li><span><strong>L'ordre compte-t-il ?</strong> J'échange deux éléments du résultat : si j'obtiens un résultat différent (un autre podium, un autre code), l'ordre compte ; si c'est le même (le même binôme, la même main), il ne compte pas.</span></li>
+      <li><span><strong>Un élément peut-il revenir ?</strong> Un chiffre peut se répéter dans un code ; un coureur ne peut pas avoir deux médailles.</span></li>
+      <li><span>Je reconnais le tirage : <strong>successifs avec remise</strong> → $n^k$ ; <strong>successifs sans remise</strong> → $n(n-1)\cdots(n-k+1)$ ; <strong>simultanés</strong> → $\dbinom nk$.</span></li>
+      <li><span>Si la situation mélange plusieurs choix, je découpe en étapes (je multiplie) ou en cas (j'additionne). Si elle dit « au moins », je compte le contraire.</span></li>
+      <li><span>Je contrôle sur un petit cas que je peux écrire en entier.</span></li>
+    </ol>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le tableau récapitulatif">
+    <div class="defile">
+    <table>
+      <tr><th>On compte…</th><th>Ordre</th><th>Répétition</th><th>Nombre</th><th>Exemple</th></tr>
+      <tr><td>des $k$-uplets</td><td>oui</td><td>oui</td><td>$n^k$</td><td>un code de $4$ chiffres : $10^4$</td></tr>
+      <tr><td>des $k$-uplets d'éléments distincts</td><td>oui</td><td>non</td><td>$\dfrac{n!}{(n-k)!}$</td><td>un podium de $8$ finalistes : $336$</td></tr>
+      <tr><td>des permutations</td><td>oui</td><td>non</td><td>$n!$</td><td>ranger $5$ livres : $120$</td></tr>
+      <tr><td>des combinaisons</td><td>non</td><td>non</td><td>$\dbinom nk$</td><td>$2$ délégués parmi $28$ : $378$</td></tr>
+      <tr><td>des parties</td><td>non</td><td>non</td><td>$2^n$</td><td>les pizzas de $8$ garnitures : $256$</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <!-- ===== 10 ===== -->
+  <h3 id="c-python">10. Compter et énumérer en Python</h3>
+  <p>Un ordinateur peut écrire toutes les listes que le cours compte, tant qu'elles ne sont pas trop nombreuses. C'est une façon de <strong>vérifier</strong> une formule sur un petit cas.</p>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="La factorielle">
+<pre class="code">def factorielle(n):
+    p = 1
+    for i in range(2, n + 1):
+        p = p * i
+    return p</pre>
+      <p><code>factorielle(10)</code> renvoie $3\,628\,800$ et <code>factorielle(0)</code> renvoie $1$ : la boucle ne tourne pas, $p$ reste à $1$. La convention $0!=1$ tombe toute seule.</p>
+    </div>
+    <div class="bloc exemple" data-titre="Une ligne du triangle de Pascal">
+<pre class="code">def ligne(n):
+    L = [1]
+    for i in range(n):
+        L = [1] + [L[j] + L[j + 1] for j in range(len(L) - 1)] + [1]
+    return L</pre>
+      <p>Chaque tour fabrique la ligne suivante par la relation de Pascal. <code>ligne(5)</code> renvoie <code>[1, 5, 10, 10, 5, 1]</code>, et <code>sum(ligne(5))</code> renvoie $32=2^5$.</p>
+    </div>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Les parties à deux éléments">
+<pre class="code">def paires(E):
+    P = []
+    for i in range(len(E)):
+        for j in range(i + 1, len(E)):
+            P.append([E[i], E[j]])
+    return P</pre>
+      <p><code>paires(['a', 'b', 'c', 'd'])</code> renvoie les $6$ paires. La boucle sur <code>j</code> commence à <code>i + 1</code> : on ne prend jamais deux fois le même élément, et on n'écrit pas <code>['b', 'a']</code> après <code>['a', 'b']</code>. <code>len(paires(list(range(10))))</code> vaut $45=\dbinom{10}2$. Pour les parties à trois éléments, une troisième boucle, sur <code>m</code> de <code>j + 1</code> à <code>len(E) - 1</code>.</p>
+    </div>
+    <div class="bloc exemple" data-titre="Une permutation au hasard">
+<pre class="code">from random import randint
+
+def melanger(L):
+    L = L.copy()
+    for i in range(len(L) - 1, 0, -1):
+        j = randint(0, i)
+        L[i], L[j] = L[j], L[i]
+    return L</pre>
+      <p>On choisit au hasard l'élément de la dernière place parmi les $n$, puis celui de l'avant-dernière parmi les $n-1$ qui restent, etc. : $n\times(n-1)\times\dots\times2=n!$ déroulements possibles, un par permutation, tous de même probabilité. C'est le mélange de Fisher et Yates, utilisé par beaucoup de programmes.</p>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Toutes les permutations, par une fonction qui s'appelle elle-même">
+<pre class="code">def permutations(L):
+    if len(L) &lt;= 1:
+        return [L]
+    P = []
+    for i in range(len(L)):
+        reste = L[:i] + L[i + 1:]
+        for p in permutations(reste):
+            P.append([L[i]] + p)
+    return P</pre>
+    <p>Pour ranger $n$ éléments, on choisit le premier ($n$ choix), puis on range les $n-1$ autres : la fonction s'appelle elle-même sur la liste plus courte. <code>len(permutations([1, 2, 3, 4]))</code> vaut $24=4!$. C'est le principe multiplicatif écrit en Python.</p>
+  </div>
+
+  <!-- ===== Les pièges ===== -->
+  <h3 id="c-pieges">11. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les huit erreurs que tout le monde fait">
+    <ol>
+      <li><strong>Additionner au lieu de multiplier.</strong> $4$ chemises et $3$ pantalons ne font pas $7$ tenues, mais $12$. On multiplie les étapes (« et puis »), on additionne les cas disjoints (« soit… soit… »).</li>
+      <li><strong>Oublier de se demander si l'ordre compte.</strong> Un podium n'est pas un groupe : $\dbinom83=56$ groupes de trois finalistes, mais $8\times7\times6=336$ podiums. Échange deux éléments du résultat : si ça change quelque chose, l'ordre compte.</li>
+      <li><strong>Permettre une répétition qui n'existe pas</strong> (ou l'inverse). $8^3=512$ « podiums », c'est permettre à un coureur d'avoir deux médailles. Un code, lui, peut répéter un chiffre : $10^4$, pas $10\times9\times8\times7$.</li>
+      <li><strong>Compter deux fois dans « au moins un ».</strong> « Un as d'abord ($4$ choix), puis $4$ cartes parmi les $31$ autres » compte deux fois une main qui a deux as. Le réflexe : le contraire, « aucun as », et une soustraction.</li>
+      <li><strong>Compter le haut et le bas d'une probabilité de deux façons différentes.</strong> Des combinaisons au numérateur et des listes ordonnées au dénominateur donnent une probabilité fausse, souvent beaucoup trop petite.</li>
+      <li><strong>Mal simplifier les factorielles.</strong> $\dfrac{n!}{k!}\neq(n-k)!$, $(2n)!\neq2\times n!$, et $0!=1$.</li>
+      <li><strong>Confondre la base et l'exposant.</strong> $n^k$ : $n$ choix, $k$ places. Un code de $4$ chiffres, c'est $10^4$ ; les parties de $10$ éléments, $2^{10}$ et pas $10^2$.</li>
+      <li><strong>Lire le triangle à partir de $1$.</strong> $\dbinom nk$ est à la ligne $n$, position $k$, en comptant <strong>à partir de $0$</strong> : $\dbinom42=6$ est au milieu de la ligne $1\ 4\ 6\ 4\ 1$.</li>
+    </ol>
+  </div>
+
+  <h3 id="c-videos">12. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Les deux principes et les k-uplets"></div>
+    <div class="video" data-titre="Combinaisons et coefficients binomiaux"></div>
+    <div class="video" data-titre="La relation de Pascal, démontrée deux fois"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Quatre laboratoires. D'abord les deux questions du chapitre (l'ordre compte-t-il ? un élément peut-il revenir ?) sur des situations tirées au hasard ; puis le passage des listes aux groupes, qui explique la division par $k!$ ; le triangle de Pascal à remplir ; et les chemins d'un quadrillage, qui sont des mots et des combinaisons.</p>
+
+  <div class="labo" data-labo="denombrement" data-outil="modele"></div>
+  <div class="labo" data-labo="denombrement" data-outil="regrouper"></div>
+  <div class="labo" data-labo="denombrement" data-outil="pascal"></div>
+  <div class="labo" data-labo="denombrement" data-outil="chemins"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des situations au hasard : additionner ou multiplier, codes et mots, podiums, factorielles, combinaisons, triangle de Pascal, parties, chemins, probabilités, et la reconnaissance du bon modèle. Le quiz vérifie les réflexes du chapitre. Le contrôle blanc s'ajoute en bas.</p>
+
+  <div class="jeu" data-generateurs="denombrement" data-questions="10" data-titre="Le défi du dénombrement"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question" data-reponse="1">
+      <p>Combien vaut $0!$ ?</p>
+      <div class="explication">Par convention, $0!=1$ : c'est ce qui rend juste la formule $\dfrac{n!}{(n-k)!}$ quand $k=n$, et il y a une seule façon de ranger zéro objet.</div>
+    </div>
+    <div class="question" data-reponse="1000">
+      <p>Un cadenas a trois molettes, chacune réglable de $0$ à $9$. Combien de codes différents ?</p>
+      <div class="explication">Un code est un triplet de chiffres, et un chiffre peut revenir : $10\times10\times10=10^3=1\,000$.</div>
+    </div>
+    <div class="question" data-reponse="336">
+      <p>Huit finalistes courent un $100$ m. Combien de podiums (or, argent, bronze) sont possibles ?</p>
+      <div class="explication">L'ordre compte (or et argent ne sont pas la même médaille) et un coureur n'a qu'une médaille : $8\times7\times6=336$.</div>
+    </div>
+    <div class="question" data-reponse="45">
+      <p>Calcule $\dbinom{10}2$.</p>
+      <div class="explication">$\dbinom{10}2=\dfrac{10\times9}{2}=45$ : $90$ couples d'éléments distincts, et chaque paire y apparaît deux fois.</div>
+    </div>
+    <div class="question">
+      <p>On tire <strong>simultanément</strong> $3$ boules d'une urne de $10$ boules numérotées. Une issue de cette expérience est…</p>
+      <ul class="choix"><li class="bon">une combinaison de $3$ éléments parmi $10$</li><li>un triplet d'éléments distincts</li><li>un triplet, avec répétitions possibles</li><li>une permutation des $10$ boules</li></ul>
+      <div class="explication">Tirées ensemble, les boules n'ont pas d'ordre et ne peuvent pas sortir deux fois : c'est une partie à $3$ éléments. Il y a $\dbinom{10}3=120$ issues.</div>
+    </div>
+    <div class="question">
+      <p>$\dbinom{20}{18}=$ …</p>
+      <ul class="choix"><li class="bon">$190$</li><li>$380$</li><li>$20$</li><li>$\dfrac{10}9$</li></ul>
+      <div class="explication">Par symétrie, $\dbinom{20}{18}=\dbinom{20}2=\dfrac{20\times19}2=190$. Choisir les $18$ qu'on garde, c'est choisir les $2$ qu'on laisse. $380$ oublie de diviser par $2$, et $\dbinom nk$ n'est pas la fraction $\dfrac nk$.</div>
+    </div>
+    <div class="question" data-reponse="32">
+      <p>Combien de parties a un ensemble à $5$ éléments (en comptant $\varnothing$ et l'ensemble lui-même) ?</p>
+      <div class="explication">Chaque élément est dedans ou dehors : $2^5=32$. Et $1+5+10+10+5+1=32$, la ligne $5$ du triangle.</div>
+    </div>
+    <div class="question">
+      <p>$\dbinom73+\dbinom74=$ …</p>
+      <ul class="choix"><li class="bon">$\dbinom84$</li><li>$\dbinom77$</li><li>$\dbinom{14}7$</li><li>$\dbinom83$</li></ul>
+      <div class="explication">Relation de Pascal avec $n=7$, $k=3$ : $\dbinom73+\dbinom74=\dbinom84$. En nombres : $35+35=70$. On n'ajoute ni les « $n$ » ni les « $k$ » : seuls les deux nombres côte à côte d'une ligne donnent celui d'en dessous.</div>
+    </div>
+    <div class="question" data-reponse="120">
+      <p>De combien de façons peut-on ranger $5$ livres différents sur une étagère ?</p>
+      <div class="explication">Un rangement est une permutation des $5$ livres : $5!=5\times4\times3\times2\times1=120$.</div>
+    </div>
+    <div class="question">
+      <p>Vrai ou faux : « pour $k\geq2$, $\dbinom nk$ compte les listes ordonnées de $k$ éléments distincts pris parmi $n$. »</p>
+      <ul class="choix"><li class="bon">faux</li><li>vrai</li></ul>
+      <div class="explication">Les listes ordonnées sont $k!$ fois plus nombreuses : $n(n-1)\cdots(n-k+1)=k!\times\dbinom nk$. $\dbinom nk$ compte les parties à $k$ éléments, sans ordre.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre. Rédige d'abord sur ton cahier, puis ouvre la correction. Dans chaque réponse, écris ce que tu comptes avant de donner le nombre : « un résultat est un triplet de… ».</p>
+
+  <h3>Niveau 1 · Reconnaître et appliquer</h3>
+
+  <article class="exercice" id="ex-le-menu-du-self" data-titre="Le menu du self" data-niveau="1" data-type="application" data-notions="denombrer" data-duree="8" data-calculatrice="non">
+    <p>Aujourd'hui, le self propose $3$ entrées, $4$ plats et $2$ desserts.<br>
+    1. Combien de menus complets « entrée, plat, dessert » peut-on composer ?<br>
+    2. La formule rapide, c'est un plat avec soit une entrée, soit un dessert (pas les deux). Combien de formules rapides ?<br>
+    3. Justifie l'opération utilisée à la question 2 : pourquoi a-t-on le droit d'additionner ?</p>
+    <details class="correction">
+      <p>1. Un menu est un triplet (entrée ; plat ; dessert) : $3\times4\times2=24$ menus (principe multiplicatif).</p>
+      <p>2. Deux cas : « entrée et plat », $3\times4=12$ ; « plat et dessert », $4\times2=8$. En tout, $12+8=20$ formules (ou $4\times(3+2)=20$).</p>
+      <p>3. Les deux cas sont disjoints : une formule rapide a une entrée ou un dessert, jamais les deux, donc aucune formule n'est comptée deux fois. C'est le principe additif.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-codes-et-mots" data-titre="Codes et mots" data-niveau="1" data-type="application" data-notions="uplets" data-duree="8" data-calculatrice="oui">
+    <p>Pour chaque situation, dis ce qu'est un résultat, puis compte-les (donne le nombre sous forme de puissance, puis en écriture décimale).<br>
+    a) Les codes d'un cadenas à $3$ molettes de $0$ à $9$.<br>
+    b) Les « mots » de $4$ lettres de l'alphabet, qu'ils aient un sens ou non.<br>
+    c) Les codons de l'ADN : des mots de $3$ lettres écrits avec $A$, $C$, $G$, $T$.<br>
+    d) Les plaques d'immatriculation de la forme deux lettres, trois chiffres, deux lettres (AB-123-CD), si toutes les lettres et tous les chiffres étaient permis.</p>
+    <details class="correction">
+      <p>a) Un triplet de $\{0\,;\dots\,;9\}$, répétitions permises : $10^3=1\,000$.</p>
+      <p>b) Un $4$-uplet de lettres : $26^4=456\,976$.</p>
+      <p>c) Un triplet de $\{A\,;C\,;G\,;T\}$ : $4^3=64$.</p>
+      <p>d) $26\times26$ pour les deux premières lettres, $10\times10\times10$ pour les chiffres, $26\times26$ pour les deux dernières : $26^4\times10^3=456\,976\,000$, près d'un demi-milliard. (Dans la réalité, quelques lettres comme I, O et U sont exclues, et le bloc $000$ aussi : il y en a un peu moins.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-podium" data-titre="Le podium" data-niveau="1" data-type="application" data-notions="uplets" data-duree="6" data-calculatrice="non">
+    <p>Dix athlètes disputent la finale du saut en longueur.<br>
+    1. Combien de podiums (or, argent, bronze) sont possibles ?<br>
+    2. Combien de classements complets des dix athlètes ? Donne le résultat avec une factorielle, puis en écriture décimale.<br>
+    3. Inès est en finale. Combien de podiums où Inès a l'or ?</p>
+    <details class="correction">
+      <p>1. Un podium est un triplet d'athlètes distincts (l'ordre compte, un athlète n'a qu'une médaille) : $10\times9\times8=720$.</p>
+      <p>2. Une permutation des dix athlètes : $10!=3\,628\,800$.</p>
+      <p>3. L'or est imposé ; il reste à choisir l'argent ($9$ choix) puis le bronze ($8$ choix) : $9\times8=72$. C'est $\dfrac{720}{10}$ : chacun des dix finalistes a l'or dans un dixième des podiums.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-factorielles" data-titre="Des factorielles" data-niveau="1" data-type="application" data-notions="uplets combinaisons" data-duree="8" data-calculatrice="non">
+    <p>Sans calculatrice, simplifie puis calcule.<br>
+    a) $\dfrac{9!}{7!}$ · b) $\dfrac{10!}{8!\times2!}$ · c) $\dfrac{(n+1)!}{n!}$ · d) $\dfrac{n!}{(n-2)!}$ pour $n\geq2$ · e) $\dfrac{5!}{0!\times5!}$</p>
+    <details class="correction">
+      <p>a) $9!=9\times8\times7!$, donc $\dfrac{9!}{7!}=9\times8=72$.</p>
+      <p>b) $\dfrac{10\times9\times8!}{8!\times2}=\dfrac{90}2=45$ : c'est $\dbinom{10}2$.</p>
+      <p>c) $(n+1)!=(n+1)\times n!$, donc le quotient vaut $n+1$.</p>
+      <p>d) $n!=n\times(n-1)\times(n-2)!$, donc le quotient vaut $n(n-1)$.</p>
+      <p>e) $0!=1$, donc $\dfrac{5!}{1\times5!}=1$ : c'est $\dbinom55$, une seule façon de tout prendre.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-delegues" data-titre="Les délégués" data-niveau="1" data-type="application" data-notions="combinaisons" data-duree="8" data-calculatrice="non">
+    <p>Une classe compte $28$ élèves : $16$ filles et $12$ garçons.<br>
+    1. On élit $2$ délégués, qui ont le même rôle. Combien de binômes possibles ?<br>
+    2. On élit plutôt un délégué et un suppléant. Combien de possibilités ? Compare avec la question 1.<br>
+    3. Combien de binômes de délégués formés d'une fille et d'un garçon ?<br>
+    4. Combien de binômes contiennent au moins une fille ?</p>
+    <details class="indice"><p>Question 4 : le contraire de « au moins une fille », c'est « deux garçons ».</p></details>
+    <details class="correction">
+      <p>1. Un binôme est une partie à $2$ éléments : $\dbinom{28}2=\dfrac{28\times27}2=378$.</p>
+      <p>2. Les rôles diffèrent, l'ordre compte : $28\times27=756=2\times378$. Chaque binôme donne deux couples (délégué, suppléant).</p>
+      <p>3. Une fille parmi $16$ <em>et</em> un garçon parmi $12$ : $16\times12=192$.</p>
+      <p>4. Binômes de deux garçons : $\dbinom{12}2=66$. Donc $378-66=312$ binômes ont au moins une fille. Vérification : $192$ binômes mixtes et $\dbinom{16}2=120$ binômes de deux filles, $192+120=312$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-ligne-du-triangle" data-titre="Une ligne du triangle" data-niveau="1" data-type="application" data-notions="pascal combinaisons" data-duree="8" data-calculatrice="non">
+    <p>1. Écris le triangle de Pascal de la ligne $0$ à la ligne $8$.<br>
+    2. Lis $\dbinom83$ et $\dbinom85$. Pourquoi sont-ils égaux ?<br>
+    3. Calcule la somme des nombres de la ligne $8$. Quel résultat du cours retrouves-tu ?<br>
+    4. Retrouve $\dbinom83$ par la formule $\dfrac{8\times7\times6}{3!}$.</p>
+    <details class="correction">
+      <p>1. $1$ · $1\ 1$ · $1\ 2\ 1$ · $1\ 3\ 3\ 1$ · $1\ 4\ 6\ 4\ 1$ · $1\ 5\ 10\ 10\ 5\ 1$ · $1\ 6\ 15\ 20\ 15\ 6\ 1$ · $1\ 7\ 21\ 35\ 35\ 21\ 7\ 1$ · $1\ 8\ 28\ 56\ 70\ 56\ 28\ 8\ 1$.</p>
+      <p>2. $\dbinom83=56$ et $\dbinom85=56$ : c'est la symétrie $\dbinom nk=\dbinom n{n-k}$ (choisir $3$ éléments à prendre, c'est choisir les $5$ à laisser).</p>
+      <p>3. $1+8+28+56+70+56+28+8+1=256=2^8$ : la somme des $\dbinom8k$ est le nombre de parties d'un ensemble à $8$ éléments.</p>
+      <p>4. $\dfrac{8\times7\times6}{6}=56$. Les deux méthodes concordent.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Choisir le bon modèle</h3>
+
+  <article class="exercice" id="ex-ordre-ou-pas" data-titre="Ordre ou pas ?" data-niveau="2" data-type="application" data-notions="uplets combinaisons" data-duree="12" data-calculatrice="oui">
+    <p>Pour chaque situation, réponds aux deux questions (l'ordre compte-t-il ? un élément peut-il revenir ?), nomme ce qu'on compte, et donne le nombre.<br>
+    a) Le tiercé : les trois premiers chevaux, dans l'ordre, d'une course de $15$ chevaux.<br>
+    b) Le code d'un cadenas à $4$ molettes de $0$ à $9$.<br>
+    c) Une main de $3$ cartes tirée d'un jeu de $32$.<br>
+    d) Un comité de $3$ élèves choisis parmi $25$.<br>
+    e) L'ordre de passage de $6$ candidats à un oral.<br>
+    f) Les résultats de trois lancers successifs d'un dé à six faces.</p>
+    <details class="correction">
+      <p>a) Ordre : oui ; répétition : non. Un triplet de chevaux distincts : $15\times14\times13=2\,730$.</p>
+      <p>b) Ordre : oui ; répétition : oui. Un $4$-uplet de chiffres : $10^4=10\,000$.</p>
+      <p>c) Ordre : non ; répétition : non. Une combinaison : $\dbinom{32}3=4\,960$.</p>
+      <p>d) Ordre : non (les membres ont le même rôle) ; répétition : non. $\dbinom{25}3=2\,300$.</p>
+      <p>e) Ordre : oui ; répétition : non, et on range tout le monde. Une permutation : $6!=720$.</p>
+      <p>f) Ordre : oui (lancers successifs) ; répétition : oui. Un triplet de $\{1\,;\dots\,;6\}$ : $6^3=216$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-mains-de-cartes" data-titre="Les mains de cartes" data-niveau="2" data-type="probleme" data-notions="combinaisons probas" data-duree="15" data-calculatrice="oui">
+    <p>Un jeu de $32$ cartes compte $4$ couleurs (cœur, carreau, trèfle, pique) de $8$ cartes chacune (7, 8, 9, 10, valet, dame, roi, as). On tire une main de $5$ cartes au hasard.<br>
+    1. Combien de mains différentes ?<br>
+    2. Combien de mains contiennent exactement $2$ cœurs ?<br>
+    3. Combien de mains contiennent les $4$ rois ? Combien contiennent un « carré » (quatre cartes de même valeur) ?<br>
+    4. Calcule la probabilité d'obtenir exactement $2$ cœurs, à $10^{-3}$ près.</p>
+    <details class="indice"><p>Question 2 : une main à exactement $2$ cœurs, c'est $2$ cœurs <em>et</em> $3$ cartes qui ne sont pas des cœurs.</p></details>
+    <details class="correction">
+      <p>1. Une main est une combinaison de $5$ cartes parmi $32$ : $\dbinom{32}5=201\,376$.</p>
+      <p>2. $2$ cœurs parmi les $8$, <em>puis</em> $3$ cartes parmi les $24$ autres : $\dbinom82\times\dbinom{24}3=28\times2\,024=56\,672$.</p>
+      <p>3. Les $4$ rois, plus $1$ carte parmi les $28$ autres : $28$ mains. Un carré : $8$ valeurs possibles, et pour chacune $28$ mains, soit $8\times28=224$ (les cas sont disjoints : une main de $5$ cartes ne peut pas contenir deux carrés).</p>
+      <p>4. Les mains sont équiprobables : $P=\dfrac{56\,672}{201\,376}\approx0{,}281$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-anagrammes" data-titre="Les anagrammes" data-niveau="2" data-type="probleme" data-notions="combinaisons uplets" data-duree="12" data-calculatrice="non">
+    <p>Une anagramme d'un mot est un mot (qui a un sens ou non) écrit avec exactement les mêmes lettres.<br>
+    1. Combien le mot MATHS a-t-il d'anagrammes (en le comptant lui-même) ?<br>
+    2. Le mot PASCAL a deux A. Combien d'anagrammes a-t-il ? (Commence par placer les deux A.)<br>
+    3. Même question pour BANANE.<br>
+    4. Combien de mots de $6$ lettres peut-on écrire avec exactement $2$ lettres A et $4$ lettres B ? Fais le lien avec le cours.</p>
+    <details class="indice"><p>Question 2 : les deux A sont identiques. Placer les deux A, c'est choisir $2$ positions parmi $6$, sans ordre.</p></details>
+    <details class="correction">
+      <p>1. Cinq lettres toutes distinctes : une anagramme est une permutation, $5!=120$.</p>
+      <p>2. Les deux A occupent $2$ positions parmi $6$ : $\dbinom62=15$ choix. Puis P, S, C, L se rangent dans les $4$ positions restantes : $4!=24$. En tout $15\times24=360$, soit $\dfrac{6!}2$ : échanger les deux A ne change pas le mot.</p>
+      <p>3. Positions des deux A : $\dbinom62=15$ ; positions des deux N parmi les $4$ restantes : $\dbinom42=6$ ; puis B et E dans les $2$ dernières : $2!=2$. En tout $15\times6\times2=180$.</p>
+      <p>4. Un tel mot est déterminé par les $2$ positions des A (les B prennent les autres) : $\dbinom62=15$ mots. C'est la représentation des combinaisons par des mots.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-chemins-du-quadrillage" data-titre="Les chemins du quadrillage" data-niveau="2" data-type="probleme" data-notions="combinaisons probas" data-duree="15" data-calculatrice="oui">
+    <p>Dans un quartier aux rues quadrillées, Nour va de chez elle, au point $A(0\,;0)$, au lycée, au point $B(5\,;3)$. Elle n'avance que vers l'est (pas $E$, de $1$ vers la droite) ou vers le nord (pas $N$, de $1$ vers le haut).<br>
+    1. Explique pourquoi un trajet est un mot de $8$ lettres formé de $5$ lettres $E$ et de $3$ lettres $N$.<br>
+    2. Combien de trajets différents ?<br>
+    3. La boulangerie est au point $C(2\,;1)$. Combien de trajets passent par la boulangerie ?<br>
+    4. Combien de trajets l'évitent ?<br>
+    5. Chaque matin, Nour choisit un trajet au hasard parmi tous. Quelle est la probabilité qu'elle passe par la boulangerie ?</p>
+    <details class="correction">
+      <p>1. Pour aller de $(0\,;0)$ à $(5\,;3)$, il faut exactement $5$ pas vers l'est et $3$ vers le nord, dans un certain ordre : la liste des pas est un mot de $8$ lettres avec $5$ $E$ et $3$ $N$. Réciproquement, un tel mot décrit un trajet qui arrive en $B$.</p>
+      <p>2. On choisit les $3$ places des $N$ parmi $8$ : $\dbinom83=56$ trajets.</p>
+      <p>3. De $A$ à $C$ : $2$ $E$ et $1$ $N$, soit $\dbinom31=3$ trajets. De $C$ à $B$ : $3$ $E$ et $2$ $N$, soit $\dbinom52=10$. Un trajet par $C$, c'est un morceau $A\to C$ <em>puis</em> un morceau $C\to B$ : $3\times10=30$.</p>
+      <p>4. $56-30=26$ trajets évitent la boulangerie.</p>
+      <p>5. Les trajets sont équiprobables : $P=\dfrac{30}{56}=\dfrac{15}{28}\approx0{,}536$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-deux-formules-par-le-sens" data-titre="Deux formules par le sens" data-niveau="2" data-type="raisonnement" data-notions="combinaisons" data-duree="12" data-calculatrice="non">
+    <p>1. Un tournoi réunit $10$ joueurs ; chacun rencontre chacun des autres une fois. Compte les matchs de deux façons : avec $\dbinom{10}2$, puis en partant des $9$ matchs de chaque joueur. Généralise : pourquoi $\dbinom n2=\dfrac{n(n-1)}2$ ?<br>
+    2. Explique sans aucun calcul pourquoi $\dbinom nk=\dbinom n{n-k}$.<br>
+    3. Explique sans calcul pourquoi $\dbinom n1=n$ et $\dbinom n0=1$.<br>
+    4. Déduis-en $\dbinom{30}{28}$ et $\dbinom{100}{99}$ de tête.</p>
+    <details class="correction">
+      <p>1. Un match est une paire de joueurs : $\dbinom{10}2$. Autre façon : chaque joueur joue $9$ matchs, ce qui fait $10\times9=90$ « participations » ; chaque match en compte deux (un par joueur), donc $\dfrac{90}2=45$ matchs. Avec $n$ joueurs : $\dfrac{n(n-1)}2$, d'où $\dbinom n2=\dfrac{n(n-1)}2$.</p>
+      <p>2. À chaque partie $A$ à $k$ éléments, on associe la partie formée des $n-k$ éléments qui n'y sont pas. C'est une correspondance une à une entre les parties à $k$ éléments et les parties à $n-k$ éléments : il y en a autant. Choisir ceux qu'on prend, c'est choisir ceux qu'on laisse.</p>
+      <p>3. Une partie à un élément est déterminée par cet élément : $n$ choix. Il y a une seule partie à zéro élément, $\varnothing$.</p>
+      <p>4. $\dbinom{30}{28}=\dbinom{30}2=\dfrac{30\times29}2=435$ ; $\dbinom{100}{99}=\dbinom{100}1=100$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-badge-d-acces" data-titre="Le badge d'accès" data-niveau="2" data-type="probleme" data-notions="uplets denombrer probas" data-duree="20" data-calculatrice="oui" data-source="Inspiré de la partie A de l'exercice 3 du bac 2025, centres étrangers, sujet 2">
+    <p>Les badges d'accès d'un hôpital portent un code de $6$ caractères. Chaque caractère est une des $26$ lettres majuscules ou un des $10$ chiffres.<br>
+    1. Combien de codes différents peut-on former ?<br>
+    2. Combien de codes ont leurs $6$ caractères deux à deux distincts ?<br>
+    3. Combien de codes contiennent au moins un chiffre ?<br>
+    4. Combien de codes contiennent exactement deux fois le chiffre $7$ ?<br>
+    5. Un code est attribué au hasard. Quelle est la probabilité qu'il contienne au moins un chiffre ? Arrondis à $10^{-3}$.</p>
+    <details class="indice"><p>Question 4 : choisis d'abord les deux positions du $7$, puis remplis les quatre autres positions avec des caractères qui ne sont pas des $7$.</p></details>
+    <details class="correction">
+      <p>1. Un code est un $6$-uplet d'un ensemble de $36$ caractères : $36^6=2\,176\,782\,336$.</p>
+      <p>2. Un $6$-uplet d'éléments distincts : $36\times35\times34\times33\times32\times31=1\,402\,410\,240$.</p>
+      <p>3. Le contraire : aucun chiffre, donc $6$ lettres, $26^6=308\,915\,776$ codes. Il reste $36^6-26^6=1\,867\,866\,560$ codes avec au moins un chiffre.</p>
+      <p>4. Les deux positions du $7$ : $\dbinom62=15$. Les $4$ autres positions : $35$ caractères chacune (tout sauf $7$), soit $35^4=1\,500\,625$. En tout $15\times1\,500\,625=22\,509\,375$.</p>
+      <p>5. Les codes sont équiprobables : $P=\dfrac{36^6-26^6}{36^6}=1-\left(\dfrac{26}{36}\right)^6\approx0{,}858$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-paires-en-python" data-titre="Les paires en Python" data-niveau="2" data-type="probleme" data-notions="combinaisons" data-duree="15" data-calculatrice="non">
+    <p>On considère la fonction suivante.</p>
+<pre class="code">def paires(E):
+    P = []
+    for i in range(len(E)):
+        for j in range(i + 1, len(E)):
+            P.append([E[i], E[j]])
+    return P</pre>
+    <p>1. Que renvoie <code>paires(['a', 'b', 'c'])</code> ?<br>
+    2. Un élève remplace <code>range(i + 1, len(E))</code> par <code>range(len(E))</code>. Combien d'éléments la liste renvoyée par <code>paires(['a', 'b', 'c', 'd'])</code> contient-elle alors ? Qu'est-ce qui ne va pas ?<br>
+    3. Combien de tours fait la boucle intérieure, en tout, pour une liste de $n$ éléments ? Retrouve ainsi $\dbinom n2$.<br>
+    4. Écris une fonction <code>triplets(E)</code> qui renvoie les parties à $3$ éléments. Combien en renvoie-t-elle pour une liste de $10$ éléments ?</p>
+    <details class="correction">
+      <p>1. <code>[['a', 'b'], ['a', 'c'], ['b', 'c']]</code> : les $3$ paires, chacune une fois.</p>
+      <p>2. La boucle intérieure tourne alors $4$ fois pour chaque $i$ : $16$ listes, c'est-à-dire tous les couples de $E^2$. On y trouve <code>['a', 'a']</code> (un élément pris deux fois) et chaque paire en double (<code>['a', 'b']</code> et <code>['b', 'a']</code>). Ce ne sont plus des parties.</p>
+      <p>3. Pour <code>i</code> $=0$, la boucle sur <code>j</code> fait $n-1$ tours ; pour <code>i</code> $=1$, $n-2$ ; … ; pour le dernier, $0$. En tout $(n-1)+(n-2)+\dots+1+0=\dfrac{n(n-1)}2=\dbinom n2$ : la somme des entiers de première.</p>
+      <p>4. Une troisième boucle :</p>
+<pre class="code">def triplets(E):
+    T = []
+    for i in range(len(E)):
+        for j in range(i + 1, len(E)):
+            for m in range(j + 1, len(E)):
+                T.append([E[i], E[j], E[m]])
+    return T</pre>
+      <p>Pour $10$ éléments, elle renvoie $\dbinom{10}3=120$ triplets : chaque partie à $3$ éléments est écrite une seule fois, dans l'ordre croissant des positions.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Démontrer, comme au bac</h3>
+
+  <article class="exercice" id="ex-pascal-par-le-calcul" data-titre="Pascal par le calcul" data-niveau="3" data-type="raisonnement" data-notions="pascal combinaisons" data-duree="15" data-calculatrice="non">
+    <p>1. Pour $0\leq k\leq n-1$, démontre la relation de Pascal $\dbinom nk+\dbinom n{k+1}=\dbinom{n+1}{k+1}$ à partir de la formule $\dbinom nk=\dfrac{n!}{k!\,(n-k)!}$.<br>
+    2. Vérifie-la pour $n=6$ et $k=2$ en calculant chaque terme.<br>
+    3. En appliquant deux fois la relation de Pascal, montre que pour $n\geq2$ : $\dbinom{n+2}{2}=\dbinom n2+2\dbinom n1+\dbinom n0$. Vérifie pour $n=4$.</p>
+    <details class="indice"><p>Question 1 : le dénominateur commun est $(k+1)!\,(n-k)!$. Pense à $(k+1)!=(k+1)\times k!$.</p></details>
+    <details class="correction">
+      <p>1. On écrit les deux termes avec des factorielles : $\dbinom nk+\dbinom n{k+1}=\dfrac{n!}{k!\,(n-k)!}+\dfrac{n!}{(k+1)!\,(n-k-1)!}$.</p>
+      <p>On les met au dénominateur commun $(k+1)!\,(n-k)!$, avec $(k+1)!=(k+1)\times k!$ et $(n-k)!=(n-k)\times(n-k-1)!$ : la somme vaut $\dfrac{n!\,(k+1)+n!\,(n-k)}{(k+1)!\,(n-k)!}$.</p>
+      <p>Le numérateur vaut $n!\,(k+1+n-k)=n!\,(n+1)=(n+1)!$. La somme vaut donc $\dfrac{(n+1)!}{(k+1)!\,(n-k)!}$ ; comme $n-k=(n+1)-(k+1)$, c'est exactement $\dbinom{n+1}{k+1}$.</p>
+      <p>2. $\dbinom62=15$, $\dbinom63=20$, $\dbinom73=35$ : $15+20=35$.</p>
+      <p>3. $\dbinom{n+2}2=\dbinom{n+1}1+\dbinom{n+1}2$, puis $\dbinom{n+1}1=\dbinom n0+\dbinom n1$ et $\dbinom{n+1}2=\dbinom n1+\dbinom n2$. En ajoutant : $\dbinom{n+2}2=\dbinom n0+2\dbinom n1+\dbinom n2$. Pour $n=4$ : $\dbinom62=15$ et $1+2\times4+6=15$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-toutes-les-parties" data-titre="Toutes les parties" data-niveau="3" data-type="raisonnement" data-notions="combinaisons pascal" data-duree="20" data-calculatrice="non">
+    <p>Une pizzeria propose $8$ garnitures.<br>
+    1. Démontre par dénombrement que pour tout entier naturel $n$, $\displaystyle\sum_{k=0}^{n}\binom nk=2^n$.<br>
+    2. Combien de pizzas différentes la pizzeria peut-elle faire (une pizza est déterminée par l'ensemble de ses garnitures, éventuellement vide) ?<br>
+    3. Combien ont au moins deux garnitures ?<br>
+    4. Combien ont un nombre pair de garnitures ($0$, $2$, $4$, $6$ ou $8$) ? Calcule-le avec la ligne $8$ du triangle.<br>
+    5. Explique pourquoi on trouve exactement la moitié des pizzas : à chaque pizza, associe la pizza obtenue en ajoutant les olives si elle n'en a pas, en les retirant si elle en a.</p>
+    <details class="correction">
+      <p>1. On compte les parties d'un ensemble $E$ à $n$ éléments de deux façons. D'une part, chaque élément est dedans ou dehors : $2^n$ parties. D'autre part, on les range selon leur nombre d'éléments $k$, de $0$ à $n$ : ces cas sont disjoints et il y a $\dbinom nk$ parties à $k$ éléments, donc $\displaystyle\sum_{k=0}^n\binom nk$ parties. Les deux nombres sont égaux.</p>
+      <p>2. $2^8=256$.</p>
+      <p>3. On retire la pizza sans garniture et les $8$ pizzas à une garniture : $256-1-8=247$.</p>
+      <p>4. $\dbinom80+\dbinom82+\dbinom84+\dbinom86+\dbinom88=1+28+70+28+1=128$.</p>
+      <p>5. Ajouter ou retirer les olives change le nombre de garnitures de $1$ : une pizza paire devient impaire, et inversement. Faire l'opération deux fois revient au point de départ, donc chaque pizza impaire est obtenue à partir d'une et une seule pizza paire. Il y a autant de pizzas paires que d'impaires : $\dfrac{256}2=128$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-controle-qualite" data-titre="Le contrôle qualité" data-niveau="3" data-type="probleme" data-notions="combinaisons probas" data-duree="25" data-calculatrice="oui">
+    <p>Un laboratoire pharmaceutique contrôle un lot de $20$ flacons, dont $3$ sont défectueux (on ne le sait pas à l'avance). Le contrôleur prélève simultanément $4$ flacons au hasard.<br>
+    1. Combien de prélèvements différents sont possibles ?<br>
+    2. Calcule la probabilité qu'aucun flacon prélevé ne soit défectueux, puis la probabilité qu'au moins un le soit. Arrondis à $10^{-3}$.<br>
+    3. Calcule la probabilité que le prélèvement contienne exactement un flacon défectueux.<br>
+    4. Un camarade propose de modéliser par $4$ tirages indépendants avec la probabilité $\dfrac3{20}$ de défaut à chaque fois. Pourquoi n'est-ce pas exact ici ? Quelle valeur ce modèle donnerait-il pour « aucun défectueux » ?<br>
+    5. Le laboratoire veut que la probabilité de détecter au moins un flacon défectueux dépasse $0{,}9$. Montre que si on prélève $n$ flacons ($1\leq n\leq17$), la probabilité de n'en voir aucun est $\frac{(20-n)(19-n)(18-n)}{6\,840}$ (où $6\,840=20\times19\times18$), puis trouve le plus petit $n$ qui convient.</p>
+    <details class="indice"><p>Question 5 : $\dbinom{17}n\Big/\dbinom{20}n$ ; écris les deux coefficients avec des factorielles, et simplifie.</p></details>
+    <details class="correction">
+      <p>1. Un prélèvement est une combinaison de $4$ flacons parmi $20$ : $\dbinom{20}4=4\,845$.</p>
+      <p>2. Aucun défectueux : $4$ flacons parmi les $17$ bons, $\dbinom{17}4=2\,380$. $P=\dfrac{2\,380}{4\,845}\approx0{,}491$. Au moins un défectueux : $1-0{,}491\approx0{,}509$ (valeur exacte $\dfrac{2\,465}{4\,845}$).</p>
+      <p>3. $1$ défectueux parmi $3$ <em>et</em> $3$ bons parmi $17$ : $3\times\dbinom{17}3=3\times680=2\,040$. $P=\dfrac{2\,040}{4\,845}\approx0{,}421$.</p>
+      <p>4. Les flacons ne sont pas remis : après un flacon défectueux, il n'en reste que $2$ sur $19$, la probabilité change d'un tirage à l'autre. Les tirages ne sont donc pas indépendants. Le modèle donnerait $\left(\dfrac{17}{20}\right)^4\approx0{,}522$ pour « aucun défectueux », au lieu de $0{,}491$. Il devient raisonnable quand le lot est très grand devant le prélèvement.</p>
+      <p>5. $\dfrac{\binom{17}n}{\binom{20}n}=\dfrac{17!}{n!\,(17-n)!}\times\dfrac{n!\,(20-n)!}{20!}$. On simplifie par $n!$ et on regroupe : $\dfrac{(20-n)!}{(17-n)!}\times\dfrac{17!}{20!}$, soit $\frac{(20-n)(19-n)(18-n)}{6\,840}$ puisque $20\times19\times18=6\,840$. On veut que cette probabilité soit inférieure à $0{,}1$. Pour $n=10$ : $\dfrac{10\times9\times8}{6\,840}\approx0{,}105$, trop. Pour $n=11$ : $\dfrac{9\times8\times7}{6\,840}\approx0{,}074$. Quand $n$ augmente, chacun des trois facteurs $20-n$, $19-n$, $18-n$ diminue (et reste positif tant que $n\leq17$) : le quotient diminue. Il faut donc prélever au moins $11$ flacons, plus de la moitié du lot.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="3" data-type="corrige-ia" data-notions="combinaisons probas" data-duree="15" data-calculatrice="oui">
+    <p>Un élève a demandé à une IA : « Dans un jeu de $32$ cartes, combien de mains de $5$ cartes contiennent au moins un as ? Quelle est la probabilité d'avoir au moins un as ? » Voici la réponse. Trouve les erreurs (il y en a trois), puis rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« Pour avoir au moins un as, je choisis d'abord l'as : $4$ façons, puisqu'il y a $4$ as. Il reste ensuite $31$ cartes, parmi lesquelles je choisis les $4$ autres : $\dbinom{31}4=31\,465$ façons. Par le principe multiplicatif, il y a $4\times31\,465=125\,860$ mains contenant au moins un as. Vérification : c'est bien moins que le nombre total de mains, $32\times31\times30\times29\times28=24\,165\,120$, donc le résultat est cohérent. La probabilité vaut $\dfrac{125\,860}{24\,165\,120}\approx0{,}005$ : à peine une chance sur deux cents d'avoir un as. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 : le double comptage.</strong> Une main qui contient deux as, par exemple l'as de cœur et l'as de pique, est comptée deux fois : une fois quand l'as « choisi d'abord » est celui de cœur (l'as de pique faisant partie des $4$ autres cartes), une fois quand c'est celui de pique. Une main à trois as est comptée trois fois. Le nombre $125\,860$ est trop grand de $22\,764$.</p>
+      <p><strong>Erreur 2 : deux modèles différents en haut et en bas.</strong> $32\times31\times30\times29\times28$ compte des listes ordonnées de $5$ cartes, alors qu'une main n'a pas d'ordre : le nombre de mains est $\dbinom{32}5=201\,376$. Le quotient divise donc un nombre de mains (sans ordre) par un nombre de listes ordonnées : il est faux même si le numérateur était juste.</p>
+      <p><strong>Erreur 3 : une vérification qui ne vérifie rien, et un résultat invraisemblable accepté.</strong> Être plus petit qu'un total ne prouve pas qu'un nombre est juste : $125\,860$ est d'ailleurs plus grand que la bonne réponse. Et avec $4$ as dans $32$ cartes et $5$ cartes en main, on s'attend à avoir un as à peu près une fois sur deux, pas une fois sur deux cents : un résultat aussi loin de l'intuition aurait dû alerter.</p>
+      <p><strong>La réponse correcte.</strong> Le contraire de « au moins un as » est « aucun as » : $5$ cartes parmi les $28$ qui ne sont pas des as, $\dbinom{28}5=98\,280$ mains. Donc $201\,376-98\,280=103\,096$ mains contiennent au moins un as, et la probabilité vaut $\dfrac{103\,096}{201\,376}\approx0{,}512$. La réponse de l'IA était fluide, sûre d'elle, et fausse d'un facteur cent sur la probabilité : le réflexe, c'est de comparer un résultat à ce qu'on attend avant de le croire.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Comment savoir si l'ordre compte ?</summary>
+      <div><p>Échange deux éléments du résultat et demande-toi si tu obtiens autre chose. Échanger l'or et l'argent change le podium : l'ordre compte. Échanger deux cartes dans ta main ne change pas ta main : l'ordre ne compte pas. Les mots de l'énoncé aident aussi : « successivement », « dans l'ordre », « le premier, le deuxième » font pencher vers l'ordre ; « simultanément », « une poignée », « un groupe », « une main », vers les combinaisons.</p></div></details>
+    <details><summary>Pourquoi 0! = 1 ?</summary>
+      <div><p>C'est une convention, mais pas un caprice. Avec $0!=1$, les formules $\dfrac{n!}{(n-k)!}$ et $\dfrac{n!}{k!\,(n-k)!}$ marchent aussi pour $k=n$ et pour $k=0$. Et l'idée tient debout : il y a une seule façon de ranger zéro objet, ne rien faire. C'est comme $2^0=1$ : le produit de « rien du tout » vaut $1$.</p></div></details>
+    <details><summary>Avec remise, sans remise, simultanément : quelle différence ?</summary>
+      <div><p><strong>Avec remise</strong>, on remet la boule avant le tirage suivant : la même peut ressortir, on compte des $k$-uplets, $n^k$. <strong>Sans remise</strong>, on ne la remet pas, mais on note l'ordre : $k$-uplets d'éléments distincts, $n(n-1)\cdots(n-k+1)$. <strong>Simultanément</strong>, on prend tout d'un coup : pas d'ordre, pas de répétition, des combinaisons, $\dbinom nk$. Pour une probabilité, « sans remise » et « simultanément » donnent le même résultat, à condition de compter de la même façon en haut et en bas.</p></div></details>
+    <details><summary>Pourquoi passer par le contraire pour « au moins un » ?</summary>
+      <div><p>Parce que « au moins un » regroupe plein de cas (exactement un, exactement deux…), et que la tentation de les compter d'un coup (« j'en prends un, puis n'importe quoi ») compte certaines issues plusieurs fois. Le contraire, « aucun », est un seul cas, qui se compte d'un coup. On soustrait du total, et c'est fini.</p></div></details>
+    <details><summary>Ma calculatrice sait calculer k parmi n ?</summary>
+      <div><p>Oui : cherche « Combinaison » ou <code>nCr</code> dans le menu des probabilités (ou de la combinatoire), et $n!$ au même endroit. $\dbinom{32}5$ s'écrit souvent <code>32 nCr 5</code> ou <code>nCr(32,5)</code>. C'est utile au bac, où la calculatrice est autorisée. Mais sache aussi les calculer à la main pour $k=0$, $1$, $2$, et avec la symétrie : $\dbinom{30}{28}=\dbinom{30}2=435$ va plus vite de tête.</p></div></details>
+    <details><summary>Et le mot « arrangement » ?</summary>
+      <div><p>Beaucoup de livres et de sites appellent « arrangement » un $k$-uplet d'éléments distincts, et notent leur nombre $A_n^k=\dfrac{n!}{(n-k)!}$. Le programme de terminale n'emploie ni le mot ni la notation, mais tu peux les croiser : c'est exactement ce que le cours appelle un $k$-uplet d'éléments distincts. La vieille notation $C_n^k$ désigne $\dbinom nk$.</p></div></details>
+    <details><summary>Et la formule du binôme de Newton ?</summary>
+      <div><p>Elle développe $(a+b)^n$ avec les coefficients $\dbinom nk$ : c'est de là que vient leur nom de « coefficients binomiaux ». Elle n'est pas au programme de la spécialité, mais à celui de l'option maths expertes, où elle est démontrée dans le chapitre <a href="../terminale-expertes/complexes-algebrique.html#c-binome">« Nombres complexes : forme algébrique et équations »</a>. La relation de Pascal en est la clé.</p></div></details>
+    <details><summary>Au bac, qu'est-ce qui tombe ?</summary>
+      <div><p>Le dénombrement apparaît surtout dans des exercices de probabilités : compter des codes, des mots, des tirages, des mains, souvent avec « au moins un » ou « exactement $k$ », puis en déduire une probabilité. Il peut faire toute une partie d'un exercice, suivie d'une partie sur la loi binomiale. L'exercice « Le badge d'accès » est le modèle ; « Le contrôle qualité » demande en plus de distinguer tirage avec et sans remise. Les deux démonstrations du programme (Pascal et la somme $2^n$) sont à savoir refaire.</p></div></details>
+  </div>
+</section>
+</main>
+</body>
+</html>
