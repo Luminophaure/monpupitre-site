@@ -1,0 +1,981 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de newton.figures.py.
+     Fabriquer la page : python3 outils/figures.py physique-chimie/terminale/newton.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Mouvement et deuxième loi de Newton · Terminale</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=777d4f002b">
+<script type="module" src="../../assets/js/site.js?v=b8c0332392"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YOV3MPYA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ZGXYQFXP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-HA25DEFB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ENKCFD2X.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KMAN6GHR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QJHGDKSX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LDUECZYH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PENILRM4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-A6P62AUH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UIYUFPXH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-2YVRNAKX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QRSN3BQL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3YYESB7U.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FVVGSAX5.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-I7FXDBZR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-SQSIYAEI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-WBNZSXCP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Z7MBT6SG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ZP447UBG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/newton.js?v=fd6bfcffe0">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/newton.js?v=13eb9a65a0">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-LXD52375.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="physique-chimie" data-chapitre="newton" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Terminale spécialité physique-chimie · Mouvement et interactions</span>
+  <h1>Mouvement et deuxième loi de Newton</h1>
+  <p class="chapeau">Un ballon lancé, une voiture dans un rond-point, un satellite autour de la Terre : la même loi explique les trois. Pour la lire, tu décris d'abord le mouvement avec deux vecteurs, la <strong>vitesse</strong> et l'<strong>accélération</strong>. Puis la <strong>deuxième loi de Newton</strong> relie l'accélération aux forces. Le reste du chapitre l'applique : le lancer, la particule chargée, l'orbite.</p>
+  <ul class="objectifs">
+    <li>Définir la vitesse et l'accélération comme des dérivées</li><li>Caractériser l'accélération d'un mouvement rectiligne ou circulaire</li><li>Appliquer la deuxième loi de Newton dans les deux sens</li><li>Établir équations horaires et trajectoire dans un champ uniforme</li><li>Utiliser l'énergie mécanique et le théorème de l'énergie cinétique</li><li>Établir la troisième loi de Kepler</li><li>Représenter des vecteurs accélération en Python</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Un chapitre, quatre métiers.</strong> Le geste d'un athlète, le choc d'une voiture, un faisceau de particules, un satellite : ouvre la situation qui te parle.</p>
+    <details>
+      <summary>Au stade : le lancer filmé image par image</summary>
+      <p>Au centre d'entraînement, une caméra filme à 240 images par seconde le lancer de poids d'une athlète. Le logiciel repère le poids sur chaque image et en tire la vitesse à la sortie de la main : $13{,}2$ m·s⁻¹, à $38°$ au-dessus de l'horizontale, depuis $2{,}1$ m de haut. Le modèle de ce chapitre annonce $19{,}6$ m. L'entraîneur cherche alors ce qui rapporte le plus : un degré de plus, ou un dixième de mètre par seconde ?</p>
+      <p class="discret">Ils s'en servent : les entraîneurs et préparateurs physiques, les ingénieurs en biomécanique, les kinésithérapeutes du sport.</p>
+    </details>
+    <details>
+      <summary>Sur la route : le choc à 50 km/h</summary>
+      <p>Une voiture lancée à $50$ km·h⁻¹ heurte un mur et s'arrête en un dixième de seconde. Son accélération moyenne vaut environ $140$ m·s⁻², quatorze fois celle de la pesanteur. Pour arrêter aussi vite un passager de $70$ kg, il faut une force de près de $10\,000$ N : c'est le travail de la ceinture et de l'airbag, qui la répartissent sur le corps.</p>
+      <p class="discret">Ils s'en servent : les ingénieurs en sécurité automobile, les techniciens d'essais, les experts en accidentologie.</p>
+    </details>
+    <details>
+      <summary>À l'hôpital : l'accélérateur de radiothérapie</summary>
+      <p>Dans la salle de traitement, un accélérateur linéaire pousse des électrons le long d'un tube d'environ un mètre. À chaque étage, une tension électrique les accélère un peu plus, jusqu'à plus de $99$ % de la vitesse de la lumière. Les électrons frappent ensuite une cible et produisent les rayons X qui traitent une tumeur. Le principe, une tension qui accélère une particule chargée, est dans ce chapitre. Le calcul à ces vitesses demande une autre physique, la relativité.</p>
+      <p class="discret">Ils s'en servent : les physiciens médicaux, les manipulateurs en électroradiologie médicale, les dosimétristes, les techniciens biomédicaux.</p>
+    </details>
+    <details>
+      <summary>Dans l'espace : le satellite qui ne bouge pas</summary>
+      <p>Vu du sol, le satellite météorologique Météosat semble immobile, au-dessus du golfe de Guinée. Il tourne pourtant à plus de $3$ km·s⁻¹, à $35\,800$ km d'altitude. Là-haut, un tour d'orbite dure exactement le temps que la Terre met à tourner sur elle-même : $23$ h $56$ min. C'est la troisième loi de Kepler qui fixe cette altitude, et pas une autre.</p>
+      <p class="discret">Ils s'en servent : les ingénieurs spatiaux, les techniciens des stations au sol, les météorologues.</p>
+    </details>
+    <p class="discret">Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-decrire">1. Décrire un mouvement</h3>
+
+  <div class="bloc remarque" data-titre="Ce que tu sais depuis la seconde">
+    <p>On étudie toujours le mouvement d'un <strong>système</strong> (le ballon, la voiture), par rapport à un <strong>référentiel</strong> (le sol, la Terre, le Soleil). Le mouvement dépend du référentiel : le passager d'un train est immobile dans le train, mais il file à $300$ km·h⁻¹ par rapport au quai.</p>
+    <p><strong>Le principe d'inertie</strong> : si les forces qui s'exercent sur un système se compensent, il reste immobile ou garde un mouvement rectiligne uniforme. Ce chapitre dit ce qui se passe quand elles ne se compensent pas.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Vecteur position et équations horaires">
+    <p>On lie au référentiel un repère $(O\,;\vec\imath,\vec\jmath,\vec k)$. La position d'un point $M$ à la date $t$ est donnée par le <strong>vecteur position</strong> :</p>
+    <p class="formule">$\overrightarrow{OM}(t)=x(t)\,\vec\imath+y(t)\,\vec\jmath+z(t)\,\vec k$</p>
+    <ul>
+      <li>les fonctions $x(t)$, $y(t)$, $z(t)$ sont les <strong>équations horaires</strong> du mouvement, en mètres (m) ;</li>
+      <li>la <strong>trajectoire</strong> est l'ensemble des positions occupées par $M$ au cours du temps.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-vitesse">2. Le vecteur vitesse</h3>
+
+  <div class="bloc definition" data-titre="Vecteur vitesse">
+    <p>Le vecteur vitesse est la <strong>dérivée du vecteur position</strong> par rapport au temps :</p>
+    <p class="formule">$\vec v(t)=\dfrac{d\overrightarrow{OM}}{dt}$ &nbsp;&nbsp; donc &nbsp;&nbsp; $v_x=\dfrac{dx}{dt}$, &nbsp; $v_y=\dfrac{dy}{dt}$, &nbsp; $v_z=\dfrac{dz}{dt}$</p>
+    <ul>
+      <li>sa valeur s'exprime en mètres par seconde (m·s⁻¹) : $v=\sqrt{v_x^2+v_y^2+v_z^2}$ ;</li>
+      <li>il est <strong>tangent à la trajectoire</strong> et orienté dans le sens du mouvement.</li>
+    </ul>
+  </div>
+
+  <p>En TP, tu ne connais pas $x(t)$ : tu as une <strong>chronophotographie</strong> ou un pointage vidéo, des positions $M_0, M_1, M_2\dots$ prises à intervalles réguliers $\tau$. La dérivée se remplace alors par un quotient sur un petit intervalle, centré sur le point étudié.</p>
+
+  <figure class="figure-svg large"><svg data-figure="chrono_vitesse" viewBox="0 0 540 294" role="img" aria-label="Chronophotographie d'une balle lancée : onze positions M0 à M10 prises toutes les 0,1 seconde, sur une trajectoire en cloche. Au point M4, le vecteur vitesse est tracé dans la direction de la corde qui joint M3 à M5, tangent à la trajectoire, dans le sens du mouvement."><circle class="pt" cx="32.0" cy="238.0" r="4.2"/><circle class="pt" cx="73.8" cy="183.9" r="4.2"/><circle class="pt" cx="115.5" cy="140.7" r="4.2"/><circle class="pt" cx="157.3" cy="108.5" r="4.2"/><text class="lettre halo" x="157.3" y="134.5" text-anchor="middle">M<tspan class="ind" dy="5">3</tspan></text><circle class="pt" cx="199.0" cy="87.4" r="4.2"/><text class="lettre halo" x="199.0" y="113.4" text-anchor="middle">M<tspan class="ind" dy="5">4</tspan></text><circle class="pt" cx="240.8" cy="77.2" r="4.2"/><text class="lettre halo" x="240.8" y="103.2" text-anchor="middle">M<tspan class="ind" dy="5">5</tspan></text><circle class="pt" cx="282.5" cy="78.0" r="4.2"/><circle class="pt" cx="324.3" cy="89.7" r="4.2"/><circle class="pt" cx="366.1" cy="112.5" r="4.2"/><circle class="pt" cx="407.8" cy="146.3" r="4.2"/><circle class="pt" cx="449.6" cy="191.0" r="4.2"/><g class="trace t-n fin pointille"><line x1="157.3" y1="108.5" x2="240.8" y2="77.2"/></g><g class="trace t-u ep-2-5"><line x1="199.0" y1="87.4" x2="273.8" y2="59.3"/></g><polygon class="plein t-u" points="281.0,56.5 272.4,64.7 269.1,56.1"/><text class="nom-vec t-u halo" x="285.0" y="44.5" text-anchor="middle">v<tspan class="ind" dy="5">4</tspan></text><text class="petit halo" x="260.0" y="262.0" text-anchor="middle">une position toutes les τ = 0,1 s</text></svg><figcaption>Au point $M_4$, la vitesse se lit sur la corde $M_3M_5$ : $v_4\approx\dfrac{M_3M_5}{2\tau}$. Le vecteur $\vec v_4$ a la direction de cette corde, presque tangente à la trajectoire, dans le sens du mouvement.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Construire un vecteur vitesse sur une chronophotographie">
+    <ol class="etapes">
+      <li><span>Je repère les deux positions qui encadrent le point $M_i$ : $M_{i-1}$ et $M_{i+1}$.</span></li>
+      <li><span>Je mesure $M_{i-1}M_{i+1}$ sur le document, puis je la convertis en vraie distance avec l'échelle.</span></li>
+      <li><span>Je divise par la durée qui sépare les deux positions, $2\tau$ : $v_i\approx\dfrac{M_{i-1}M_{i+1}}{2\tau}$.</span></li>
+      <li><span>Je trace $\vec v_i$ en $M_i$, parallèle à $M_{i-1}M_{i+1}$, dans le sens du mouvement, avec l'échelle des vitesses choisie.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Sur une chronophotographie, les positions sont prises toutes les $\tau=40$ ms et $1$ cm sur le document représente $20$ cm en vrai. On mesure $M_3M_5=3{,}2$ cm. Calculer la vitesse au point $M_4$, puis la longueur de la flèche avec l'échelle $1$ cm pour $2$ m·s⁻¹.</p>
+      <ol class="pas">
+        <li><strong>La vraie distance.</strong> $3{,}2$ cm sur le document, c'est $3{,}2\times20=64$ cm, soit $0{,}64$ m.</li>
+        <li><strong>La durée.</strong> De $M_3$ à $M_5$, deux intervalles : $2\tau=0{,}080$ s.</li>
+        <li><strong>La vitesse.</strong> $v_4\approx\dfrac{0{,}64}{0{,}080}=8{,}0$ m·s⁻¹.</li>
+        <li><strong>La flèche.</strong> À $1$ cm pour $2$ m·s⁻¹, elle mesure $4{,}0$ cm, parallèle à $M_3M_5$, dans le sens du mouvement.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-acceleration">3. Le vecteur accélération</h3>
+
+  <div class="bloc definition" data-titre="Vecteur accélération">
+    <p>Le vecteur accélération est la <strong>dérivée du vecteur vitesse</strong> par rapport au temps :</p>
+    <p class="formule">$\vec a(t)=\dfrac{d\vec v}{dt}$ &nbsp;&nbsp; donc &nbsp;&nbsp; $a_x=\dfrac{dv_x}{dt}$, &nbsp; $a_y=\dfrac{dv_y}{dt}$, &nbsp; $a_z=\dfrac{dv_z}{dt}$</p>
+    <p>Sa valeur s'exprime en mètres par seconde au carré (m·s⁻²). Il mesure à quelle vitesse <strong>le vecteur vitesse change</strong> : en valeur, en direction ou en sens.</p>
+  </div>
+
+  <div class="bloc piege" data-titre="Accélérer, en physique, ce n'est pas aller plus vite">
+    <p>Dans la vie courante, « accélérer » veut dire « aller plus vite ». En physique, il y a accélération dès que le <strong>vecteur</strong> vitesse change :</p>
+    <ul>
+      <li>une voiture qui <strong>freine</strong> accélère : son accélération est opposée à sa vitesse ;</li>
+      <li>une voiture qui prend un virage <strong>à vitesse constante</strong> accélère : sa vitesse change de direction ;</li>
+      <li>un ballon <strong>au sommet</strong> de sa trajectoire accélère : sa vitesse passe de « vers le haut » à « vers le bas ».</li>
+    </ul>
+    <p>Tout le monde dessine d'abord l'accélération dans le sens de la vitesse. Ce n'est vrai qu'en ligne droite, quand la vitesse augmente.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="chrono_acceleration" viewBox="0 0 540 294" role="img" aria-label="La même chronophotographie. Au point M5, près du sommet, les vecteurs vitesse v4 et v6 sont reportés depuis M5 ; le vecteur variation de vitesse, de la pointe de v4 à la pointe de v6, est vertical et dirigé vers le bas. Le vecteur accélération en M5 a la même direction et le même sens : vertical, vers le bas."><circle class="pt" cx="32.0" cy="238.0" r="4.2"/><circle class="pt" cx="73.8" cy="183.9" r="4.2"/><circle class="pt" cx="115.5" cy="140.7" r="4.2"/><circle class="pt" cx="157.3" cy="108.5" r="4.2"/><circle class="pt" cx="199.0" cy="87.4" r="4.2"/><circle class="pt" cx="240.8" cy="77.2" r="4.2"/><text class="lettre halo" x="214.8" y="83.2" text-anchor="middle">M<tspan class="ind" dy="5">5</tspan></text><circle class="pt" cx="282.5" cy="78.0" r="4.2"/><circle class="pt" cx="324.3" cy="89.7" r="4.2"/><circle class="pt" cx="366.1" cy="112.5" r="4.2"/><circle class="pt" cx="407.8" cy="146.3" r="4.2"/><circle class="pt" cx="449.6" cy="191.0" r="4.2"/><g class="trace t-u ep-2-5"><line x1="240.8" y1="77.2" x2="323.1" y2="46.3"/></g><polygon class="plein t-u" points="330.3,43.6 321.6,51.8 318.3,43.1"/><g class="trace t-u ep-2-5"><line x1="240.8" y1="77.2" x2="322.6" y2="89.5"/></g><polygon class="plein t-u" points="330.3,90.6 318.7,93.6 320.1,84.4"/><text class="nom-vec t-u halo" x="308.3" y="37.6" text-anchor="middle">v<tspan class="ind" dy="5">4</tspan></text><text class="nom-vec t-u halo" x="344.3" y="100.6" text-anchor="middle">v<tspan class="ind" dy="5">6</tspan></text><g class="trace t-v ep-2 pointille"><line x1="330.3" y1="43.6" x2="330.3" y2="82.9"/></g><polygon class="plein t-v" points="330.3,90.6 325.6,79.6 334.9,79.6"/><text class="nom-vec t-v halo" x="354.3" y="71.1" text-anchor="middle">Δv</text><g class="trace t-v ep-2-5"><line x1="240.8" y1="77.2" x2="240.8" y2="123.4"/></g><polygon class="plein t-v" points="240.8,131.1 236.2,120.1 245.4,120.1"/><text class="nom-vec t-v halo" x="226.8" y="135.1" text-anchor="middle">a<tspan class="ind" dy="5">5</tspan></text><text class="petit halo" x="260.0" y="262.0" text-anchor="middle">a₅ ≈ Δv / (2τ) : vertical, vers le bas</text></svg><figcaption>Au point $M_5$, près du sommet : $\Delta\vec v=\vec v_6-\vec v_4$ va de la pointe de $\vec v_4$ à la pointe de $\vec v_6$. Il est vertical et vers le bas, et $\vec a_5\approx\dfrac{\Delta\vec v}{2\tau}$ aussi. Même au sommet, l'accélération n'est pas nulle.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Construire un vecteur accélération sur une chronophotographie">
+    <ol class="etapes">
+      <li><span>Je construis les vitesses aux deux points qui encadrent $M_i$ : $\vec v_{i-1}$ et $\vec v_{i+1}$.</span></li>
+      <li><span>Je les reporte toutes deux depuis $M_i$, avec la même échelle.</span></li>
+      <li><span>Je trace $\Delta\vec v=\vec v_{i+1}-\vec v_{i-1}$, de la pointe de $\vec v_{i-1}$ à la pointe de $\vec v_{i+1}$, et je mesure sa longueur.</span></li>
+      <li><span>Je divise par $2\tau$ : $\vec a_i\approx\dfrac{\Delta\vec v}{2\tau}$, même direction et même sens que $\Delta\vec v$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Sur un pointage, $\tau=0{,}080$ s. On a calculé $\vec v_3$ de coordonnées $(2{,}0\,;\,1{,}2)$ et $\vec v_5$ de coordonnées $(2{,}0\,;\,-0{,}40)$, en m·s⁻¹ ($y$ vers le haut). Déterminer $\vec a_4$.</p>
+      <ol class="pas">
+        <li><strong>La variation de vitesse.</strong> $\Delta\vec v=\vec v_5-\vec v_3$ a pour coordonnées $(2{,}0-2{,}0\,;\,-0{,}40-1{,}2)=(0\,;\,-1{,}6)$ m·s⁻¹.</li>
+        <li><strong>La durée.</strong> De $M_3$ à $M_5$ : $2\tau=0{,}16$ s.</li>
+        <li><strong>L'accélération.</strong> $\vec a_4\approx\dfrac{\Delta\vec v}{2\tau}$ : $(0\,;\,-10)$ m·s⁻². Verticale, vers le bas, de valeur $10$ m·s⁻² : à la précision du pointage, c'est $g$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Des équations horaires à l'accélération">
+    <p>Un ballon a pour équations horaires $x(t)=2{,}0\,t$ et $y(t)=-4{,}9\,t^2+3{,}0\,t+1{,}5$ (en m, $t$ en s).</p>
+    <ul>
+      <li>On dérive : $v_x=2{,}0$ et $v_y=-9{,}8\,t+3{,}0$ (m·s⁻¹).</li>
+      <li>On dérive encore : $a_x=0$ et $a_y=-9{,}8$ (m·s⁻²).</li>
+    </ul>
+    <p>L'accélération est constante, verticale, vers le bas, de valeur $9{,}8$ m·s⁻² : c'est l'accélération de la pesanteur. On le retrouvera en partie 7.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-rectiligne">4. Les mouvements rectilignes</h3>
+
+  <div class="bloc propriete" data-titre="Caractériser l'accélération d'un mouvement rectiligne">
+    <ul>
+      <li><strong>Rectiligne uniforme</strong> : la vitesse ne change ni en valeur ni en direction, $\vec a=\vec 0$.</li>
+      <li><strong>Rectiligne accéléré</strong> : $\vec a$ a la direction de la trajectoire et le sens de $\vec v$.</li>
+      <li><strong>Rectiligne ralenti</strong> : $\vec a$ a la direction de la trajectoire et le sens opposé à $\vec v$.</li>
+      <li><strong>Rectiligne uniformément accéléré</strong> (ou varié) : $\vec a$ est constant et colinéaire à la trajectoire. Sur un axe $Ox$ : $v(t)=a\,t+v_0$ et $x(t)=\tfrac12 a\,t^2+v_0\,t+x_0$.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="rectilignes" viewBox="0 0 560 250" role="img" aria-label="Trois chronophotographies de mouvements rectilignes, de haut en bas ; le mobile va de gauche à droite. Uniforme : positions également espacées, vitesse constante, accélération nulle. Accéléré : écarts croissants, accélération dans le sens de la vitesse. Ralenti : écarts décroissants, accélération de sens opposé à la vitesse."><text class="moyen halo" x="12.0" y="57.0" text-anchor="start">uniforme</text><g class="trace t-n fin pointille"><line x1="140.0" y1="52.0" x2="380.0" y2="52.0"/></g><circle class="pt" cx="150.0" cy="52.0" r="4.2"/><circle class="pt" cx="186.0" cy="52.0" r="4.2"/><circle class="pt" cx="222.0" cy="52.0" r="4.2"/><circle class="pt" cx="258.0" cy="52.0" r="4.2"/><circle class="pt" cx="294.0" cy="52.0" r="4.2"/><circle class="pt" cx="330.0" cy="52.0" r="4.2"/><circle class="pt" cx="366.0" cy="52.0" r="4.2"/><g class="trace t-u ep-2-5"><line x1="294.0" y1="40.0" x2="327.7" y2="40.0"/></g><polygon class="plein t-u" points="335.4,40.0 324.4,44.6 324.4,35.4"/><text class="nom-vec t-u halo" x="347.4" y="44.0" text-anchor="middle">v</text><text class="moyen halo" x="400.0" y="57.0" text-anchor="start">a = 0</text><text class="moyen halo" x="12.0" y="133.0" text-anchor="start">accéléré</text><g class="trace t-n fin pointille"><line x1="140.0" y1="128.0" x2="380.0" y2="128.0"/></g><circle class="pt" cx="150.0" cy="128.0" r="4.2"/><circle class="pt" cx="156.0" cy="128.0" r="4.2"/><circle class="pt" cx="174.0" cy="128.0" r="4.2"/><circle class="pt" cx="204.0" cy="128.0" r="4.2"/><circle class="pt" cx="246.0" cy="128.0" r="4.2"/><circle class="pt" cx="300.0" cy="128.0" r="4.2"/><circle class="pt" cx="366.0" cy="128.0" r="4.2"/><g class="trace t-u ep-2-5"><line x1="246.0" y1="116.0" x2="293.5" y2="116.0"/></g><polygon class="plein t-u" points="301.2,116.0 290.2,120.6 290.2,111.4"/><text class="nom-vec t-u halo" x="313.2" y="120.0" text-anchor="middle">v</text><g class="trace t-v ep-2-5"><line x1="246.0" y1="142.0" x2="272.3" y2="142.0"/></g><polygon class="plein t-v" points="280.0,142.0 269.0,146.6 269.0,137.4"/><text class="nom-vec t-v halo" x="292.0" y="148.0" text-anchor="middle">a</text><text class="petit halo" x="400.0" y="133.0" text-anchor="start">a dans le sens de v</text><text class="moyen halo" x="12.0" y="209.0" text-anchor="start">ralenti</text><g class="trace t-n fin pointille"><line x1="140.0" y1="204.0" x2="380.0" y2="204.0"/></g><circle class="pt" cx="150.0" cy="204.0" r="4.2"/><circle class="pt" cx="216.0" cy="204.0" r="4.2"/><circle class="pt" cx="270.0" cy="204.0" r="4.2"/><circle class="pt" cx="312.0" cy="204.0" r="4.2"/><circle class="pt" cx="342.0" cy="204.0" r="4.2"/><circle class="pt" cx="360.0" cy="204.0" r="4.2"/><circle class="pt" cx="366.0" cy="204.0" r="4.2"/><g class="trace t-u ep-2-5"><line x1="342.0" y1="192.0" x2="361.9" y2="192.0"/></g><polygon class="plein t-u" points="369.6,192.0 358.6,196.6 358.6,187.4"/><text class="nom-vec t-u halo" x="381.6" y="196.0" text-anchor="middle">v</text><g class="trace t-v ep-2-5"><line x1="342.0" y1="218.0" x2="315.7" y2="218.0"/></g><polygon class="plein t-v" points="308.0,218.0 319.0,213.4 319.0,222.6"/><text class="nom-vec t-v halo" x="296.0" y="224.0" text-anchor="middle">a</text><text class="petit halo" x="400.0" y="209.0" text-anchor="start">a opposé à v</text></svg><figcaption>Trois chronophotographies, de haut en bas ; le mobile va de gauche à droite. Uniforme : écarts égaux, $\vec a=\vec 0$. Accéléré : écarts qui grandissent, $\vec a$ dans le sens de $\vec v$. Ralenti : écarts qui diminuent, $\vec a$ opposé à $\vec v$.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="De 0 à 100 km/h">
+    <p>Une voiture passe de $0$ à $100$ km·h⁻¹ en $10{,}0$ s, en ligne droite, avec une accélération supposée constante.</p>
+    <ul>
+      <li>$100$ km·h⁻¹ $=\dfrac{100}{3{,}6}=27{,}8$ m·s⁻¹, donc $a=\dfrac{27{,}8-0}{10{,}0}=2{,}78$ m·s⁻².</li>
+      <li>Distance parcourue : $x=\tfrac12\times2{,}78\times10{,}0^2=139$ m.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-circulaire">5. Le mouvement circulaire et le repère de Frenet</h3>
+
+  <div class="bloc definition" data-titre="Repère de Frenet">
+    <p>Pour un point $M$ qui décrit un cercle de centre $O$ et de rayon $R$, on utilise un repère qui <strong>suit le point</strong> : son origine est $M$, et ses deux vecteurs unitaires sont</p>
+    <ul>
+      <li>$\vec u_t$, <strong>tangent</strong> au cercle, orienté dans le sens du mouvement ;</li>
+      <li>$\vec u_n$, <strong>normal</strong>, dirigé vers le centre du cercle.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="frenet" viewBox="0 0 460 320" role="img" aria-label="Un point M sur un cercle de centre O, parcouru dans le sens inverse des aiguilles d'une montre. En M, le repère de Frenet : le vecteur unitaire u t tangent au cercle, dans le sens du mouvement, et le vecteur unitaire u n dirigé vers le centre. Le vecteur accélération a se décompose sur ces deux directions : sa coordonnée tangentielle a t et sa coordonnée normale a n."><circle class="contour t-n" cx="150" cy="168" r="118"/><circle class="pt" cx="150.0" cy="168.0" r="3.5"/><text class="lettre halo" x="144.0" y="190.0" text-anchor="middle">O</text><g class="trace t-n fin pointille"><line x1="291.2" y1="148.5" x2="137.3" y2="-22.4"/></g><g class="trace t-n fin pointille"><line x1="237.7" y1="89.0" x2="150.0" y2="168.0"/></g><circle class="pt" cx="237.7" cy="89.0" r="4.5"/><text class="lettre halo" x="251.7" y="95.0" text-anchor="start">M</text><g class="trace t-n ep-2"><line x1="237.7" y1="89.0" x2="216.1" y2="65.0"/></g><polygon class="plein t-n" points="210.9,59.3 221.7,64.4 214.9,70.6"/><g class="trace t-n ep-2"><line x1="237.7" y1="89.0" x2="213.7" y2="110.7"/></g><polygon class="plein t-n" points="208.0,115.8 213.0,105.0 219.2,111.9"/><text class="lettre halo" x="204.9" y="49.3">u<tspan class="ind" dy="5">t</tspan></text><text class="lettre halo" x="206.0" y="141.8">u<tspan class="ind" dy="5">n</tspan></text><g class="trace t-v ep-2-5"><line x1="237.7" y1="89.0" x2="130.2" y2="97.9"/></g><polygon class="plein t-v" points="122.5,98.6 133.1,93.1 133.8,102.3"/><text class="nom-vec t-v halo" x="108.5" y="104.6" text-anchor="middle">a</text><g class="trace t-v fin pointille"><line x1="122.5" y1="98.6" x2="190.9" y2="37.0"/></g><g class="trace t-v fin pointille"><line x1="122.5" y1="98.6" x2="169.3" y2="150.6"/></g><text class="nom-vec t-v halo" x="156.9" y="33.0">a<tspan class="ind" dy="5">t</tspan></text><text class="nom-vec t-v halo" x="177.3" y="170.6">a<tspan class="ind" dy="5">n</tspan></text><text class="moyen halo" x="300.0" y="60.0" text-anchor="start">a = aₜ uₜ + aₙ uₙ</text><text class="note halo" x="300.0" y="92.0" text-anchor="start">aₜ = dv/dt</text><text class="note halo" x="300.0" y="116.0" text-anchor="start">aₙ = v² / R</text></svg><figcaption>Le repère de Frenet en $M$. L'accélération a deux coordonnées : $a_t$ sur la tangente, qui dit si la valeur de la vitesse change ; $a_n$ sur la normale, toujours vers le centre, qui dit que la direction change.</figcaption></figure>
+
+  <div class="bloc propriete" data-titre="Vitesse et accélération dans le repère de Frenet (mouvement circulaire)">
+    <p class="formule">$\vec v=v\,\vec u_t$ &nbsp;&nbsp;&nbsp; $\vec a=\dfrac{dv}{dt}\,\vec u_t+\dfrac{v^2}{R}\,\vec u_n$</p>
+    <ul>
+      <li>$v$ en m·s⁻¹, $R$ en m, $a$ en m·s⁻² ;</li>
+      <li>la coordonnée normale $a_n=\dfrac{v^2}{R}$ est toujours positive : $\vec a$ penche toujours vers l'intérieur du virage.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="Mouvement circulaire uniforme">
+    <p>Si la valeur de la vitesse est constante, $\dfrac{dv}{dt}=0$ : il ne reste que $\vec a=\dfrac{v^2}{R}\,\vec u_n$. L'accélération est <strong>centripète</strong> (dirigée vers le centre) et de valeur constante $\dfrac{v^2}{R}$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="circulaire_uniforme" viewBox="0 0 440 310" role="img" aria-label="Un mouvement circulaire uniforme, vu en trois positions. En chacune, le vecteur vitesse est tangent au cercle et de même longueur ; le vecteur accélération est dirigé vers le centre O, de même longueur : l'accélération est centripète."><circle class="contour t-n" cx="210" cy="145" r="104"/><circle class="pt" cx="210.0" cy="145.0" r="3.5"/><text class="lettre halo" x="220.0" y="165.0" text-anchor="start">O</text><circle class="pt" cx="304.3" cy="101.0" r="4.5"/><g class="trace t-u ep-2-5"><line x1="304.3" y1="101.0" x2="281.3" y2="51.8"/></g><polygon class="plein t-u" points="278.1,44.9 286.9,52.9 278.5,56.8"/><g class="trace t-v ep-2-5"><line x1="304.3" y1="101.0" x2="269.5" y2="117.2"/></g><polygon class="plein t-v" points="262.6,120.5 270.6,111.7 274.5,120.0"/><text class="nom-vec t-u halo" x="292.1" y="46.9" text-anchor="middle">v</text><text class="nom-vec t-v halo" x="266.6" y="142.5" text-anchor="middle">a</text><circle class="pt" cx="124.8" cy="85.3" r="4.5"/><g class="trace t-u ep-2-5"><line x1="124.8" y1="85.3" x2="93.7" y2="129.8"/></g><polygon class="plein t-u" points="89.2,136.1 91.8,124.5 99.3,129.8"/><g class="trace t-v ep-2-5"><line x1="124.8" y1="85.3" x2="156.2" y2="107.3"/></g><polygon class="plein t-v" points="162.5,111.7 150.8,109.2 156.1,101.6"/><circle class="pt" cx="200.9" cy="248.6" r="4.5"/><g class="trace t-u ep-2-5"><line x1="200.9" y1="248.6" x2="255.0" y2="253.3"/></g><polygon class="plein t-u" points="262.7,254.0 251.3,257.7 252.1,248.4"/><g class="trace t-v ep-2-5"><line x1="200.9" y1="248.6" x2="204.3" y2="210.4"/></g><polygon class="plein t-v" points="204.9,202.8 208.6,214.1 199.4,213.3"/><text class="petit halo" x="14.0" y="278.0" text-anchor="start">v constante en valeur ; a = v²/R, vers le centre</text></svg><figcaption>Mouvement circulaire uniforme : en chaque point, $\vec v$ est tangent et de même longueur, $\vec a$ vise le centre et a la même longueur.</figcaption></figure>
+
+  <div class="bloc piege" data-titre="Dans le virage, ce que tu sens n'est pas l'accélération">
+    <p>Dans une voiture qui tourne, tu te sens poussé vers l'extérieur. Pourtant, l'accélération est dirigée <strong>vers l'intérieur</strong> du virage. Ce que tu sens, c'est ton corps qui tend à continuer tout droit, pendant que la voiture tourne sous toi.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Le rond-point">
+    <p>Une voiture fait le tour d'un rond-point de rayon $R=20$ m à $36$ km·h⁻¹ constants. $v=\dfrac{36}{3{,}6}=10$ m·s⁻¹, donc $a=\dfrac{v^2}{R}=\dfrac{10^2}{20}=5{,}0$ m·s⁻², dirigée vers le centre du rond-point.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-newton">6. La deuxième loi de Newton</h3>
+
+  <div class="bloc remarque" data-titre="Rappel de première : la variation de vitesse">
+    <p>En première, tu as relié la variation du vecteur vitesse entre deux instants voisins à la somme des forces : $m\,\dfrac{\Delta\vec v}{\Delta t}\approx\sum\vec F$. Plus la masse est grande, plus il faut de force pour changer la vitesse. La deuxième loi de Newton est la version exacte de cette relation, quand $\Delta t$ devient infiniment petit.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Centre de masse">
+    <p>Le <strong>centre de masse</strong> $G$ d'un système est le point où l'on peut considérer toute sa masse rassemblée. Pour un solide homogène qui a un centre de symétrie (une boule, un palet), c'est ce centre ; il est plus près de la partie la plus lourde. Son mouvement est le plus simple du système : la deuxième loi de Newton le décrit, même quand le reste tourne.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="centre_masse" viewBox="0 0 560 280" role="img" aria-label="Un marteau lancé en tournoyant, dessiné en six positions successives. Le manche et la tête tournent sur eux-mêmes, mais un point, le centre de masse G, proche de la tête, décrit une trajectoire en cloche simple, tracée en pointillés."><g class="trace t-v pointille fin"><path d="M46.0,210.0 L53.5,200.0 L60.9,190.4 L68.4,181.1 L75.9,172.2 L83.3,163.6 L90.8,155.3 L98.3,147.3 L105.7,139.7 L113.2,132.5 L120.7,125.6 L128.1,119.0 L135.6,112.7 L143.1,106.8 L150.5,101.2 L158.0,96.0 L165.5,91.1 L172.9,86.5 L180.4,82.3 L187.9,78.4 L195.3,74.9 L202.8,71.7 L210.3,68.8 L217.7,66.3 L225.2,64.1 L232.7,62.2 L240.1,60.7 L247.6,59.5 L255.1,58.7 L262.5,58.2 L270.0,58.0 L277.5,58.2 L284.9,58.7 L292.4,59.5 L299.9,60.7 L307.3,62.2 L314.8,64.1 L322.3,66.3 L329.7,68.8 L337.2,71.7 L344.7,74.9 L352.1,78.4 L359.6,82.3 L367.1,86.5 L374.5,91.1 L382.0,96.0 L389.5,101.2 L396.9,106.8 L404.4,112.7 L411.9,119.0 L419.3,125.6 L426.8,132.5 L434.3,139.7 L441.7,147.3 L449.2,155.3 L456.7,163.6 L464.1,172.2 L471.6,181.1 L479.1,190.4 L486.5,200.0 L494.0,210.0"/></g><g class="trace t-ink ep-4"><line x1="92.0" y1="158.6" x2="38.3" y2="189.6"/></g><polygon class="plein t-ink" points="86.0,148.2 94.7,143.2 106.7,163.9 98.0,168.9"/><circle class="pt pt-v" cx="83.3" cy="163.6" r="4.5"/><g class="trace t-ink ep-4"><line x1="155.9" y1="86.2" x2="168.8" y2="146.9"/></g><polygon class="plein t-ink" points="144.2,88.7 142.1,78.9 165.6,73.9 167.7,83.7"/><circle class="pt pt-v" cx="158.0" cy="96.0" r="4.5"/><g class="trace t-ink ep-4"><line x1="222.7" y1="61.2" x2="284.4" y2="67.7"/></g><polygon class="plein t-ink" points="221.5,73.1 211.5,72.1 214.0,48.2 224.0,49.2"/><circle class="pt pt-v" cx="232.7" cy="62.2" r="4.5"/><g class="trace t-ink ep-4"><line x1="303.3" y1="71.4" x2="328.5" y2="14.7"/></g><polygon class="plein t-ink" points="314.2,76.2 310.2,85.4 288.2,75.6 292.3,66.5"/><circle class="pt pt-v" cx="307.3" cy="62.2" r="4.5"/><g class="trace t-ink ep-4"><line x1="389.4" y1="102.7" x2="343.4" y2="61.2"/></g><polygon class="plein t-ink" points="397.5,93.8 404.9,100.5 388.8,118.3 381.4,111.6"/><circle class="pt pt-v" cx="382.0" cy="96.0" r="4.5"/><g class="trace t-ink ep-4"><line x1="465.3" y1="158.6" x2="411.6" y2="189.6"/></g><polygon class="plein t-ink" points="459.3,148.2 468.0,143.2 480.0,163.9 471.3,168.9"/><circle class="pt pt-v" cx="456.7" cy="163.6" r="4.5"/><text class="lettre halo" x="228.7" y="40.2" text-anchor="middle">G</text><text class="petit halo" x="300.0" y="248.0" text-anchor="start">le centre de masse suit une parabole</text></svg><figcaption>Un marteau lancé tournoie, mais son centre de masse $G$, proche de la tête, la partie la plus lourde, décrit une simple parabole. C'est ce point que suit la deuxième loi de Newton.</figcaption></figure>
+
+  <div class="bloc definition" data-titre="Référentiel galiléen">
+    <p>Un référentiel est <strong>galiléen</strong> si le principe d'inertie y est vérifié. Aucun ne l'est parfaitement ; on choisit celui qui l'est assez pour le mouvement étudié :</p>
+    <ul>
+      <li>le référentiel <strong>terrestre</strong> (lié au sol), pour un mouvement court à la surface de la Terre : un lancer, une voiture ;</li>
+      <li>le référentiel <strong>géocentrique</strong> (centre de la Terre, axes vers des étoiles lointaines), pour un satellite de la Terre ;</li>
+      <li>le référentiel <strong>héliocentrique</strong> (centre du Soleil), pour une planète.</li>
+    </ul>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Deuxième loi de Newton">
+    <p>Dans un référentiel galiléen, la somme des forces qui s'exercent sur un système de masse $m$ constante est égale au produit de sa masse par l'accélération de son centre de masse :</p>
+    <p class="formule">$\displaystyle\sum\vec F=m\,\vec a_G$</p>
+    <ul>
+      <li>$\sum\vec F$ en newtons (N), $m$ en kilogrammes (kg), $\vec a_G$ en m·s⁻² ;</li>
+      <li>si $\sum\vec F=\vec 0$, alors $\vec a_G=\vec 0$ : le centre de masse est immobile ou en mouvement rectiligne uniforme. C'est le principe d'inertie, et c'est la condition d'<strong>équilibre</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="bloc piege" data-titre="La force n'est pas dans le sens du mouvement">
+    <p>La deuxième loi relie les forces à l'<strong>accélération</strong>, pas à la vitesse. Un ballon qui monte ne subit que son poids, dirigé vers le bas : il monte parce qu'on l'a lancé vers le haut, et il ralentit parce que son accélération est vers le bas. Aucune « force de l'élan » ne l'accompagne.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Appliquer la deuxième loi de Newton">
+    <ol class="etapes">
+      <li><span>Je définis le <strong>système</strong> et le <strong>référentiel</strong>, que je suppose galiléen.</span></li>
+      <li><span>Je fais le <strong>bilan des forces</strong> et je les représente sur un schéma.</span></li>
+      <li><span>J'écris la loi en vecteurs : $\sum\vec F=m\,\vec a_G$.</span></li>
+      <li><span>Je choisis des axes orientés et je <strong>projette</strong> : une équation par axe, avec des coordonnées algébriques (positives ou négatives).</span></li>
+      <li><span>Je résous dans le sens demandé : les forces connues donnent $\vec a_G$, ou le mouvement connu donne la somme des forces.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Une rame de tramway de masse $m=40$ t démarre sur une voie rectiligne et horizontale. Sa vitesse passe de $0$ à $36$ km·h⁻¹ en $20$ s, avec une accélération constante. Les frottements sont négligés. Déterminer la force motrice.</p>
+      <ol class="pas">
+        <li><strong>Système et référentiel.</strong> La rame, dans le référentiel terrestre, supposé galiléen pour cette courte durée.</li>
+        <li><strong>Forces.</strong> Le poids $\vec P$ (vertical, vers le bas), la réaction des rails $\vec R$ (verticale, vers le haut), la force motrice $\vec F$ (horizontale, vers l'avant).</li>
+        <li><strong>La loi.</strong> $\vec P+\vec R+\vec F=m\,\vec a_G$.</li>
+        <li><strong>Projection.</strong> Sur l'axe horizontal orienté vers l'avant : $F=m\,a$. Sur la verticale : $R-P=0$, le mouvement étant horizontal.</li>
+        <li><strong>Le mouvement donne $a$.</strong> $36$ km·h⁻¹ $=10$ m·s⁻¹, donc $a=\dfrac{10-0}{20}=0{,}50$ m·s⁻².</li>
+        <li><strong>La force.</strong> $F=40\times10^3\times0{,}50=2{,}0\times10^4$ N.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Dans l'autre sens : des forces à l'accélération">
+    <p>Une skieuse de $60$ kg glisse sur une piste rectiligne inclinée de $20°$ ; on néglige les frottements. Elle subit son poids $\vec P$ et la réaction $\vec R$ de la neige, perpendiculaire à la piste. On projette $\vec P+\vec R=m\,\vec a$ sur un axe parallèle à la piste, orienté vers le bas de la pente : $m\,g\sin20°=m\,a$, d'où $a=g\sin20°=9{,}81\times0{,}342=3{,}36$ m·s⁻². La masse s'est simplifiée.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-pesanteur">7. Le mouvement dans un champ de pesanteur uniforme</h3>
+
+  <div class="bloc definition" data-titre="Chute libre">
+    <p>Un système est en <strong>chute libre</strong> s'il n'est soumis qu'à son poids $\vec P=m\,\vec g$. À l'échelle d'un terrain de sport, le champ de pesanteur $\vec g$ est <strong>uniforme</strong> : vertical, vers le bas, de valeur $g=9{,}81$ m·s⁻² en France.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="En chute libre, l'accélération est g">
+    <p>La deuxième loi donne $m\,\vec g=m\,\vec a_G$, donc $\vec a_G=\vec g$ : l'accélération <strong>ne dépend pas de la masse</strong>. Une boule de pétanque et une balle de tennis lancées de la même façon suivent la même trajectoire, tant que l'air ne les freine pas.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Établir les équations horaires et la trajectoire" data-ouvert>
+    <ol class="etapes">
+      <li><span>Je choisis le repère : origine $O$ au sol sous le point de départ, $Ox$ horizontal dans le plan de $\vec v_0$, $Oy$ vertical vers le haut.</span></li>
+      <li><span>La deuxième loi donne $\vec a$ : $a_x=0$, $a_y=-g$, $a_z=0$.</span></li>
+      <li><span>Je cherche les fonctions dont ce sont les dérivées (des primitives), et je fixe les constantes avec la <strong>vitesse initiale</strong> : $v_x=v_0\cos\alpha$, $v_y=-g\,t+v_0\sin\alpha$, $v_z=0$.</span></li>
+      <li><span>Je recommence avec la <strong>position initiale</strong> $(0\,;h\,;0)$ : $x=v_0\cos\alpha\;t$, $y=-\tfrac12g\,t^2+v_0\sin\alpha\;t+h$, $z=0$.</span></li>
+      <li><span>J'élimine $t$ : $t=\dfrac{x}{v_0\cos\alpha}$, que je reporte dans $y$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un ballon est lancé depuis $h=2{,}0$ m au-dessus du sol, avec une vitesse $v_0=8{,}0$ m·s⁻¹ faisant un angle $\alpha=40°$ avec l'horizontale. On néglige l'action de l'air ; $g=9{,}81$ m·s⁻². Établir les équations horaires, l'équation de la trajectoire, puis la hauteur maximale.</p>
+      <ol class="pas">
+        <li><strong>L'accélération.</strong> Système : le ballon ; référentiel terrestre supposé galiléen ; seule force : le poids. $\vec a=\vec g$, soit $a_x=0$ et $a_y=-9{,}81$ m·s⁻².</li>
+        <li><strong>La vitesse.</strong> $v_x=v_0\cos40°=6{,}13$ m·s⁻¹ (constante) et $v_y=-9{,}81\,t+v_0\sin40°=-9{,}81\,t+5{,}14$.</li>
+        <li><strong>La position.</strong> $x(t)=6{,}13\,t$ et $y(t)=-4{,}905\,t^2+5{,}14\,t+2{,}0$ ; $z(t)=0$ : le mouvement reste dans le plan vertical de $\vec v_0$.</li>
+        <li><strong>La trajectoire.</strong> $t=\dfrac{x}{6{,}13}$ donne $y=-\dfrac{9{,}81}{2\times8{,}0^2\cos^2 40°}\,x^2+\tan40°\,x+2{,}0$, soit $y\approx-0{,}131\,x^2+0{,}839\,x+2{,}0$ : une parabole.</li>
+        <li><strong>Le sommet.</strong> Au sommet, la vitesse est horizontale : $v_y=0$, soit $t_S=\dfrac{5{,}14}{9{,}81}=0{,}524$ s, et $y_S=-4{,}905\times0{,}524^2+5{,}14\times0{,}524+2{,}0\approx3{,}35$ m. Cette hauteur maximale s'appelle aussi la <strong>flèche</strong>.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le mouvement est plan, la trajectoire est une parabole">
+    <p>En chute libre, $z(t)$ reste nul : le mouvement a lieu dans le plan vertical qui contient $\vec v_0$. La trajectoire a pour équation</p>
+    <p class="formule">$y=-\dfrac{g}{2\,v_0^2\cos^2\alpha}\,x^2+\tan\alpha\;x+h$</p>
+    <p>C'est une parabole, sauf si $\vec v_0$ est vertical ou nul : le mouvement est alors rectiligne.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="parabole" viewBox="0 0 580 320" role="img" aria-label="Un ballon lancé depuis le point A, à 2 mètres au-dessus du sol, avec une vitesse initiale v0 faisant un angle alpha avec l'horizontale. Repère : axe x horizontal au sol, axe y vertical vers le haut, origine O sous A. La trajectoire est une parabole qui monte jusqu'au sommet S puis redescend jusqu'au sol. En A, en S et à la descente, le vecteur accélération est le même : vertical, vers le bas, égal à g."><g class="trace t-ink ep-2"><line x1="38.0" y1="268.0" x2="534.3" y2="268.0"/></g><polygon class="plein t-ink" points="542.0,268.0 531.0,272.6 531.0,263.4"/><g class="trace t-ink ep-2"><line x1="58.0" y1="284.0" x2="58.0" y2="33.7"/></g><polygon class="plein t-ink" points="58.0,26.0 62.6,37.0 53.4,37.0"/><text class="lettre halo" x="534.0" y="290.0" text-anchor="middle">x</text><text class="lettre halo" x="42.0" y="34.0" text-anchor="middle">y</text><text class="lettre halo" x="42.0" y="290.0" text-anchor="middle">O</text><g class="trace t-n"><path d="M58.0,164.0 L63.4,159.6 L68.8,155.3 L74.1,151.1 L79.5,147.1 L84.9,143.2 L90.3,139.5 L95.7,136.0 L101.0,132.5 L106.4,129.3 L111.8,126.1 L117.2,123.1 L122.5,120.3 L127.9,117.6 L133.3,115.1 L138.7,112.6 L144.1,110.4 L149.4,108.3 L154.8,106.3 L160.2,104.5 L165.6,102.8 L171.0,101.3 L176.3,99.9 L181.7,98.6 L187.1,97.5 L192.5,96.6 L197.9,95.8 L203.2,95.1 L208.6,94.6 L214.0,94.2 L219.4,94.0 L224.7,93.9 L230.1,94.0 L235.5,94.2 L240.9,94.5 L246.3,95.0 L251.6,95.7 L257.0,96.5 L262.4,97.4 L267.8,98.5 L273.2,99.7 L278.5,101.1 L283.9,102.6 L289.3,104.3 L294.7,106.1 L300.1,108.0 L305.4,110.1 L310.8,112.4 L316.2,114.8 L321.6,117.3 L326.9,120.0 L332.3,122.8 L337.7,125.8 L343.1,128.9 L348.5,132.2 L353.8,135.6 L359.2,139.1 L364.6,142.8 L370.0,146.7 L375.4,150.7 L380.7,154.8 L386.1,159.1 L391.5,163.5 L396.9,168.1 L402.3,172.8 L407.6,177.6 L413.0,182.7 L418.4,187.8 L423.8,193.1 L429.1,198.5 L434.5,204.1 L439.9,209.9 L445.3,215.7 L450.7,221.8 L456.0,227.9 L461.4,234.2 L466.8,240.7 L472.2,247.3 L477.6,254.1 L482.9,261.0 L488.3,268.0"/></g><circle class="pt" cx="58.0" cy="164.0" r="4.5"/><text class="lettre halo" x="42.0" y="168.0" text-anchor="middle">A</text><g class="trace t-n fin pointille"><line x1="58.0" y1="164.0" x2="128.0" y2="164.0"/></g><g class="trace t-u ep-2-5"><line x1="58.0" y1="164.0" x2="107.3" y2="122.7"/></g><polygon class="plein t-u" points="113.2,117.7 107.7,128.3 101.8,121.3"/><text class="nom-vec t-u halo" x="111.2" y="105.7">v<tspan class="ind" dy="5">0</tspan></text><g class="trace t-n fin"><path d="M92.0,164.0 A34,34 0 0 0 84.0,142.1"/></g><text class="moyen halo" x="100.0" y="157.0" text-anchor="start">α</text><circle class="pt" cx="225.0" cy="93.9" r="4.5"/><text class="lettre halo" x="225.0" y="79.9" text-anchor="middle">S</text><g class="trace t-n fin pointille"><line x1="225.0" y1="93.9" x2="225.0" y2="268.0"/></g><text class="petit halo" x="233.0" y="181.0" text-anchor="start">flèche</text><g class="trace t-u ep-2-5"><line x1="225.0" y1="93.9" x2="272.5" y2="93.9"/></g><polygon class="plein t-u" points="280.2,93.9 269.2,98.5 269.2,89.3"/><text class="nom-vec t-u halo" x="292.2" y="99.9" text-anchor="middle">v</text><g class="trace t-v ep-2-5"><line x1="58.0" y1="164.0" x2="58.0" y2="199.5"/></g><polygon class="plein t-v" points="58.0,207.2 53.4,196.2 62.6,196.2"/><g class="trace t-v ep-2-5"><line x1="225.0" y1="93.9" x2="225.0" y2="129.4"/></g><polygon class="plein t-v" points="225.0,137.1 220.4,126.1 229.7,126.1"/><g class="trace t-v ep-2-5"><line x1="402.3" y1="172.8" x2="402.3" y2="208.3"/></g><polygon class="plein t-v" points="402.3,216.0 397.6,205.0 406.9,205.0"/><text class="nom-vec t-v halo" x="412.3" y="216.0">a = g</text><text class="petit halo" x="488.3" y="260.0" text-anchor="end">portée</text></svg><figcaption>La trajectoire du ballon : une parabole, de sommet $S$. En $A$, en $S$ et à la descente, le vecteur accélération est le même, $\vec g$. Au sommet, la vitesse est horizontale, mais pas nulle.</figcaption></figure>
+
+  <div class="bloc piege" data-titre="Trois erreurs de signe et de trigonométrie">
+    <ul>
+      <li>Avec un axe $Oy$ <strong>vers le haut</strong>, $a_y=-g$ : le poids est vers le bas. Écrire $+g$ fait monter le ballon pour toujours.</li>
+      <li>$v_{0x}=v_0\cos\alpha$ (le côté adjacent à l'angle, à l'horizontale) et $v_{0y}=v_0\sin\alpha$. Vérifie avec $\alpha=90°$ : le lancer est vertical, $v_{0x}$ doit être nul.</li>
+      <li>Une primitive est définie à une constante près : sans la vitesse et la position initiales, les équations sont fausses.</li>
+    </ul>
+  </div>
+
+  <div class="bloc remarque" data-titre="Quand l'air ne se néglige plus">
+    <p>Le modèle de la chute libre vaut pour un objet dense et pas trop rapide : un poids, une boule de pétanque. Pour un volant de badminton ou un parachutiste, l'air freine fort : il faut ajouter une force de frottement, souvent modélisée par $f=k\,v$ ou $f=k\,v^2$. Ces modèles ne sont pas au programme, mais un sujet peut les donner. Le mouvement n'est plus une parabole, et la vitesse tend vers une <strong>vitesse limite</strong>.</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-champ-electrique">8. Une particule chargée dans un champ électrique uniforme</h3>
+
+  <div class="bloc definition" data-titre="Le condensateur plan">
+    <p>Deux plaques métalliques parallèles, les <strong>armatures</strong>, séparées d'une distance $d$ et soumises à une tension $U$, forment un condensateur plan. Entre elles, le champ électrique $\vec E$ est <strong>uniforme</strong> : perpendiculaire aux armatures, dirigé de l'armature positive vers l'armature négative, de valeur</p>
+    <p class="formule">$E=\dfrac{U}{d}$ &nbsp;&nbsp; ($E$ en V·m⁻¹, $U$ en V, $d$ en m)</p>
+    <p>Plus la tension est grande, plus le champ est intense ; plus les armatures sont écartées, plus il est faible.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="La force électrique">
+    <p>Une particule de charge $q$ placée dans le champ $\vec E$ subit la force $\vec F=q\,\vec E$.</p>
+    <ul>
+      <li>Pour un proton ($q=+e$), $\vec F$ a le sens de $\vec E$ : vers l'armature négative.</li>
+      <li>Pour un électron ($q=-e$), $\vec F$ est opposée à $\vec E$ : vers l'armature <strong>positive</strong>.</li>
+    </ul>
+    <p>Avec $e=1{,}60\times10^{-19}$ C, $m_e=9{,}11\times10^{-31}$ kg et $m_p=1{,}67\times10^{-27}$ kg.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pourquoi on néglige le poids">
+    <p>Pour un électron dans un champ de $1{,}0\times10^{4}$ V·m⁻¹ : $F=e\,E=1{,}6\times10^{-15}$ N, alors que $P=m_e\,g=8{,}9\times10^{-30}$ N. La force électrique est environ $10^{14}$ fois plus grande : le poids ne compte pas. Fais toujours cette comparaison avant de le négliger.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="condensateur" viewBox="0 0 540 280" role="img" aria-label="Un condensateur plan : deux armatures horizontales, la plus haute chargée positivement, la plus basse négativement, séparées d'une distance d, soumises à une tension U. Entre elles, le champ électrique E est uniforme, vertical, dirigé vers l'armature négative. Un électron entre à gauche, à mi-hauteur, avec une vitesse horizontale v0 ; la force électrique qu'il subit est verticale et dirigée vers l'armature positive, et sa trajectoire s'incurve vers le haut en forme de parabole."><rect class="plein t-ink" x="150" y="39" width="240" height="7"/><rect class="plein t-ink" x="150" y="196" width="240" height="7"/><text class="moyen halo" x="168.0" y="33.0" text-anchor="middle">+</text><text class="moyen halo" x="168.0" y="221.0" text-anchor="middle">−</text><text class="moyen halo" x="208.0" y="33.0" text-anchor="middle">+</text><text class="moyen halo" x="208.0" y="221.0" text-anchor="middle">−</text><text class="moyen halo" x="248.0" y="33.0" text-anchor="middle">+</text><text class="moyen halo" x="248.0" y="221.0" text-anchor="middle">−</text><text class="moyen halo" x="288.0" y="33.0" text-anchor="middle">+</text><text class="moyen halo" x="288.0" y="221.0" text-anchor="middle">−</text><text class="moyen halo" x="328.0" y="33.0" text-anchor="middle">+</text><text class="moyen halo" x="328.0" y="221.0" text-anchor="middle">−</text><text class="moyen halo" x="368.0" y="33.0" text-anchor="middle">+</text><text class="moyen halo" x="368.0" y="221.0" text-anchor="middle">−</text><g class="trace t-n ep-2"><line x1="176.0" y1="56.0" x2="176.0" y2="178.3"/></g><polygon class="plein t-n" points="176.0,186.0 171.4,175.0 180.6,175.0"/><g class="trace t-n ep-2"><line x1="254.0" y1="56.0" x2="254.0" y2="178.3"/></g><polygon class="plein t-n" points="254.0,186.0 249.4,175.0 258.6,175.0"/><g class="trace t-n ep-2"><line x1="332.0" y1="56.0" x2="332.0" y2="178.3"/></g><polygon class="plein t-n" points="332.0,186.0 327.4,175.0 336.6,175.0"/><text class="nom-vec t-n halo" x="192.0" y="84.0" text-anchor="middle">E</text><g class="trace t-u pointille fin"><path d="M40.0,121.0 L150.0,121.0 L156.0,121.0 L162.0,120.9 L168.0,120.7 L174.0,120.5 L180.0,120.2 L186.0,119.8 L192.0,119.4 L198.0,118.9 L204.0,118.4 L210.0,117.8 L216.0,117.1 L222.0,116.3 L228.0,115.5 L234.0,114.6 L240.0,113.7 L246.0,112.7 L252.0,111.6 L258.0,110.5 L264.0,109.3 L270.0,108.0 L276.0,106.7 L282.0,105.3 L288.0,103.8 L294.0,102.3 L300.0,100.7 L306.0,99.0 L312.0,97.3 L318.0,95.5 L324.0,93.7 L330.0,91.8 L336.0,89.8 L342.0,87.7 L348.0,85.6 L354.0,83.4 L360.0,81.2 L366.0,78.9 L372.0,76.5 L378.0,74.1 L384.0,71.6 L390.0,69.0 L500.0,21.3"/></g><circle class="pt pt-u" cx="40.0" cy="121.0" r="4.5"/><g class="trace t-u ep-2-5"><line x1="40.0" y1="121.0" x2="92.3" y2="121.0"/></g><polygon class="plein t-u" points="100.0,121.0 89.0,125.6 89.0,116.4"/><text class="nom-vec t-u halo" x="62" y="107.0">v<tspan class="ind" dy="5">0</tspan></text><text class="petit halo" x="40.0" y="147.0" text-anchor="middle">électron</text><g class="trace t-w ep-2-5"><line x1="300.0" y1="100.7" x2="300.0" y2="62.4"/></g><polygon class="plein t-w" points="300.0,54.7 304.6,65.7 295.4,65.7"/><text class="nom-vec t-w halo" x="310.0" y="70.7">F = −e E</text><g class="trace t-n fin"><line x1="412.0" y1="46.0" x2="412.0" y2="196.0"/></g><g class="trace t-n fin"><line x1="406.0" y1="46.0" x2="418.0" y2="46.0"/></g><g class="trace t-n fin"><line x1="406.0" y1="196.0" x2="418.0" y2="196.0"/></g><text class="lettre halo" x="422.0" y="126.0" text-anchor="start">d</text><text class="petit halo" x="150.0" y="248.0" text-anchor="start">tension U entre les armatures ; E = U / d</text></svg><figcaption>Un électron entre à mi-hauteur avec une vitesse horizontale. La force électrique, vers l'armature positive, est constante : comme le ballon dans le champ de pesanteur, il décrit une parabole, puis repart en ligne droite à la sortie.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Établir le mouvement d'une particule dans un condensateur">
+    <ol class="etapes">
+      <li><span>Je fais le bilan des forces et je compare le poids à la force électrique.</span></li>
+      <li><span>La deuxième loi donne $\vec a=\dfrac{q\,\vec E}{m}$ : une accélération constante, comme $\vec g$.</span></li>
+      <li><span>J'intègre avec les conditions initiales, exactement comme pour un lancer.</span></li>
+      <li><span>Je cherche la date et la hauteur de sortie, et je vérifie que la particule ne touche pas une armature.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Des armatures de longueur $L=5{,}0$ cm sont séparées de $d=2{,}0$ cm, sous $U=200$ V ; l'armature du haut est positive. Un électron entre en $O$, à mi-hauteur, avec une vitesse horizontale $v_0=2{,}0\times10^{7}$ m·s⁻¹. Axe $Ox$ horizontal, $Oy$ vertical vers le haut. L'électron sort-il du condensateur ?</p>
+      <ol class="pas">
+        <li><strong>Le champ.</strong> $E=\dfrac{U}{d}=\dfrac{200}{2{,}0\times10^{-2}}=1{,}0\times10^{4}$ V·m⁻¹, vers le bas.</li>
+        <li><strong>L'accélération.</strong> Le poids est négligeable. $\vec a=\dfrac{-e\,\vec E}{m_e}$ est vers le haut : $a_y=\dfrac{e\,E}{m_e}$. Avec $e\,E=1{,}60\times10^{-19}\times1{,}0\times10^{4}=1{,}6\times10^{-15}$ N : $a_y=\dfrac{1{,}6\times10^{-15}}{9{,}11\times10^{-31}}=1{,}76\times10^{15}$ m·s⁻².</li>
+        <li><strong>Les équations.</strong> $x(t)=v_0\,t$ et $y(t)=\tfrac12a_y\,t^2$, d'où la trajectoire $y=\dfrac{a_y}{2\,v_0^2}\,x^2$ : une parabole.</li>
+        <li><strong>La sortie.</strong> $x=L$ à $t=\dfrac{L}{v_0}=\dfrac{5{,}0\times10^{-2}}{2{,}0\times10^{7}}=2{,}5\times10^{-9}$ s, et alors $y=\tfrac12\times1{,}76\times10^{15}\times(2{,}5\times10^{-9})^2=5{,}5\times10^{-3}$ m.</li>
+        <li><strong>Conclusion.</strong> $5{,}5$ mm, moins que $\dfrac{d}{2}=10$ mm : l'électron sort sans toucher l'armature, dévié vers le haut.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 9 ===== -->
+  <h3 id="c-energie">9. Les aspects énergétiques</h3>
+
+  <div class="bloc remarque" data-titre="Rappel de première : énergies et travail">
+    <ul>
+      <li>Énergie cinétique : $E_c=\tfrac12m\,v^2$ ; énergie potentielle de pesanteur : $E_{pp}=m\,g\,z$ ($z$ vers le haut) ; énergie mécanique : $E_m=E_c+E_{pp}$. Toutes en joules (J).</li>
+      <li>Travail d'une force constante sur un déplacement de $A$ à $B$ : $W_{AB}(\vec F)=\vec F\cdot\overrightarrow{AB}$.</li>
+      <li><strong>Théorème de l'énergie cinétique</strong> : $E_c(B)-E_c(A)=\sum W_{AB}(\vec F)$.</li>
+      <li>Si seules des forces conservatives travaillent (le poids, par exemple), l'énergie mécanique se conserve.</li>
+    </ul>
+  </div>
+
+  <div class="bloc propriete" data-titre="En chute libre, l'énergie mécanique se conserve">
+    <p>Seul le poids s'exerce, et il est conservatif : $E_m=\tfrac12m\,v^2+m\,g\,z$ garde la même valeur pendant tout le vol. Ce que le ballon gagne en hauteur, il le perd en vitesse, et inversement.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="energies" viewBox="0 0 540 310" role="img" aria-label="Les énergies d'une boule de pétanque de 700 grammes lancée à 7 mètres par seconde, à 45 degrés, depuis 1 mètre de haut, en fonction du temps jusqu'à son arrivée au sol, environ 1,2 seconde plus tard. L'énergie potentielle de pesanteur monte puis redescend, l'énergie cinétique fait l'inverse, et leur somme, l'énergie mécanique, reste constante, à 24 joules."><g class="trace t-ink ep-2"><line x1="56.0" y1="248.0" x2="497.1" y2="248.0"/></g><polygon class="plein t-ink" points="504.8,248.0 493.8,252.6 493.8,243.4"/><g class="trace t-ink ep-2"><line x1="56.0" y1="248.0" x2="56.0" y2="35.7"/></g><polygon class="plein t-ink" points="56.0,28.0 60.6,39.0 51.4,39.0"/><text class="note halo" x="500.8" y="272.0" text-anchor="end">t (s)</text><text class="note halo" x="48.0" y="22.0" text-anchor="middle">E (J)</text><g class="trace t-ink fin"><line x1="124.0" y1="248.0" x2="124.0" y2="253.0"/></g><text class="petit halo" x="124.0" y="268.0" text-anchor="middle">0,2</text><g class="trace t-ink fin"><line x1="192.0" y1="248.0" x2="192.0" y2="253.0"/></g><text class="petit halo" x="192.0" y="268.0" text-anchor="middle">0,4</text><g class="trace t-ink fin"><line x1="260.0" y1="248.0" x2="260.0" y2="253.0"/></g><text class="petit halo" x="260.0" y="268.0" text-anchor="middle">0,6</text><g class="trace t-ink fin"><line x1="328.0" y1="248.0" x2="328.0" y2="253.0"/></g><text class="petit halo" x="328.0" y="268.0" text-anchor="middle">0,8</text><g class="trace t-ink fin"><line x1="396.0" y1="248.0" x2="396.0" y2="253.0"/></g><text class="petit halo" x="396.0" y="268.0" text-anchor="middle">1,0</text><g class="trace t-ink fin"><line x1="464.0" y1="248.0" x2="464.0" y2="253.0"/></g><text class="petit halo" x="464.0" y="268.0" text-anchor="middle">1,2</text><g class="trace t-ink fin"><line x1="51.0" y1="208.0" x2="56.0" y2="208.0"/></g><g class="trace t-line fin"><line x1="56.0" y1="208.0" x2="481.0" y2="208.0"/></g><text class="petit halo" x="47.0" y="213.0" text-anchor="end">5</text><g class="trace t-ink fin"><line x1="51.0" y1="168.0" x2="56.0" y2="168.0"/></g><g class="trace t-line fin"><line x1="56.0" y1="168.0" x2="481.0" y2="168.0"/></g><text class="petit halo" x="47.0" y="173.0" text-anchor="end">10</text><g class="trace t-ink fin"><line x1="51.0" y1="128.0" x2="56.0" y2="128.0"/></g><g class="trace t-line fin"><line x1="56.0" y1="128.0" x2="481.0" y2="128.0"/></g><text class="petit halo" x="47.0" y="133.0" text-anchor="end">15</text><g class="trace t-ink fin"><line x1="51.0" y1="88.0" x2="56.0" y2="88.0"/></g><g class="trace t-line fin"><line x1="56.0" y1="88.0" x2="481.0" y2="88.0"/></g><text class="petit halo" x="47.0" y="93.0" text-anchor="end">20</text><g class="trace t-ink fin"><line x1="51.0" y1="48.0" x2="56.0" y2="48.0"/></g><g class="trace t-line fin"><line x1="56.0" y1="48.0" x2="481.0" y2="48.0"/></g><text class="petit halo" x="47.0" y="53.0" text-anchor="end">25</text><text class="petit halo" x="47.0" y="253.0" text-anchor="end">0</text><g class="trace t-u ep-3"><path d="M56.0,110.8 L61.0,114.8 L66.0,118.6 L71.1,122.3 L76.1,125.9 L81.1,129.4 L86.1,132.8 L91.2,136.0 L96.2,139.2 L101.2,142.2 L106.2,145.1 L111.2,147.9 L116.3,150.5 L121.3,153.1 L126.3,155.5 L131.3,157.8 L136.4,160.0 L141.4,162.1 L146.4,164.0 L151.4,165.9 L156.4,167.6 L161.5,169.2 L166.5,170.7 L171.5,172.1 L176.5,173.3 L181.6,174.5 L186.6,175.5 L191.6,176.4 L196.6,177.2 L201.6,177.8 L206.7,178.4 L211.7,178.8 L216.7,179.1 L221.7,179.3 L226.7,179.4 L231.8,179.4 L236.8,179.2 L241.8,178.9 L246.8,178.5 L251.9,178.0 L256.9,177.4 L261.9,176.6 L266.9,175.8 L271.9,174.8 L277.0,173.7 L282.0,172.5 L287.0,171.2 L292.0,169.7 L297.1,168.1 L302.1,166.5 L307.1,164.6 L312.1,162.7 L317.1,160.7 L322.2,158.5 L327.2,156.3 L332.2,153.9 L337.2,151.4 L342.3,148.7 L347.3,146.0 L352.3,143.1 L357.3,140.1 L362.3,137.0 L367.4,133.8 L372.4,130.5 L377.4,127.1 L382.4,123.5 L387.5,119.8 L392.5,116.0 L397.5,112.1 L402.5,108.0 L407.5,103.9 L412.6,99.6 L417.6,95.2 L422.6,90.7 L427.6,86.1 L432.7,81.3 L437.7,76.5 L442.7,71.5 L447.7,66.4 L452.7,61.2 L457.8,55.9"/></g><g class="trace t-w ep-3"><path d="M56.0,193.1 L61.0,189.1 L66.0,185.3 L71.1,181.5 L76.1,177.9 L81.1,174.5 L86.1,171.1 L91.2,167.8 L96.2,164.7 L101.2,161.7 L106.2,158.8 L111.2,156.0 L116.3,153.3 L121.3,150.8 L126.3,148.4 L131.3,146.0 L136.4,143.9 L141.4,141.8 L146.4,139.8 L151.4,138.0 L156.4,136.3 L161.5,134.6 L166.5,133.2 L171.5,131.8 L176.5,130.5 L181.6,129.4 L186.6,128.4 L191.6,127.5 L196.6,126.7 L201.6,126.0 L206.7,125.5 L211.7,125.1 L216.7,124.7 L221.7,124.5 L226.7,124.5 L231.8,124.5 L236.8,124.7 L241.8,124.9 L246.8,125.3 L251.9,125.8 L256.9,126.5 L261.9,127.2 L266.9,128.1 L271.9,129.1 L277.0,130.2 L282.0,131.4 L287.0,132.7 L292.0,134.2 L297.1,135.7 L302.1,137.4 L307.1,139.2 L312.1,141.1 L317.1,143.2 L322.2,145.3 L327.2,147.6 L332.2,150.0 L337.2,152.5 L342.3,155.1 L347.3,157.9 L352.3,160.7 L357.3,163.7 L362.3,166.8 L367.4,170.0 L372.4,173.4 L377.4,176.8 L382.4,180.4 L387.5,184.1 L392.5,187.9 L397.5,191.8 L402.5,195.8 L407.5,200.0 L412.6,204.3 L417.6,208.6 L422.6,213.2 L427.6,217.8 L432.7,222.5 L437.7,227.4 L442.7,232.4 L447.7,237.5 L452.7,242.7 L457.8,248.0"/></g><g class="trace t-ink ep-3"><path d="M56.0,55.9 L61.0,55.9 L66.0,55.9 L71.1,55.9 L76.1,55.9 L81.1,55.9 L86.1,55.9 L91.2,55.9 L96.2,55.9 L101.2,55.9 L106.2,55.9 L111.2,55.9 L116.3,55.9 L121.3,55.9 L126.3,55.9 L131.3,55.9 L136.4,55.9 L141.4,55.9 L146.4,55.9 L151.4,55.9 L156.4,55.9 L161.5,55.9 L166.5,55.9 L171.5,55.9 L176.5,55.9 L181.6,55.9 L186.6,55.9 L191.6,55.9 L196.6,55.9 L201.6,55.9 L206.7,55.9 L211.7,55.9 L216.7,55.9 L221.7,55.9 L226.7,55.9 L231.8,55.9 L236.8,55.9 L241.8,55.9 L246.8,55.9 L251.9,55.9 L256.9,55.9 L261.9,55.9 L266.9,55.9 L271.9,55.9 L277.0,55.9 L282.0,55.9 L287.0,55.9 L292.0,55.9 L297.1,55.9 L302.1,55.9 L307.1,55.9 L312.1,55.9 L317.1,55.9 L322.2,55.9 L327.2,55.9 L332.2,55.9 L337.2,55.9 L342.3,55.9 L347.3,55.9 L352.3,55.9 L357.3,55.9 L362.3,55.9 L367.4,55.9 L372.4,55.9 L377.4,55.9 L382.4,55.9 L387.5,55.9 L392.5,55.9 L397.5,55.9 L402.5,55.9 L407.5,55.9 L412.6,55.9 L417.6,55.9 L422.6,55.9 L427.6,55.9 L432.7,55.9 L437.7,55.9 L442.7,55.9 L447.7,55.9 L452.7,55.9 L457.8,55.9"/></g><text class="moyen halo" x="465.8" y="61.0" text-anchor="start">Em</text><text class="moyen halo" x="62.0" y="100.8" text-anchor="start">Ec</text><text class="moyen halo" x="62.0" y="213.1" text-anchor="start">Epp</text></svg><figcaption>Une boule de pétanque de $700$ g lancée à $7{,}0$ m·s⁻¹. L'énergie potentielle monte puis redescend, l'énergie cinétique fait l'inverse sans jamais s'annuler (au sommet, la vitesse est horizontale). Leur somme reste à $24$ J.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="La vitesse à l'arrivée, sans calculer la trajectoire">
+    <p>Le ballon de la partie 7 part à $v_0=8{,}0$ m·s⁻¹ de $h=2{,}0$ m. Avec quelle vitesse touche-t-il le sol ?</p>
+    <p>$E_m$ se conserve : $\tfrac12m\,v_0^2+m\,g\,h=\tfrac12m\,v_{sol}^2+0$, d'où $v_{sol}=\sqrt{v_0^2+2\,g\,h}=\sqrt{64+39{,}2}=10{,}2$ m·s⁻¹. La masse s'est simplifiée, et l'angle de lancer n'intervient même pas.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Une particule accélérée par une tension">
+    <p>Dans le champ uniforme d'un condensateur, la force électrique est constante. Son travail de $A$ à $B$ vaut $W_{AB}=q\,\vec E\cdot\overrightarrow{AB}=q\,U_{AB}$, où $U_{AB}$ est la tension entre $A$ et $B$. Le théorème de l'énergie cinétique donne</p>
+    <p class="formule">$\tfrac12m\,v_B^2-\tfrac12m\,v_A^2=q\,U_{AB}$ &nbsp;&nbsp; et, partie sans vitesse, &nbsp;&nbsp; $v_B=\sqrt{\dfrac{2\,q\,U_{AB}}{m}}$</p>
+    <p>La vitesse grandit comme la racine carrée de la tension : pour doubler $v$, il faut quadrupler $U$.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Un proton accéléré sous 20 kV">
+    <p>Un proton part sans vitesse et traverse une tension de $20$ kV. $2\,e\,U=2\times1{,}60\times10^{-19}\times2{,}0\times10^{4}=6{,}4\times10^{-15}$ J, donc $v=\sqrt{\dfrac{6{,}4\times10^{-15}}{1{,}67\times10^{-27}}}=1{,}96\times10^{6}$ m·s⁻¹. C'est moins de $1$ % de la vitesse de la lumière : la mécanique de Newton convient.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Le principe de l'accélérateur linéaire">
+    <p>Une seule tension ne suffit pas pour atteindre de grandes vitesses. Un accélérateur linéaire aligne des <strong>tubes</strong> métalliques séparés par de petits intervalles :</p>
+    <ul>
+      <li>dans un tube, il n'y a pas de champ : la particule garde sa vitesse ;</li>
+      <li>dans chaque intervalle, une tension l'accélère : elle gagne $q\,U$ d'énergie cinétique ;</li>
+      <li>la tension est <strong>alternative</strong> : elle s'inverse pendant que la particule est cachée dans un tube, pour que le champ soit dans le bon sens à chaque intervalle. Les tubes s'allongent, car la particule, de plus en plus rapide, doit traverser chacun dans la même durée.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="accelerateur" viewBox="0 0 580 220" role="img" aria-label="Le principe d'un accélérateur linéaire : une source de particules chargées à gauche, puis une file de tubes métalliques de plus en plus longs, séparés par de petits intervalles. Dans un tube, pas de champ : la particule garde sa vitesse. Dans chaque intervalle, un champ électrique l'accélère. Les tubes s'allongent parce que la particule va de plus en plus vite et doit traverser chacun dans la même durée."><rect class="forme" x="14" y="64" width="46" height="40" rx="4"/><text class="petit halo" x="37.0" y="126.0" text-anchor="middle">source</text><g class="trace t-u fin pointille"><line x1="60.0" y1="84.0" x2="594.0" y2="84.0"/></g><rect class="forme-3" x="78" y="71" width="52" height="26" rx="3"/><text class="note halo" x="104.0" y="89.0" text-anchor="middle">1</text><rect class="forme-3" x="150" y="71" width="74" height="26" rx="3"/><text class="note halo" x="187.0" y="89.0" text-anchor="middle">2</text><rect class="forme-3" x="244" y="71" width="90" height="26" rx="3"/><text class="note halo" x="289.0" y="89.0" text-anchor="middle">3</text><rect class="forme-3" x="354" y="71" width="104" height="26" rx="3"/><text class="note halo" x="406.0" y="89.0" text-anchor="middle">4</text><rect class="forme-3" x="478" y="71" width="116" height="26" rx="3"/><text class="note halo" x="536.0" y="89.0" text-anchor="middle">5</text><g class="trace t-n ep-2"><line x1="68.0" y1="60.0" x2="80.3" y2="60.0"/></g><polygon class="plein t-n" points="86.0,60.0 77.9,63.4 77.9,56.6"/><g class="trace t-n ep-2"><line x1="128.0" y1="60.0" x2="140.3" y2="60.0"/></g><polygon class="plein t-n" points="146.0,60.0 137.9,63.4 137.9,56.6"/><g class="trace t-n ep-2"><line x1="222.0" y1="60.0" x2="234.3" y2="60.0"/></g><polygon class="plein t-n" points="240.0,60.0 231.9,63.4 231.9,56.6"/><g class="trace t-n ep-2"><line x1="332.0" y1="60.0" x2="344.3" y2="60.0"/></g><polygon class="plein t-n" points="350.0,60.0 341.9,63.4 341.9,56.6"/><g class="trace t-n ep-2"><line x1="456.0" y1="60.0" x2="468.3" y2="60.0"/></g><polygon class="plein t-n" points="474.0,60.0 465.9,63.4 465.9,56.6"/><text class="nom-vec t-n halo" x="138.0" y="50.0" text-anchor="middle">E</text><text class="petit halo" x="14.0" y="160.0" text-anchor="start">dans un tube : pas de champ, la vitesse ne change pas</text><text class="petit halo" x="14.0" y="182.0" text-anchor="start">dans un intervalle, au passage de la particule : elle gagne q U</text></svg><figcaption>Un accélérateur linéaire : à chaque intervalle, au moment où la particule le traverse, le champ l'accélère ; les tubes, de plus en plus longs, la protègent pendant que la tension s'inverse.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Les limites du modèle">
+    <p>Un électron accéléré sous $20$ kV atteindrait, d'après la formule, $8{,}4\times10^{7}$ m·s⁻¹, près de $30$ % de la vitesse de la lumière : l'écart avec la réalité est déjà de quelques pour cent. Au-delà, le modèle de Newton ne s'applique plus, et la formule finirait même par donner une vitesse supérieure à celle de la lumière, ce qui est impossible. C'est le cas des accélérateurs de radiothérapie.</p>
+  </div>
+
+  <!-- ===== 10 ===== -->
+  <h3 id="c-gravitation">10. Satellites et planètes</h3>
+
+  <div class="bloc remarque" data-titre="Rappel de première : la gravitation">
+    <p>Deux corps de masses $m$ et $M$, à symétrie sphérique, dont les centres sont distants de $r$, s'attirent avec des forces de valeur $F=G\,\dfrac{m\,M}{r^2}$, avec $G=6{,}67\times10^{-11}$ N·m²·kg⁻². La force qui s'exerce sur $m$ est dirigée vers le centre de $M$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="orbite" viewBox="0 0 440 340" role="img" aria-label="Un satellite S en orbite circulaire autour de la Terre, de centre T. Le rayon de l'orbite r est la somme du rayon de la Terre R et de l'altitude h. En S, la force de gravitation F est dirigée vers le centre de la Terre, comme l'accélération ; le vecteur vitesse v est tangent à l'orbite."><circle class="forme" cx="196" cy="172" r="58"/><g class="trace t-n pointille fin"><path d="M62,172 a134,134 0 1,0 268,0 a134,134 0 1,0 -268,0"/></g><circle class="pt" cx="196.0" cy="172.0" r="3.5"/><text class="lettre halo" x="206.0" y="164.0" text-anchor="start">T</text><g class="trace t-n fin pointille"><line x1="301.6" y1="89.5" x2="196.0" y2="172.0"/></g><g class="trace t-u ep-2-5"><line x1="301.6" y1="89.5" x2="258.3" y2="34.1"/></g><polygon class="plein t-u" points="253.6,28.0 264.0,33.9 256.7,39.5"/><text class="nom-vec t-u halo" x="251.6" y="16.0" text-anchor="middle">v</text><g class="trace t-w ep-2-5"><line x1="301.6" y1="89.5" x2="262.0" y2="120.5"/></g><polygon class="plein t-w" points="255.9,125.2 261.7,114.8 267.4,122.1"/><text class="nom-vec t-w halo" x="259.9" y="149.2" text-anchor="middle">F</text><rect class="plein t-ink" x="295.6" y="83.5" width="12" height="12" rx="2"/><text class="lettre halo" x="315.6" y="81.5" text-anchor="start">S</text><g class="trace t-ink fin"><line x1="196.0" y1="172.0" x2="148.5" y2="205.3"/></g><g class="trace t-v fin"><line x1="148.5" y1="205.3" x2="86.2" y2="248.9"/></g><text class="lettre halo" x="166.2" y="180.6" text-anchor="end">R</text><text class="lettre halo" x="109.4" y="219.1" text-anchor="end">h</text><text class="petit halo" x="14.0" y="306.0" text-anchor="start">r = R + h : la distance au centre, pas au sol</text></svg><figcaption>Un satellite en orbite circulaire : la force de gravitation, et donc l'accélération, visent le centre de la Terre ; la vitesse est tangente. Le rayon $r$ se compte depuis le centre : $r=R+h$.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Étudier un satellite en orbite circulaire">
+    <ol class="etapes">
+      <li><span>Système : le satellite, de masse $m$ ; référentiel géocentrique, supposé galiléen ; une seule force, la gravitation de la Terre.</span></li>
+      <li><span>La deuxième loi : $G\,\dfrac{m\,M}{r^2}\,\vec u_n=m\,\vec a$, donc $\vec a=\dfrac{G\,M}{r^2}\,\vec u_n$.</span></li>
+      <li><span>Dans le repère de Frenet, la coordonnée tangentielle est nulle : $\dfrac{dv}{dt}=0$, le mouvement est <strong>uniforme</strong>.</span></li>
+      <li><span>La coordonnée normale donne $\dfrac{v^2}{r}=\dfrac{G\,M}{r^2}$, d'où $v=\sqrt{\dfrac{G\,M}{r}}$, puis $T=\dfrac{2\pi r}{v}$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> La station spatiale internationale tourne à $h=420$ km d'altitude. Calculer sa vitesse et sa période. Données : $M_T=5{,}97\times10^{24}$ kg, $R_T=6{,}37\times10^{3}$ km.</p>
+      <ol class="pas">
+        <li><strong>Le rayon.</strong> $r=R_T+h=6\,370+420=6\,790$ km, soit $6{,}79\times10^{6}$ m.</li>
+        <li><strong>La vitesse.</strong> $G\,M_T=6{,}67\times10^{-11}\times5{,}97\times10^{24}=3{,}98\times10^{14}$ m³·s⁻², donc $v=\sqrt{\dfrac{3{,}98\times10^{14}}{6{,}79\times10^{6}}}=7{,}66\times10^{3}$ m·s⁻¹, environ $27\,600$ km·h⁻¹.</li>
+        <li><strong>La période.</strong> $T=\dfrac{2\pi\times6{,}79\times10^{6}}{7{,}66\times10^{3}}=5{,}57\times10^{3}$ s, soit environ $93$ min : un peu plus de quinze tours par jour.</li>
+        <li><strong>Vérifier.</strong> La masse de la station n'est intervenue nulle part : un astronaute à côté d'elle tourne à la même vitesse. C'est pour cela qu'il flotte dans la station.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc theoreme" data-titre="Troisième loi de Kepler (orbite circulaire)">
+    <p>De $T=\dfrac{2\pi r}{v}$ et $v^2=\dfrac{G\,M}{r}$ on tire $T^2=\dfrac{4\pi^2r^2}{v^2}=\dfrac{4\pi^2r^3}{G\,M}$, soit</p>
+    <p class="formule">$\dfrac{T^2}{r^3}=\dfrac{4\pi^2}{G\,M}$</p>
+    <p>Ce quotient est le même pour <strong>tous les corps qui tournent autour du même astre</strong> de masse $M$ : il ne dépend ni de la masse du satellite, ni de son orbite.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les trois lois de Kepler">
+    <ol>
+      <li>Les planètes décrivent des <strong>ellipses</strong> dont le Soleil occupe un foyer.</li>
+      <li>Le segment Soleil-planète balaie des <strong>aires égales pendant des durées égales</strong> (loi des aires).</li>
+      <li>$\dfrac{T^2}{a^3}$ est le même pour toutes les planètes du système solaire, $a$ étant le demi-grand axe de l'ellipse ; pour un cercle, $a=r$.</li>
+    </ol>
+    <p>Kepler les a tirées des observations de Tycho Brahe et publiées entre 1609 et 1619. Newton les a expliquées par la gravitation. Elles valent aussi pour les satellites d'une même planète.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="kepler_aires" viewBox="0 0 540 360" role="img" aria-label="Une orbite elliptique très allongée, le Soleil occupant un foyer, près de l'extrémité droite. Deux secteurs colorés, balayés par le rayon Soleil-planète pendant la même durée : l'un près du Soleil, large et court, l'autre loin du Soleil, étroit et long. Les deux aires sont égales."><ellipse class="contour t-n" cx="252" cy="170" rx="200" ry="160.0"/><polygon class="forme-3" points="372.0,170.0 452.0,170.0 451.9,165.8 451.7,161.6 451.4,157.5 450.9,153.3 450.3,149.2 449.6,145.1 448.7,141.1 447.7,137.1 446.6,133.1 445.4,129.2 444.1,125.4 442.7,121.7 441.1,118.0 439.5,114.3 437.8,110.8 436.0,107.3 434.1,103.9 432.2,100.6 430.2,97.3 428.1,94.2 426.0,91.1 423.8,88.1 421.5,85.1 419.3,82.3 416.9,79.5 414.6,76.8 412.2,74.2 409.7,71.6 407.3,69.2 404.8,66.8"/><circle class="pt" cx="452.0" cy="170.0" r="4.2"/><circle class="pt" cx="404.8" cy="66.8" r="4.2"/><text class="moyen halo" x="432.5" y="120.3" text-anchor="middle">A₁</text><polygon class="forme-4" points="372.0,170.0 53.0,154.3 52.8,155.4 52.7,156.4 52.6,157.4 52.5,158.5 52.4,159.5 52.3,160.6 52.3,161.6 52.2,162.7 52.2,163.7 52.1,164.8 52.1,165.8 52.0,166.9 52.0,167.9 52.0,169.0 52.0,170.0 52.0,171.0 52.0,172.1 52.0,173.1 52.1,174.2 52.1,175.2 52.2,176.3 52.2,177.3 52.3,178.4 52.3,179.4 52.4,180.5 52.5,181.5 52.6,182.6 52.7,183.6 52.8,184.6 53.0,185.7"/><circle class="pt" cx="53.0" cy="154.3" r="4.2"/><circle class="pt" cx="53.0" cy="185.7" r="4.2"/><text class="moyen halo" x="62.3" y="175.0" text-anchor="middle">A₂</text><circle class="plein t-sc-jaune bord" cx="372.0" cy="170" r="10"/><text class="petit halo" x="368.0" y="200.0" text-anchor="middle">Soleil</text><circle class="pt" cx="132.0" cy="170.0" r="3.0"/><text class="petit halo" x="132.0" y="190.0" text-anchor="middle">second foyer</text><text class="moyen halo" x="14.0" y="26.0" text-anchor="start">Même durée Δt : aire A₁ = aire A₂</text><text class="petit halo" x="14.0" y="330.0" text-anchor="start">près du Soleil, la planète va plus vite</text></svg><figcaption>La loi des aires : pendant la même durée, le segment Soleil-planète balaie la même aire. Près du Soleil, le rayon est court : il faut parcourir plus de chemin, donc aller plus vite.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Le satellite géostationnaire">
+    <p>Un satellite géostationnaire reste au-dessus du même point de l'équateur. Il doit tourner dans le plan de l'équateur, dans le sens de rotation de la Terre, avec la période de rotation de la Terre sur elle-même : $T=23$ h $56$ min $4$ s $=86\,164$ s.</p>
+    <p>La troisième loi donne $r=\left(\dfrac{G\,M_T\,T^2}{4\pi^2}\right)^{1/3}$. Avec $G\,M_T\,T^2=3{,}98\times10^{14}\times86\,164^2=2{,}96\times10^{24}$ m³ : $r=\left(\dfrac{2{,}96\times10^{24}}{4\pi^2}\right)^{1/3}=4{,}22\times10^{7}$ m, soit une altitude de $42\,200-6\,370\approx35\,800$ km.</p>
+  </div>
+
+  <!-- ===== 11 ===== -->
+  <h3 id="c-python">11. Du pointage au programme Python</h3>
+
+  <p>En TP, un logiciel de pointage donne trois listes : les dates <code>t</code>, les abscisses <code>x</code> et les ordonnées <code>y</code>. Python calcule les vitesses et les accélérations, comme tu le fais à la main sur une chronophotographie, et les dessine.</p>
+
+  <div class="bloc exemple" data-titre="Représenter les vecteurs accélération">
+<pre class="code">import matplotlib.pyplot as plt
+
+# le pointage : dates en s, positions en m
+t = [0.00, 0.04, 0.08, 0.12, 0.16, 0.20, 0.24, 0.28, 0.32]
+x = [0.000, 0.100, 0.200, 0.300, 0.400, 0.500, 0.600, 0.700, 0.800]
+y = [0.000, 0.165, 0.315, 0.449, 0.567, 0.670, 0.757, 0.828, 0.883]
+n = len(t)
+
+# la vitesse au point i, sur la corde qui l'encadre
+vx = [0] * n
+vy = [0] * n
+for i in range(1, n - 1):
+    vx[i] = (x[i+1] - x[i-1]) / (t[i+1] - t[i-1])
+    vy[i] = (y[i+1] - y[i-1]) / (t[i+1] - t[i-1])
+
+# l'accélération au point i, de la même façon
+ax = [0] * n
+ay = [0] * n
+for i in range(2, n - 2):
+    ax[i] = (vx[i+1] - vx[i-1]) / (t[i+1] - t[i-1])
+    ay[i] = (vy[i+1] - vy[i-1]) / (t[i+1] - t[i-1])
+
+plt.plot(x, y, 'o')
+for i in range(2, n - 2):
+    plt.arrow(x[i], y[i], 0.01*ax[i], 0.01*ay[i], width=0.004, color='red')
+plt.axis('equal')
+plt.show()</pre>
+    <p>Les vitesses existent aux points $1$ à $n-2$, les accélérations aux points $2$ à $n-3$ : il faut un voisin de chaque côté. Ici, <code>ax[i]</code> vaut $0$, aux erreurs d'arrondi de l'ordinateur près, et <code>ay[i]</code> varie entre $-10{,}0$ et $-9{,}7$ m·s⁻² : c'est $-g$, aux arrondis du pointage près. Le facteur <code>0.01</code> est l'échelle des flèches.</p>
+  </div>
+
+  <div class="colonnes">
+    <div class="bloc exemple" data-titre="Les énergies d'un mouvement">
+<pre class="code">m = 0.058     # la masse, en kg
+g = 9.81
+Ec, Epp, Em = [], [], []
+for i in range(1, n - 1):
+    Ec.append(0.5 * m * (vx[i]**2 + vy[i]**2))
+    Epp.append(m * g * y[i])
+    Em.append(Ec[-1] + Epp[-1])
+
+plt.plot(t[1:n-1], Ec, label='Ec')
+plt.plot(t[1:n-1], Epp, label='Epp')
+plt.plot(t[1:n-1], Em, label='Em')
+plt.legend()
+plt.show()</pre>
+      <p>À la suite du programme précédent. Si $E_m$ reste constante, on peut négliger les frottements ; si elle diminue, l'air a pris de l'énergie.</p>
+    </div>
+    <div class="bloc exemple" data-titre="Tester la troisième loi de Kepler">
+<pre class="code"># demi-grand axe en unités astronomiques,
+# période en années
+planetes = ['Mercure', 'Vénus', 'Terre',
+            'Mars', 'Jupiter', 'Saturne']
+a = [0.387, 0.723, 1.000, 1.524, 5.203, 9.537]
+T = [0.241, 0.615, 1.000, 1.881, 11.86, 29.46]
+
+for k in range(len(a)):
+    print(planetes[k], T[k]**2 / a[k]**3)</pre>
+      <p>Les six quotients valent $1{,}00$ à $1\,\%$ près : la troisième loi est vérifiée. Avec ces unités, la constante vaut $1$ pour le système solaire.</p>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Tester la loi des aires">
+    <p>Avec les positions $(x_i\,;y_i)$ d'une planète, le Soleil à l'origine et des dates régulièrement espacées, l'aire balayée entre deux positions voisines est proche de celle du triangle : <code>aire = 0.5 * abs(x[i]*y[i+1] - x[i+1]*y[i])</code>. Si ces aires sont égales, la deuxième loi est vérifiée.</p>
+  </div>
+
+  <!-- ===== 12 ===== -->
+  <h3 id="c-pieges">12. Les pièges classiques</h3>
+
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait">
+    <ul>
+      <li><strong>L'accélération dessinée dans le sens de la vitesse.</strong> Ce n'est vrai qu'en ligne droite et en accélérant. Dans un virage, elle vise l'intérieur ; au freinage, elle est opposée.</li>
+      <li><strong>« Une force pousse dans le sens du mouvement ».</strong> La somme des forces a le sens de l'accélération, pas de la vitesse. Un ballon qui monte ne subit que son poids.</li>
+      <li><strong>« Au sommet, l'accélération est nulle ».</strong> C'est une coordonnée de la vitesse qui s'annule ; l'accélération vaut $\vec g$ pendant tout le vol.</li>
+      <li><strong>« Le plus lourd tombe plus vite ».</strong> En chute libre, $\vec a=\vec g$ quelle que soit la masse. Seul l'air fait la différence.</li>
+      <li><strong>Le signe de $g$.</strong> Avec $Oy$ vers le haut, $a_y=-g$.</li>
+      <li><strong>Cosinus et sinus échangés</strong> dans $v_{0x}$ et $v_{0y}$. Vérifie avec $\alpha=90°$.</li>
+      <li><strong>Les constantes oubliées</strong> en remontant de $\vec a$ à $\vec v$, puis à $\overrightarrow{OM}$ : la vitesse initiale, puis la position initiale.</li>
+      <li><strong>Les km·h⁻¹ non convertis.</strong> Divise par $3{,}6$ avant tout calcul.</li>
+      <li><strong>L'altitude prise pour le rayon.</strong> Dans $v=\sqrt{GM/r}$, $r=R+h$, distance au centre de la Terre.</li>
+      <li><strong>$24$ h pour le géostationnaire.</strong> La Terre fait un tour sur elle-même en $23$ h $56$ min ; les $24$ h du jour solaire comptent aussi le mouvement autour du Soleil.</li>
+      <li><strong>Les kV et les mm.</strong> $E=U/d$ en V et en m : $1{,}5$ kV sur $3{,}0$ mm donne $5{,}0\times10^{5}$ V·m⁻¹, pas $0{,}5$ V·m⁻¹.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 13 ===== -->
+  <h3 id="c-videos">13. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Construire une accélération sur une chronophotographie"></div>
+    <div class="video" data-titre="Établir les équations horaires d'un lancer"></div>
+    <div class="video" data-titre="Satellites : la troisième loi de Kepler"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Quatre laboratoires, dans l'ordre du cours. D'abord, trouve le sens de l'accélération sur des chronophotographies. Puis vise un panier en réglant ton lancer. Ensuite, dévie un électron et accélère des particules. Enfin, place un satellite sur la bonne orbite.</p>
+  <div class="labo" data-labo="newton" data-outil="chrono"></div>
+  <div class="labo" data-labo="newton" data-outil="lancer"></div>
+  <div class="labo" data-labo="newton" data-outil="plaques"></div>
+  <div class="labo" data-labo="newton" data-outil="orbites"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie : dérivées, chronophotographies, sens de l'accélération, deuxième loi, lancers, condensateurs, orbites. Donne tes résultats numériques avec trois chiffres significatifs : garde les décimales pendant le calcul, n'arrondis qu'à la fin. On prend $g=9{,}81$ m·s⁻².</p>
+
+  <div class="jeu" data-generateurs="newton" data-questions="10" data-titre="Le défi du mouvement"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Le vecteur vitesse d'un point est…</p>
+      <ul class="choix"><li class="bon">la dérivée du vecteur position par rapport au temps</li><li>la dérivée du vecteur accélération par rapport au temps</li><li>le vecteur position divisé par le temps</li><li>la distance parcourue depuis le départ</li></ul>
+      <div class="explication">$\vec v=\dfrac{d\overrightarrow{OM}}{dt}$. Et l'accélération est la dérivée de la vitesse, pas l'inverse.</div>
+    </div>
+    <div class="question">
+      <p>Une voiture fait le tour d'un rond-point à vitesse constante. Son accélération est…</p>
+      <ul class="choix"><li class="bon">dirigée vers le centre du rond-point</li><li>nulle, puisque la vitesse est constante</li><li>dirigée vers l'extérieur du rond-point</li><li>dans le sens de la vitesse</li></ul>
+      <div class="explication">La valeur de la vitesse est constante, mais sa direction change : $\vec a=\dfrac{v^2}{R}\,\vec u_n$, centripète. Vers l'extérieur, c'est ce que ressent le passager, pas l'accélération.</div>
+    </div>
+    <div class="question">
+      <p>Un ballon lancé en cloche est au sommet de sa trajectoire. On néglige l'air. Son accélération est…</p>
+      <ul class="choix"><li class="bon">$\vec g$ : verticale, vers le bas</li><li>nulle</li><li>horizontale, comme la vitesse</li><li>verticale, vers le haut</li></ul>
+      <div class="explication">Seul le poids s'exerce, pendant tout le vol : $\vec a=\vec g$. Au sommet, c'est $v_y$ qui s'annule, pas l'accélération.</div>
+    </div>
+    <div class="question" data-reponse="4" data-tolerance="0,01">
+      <p>Un mobile a pour abscisse $x(t)=2t^2+3t$ (en m, $t$ en s). Calcule $a_x$, en m·s⁻².</p>
+      <div class="explication">$v_x=\dfrac{dx}{dt}=4t+3$, puis $a_x=\dfrac{dv_x}{dt}=4$ m·s⁻², constante.</div>
+    </div>
+    <div class="question" data-reponse="2,5" data-tolerance="0,01">
+      <p>Une voiture de $1\,200$ kg est soumise à une somme de forces horizontale de $3\,000$ N. Calcule son accélération, en m·s⁻².</p>
+      <div class="explication">$\sum\vec F=m\,\vec a$, donc $a=\dfrac{3\,000}{1\,200}=2{,}5$ m·s⁻².</div>
+    </div>
+    <div class="question">
+      <p>On lance une boule de pétanque et une balle de tennis avec la même vitesse initiale. On néglige l'air.</p>
+      <ul class="choix"><li class="bon">Elles suivent la même trajectoire.</li><li>La boule retombe plus tôt, car elle est plus lourde.</li><li>La balle va plus loin, car elle est plus légère.</li><li>La boule va plus loin, car elle a plus d'élan.</li></ul>
+      <div class="explication">En chute libre, $\vec a=\vec g$ ne dépend pas de la masse. Mêmes conditions initiales, même accélération : même mouvement.</div>
+    </div>
+    <div class="question" data-reponse="5" data-tolerance="0,01">
+      <p>Un condensateur plan est soumis à $U=200$ V ; ses armatures sont à $d=4{,}0$ cm l'une de l'autre. Calcule le champ $E$, en kilovolts par mètre (kV·m⁻¹).</p>
+      <div class="explication">$E=\dfrac{U}{d}=\dfrac{200}{0{,}040}=5{,}0\times10^{3}$ V·m⁻¹, soit $5{,}0$ kV·m⁻¹. Les centimètres se convertissent en mètres d'abord.</div>
+    </div>
+    <div class="question">
+      <p>Un électron se trouve entre les armatures d'un condensateur plan. La force électrique qu'il subit est dirigée…</p>
+      <ul class="choix"><li class="bon">vers l'armature positive</li><li>vers l'armature négative</li><li>dans le sens du champ $\vec E$</li><li>vers le bas, comme son poids</li></ul>
+      <div class="explication">$\vec F=q\,\vec E$ avec $q=-e$ : la force est opposée à $\vec E$, qui va du $+$ vers le $-$. L'électron est attiré par l'armature positive.</div>
+    </div>
+    <div class="question">
+      <p>Deux satellites tournent autour de la Terre sur des orbites circulaires, l'un à $400$ km d'altitude, l'autre à $20\,000$ km. Le plus haut…</p>
+      <ul class="choix"><li class="bon">va moins vite, et met plus de temps à faire un tour</li><li>va plus vite, car il a plus de chemin à faire</li><li>va à la même vitesse</li><li>va moins vite, mais fait un tour dans le même temps</li></ul>
+      <div class="explication">$v=\sqrt{\dfrac{GM}{r}}$ diminue quand $r$ augmente, et $T=\dfrac{2\pi r}{v}$ augmente : plus haut, plus lent, plus long.</div>
+    </div>
+    <div class="question">
+      <p>Pour des corps en orbite circulaire, le quotient $\dfrac{T^2}{r^3}$ dépend…</p>
+      <ul class="choix"><li class="bon">seulement de la masse de l'astre autour duquel ils tournent</li><li>de la masse du satellite</li><li>de l'altitude de l'orbite</li><li>de la vitesse du satellite</li></ul>
+      <div class="explication">$\dfrac{T^2}{r^3}=\dfrac{4\pi^2}{G\,M}$ : seule la masse $M$ de l'astre central intervient. C'est ce qui permet de « peser » une planète à partir de ses lunes.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre : ★ appliquer le cours, ★★ exploiter une situation, ★★★ raisonner et modéliser. Rédige, vérifie unités et ordre de grandeur, puis ouvre la correction. On prend $g=9{,}81$ m·s⁻², $G=6{,}67\times10^{-11}$ N·m²·kg⁻², $M_T=5{,}97\times10^{24}$ kg, $R_T=6{,}37\times10^{3}$ km, $e=1{,}60\times10^{-19}$ C, $m_e=9{,}11\times10^{-31}$ kg, $m_p=1{,}67\times10^{-27}$ kg.</p>
+
+  <h3>Niveau 1 · Appliquer le cours</h3>
+
+  <article class="exercice" id="ex-deriver-une-position" data-titre="Dériver une position" data-niveau="1"
+           data-type="application" data-notions="cinematique" data-duree="10" data-calculatrice="non">
+    <p>Dans un repère lié au sol, un drone a pour équations horaires $x(t)=4{,}0\,t$ et $y(t)=-0{,}50\,t^2+3{,}0\,t+1{,}0$ ($x$ et $y$ en m, $t$ en s).</p>
+    <p>1. Établis les coordonnées du vecteur vitesse.<br>2. Calcule la valeur de la vitesse à $t=0$ et à $t=3{,}0$ s.<br>3. À quelle date la vitesse est-elle horizontale ?<br>4. Établis les coordonnées du vecteur accélération. Le mouvement est-il rectiligne uniformément accéléré ?</p>
+    <details class="indice"><p>Dérive chaque coordonnée séparément. La vitesse est horizontale quand sa coordonnée verticale est nulle.</p></details>
+    <details class="correction">
+      <p>1. $v_x=\dfrac{dx}{dt}=4{,}0$ m·s⁻¹ et $v_y=\dfrac{dy}{dt}=-1{,}0\,t+3{,}0$ m·s⁻¹.</p>
+      <p>2. À $t=0$ : $v_x=4{,}0$ et $v_y=3{,}0$, donc $v=\sqrt{4{,}0^2+3{,}0^2}=\sqrt{25}=5{,}0$ m·s⁻¹. À $t=3{,}0$ s : $v_y=-3{,}0+3{,}0=0$, donc $v=4{,}0$ m·s⁻¹.</p>
+      <p>3. $v_y=0$ pour $-1{,}0\,t+3{,}0=0$, soit $t=3{,}0$ s : le drone est alors au plus haut.</p>
+      <p>4. $a_x=0$ et $a_y=-1{,}0$ m·s⁻² : l'accélération est constante. Mais elle n'est pas colinéaire à la vitesse initiale, et la trajectoire est une parabole : le mouvement n'est pas rectiligne. Accélération constante ne veut pas dire mouvement rectiligne.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-palet-sur-la-glace" data-titre="Le palet sur la glace" data-niveau="1"
+           data-type="application" data-notions="cinematique newton2" data-duree="10" data-calculatrice="oui">
+    <p>Sur la chronophotographie d'un palet de hockey qui glisse sur la glace, les positions sont alignées et toutes séparées de $6{,}0$ cm sur le document. Elles sont prises toutes les $\tau=50$ ms ; $1$ cm sur le document représente $10$ cm en vrai.</p>
+    <p>1. Quelle est la nature du mouvement ?<br>2. Calcule la vitesse du palet.<br>3. Que vaut son accélération ?<br>4. Qu'en déduis-tu sur les forces qui s'exercent sur le palet ?</p>
+    <details class="correction">
+      <p>1. Positions alignées et également espacées : le mouvement est <strong>rectiligne uniforme</strong>.</p>
+      <p>2. Entre $M_{i-1}$ et $M_{i+1}$ : $12{,}0$ cm sur le document, soit $1{,}20$ m en vrai, en $2\tau=0{,}100$ s. $v=\dfrac{1{,}20}{0{,}100}=12$ m·s⁻¹, environ $43$ km·h⁻¹.</p>
+      <p>3. Le vecteur vitesse ne change ni en valeur ni en direction : $\vec a=\vec 0$.</p>
+      <p>4. D'après la deuxième loi, $\sum\vec F=m\,\vec a=\vec 0$ : les forces se compensent. Le poids est compensé par la réaction de la glace, et les frottements sont négligeables. Le palet n'a pas besoin d'une force pour avancer.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-voiture-dans-le-rond-point" data-titre="La voiture dans le rond-point" data-niveau="1"
+           data-type="application" data-notions="frenet" data-duree="10" data-calculatrice="oui">
+    <p>Une voiture tourne dans un rond-point de rayon $R=30$ m.</p>
+    <p>1. Elle roule à $27$ km·h⁻¹ constants. Calcule la valeur de son accélération et donne sa direction.<br>2. Elle accélère ensuite de $7{,}5$ à $10{,}0$ m·s⁻¹ en $4{,}0$ s, toujours sur le même cercle. Calcule les deux coordonnées de l'accélération dans le repère de Frenet quand $v=10{,}0$ m·s⁻¹, en supposant $\dfrac{dv}{dt}$ constant.<br>3. Le passager dit qu'il est « poussé vers l'extérieur ». Que lui réponds-tu ?</p>
+    <details class="indice"><p>Convertis d'abord en m·s⁻¹. Dans le repère de Frenet, $a_t=\dfrac{dv}{dt}$ et $a_n=\dfrac{v^2}{R}$.</p></details>
+    <details class="correction">
+      <p>1. $v=\dfrac{27}{3{,}6}=7{,}5$ m·s⁻¹. Mouvement circulaire uniforme : $a=\dfrac{v^2}{R}=\dfrac{7{,}5^2}{30}=1{,}875\approx1{,}9$ m·s⁻², dirigée vers le centre du rond-point.</p>
+      <p>2. $a_t=\dfrac{dv}{dt}=\dfrac{10{,}0-7{,}5}{4{,}0}=0{,}63$ m·s⁻² et $a_n=\dfrac{10{,}0^2}{30}=3{,}3$ m·s⁻². L'accélération penche vers l'avant et vers le centre.</p>
+      <p>3. L'accélération est dirigée vers l'intérieur. Son corps tend à continuer tout droit, pendant que la voiture tourne : c'est la portière qui le pousse vers le centre, pas une force qui le tire vers l'extérieur.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-tram-qui-demarre" data-titre="Le tram qui démarre" data-niveau="1"
+           data-type="application" data-notions="newton2" data-duree="12" data-calculatrice="oui">
+    <p>Une rame de tramway de $42$ t démarre sur une voie rectiligne et horizontale. Sa vitesse passe de $0$ à $36$ km·h⁻¹ en $25$ s, avec une accélération constante.</p>
+    <p>1. Calcule l'accélération.<br>2. Calcule la distance parcourue pendant le démarrage.<br>3. Les frottements sont négligés. Calcule la force motrice.<br>4. En réalité, les frottements valent $2{,}0\times10^{3}$ N. Que devient la force motrice nécessaire ?</p>
+    <details class="correction">
+      <p>1. $36$ km·h⁻¹ $=10$ m·s⁻¹ : $a=\dfrac{10-0}{25}=0{,}40$ m·s⁻².</p>
+      <p>2. $x=\tfrac12a\,t^2=\tfrac12\times0{,}40\times25^2=125$ m.</p>
+      <p>3. Système : la rame, référentiel terrestre supposé galiléen. Sur l'axe horizontal orienté vers l'avant, le poids et la réaction des rails, verticaux, ne comptent pas : $F=m\,a=42\times10^{3}\times0{,}40=1{,}7\times10^{4}$ N.</p>
+      <p>4. $F-f=m\,a$, donc $F=m\,a+f=1{,}68\times10^{4}+2{,}0\times10^{3}=1{,}9\times10^{4}$ N.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-champ-entre-deux-plaques" data-titre="Le champ entre deux plaques" data-niveau="1"
+           data-type="application" data-notions="champ-uniforme" data-duree="10" data-calculatrice="oui">
+    <p>Un condensateur plan a des armatures horizontales séparées de $3{,}0$ cm, sous une tension de $1{,}5$ kV ; l'armature du haut est positive.</p>
+    <p>1. Calcule la valeur du champ électrique et donne son sens.<br>2. Un électron est entre les armatures. Donne la direction et le sens de la force électrique, et calcule sa valeur.<br>3. Compare-la au poids de l'électron. Conclus.<br>4. On écarte les armatures à $6{,}0$ cm sans changer la tension. Que devient le champ ?</p>
+    <details class="correction">
+      <p>1. $E=\dfrac{U}{d}=\dfrac{1{,}5\times10^{3}}{3{,}0\times10^{-2}}=5{,}0\times10^{4}$ V·m⁻¹, vertical, vers le bas (du $+$ vers le $-$).</p>
+      <p>2. $\vec F=-e\,\vec E$ : verticale, vers le haut. $F=e\,E=1{,}60\times10^{-19}\times5{,}0\times10^{4}=8{,}0\times10^{-15}$ N.</p>
+      <p>3. $P=m_e\,g=9{,}11\times10^{-31}\times9{,}81=8{,}9\times10^{-30}$ N. $\dfrac{F}{P}\approx9\times10^{14}$ : le poids est négligeable.</p>
+      <p>4. $E=\dfrac{U}{d}$ : à tension égale, doubler $d$ divise le champ par deux, $2{,}5\times10^{4}$ V·m⁻¹.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-station-spatiale" data-titre="La station spatiale" data-niveau="1"
+           data-type="application" data-notions="kepler frenet" data-duree="12" data-calculatrice="oui">
+    <p>La station spatiale internationale décrit une orbite circulaire à $420$ km d'altitude.</p>
+    <p>1. Dans quel référentiel étudie-t-on son mouvement ?<br>2. Montre que son mouvement est uniforme.<br>3. Calcule sa vitesse.<br>4. Calcule sa période, en minutes, et le nombre de tours qu'elle fait en $24$ h.</p>
+    <details class="indice"><p>Le rayon de l'orbite se compte depuis le centre de la Terre.</p></details>
+    <details class="correction">
+      <p>1. Dans le référentiel géocentrique, supposé galiléen.</p>
+      <p>2. Seule la gravitation s'exerce, dirigée vers le centre de la Terre : dans le repère de Frenet, $\vec a$ n'a pas de coordonnée tangentielle, donc $\dfrac{dv}{dt}=0$ : la valeur de la vitesse est constante.</p>
+      <p>3. $r=6\,370+420=6\,790$ km $=6{,}79\times10^{6}$ m. $\dfrac{v^2}{r}=\dfrac{G\,M_T}{r^2}$ donne $v=\sqrt{\dfrac{G\,M_T}{r}}$, avec $G\,M_T=3{,}98\times10^{14}$ m³·s⁻² : $v=\sqrt{\dfrac{3{,}98\times10^{14}}{6{,}79\times10^{6}}}=7{,}66\times10^{3}$ m·s⁻¹.</p>
+      <p>4. $T=\dfrac{2\pi r}{v}=5{,}57\times10^{3}$ s $\approx92{,}9$ min. En $24$ h $=86\,400$ s : $\dfrac{86\,400}{5\,571}\approx15{,}5$ tours.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Exploiter une situation</h3>
+
+  <article class="exercice" id="ex-le-lancer-franc" data-titre="Le lancer franc" data-niveau="2"
+           data-type="probleme" data-notions="champ-uniforme cinematique" data-duree="25" data-calculatrice="oui">
+    <p>Au lancer franc, une joueuse lâche le ballon à $2{,}10$ m du sol, à $4{,}20$ m (horizontalement) du centre de l'arceau, qui est à $3{,}05$ m de haut. Le ballon part à $v_0=7{,}20$ m·s⁻¹, avec un angle de $52°$ au-dessus de l'horizontale. On assimile le ballon à son centre de masse et on néglige l'air.</p>
+    <p>1. Montre que l'accélération du ballon est $\vec g$.<br>2. Dans un repère d'origine au sol sous le point de lâcher, $Ox$ horizontal vers le panier, $Oy$ vertical vers le haut, établis les équations horaires.<br>3. Établis l'équation de la trajectoire.<br>4. Le ballon passe-t-il à la hauteur de l'arceau en $x=4{,}20$ m ? Monte-t-il ou descend-il à cet instant ?<br>5. Calcule la hauteur maximale atteinte.<br>6. Retrouve la vitesse du ballon à l'arceau par l'énergie mécanique, et compare avec les équations horaires.</p>
+    <details class="indice"><p>Calcule d'abord $v_0\cos52°$ et $v_0\sin52°$, et garde-les.</p></details>
+    <details class="indice"><p>Pour savoir s'il monte ou descend, regarde le signe de $v_y$ à la date où $x=4{,}20$ m.</p></details>
+    <details class="correction">
+      <p>1. Système : le ballon ; référentiel terrestre supposé galiléen ; seul le poids s'exerce. $m\,\vec g=m\,\vec a$, donc $\vec a=\vec g$.</p>
+      <p>2. $v_0\cos52°=4{,}43$ m·s⁻¹ et $v_0\sin52°=5{,}67$ m·s⁻¹. $a_x=0$, $a_y=-9{,}81$ ; $v_x=4{,}43$, $v_y=-9{,}81\,t+5{,}67$ ; $x=4{,}43\,t$, $y=-4{,}905\,t^2+5{,}67\,t+2{,}10$.</p>
+      <p>3. $t=\dfrac{x}{4{,}43}$, d'où $y=-\dfrac{g}{2v_0^2\cos^2\alpha}\,x^2+x\tan\alpha+h$. Ici $\dfrac{9{,}81}{2\times7{,}20^2\cos^2 52°}\approx0{,}250$ et $\tan52°\approx1{,}28$ : $y\approx-0{,}250\,x^2+1{,}28\,x+2{,}10$.</p>
+      <p>4. En $x=4{,}20$ m : $y\approx-0{,}250\times4{,}20^2+1{,}28\times4{,}20+2{,}10\approx3{,}07$ m. Le ballon passe à $2$ cm au-dessus de la hauteur de l'arceau : avec un arceau de $45$ cm de diamètre, c'est un panier. À cet instant, $t=\dfrac{4{,}20}{4{,}43}=0{,}947$ s et $v_y=-9{,}81\times0{,}947+5{,}67=-3{,}62$ m·s⁻¹ : il descend, comme il le faut pour entrer.</p>
+      <p>5. Au sommet, $v_y=0$ : $t_S=\dfrac{5{,}67}{9{,}81}=0{,}578$ s et $y_S=2{,}10+\dfrac{5{,}67^2}{2\times9{,}81}=3{,}74$ m.</p>
+      <p>6. $\tfrac12m\,v_0^2+m\,g\,y_0=\tfrac12m\,v^2+m\,g\,y$, donc $v=\sqrt{v_0^2-2\,g\,(y-y_0)}$. Avec $y-y_0=3{,}072-2{,}10=0{,}972$ m : $v^2=7{,}20^2-2\times9{,}81\times0{,}972=32{,}8$, donc $v=5{,}72$ m·s⁻¹. Avec les équations : $\sqrt{4{,}43^2+3{,}62^2}=5{,}72$ m·s⁻¹. Les deux méthodes concordent.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-ascenseur-et-le-telephone" data-titre="L'ascenseur et le téléphone" data-niveau="2"
+           data-type="probleme" data-notions="newton2" data-duree="20" data-calculatrice="oui">
+    <p>Lucas, $60{,}0$ kg, monte dans un ascenseur, debout sur un pèse-personne. Son téléphone enregistre l'accélération verticale de l'ascenseur (axe vers le haut) : $+0{,}80$ m·s⁻² pendant les $2{,}0$ premières secondes, puis $0$ pendant la montée, puis $-0{,}80$ m·s⁻² pendant les $2{,}0$ dernières secondes.</p>
+    <p>1. Fais le bilan des forces qui s'exercent sur Lucas.<br>2. Montre que la force $R$ exercée par le pèse-personne vérifie $R=m\,(g+a)$.<br>3. Calcule $R$ dans chacune des trois phases.<br>4. Le pèse-personne affiche $\dfrac{R}{g}$, en kilogrammes. Qu'affiche-t-il dans chaque phase ?<br>5. Quelle est la vitesse de l'ascenseur pendant la montée ?</p>
+    <details class="correction">
+      <p>1. Système : Lucas ; référentiel terrestre supposé galiléen. Son poids $\vec P$, vertical vers le bas, et la réaction $\vec R$ du pèse-personne, verticale vers le haut.</p>
+      <p>2. $\vec P+\vec R=m\,\vec a$. Sur l'axe vertical vers le haut : $-m\,g+R=m\,a$, donc $R=m\,(g+a)$.</p>
+      <p>3. Démarrage : $R=60{,}0\times(9{,}81+0{,}80)=637$ N. Montée régulière : $R=60{,}0\times9{,}81=589$ N. Freinage : $R=60{,}0\times(9{,}81-0{,}80)=541$ N.</p>
+      <p>4. $\dfrac{637}{9{,}81}=64{,}9$ kg, puis $60{,}0$ kg, puis $\dfrac{541}{9{,}81}=55{,}1$ kg. Lucas ne change pas de masse : c'est la force du pèse-personne qui change.</p>
+      <p>5. Pendant le démarrage, $v=a\,t=0{,}80\times2{,}0=1{,}6$ m·s⁻¹. Elle reste ensuite constante, puisque l'accélération est nulle.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-electron-devie" data-titre="L'électron dévié" data-niveau="2"
+           data-type="probleme" data-notions="champ-uniforme" data-duree="25" data-calculatrice="oui">
+    <p>Un électron entre en $O$, à mi-distance des armatures d'un condensateur plan, avec une vitesse horizontale $v_0=2{,}0\times10^{7}$ m·s⁻¹. Les armatures, horizontales, ont une longueur $L=5{,}0$ cm et sont séparées de $d=2{,}0$ cm ; la tension vaut $U=200$ V, l'armature du haut est positive. $Ox$ est horizontal, $Oy$ vertical vers le haut.</p>
+    <p>1. Justifie qu'on néglige le poids de l'électron.<br>2. Établis les coordonnées de son accélération.<br>3. Établis les équations horaires, puis l'équation de la trajectoire.<br>4. Calcule l'ordonnée de sortie. L'électron sort-il du condensateur ?<br>5. Calcule l'angle entre sa vitesse de sortie et l'horizontale.<br>6. Quelle tension minimale faudrait-il pour qu'il heurte l'armature ?</p>
+    <details class="correction">
+      <p>1. $E=\dfrac{U}{d}=1{,}0\times10^{4}$ V·m⁻¹, $F=e\,E=1{,}6\times10^{-15}$ N, alors que $P=m_e\,g=8{,}9\times10^{-30}$ N : le poids est $10^{14}$ fois plus petit.</p>
+      <p>2. $\vec F=-e\,\vec E$, avec $\vec E$ vers le bas : la force est vers le haut. $a_x=0$ et $a_y=\dfrac{e\,E}{m_e}=1{,}76\times10^{15}$ m·s⁻².</p>
+      <p>3. $v_x=v_0$, $v_y=a_y\,t$ ; $x=v_0\,t$, $y=\tfrac12a_y\,t^2$. D'où $y=\dfrac{a_y}{2\,v_0^2}\,x^2=\dfrac{e\,U}{2\,m_e\,d\,v_0^2}\,x^2$.</p>
+      <p>4. En $x=L$ : $t=\dfrac{L}{v_0}=2{,}5\times10^{-9}$ s et $y=\tfrac12\times1{,}76\times10^{15}\times(2{,}5\times10^{-9})^2=5{,}5\times10^{-3}$ m. C'est moins que $\dfrac d2=1{,}0$ cm : il sort.</p>
+      <p>5. $v_y=a_y\,t=1{,}76\times10^{15}\times2{,}5\times10^{-9}=4{,}4\times10^{6}$ m·s⁻¹ et $\tan\theta=\dfrac{v_y}{v_x}=\dfrac{4{,}4\times10^{6}}{2{,}0\times10^{7}}=0{,}22$, soit $\theta\approx12°$.</p>
+      <p>6. Il heurte l'armature si $y(L)\geqslant\dfrac d2$. Or $y(L)$ est proportionnelle à $U$ : il faut $U\geqslant200\times\dfrac{10}{5{,}5}\approx3{,}6\times10^{2}$ V.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-protons-de-l-injecteur" data-titre="Les protons de l'injecteur" data-niveau="2"
+           data-type="probleme" data-notions="champ-uniforme energie-meca" data-duree="20" data-calculatrice="oui">
+    <p>Dans l'injecteur d'un accélérateur, des protons partent sans vitesse et traversent une tension $U=50$ kV.</p>
+    <p>1. Montre, avec le théorème de l'énergie cinétique, que leur vitesse vaut $v_1=\sqrt{\dfrac{2\,e\,U}{m_p}}$, et calcule-la.<br>2. Ils entrent ensuite dans un accélérateur linéaire ; chaque intervalle entre deux tubes leur fait gagner encore $e\,U$. Exprime leur vitesse $v_n$ après $n$ accélérations en fonction de $v_1$.<br>3. La tension alternative a une fréquence de $10$ MHz : chaque tube doit être traversé en une demi-période. Calcule la longueur du premier et du quatrième tube.<br>4. Pourquoi ne peut-on pas continuer ce calcul jusqu'à des énergies de $1\,000$ MeV ?</p>
+    <details class="correction">
+      <p>1. La force électrique est la seule à travailler : $\tfrac12m_p\,v_1^2-0=e\,U$, d'où $v_1=\sqrt{\dfrac{2\,e\,U}{m_p}}$. Avec $2\,e\,U=1{,}6\times10^{-14}$ J : $v_1=\sqrt{\dfrac{1{,}6\times10^{-14}}{1{,}67\times10^{-27}}}=3{,}1\times10^{6}$ m·s⁻¹.</p>
+      <p>2. Après $n$ accélérations, $\tfrac12m_p\,v_n^2=n\,e\,U$ : $v_n=v_1\sqrt n$.</p>
+      <p>3. Une demi-période : $\dfrac{1}{2\times10\times10^{6}}=5{,}0\times10^{-8}$ s. Premier tube : $L_1=v_1\times5{,}0\times10^{-8}=0{,}15$ m. Quatrième : $v_4=2\,v_1$, donc $L_4=0{,}31$ m. Les tubes s'allongent comme $\sqrt n$.</p>
+      <p>4. À ces énergies, la vitesse calculée dépasserait la vitesse de la lumière ($3{,}0\times10^{8}$ m·s⁻¹), ce qui est impossible : bien avant, le modèle de Newton cesse de s'appliquer et il faut la relativité. Un modèle a un domaine de validité.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-energies-d-un-lancer" data-titre="Les énergies d'un lancer" data-niveau="2"
+           data-type="probleme" data-notions="champ-uniforme energie-meca" data-duree="20" data-calculatrice="oui">
+    <p>On a pointé le lancer d'une boule de pétanque de $700$ g et calculé ses énergies (sol pris comme origine des altitudes) :</p>
+    <div class="defile"><table>
+      <tr><th>$t$ (s)</th><td>$0$</td><td>$0{,}2$</td><td>$0{,}4$</td><td>$0{,}6$</td><td>$0{,}8$</td><td>$1{,}0$</td></tr>
+      <tr><th>$E_c$ (J)</th><td>$17{,}15$</td><td>$11{,}70$</td><td>$8{,}94$</td><td>$8{,}88$</td><td>$11{,}51$</td><td>$16{,}84$</td></tr>
+      <tr><th>$E_{pp}$ (J)</th><td>$6{,}87$</td><td>$12{,}32$</td><td>$15{,}07$</td><td>$15{,}14$</td><td>$12{,}50$</td><td>$7{,}17$</td></tr>
+    </table></div>
+    <p>1. Calcule l'énergie mécanique à chaque date. Que peux-tu dire de l'action de l'air ?<br>2. Déduis de $E_c(0)$ la vitesse initiale, et de $E_{pp}(0)$ la hauteur de lâcher.<br>3. Pourquoi l'énergie cinétique ne s'annule-t-elle jamais ?<br>4. Au sommet, $E_c$ vaut environ $8{,}58$ J. Déduis-en la vitesse au sommet, puis l'angle de lancer.</p>
+    <details class="correction">
+      <p>1. $E_m=E_c+E_{pp}=24{,}0$ J à chaque date (à $0{,}01$ J près, les arrondis du tableau) : l'énergie mécanique se conserve, on peut négliger l'action de l'air.</p>
+      <p>2. $v_0=\sqrt{\dfrac{2\,E_c}{m}}=\sqrt{\dfrac{2\times17{,}15}{0{,}700}}=7{,}0$ m·s⁻¹ ; $h=\dfrac{E_{pp}}{m\,g}=\dfrac{6{,}87}{0{,}700\times9{,}81}=1{,}0$ m.</p>
+      <p>3. La coordonnée horizontale de la vitesse, $v_x$, reste constante et non nulle : la vitesse n'est jamais nulle, même au sommet.</p>
+      <p>4. Au sommet, $v=v_x=\sqrt{\dfrac{2\times8{,}58}{0{,}700}}=4{,}95$ m·s⁻¹. Or $v_x=v_0\cos\alpha$, donc $\cos\alpha=\dfrac{4{,}95}{7{,}0}=0{,}707$ et $\alpha=45°$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-rester-au-dessus-du-meme-point" data-titre="Rester au-dessus du même point" data-niveau="2"
+           data-type="probleme" data-notions="kepler" data-duree="20" data-calculatrice="oui">
+    <p>Un satellite météorologique doit rester à la verticale du même point de l'équateur.</p>
+    <p>1. Quelle doit être sa période ? Dans quel plan, et dans quel sens, doit-il tourner ?<br>2. Établis l'expression de la troisième loi de Kepler pour une orbite circulaire autour de la Terre.<br>3. Calcule le rayon de son orbite, puis son altitude.<br>4. Calcule sa vitesse.<br>5. Un élève a pris $T=24$ h. De combien s'est-il trompé sur l'altitude ?</p>
+    <details class="correction">
+      <p>1. La période de rotation de la Terre sur elle-même : $T=23$ h $56$ min $4$ s $=86\,164$ s. Il tourne dans le plan de l'équateur, dans le sens de rotation de la Terre.</p>
+      <p>2. Deuxième loi et repère de Frenet : $\dfrac{v^2}{r}=\dfrac{G\,M_T}{r^2}$ ; avec $v=\dfrac{2\pi r}{T}$, on obtient $\dfrac{T^2}{r^3}=\dfrac{4\pi^2}{G\,M_T}$.</p>
+      <p>3. $r=\left(\dfrac{G\,M_T\,T^2}{4\pi^2}\right)^{1/3}=4{,}215\times10^{7}$ m, soit une altitude $h=r-R_T=42\,150-6\,370\approx35\,780$ km.</p>
+      <p>4. $v=\dfrac{2\pi r}{T}=\dfrac{2\pi\times4{,}215\times10^{7}}{86\,164}=3{,}07\times10^{3}$ m·s⁻¹.</p>
+      <p>5. Avec $86\,400$ s : $r=4{,}223\times10^{7}$ m, environ $80$ km de trop. Sur cette orbite, le satellite prendrait du retard sur la Terre : environ un degré de longitude par jour.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-peser-jupiter" data-titre="Peser Jupiter" data-niveau="2"
+           data-type="probleme" data-notions="kepler" data-duree="20" data-calculatrice="oui">
+    <p>Galilée a découvert en 1610 quatre lunes de Jupiter. On assimile leurs orbites à des cercles.</p>
+    <div class="defile"><table>
+      <tr><th>Lune</th><td>Io</td><td>Europe</td><td>Ganymède</td><td>Callisto</td></tr>
+      <tr><th>Rayon $r$ (km)</th><td>$421\,700$</td><td>$671\,100$</td><td>$1\,070\,400$</td><td>$1\,882\,700$</td></tr>
+      <tr><th>Période $T$ (jours)</th><td>$1{,}769$</td><td>$3{,}551$</td><td>$7{,}155$</td><td>$16{,}689$</td></tr>
+    </table></div>
+    <p>1. Calcule $\dfrac{T^2}{r^3}$ pour chaque lune, en unités SI. La troisième loi de Kepler est-elle vérifiée ?<br>2. Déduis-en la masse de Jupiter.<br>3. Écris un programme Python qui fait ces calculs pour les quatre lunes.</p>
+    <details class="indice"><p>Convertis les jours en secondes et les kilomètres en mètres avant de calculer.</p></details>
+    <details class="correction">
+      <p>1. Pour Io : $T=1{,}769\times86\,400=1{,}528\times10^{5}$ s et $r=4{,}217\times10^{8}$ m, d'où $\dfrac{T^2}{r^3}=3{,}115\times10^{-16}$ s²·m⁻³. Europe : $3{,}114\times10^{-16}$ ; Ganymède et Callisto : $3{,}116\times10^{-16}$. Les quatre quotients sont égaux à $0{,}1$ % près : la loi est vérifiée.</p>
+      <p>2. $\dfrac{T^2}{r^3}=\dfrac{4\pi^2}{G\,M_J}$, donc $M_J=\dfrac{4\pi^2}{G\times3{,}115\times10^{-16}}$. Le dénominateur vaut $6{,}67\times10^{-11}\times3{,}115\times10^{-16}=2{,}078\times10^{-26}$, d'où $M_J=\dfrac{39{,}48}{2{,}078\times10^{-26}}=1{,}90\times10^{27}$ kg, environ $320$ fois la masse de la Terre.</p>
+      <p>3. Un programme possible :</p>
+<pre class="code">from math import pi
+G = 6.67e-11
+r = [421.7e6, 671.1e6, 1070.4e6, 1882.7e6]   # en m
+T = [1.769, 3.551, 7.155, 16.689]            # en jours
+for k in range(4):
+    Ts = T[k] * 86400
+    q = Ts**2 / r[k]**3
+    print(q, 4 * pi**2 / (G * q))</pre>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA : la balle lancée vers le haut" data-niveau="2"
+           data-type="corrige-ia" data-notions="newton2 champ-uniforme" data-duree="12" data-calculatrice="non">
+    <p>Un élève a demandé à une IA : « Je lance une balle de tennis verticalement vers le haut. Que vaut son accélération au sommet, et quelles forces agissent pendant la montée ? On néglige l'air. » Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« Au sommet, la balle s'arrête : sa vitesse est nulle, donc son accélération aussi, $\vec a=\vec 0$. Pendant la montée, deux forces agissent : le poids, vers le bas, et la force du lancer, vers le haut, qui s'épuise peu à peu. Quand elle devient plus petite que le poids, la balle redescend. D'ailleurs, une boule de pétanque, plus lourde, lancée à la même vitesse, monterait moins haut et retomberait plus vite. »</blockquote>
+    <details class="indice"><p>Combien de forces s'exercent sur la balle une fois qu'elle a quitté la main ?</p></details>
+    <details class="correction">
+      <p><strong>Erreur 1 : l'accélération au sommet.</strong> Une vitesse nulle à un instant ne veut pas dire une accélération nulle : juste avant, la vitesse est vers le haut, juste après vers le bas. Elle change, donc $\vec a\neq\vec 0$. Pendant tout le vol, $\vec a=\vec g$, verticale, vers le bas.</p>
+      <p><strong>Erreur 2 : la « force du lancer ».</strong> Une fois la balle lâchée, la main ne la touche plus : la seule force est le poids. La balle monte parce qu'elle est partie vers le haut (la vitesse initiale), et elle ralentit parce que son accélération est vers le bas. La somme des forces a le sens de l'accélération, pas celui de la vitesse.</p>
+      <p><strong>Erreur 3 : le rôle de la masse.</strong> $m\,\vec g=m\,\vec a$ donne $\vec a=\vec g$, pour la balle comme pour la boule. Avec la même vitesse initiale, la boule de pétanque monte à la même hauteur, $h=\dfrac{v_0^2}{2g}$, et retombe en même temps.</p>
+      <p>Une réponse peut sonner juste et se tromper trois fois. Le réflexe : écrire la deuxième loi avant de parler de forces.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Raisonner et modéliser</h3>
+
+  <article class="exercice" id="ex-montrer-que-le-mouvement-est-plan" data-titre="Montrer que le mouvement est plan" data-niveau="3"
+           data-type="raisonnement" data-notions="champ-uniforme cinematique" data-duree="15" data-calculatrice="non">
+    <p>Un projectile en chute libre part du point $A(0\,;h\,;0)$ avec une vitesse $\vec v_0$ contenue dans le plan vertical $(xOy)$ : $\vec v_0=v_0\cos\alpha\,\vec\imath+v_0\sin\alpha\,\vec\jmath$. L'axe $Oy$ est vertical vers le haut.</p>
+    <p>1. Montre que $z(t)=0$ à chaque instant. Conclus.<br>2. Montre que la trajectoire est une parabole si $\alpha\neq90°$.<br>3. Que devient le mouvement si $\alpha=90°$ ? Et si $v_0=0$ ?<br>4. Un deuxième projectile part du même point avec $\vec v_0=v_0\,\vec\imath+w\,\vec k$. Son mouvement est-il plan ? Dans quel plan ?</p>
+    <details class="correction">
+      <p>1. $\vec a=\vec g$ : $a_z=0$. Donc $v_z$ est constante, égale à sa valeur initiale $0$ ; puis $z$ est constante, égale à $z(0)=0$. Le point reste dans le plan $z=0$ : le mouvement est plan, dans le plan vertical qui contient $\vec v_0$.</p>
+      <p>2. $x=v_0\cos\alpha\;t$ ; si $\cos\alpha\neq0$, $t=\dfrac{x}{v_0\cos\alpha}$, et $y=-\dfrac{g}{2\,v_0^2\cos^2\alpha}\,x^2+\tan\alpha\,x+h$ : un polynôme du second degré en $x$, de coefficient de $x^2$ non nul. C'est une parabole.</p>
+      <p>3. Si $\alpha=90°$, $x(t)=0$ : le mouvement se fait sur la verticale de $A$, il est rectiligne (montée puis descente). Si $v_0=0$, c'est une chute verticale, rectiligne aussi.</p>
+      <p>4. $v_z=w$ et $z=w\,t$, $v_y=-g\,t$, $x=v_0\,t$. Le rapport $\dfrac{z}{x}=\dfrac{w}{v_0}$ est constant : le point reste dans le plan vertical qui contient $\vec v_0$. Le mouvement est plan, dans un plan vertical tourné par rapport à $(xOy)$. Le choix des axes ne change pas la physique.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-quel-angle-pour-aller-le-plus-loin" data-titre="Quel angle pour aller le plus loin ?" data-niveau="3"
+           data-type="raisonnement" data-notions="champ-uniforme" data-duree="20" data-calculatrice="non">
+    <p>Un projectile part du sol ($h=0$) avec une vitesse $v_0$ faisant un angle $\alpha$ avec l'horizontale, entre $0°$ et $90°$. On néglige l'air.</p>
+    <p>1. Montre que la portée vaut $P=\dfrac{v_0^2\sin(2\alpha)}{g}$. On rappelle que $2\sin\alpha\cos\alpha=\sin(2\alpha)$.<br>2. Pour quel angle la portée est-elle maximale ?<br>3. Montre que deux angles complémentaires ($\alpha$ et $90°-\alpha$) donnent la même portée.<br>4. Les lanceurs de poids partent autour de $37°$ à $40°$, pas à $45°$. Donne deux raisons.</p>
+    <details class="indice"><p>Le projectile retombe au sol quand $y=0$, pour $t\neq0$.</p></details>
+    <details class="correction">
+      <p>1. $y=-\tfrac12g\,t^2+v_0\sin\alpha\;t=t\left(v_0\sin\alpha-\tfrac12g\,t\right)$ s'annule pour $t_f=\dfrac{2\,v_0\sin\alpha}{g}$. Alors $P=v_0\cos\alpha\;t_f=\dfrac{2\,v_0^2\sin\alpha\cos\alpha}{g}=\dfrac{v_0^2\sin(2\alpha)}{g}$.</p>
+      <p>2. $\sin(2\alpha)$ est maximal, égal à $1$, pour $2\alpha=90°$, soit $\alpha=45°$. Alors $P_{max}=\dfrac{v_0^2}{g}$.</p>
+      <p>3. $\sin(2(90°-\alpha))=\sin(180°-2\alpha)=\sin(2\alpha)$ : même portée. Un tir à $30°$ et un tir à $60°$ arrivent au même endroit, le second par une cloche plus haute.</p>
+      <p>4. Le poids part d'environ $2$ m au-dessus du sol : il retombe plus bas qu'il n'est parti, et l'angle optimal est alors un peu plus petit que $45°$. Et un athlète pousse plus vite à l'horizontale qu'à la verticale : en baissant l'angle, il gagne de la vitesse $v_0$, qui compte au carré. Le modèle à $45°$ suppose un départ du sol et une $v_0$ qui ne dépend pas de l'angle.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-completer-le-programme-du-pointage" data-titre="Compléter le programme du pointage" data-niveau="3"
+           data-type="probleme" data-notions="cinematique" data-duree="20" data-calculatrice="non">
+    <p>Un élève a pointé une balle toutes les $\tau=0{,}040$ s. Son programme calcule la vitesse verticale et l'accélération verticale, mais deux lignes sont incomplètes.</p>
+<pre class="code">t = [0.00, 0.04, 0.08, 0.12, 0.16, 0.20]
+y = [0.000, 0.165, 0.315, 0.449, 0.567, 0.670]
+n = len(t)
+vy = [0] * n
+for i in range(1, n - 1):
+    vy[i] = ..........                        # ligne A
+ay = [0] * n
+for i in range(2, n - 2):
+    ay[i] = (vy[i+1] - vy[i-1]) / ..........  # ligne B
+print(vy)
+print(ay)</pre>
+    <p>1. Complète les lignes A et B.<br>2. Calcule à la main <code>vy[1]</code>, <code>vy[3]</code> et <code>ay[2]</code>.<br>3. Pourquoi la boucle de la ligne B commence-t-elle à <code>2</code> ?<br>4. Le programme affiche <code>ay[2]</code> et <code>ay[3]</code> proches de $-9{,}8$. Que conclus-tu ? Pourquoi ces valeurs ne sont-elles pas exactement égales ?</p>
+    <details class="correction">
+      <p>1. Ligne A : <code>(y[i+1] - y[i-1]) / (t[i+1] - t[i-1])</code>. Ligne B : <code>(t[i+1] - t[i-1])</code>.</p>
+      <p>2. <code>vy[1]</code> $=\dfrac{0{,}315-0}{0{,}08}=3{,}94$ m·s⁻¹ ; <code>vy[3]</code> $=\dfrac{0{,}567-0{,}315}{0{,}08}=3{,}15$ m·s⁻¹ ; <code>ay[2]</code> $=\dfrac{3{,}15-3{,}94}{0{,}08}\approx-9{,}8$ m·s⁻².</p>
+      <p>3. L'accélération au point $i$ demande les vitesses en $i-1$ et $i+1$. Or <code>vy[0]</code> n'est pas calculée (il faudrait un point avant le premier) : le premier point où l'on peut calculer <code>ay</code> est $i=2$.</p>
+      <p>4. L'accélération verticale vaut $-g$ : la balle est en chute libre. Les petits écarts viennent des positions arrondies au millimètre : une erreur de $1$ mm, divisée deux fois par $0{,}08$ s, donne un écart de l'ordre de $0{,}15$ m·s⁻² sur l'accélération.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-tester-la-deuxieme-loi-de-kepler" data-titre="Tester la deuxième loi de Kepler" data-niveau="3"
+           data-type="raisonnement" data-notions="kepler" data-duree="25" data-calculatrice="oui">
+    <p>Un astéroïde décrit une ellipse allongée. On donne ses positions, le Soleil étant à l'origine, à des dates séparées par la même durée $\Delta t$ (coordonnées en unités astronomiques, UA).</p>
+    <div class="defile"><table>
+      <tr><th>Près du Soleil</th><td>$C_1\,(0{,}400\,;\,0)$</td><td>$C_2\,(0{,}329\,;\,0{,}296)$</td><td>$C_3\,(0{,}164\,;\,0{,}516)$</td></tr>
+      <tr><th>Loin du Soleil</th><td>$C_4\,(-1{,}595\,;\,0{,}078)$</td><td>$C_5\,(-1{,}600\,;\,0)$</td><td>$C_6\,(-1{,}595\,;\,-0{,}078)$</td></tr>
+    </table></div>
+    <p>1. Calcule les distances $C_1C_2$ et $C_4C_5$. Où l'astéroïde va-t-il le plus vite ?<br>2. L'aire balayée entre deux positions voisines $(x_1\,;y_1)$ et $(x_2\,;y_2)$ est proche de celle du triangle Soleil-$C_i$-$C_{i+1}$, qui vaut $\tfrac12\left|x_1y_2-x_2y_1\right|$. Calcule les quatre aires.<br>3. La loi des aires est-elle vérifiée ? Pourquoi le triangle donne-t-il une aire un peu plus petite près du Soleil ?</p>
+    <details class="correction">
+      <p>1. $C_1C_2=\sqrt{0{,}071^2+0{,}296^2}=0{,}304$ UA et $C_4C_5=\sqrt{0{,}005^2+0{,}078^2}=0{,}078$ UA. Pendant la même durée, l'astéroïde parcourt quatre fois plus de chemin près du Soleil : elle y va environ quatre fois plus vite.</p>
+      <p>2. $\tfrac12|0{,}400\times0{,}296-0{,}329\times0|=0{,}0592$ UA² ; $\tfrac12|0{,}329\times0{,}516-0{,}164\times0{,}296|=0{,}0606$ UA² ; $\tfrac12|-1{,}595\times0-(-1{,}600)\times0{,}078|=0{,}0624$ UA² ; et de même $0{,}0624$ UA² pour $C_5C_6$.</p>
+      <p>3. Les quatre aires sont égales à environ $5$ % près : la loi des aires est vérifiée. Près du Soleil, l'astéroïde tourne d'un grand angle pendant $\Delta t$ : l'arc d'ellipse s'écarte de la corde, et le triangle oublie un petit morceau d'aire. Loin du Soleil, l'arc est presque droit, et le triangle est une très bonne approximation. Avec des positions plus rapprochées, l'écart disparaîtrait.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-parachutiste" data-titre="Le parachutiste" data-niveau="3"
+           data-type="probleme" data-notions="newton2 champ-uniforme" data-duree="25" data-calculatrice="oui">
+    <p>Un parachutiste de $80$ kg, équipement compris, saute d'un avion. Avant l'ouverture du parachute, l'air exerce une force de frottement opposée à sa vitesse, de valeur $f=k\,v^2$ avec $k=0{,}25$ kg·m⁻¹ ; ce modèle est donné, il n'est pas au programme. On étudie la chute verticale ; la poussée de l'air est négligée.</p>
+    <p>1. Fais le bilan des forces et écris la deuxième loi de Newton sur un axe vertical orienté vers le bas.<br>2. Que vaut l'accélération au moment du saut, quand $v=0$ ?<br>3. Explique pourquoi la vitesse finit par se stabiliser, et calcule cette vitesse limite, en km·h⁻¹.<br>4. Le parachute ouvert, $k$ vaut $30$ kg·m⁻¹. Calcule la nouvelle vitesse limite.<br>5. Pourquoi ne peut-on pas utiliser ici les équations horaires de la chute libre ?</p>
+    <details class="correction">
+      <p>1. Système : le parachutiste ; référentiel terrestre supposé galiléen. Le poids $\vec P$, vers le bas, et le frottement $\vec f$, vers le haut. Sur l'axe vers le bas : $m\,g-k\,v^2=m\,a$, soit $a=g-\dfrac{k}{m}\,v^2$.</p>
+      <p>2. À $v=0$ : $a=g=9{,}81$ m·s⁻². Au départ, c'est une chute libre.</p>
+      <p>3. Quand $v$ augmente, le frottement augmente et $a$ diminue. Quand le frottement égale le poids, $a=0$ : la vitesse ne change plus. $m\,g=k\,v_{lim}^2$, donc $v_{lim}=\sqrt{\dfrac{m\,g}{k}}=\sqrt{\dfrac{80\times9{,}81}{0{,}25}}=56$ m·s⁻¹, environ $200$ km·h⁻¹.</p>
+      <p>4. $v_{lim}=\sqrt{\dfrac{80\times9{,}81}{30}}=5{,}1$ m·s⁻¹, environ $18$ km·h⁻¹ : l'atterrissage est possible.</p>
+      <p>5. L'accélération n'est pas constante : elle dépend de la vitesse. Les primitives de la chute libre ne valent plus ; il faudrait résoudre une équation différentielle, par exemple pas à pas avec Python.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi dit-on qu'une voiture accélère dans un virage, même à vitesse constante ?</summary>
+      <div><p>Parce que la vitesse est un vecteur. Dans un virage, sa valeur ne change pas, mais sa direction tourne, et l'accélération mesure tout changement du vecteur vitesse. Dans le repère de Frenet, $a_n=\dfrac{v^2}{R}$ : plus le virage est serré, plus l'accélération est grande.</p></div>
+    </details>
+    <details><summary>Si la masse ne compte pas, pourquoi une plume tombe-t-elle moins vite qu'une bille ?</summary>
+      <div><p>À cause de l'air. Dans le vide, elles tombent ensemble : les astronautes d'Apollo 15 l'ont montré sur la Lune avec un marteau et une plume. Dans l'air, le frottement est grand devant le poids de la plume, et négligeable devant celui de la bille. Le modèle de la chute libre suppose qu'on peut négliger l'air.</p></div>
+    </details>
+    <details><summary>Un référentiel galiléen, ça existe vraiment ?</summary>
+      <div><p>Pas parfaitement : la Terre tourne sur elle-même et autour du Soleil, qui tourne dans la galaxie. Mais pour un lancer qui dure deux secondes, la rotation de la Terre ne change presque rien : le référentiel terrestre est galiléen à une très bonne approximation. Pour un satellite qui fait des tours de Terre, on prend le référentiel géocentrique.</p></div>
+    </details>
+    <details><summary>Pourquoi les astronautes flottent-ils dans la station, si la gravitation agit sur eux ?</summary>
+      <div><p>À $420$ km d'altitude, la gravitation vaut encore près de $90$ % de sa valeur au sol. Les astronautes flottent parce qu'eux et la station ont la même accélération, $\dfrac{GM}{r^2}$, vers le centre de la Terre : ils tombent ensemble, tout le temps, sans jamais atteindre le sol. Rien ne les plaque au plancher. On parle d'impesanteur.</p></div>
+    </details>
+    <details><summary>Pourquoi a-t-on le droit de négliger le poids d'un électron ?</summary>
+      <div><p>Parce que dans les champs électriques des expériences, la force électrique est des centaines de milliers de milliards de fois plus grande que le poids. Mais c'est une comparaison à faire, pas un réflexe : pour une gouttelette d'huile chargée, dans l'expérience de Millikan, le poids compte.</p></div>
+    </details>
+    <details><summary>À quoi sert la dérivée, si on a déjà la formule « distance divisée par durée » ?</summary>
+      <div><p>La distance divisée par la durée donne une vitesse <strong>moyenne</strong>. La dérivée donne la vitesse <strong>à un instant</strong> : c'est la limite de la vitesse moyenne quand la durée devient infiniment petite. Sur une chronophotographie, tu calcules une vitesse moyenne sur $2\tau$, une bonne approximation de la dérivée si $\tau$ est petit.</p></div>
+    </details>
+    <details><summary>Les lois de Kepler valent-elles pour les satellites de la Terre ?</summary>
+      <div><p>Oui : Newton les a démontrées pour tout corps qui tourne autour d'un astre sous l'effet de sa seule gravitation. Pour les satellites de la Terre, $\dfrac{T^2}{r^3}=\dfrac{4\pi^2}{G\,M_T}$, avec une autre constante que pour les planètes autour du Soleil. Attention : on ne compare pas la Lune et Mars, qui ne tournent pas autour du même astre.</p></div>
+    </details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

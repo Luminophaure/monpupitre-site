@@ -1,0 +1,896 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de cinetique.figures.py.
+     Fabriquer la page : python3 outils/figures.py physique-chimie/terminale/cinetique.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Cinétique et décroissance radioactive · Terminale</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=777d4f002b">
+<script type="module" src="../../assets/js/site.js?v=b8c0332392"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YOV3MPYA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ZGXYQFXP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-HA25DEFB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ENKCFD2X.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KMAN6GHR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QJHGDKSX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LDUECZYH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PENILRM4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-A6P62AUH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UIYUFPXH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-2YVRNAKX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QRSN3BQL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3YYESB7U.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FVVGSAX5.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-I7FXDBZR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-SQSIYAEI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-WBNZSXCP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Z7MBT6SG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ZP447UBG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/cinetique.js?v=e6713bb039">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/cinetique.js?v=d98cdd021b">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-LXD52375.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="physique-chimie" data-chapitre="cinetique" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Terminale spécialité physique-chimie · Constitution et transformations de la matière</span>
+  <h1>Cinétique et décroissance radioactive</h1>
+  <p class="chapeau">Un flacon d'eau oxygénée met des mois à perdre son efficacité ; versée sur une plaie, elle mousse en une seconde. La moitié des noyaux d'iode 131 d'un échantillon disparaît en huit jours, quoi qu'on fasse. Tout se transforme, mais pas au même rythme. Ce chapitre apprend à mesurer ce rythme, à le changer quand c'est possible, à le décrire par une même loi pour une réaction chimique et pour des noyaux radioactifs, et à s'en servir pour dater un os.</p>
+  <ul class="objectifs">
+    <li>Choisir un capteur pour suivre une transformation</li><li>Reconnaître un facteur cinétique et un catalyseur</li><li>Lire une vitesse volumique sur une tangente</li><li>Déterminer un temps de demi-réaction</li><li>Tester une loi de vitesse d'ordre 1</li><li>Dessiner les flèches courbes d'un acte élémentaire</li><li>Écrire l'équation d'une désintégration</li><li>Exploiter la loi de décroissance et dater un événement</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Le rythme des transformations, c'est le quotidien de plusieurs métiers.</strong> Ouvre la situation qui te parle.</p>
+    <details>
+      <summary>À la pharmacie : ce qui attend au réfrigérateur</summary>
+      <p>Dans l'officine, un réfrigérateur à part, réglé entre 2 et 8 °C. On y range des vaccins, des stylos d'insuline neufs, certains collyres. Le froid ne les protège pas des microbes : il ralentit les réactions chimiques qui dégradent lentement leurs molécules. Dix degrés de moins, et une dégradation peut être deux à quatre fois plus lente.</p>
+      <p class="discret">Ils s'en servent : les préparateurs et préparatrices en pharmacie, les pharmaciens, les techniciens du contrôle qualité qui fixent les dates de péremption.</p>
+    </details>
+    <details>
+      <summary>En médecine nucléaire : le technétium du matin</summary>
+      <p>Avant une scintigraphie osseuse, le manipulateur prépare une dose d'une molécule marquée au technétium 99m : elle se fixe sur les os, et ses noyaux radioactifs émettent des rayons γ qu'une caméra détecte. Préparée le matin, la dose n'a déjà plus que la moitié de son activité six heures plus tard ; le lendemain matin, environ un seizième. C'est voulu : assez pour faire l'image, pas assez pour que le patient reste radioactif.</p>
+      <p class="discret">Ils s'en servent : les manipulateurs et manipulatrices en électroradiologie médicale, les radiopharmaciens, les physiciens médicaux.</p>
+    </details>
+    <details>
+      <summary>Dans l'agroalimentaire : les enzymes au travail</summary>
+      <p>Pour fabriquer un lait sans lactose, on ajoute au lait une enzyme, la lactase. Sans elle, le lactose ne se coupe en deux sucres plus simples qu'au bout d'un temps immense ; avec elle, en quelques heures. L'enzyme n'est pas consommée : c'est un catalyseur.</p>
+      <p class="discret">Ils s'en servent : les techniciens de laboratoire et de production en agroalimentaire, les ingénieurs en biotechnologies.</p>
+    </details>
+    <details>
+      <summary>Sur un chantier de fouilles : dater au carbone 14</summary>
+      <p>Un fragment de charbon de bois au fond d'un foyer préhistorique. Au laboratoire, on compte le carbone 14 qu'il contient encore : il en reste un peu moins d'un quart de ce que contenait le bois vivant. Le feu a donc brûlé il y a un peu plus de deux demi-vies du carbone 14, soit environ douze mille ans.</p>
+      <p class="discret">Ils s'en servent : les archéologues, les géologues, les techniciens des laboratoires de datation.</p>
+    </details>
+    <p class="discret">Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <div class="bloc remarque" data-titre="Rappel de première : l'avancement">
+    <p>Une transformation chimique se décrit par son <strong>avancement</strong> $x$ (en mol) : les quantités de matière des réactifs et des produits s'écrivent avec $x$ dans un <strong>tableau d'avancement</strong>. Pour $2\,\text{I}^-+\text{H}_2\text{O}_2+2\,\text{H}^+\rightarrow\text{I}_2+2\,\text{H}_2\text{O}$, avec $n_0$ mol d'eau oxygénée au départ : $n(\text{H}_2\text{O}_2)=n_0-x$ et $n(\text{I}_2)=x$.</p>
+    <p>Le <strong>réactif limitant</strong> s'épuise le premier et fixe l'avancement maximal $x_{max}$. Si l'avancement final $x_f$ atteint $x_{max}$, la transformation est <strong>totale</strong> ; sinon, elle est <strong>non totale</strong>. Jusqu'ici, on ne regardait que l'état final. Ce chapitre regarde <strong>à quel rythme</strong> on y arrive.</p>
+  </div>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-suivi">1. Lente ou rapide : suivre une transformation</h3>
+  <div class="bloc definition" data-titre="Transformation rapide, transformation lente">
+    <p>Une transformation est <strong>rapide</strong> quand elle semble achevée dès que les réactifs se rencontrent : on ne peut suivre son évolution ni à l'œil ni avec les instruments du lycée (une précipitation, la réaction support d'un titrage).</p>
+    <p>Elle est <strong>lente</strong> quand elle dure de quelques secondes à plusieurs mois. <strong>Suivre</strong> une transformation lente, c'est mesurer au cours du temps une grandeur qui change avec elle.</p>
+  </div>
+  <div class="bloc exemple" data-titre="L'eau oxygénée et les ions iodure">
+    <p>On mélange une solution incolore d'eau oxygénée et une solution incolore d'iodure de potassium acidifiée. Le mélange jaunit, puis brunit, pendant plusieurs minutes : il se forme du diiode, $2\,\text{I}^-+\text{H}_2\text{O}_2+2\,\text{H}^+\rightarrow\text{I}_2+2\,\text{H}_2\text{O}$. Le diiode est la seule espèce colorée du mélange : sa couleur dit où en est la transformation.</p>
+  </div>
+  <div class="bloc methode" data-titre="Choisir le capteur">
+    <ol class="etapes">
+      <li><span>Je cherche une espèce qui apparaît ou disparaît et qu'un appareil « voit ».</span></li>
+      <li><span>Une espèce <strong>colorée</strong> : le <strong>spectrophotomètre</strong>, réglé sur une longueur d'onde qu'elle absorbe. L'absorbance $A$ est proportionnelle à sa concentration : c'est la loi de Beer-Lambert.</span></li>
+      <li><span>Des <strong>ions</strong> qui apparaissent ou disparaissent : le <strong>conductimètre</strong>, car la conductivité $\sigma$ de la solution change avec eux.</span></li>
+      <li><span>Un <strong>gaz</strong> qui se dégage : un <strong>manomètre</strong> sur un récipient fermé (la pression monte), ou la mesure du volume de gaz. Des ions $\text{H}_3\text{O}^+$ ou $\text{HO}^-$ qui apparaissent ou disparaissent : le <strong>pH-mètre</strong>.</span></li>
+      <li><span>Aucun de ces cas : je fais des <strong>prélèvements</strong> à différentes dates, je les bloque par une trempe, puis je les titre.</span></li>
+    </ol>
+  </div>
+  <div class="bloc remarque" data-titre="La trempe">
+    <p>Pour titrer un prélèvement, il faut que la transformation s'arrête le temps du titrage. On le verse dans de l'eau glacée : c'est la <strong>trempe</strong>. Le froid ralentit toutes les transformations ; la dilution ralentit surtout celles dont la vitesse dépend de la rencontre de deux réactifs, qui se croisent alors bien plus rarement. La partie suivante et la partie 6 disent pourquoi.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-facteurs">2. Les facteurs cinétiques et la catalyse</h3>
+  <div class="bloc definition" data-titre="Facteur cinétique">
+    <p>Un <strong>facteur cinétique</strong> est un paramètre qui change la vitesse d'évolution d'un système. Les deux du programme sont la <strong>température</strong> et la <strong>concentration des réactifs</strong>.</p>
+  </div>
+  <div class="bloc propriete" data-titre="Plus chaud, plus concentré : plus vite">
+    <p>En général, une transformation est d'autant plus rapide que la <strong>température</strong> est élevée et que les <strong>concentrations des réactifs</strong> sont grandes.</p>
+    <p>Chauffer ne change pas l'état final d'une transformation totale : il est atteint plus tôt. Refroidir le retarde : c'est le principe du réfrigérateur et de la trempe.</p>
+  </div>
+  <figure class="figure-svg">
+    <svg data-figure="facteurs_temperature" viewBox="0 0 644 351" role="img" aria-label="Concentration en diiode en millimoles par litre en fonction du temps, de 0 à 40 minutes, pour trois expériences : à 20 °C, à 30 °C, et à 20 °C avec un catalyseur. Les trois courbes montent vers le même palier de 10 mmol/L ; la courbe à 30 °C l'atteint plus vite que celle à 20 °C, et celle avec catalyseur encore plus vite."><line class="quadrillage-trait" x1="82.0" y1="287.2" x2="82.0" y2="35.2"/><line class="quadrillage-trait" x1="142.0" y1="287.2" x2="142.0" y2="35.2"/><line class="quadrillage-trait" x1="202.0" y1="287.2" x2="202.0" y2="35.2"/><line class="quadrillage-trait" x1="262.0" y1="287.2" x2="262.0" y2="35.2"/><line class="quadrillage-trait" x1="322.0" y1="287.2" x2="322.0" y2="35.2"/><line class="quadrillage-trait" x1="382.0" y1="287.2" x2="382.0" y2="35.2"/><line class="quadrillage-trait" x1="442.0" y1="287.2" x2="442.0" y2="35.2"/><line class="quadrillage-trait" x1="502.0" y1="287.2" x2="502.0" y2="35.2"/><line class="quadrillage-trait" x1="562.0" y1="287.2" x2="562.0" y2="35.2"/><line class="quadrillage-trait" x1="82" y1="287.2" x2="562" y2="287.2"/><line class="quadrillage-trait" x1="82" y1="266.2" x2="562" y2="266.2"/><line class="quadrillage-trait" x1="82" y1="245.2" x2="562" y2="245.2"/><line class="quadrillage-trait" x1="82" y1="224.2" x2="562" y2="224.2"/><line class="quadrillage-trait" x1="82" y1="203.2" x2="562" y2="203.2"/><line class="quadrillage-trait" x1="82" y1="182.2" x2="562" y2="182.2"/><line class="quadrillage-trait" x1="82" y1="161.2" x2="562" y2="161.2"/><line class="quadrillage-trait" x1="82" y1="140.2" x2="562" y2="140.2"/><line class="quadrillage-trait" x1="82" y1="119.2" x2="562" y2="119.2"/><line class="quadrillage-trait" x1="82" y1="98.2" x2="562" y2="98.2"/><line class="quadrillage-trait" x1="82" y1="77.2" x2="562" y2="77.2"/><line class="quadrillage-trait" x1="82" y1="56.2" x2="562" y2="56.2"/><line class="quadrillage-trait" x1="82" y1="35.2" x2="562" y2="35.2"/><line class="axe-trait" x1="82" y1="287.2" x2="562" y2="287.2"/><line class="axe-trait" x1="82" y1="287.2" x2="82" y2="35.2"/><text class="petit" x="82.0" y="305.2" text-anchor="middle">0</text><text class="petit" x="202.0" y="305.2" text-anchor="middle">10</text><text class="petit" x="322.0" y="305.2" text-anchor="middle">20</text><text class="petit" x="442.0" y="305.2" text-anchor="middle">30</text><text class="petit" x="562.0" y="305.2" text-anchor="middle">40</text><text class="petit" x="75.0" y="250.2" text-anchor="end">2</text><text class="petit" x="75.0" y="208.2" text-anchor="end">4</text><text class="petit" x="75.0" y="166.2" text-anchor="end">6</text><text class="petit" x="75.0" y="124.2" text-anchor="end">8</text><text class="petit" x="75.0" y="82.2" text-anchor="end">10</text><text class="petit" x="75.0" y="40.2" text-anchor="end">12</text><text class="petit" x="562.0" y="325.2" text-anchor="end">t (min)</text><text class="petit" x="90.0" y="27.2" text-anchor="start">[I₂] (mmol/L)</text><g class="trace t-n pointille fin"><line x1="82" y1="77.2" x2="562" y2="77.2"/></g><text class="note" x="562.0" y="69.2" text-anchor="end">état final : le même pour les trois</text><g class="trace t-n"><path d="M82.0,287.2 L84.0,283.7 L86.0,280.3 L88.0,277.0 L90.0,273.7 L92.0,270.4 L94.0,267.2 L96.0,264.1 L98.0,261.0 L100.0,257.9 L102.0,255.0 L104.0,252.0 L106.0,249.1 L108.0,246.3 L110.0,243.5 L112.0,240.7 L114.0,238.0 L116.0,235.4 L118.0,232.8 L120.0,230.2 L122.0,227.7 L124.0,225.2 L126.0,222.7 L128.0,220.3 L130.0,218.0 L132.0,215.6 L134.0,213.4 L136.0,211.1 L138.0,208.9 L140.0,206.7 L142.0,204.6 L144.0,202.5 L146.0,200.4 L148.0,198.4 L150.0,196.4 L152.0,194.4 L154.0,192.5 L156.0,190.5 L158.0,188.7 L160.0,186.8 L162.0,185.0 L164.0,183.2 L166.0,181.5 L168.0,179.8 L170.0,178.1 L172.0,176.4 L174.0,174.8 L176.0,173.1 L178.0,171.6 L180.0,170.0 L182.0,168.5 L184.0,167.0 L186.0,165.5 L188.0,164.0 L190.0,162.6 L192.0,161.2 L194.0,159.8 L196.0,158.4 L198.0,157.1 L200.0,155.8 L202.0,154.5 L204.0,153.2 L206.0,151.9 L208.0,150.7 L210.0,149.5 L212.0,148.3 L214.0,147.1 L216.0,145.9 L218.0,144.8 L220.0,143.7 L222.0,142.6 L224.0,141.5 L226.0,140.5 L228.0,139.4 L230.0,138.4 L232.0,137.4 L234.0,136.4 L236.0,135.4 L238.0,134.4 L240.0,133.5 L242.0,132.6 L244.0,131.6 L246.0,130.7 L248.0,129.9 L250.0,129.0 L252.0,128.1 L254.0,127.3 L256.0,126.5 L258.0,125.6 L260.0,124.8 L262.0,124.1 L264.0,123.3 L266.0,122.5 L268.0,121.8 L270.0,121.0 L272.0,120.3 L274.0,119.6 L276.0,118.9 L278.0,118.2 L280.0,117.5 L282.0,116.9 L284.0,116.2 L286.0,115.6 L288.0,114.9 L290.0,114.3 L292.0,113.7 L294.0,113.1 L296.0,112.5 L298.0,111.9 L300.0,111.3 L302.0,110.8 L304.0,110.2 L306.0,109.7 L308.0,109.1 L310.0,108.6 L312.0,108.1 L314.0,107.6 L316.0,107.1 L318.0,106.6 L320.0,106.1 L322.0,105.6 L324.0,105.2 L326.0,104.7 L328.0,104.2 L330.0,103.8 L332.0,103.3 L334.0,102.9 L336.0,102.5 L338.0,102.1 L340.0,101.7 L342.0,101.3 L344.0,100.9 L346.0,100.5 L348.0,100.1 L350.0,99.7 L352.0,99.3 L354.0,99.0 L356.0,98.6 L358.0,98.3 L360.0,97.9 L362.0,97.6 L364.0,97.2 L366.0,96.9 L368.0,96.6 L370.0,96.3 L372.0,95.9 L374.0,95.6 L376.0,95.3 L378.0,95.0 L380.0,94.7 L382.0,94.4 L384.0,94.2 L386.0,93.9 L388.0,93.6 L390.0,93.3 L392.0,93.1 L394.0,92.8 L396.0,92.5 L398.0,92.3 L400.0,92.0 L402.0,91.8 L404.0,91.6 L406.0,91.3 L408.0,91.1 L410.0,90.9 L412.0,90.6 L414.0,90.4 L416.0,90.2 L418.0,90.0 L420.0,89.8 L422.0,89.6 L424.0,89.3 L426.0,89.1 L428.0,88.9 L430.0,88.8 L432.0,88.6 L434.0,88.4 L436.0,88.2 L438.0,88.0 L440.0,87.8 L442.0,87.7 L444.0,87.5 L446.0,87.3 L448.0,87.1 L450.0,87.0 L452.0,86.8 L454.0,86.7 L456.0,86.5 L458.0,86.4 L460.0,86.2 L462.0,86.1 L464.0,85.9 L466.0,85.8 L468.0,85.6 L470.0,85.5 L472.0,85.3 L474.0,85.2 L476.0,85.1 L478.0,84.9 L480.0,84.8 L482.0,84.7 L484.0,84.6 L486.0,84.4 L488.0,84.3 L490.0,84.2 L492.0,84.1 L494.0,84.0 L496.0,83.9 L498.0,83.8 L500.0,83.6 L502.0,83.5 L504.0,83.4 L506.0,83.3 L508.0,83.2 L510.0,83.1 L512.0,83.0 L514.0,82.9 L516.0,82.8 L518.0,82.7 L520.0,82.7 L522.0,82.6 L524.0,82.5 L526.0,82.4 L528.0,82.3 L530.0,82.2 L532.0,82.1 L534.0,82.1 L536.0,82.0 L538.0,81.9 L540.0,81.8 L542.0,81.7 L544.0,81.7 L546.0,81.6 L548.0,81.5 L550.0,81.5 L552.0,81.4 L554.0,81.3 L556.0,81.2 L558.0,81.2 L560.0,81.1 L562.0,81.0"/></g><g class="trace t-n"><line x1="190.0" y1="43.8" x2="212.0" y2="43.8"/></g><text class="note" x="218.0" y="47.8" text-anchor="start">20 °C</text><g class="trace t-chaud"><path d="M82.0,287.2 L84.0,280.3 L86.0,273.7 L88.0,267.2 L90.0,261.0 L92.0,255.0 L94.0,249.1 L96.0,243.5 L98.0,238.0 L100.0,232.8 L102.0,227.7 L104.0,222.7 L106.0,218.0 L108.0,213.4 L110.0,208.9 L112.0,204.6 L114.0,200.4 L116.0,196.4 L118.0,192.5 L120.0,188.7 L122.0,185.0 L124.0,181.5 L126.0,178.1 L128.0,174.8 L130.0,171.6 L132.0,168.5 L134.0,165.5 L136.0,162.6 L138.0,159.8 L140.0,157.1 L142.0,154.5 L144.0,151.9 L146.0,149.5 L148.0,147.1 L150.0,144.8 L152.0,142.6 L154.0,140.5 L156.0,138.4 L158.0,136.4 L160.0,134.4 L162.0,132.6 L164.0,130.7 L166.0,129.0 L168.0,127.3 L170.0,125.6 L172.0,124.1 L174.0,122.5 L176.0,121.0 L178.0,119.6 L180.0,118.2 L182.0,116.9 L184.0,115.6 L186.0,114.3 L188.0,113.1 L190.0,111.9 L192.0,110.8 L194.0,109.7 L196.0,108.6 L198.0,107.6 L200.0,106.6 L202.0,105.6 L204.0,104.7 L206.0,103.8 L208.0,102.9 L210.0,102.1 L212.0,101.3 L214.0,100.5 L216.0,99.7 L218.0,99.0 L220.0,98.3 L222.0,97.6 L224.0,96.9 L226.0,96.3 L228.0,95.6 L230.0,95.0 L232.0,94.4 L234.0,93.9 L236.0,93.3 L238.0,92.8 L240.0,92.3 L242.0,91.8 L244.0,91.3 L246.0,90.9 L248.0,90.4 L250.0,90.0 L252.0,89.6 L254.0,89.1 L256.0,88.8 L258.0,88.4 L260.0,88.0 L262.0,87.7 L264.0,87.3 L266.0,87.0 L268.0,86.7 L270.0,86.4 L272.0,86.1 L274.0,85.8 L276.0,85.5 L278.0,85.2 L280.0,84.9 L282.0,84.7 L284.0,84.4 L286.0,84.2 L288.0,84.0 L290.0,83.8 L292.0,83.5 L294.0,83.3 L296.0,83.1 L298.0,82.9 L300.0,82.7 L302.0,82.6 L304.0,82.4 L306.0,82.2 L308.0,82.1 L310.0,81.9 L312.0,81.7 L314.0,81.6 L316.0,81.5 L318.0,81.3 L320.0,81.2 L322.0,81.0 L324.0,80.9 L326.0,80.8 L328.0,80.7 L330.0,80.6 L332.0,80.5 L334.0,80.3 L336.0,80.2 L338.0,80.1 L340.0,80.0 L342.0,80.0 L344.0,79.9 L346.0,79.8 L348.0,79.7 L350.0,79.6 L352.0,79.5 L354.0,79.5 L356.0,79.4 L358.0,79.3 L360.0,79.2 L362.0,79.2 L364.0,79.1 L366.0,79.0 L368.0,79.0 L370.0,78.9 L372.0,78.9 L374.0,78.8 L376.0,78.8 L378.0,78.7 L380.0,78.7 L382.0,78.6 L384.0,78.6 L386.0,78.5 L388.0,78.5 L390.0,78.4 L392.0,78.4 L394.0,78.4 L396.0,78.3 L398.0,78.3 L400.0,78.2 L402.0,78.2 L404.0,78.2 L406.0,78.1 L408.0,78.1 L410.0,78.1 L412.0,78.1 L414.0,78.0 L416.0,78.0 L418.0,78.0 L420.0,78.0 L422.0,77.9 L424.0,77.9 L426.0,77.9 L428.0,77.9 L430.0,77.8 L432.0,77.8 L434.0,77.8 L436.0,77.8 L438.0,77.8 L440.0,77.7 L442.0,77.7 L444.0,77.7 L446.0,77.7 L448.0,77.7 L450.0,77.7 L452.0,77.6 L454.0,77.6 L456.0,77.6 L458.0,77.6 L460.0,77.6 L462.0,77.6 L464.0,77.6 L466.0,77.5 L468.0,77.5 L470.0,77.5 L472.0,77.5 L474.0,77.5 L476.0,77.5 L478.0,77.5 L480.0,77.5 L482.0,77.5 L484.0,77.5 L486.0,77.5 L488.0,77.4 L490.0,77.4 L492.0,77.4 L494.0,77.4 L496.0,77.4 L498.0,77.4 L500.0,77.4 L502.0,77.4 L504.0,77.4 L506.0,77.4 L508.0,77.4 L510.0,77.4 L512.0,77.4 L514.0,77.4 L516.0,77.4 L518.0,77.3 L520.0,77.3 L522.0,77.3 L524.0,77.3 L526.0,77.3 L528.0,77.3 L530.0,77.3 L532.0,77.3 L534.0,77.3 L536.0,77.3 L538.0,77.3 L540.0,77.3 L542.0,77.3 L544.0,77.3 L546.0,77.3 L548.0,77.3 L550.0,77.3 L552.0,77.3 L554.0,77.3 L556.0,77.3 L558.0,77.3 L560.0,77.3 L562.0,77.3"/></g><g class="trace t-chaud"><line x1="288.0" y1="43.8" x2="310.0" y2="43.8"/></g><text class="note" x="316.0" y="47.8" text-anchor="start">30 °C</text><g class="trace t-u"><path d="M82.0,287.2 L84.0,267.2 L86.0,249.1 L88.0,232.8 L90.0,218.0 L92.0,204.6 L94.0,192.5 L96.0,181.5 L98.0,171.6 L100.0,162.6 L102.0,154.5 L104.0,147.1 L106.0,140.5 L108.0,134.4 L110.0,129.0 L112.0,124.1 L114.0,119.6 L116.0,115.6 L118.0,111.9 L120.0,108.6 L122.0,105.6 L124.0,102.9 L126.0,100.5 L128.0,98.3 L130.0,96.3 L132.0,94.4 L134.0,92.8 L136.0,91.3 L138.0,90.0 L140.0,88.8 L142.0,87.7 L144.0,86.7 L146.0,85.8 L148.0,84.9 L150.0,84.2 L152.0,83.5 L154.0,82.9 L156.0,82.4 L158.0,81.9 L160.0,81.5 L162.0,81.0 L164.0,80.7 L166.0,80.3 L168.0,80.0 L170.0,79.8 L172.0,79.5 L174.0,79.3 L176.0,79.1 L178.0,78.9 L180.0,78.8 L182.0,78.6 L184.0,78.5 L186.0,78.4 L188.0,78.2 L190.0,78.1 L192.0,78.1 L194.0,78.0 L196.0,77.9 L198.0,77.8 L200.0,77.8 L202.0,77.7 L204.0,77.7 L206.0,77.6 L208.0,77.6 L210.0,77.5 L212.0,77.5 L214.0,77.5 L216.0,77.5 L218.0,77.4 L220.0,77.4 L222.0,77.4 L224.0,77.4 L226.0,77.4 L228.0,77.3 L230.0,77.3 L232.0,77.3 L234.0,77.3 L236.0,77.3 L238.0,77.3 L240.0,77.3 L242.0,77.3 L244.0,77.3 L246.0,77.3 L248.0,77.3 L250.0,77.2 L252.0,77.2 L254.0,77.2 L256.0,77.2 L258.0,77.2 L260.0,77.2 L262.0,77.2 L264.0,77.2 L266.0,77.2 L268.0,77.2 L270.0,77.2 L272.0,77.2 L274.0,77.2 L276.0,77.2 L278.0,77.2 L280.0,77.2 L282.0,77.2 L284.0,77.2 L286.0,77.2 L288.0,77.2 L290.0,77.2 L292.0,77.2 L294.0,77.2 L296.0,77.2 L298.0,77.2 L300.0,77.2 L302.0,77.2 L304.0,77.2 L306.0,77.2 L308.0,77.2 L310.0,77.2 L312.0,77.2 L314.0,77.2 L316.0,77.2 L318.0,77.2 L320.0,77.2 L322.0,77.2 L324.0,77.2 L326.0,77.2 L328.0,77.2 L330.0,77.2 L332.0,77.2 L334.0,77.2 L336.0,77.2 L338.0,77.2 L340.0,77.2 L342.0,77.2 L344.0,77.2 L346.0,77.2 L348.0,77.2 L350.0,77.2 L352.0,77.2 L354.0,77.2 L356.0,77.2 L358.0,77.2 L360.0,77.2 L362.0,77.2 L364.0,77.2 L366.0,77.2 L368.0,77.2 L370.0,77.2 L372.0,77.2 L374.0,77.2 L376.0,77.2 L378.0,77.2 L380.0,77.2 L382.0,77.2 L384.0,77.2 L386.0,77.2 L388.0,77.2 L390.0,77.2 L392.0,77.2 L394.0,77.2 L396.0,77.2 L398.0,77.2 L400.0,77.2 L402.0,77.2 L404.0,77.2 L406.0,77.2 L408.0,77.2 L410.0,77.2 L412.0,77.2 L414.0,77.2 L416.0,77.2 L418.0,77.2 L420.0,77.2 L422.0,77.2 L424.0,77.2 L426.0,77.2 L428.0,77.2 L430.0,77.2 L432.0,77.2 L434.0,77.2 L436.0,77.2 L438.0,77.2 L440.0,77.2 L442.0,77.2 L444.0,77.2 L446.0,77.2 L448.0,77.2 L450.0,77.2 L452.0,77.2 L454.0,77.2 L456.0,77.2 L458.0,77.2 L460.0,77.2 L462.0,77.2 L464.0,77.2 L466.0,77.2 L468.0,77.2 L470.0,77.2 L472.0,77.2 L474.0,77.2 L476.0,77.2 L478.0,77.2 L480.0,77.2 L482.0,77.2 L484.0,77.2 L486.0,77.2 L488.0,77.2 L490.0,77.2 L492.0,77.2 L494.0,77.2 L496.0,77.2 L498.0,77.2 L500.0,77.2 L502.0,77.2 L504.0,77.2 L506.0,77.2 L508.0,77.2 L510.0,77.2 L512.0,77.2 L514.0,77.2 L516.0,77.2 L518.0,77.2 L520.0,77.2 L522.0,77.2 L524.0,77.2 L526.0,77.2 L528.0,77.2 L530.0,77.2 L532.0,77.2 L534.0,77.2 L536.0,77.2 L538.0,77.2 L540.0,77.2 L542.0,77.2 L544.0,77.2 L546.0,77.2 L548.0,77.2 L550.0,77.2 L552.0,77.2 L554.0,77.2 L556.0,77.2 L558.0,77.2 L560.0,77.2 L562.0,77.2"/></g><g class="trace t-u"><line x1="386.0" y1="43.8" x2="408.0" y2="43.8"/></g><text class="note" x="414.0" y="47.8" text-anchor="start">20 °C + catalyseur</text></svg>
+    <figcaption>Trois expériences avec les mêmes quantités de réactifs. Chauffer ou ajouter un catalyseur fait monter la courbe plus vite au début ; le palier, lui, ne bouge pas.</figcaption>
+  </figure>
+  <div class="bloc definition" data-titre="Catalyseur">
+    <p>Un <strong>catalyseur</strong> est une espèce qui accélère une transformation <strong>sans être consommée au bilan</strong> : elle peut être consommée puis régénérée, mais on la retrouve intacte à la fin. Il n'apparaît pas dans l'équation de la réaction, et il <strong>ne change pas l'état final</strong> : il fait arriver plus vite au même endroit.</p>
+  </div>
+  <div class="bloc remarque" data-titre="Trois sortes de catalyse">
+    <p>On parle de catalyse <strong>homogène</strong> quand le catalyseur est dans la même phase que les réactifs (des ions fer(III) dans une solution), <strong>hétérogène</strong> sinon (le platine solide d'un pot catalytique), <strong>enzymatique</strong> quand le catalyseur est une enzyme, une protéine du vivant.</p>
+  </div>
+  <div class="bloc exemple" data-titre="L'eau oxygénée sur une plaie">
+    <p>L'eau oxygénée se décompose : $2\,\text{H}_2\text{O}_2\rightarrow2\,\text{H}_2\text{O}+\text{O}_2$. Dans son flacon, à l'abri de la lumière, cette décomposition est très lente : il faut des mois pour qu'elle perde une part notable de son efficacité. Versée sur une plaie, l'eau oxygénée mousse aussitôt : la <strong>catalase</strong>, une enzyme du sang et des tissus, catalyse sa décomposition, et le dioxygène forme les bulles.</p>
+  </div>
+  <div class="bloc methode" data-titre="Identifier un facteur cinétique ou un catalyseur sur des résultats d'expériences">
+    <ol class="etapes">
+      <li><span>Je compare deux expériences qui ne diffèrent que par <strong>un seul</strong> paramètre ; sinon, je ne peux rien conclure.</span></li>
+      <li><span>Je compare leurs vitesses : les pentes des courbes au début, ou les temps de demi-réaction (partie 4).</span></li>
+      <li><span>Pour un catalyseur, je vérifie aussi qu'on le retrouve à la fin et que l'état final est le même.</span></li>
+    </ol>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-vitesse">3. La vitesse volumique d'une espèce</h3>
+  <figure class="figure-svg">
+    <svg data-figure="evolution_concentrations" viewBox="0 0 644 351" role="img" aria-label="Concentrations en fonction du temps, de 0 à 40 minutes : celle de l'eau oxygénée part de 10 mmol/L et décroît vers 0 ; celle du diiode part de 0 et croît vers 10 mmol/L. Les deux courbes varient vite au début, puis de plus en plus lentement, et se croisent vers 7 minutes."><line class="quadrillage-trait" x1="82.0" y1="287.2" x2="82.0" y2="35.2"/><line class="quadrillage-trait" x1="142.0" y1="287.2" x2="142.0" y2="35.2"/><line class="quadrillage-trait" x1="202.0" y1="287.2" x2="202.0" y2="35.2"/><line class="quadrillage-trait" x1="262.0" y1="287.2" x2="262.0" y2="35.2"/><line class="quadrillage-trait" x1="322.0" y1="287.2" x2="322.0" y2="35.2"/><line class="quadrillage-trait" x1="382.0" y1="287.2" x2="382.0" y2="35.2"/><line class="quadrillage-trait" x1="442.0" y1="287.2" x2="442.0" y2="35.2"/><line class="quadrillage-trait" x1="502.0" y1="287.2" x2="502.0" y2="35.2"/><line class="quadrillage-trait" x1="562.0" y1="287.2" x2="562.0" y2="35.2"/><line class="quadrillage-trait" x1="82" y1="287.2" x2="562" y2="287.2"/><line class="quadrillage-trait" x1="82" y1="266.2" x2="562" y2="266.2"/><line class="quadrillage-trait" x1="82" y1="245.2" x2="562" y2="245.2"/><line class="quadrillage-trait" x1="82" y1="224.2" x2="562" y2="224.2"/><line class="quadrillage-trait" x1="82" y1="203.2" x2="562" y2="203.2"/><line class="quadrillage-trait" x1="82" y1="182.2" x2="562" y2="182.2"/><line class="quadrillage-trait" x1="82" y1="161.2" x2="562" y2="161.2"/><line class="quadrillage-trait" x1="82" y1="140.2" x2="562" y2="140.2"/><line class="quadrillage-trait" x1="82" y1="119.2" x2="562" y2="119.2"/><line class="quadrillage-trait" x1="82" y1="98.2" x2="562" y2="98.2"/><line class="quadrillage-trait" x1="82" y1="77.2" x2="562" y2="77.2"/><line class="quadrillage-trait" x1="82" y1="56.2" x2="562" y2="56.2"/><line class="quadrillage-trait" x1="82" y1="35.2" x2="562" y2="35.2"/><line class="axe-trait" x1="82" y1="287.2" x2="562" y2="287.2"/><line class="axe-trait" x1="82" y1="287.2" x2="82" y2="35.2"/><text class="petit" x="82.0" y="305.2" text-anchor="middle">0</text><text class="petit" x="202.0" y="305.2" text-anchor="middle">10</text><text class="petit" x="322.0" y="305.2" text-anchor="middle">20</text><text class="petit" x="442.0" y="305.2" text-anchor="middle">30</text><text class="petit" x="562.0" y="305.2" text-anchor="middle">40</text><text class="petit" x="75.0" y="250.2" text-anchor="end">2</text><text class="petit" x="75.0" y="208.2" text-anchor="end">4</text><text class="petit" x="75.0" y="166.2" text-anchor="end">6</text><text class="petit" x="75.0" y="124.2" text-anchor="end">8</text><text class="petit" x="75.0" y="82.2" text-anchor="end">10</text><text class="petit" x="75.0" y="40.2" text-anchor="end">12</text><text class="petit" x="562.0" y="325.2" text-anchor="end">t (min)</text><text class="petit" x="90.0" y="27.2" text-anchor="start">concentration (mmol/L)</text><g class="trace t-v"><path d="M82.0,77.2 L84.0,80.7 L86.0,84.1 L88.0,87.4 L90.0,90.7 L92.0,94.0 L94.0,97.2 L96.0,100.3 L98.0,103.4 L100.0,106.5 L102.0,109.4 L104.0,112.4 L106.0,115.3 L108.0,118.1 L110.0,120.9 L112.0,123.7 L114.0,126.4 L116.0,129.0 L118.0,131.6 L120.0,134.2 L122.0,136.7 L124.0,139.2 L126.0,141.7 L128.0,144.1 L130.0,146.4 L132.0,148.8 L134.0,151.0 L136.0,153.3 L138.0,155.5 L140.0,157.7 L142.0,159.8 L144.0,161.9 L146.0,164.0 L148.0,166.0 L150.0,168.0 L152.0,170.0 L154.0,171.9 L156.0,173.9 L158.0,175.7 L160.0,177.6 L162.0,179.4 L164.0,181.2 L166.0,182.9 L168.0,184.6 L170.0,186.3 L172.0,188.0 L174.0,189.6 L176.0,191.3 L178.0,192.8 L180.0,194.4 L182.0,195.9 L184.0,197.4 L186.0,198.9 L188.0,200.4 L190.0,201.8 L192.0,203.2 L194.0,204.6 L196.0,206.0 L198.0,207.3 L200.0,208.6 L202.0,209.9 L204.0,211.2 L206.0,212.5 L208.0,213.7 L210.0,214.9 L212.0,216.1 L214.0,217.3 L216.0,218.5 L218.0,219.6 L220.0,220.7 L222.0,221.8 L224.0,222.9 L226.0,223.9 L228.0,225.0 L230.0,226.0 L232.0,227.0 L234.0,228.0 L236.0,229.0 L238.0,230.0 L240.0,230.9 L242.0,231.8 L244.0,232.8 L246.0,233.7 L248.0,234.5 L250.0,235.4 L252.0,236.3 L254.0,237.1 L256.0,237.9 L258.0,238.8 L260.0,239.6 L262.0,240.3 L264.0,241.1 L266.0,241.9 L268.0,242.6 L270.0,243.4 L272.0,244.1 L274.0,244.8 L276.0,245.5 L278.0,246.2 L280.0,246.9 L282.0,247.5 L284.0,248.2 L286.0,248.8 L288.0,249.5 L290.0,250.1 L292.0,250.7 L294.0,251.3 L296.0,251.9 L298.0,252.5 L300.0,253.1 L302.0,253.6 L304.0,254.2 L306.0,254.7 L308.0,255.3 L310.0,255.8 L312.0,256.3 L314.0,256.8 L316.0,257.3 L318.0,257.8 L320.0,258.3 L322.0,258.8 L324.0,259.2 L326.0,259.7 L328.0,260.2 L330.0,260.6 L332.0,261.1 L334.0,261.5 L336.0,261.9 L338.0,262.3 L340.0,262.7 L342.0,263.1 L344.0,263.5 L346.0,263.9 L348.0,264.3 L350.0,264.7 L352.0,265.1 L354.0,265.4 L356.0,265.8 L358.0,266.1 L360.0,266.5 L362.0,266.8 L364.0,267.2 L366.0,267.5 L368.0,267.8 L370.0,268.1 L372.0,268.5 L374.0,268.8 L376.0,269.1 L378.0,269.4 L380.0,269.7 L382.0,270.0 L384.0,270.2 L386.0,270.5 L388.0,270.8 L390.0,271.1 L392.0,271.3 L394.0,271.6 L396.0,271.9 L398.0,272.1 L400.0,272.4 L402.0,272.6 L404.0,272.8 L406.0,273.1 L408.0,273.3 L410.0,273.5 L412.0,273.8 L414.0,274.0 L416.0,274.2 L418.0,274.4 L420.0,274.6 L422.0,274.8 L424.0,275.1 L426.0,275.3 L428.0,275.5 L430.0,275.6 L432.0,275.8 L434.0,276.0 L436.0,276.2 L438.0,276.4 L440.0,276.6 L442.0,276.7 L444.0,276.9 L446.0,277.1 L448.0,277.3 L450.0,277.4 L452.0,277.6 L454.0,277.7 L456.0,277.9 L458.0,278.0 L460.0,278.2 L462.0,278.3 L464.0,278.5 L466.0,278.6 L468.0,278.8 L470.0,278.9 L472.0,279.1 L474.0,279.2 L476.0,279.3 L478.0,279.5 L480.0,279.6 L482.0,279.7 L484.0,279.8 L486.0,280.0 L488.0,280.1 L490.0,280.2 L492.0,280.3 L494.0,280.4 L496.0,280.5 L498.0,280.6 L500.0,280.8 L502.0,280.9 L504.0,281.0 L506.0,281.1 L508.0,281.2 L510.0,281.3 L512.0,281.4 L514.0,281.5 L516.0,281.6 L518.0,281.7 L520.0,281.7 L522.0,281.8 L524.0,281.9 L526.0,282.0 L528.0,282.1 L530.0,282.2 L532.0,282.3 L534.0,282.3 L536.0,282.4 L538.0,282.5 L540.0,282.6 L542.0,282.7 L544.0,282.7 L546.0,282.8 L548.0,282.9 L550.0,282.9 L552.0,283.0 L554.0,283.1 L556.0,283.2 L558.0,283.2 L560.0,283.3 L562.0,283.4"/></g><g class="trace t-u"><path d="M82.0,287.2 L84.0,283.7 L86.0,280.3 L88.0,277.0 L90.0,273.7 L92.0,270.4 L94.0,267.2 L96.0,264.1 L98.0,261.0 L100.0,257.9 L102.0,255.0 L104.0,252.0 L106.0,249.1 L108.0,246.3 L110.0,243.5 L112.0,240.7 L114.0,238.0 L116.0,235.4 L118.0,232.8 L120.0,230.2 L122.0,227.7 L124.0,225.2 L126.0,222.7 L128.0,220.3 L130.0,218.0 L132.0,215.6 L134.0,213.4 L136.0,211.1 L138.0,208.9 L140.0,206.7 L142.0,204.6 L144.0,202.5 L146.0,200.4 L148.0,198.4 L150.0,196.4 L152.0,194.4 L154.0,192.5 L156.0,190.5 L158.0,188.7 L160.0,186.8 L162.0,185.0 L164.0,183.2 L166.0,181.5 L168.0,179.8 L170.0,178.1 L172.0,176.4 L174.0,174.8 L176.0,173.1 L178.0,171.6 L180.0,170.0 L182.0,168.5 L184.0,167.0 L186.0,165.5 L188.0,164.0 L190.0,162.6 L192.0,161.2 L194.0,159.8 L196.0,158.4 L198.0,157.1 L200.0,155.8 L202.0,154.5 L204.0,153.2 L206.0,151.9 L208.0,150.7 L210.0,149.5 L212.0,148.3 L214.0,147.1 L216.0,145.9 L218.0,144.8 L220.0,143.7 L222.0,142.6 L224.0,141.5 L226.0,140.5 L228.0,139.4 L230.0,138.4 L232.0,137.4 L234.0,136.4 L236.0,135.4 L238.0,134.4 L240.0,133.5 L242.0,132.6 L244.0,131.6 L246.0,130.7 L248.0,129.9 L250.0,129.0 L252.0,128.1 L254.0,127.3 L256.0,126.5 L258.0,125.6 L260.0,124.8 L262.0,124.1 L264.0,123.3 L266.0,122.5 L268.0,121.8 L270.0,121.0 L272.0,120.3 L274.0,119.6 L276.0,118.9 L278.0,118.2 L280.0,117.5 L282.0,116.9 L284.0,116.2 L286.0,115.6 L288.0,114.9 L290.0,114.3 L292.0,113.7 L294.0,113.1 L296.0,112.5 L298.0,111.9 L300.0,111.3 L302.0,110.8 L304.0,110.2 L306.0,109.7 L308.0,109.1 L310.0,108.6 L312.0,108.1 L314.0,107.6 L316.0,107.1 L318.0,106.6 L320.0,106.1 L322.0,105.6 L324.0,105.2 L326.0,104.7 L328.0,104.2 L330.0,103.8 L332.0,103.3 L334.0,102.9 L336.0,102.5 L338.0,102.1 L340.0,101.7 L342.0,101.3 L344.0,100.9 L346.0,100.5 L348.0,100.1 L350.0,99.7 L352.0,99.3 L354.0,99.0 L356.0,98.6 L358.0,98.3 L360.0,97.9 L362.0,97.6 L364.0,97.2 L366.0,96.9 L368.0,96.6 L370.0,96.3 L372.0,95.9 L374.0,95.6 L376.0,95.3 L378.0,95.0 L380.0,94.7 L382.0,94.4 L384.0,94.2 L386.0,93.9 L388.0,93.6 L390.0,93.3 L392.0,93.1 L394.0,92.8 L396.0,92.5 L398.0,92.3 L400.0,92.0 L402.0,91.8 L404.0,91.6 L406.0,91.3 L408.0,91.1 L410.0,90.9 L412.0,90.6 L414.0,90.4 L416.0,90.2 L418.0,90.0 L420.0,89.8 L422.0,89.6 L424.0,89.3 L426.0,89.1 L428.0,88.9 L430.0,88.8 L432.0,88.6 L434.0,88.4 L436.0,88.2 L438.0,88.0 L440.0,87.8 L442.0,87.7 L444.0,87.5 L446.0,87.3 L448.0,87.1 L450.0,87.0 L452.0,86.8 L454.0,86.7 L456.0,86.5 L458.0,86.4 L460.0,86.2 L462.0,86.1 L464.0,85.9 L466.0,85.8 L468.0,85.6 L470.0,85.5 L472.0,85.3 L474.0,85.2 L476.0,85.1 L478.0,84.9 L480.0,84.8 L482.0,84.7 L484.0,84.6 L486.0,84.4 L488.0,84.3 L490.0,84.2 L492.0,84.1 L494.0,84.0 L496.0,83.9 L498.0,83.8 L500.0,83.6 L502.0,83.5 L504.0,83.4 L506.0,83.3 L508.0,83.2 L510.0,83.1 L512.0,83.0 L514.0,82.9 L516.0,82.8 L518.0,82.7 L520.0,82.7 L522.0,82.6 L524.0,82.5 L526.0,82.4 L528.0,82.3 L530.0,82.2 L532.0,82.1 L534.0,82.1 L536.0,82.0 L538.0,81.9 L540.0,81.8 L542.0,81.7 L544.0,81.7 L546.0,81.6 L548.0,81.5 L550.0,81.5 L552.0,81.4 L554.0,81.3 L556.0,81.2 L558.0,81.2 L560.0,81.1 L562.0,81.0"/></g><text class="note halo" x="370" y="236.8">[H₂O₂], un réactif</text><text class="note halo" x="154" y="89.8">[I₂], un produit</text></svg>
+    <figcaption>L'eau oxygénée disparaît pendant que le diiode apparaît, au même rythme (une mole de diiode par mole d'eau oxygénée consommée). Les deux courbes sont raides au début, presque plates à la fin.</figcaption>
+  </figure>
+  <div class="bloc definition" data-titre="Vitesse volumique de disparition, vitesse volumique d'apparition">
+    <p>À la date $t$, la <strong>vitesse volumique de disparition</strong> d'un réactif A et la <strong>vitesse volumique d'apparition</strong> d'un produit P sont</p>
+    <p>$$\begin{aligned}v_{\text{disp}}(\text{A})&=-\dfrac{\text{d}[\text{A}]}{\text{d}t}\\v_{\text{app}}(\text{P})&=\dfrac{\text{d}[\text{P}]}{\text{d}t}\end{aligned}$$</p>
+    <p>Elles s'expriment en $\text{mol}\cdot\text{L}^{-1}\cdot\text{s}^{-1}$ (souvent en $\text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$). Le signe moins rend la vitesse de disparition <strong>positive</strong> : $[\text{A}]$ diminue, sa dérivée est négative.</p>
+  </div>
+  <div class="bloc propriete" data-titre="La vitesse se lit sur la tangente">
+    <p>La vitesse volumique à la date $t$ est le <strong>coefficient directeur de la tangente</strong> à la courbe de la concentration en ce point (pour un réactif, son opposé). Plus la tangente est raide, plus la transformation est rapide.</p>
+    <p>Elle diminue au cours du temps, parce que les réactifs s'épuisent : à la fin, la tangente est horizontale et la vitesse nulle.</p>
+  </div>
+  <figure class="figure-svg">
+    <svg data-figure="tangente_vitesse" viewBox="0 0 644 351" role="img" aria-label="La concentration en diiode en fonction du temps, et sa tangente au point d'abscisse 10 minutes. La tangente passe par les points (0 min ; 2,6 mmol/L) et (20 min ; 10,0 mmol/L), marqués sur la figure, avec les écarts 20 minutes et 7,4 mmol/L."><line class="quadrillage-trait" x1="82.0" y1="287.2" x2="82.0" y2="35.2"/><line class="quadrillage-trait" x1="142.0" y1="287.2" x2="142.0" y2="35.2"/><line class="quadrillage-trait" x1="202.0" y1="287.2" x2="202.0" y2="35.2"/><line class="quadrillage-trait" x1="262.0" y1="287.2" x2="262.0" y2="35.2"/><line class="quadrillage-trait" x1="322.0" y1="287.2" x2="322.0" y2="35.2"/><line class="quadrillage-trait" x1="382.0" y1="287.2" x2="382.0" y2="35.2"/><line class="quadrillage-trait" x1="442.0" y1="287.2" x2="442.0" y2="35.2"/><line class="quadrillage-trait" x1="502.0" y1="287.2" x2="502.0" y2="35.2"/><line class="quadrillage-trait" x1="562.0" y1="287.2" x2="562.0" y2="35.2"/><line class="quadrillage-trait" x1="82" y1="287.2" x2="562" y2="287.2"/><line class="quadrillage-trait" x1="82" y1="266.2" x2="562" y2="266.2"/><line class="quadrillage-trait" x1="82" y1="245.2" x2="562" y2="245.2"/><line class="quadrillage-trait" x1="82" y1="224.2" x2="562" y2="224.2"/><line class="quadrillage-trait" x1="82" y1="203.2" x2="562" y2="203.2"/><line class="quadrillage-trait" x1="82" y1="182.2" x2="562" y2="182.2"/><line class="quadrillage-trait" x1="82" y1="161.2" x2="562" y2="161.2"/><line class="quadrillage-trait" x1="82" y1="140.2" x2="562" y2="140.2"/><line class="quadrillage-trait" x1="82" y1="119.2" x2="562" y2="119.2"/><line class="quadrillage-trait" x1="82" y1="98.2" x2="562" y2="98.2"/><line class="quadrillage-trait" x1="82" y1="77.2" x2="562" y2="77.2"/><line class="quadrillage-trait" x1="82" y1="56.2" x2="562" y2="56.2"/><line class="quadrillage-trait" x1="82" y1="35.2" x2="562" y2="35.2"/><line class="axe-trait" x1="82" y1="287.2" x2="562" y2="287.2"/><line class="axe-trait" x1="82" y1="287.2" x2="82" y2="35.2"/><text class="petit" x="82.0" y="305.2" text-anchor="middle">0</text><text class="petit" x="202.0" y="305.2" text-anchor="middle">10</text><text class="petit" x="322.0" y="305.2" text-anchor="middle">20</text><text class="petit" x="442.0" y="305.2" text-anchor="middle">30</text><text class="petit" x="562.0" y="305.2" text-anchor="middle">40</text><text class="petit" x="75.0" y="250.2" text-anchor="end">2</text><text class="petit" x="75.0" y="208.2" text-anchor="end">4</text><text class="petit" x="75.0" y="166.2" text-anchor="end">6</text><text class="petit" x="75.0" y="124.2" text-anchor="end">8</text><text class="petit" x="75.0" y="82.2" text-anchor="end">10</text><text class="petit" x="75.0" y="40.2" text-anchor="end">12</text><text class="petit" x="562.0" y="325.2" text-anchor="end">t (min)</text><text class="petit" x="90.0" y="27.2" text-anchor="start">[I₂] (mmol/L)</text><g class="trace t-u"><path d="M82.0,287.2 L84.0,283.7 L86.0,280.3 L88.0,277.0 L90.0,273.7 L92.0,270.4 L94.0,267.2 L96.0,264.1 L98.0,261.0 L100.0,257.9 L102.0,255.0 L104.0,252.0 L106.0,249.1 L108.0,246.3 L110.0,243.5 L112.0,240.7 L114.0,238.0 L116.0,235.4 L118.0,232.8 L120.0,230.2 L122.0,227.7 L124.0,225.2 L126.0,222.7 L128.0,220.3 L130.0,218.0 L132.0,215.6 L134.0,213.4 L136.0,211.1 L138.0,208.9 L140.0,206.7 L142.0,204.6 L144.0,202.5 L146.0,200.4 L148.0,198.4 L150.0,196.4 L152.0,194.4 L154.0,192.5 L156.0,190.5 L158.0,188.7 L160.0,186.8 L162.0,185.0 L164.0,183.2 L166.0,181.5 L168.0,179.8 L170.0,178.1 L172.0,176.4 L174.0,174.8 L176.0,173.1 L178.0,171.6 L180.0,170.0 L182.0,168.5 L184.0,167.0 L186.0,165.5 L188.0,164.0 L190.0,162.6 L192.0,161.2 L194.0,159.8 L196.0,158.4 L198.0,157.1 L200.0,155.8 L202.0,154.5 L204.0,153.2 L206.0,151.9 L208.0,150.7 L210.0,149.5 L212.0,148.3 L214.0,147.1 L216.0,145.9 L218.0,144.8 L220.0,143.7 L222.0,142.6 L224.0,141.5 L226.0,140.5 L228.0,139.4 L230.0,138.4 L232.0,137.4 L234.0,136.4 L236.0,135.4 L238.0,134.4 L240.0,133.5 L242.0,132.6 L244.0,131.6 L246.0,130.7 L248.0,129.9 L250.0,129.0 L252.0,128.1 L254.0,127.3 L256.0,126.5 L258.0,125.6 L260.0,124.8 L262.0,124.1 L264.0,123.3 L266.0,122.5 L268.0,121.8 L270.0,121.0 L272.0,120.3 L274.0,119.6 L276.0,118.9 L278.0,118.2 L280.0,117.5 L282.0,116.9 L284.0,116.2 L286.0,115.6 L288.0,114.9 L290.0,114.3 L292.0,113.7 L294.0,113.1 L296.0,112.5 L298.0,111.9 L300.0,111.3 L302.0,110.8 L304.0,110.2 L306.0,109.7 L308.0,109.1 L310.0,108.6 L312.0,108.1 L314.0,107.6 L316.0,107.1 L318.0,106.6 L320.0,106.1 L322.0,105.6 L324.0,105.2 L326.0,104.7 L328.0,104.2 L330.0,103.8 L332.0,103.3 L334.0,102.9 L336.0,102.5 L338.0,102.1 L340.0,101.7 L342.0,101.3 L344.0,100.9 L346.0,100.5 L348.0,100.1 L350.0,99.7 L352.0,99.3 L354.0,99.0 L356.0,98.6 L358.0,98.3 L360.0,97.9 L362.0,97.6 L364.0,97.2 L366.0,96.9 L368.0,96.6 L370.0,96.3 L372.0,95.9 L374.0,95.6 L376.0,95.3 L378.0,95.0 L380.0,94.7 L382.0,94.4 L384.0,94.2 L386.0,93.9 L388.0,93.6 L390.0,93.3 L392.0,93.1 L394.0,92.8 L396.0,92.5 L398.0,92.3 L400.0,92.0 L402.0,91.8 L404.0,91.6 L406.0,91.3 L408.0,91.1 L410.0,90.9 L412.0,90.6 L414.0,90.4 L416.0,90.2 L418.0,90.0 L420.0,89.8 L422.0,89.6 L424.0,89.3 L426.0,89.1 L428.0,88.9 L430.0,88.8 L432.0,88.6 L434.0,88.4 L436.0,88.2 L438.0,88.0 L440.0,87.8 L442.0,87.7 L444.0,87.5 L446.0,87.3 L448.0,87.1 L450.0,87.0 L452.0,86.8 L454.0,86.7 L456.0,86.5 L458.0,86.4 L460.0,86.2 L462.0,86.1 L464.0,85.9 L466.0,85.8 L468.0,85.6 L470.0,85.5 L472.0,85.3 L474.0,85.2 L476.0,85.1 L478.0,84.9 L480.0,84.8 L482.0,84.7 L484.0,84.6 L486.0,84.4 L488.0,84.3 L490.0,84.2 L492.0,84.1 L494.0,84.0 L496.0,83.9 L498.0,83.8 L500.0,83.6 L502.0,83.5 L504.0,83.4 L506.0,83.3 L508.0,83.2 L510.0,83.1 L512.0,83.0 L514.0,82.9 L516.0,82.8 L518.0,82.7 L520.0,82.7 L522.0,82.6 L524.0,82.5 L526.0,82.4 L528.0,82.3 L530.0,82.2 L532.0,82.1 L534.0,82.1 L536.0,82.0 L538.0,81.9 L540.0,81.8 L542.0,81.7 L544.0,81.7 L546.0,81.6 L548.0,81.5 L550.0,81.5 L552.0,81.4 L554.0,81.3 L556.0,81.2 L558.0,81.2 L560.0,81.1 L562.0,81.0"/></g><g class="trace t-v fin"><line x1="82" y1="231.7" x2="382" y2="38.6"/></g><circle class="pt pt-u" cx="202" cy="154.5" r="4.5"/><circle class="pt pt-v" cx="82" cy="232.6" r="4.5"/><circle class="pt pt-v" cx="322" cy="77.2" r="4.5"/><g class="trace t-v pointille fin"><line x1="82" y1="232.6" x2="322" y2="232.6"/></g><g class="trace t-v pointille fin"><line x1="322" y1="232.6" x2="322" y2="77.2"/></g><text class="note halo" x="202" y="250.6" text-anchor="middle">Δt = 20 min</text><text class="note halo" x="329.2" y="154.9">Δ[I₂] = 7,4 mmol/L</text><text class="note halo" x="194.8" y="148.5" text-anchor="end">t = 10 min</text><text class="note halo" x="388.0" y="43.6">la tangente</text></svg>
+    <figcaption>La tangente à la courbe à $t=10$ min. On lit son coefficient directeur sur deux de ses points, bien écartés, qui ne sont pas sur la courbe.</figcaption>
+  </figure>
+  <div class="bloc methode" data-titre="Lire une vitesse volumique sur un graphique">
+    <ol class="etapes">
+      <li><span>Je trace la tangente à la courbe au point de la date demandée : une droite qui touche la courbe en ce point, en suivant sa direction.</span></li>
+      <li><span>Je choisis deux points de la tangente <strong>bien écartés</strong> et faciles à lire (ils ne sont pas sur la courbe).</span></li>
+      <li><span>Je calcule le coefficient directeur $\dfrac{\Delta[\;]}{\Delta t}$, avec ses unités ; pour un réactif, je prends son opposé.</span></li>
+      <li><span>Je convertis si on me le demande : $1\ \text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}=\dfrac{10^{-3}}{60}\ \text{mol}\cdot\text{L}^{-1}\cdot\text{s}^{-1}$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Sur la figure ci-dessus, déterminer la vitesse volumique d'apparition du diiode à $t=10$ min, en $\text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$ puis en $\text{mol}\cdot\text{L}^{-1}\cdot\text{s}^{-1}$.</p>
+      <ol class="pas">
+        <li><strong>Deux points de la tangente.</strong> $(0\ \text{min}\,;\ 2{,}6\ \text{mmol/L})$ et $(20\ \text{min}\,;\ 10{,}0\ \text{mmol/L})$.</li>
+        <li><strong>Le coefficient directeur.</strong> $v_{\text{app}}(\text{I}_2)=\dfrac{10{,}0-2{,}6}{20-0}=0{,}37\ \text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$.</li>
+        <li><strong>En unités du système international.</strong> $0{,}37\times\dfrac{10^{-3}}{60}=6{,}2\times10^{-6}\ \text{mol}\cdot\text{L}^{-1}\cdot\text{s}^{-1}$.</li>
+        <li><strong>Comparer.</strong> À $t=0$, la tangente monte de $10$ mmol/L en $10$ min : $1{,}0\ \text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$. En dix minutes, la vitesse a été divisée par près de trois.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="bloc remarque" data-titre="Toujours dire de quelle espèce on parle">
+    <p>Ici, une mole d'eau oxygénée consommée donne une mole de diiode : à volume constant, $[\text{I}_2]=[\text{H}_2\text{O}_2]_0-[\text{H}_2\text{O}_2]$, donc $v_{\text{app}}(\text{I}_2)=v_{\text{disp}}(\text{H}_2\text{O}_2)$. Les ions iodure, eux, sont consommés deux par deux : $v_{\text{disp}}(\text{I}^-)=2\,v_{\text{app}}(\text{I}_2)$. Une vitesse volumique est toujours celle d'une espèce nommée.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-demi-reaction">4. Le temps de demi-réaction</h3>
+  <div class="bloc definition" data-titre="Temps de demi-réaction">
+    <p>Le <strong>temps de demi-réaction</strong> $t_{1/2}$ est la durée au bout de laquelle l'avancement atteint <strong>la moitié de sa valeur finale</strong> : $x(t_{1/2})=\dfrac{x_f}{2}$.</p>
+  </div>
+  <figure class="figure-svg">
+    <svg data-figure="lecture_demi_reaction" viewBox="0 0 644 351" role="img" aria-label="La concentration en diiode en fonction du temps tend vers 10,0 mmol/L. La moitié de cette valeur finale, 5,0 mmol/L, est atteinte vers 6,9 minutes : c'est le temps de demi-réaction, lu en pointillés."><line class="quadrillage-trait" x1="82.0" y1="287.2" x2="82.0" y2="35.2"/><line class="quadrillage-trait" x1="142.0" y1="287.2" x2="142.0" y2="35.2"/><line class="quadrillage-trait" x1="202.0" y1="287.2" x2="202.0" y2="35.2"/><line class="quadrillage-trait" x1="262.0" y1="287.2" x2="262.0" y2="35.2"/><line class="quadrillage-trait" x1="322.0" y1="287.2" x2="322.0" y2="35.2"/><line class="quadrillage-trait" x1="382.0" y1="287.2" x2="382.0" y2="35.2"/><line class="quadrillage-trait" x1="442.0" y1="287.2" x2="442.0" y2="35.2"/><line class="quadrillage-trait" x1="502.0" y1="287.2" x2="502.0" y2="35.2"/><line class="quadrillage-trait" x1="562.0" y1="287.2" x2="562.0" y2="35.2"/><line class="quadrillage-trait" x1="82" y1="287.2" x2="562" y2="287.2"/><line class="quadrillage-trait" x1="82" y1="266.2" x2="562" y2="266.2"/><line class="quadrillage-trait" x1="82" y1="245.2" x2="562" y2="245.2"/><line class="quadrillage-trait" x1="82" y1="224.2" x2="562" y2="224.2"/><line class="quadrillage-trait" x1="82" y1="203.2" x2="562" y2="203.2"/><line class="quadrillage-trait" x1="82" y1="182.2" x2="562" y2="182.2"/><line class="quadrillage-trait" x1="82" y1="161.2" x2="562" y2="161.2"/><line class="quadrillage-trait" x1="82" y1="140.2" x2="562" y2="140.2"/><line class="quadrillage-trait" x1="82" y1="119.2" x2="562" y2="119.2"/><line class="quadrillage-trait" x1="82" y1="98.2" x2="562" y2="98.2"/><line class="quadrillage-trait" x1="82" y1="77.2" x2="562" y2="77.2"/><line class="quadrillage-trait" x1="82" y1="56.2" x2="562" y2="56.2"/><line class="quadrillage-trait" x1="82" y1="35.2" x2="562" y2="35.2"/><line class="axe-trait" x1="82" y1="287.2" x2="562" y2="287.2"/><line class="axe-trait" x1="82" y1="287.2" x2="82" y2="35.2"/><text class="petit" x="82.0" y="305.2" text-anchor="middle">0</text><text class="petit" x="202.0" y="305.2" text-anchor="middle">10</text><text class="petit" x="322.0" y="305.2" text-anchor="middle">20</text><text class="petit" x="442.0" y="305.2" text-anchor="middle">30</text><text class="petit" x="562.0" y="305.2" text-anchor="middle">40</text><text class="petit" x="75.0" y="250.2" text-anchor="end">2</text><text class="petit" x="75.0" y="208.2" text-anchor="end">4</text><text class="petit" x="75.0" y="166.2" text-anchor="end">6</text><text class="petit" x="75.0" y="124.2" text-anchor="end">8</text><text class="petit" x="75.0" y="82.2" text-anchor="end">10</text><text class="petit" x="75.0" y="40.2" text-anchor="end">12</text><text class="petit" x="562.0" y="325.2" text-anchor="end">t (min)</text><text class="petit" x="90.0" y="27.2" text-anchor="start">[I₂] (mmol/L)</text><g class="trace t-u"><path d="M82.0,287.2 L84.0,283.7 L86.0,280.3 L88.0,277.0 L90.0,273.7 L92.0,270.4 L94.0,267.2 L96.0,264.1 L98.0,261.0 L100.0,257.9 L102.0,255.0 L104.0,252.0 L106.0,249.1 L108.0,246.3 L110.0,243.5 L112.0,240.7 L114.0,238.0 L116.0,235.4 L118.0,232.8 L120.0,230.2 L122.0,227.7 L124.0,225.2 L126.0,222.7 L128.0,220.3 L130.0,218.0 L132.0,215.6 L134.0,213.4 L136.0,211.1 L138.0,208.9 L140.0,206.7 L142.0,204.6 L144.0,202.5 L146.0,200.4 L148.0,198.4 L150.0,196.4 L152.0,194.4 L154.0,192.5 L156.0,190.5 L158.0,188.7 L160.0,186.8 L162.0,185.0 L164.0,183.2 L166.0,181.5 L168.0,179.8 L170.0,178.1 L172.0,176.4 L174.0,174.8 L176.0,173.1 L178.0,171.6 L180.0,170.0 L182.0,168.5 L184.0,167.0 L186.0,165.5 L188.0,164.0 L190.0,162.6 L192.0,161.2 L194.0,159.8 L196.0,158.4 L198.0,157.1 L200.0,155.8 L202.0,154.5 L204.0,153.2 L206.0,151.9 L208.0,150.7 L210.0,149.5 L212.0,148.3 L214.0,147.1 L216.0,145.9 L218.0,144.8 L220.0,143.7 L222.0,142.6 L224.0,141.5 L226.0,140.5 L228.0,139.4 L230.0,138.4 L232.0,137.4 L234.0,136.4 L236.0,135.4 L238.0,134.4 L240.0,133.5 L242.0,132.6 L244.0,131.6 L246.0,130.7 L248.0,129.9 L250.0,129.0 L252.0,128.1 L254.0,127.3 L256.0,126.5 L258.0,125.6 L260.0,124.8 L262.0,124.1 L264.0,123.3 L266.0,122.5 L268.0,121.8 L270.0,121.0 L272.0,120.3 L274.0,119.6 L276.0,118.9 L278.0,118.2 L280.0,117.5 L282.0,116.9 L284.0,116.2 L286.0,115.6 L288.0,114.9 L290.0,114.3 L292.0,113.7 L294.0,113.1 L296.0,112.5 L298.0,111.9 L300.0,111.3 L302.0,110.8 L304.0,110.2 L306.0,109.7 L308.0,109.1 L310.0,108.6 L312.0,108.1 L314.0,107.6 L316.0,107.1 L318.0,106.6 L320.0,106.1 L322.0,105.6 L324.0,105.2 L326.0,104.7 L328.0,104.2 L330.0,103.8 L332.0,103.3 L334.0,102.9 L336.0,102.5 L338.0,102.1 L340.0,101.7 L342.0,101.3 L344.0,100.9 L346.0,100.5 L348.0,100.1 L350.0,99.7 L352.0,99.3 L354.0,99.0 L356.0,98.6 L358.0,98.3 L360.0,97.9 L362.0,97.6 L364.0,97.2 L366.0,96.9 L368.0,96.6 L370.0,96.3 L372.0,95.9 L374.0,95.6 L376.0,95.3 L378.0,95.0 L380.0,94.7 L382.0,94.4 L384.0,94.2 L386.0,93.9 L388.0,93.6 L390.0,93.3 L392.0,93.1 L394.0,92.8 L396.0,92.5 L398.0,92.3 L400.0,92.0 L402.0,91.8 L404.0,91.6 L406.0,91.3 L408.0,91.1 L410.0,90.9 L412.0,90.6 L414.0,90.4 L416.0,90.2 L418.0,90.0 L420.0,89.8 L422.0,89.6 L424.0,89.3 L426.0,89.1 L428.0,88.9 L430.0,88.8 L432.0,88.6 L434.0,88.4 L436.0,88.2 L438.0,88.0 L440.0,87.8 L442.0,87.7 L444.0,87.5 L446.0,87.3 L448.0,87.1 L450.0,87.0 L452.0,86.8 L454.0,86.7 L456.0,86.5 L458.0,86.4 L460.0,86.2 L462.0,86.1 L464.0,85.9 L466.0,85.8 L468.0,85.6 L470.0,85.5 L472.0,85.3 L474.0,85.2 L476.0,85.1 L478.0,84.9 L480.0,84.8 L482.0,84.7 L484.0,84.6 L486.0,84.4 L488.0,84.3 L490.0,84.2 L492.0,84.1 L494.0,84.0 L496.0,83.9 L498.0,83.8 L500.0,83.6 L502.0,83.5 L504.0,83.4 L506.0,83.3 L508.0,83.2 L510.0,83.1 L512.0,83.0 L514.0,82.9 L516.0,82.8 L518.0,82.7 L520.0,82.7 L522.0,82.6 L524.0,82.5 L526.0,82.4 L528.0,82.3 L530.0,82.2 L532.0,82.1 L534.0,82.1 L536.0,82.0 L538.0,81.9 L540.0,81.8 L542.0,81.7 L544.0,81.7 L546.0,81.6 L548.0,81.5 L550.0,81.5 L552.0,81.4 L554.0,81.3 L556.0,81.2 L558.0,81.2 L560.0,81.1 L562.0,81.0"/></g><g class="trace t-n pointille fin"><line x1="82" y1="77.2" x2="562" y2="77.2"/></g><g class="trace t-v pointille fin"><line x1="82" y1="182.2" x2="165.2" y2="182.2"/></g><g class="trace t-v pointille fin"><line x1="165.2" y1="182.2" x2="165.2" y2="287.2"/></g><circle class="pt pt-v" cx="165.2" cy="182.2" r="4.5"/><text class="note" x="562.0" y="69.2" text-anchor="end">[I₂]f = 10,0 mmol/L</text><text class="note halo" x="184.4" y="187.2">[I₂]f / 2 = 5,0 mmol/L</text><text class="note halo" x="174.8" y="268.3">t½ ≈ 6,9 min</text></svg>
+    <figcaption>Sur la courbe d'un produit : la moitié de la valeur finale, puis la date où la courbe l'atteint. Ce n'est pas la moitié de la durée du graphique.</figcaption>
+  </figure>
+  <div class="bloc methode" data-titre="Lire un temps de demi-réaction" data-ouvert>
+    <ol class="etapes">
+      <li><span>Je lis la valeur <strong>finale</strong> sur le palier de la courbe, ou je la calcule avec le tableau d'avancement.</span></li>
+      <li><span>Je cherche le mi-chemin entre la valeur initiale et la valeur finale : $[\text{P}]_f/2$ pour un produit ; $[\text{A}]_0/2$ pour un réactif limitant entièrement consommé.</span></li>
+      <li><span>Je lis la date de ce point sur l'axe des abscisses : c'est $t_{1/2}$.</span></li>
+    </ol>
+  </div>
+  <div class="bloc remarque" data-titre="À quoi sert-il ?">
+    <p>Il donne l'échelle de temps d'une transformation : deux expériences se comparent d'un coup d'œil par leurs temps de demi-réaction. Il sert aussi à choisir la méthode de suivi : une mesure par minute n'apprend rien sur une transformation dont $t_{1/2}$ vaut deux secondes.</p>
+    <p>Quand le réactif n'est pas entièrement consommé, son mi-chemin n'est pas $[\text{A}]_0/2$ mais $\dfrac{[\text{A}]_0+[\text{A}]_f}{2}$ : sa concentration varie avec l'avancement, et l'avancement n'est qu'à la moitié de sa valeur finale.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-ordre1">5. La loi de vitesse d'ordre 1</h3>
+  <div class="bloc definition" data-titre="Loi de vitesse d'ordre 1">
+    <p>Une transformation suit une <strong>loi de vitesse d'ordre 1</strong> par rapport au réactif A quand la vitesse volumique de disparition de A est proportionnelle à sa concentration :</p>
+    <p>$$v_{\text{disp}}(\text{A})=k\,[\text{A}]$$</p>
+    <p>$k$ est la <strong>constante de vitesse</strong>, en $\text{s}^{-1}$ (ou $\text{min}^{-1}$). Elle dépend de la température et de la présence d'un catalyseur, pas des concentrations.</p>
+  </div>
+  <div class="bloc propriete" data-titre="Ce que la loi d'ordre 1 entraîne">
+    <p>Si la loi d'ordre 1 vaut jusqu'au bout, la concentration de A décroît de façon <strong>exponentielle</strong> et tend vers zéro : $[\text{A}](t)=[\text{A}]_0\,\text{e}^{-kt}$.</p>
+    <p>Le temps de demi-réaction vaut $t_{1/2}=\dfrac{\ln 2}{k}$ : il <strong>ne dépend pas de la concentration initiale</strong>. Doubler $[\text{A}]_0$ double la vitesse au départ, mais il y a deux fois plus de réactif à faire disparaître : la moitié est atteinte au même moment.</p>
+  </div>
+  <div class="bloc methode" data-titre="Établir l'expression de [A](t) et de t½">
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> A est le réactif limitant, il disparaît entièrement, et sa disparition suit une loi d'ordre 1. Montrer que $[\text{A}](t)=[\text{A}]_0\,\text{e}^{-kt}$, puis que $t_{1/2}=\dfrac{\ln2}{k}$.</p>
+      <ol class="pas">
+        <li><strong>L'équation différentielle.</strong> $v_{\text{disp}}(\text{A})=-\dfrac{\text{d}[\text{A}]}{\text{d}t}=k\,[\text{A}]$, soit $\dfrac{\text{d}[\text{A}]}{\text{d}t}=-k\,[\text{A}]$ : une équation $y'=ay$, avec $a=-k$.</li>
+        <li><strong>Ses solutions.</strong> Ce sont les fonctions $t\mapsto C\,\text{e}^{-kt}$, avec $C$ une constante. À $t=0$, $[\text{A}]=[\text{A}]_0$, donc $C=[\text{A}]_0$.</li>
+        <li><strong>Le temps de demi-réaction.</strong> A disparaissant entièrement, l'avancement est à la moitié de sa valeur finale quand $[\text{A}]=\dfrac{[\text{A}]_0}{2}$ : $\text{e}^{-k\,t_{1/2}}=\dfrac12$, donc $-k\,t_{1/2}=-\ln2$ et $t_{1/2}=\dfrac{\ln2}{k}$.</li>
+        <li><strong>Vérifier sur la partie 4.</strong> Pour l'eau oxygénée des figures, $k=0{,}10\ \text{min}^{-1}$ : $t_{1/2}=\dfrac{0{,}693}{0{,}10}=6{,}9$ min, ce qu'on avait lu sur la courbe.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="bloc methode" data-titre="Tester si une loi d'ordre 1 convient">
+    <ol class="etapes">
+      <li><span>À partir des mesures, je calcule la vitesse de disparition à plusieurs dates : par des tangentes, ou par l'écart entre deux mesures voisines.</span></li>
+      <li><span>Je trace la vitesse en fonction de $[\text{A}]$. Si les points sont alignés sur une <strong>droite qui passe par l'origine</strong>, la loi d'ordre 1 convient, et $k$ est son coefficient directeur.</span></li>
+      <li><span>Deux autres tests, équivalents : les temps de demi-réaction successifs sont égaux (de $[\text{A}]_0$ à $[\text{A}]_0/2$, puis de $[\text{A}]_0/2$ à $[\text{A}]_0/4$…), ou $\ln[\text{A}]$ (la concentration exprimée dans une unité fixée) est une fonction affine du temps, de coefficient directeur $-k$.</span></li>
+    </ol>
+  </div>
+  <div class="bloc exemple" data-titre="Le test en Python, sur des mesures">
+    <p>On suit la décomposition de l'eau oxygénée catalysée par des ions fer(III). Les mesures de $[\text{H}_2\text{O}_2]$ sont rangées dans deux listes ; le programme calcule la vitesse à chaque date intérieure par l'écart entre les deux mesures voisines, puis le quotient de la vitesse par la concentration.</p>
+<pre class="code">t = [0, 5, 10, 15, 20, 25, 30, 35, 40]                     # en min
+C = [60.0, 46.8, 36.3, 28.4, 22.1, 17.1, 13.3, 10.5, 8.1]  # [H2O2] en mmol/L
+
+for i in range(1, len(t) - 1):
+    v = -(C[i + 1] - C[i - 1]) / (t[i + 1] - t[i - 1])    # en mmol/L/min
+    print(t[i], C[i], round(v, 2), round(v / C[i], 3))</pre>
+    <p>Le quotient affiché vaut <code>0.05</code> ou <code>0.051</code> à toutes les dates (Python écrit avec un point, et sans zéro inutile) : $0{,}050$ ou $0{,}051\ \text{min}^{-1}$. la vitesse est proportionnelle à la concentration. La loi d'ordre 1 convient, avec $k\approx0{,}050\ \text{min}^{-1}$, donc $t_{1/2}=\dfrac{\ln2}{0{,}050}\approx14$ min. Pour le voir d'un coup d'œil, on trace la vitesse en fonction de la concentration (avec <code>matplotlib</code>, par exemple) : c'est la figure ci-dessous.</p>
+  </div>
+  <figure class="figure-svg">
+    <svg data-figure="test_ordre1" viewBox="0 0 628 401" role="img" aria-label="La vitesse volumique de disparition de l'eau oxygénée, en mmol par litre et par minute, en fonction de sa concentration, de 0 à 50 mmol/L : sept points calculés à partir des mesures, alignés sur une droite qui passe par l'origine, de coefficient directeur 0,050 par minute."><line class="quadrillage-trait" x1="86.0" y1="323.5" x2="86.0" y2="48.5"/><line class="quadrillage-trait" x1="133.5" y1="323.5" x2="133.5" y2="48.5"/><line class="quadrillage-trait" x1="181.0" y1="323.5" x2="181.0" y2="48.5"/><line class="quadrillage-trait" x1="228.5" y1="323.5" x2="228.5" y2="48.5"/><line class="quadrillage-trait" x1="276.0" y1="323.5" x2="276.0" y2="48.5"/><line class="quadrillage-trait" x1="323.5" y1="323.5" x2="323.5" y2="48.5"/><line class="quadrillage-trait" x1="371.0" y1="323.5" x2="371.0" y2="48.5"/><line class="quadrillage-trait" x1="418.5" y1="323.5" x2="418.5" y2="48.5"/><line class="quadrillage-trait" x1="466.0" y1="323.5" x2="466.0" y2="48.5"/><line class="quadrillage-trait" x1="513.5" y1="323.5" x2="513.5" y2="48.5"/><line class="quadrillage-trait" x1="561.0" y1="323.5" x2="561.0" y2="48.5"/><line class="quadrillage-trait" x1="86.0" y1="323.5" x2="561.0" y2="323.5"/><line class="quadrillage-trait" x1="86.0" y1="296.0" x2="561.0" y2="296.0"/><line class="quadrillage-trait" x1="86.0" y1="268.5" x2="561.0" y2="268.5"/><line class="quadrillage-trait" x1="86.0" y1="241.0" x2="561.0" y2="241.0"/><line class="quadrillage-trait" x1="86.0" y1="213.5" x2="561.0" y2="213.5"/><line class="quadrillage-trait" x1="86.0" y1="186.0" x2="561.0" y2="186.0"/><line class="quadrillage-trait" x1="86.0" y1="158.5" x2="561.0" y2="158.5"/><line class="quadrillage-trait" x1="86.0" y1="131.0" x2="561.0" y2="131.0"/><line class="quadrillage-trait" x1="86.0" y1="103.5" x2="561.0" y2="103.5"/><line class="quadrillage-trait" x1="86.0" y1="76.0" x2="561.0" y2="76.0"/><line class="quadrillage-trait" x1="86.0" y1="48.5" x2="561.0" y2="48.5"/><line class="axe-trait" x1="86.0" y1="323.5" x2="561.0" y2="323.5"/><line class="axe-trait" x1="86.0" y1="323.5" x2="86.0" y2="48.5"/><text class="petit" x="86.0" y="341.5" text-anchor="middle">0</text><text class="petit" x="181.0" y="341.5" text-anchor="middle">10</text><text class="petit" x="276.0" y="341.5" text-anchor="middle">20</text><text class="petit" x="371.0" y="341.5" text-anchor="middle">30</text><text class="petit" x="466.0" y="341.5" text-anchor="middle">40</text><text class="petit" x="561.0" y="341.5" text-anchor="middle">50</text><text class="petit" x="79.0" y="273.5" text-anchor="end">0,5</text><text class="petit" x="79.0" y="218.5" text-anchor="end">1,0</text><text class="petit" x="79.0" y="163.5" text-anchor="end">1,5</text><text class="petit" x="79.0" y="108.5" text-anchor="end">2,0</text><text class="petit" x="79.0" y="53.5" text-anchor="end">2,5</text><text class="petit" x="561.0" y="361.5" text-anchor="end">[H₂O₂] (mmol/L)</text><text class="petit" x="94.0" y="40.5" text-anchor="start">v (mmol·L⁻¹·min⁻¹)</text><g class="trace t-u fin"><line x1="86.0" y1="323.5" x2="561.0" y2="48.5"/></g><circle class="pt pt-v" cx="530.6" cy="62.8" r="4.5"/><circle class="pt pt-v" cx="430.8" cy="121.1" r="4.5"/><circle class="pt pt-v" cx="355.8" cy="167.3" r="4.5"/><circle class="pt pt-v" cx="295.9" cy="199.2" r="4.5"/><circle class="pt pt-v" cx="248.5" cy="226.7" r="4.5"/><circle class="pt pt-v" cx="212.3" cy="250.9" r="4.5"/><circle class="pt pt-v" cx="185.8" cy="266.3" r="4.5"/><text class="note halo" x="124.0" y="70.5">droite par l'origine : v = 0,050 × [H₂O₂]</text></svg>
+    <figcaption>Les sept vitesses calculées par le programme, en fonction de la concentration : une droite qui passe par l'origine. La loi d'ordre 1 convient.</figcaption>
+  </figure>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-mecanisme">6. À l'échelle des entités : le mécanisme réactionnel</h3>
+  <div class="bloc definition" data-titre="Acte élémentaire, mécanisme, intermédiaire réactionnel">
+    <p>Un <strong>acte élémentaire</strong> est une transformation qui se fait en une seule étape, le plus souvent lors d'un choc entre deux entités (molécules, ions, atomes), parfois par la rupture d'une seule. Le <strong>mécanisme réactionnel</strong> d'une transformation est la suite d'actes élémentaires qui la modélise à l'échelle des entités. Additionnés (au besoin multipliés), les actes redonnent l'équation de la réaction.</p>
+    <p>Un <strong>intermédiaire réactionnel</strong> est une espèce formée dans un acte et consommée dans un acte suivant : il n'apparaît pas dans l'équation de la réaction.</p>
+  </div>
+  <div class="bloc exemple" data-titre="Les ions iodure, catalyseurs de la décomposition de l'eau oxygénée">
+    <p>Avec quelques ions iodure, la décomposition de l'eau oxygénée suit un mécanisme en deux actes :</p>
+    <p>$$\begin{aligned}&\text{H}_2\text{O}_2+\text{I}^-\rightarrow\text{H}_2\text{O}+\text{IO}^-\\&\text{H}_2\text{O}_2+\text{IO}^-\rightarrow\text{H}_2\text{O}+\text{O}_2+\text{I}^-\end{aligned}$$</p>
+    <p>En additionnant les deux actes, $\text{IO}^-$ et $\text{I}^-$ s'éliminent : $2\,\text{H}_2\text{O}_2\rightarrow2\,\text{H}_2\text{O}+\text{O}_2$. L'ion hypoiodite $\text{IO}^-$ est un <strong>intermédiaire réactionnel</strong> : formé, puis consommé. L'ion iodure est un <strong>catalyseur</strong> : consommé, puis régénéré.</p>
+  </div>
+  <div class="bloc propriete" data-titre="Ce que fait un catalyseur">
+    <p>Un catalyseur remplace un mécanisme lent par un autre, plus rapide, dans lequel il est consommé puis <strong>régénéré</strong>. Il change le chemin, pas le point de départ ni le point d'arrivée.</p>
+  </div>
+  <div class="bloc definition" data-titre="La flèche courbe">
+    <p>Dans un acte élémentaire, des liaisons se rompent et d'autres se forment : des <strong>doublets d'électrons</strong> se déplacent. Une <strong>flèche courbe</strong> représente le déplacement d'<strong>un doublet</strong>. Elle part <strong>d'un doublet</strong> (non liant, ou liant si la liaison se rompt) et pointe vers l'endroit où il va : un atome, ou l'espace entre deux atomes où une liaison se forme.</p>
+  </div>
+  <div class="bloc remarque" data-titre="Rappel de première : l'électronégativité">
+    <p>Dans une liaison entre deux atomes différents, l'atome le plus <strong>électronégatif</strong> attire davantage les électrons de la liaison : il porte une charge partielle $\delta^-$, l'autre une charge partielle $\delta^+$. L'électronégativité augmente de gauche à droite et de bas en haut dans le tableau périodique, hors gaz nobles : l'oxygène et le chlore sont plus électronégatifs que le carbone, lui-même un peu plus que l'hydrogène.</p>
+  </div>
+  <div class="bloc propriete" data-titre="Le sens d'une flèche courbe">
+    <p>Le doublet va d'un <strong>site donneur</strong>, riche en électrons (un doublet non liant, un atome qui porte une charge négative ou une charge partielle $\delta^-$), vers un <strong>site accepteur</strong>, pauvre en électrons (un atome qui porte une charge positive, une charge partielle $\delta^+$, ou une lacune).</p>
+  </div>
+  <figure class="figure-svg">
+    <svg data-figure="acte_elementaire" viewBox="0 0 680 210" role="img" aria-label="Un acte élémentaire écrit avec des schémas de Lewis : l'ion hydroxyde et le chlorométhane donnent le méthanol et l'ion chlorure. Une première flèche courbe part d'un doublet non liant de l'oxygène de l'ion hydroxyde et pointe vers l'atome de carbone ; une seconde part du doublet de la liaison carbone–chlore et pointe vers l'atome de chlore."><g class="trace ep-2-5 t-ink"><line x1="78.0" y1="96.0" x2="56.0" y2="96.0"/></g><g class="trace ep-2-5 t-ink"><line x1="106.0" y1="89.5" x2="106.0" y2="102.5"/></g><g class="trace ep-2-5 t-ink"><line x1="83.5" y1="80.0" x2="96.5" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="96.5" y1="112.0" x2="83.5" y2="112.0"/></g><circle class="contour ep-2 t-ink" cx="107.7" cy="78.3" r="9.0"/><text class="formule" x="107.7" y="83.8" text-anchor="middle">−</text><text class="lettre" x="90.0" y="102.5" text-anchor="middle">O</text><text class="lettre" x="44.0" y="102.5" text-anchor="middle">H</text><g class="trace ep-2-5 t-ink"><line x1="222.0" y1="96.0" x2="238.0" y2="96.0"/></g><g class="trace ep-2-5 t-ink"><line x1="210.0" y1="84.0" x2="210.0" y2="62.0"/></g><g class="trace ep-2-5 t-ink"><line x1="210.0" y1="108.0" x2="210.0" y2="130.0"/></g><g class="trace ep-2-5 t-ink"><line x1="201.5" y1="104.5" x2="185.4" y2="120.6"/></g><text class="lettre" x="210.0" y="102.5" text-anchor="middle">C</text><g class="trace ep-2-5 t-ink"><line x1="278.0" y1="89.5" x2="278.0" y2="102.5"/></g><g class="trace ep-2-5 t-ink"><line x1="249.5" y1="80.0" x2="262.5" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="262.5" y1="112.0" x2="249.5" y2="112.0"/></g><text class="lettre" x="256.0" y="102.5" text-anchor="middle">Cl</text><text class="lettre" x="210.0" y="56.5" text-anchor="middle">H</text><text class="lettre" x="210.0" y="148.5" text-anchor="middle">H</text><text class="lettre" x="176.9" y="135.6" text-anchor="middle">H</text><g class="trace t-v"><path class="ep-2-5" d="M111.0,96.0 Q150.0,58.0 192.9,84.8"/><polygon points="198.0,88.0 186.9,86.9 192.2,78.5"/></g><g class="trace t-v"><path class="ep-2-5" d="M233.0,100.0 Q236.0,132.0 246.0,114.2"/><polygon points="249.0,109.0 248.4,120.2 239.7,115.2"/></g><text class="moyen" x="140" y="102" text-anchor="middle">+</text><g class="trace t-n"><line x1="318" y1="96" x2="352" y2="96"/><polygon points="362,96 350,90 350,102"/></g><g class="trace ep-2-5 t-ink"><line x1="408.0" y1="96.0" x2="386.0" y2="96.0"/></g><g class="trace ep-2-5 t-ink"><line x1="432.0" y1="96.0" x2="454.0" y2="96.0"/></g><g class="trace ep-2-5 t-ink"><line x1="466.0" y1="84.0" x2="466.0" y2="62.0"/></g><g class="trace ep-2-5 t-ink"><line x1="466.0" y1="108.0" x2="466.0" y2="130.0"/></g><g class="trace ep-2-5 t-ink"><line x1="474.5" y1="104.5" x2="490.6" y2="120.6"/></g><g class="trace ep-2-5 t-ink"><line x1="413.5" y1="80.0" x2="426.5" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="426.5" y1="112.0" x2="413.5" y2="112.0"/></g><text class="lettre" x="420.0" y="102.5" text-anchor="middle">O</text><text class="lettre" x="374.0" y="102.5" text-anchor="middle">H</text><text class="lettre" x="466.0" y="102.5" text-anchor="middle">C</text><text class="lettre" x="466.0" y="56.5" text-anchor="middle">H</text><text class="lettre" x="466.0" y="148.5" text-anchor="middle">H</text><text class="lettre" x="499.1" y="135.6" text-anchor="middle">H</text><text class="moyen" x="552" y="102" text-anchor="middle">+</text><g class="trace ep-2-5 t-ink"><line x1="632.0" y1="89.5" x2="632.0" y2="102.5"/></g><g class="trace ep-2-5 t-ink"><line x1="603.5" y1="80.0" x2="616.5" y2="80.0"/></g><g class="trace ep-2-5 t-ink"><line x1="588.0" y1="102.5" x2="588.0" y2="89.5"/></g><g class="trace ep-2-5 t-ink"><line x1="616.5" y1="112.0" x2="603.5" y2="112.0"/></g><circle class="contour ep-2 t-ink" cx="630.7" cy="75.3" r="9.0"/><text class="formule" x="630.7" y="80.8" text-anchor="middle">−</text><text class="lettre" x="610.0" y="102.5" text-anchor="middle">Cl</text><text class="note" x="160" y="185" text-anchor="middle">réactifs : HO⁻ et CH₃Cl</text><text class="note" x="515" y="185" text-anchor="middle">produits : CH₃OH et Cl⁻</text></svg>
+    <figcaption>Un acte élémentaire, deux flèches courbes. Un doublet non liant de l'oxygène de l'ion hydroxyde (site donneur) va former une liaison avec le carbone, qui porte une charge partielle $\delta^+$ parce que le chlore est plus électronégatif. Le doublet de la liaison carbone–chlore part sur le chlore, qui devient l'ion chlorure.</figcaption>
+  </figure>
+  <div class="bloc methode" data-titre="Dessiner les flèches courbes d'un acte élémentaire">
+    <ol class="etapes">
+      <li><span>Je compare les réactifs et les produits de l'acte : quelles liaisons se forment, lesquelles se rompent ?</span></li>
+      <li><span>Pour chaque liaison qui se forme : une flèche qui part d'un doublet du site donneur et pointe vers l'atome accepteur.</span></li>
+      <li><span>Pour chaque liaison qui se rompt : une flèche qui part du milieu de la liaison et pointe vers l'atome qui garde le doublet, le plus électronégatif.</span></li>
+      <li><span>Je vérifie les charges : l'atome qui a donné un doublet non liant perd une charge négative (ou gagne une charge positive), celui qui garde le doublet d'une liaison gagne une charge négative.</span></li>
+    </ol>
+  </div>
+  <div class="bloc propriete" data-titre="Les facteurs cinétiques, vus de près">
+    <p>Un acte élémentaire à deux entités n'a lieu que si elles se rencontrent : un <strong>choc</strong>. Il ne réussit que si le choc est <strong>efficace</strong> : assez d'énergie, et la bonne orientation.</p>
+    <ul>
+      <li>Plus les réactifs sont <strong>concentrés</strong>, plus il y a d'entités par litre : les chocs sont plus <strong>fréquents</strong>.</li>
+      <li>Plus la <strong>température</strong> est élevée, plus les entités sont agitées : les chocs sont plus fréquents, et surtout une plus grande part d'entre eux est <strong>efficace</strong>.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-noyaux">7. Noyaux stables et noyaux instables</h3>
+  <div class="bloc remarque" data-titre="Rappel de seconde : le noyau">
+    <p>Le noyau $^{A}_{Z}\text{X}$ contient $Z$ protons (le <strong>nombre de charge</strong>, qui fixe l'élément) et $A$ nucléons (le <strong>nombre de masse</strong>), donc $N=A-Z$ neutrons. Des <strong>isotopes</strong> ont le même $Z$ et des $A$ différents : $^{12}_{\;6}\text{C}$, $^{13}_{\;6}\text{C}$ et $^{14}_{\;6}\text{C}$.</p>
+  </div>
+  <div class="bloc definition" data-titre="Noyau radioactif">
+    <p>Un noyau <strong>radioactif</strong>, ou instable, se transforme spontanément en un autre noyau, le <strong>noyau fils</strong>, en émettant une particule : c'est une <strong>désintégration</strong>. Elle est <strong>aléatoire</strong> : on ne peut pas prévoir quand un noyau donné se désintégrera.</p>
+  </div>
+  <div class="bloc definition" data-titre="Les radioactivités α, β et l'émission γ">
+    <ul>
+      <li><strong>α</strong> : le noyau émet un noyau d'hélium $^{4}_{2}\text{He}$, la particule α. Elle concerne surtout les noyaux lourds.</li>
+      <li><strong>β⁻</strong> : le noyau émet un électron $^{\;\,0}_{-1}\text{e}$ ; un neutron du noyau s'est changé en proton.</li>
+      <li><strong>β⁺</strong> : le noyau émet un positon $^{0}_{1}\text{e}$, l'antiparticule de l'électron ; un proton s'est changé en neutron.</li>
+      <li><strong>γ</strong> : le noyau fils, souvent formé dans un état excité (noté avec un astérisque), se désexcite en émettant un photon de grande énergie, sans changer de $A$ ni de $Z$.</li>
+    </ul>
+  </div>
+  <div class="bloc propriete" data-titre="Les lois de conservation">
+    <p>Dans une réaction nucléaire, le <strong>nombre de nucléons</strong> et le <strong>nombre de charge</strong> se conservent : la somme des $A$, et celle des $Z$, sont les mêmes de chaque côté de la flèche.</p>
+  </div>
+  <figure class="figure-svg large">
+    <svg data-figure="diagramme_nz" viewBox="0 0 660 391" role="img" aria-label="Diagramme (N, Z) : le nombre de protons Z en ordonnée, de 0 à 100, en fonction du nombre de neutrons N en abscisse, de 0 à 150. Les noyaux stables forment une bande, la vallée de stabilité, qui suit la droite N = Z pour les noyaux légers puis s'en écarte (environ 1,5 neutron par proton pour le plomb). Sous la vallée, les noyaux ont trop de neutrons et se désintègrent par β⁻ ; au-dessus, trop de protons, par β⁺ ; au-delà du plomb, les noyaux lourds se désintègrent surtout par α. Un encadré montre le déplacement de chaque désintégration : α fait perdre 2 neutrons et 2 protons, β⁻ change un neutron en proton, β⁺ un proton en neutron."><line class="quadrillage-trait" x1="60.4" y1="340.4" x2="60.4" y2="45.4"/><text class="petit" x="60.4" y="358.4" text-anchor="middle">0</text><line class="quadrillage-trait" x1="150.4" y1="340.4" x2="150.4" y2="45.4"/><text class="petit" x="150.4" y="358.4" text-anchor="middle">25</text><line class="quadrillage-trait" x1="240.4" y1="340.4" x2="240.4" y2="45.4"/><text class="petit" x="240.4" y="358.4" text-anchor="middle">50</text><line class="quadrillage-trait" x1="330.4" y1="340.4" x2="330.4" y2="45.4"/><text class="petit" x="330.4" y="358.4" text-anchor="middle">75</text><line class="quadrillage-trait" x1="420.4" y1="340.4" x2="420.4" y2="45.4"/><text class="petit" x="420.4" y="358.4" text-anchor="middle">100</text><line class="quadrillage-trait" x1="510.4" y1="340.4" x2="510.4" y2="45.4"/><text class="petit" x="510.4" y="358.4" text-anchor="middle">125</text><line class="quadrillage-trait" x1="600.4" y1="340.4" x2="600.4" y2="45.4"/><text class="petit" x="600.4" y="358.4" text-anchor="middle">150</text><line class="quadrillage-trait" x1="60.4" y1="340.4" x2="600.4" y2="340.4"/><line class="quadrillage-trait" x1="60.4" y1="281.4" x2="600.4" y2="281.4"/><text class="petit" x="53.4" y="286.4" text-anchor="end">20</text><line class="quadrillage-trait" x1="60.4" y1="222.4" x2="600.4" y2="222.4"/><text class="petit" x="53.4" y="227.4" text-anchor="end">40</text><line class="quadrillage-trait" x1="60.4" y1="163.4" x2="600.4" y2="163.4"/><text class="petit" x="53.4" y="168.4" text-anchor="end">60</text><line class="quadrillage-trait" x1="60.4" y1="104.4" x2="600.4" y2="104.4"/><text class="petit" x="53.4" y="109.4" text-anchor="end">80</text><line class="quadrillage-trait" x1="60.4" y1="45.4" x2="600.4" y2="45.4"/><text class="petit" x="53.4" y="50.4" text-anchor="end">100</text><line class="axe-trait" x1="60.4" y1="340.4" x2="600.4" y2="340.4"/><line class="axe-trait" x1="60.4" y1="340.4" x2="60.4" y2="45.4"/><text class="petit" x="600.4" y="376.4" text-anchor="end">N (neutrons)</text><text class="petit" x="68.4" y="37.4" text-anchor="start">Z (protons)</text><g class="trace t-n pointille fin"><line x1="60.4" y1="340.4" x2="420.4" y2="45.4"/></g><text class="note halo" x="298.0" y="104.4">N = Z</text><polygon class="forme-3" points="60.4,337.5 60.4,334.5 63.4,331.6 66.9,328.6 70.5,325.7 74.1,322.7 77.7,319.8 81.4,316.8 85.1,313.9 88.9,310.9 92.7,308.0 96.6,305.0 100.5,302.1 104.4,299.1 108.4,296.2 112.5,293.2 116.6,290.2 120.7,287.3 124.9,284.4 129.1,281.4 133.4,278.4 137.7,275.5 142.1,272.6 146.5,269.6 150.9,266.7 155.4,263.7 160.0,260.8 164.6,257.8 169.2,254.9 173.9,251.9 178.6,249.0 183.4,246.0 188.2,243.1 193.1,240.1 198.0,237.2 202.9,234.2 207.9,231.2 213.0,228.3 218.1,225.4 223.2,222.4 228.4,219.5 233.6,216.5 238.9,213.6 244.2,210.6 249.6,207.7 255.0,204.7 260.4,201.8 265.9,198.8 271.5,195.9 277.0,192.9 282.7,190.0 288.4,187.0 294.1,184.1 299.8,181.1 305.7,178.2 311.5,175.2 317.4,172.2 323.4,169.3 329.4,166.4 335.4,163.4 341.5,160.5 347.6,157.5 353.8,154.6 360.0,151.6 366.3,148.7 372.6,145.7 379.0,142.8 385.4,139.8 391.8,136.9 398.3,133.9 404.9,130.9 411.5,128.0 418.1,125.1 424.8,122.1 431.5,119.2 438.3,116.2 445.1,113.2 451.9,110.3 458.8,107.4 465.8,104.4 472.8,101.5 479.8,98.5 486.9,95.6 544.0,95.6 536.4,98.5 528.8,101.5 521.3,104.4 513.9,107.4 506.4,110.3 499.1,113.2 491.7,116.2 484.5,119.2 477.2,122.1 470.0,125.1 462.9,128.0 455.8,130.9 448.7,133.9 441.7,136.9 434.8,139.8 427.8,142.8 421.0,145.7 414.1,148.7 407.4,151.6 400.6,154.6 393.9,157.5 387.3,160.5 380.7,163.4 374.1,166.4 367.6,169.3 361.1,172.2 354.7,175.2 348.3,178.2 342.0,181.1 335.7,184.1 329.5,187.0 323.3,190.0 317.2,192.9 311.1,195.9 305.0,198.8 299.0,201.8 293.0,204.7 287.1,207.7 281.2,210.6 275.4,213.6 269.6,216.5 263.9,219.5 258.2,222.4 252.5,225.4 246.9,228.3 241.4,231.2 235.9,234.2 230.4,237.2 225.0,240.1 219.6,243.1 214.3,246.0 209.0,249.0 203.7,251.9 198.5,254.9 193.4,257.8 188.3,260.8 183.2,263.7 178.2,266.7 173.2,269.6 168.3,272.6 163.4,275.5 158.6,278.4 153.8,281.4 149.1,284.4 144.4,287.3 139.7,290.2 135.1,293.2 130.6,296.2 126.0,299.1 121.6,302.1 117.2,305.0 112.8,308.0 108.4,310.9 104.2,313.9 99.9,316.8 95.7,319.8 91.6,322.7 87.5,325.7 83.4,328.6 79.4,331.6 75.4,334.5 71.5,337.5"/><text class="note halo" x="298.0" y="151.6" text-anchor="end">la vallée de stabilité</text><g class="trace t-n fin"><line x1="301.6" y1="154.6" x2="326.8" y2="172.2"/></g><text class="note halo" x="74.8" y="187.0">trop de protons : β⁺</text><text class="note halo" x="269.2" y="281.4">trop de neutrons : β⁻</text><text class="note halo" x="521.2" y="30.7" text-anchor="middle">noyaux lourds : α</text><circle class="pt pt-v" cx="586.0" cy="69.0" r="4.5"/><text class="note halo" x="575.2" y="74.0" text-anchor="end">uranium 238</text><rect class="fond-carte" x="442.0" y="216.5" width="160" height="116" rx="8"/><text class="petit" x="522.0" y="234.5" text-anchor="middle">un pas = 1 nucléon</text><g class="trace t-v"><line x1="522.0" y1="280.5" x2="482.0" y2="320.5"/></g><circle class="pt" cx="482.0" cy="320.5" r="3"/><text class="note" x="470.0" y="326.5" text-anchor="middle">α</text><g class="trace t-u"><line x1="522.0" y1="280.5" x2="502.0" y2="260.5"/></g><circle class="pt" cx="502.0" cy="260.5" r="3"/><text class="note" x="488.0" y="258.5" text-anchor="middle">β⁻</text><g class="trace t-w"><line x1="522.0" y1="280.5" x2="542.0" y2="300.5"/></g><circle class="pt" cx="542.0" cy="300.5" r="3"/><text class="note" x="556.0" y="308.5" text-anchor="middle">β⁺</text><circle class="pt" cx="522.0" cy="280.5" r="4"/><text class="petit" x="574.0" y="324.5" text-anchor="middle">N → Z ↑</text></svg>
+    <figcaption>Le diagramme (N, Z), le nombre de neutrons en abscisse et le nombre de protons en ordonnée. Les noyaux stables forment la vallée de stabilité ; un noyau hors de la vallée est radioactif, et sa désintégration le rapproche de la vallée. Les isotopes d'un élément sont sur une même ligne horizontale, celle de son $Z$ : ceux qui tombent hors de la vallée sont radioactifs.</figcaption>
+  </figure>
+  <div class="bloc methode" data-titre="Écrire l'équation d'une désintégration">
+    <ol class="etapes">
+      <li><span>J'écris le noyau père, la flèche, un noyau fils inconnu $^{A}_{Z}\text{X}$ et la particule émise : $^{4}_{2}\text{He}$, $^{\;\,0}_{-1}\text{e}$ ou $^{0}_{1}\text{e}$.</span></li>
+      <li><span>Je trouve $A$ et $Z$ du noyau fils par les lois de conservation.</span></li>
+      <li><span>Je lis son symbole dans le tableau périodique, grâce à $Z$.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Le carbone 14 ($Z=6$) est radioactif β⁻. Écrire l'équation de sa désintégration.</p>
+      <ol class="pas">
+        <li><strong>Le père et la particule.</strong> $^{14}_{\;6}\text{C}\rightarrow{}^{A}_{Z}\text{X}+{}^{\;\,0}_{-1}\text{e}$.</li>
+        <li><strong>Les nucléons.</strong> $14=A+0$, donc $A=14$.</li>
+        <li><strong>Les charges.</strong> $6=Z+(-1)$, donc $Z=7$.</li>
+        <li><strong>Le symbole.</strong> $Z=7$, c'est l'azote : $^{14}_{\;6}\text{C}\rightarrow{}^{14}_{\;7}\text{N}+{}^{\;\,0}_{-1}\text{e}$. Le noyau fils a un neutron de moins et un proton de plus : il s'est rapproché de la vallée de stabilité.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="bloc remarque" data-titre="La particule qu'on n'écrit pas">
+    <p>Une désintégration β émet aussi une particule presque indétectable : un antineutrino (β⁻) ou un neutrino (β⁺). Elle ne change ni $A$ ni $Z$, et on ne l'écrit pas dans les équations de terminale.</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-decroissance">8. La loi de décroissance radioactive</h3>
+  <div class="bloc propriete" data-titre="Pour un grand nombre de noyaux, une loi">
+    <p>On ne peut rien prévoir pour un noyau seul. Mais pour un très grand nombre $N$ de noyaux radioactifs identiques, le nombre de désintégrations pendant une petite durée $\text{d}t$ est proportionnel à $N$ et à $\text{d}t$ : $\text{d}N=-\lambda\,N\,\text{d}t$.</p>
+    <p>La <strong>constante radioactive</strong> $\lambda$, en $\text{s}^{-1}$, est propre au noyau : elle ne dépend pratiquement ni de la température, ni de la pression, ni de la molécule où se trouve le noyau.</p>
+  </div>
+  <div class="bloc theoreme" data-titre="La loi de décroissance radioactive">
+    <p>$$N(t)=N_0\,\text{e}^{-\lambda t}$$</p>
+    <p>$N_0$ est le nombre de noyaux radioactifs à la date $t=0$.</p>
+  </div>
+  <div class="bloc methode" data-titre="Établir la loi de décroissance">
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> À partir de $\text{d}N=-\lambda\,N\,\text{d}t$, établir l'expression de $N(t)$.</p>
+      <ol class="pas">
+        <li><strong>L'équation différentielle.</strong> En divisant par $\text{d}t$ : $\dfrac{\text{d}N}{\text{d}t}=-\lambda N$, une équation $y'=ay$ avec $a=-\lambda$.</li>
+        <li><strong>Ses solutions.</strong> $N(t)=C\,\text{e}^{-\lambda t}$, avec $C$ une constante.</li>
+        <li><strong>La condition initiale.</strong> $N(0)=C\,\text{e}^{0}=C$, et $N(0)=N_0$ : donc $N(t)=N_0\,\text{e}^{-\lambda t}$.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="bloc definition" data-titre="Demi-vie, activité">
+    <p>La <strong>demi-vie</strong> $t_{1/2}$ est la durée au bout de laquelle la moitié des noyaux radioactifs présents s'est désintégrée. De $N(t_{1/2})=\dfrac{N_0}{2}$, on tire $t_{1/2}=\dfrac{\ln2}{\lambda}$. Après $n$ demi-vies, il reste $\dfrac{N_0}{2^n}$ noyaux.</p>
+    <p>L'<strong>activité</strong> $A$ d'un échantillon est le nombre de désintégrations par seconde : $A=-\dfrac{\text{d}N}{\text{d}t}=\lambda N$. Elle s'exprime en <strong>becquerels</strong> (1 Bq = 1 désintégration par seconde) et décroît comme $N$ : $A(t)=A_0\,\text{e}^{-\lambda t}$, avec la même demi-vie.</p>
+  </div>
+  <figure class="figure-svg">
+    <svg data-figure="courbe_decroissance" viewBox="0 0 650 332" role="img" aria-label="Le nombre de noyaux restants, en fraction du nombre initial N₀, en fonction du temps compté en demi-vies, de 0 à 5. La courbe part de N₀ et décroît : N₀/2 après une demi-vie, N₀/4 après deux, N₀/8 après trois. Elle ne touche jamais l'axe."><line class="quadrillage-trait" x1="80.0" y1="276.8" x2="80.0" y2="35.3"/><text class="petit" x="80.0" y="294.8" text-anchor="middle">0</text><line class="quadrillage-trait" x1="180.0" y1="276.8" x2="180.0" y2="35.3"/><text class="petit" x="180.0" y="294.8" text-anchor="middle">t½</text><line class="quadrillage-trait" x1="280.0" y1="276.8" x2="280.0" y2="35.3"/><text class="petit" x="280.0" y="294.8" text-anchor="middle">2 t½</text><line class="quadrillage-trait" x1="380.0" y1="276.8" x2="380.0" y2="35.3"/><text class="petit" x="380.0" y="294.8" text-anchor="middle">3 t½</text><line class="quadrillage-trait" x1="480.0" y1="276.8" x2="480.0" y2="35.3"/><text class="petit" x="480.0" y="294.8" text-anchor="middle">4 t½</text><line class="quadrillage-trait" x1="580.0" y1="276.8" x2="580.0" y2="35.3"/><text class="petit" x="580.0" y="294.8" text-anchor="middle">5 t½</text><line class="quadrillage-trait" x1="80.0" y1="46.8" x2="580.0" y2="46.8"/><text class="petit" x="73.0" y="51.8" text-anchor="end">N₀</text><line class="quadrillage-trait" x1="80.0" y1="161.8" x2="580.0" y2="161.8"/><text class="petit" x="73.0" y="166.8" text-anchor="end">N₀/2</text><line class="quadrillage-trait" x1="80.0" y1="219.3" x2="580.0" y2="219.3"/><text class="petit" x="73.0" y="224.3" text-anchor="end">N₀/4</text><line class="quadrillage-trait" x1="80.0" y1="248.0" x2="580.0" y2="248.0"/><text class="petit" x="73.0" y="253.0" text-anchor="end">N₀/8</text><line class="axe-trait" x1="80.0" y1="276.8" x2="580.0" y2="276.8"/><line class="axe-trait" x1="80.0" y1="276.8" x2="80.0" y2="35.3"/><text class="petit" x="580.0" y="312.8" text-anchor="end">temps</text><text class="petit" x="88.0" y="28.4" text-anchor="start">N (noyaux restants)</text><g class="trace t-v"><path d="M80.0,46.8 L82.1,50.1 L84.2,53.3 L86.2,56.6 L88.3,59.7 L90.4,62.8 L92.5,65.9 L94.6,68.9 L96.7,71.9 L98.8,74.8 L100.8,77.7 L102.9,80.6 L105.0,83.4 L107.1,86.2 L109.2,88.9 L111.2,91.6 L113.3,94.2 L115.4,96.9 L117.5,99.4 L119.6,102.0 L121.7,104.5 L123.8,107.0 L125.8,109.4 L127.9,111.8 L130.0,114.2 L132.1,116.5 L134.2,118.8 L136.2,121.1 L138.3,123.3 L140.4,125.5 L142.5,127.7 L144.6,129.8 L146.7,131.9 L148.8,134.0 L150.8,136.0 L152.9,138.1 L155.0,140.0 L157.1,142.0 L159.2,143.9 L161.2,145.8 L163.3,147.7 L165.4,149.6 L167.5,151.4 L169.6,153.2 L171.7,155.0 L173.8,156.7 L175.8,158.4 L177.9,160.1 L180.0,161.8 L182.1,163.4 L184.2,165.1 L186.2,166.7 L188.3,168.3 L190.4,169.8 L192.5,171.3 L194.6,172.9 L196.7,174.3 L198.8,175.8 L200.8,177.3 L202.9,178.7 L205.0,180.1 L207.1,181.5 L209.2,182.8 L211.3,184.2 L213.3,185.5 L215.4,186.8 L217.5,188.1 L219.6,189.4 L221.7,190.6 L223.8,191.9 L225.8,193.1 L227.9,194.3 L230.0,195.5 L232.1,196.6 L234.2,197.8 L236.3,198.9 L238.3,200.0 L240.4,201.1 L242.5,202.2 L244.6,203.3 L246.7,204.4 L248.8,205.4 L250.8,206.4 L252.9,207.4 L255.0,208.4 L257.1,209.4 L259.2,210.4 L261.2,211.3 L263.3,212.3 L265.4,213.2 L267.5,214.1 L269.6,215.0 L271.7,215.9 L273.8,216.8 L275.8,217.6 L277.9,218.5 L280.0,219.3 L282.1,220.1 L284.2,220.9 L286.2,221.7 L288.3,222.5 L290.4,223.3 L292.5,224.1 L294.6,224.8 L296.7,225.6 L298.8,226.3 L300.8,227.0 L302.9,227.7 L305.0,228.4 L307.1,229.1 L309.2,229.8 L311.2,230.5 L313.3,231.2 L315.4,231.8 L317.5,232.5 L319.6,233.1 L321.7,233.7 L323.8,234.3 L325.8,234.9 L327.9,235.5 L330.0,236.1 L332.1,236.7 L334.2,237.3 L336.2,237.9 L338.3,238.4 L340.4,239.0 L342.5,239.5 L344.6,240.1 L346.7,240.6 L348.8,241.1 L350.8,241.6 L352.9,242.1 L355.0,242.6 L357.1,243.1 L359.2,243.6 L361.2,244.1 L363.3,244.5 L365.4,245.0 L367.5,245.4 L369.6,245.9 L371.7,246.3 L373.8,246.8 L375.8,247.2 L377.9,247.6 L380.0,248.0 L382.1,248.5 L384.2,248.9 L386.2,249.3 L388.3,249.7 L390.4,250.1 L392.5,250.4 L394.6,250.8 L396.7,251.2 L398.8,251.6 L400.8,251.9 L402.9,252.3 L405.0,252.6 L407.1,253.0 L409.2,253.3 L411.2,253.6 L413.3,254.0 L415.4,254.3 L417.5,254.6 L419.6,254.9 L421.7,255.3 L423.8,255.6 L425.8,255.9 L427.9,256.2 L430.0,256.5 L432.1,256.8 L434.2,257.0 L436.2,257.3 L438.3,257.6 L440.4,257.9 L442.5,258.2 L444.6,258.4 L446.7,258.7 L448.8,258.9 L450.8,259.2 L452.9,259.5 L455.0,259.7 L457.1,260.0 L459.2,260.2 L461.2,260.4 L463.3,260.7 L465.4,260.9 L467.5,261.1 L469.6,261.3 L471.7,261.6 L473.8,261.8 L475.8,262.0 L477.9,262.2 L480.0,262.4 L482.1,262.6 L484.2,262.8 L486.2,263.0 L488.3,263.2 L490.4,263.4 L492.5,263.6 L494.6,263.8 L496.7,264.0 L498.8,264.2 L500.8,264.4 L502.9,264.5 L505.0,264.7 L507.1,264.9 L509.2,265.1 L511.2,265.2 L513.3,265.4 L515.4,265.6 L517.5,265.7 L519.6,265.9 L521.7,266.0 L523.8,266.2 L525.8,266.3 L527.9,266.5 L530.0,266.6 L532.1,266.8 L534.2,266.9 L536.2,267.1 L538.3,267.2 L540.4,267.3 L542.5,267.5 L544.6,267.6 L546.7,267.7 L548.8,267.9 L550.8,268.0 L552.9,268.1 L555.0,268.3 L557.1,268.4 L559.2,268.5 L561.2,268.6 L563.3,268.7 L565.4,268.8 L567.5,269.0 L569.6,269.1 L571.7,269.2 L573.8,269.3 L575.8,269.4 L577.9,269.5 L580.0,269.6"/></g><g class="trace t-u pointille fin"><line x1="180.0" y1="276.8" x2="180.0" y2="161.8"/></g><circle class="pt pt-u" cx="180.0" cy="161.8" r="4.5"/><g class="trace t-u pointille fin"><line x1="280.0" y1="276.8" x2="280.0" y2="219.3"/></g><circle class="pt pt-u" cx="280.0" cy="219.3" r="4.5"/><g class="trace t-u pointille fin"><line x1="380.0" y1="276.8" x2="380.0" y2="248.0"/></g><circle class="pt pt-u" cx="380.0" cy="248.0" r="4.5"/><text class="note halo" x="230.0" y="134.2">la moitié des noyaux restants disparaît</text><text class="note halo" x="230.0" y="152.2">à chaque demi-vie</text></svg>
+    <figcaption>Quel que soit le moment où l'on commence à compter, il faut une demi-vie pour que le nombre de noyaux restants soit divisé par deux. La courbe s'approche de zéro sans jamais l'atteindre.</figcaption>
+  </figure>
+  <div class="bloc exemple" data-titre="Le technétium d'une scintigraphie">
+    <p>Le technétium 99m a une demi-vie de $6{,}0$ h, soit $\lambda=\dfrac{\ln2}{6{,}0\times3\,600}=3{,}2\times10^{-5}\ \text{s}^{-1}$. Une dose de $600$ MBq préparée à 8 h n'a plus que $300$ MBq à 14 h et $150$ MBq à 20 h. À 8 h le lendemain, quatre demi-vies plus tard, il reste $\dfrac{600}{2^4}\approx38$ MBq.</p>
+  </div>
+  <div class="bloc remarque" data-titre="Deux phénomènes, une même loi">
+    <div class="defile"><table class="simple">
+      <thead><tr><th></th><th>Cinétique d'ordre 1</th><th>Décroissance radioactive</th></tr></thead>
+      <tbody>
+        <tr><th>Ce qui diminue</th><td>la concentration $[\text{A}]$</td><td>le nombre de noyaux $N$</td></tr>
+        <tr><th>La loi</th><td>$v_{\text{disp}}(\text{A})=k\,[\text{A}]$</td><td>$A=\lambda N$</td></tr>
+        <tr><th>La solution</th><td>$[\text{A}]_0\,\text{e}^{-kt}$</td><td>$N_0\,\text{e}^{-\lambda t}$</td></tr>
+        <tr><th>La durée « moitié »</th><td>$t_{1/2}=\dfrac{\ln2}{k}$</td><td>$t_{1/2}=\dfrac{\ln2}{\lambda}$</td></tr>
+        <tr><th>Ce qui la change</th><td>la température, un catalyseur</td><td>rien</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- ===== 9 ===== -->
+  <h3 id="c-datation">9. Dater un événement</h3>
+  <div class="bloc definition" data-titre="Radioactivité naturelle">
+    <p>La <strong>radioactivité naturelle</strong> est celle des noyaux radioactifs présents dans la nature sans intervention humaine : l'uranium et le potassium 40 des roches, le radon, un gaz radioactif qui s'en échappe, le carbone 14 produit dans la haute atmosphère. Ce sont ces noyaux qui servent d'horloges pour dater.</p>
+  </div>
+  <div class="bloc propriete" data-titre="Le principe">
+    <p>Si l'on connaît le nombre de noyaux radioactifs $N_0$ (ou l'activité $A_0$) au moment d'un événement, et qu'on mesure $N$ (ou $A$) aujourd'hui, la loi de décroissance donne la durée écoulée depuis :</p>
+    <p>$$t=\dfrac{1}{\lambda}\,\ln\dfrac{N_0}{N}=\dfrac{t_{1/2}}{\ln2}\,\ln\dfrac{A_0}{A}$$</p>
+  </div>
+  <div class="bloc exemple" data-titre="Le carbone 14">
+    <p>Le carbone 14 est produit sans cesse dans la haute atmosphère par le rayonnement cosmique, et il s'y désintègre au même rythme : sa proportion dans le carbone de l'air reste à peu près constante. Tant qu'il vit, un être vivant échange du carbone avec l'atmosphère : il garde la même proportion, avec une activité d'environ $13{,}6$ désintégrations par minute et par gramme de carbone. À sa mort, les échanges cessent et le carbone 14 décroît, avec une demi-vie de $5\,730$ ans.</p>
+    <p>Au-delà de neuf demi-vies, environ $50\,000$ ans, il en reste trop peu pour le mesurer. On date alors avec d'autres noyaux, de demi-vie plus longue : l'uranium 238 ($4{,}47\times10^{9}$ ans) date des roches.</p>
+  </div>
+  <div class="bloc methode" data-titre="Dater un échantillon">
+    <ol class="etapes">
+      <li><span>Je relève la valeur au moment de l'événement ($A_0$ ou $N_0$) et la valeur mesurée aujourd'hui, dans la même unité.</span></li>
+      <li><span>Si le rapport $A_0/A$ est une puissance de 2, je compte les demi-vies ; sinon, j'applique $t=\dfrac{t_{1/2}}{\ln2}\ln\dfrac{A_0}{A}$.</span></li>
+      <li><span>Je donne l'âge avec l'unité de $t_{1/2}$, et un nombre de chiffres significatifs adapté aux mesures.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un os trouvé dans une grotte a une activité de $3{,}4$ désintégrations par minute et par gramme de carbone. Quel est son âge ?</p>
+      <ol class="pas">
+        <li><strong>Le rapport.</strong> $\dfrac{A_0}{A}=\dfrac{13{,}6}{3{,}4}=4=2^2$.</li>
+        <li><strong>Les demi-vies.</strong> L'activité a été divisée par deux deux fois : deux demi-vies, $t=2\times5\,730=11\,460$ ans.</li>
+        <li><strong>Avec la formule.</strong> $t=\dfrac{5\,730}{\ln2}\times\ln4=11\,460$ ans. Même résultat.</li>
+        <li><strong>Conclure.</strong> L'animal est mort il y a environ $1{,}1\times10^4$ ans (deux chiffres significatifs, comme $3{,}4$).</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 10 ===== -->
+  <h3 id="c-medecine">10. Radioactivité, médecine et radioprotection</h3>
+  <div class="bloc exemple" data-titre="Voir et soigner avec des noyaux radioactifs">
+    <ul>
+      <li><strong>La scintigraphie</strong> : un traceur marqué au technétium 99m (émetteur γ, demi-vie $6{,}0$ h) se fixe sur un organe ; une caméra détecte les photons γ et montre où il s'est fixé.</li>
+      <li><strong>La tomographie par émission de positons (TEP)</strong> : un sucre marqué au fluor 18 (β⁺, demi-vie $110$ min) s'accumule dans les cellules qui consomment beaucoup de glucose, comme certaines tumeurs. Chaque positon rencontre presque aussitôt un électron : les deux disparaissent en deux photons γ, que l'appareil détecte.</li>
+      <li><strong>La radiothérapie</strong> : des rayonnements détruisent des cellules malades. L'iode 131 (β⁻, demi-vie $8{,}0$ jours), avalé, se fixe sur la thyroïde et la traite de l'intérieur.</li>
+    </ul>
+    <p>Pour un diagnostic, on choisit un noyau de demi-vie courte : assez longue pour faire l'examen, assez courte pour que le patient ne reste pas radioactif longtemps.</p>
+  </div>
+  <div class="bloc definition" data-titre="Rayonnement ionisant">
+    <p>Les rayonnements α, β et γ sont <strong>ionisants</strong> : ils arrachent des électrons aux atomes qu'ils traversent, et peuvent abîmer les molécules du vivant, dont l'ADN.</p>
+  </div>
+  <div class="bloc propriete" data-titre="Se protéger : la distance, la durée, l'écran">
+    <ul>
+      <li><strong>La distance</strong> : s'éloigner de la source ; l'exposition diminue vite avec la distance.</li>
+      <li><strong>La durée</strong> : rester exposé le moins longtemps possible.</li>
+      <li><strong>L'écran</strong>, adapté au rayonnement : une feuille de papier ou quelques centimètres d'air arrêtent α ; quelques millimètres d'aluminium ou de plexiglas arrêtent β ; il faut plusieurs centimètres de plomb, ou une épaisseur de béton, pour atténuer γ, qui n'est jamais arrêté tout à fait.</li>
+    </ul>
+  </div>
+  <figure class="figure-svg">
+    <svg data-figure="ecrans_rayonnements" viewBox="0 0 660 230" role="img" aria-label="Une source radioactive émet trois rayonnements vers trois écrans successifs : une feuille de papier, une plaque d'aluminium de quelques millimètres, un bloc de plomb de plusieurs centimètres. Le rayonnement α est arrêté par le papier, le rayonnement β par l'aluminium ; le rayonnement γ traverse les deux et ressort du plomb très atténué."><circle class="plein t-v op-70" cx="50" cy="105" r="22"/><text class="note" x="50.0" y="150.0" text-anchor="middle">source</text><rect class="forme" x="200" y="30" width="6" height="150" rx="2"/><text class="note" x="203.0" y="200.0" text-anchor="middle">papier</text><rect class="forme" x="330" y="30" width="16" height="150" rx="2"/><text class="note" x="338.0" y="200.0" text-anchor="middle">aluminium</text><rect class="forme" x="470" y="30" width="46" height="150" rx="2"/><text class="note" x="493.0" y="200.0" text-anchor="middle">plomb</text><g class="trace t-v"><line x1="76" y1="66" x2="186" y2="66"/><polygon points="198,66 186,60 186,72"/></g><text class="moyen" x="110.0" y="58.0" text-anchor="middle">α</text><g class="trace t-u"><line x1="76" y1="105" x2="316" y2="105"/><polygon points="328,105 316,99 316,111"/></g><text class="moyen" x="110.0" y="97.0" text-anchor="middle">β</text><g class="trace t-w"><line x1="76" y1="144" x2="470" y2="144"/></g><g class="trace t-w pointille"><line x1="516" y1="144" x2="596" y2="144"/><polygon points="606,144 594,139 594,149"/></g><text class="moyen" x="110.0" y="136.0" text-anchor="middle">γ</text><text class="note" x="560.0" y="128.0" text-anchor="middle">atténué</text></svg>
+    <figcaption>Le papier arrête α, l'aluminium arrête β ; le plomb atténue γ sans l'arrêter complètement.</figcaption>
+  </figure>
+  <div class="bloc remarque" data-titre="Irradié ou contaminé ?">
+    <p>Être <strong>irradié</strong>, c'est recevoir un rayonnement venu d'une source extérieure : l'exposition cesse quand on s'éloigne. Être <strong>contaminé</strong>, c'est avoir des noyaux radioactifs sur soi ou en soi (respirés, avalés) : ils continuent d'émettre. Un émetteur α, inoffensif derrière une feuille de papier, devient dangereux une fois inhalé : c'est le cas du radon qui s'accumule dans une cave mal aérée.</p>
+  </div>
+
+  <!-- ===== 11 ===== -->
+  <h3 id="c-pieges">11. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait">
+    <ul>
+      <li><strong>Le temps de demi-réaction lu à la moitié du temps.</strong> Si la courbe s'aplatit vers 40 min, $t_{1/2}$ ne vaut pas 20 min : c'est la date où l'avancement atteint la moitié de sa valeur finale. On part de l'axe des ordonnées, pas de celui des abscisses.</li>
+      <li><strong>La moitié de la mauvaise valeur.</strong> Pour un produit, c'est la moitié de la valeur <strong>finale</strong>, pas du haut de l'axe ; pour un réactif qui ne disparaît pas entièrement, c'est le mi-chemin entre $[\text{A}]_0$ et $[\text{A}]_f$, pas $[\text{A}]_0/2$.</li>
+      <li><strong>La corde au lieu de la tangente.</strong> $\dfrac{[\text{P}](t)}{t}$ est une vitesse <em>moyenne</em> depuis le début, pas la vitesse à la date $t$.</li>
+      <li><strong>Une vitesse de disparition négative.</strong> La tangente à la courbe d'un réactif descend ; sa vitesse de disparition est l'opposé de son coefficient directeur, donc positive.</li>
+      <li><strong>Les unités de la vitesse.</strong> Des mmol·L⁻¹·min⁻¹ aux mol·L⁻¹·s⁻¹, on divise par $1\,000$ <em>et</em> par $60$.</li>
+      <li><strong>Le catalyseur dans l'équation.</strong> Il est consommé puis régénéré : il n'apparaît pas dans l'équation de la réaction, et il ne donne pas plus de produit.</li>
+      <li><strong>« Doubler la concentration double le temps de demi-réaction. »</strong> En ordre 1, $t_{1/2}=\ln2/k$ ne dépend pas de $[\text{A}]_0$.</li>
+      <li><strong>Une flèche courbe qui part d'un atome.</strong> Elle part toujours d'un doublet, non liant ou liant, et va du site riche en électrons vers le site pauvre.</li>
+      <li><strong>« Après deux demi-vies, il ne reste rien. »</strong> Il reste le quart : la moitié de la moitié. Après $n$ demi-vies, $N_0/2^n$, jamais zéro.</li>
+      <li><strong>$\lambda$ et $t_{1/2}$ échangés, ou $\ln2$ oublié.</strong> $t_{1/2}=\ln2/\lambda$ : une demi-vie longue va avec une petite constante radioactive. Et un $\lambda$ en s⁻¹ demande des durées en secondes.</li>
+      <li><strong>β⁻ et β⁺ confondus.</strong> En β⁻, $Z$ augmente de 1 (un neutron devient proton) ; en β⁺, $Z$ diminue de 1. $A$ ne change pas.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">12. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Lire une vitesse volumique sur une tangente"></div>
+    <div class="video" data-titre="Le temps de demi-réaction, sans se tromper de moitié"></div>
+    <div class="video" data-titre="La loi de décroissance radioactive et la datation"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Quatre laboratoires, dans l'ordre du cours : lire une vitesse et un temps de demi-réaction sur une courbe ; jouer sur la température, la concentration et un catalyseur ; décider si des mesures suivent une loi d'ordre 1 ; regarder quatre cents noyaux se désintégrer au hasard.</p>
+  <div class="labo" data-labo="cinetique" data-outil="courbe"></div>
+  <div class="labo" data-labo="cinetique" data-outil="facteurs"></div>
+  <div class="labo" data-labo="cinetique" data-outil="ordre1"></div>
+  <div class="labo" data-labo="cinetique" data-outil="decroissance"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie : capteurs, tangentes, temps de demi-réaction, ordre 1, mécanismes, désintégrations, demi-vies, datation. Le quiz reprend les réflexes du chapitre. Le contrôle blanc s'ajoute en bas.</p>
+  <div class="jeu" data-generateurs="cinetique" data-questions="10" data-titre="Le défi de la cinétique et des noyaux"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Un catalyseur…</p>
+      <ul class="choix">
+        <li class="bon">accélère la transformation et se retrouve intact à la fin</li><li>augmente la quantité de produit obtenue</li><li>est un réactif comme les autres, écrit dans l'équation</li><li>ralentit la transformation pour la rendre plus sûre</li>
+      </ul>
+      <div class="explication">Un catalyseur est consommé puis régénéré : il n'apparaît pas dans l'équation, et il ne change pas l'état final. Il fait seulement arriver plus vite au même endroit.</div>
+    </div>
+    <div class="question">
+      <p>Le temps de demi-réaction est la durée au bout de laquelle…</p>
+      <ul class="choix">
+        <li class="bon">l'avancement atteint la moitié de sa valeur finale</li><li>la moitié de la durée totale de la transformation s'est écoulée</li><li>la moitié du réactif en excès a été consommée</li><li>la moitié du catalyseur a été consommée</li>
+      </ul>
+      <div class="explication">$x(t_{1/2})=x_f/2$. La « durée totale » n'est d'ailleurs pas bien définie : la courbe s'approche de son palier sans date de fin nette.</div>
+    </div>
+    <div class="question" data-reponse="6,9" data-tolerance="0,1">
+      <p>Une transformation suit une loi d'ordre 1 avec $k=0{,}10\ \text{min}^{-1}$. Son temps de demi-réaction, en minutes, au dixième ?</p>
+      <div class="explication">$t_{1/2}=\dfrac{\ln2}{k}=\dfrac{0{,}693}{0{,}10}=6{,}9$ min.</div>
+    </div>
+    <div class="question">
+      <p>La vitesse volumique de disparition d'un réactif A à la date $t$ est…</p>
+      <ul class="choix">
+        <li class="bon">l'opposé du coefficient directeur de la tangente à la courbe de $[\text{A}]$ à la date $t$</li><li>$[\text{A}](t)$ divisé par $t$</li><li>le coefficient directeur de la tangente, négatif puisque $[\text{A}]$ diminue</li><li>la différence entre $[\text{A}]_0$ et $[\text{A}](t)$</li>
+      </ul>
+      <div class="explication">$v_{\text{disp}}(\text{A})=-\dfrac{\text{d}[\text{A}]}{\text{d}t}$ : la tangente descend, son coefficient directeur est négatif, la vitesse est son opposé, positive. $[\text{A}](t)/t$ n'a pas de sens ici.</div>
+    </div>
+    <div class="question">
+      <p>Pour suivre une transformation qui dégage du dioxygène, sans espèce colorée ni ion qui apparaisse ou disparaisse, le capteur le plus direct est…</p>
+      <ul class="choix">
+        <li class="bon">un manomètre sur un récipient fermé</li><li>un spectrophotomètre</li><li>un thermomètre</li><li>un conductimètre</li>
+      </ul>
+      <div class="explication">Le gaz qui se dégage fait monter la pression dans le récipient fermé : la pression suit la quantité de dioxygène formée. Le dioxygène est incolore, le spectrophotomètre ne le voit pas ; aucun ion ne change, le conductimètre non plus.</div>
+    </div>
+    <div class="question" data-reponse="12,5" data-tolerance="0,1">
+      <p>Quel pourcentage des noyaux radioactifs d'un échantillon reste-t-il après trois demi-vies ?</p>
+      <div class="explication">$\dfrac{1}{2^3}=\dfrac18=0{,}125$ : il reste $12{,}5$ %. Pas zéro, et pas le tiers.</div>
+    </div>
+    <div class="question">
+      <p>Lors d'une désintégration β⁻…</p>
+      <ul class="choix">
+        <li class="bon">$Z$ augmente de 1 et $A$ ne change pas</li><li>$Z$ diminue de 1 et $A$ ne change pas</li><li>$Z$ diminue de 2 et $A$ de 4</li><li>$Z$ et $A$ ne changent pas</li>
+      </ul>
+      <div class="explication">Un neutron du noyau devient un proton et un électron est émis : $^{A}_{Z}\text{X}\rightarrow{}^{\;\;A}_{Z+1}\text{Y}+{}^{\;\,0}_{-1}\text{e}$. $Z$ diminue de 1 en β⁺, de 2 en α (avec $A$ qui diminue de 4) ; rien ne change en γ.</div>
+    </div>
+    <div class="question" data-reponse="82">
+      <p>Le polonium 210 ($Z=84$) est radioactif α. Quel est le nombre de charge $Z$ du noyau fils ?</p>
+      <div class="explication">$^{210}_{\;84}\text{Po}\rightarrow{}^{206}_{\;82}\text{Pb}+{}^{4}_{2}\text{He}$ : $84=Z+2$, donc $Z=82$, le plomb.</div>
+    </div>
+    <div class="question">
+      <p>À l'échelle des entités, chauffer accélère une transformation surtout parce que…</p>
+      <ul class="choix">
+        <li class="bon">une plus grande part des chocs est efficace, et les chocs sont plus fréquents</li><li>la chaleur ajoute des entités de réactif</li><li>les chocs deviennent moins nombreux mais plus longs</li><li>les entités grossissent et se touchent plus facilement</li>
+      </ul>
+      <div class="explication">Plus agitées, les entités se rencontrent plus souvent, et surtout plus de rencontres ont l'énergie suffisante pour être efficaces.</div>
+    </div>
+    <div class="question">
+      <p>Pour se protéger d'une source qui émet des rayons γ, il faut…</p>
+      <ul class="choix">
+        <li class="bon">s'éloigner, limiter la durée d'exposition, et se placer derrière un écran épais de plomb ou de béton</li><li>une feuille de papier, qui suffit</li><li>quelques millimètres d'aluminium, qui l'arrêtent complètement</li><li>attendre que la source refroidisse</li>
+      </ul>
+      <div class="explication">Le papier arrête α, l'aluminium β ; γ demande une forte épaisseur de plomb ou de béton, et n'est jamais arrêté tout à fait. Chauffer ou refroidir ne change rien à une désintégration.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre. Rédige d'abord, puis ouvre la correction. Les données sont écrites avec le nombre de chiffres significatifs des mesures : donne tes résultats de la même façon.</p>
+
+  <h3>Niveau 1 · Reconnaître et appliquer</h3>
+
+  <article class="exercice" id="ex-choisir-le-capteur" data-titre="Choisir le capteur" data-niveau="1" data-type="application" data-notions="suivi-temporel" data-duree="8" data-calculatrice="non">
+    <p>Pour chaque transformation, propose un capteur qui permet de la suivre, et justifie.<br>
+    a. Du zinc en poudre réagit avec une solution d'acide chlorhydrique et un gaz, le dihydrogène, se dégage : $\text{Zn}+2\,\text{H}_3\text{O}^+\rightarrow\text{Zn}^{2+}+\text{H}_2+2\,\text{H}_2\text{O}$.<br>
+    b. Une solution rose de colorant alimentaire se décolore lentement en présence d'eau de Javel.<br>
+    c. Une espèce organique neutre, le 2-chloro-2-méthylpropane, réagit avec l'eau en donnant un alcool, des ions oxonium et des ions chlorure.<br>
+    d. Le saccharose (incolore, non ionique) se transforme en glucose et en fructose (incolores, non ioniques), en solution acide.</p>
+    <details class="correction">
+      <p>a. Un gaz se dégage : un <strong>manomètre</strong> sur un récipient fermé, ou la mesure du volume de gaz. Les ions $\text{H}_3\text{O}^+$ sont consommés : un <strong>pH-mètre</strong> convient aussi.</p>
+      <p>b. Une espèce colorée disparaît : un <strong>spectrophotomètre</strong>, réglé sur une longueur d'onde que le colorant absorbe ; l'absorbance est proportionnelle à sa concentration.</p>
+      <p>c. Des ions apparaissent à partir d'espèces neutres : la conductivité augmente, un <strong>conductimètre</strong> suit la transformation (un pH-mètre aussi, puisque des ions oxonium se forment).</p>
+      <p>d. Ni couleur, ni ion, ni gaz qui change : aucun des quatre capteurs ne voit la transformation. On fait des <strong>prélèvements</strong> à différentes dates, on les bloque par une trempe et on les dose par une méthode chimique. (Au laboratoire, on suit aussi cette transformation par une propriété optique que le programme ne demande pas.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-lire-une-vitesse" data-titre="Lire une vitesse sur une tangente" data-niveau="1" data-type="application" data-notions="suivi-temporel" data-duree="8" data-calculatrice="oui">
+    <p>On suit la concentration d'un produit P au cours du temps. La tangente à la courbe $[\text{P}](t)$ à la date $t=4{,}0$ min passe par les points $(0\ \text{min}\,;\ 1{,}2\ \text{mmol/L})$ et $(10{,}0\ \text{min}\,;\ 8{,}7\ \text{mmol/L})$.<br>
+    1. Calculer la vitesse volumique d'apparition de P à $t=4{,}0$ min, en $\text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$.<br>
+    2. La convertir en $\text{mol}\cdot\text{L}^{-1}\cdot\text{s}^{-1}$.<br>
+    3. À $t=12$ min, la vitesse sera-t-elle plus grande ou plus petite ? Pourquoi ?</p>
+    <details class="correction">
+      <p>1. $v_{\text{app}}(\text{P})=\dfrac{8{,}7-1{,}2}{10{,}0-0}=0{,}75\ \text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$.</p>
+      <p>2. $0{,}75\times\dfrac{10^{-3}}{60}=1{,}3\times10^{-5}\ \text{mol}\cdot\text{L}^{-1}\cdot\text{s}^{-1}$ (on divise par $1\,000$ pour passer des mmol aux mol, et par $60$ pour passer des minutes aux secondes).</p>
+      <p>3. Plus petite : les réactifs s'épuisent, la courbe s'aplatit et ses tangentes sont de moins en moins raides.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-temps-de-demi-reaction-d-un-colorant" data-titre="Le temps de demi-réaction d'un colorant" data-niveau="1" data-type="application" data-notions="suivi-temporel" data-duree="8" data-calculatrice="oui">
+    <p>On suit au spectrophotomètre la décoloration d'un colorant par l'eau de Javel, en excès ; à la fin, la solution est incolore ($A_f=0$). L'absorbance est proportionnelle à la concentration du colorant.</p>
+    <div class="defile"><table class="simple">
+      <tbody>
+        <tr><th>$t$ (min)</th><td>0</td><td>2</td><td>4</td><td>6</td><td>8</td><td>10</td></tr>
+        <tr><th>$A$</th><td>1,20</td><td>0,94</td><td>0,74</td><td>0,58</td><td>0,46</td><td>0,36</td></tr>
+      </tbody>
+    </table></div>
+    <p>1. Quelle valeur de l'absorbance correspond au temps de demi-réaction ?<br>2. Encadrer $t_{1/2}$ entre deux dates du tableau, puis en donner une valeur approchée.</p>
+    <details class="indice"><p>Le colorant est le réactif limitant et il disparaît entièrement : à $t_{1/2}$, il en reste la moitié.</p></details>
+    <details class="correction">
+      <p>1. La moitié de l'absorbance initiale : $\dfrac{1{,}20}{2}=0{,}60$ (le colorant disparaît entièrement, et l'absorbance est proportionnelle à sa concentration).</p>
+      <p>2. $A$ passe de $0{,}74$ à $4$ min à $0{,}58$ à $6$ min : $4\ \text{min}<t_{1/2}<6$ min, plus près de 6 min. En supposant la courbe presque droite sur ces deux minutes : $t_{1/2}\approx4+2\times\dfrac{0{,}74-0{,}60}{0{,}74-0{,}58}\approx5{,}8$ min.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-catalyseur-cache" data-titre="Le catalyseur caché dans la couche d'ozone" data-niveau="1" data-type="application" data-notions="mecanisme catalyse" data-duree="8" data-calculatrice="non">
+    <p>Dans la haute atmosphère, des atomes de chlore, libérés par d'anciens gaz réfrigérants, participent à la destruction de l'ozone $\text{O}_3$ selon un mécanisme en deux actes :</p>
+    <p>$$\begin{aligned}&\text{Cl}+\text{O}_3\rightarrow\text{ClO}+\text{O}_2\\&\text{ClO}+\text{O}\rightarrow\text{Cl}+\text{O}_2\end{aligned}$$</p>
+    <p>1. Écrire l'équation de la réaction que modélise ce mécanisme.<br>2. Identifier un intermédiaire réactionnel et un catalyseur. Justifier.<br>3. Pourquoi un seul atome de chlore peut-il détruire un très grand nombre de molécules d'ozone ?</p>
+    <details class="correction">
+      <p>1. En additionnant les deux actes, $\text{Cl}$ et $\text{ClO}$ apparaissent de chaque côté et s'éliminent : $\text{O}_3+\text{O}\rightarrow2\,\text{O}_2$.</p>
+      <p>2. $\text{ClO}$ est un <strong>intermédiaire réactionnel</strong> : formé dans le premier acte, consommé dans le second. $\text{Cl}$ est un <strong>catalyseur</strong> : consommé dans le premier acte, régénéré dans le second ; il n'apparaît pas dans l'équation.</p>
+      <p>3. Le catalyseur est régénéré à chaque passage : le même atome de chlore recommence le cycle, encore et encore, tant qu'il n'est pas piégé par une autre réaction.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-equations-de-desintegration" data-titre="Équations de désintégration" data-niveau="1" data-type="application" data-notions="noyau-instable" data-duree="8" data-calculatrice="non">
+    <p>Écrire l'équation de chaque désintégration, en nommant le noyau fils.<br>
+    a. Le cobalt 60 ($Z=27$), utilisé pour stériliser du matériel médical, est radioactif β⁻.<br>
+    b. Le radium 226 ($Z=88$) est radioactif α.<br>
+    c. Le carbone 11 ($Z=6$), utilisé en imagerie, est radioactif β⁺.<br>
+    d. L'iode 131 ($Z=53$) est radioactif β⁻.<br>
+    Données : He ($Z=2$), B ($Z=5$), N ($Z=7$), Ni ($Z=28$), Xe ($Z=54$), Fe ($Z=26$), Rn ($Z=86$), Te ($Z=52$).</p>
+    <details class="correction">
+      <p>a. $^{60}_{27}\text{Co}\rightarrow{}^{60}_{28}\text{Ni}+{}^{\;\,0}_{-1}\text{e}$ ($60=A+0$ ; $27=Z-1$) : du nickel 60.</p>
+      <p>b. $^{226}_{\;88}\text{Ra}\rightarrow{}^{222}_{\;86}\text{Rn}+{}^{4}_{2}\text{He}$ ($226=A+4$ ; $88=Z+2$) : du radon 222, un gaz lui-même radioactif.</p>
+      <p>c. $^{11}_{\;6}\text{C}\rightarrow{}^{11}_{\;5}\text{B}+{}^{0}_{1}\text{e}$ ($6=Z+1$) : du bore 11.</p>
+      <p>d. $^{131}_{\;53}\text{I}\rightarrow{}^{131}_{\;54}\text{Xe}+{}^{\;\,0}_{-1}\text{e}$ : du xénon 131.</p>
+      <p>Le réflexe : en β⁻, $Z$ monte de 1 ; en β⁺, il descend de 1 ; en α, $Z$ baisse de 2 et $A$ de 4.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-isotopes-du-carbone" data-titre="Les isotopes du carbone" data-niveau="1" data-type="application" data-notions="noyau-instable" data-duree="10" data-calculatrice="non">
+    <p>Voici un extrait de la ligne $Z=6$ (le carbone) du diagramme (N, Z) : pour chaque noyau, son nombre de neutrons, et ce qu'il devient.</p>
+    <div class="defile"><table class="simple">
+      <thead><tr><th>$N$</th><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr></thead>
+      <tbody>
+        <tr><th>Noyau</th><td>?</td><td>?</td><td>?</td><td>?</td><td>?</td><td>?</td></tr>
+        <tr><th>Devenir</th><td>β⁺ (19 s)</td><td>β⁺ (20 min)</td><td>stable</td><td>stable</td><td>β⁻ (5 730 ans)</td><td>β⁻ (2,4 s)</td></tr>
+      </tbody>
+    </table></div>
+    <p>1. Écrire le symbole $^{A}_{Z}\text{C}$ de chacun de ces six noyaux.<br>
+    2. Lesquels sont radioactifs ? Lesquels sont stables ?<br>
+    3. Les noyaux β⁺ ont-ils trop de protons ou trop de neutrons par rapport aux noyaux stables ? Et les noyaux β⁻ ?<br>
+    4. Écrire l'équation de désintégration du carbone 11 (bore : $Z=5$).</p>
+    <details class="correction">
+      <p>1. $A=Z+N$ : $^{10}_{\;6}\text{C}$, $^{11}_{\;6}\text{C}$, $^{12}_{\;6}\text{C}$, $^{13}_{\;6}\text{C}$, $^{14}_{\;6}\text{C}$, $^{15}_{\;6}\text{C}$.</p>
+      <p>2. Radioactifs : le carbone 10, 11, 14 et 15. Stables : le carbone 12 et le carbone 13 ; ce sont eux qui forment la vallée sur cette ligne.</p>
+      <p>3. Le carbone 10 et le carbone 11 ont moins de neutrons que les noyaux stables (4 et 5 au lieu de 6 ou 7) : ils ont trop de protons, et la désintégration β⁺ change un proton en neutron. Le carbone 14 et le carbone 15 ont trop de neutrons, et la désintégration β⁻ change un neutron en proton. Dans les deux cas, le noyau fils se rapproche de la vallée.</p>
+      <p>4. $^{11}_{\;6}\text{C}\rightarrow{}^{11}_{\;5}\text{B}+{}^{0}_{1}\text{e}$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-demi-vie-du-technetium" data-titre="La demi-vie du technétium" data-niveau="1" data-type="application" data-notions="decroissance" data-duree="10" data-calculatrice="oui">
+    <p>Une seringue de technétium 99m (demi-vie $6{,}0$ h) a une activité de $800$ MBq à 7 h.<br>
+    1. Quelle est son activité à 13 h ? À 19 h ? À 7 h le lendemain ?<br>
+    2. Calculer la constante radioactive du technétium 99m, en $\text{s}^{-1}$.<br>
+    3. Combien de noyaux de technétium 99m contient la seringue à 7 h ?</p>
+    <details class="correction">
+      <p>1. 13 h : une demi-vie, $400$ MBq. 19 h : deux demi-vies, $200$ MBq. 7 h le lendemain : 24 h, soit quatre demi-vies, $\dfrac{800}{2^4}=50$ MBq.</p>
+      <p>2. $\lambda=\dfrac{\ln2}{t_{1/2}}=\dfrac{0{,}693}{6{,}0\times3\,600}=3{,}2\times10^{-5}\ \text{s}^{-1}$ (la demi-vie en secondes, pour un $\lambda$ en s⁻¹).</p>
+      <p>3. $A=\lambda N$, donc $N=\dfrac{A}{\lambda}=\dfrac{800\times10^{6}}{3{,}21\times10^{-5}}=2{,}5\times10^{13}$ noyaux (les MBq convertis en Bq).</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Analyser une situation</h3>
+
+  <article class="exercice" id="ex-le-suivi-au-spectrophotometre" data-titre="Le suivi au spectrophotomètre" data-niveau="2" data-type="probleme" data-notions="suivi-temporel ordre1" data-duree="20" data-calculatrice="oui">
+    <p>On mélange, dans la cuve d'un spectrophotomètre, de l'eau oxygénée et une solution acidifiée d'iodure de potassium en excès. Il se forme du diiode, seule espèce colorée : $2\,\text{I}^-+\text{H}_2\text{O}_2+2\,\text{H}^+\rightarrow\text{I}_2+2\,\text{H}_2\text{O}$. Dans les conditions de la mesure, $A=85\times[\text{I}_2]$, avec $[\text{I}_2]$ en $\text{mol}\cdot\text{L}^{-1}$. La courbe et la tangente à l'origine sont ci-dessous.</p>
+    <figure class="figure-svg">
+      <svg data-figure="ex_absorbance" viewBox="0 0 650 401" role="img" aria-label="L'absorbance du mélange en fonction du temps, de 0 à 30 minutes : elle part de 0 et monte vers un palier de 0,85, tracé en pointillés. La tangente à l'origine est tracée ; elle passe par le point (5,0 min ; 0,74)."><line class="quadrillage-trait" x1="79.3" y1="322.0" x2="79.3" y2="22.0"/><line class="quadrillage-trait" x1="112.3" y1="322.0" x2="112.3" y2="22.0"/><line class="quadrillage-trait" x1="145.3" y1="322.0" x2="145.3" y2="22.0"/><line class="quadrillage-trait" x1="178.3" y1="322.0" x2="178.3" y2="22.0"/><line class="quadrillage-trait" x1="211.3" y1="322.0" x2="211.3" y2="22.0"/><line class="quadrillage-trait" x1="244.3" y1="322.0" x2="244.3" y2="22.0"/><line class="quadrillage-trait" x1="277.3" y1="322.0" x2="277.3" y2="22.0"/><line class="quadrillage-trait" x1="310.3" y1="322.0" x2="310.3" y2="22.0"/><line class="quadrillage-trait" x1="343.3" y1="322.0" x2="343.3" y2="22.0"/><line class="quadrillage-trait" x1="376.3" y1="322.0" x2="376.3" y2="22.0"/><line class="quadrillage-trait" x1="409.3" y1="322.0" x2="409.3" y2="22.0"/><line class="quadrillage-trait" x1="442.3" y1="322.0" x2="442.3" y2="22.0"/><line class="quadrillage-trait" x1="475.3" y1="322.0" x2="475.3" y2="22.0"/><line class="quadrillage-trait" x1="508.3" y1="322.0" x2="508.3" y2="22.0"/><line class="quadrillage-trait" x1="541.3" y1="322.0" x2="541.3" y2="22.0"/><line class="quadrillage-trait" x1="574.3" y1="322.0" x2="574.3" y2="22.0"/><line class="quadrillage-trait" x1="79.3" y1="322.0" x2="574.3" y2="322.0"/><line class="quadrillage-trait" x1="79.3" y1="307.0" x2="574.3" y2="307.0"/><line class="quadrillage-trait" x1="79.3" y1="292.0" x2="574.3" y2="292.0"/><line class="quadrillage-trait" x1="79.3" y1="277.0" x2="574.3" y2="277.0"/><line class="quadrillage-trait" x1="79.3" y1="262.0" x2="574.3" y2="262.0"/><line class="quadrillage-trait" x1="79.3" y1="247.0" x2="574.3" y2="247.0"/><line class="quadrillage-trait" x1="79.3" y1="232.0" x2="574.3" y2="232.0"/><line class="quadrillage-trait" x1="79.3" y1="217.0" x2="574.3" y2="217.0"/><line class="quadrillage-trait" x1="79.3" y1="202.0" x2="574.3" y2="202.0"/><line class="quadrillage-trait" x1="79.3" y1="187.0" x2="574.3" y2="187.0"/><line class="quadrillage-trait" x1="79.3" y1="172.0" x2="574.3" y2="172.0"/><line class="quadrillage-trait" x1="79.3" y1="157.0" x2="574.3" y2="157.0"/><line class="quadrillage-trait" x1="79.3" y1="142.0" x2="574.3" y2="142.0"/><line class="quadrillage-trait" x1="79.3" y1="127.0" x2="574.3" y2="127.0"/><line class="quadrillage-trait" x1="79.3" y1="112.0" x2="574.3" y2="112.0"/><line class="quadrillage-trait" x1="79.3" y1="97.0" x2="574.3" y2="97.0"/><line class="quadrillage-trait" x1="79.3" y1="82.0" x2="574.3" y2="82.0"/><line class="quadrillage-trait" x1="79.3" y1="67.0" x2="574.3" y2="67.0"/><line class="quadrillage-trait" x1="79.3" y1="52.0" x2="574.3" y2="52.0"/><line class="quadrillage-trait" x1="79.3" y1="37.0" x2="574.3" y2="37.0"/><line class="quadrillage-trait" x1="79.3" y1="22.0" x2="574.3" y2="22.0"/><line class="axe-trait" x1="79.3" y1="322.0" x2="574.3" y2="322.0"/><line class="axe-trait" x1="79.3" y1="322.0" x2="79.3" y2="22.0"/><text class="petit" x="79.3" y="340.0" text-anchor="middle">0</text><text class="petit" x="178.3" y="340.0" text-anchor="middle">6</text><text class="petit" x="277.3" y="340.0" text-anchor="middle">12</text><text class="petit" x="376.3" y="340.0" text-anchor="middle">18</text><text class="petit" x="475.3" y="340.0" text-anchor="middle">24</text><text class="petit" x="574.3" y="340.0" text-anchor="middle">30</text><text class="petit" x="72.3" y="297.0" text-anchor="end">0,1</text><text class="petit" x="72.3" y="267.0" text-anchor="end">0,2</text><text class="petit" x="72.3" y="237.0" text-anchor="end">0,3</text><text class="petit" x="72.3" y="207.0" text-anchor="end">0,4</text><text class="petit" x="72.3" y="177.0" text-anchor="end">0,5</text><text class="petit" x="72.3" y="147.0" text-anchor="end">0,6</text><text class="petit" x="72.3" y="117.0" text-anchor="end">0,7</text><text class="petit" x="72.3" y="87.0" text-anchor="end">0,8</text><text class="petit" x="72.3" y="57.0" text-anchor="end">0,9</text><text class="petit" x="72.3" y="27.0" text-anchor="end">1,0</text><text class="petit" x="574.3" y="360.0" text-anchor="end">t (min)</text><text class="petit" x="87.3" y="14.0" text-anchor="start">A</text><g class="trace t-n pointille fin"><line x1="79.3" y1="67.0" x2="574.3" y2="67.0"/></g><g class="trace t-u"><path d="M79.3,322.0 L81.4,316.5 L83.4,311.2 L85.5,306.0 L87.5,300.8 L89.6,295.8 L91.7,290.9 L93.7,286.1 L95.8,281.4 L97.9,276.8 L99.9,272.3 L102.0,267.9 L104.0,263.6 L106.1,259.4 L108.2,255.3 L110.2,251.3 L112.3,247.3 L114.4,243.4 L116.4,239.7 L118.5,236.0 L120.5,232.3 L122.6,228.8 L124.7,225.3 L126.7,221.9 L128.8,218.6 L130.9,215.4 L132.9,212.2 L135.0,209.1 L137.1,206.0 L139.1,203.1 L141.2,200.1 L143.2,197.3 L145.3,194.5 L147.4,191.8 L149.4,189.1 L151.5,186.5 L153.5,183.9 L155.6,181.4 L157.7,179.0 L159.7,176.6 L161.8,174.2 L163.9,171.9 L165.9,169.7 L168.0,167.5 L170.0,165.3 L172.1,163.2 L174.2,161.1 L176.2,159.1 L178.3,157.2 L180.4,155.2 L182.4,153.3 L184.5,151.5 L186.5,149.7 L188.6,147.9 L190.7,146.2 L192.7,144.5 L194.8,142.8 L196.9,141.2 L198.9,139.6 L201.0,138.0 L203.0,136.5 L205.1,135.0 L207.2,133.6 L209.2,132.1 L211.3,130.8 L213.4,129.4 L215.4,128.0 L217.5,126.7 L219.5,125.5 L221.6,124.2 L223.7,123.0 L225.7,121.8 L227.8,120.6 L229.9,119.5 L231.9,118.3 L234.0,117.2 L236.0,116.2 L238.1,115.1 L240.2,114.1 L242.2,113.1 L244.3,112.1 L246.4,111.1 L248.4,110.2 L250.5,109.2 L252.5,108.3 L254.6,107.5 L256.7,106.6 L258.7,105.7 L260.8,104.9 L262.9,104.1 L264.9,103.3 L267.0,102.5 L269.1,101.8 L271.1,101.0 L273.2,100.3 L275.2,99.6 L277.3,98.9 L279.4,98.2 L281.4,97.5 L283.5,96.9 L285.6,96.2 L287.6,95.6 L289.7,95.0 L291.7,94.4 L293.8,93.8 L295.9,93.2 L297.9,92.7 L300.0,92.1 L302.1,91.6 L304.1,91.1 L306.2,90.5 L308.2,90.0 L310.3,89.5 L312.4,89.1 L314.4,88.6 L316.5,88.1 L318.6,87.7 L320.6,87.2 L322.7,86.8 L324.7,86.4 L326.8,86.0 L328.9,85.5 L330.9,85.1 L333.0,84.8 L335.1,84.4 L337.1,84.0 L339.2,83.6 L341.2,83.3 L343.3,82.9 L345.4,82.6 L347.4,82.3 L349.5,81.9 L351.6,81.6 L353.6,81.3 L355.7,81.0 L357.7,80.7 L359.8,80.4 L361.9,80.1 L363.9,79.8 L366.0,79.6 L368.1,79.3 L370.1,79.0 L372.2,78.8 L374.2,78.5 L376.3,78.3 L378.4,78.0 L380.4,77.8 L382.5,77.6 L384.6,77.3 L386.6,77.1 L388.7,76.9 L390.7,76.7 L392.8,76.5 L394.9,76.3 L396.9,76.1 L399.0,75.9 L401.1,75.7 L403.1,75.5 L405.2,75.3 L407.2,75.1 L409.3,75.0 L411.4,74.8 L413.4,74.6 L415.5,74.5 L417.6,74.3 L419.6,74.2 L421.7,74.0 L423.7,73.8 L425.8,73.7 L427.9,73.6 L429.9,73.4 L432.0,73.3 L434.1,73.1 L436.1,73.0 L438.2,72.9 L440.2,72.8 L442.3,72.6 L444.4,72.5 L446.4,72.4 L448.5,72.3 L450.6,72.2 L452.6,72.1 L454.7,71.9 L456.7,71.8 L458.8,71.7 L460.9,71.6 L462.9,71.5 L465.0,71.4 L467.1,71.3 L469.1,71.3 L471.2,71.2 L473.2,71.1 L475.3,71.0 L477.4,70.9 L479.4,70.8 L481.5,70.7 L483.6,70.7 L485.6,70.6 L487.7,70.5 L489.7,70.4 L491.8,70.4 L493.9,70.3 L495.9,70.2 L498.0,70.1 L500.1,70.1 L502.1,70.0 L504.2,69.9 L506.2,69.9 L508.3,69.8 L510.4,69.8 L512.4,69.7 L514.5,69.6 L516.5,69.6 L518.6,69.5 L520.7,69.5 L522.7,69.4 L524.8,69.4 L526.9,69.3 L528.9,69.3 L531.0,69.2 L533.0,69.2 L535.1,69.1 L537.2,69.1 L539.2,69.0 L541.3,69.0 L543.4,68.9 L545.4,68.9 L547.5,68.9 L549.6,68.8 L551.6,68.8 L553.7,68.7 L555.7,68.7 L557.8,68.7 L559.9,68.6 L561.9,68.6 L564.0,68.6 L566.1,68.5 L568.1,68.5 L570.2,68.5 L572.2,68.4 L574.3,68.4"/></g><g class="trace t-v fin"><line x1="79.3" y1="322.0" x2="181.6" y2="48.0"/></g><circle class="pt pt-v" cx="161.8" cy="101.5" r="4.5"/><text class="note halo" x="171.7" y="117.5">(5,0 ; 0,74)</text></svg>
+      <figcaption>L'absorbance du mélange au cours du temps, et la tangente à l'origine.</figcaption>
+    </figure>
+    <p>1. Pourquoi peut-on suivre cette transformation au spectrophotomètre ?<br>
+    2. Lire l'absorbance finale. En déduire la concentration finale en diiode, puis la concentration initiale en eau oxygénée.<br>
+    3. Déterminer le temps de demi-réaction.<br>
+    4. Déterminer la vitesse volumique d'apparition du diiode à $t=0$, en $\text{mol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$.<br>
+    5. On admet que la disparition de l'eau oxygénée suit une loi d'ordre 1. Calculer $k$, puis vérifier la vitesse de la question 4.</p>
+    <details class="indice"><p>Question 2 : les ions iodure sont en excès, c'est l'eau oxygénée qui limite, et une mole d'eau oxygénée donne une mole de diiode.</p></details>
+    <details class="indice"><p>Question 4 : le coefficient directeur de la tangente donne $\text{d}A/\text{d}t$ ; divise par 85 pour passer à la concentration.</p></details>
+    <details class="correction">
+      <p>1. Le diiode est la seule espèce colorée : l'absorbance, proportionnelle à sa concentration, suit sa formation.</p>
+      <p>2. Le palier : $A_f=0{,}85$. $[\text{I}_2]_f=\dfrac{0{,}85}{85}=1{,}0\times10^{-2}\ \text{mol}\cdot\text{L}^{-1}$. L'eau oxygénée, limitante, est entièrement consommée et chaque mole donne une mole de diiode : $[\text{H}_2\text{O}_2]_0=1{,}0\times10^{-2}\ \text{mol}\cdot\text{L}^{-1}$.</p>
+      <p>3. À $t_{1/2}$, $A=\dfrac{0{,}85}{2}\approx0{,}43$ : on lit $t_{1/2}\approx4{,}0$ min.</p>
+      <p>4. La tangente passe par l'origine et par $(5{,}0\ \text{min}\,;\ 0{,}74)$ : $\dfrac{\text{d}A}{\text{d}t}=\dfrac{0{,}74}{5{,}0}=0{,}148\ \text{min}^{-1}$. $v_{\text{app}}(\text{I}_2)=\dfrac{0{,}148}{85}=1{,}7\times10^{-3}\ \text{mol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$.</p>
+      <p>5. $k=\dfrac{\ln2}{t_{1/2}}=\dfrac{0{,}693}{4{,}0}=0{,}17\ \text{min}^{-1}$. À $t=0$ : $v_{\text{disp}}(\text{H}_2\text{O}_2)=k\,[\text{H}_2\text{O}_2]_0=0{,}17\times1{,}0\times10^{-2}=1{,}7\times10^{-3}\ \text{mol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$, égale à $v_{\text{app}}(\text{I}_2)$ (une mole de diiode par mole d'eau oxygénée). Les deux lectures concordent.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-ordre-1-ou-pas" data-titre="Ordre 1 ou pas ?" data-niveau="2" data-type="probleme" data-notions="ordre1 suivi-temporel" data-duree="15" data-calculatrice="oui">
+    <p>En solution acide, le saccharose se transforme lentement en glucose et en fructose. On mesure sa concentration au cours du temps.</p>
+    <div class="defile"><table class="simple">
+      <tbody>
+        <tr><th>$t$ (min)</th><td>0</td><td>30</td><td>60</td><td>90</td><td>120</td><td>150</td></tr>
+        <tr><th>$[\text{S}]$ (mmol/L)</th><td>100,0</td><td>70,7</td><td>50,0</td><td>35,4</td><td>25,0</td><td>17,7</td></tr>
+      </tbody>
+    </table></div>
+    <p>1. Lire le temps nécessaire pour passer de $100{,}0$ à $50{,}0$ mmol/L, puis de $50{,}0$ à $25{,}0$ mmol/L. Que suggère le résultat ?<br>
+    2. En déduire la constante de vitesse $k$.<br>
+    3. Estimer la vitesse de disparition à $t=60$ min par l'écart entre les mesures de 30 et de 90 min. Comparer à $k\,[\text{S}]$ à cette date.<br>
+    4. Prévoir la concentration à $t=240$ min.</p>
+    <details class="correction">
+      <p>1. De $100{,}0$ à $50{,}0$ mmol/L : $60$ min. De $50{,}0$ à $25{,}0$ mmol/L : encore $60$ min. Les temps de demi-réaction successifs sont égaux, ce qui caractérise une loi d'ordre 1 : la durée pour diviser la concentration par deux ne dépend pas de la concentration de départ.</p>
+      <p>2. $k=\dfrac{\ln2}{t_{1/2}}=\dfrac{0{,}693}{60}=1{,}2\times10^{-2}\ \text{min}^{-1}$.</p>
+      <p>3. $v\approx-\dfrac{35{,}4-70{,}7}{90-30}=0{,}59\ \text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$. Et $k\,[\text{S}]=0{,}0116\times50{,}0=0{,}58\ \text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$. Les deux valeurs concordent : la loi $v=k[\text{S}]$ convient.</p>
+      <p>4. $240$ min, c'est quatre temps de demi-réaction : $\dfrac{100{,}0}{2^4}=6{,}25$, soit environ $6{,}3$ mmol/L.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-test-en-python" data-titre="Le test en Python" data-niveau="2" data-type="probleme" data-notions="ordre1" data-duree="15" data-calculatrice="oui">
+    <p>On suit au spectrophotomètre la décoloration d'un colorant ; l'absorbance $A$ est proportionnelle à sa concentration. Voici le programme, dont une ligne est à compléter.</p>
+<pre class="code">t = [0, 1, 2, 3, 4, 5, 6, 7, 8]                              # en min
+A = [1.50, 1.23, 1.01, 0.82, 0.67, 0.55, 0.45, 0.37, 0.30]   # absorbance
+
+for i in range(1, len(t) - 1):
+    vA = ...                    # la vitesse de disparition, en unité d'absorbance par minute
+    print(t[i], round(vA / A[i], 3))</pre>
+    <p>Une fois complété, il affiche en seconde colonne, pour $t=1$ à $7$ min : <code>0.199</code>, <code>0.203</code>, <code>0.207</code>, <code>0.201</code>, <code>0.2</code>, <code>0.2</code>, <code>0.203</code> (Python écrit avec un point, et sans zéro inutile).</p>
+    <p>1. Compléter la ligne <code>vA = ...</code>, en estimant la dérivée par l'écart entre les deux mesures voisines.<br>
+    2. Que montre l'affichage ? Conclure sur l'ordre de la réaction et donner $k$.<br>
+    3. Avec d'autres mesures, le programme afficherait des quotients qui diminuent régulièrement avec le temps. Qu'en conclurait-on ?</p>
+    <details class="correction">
+      <p>1. <code>vA = -(A[i + 1] - A[i - 1]) / (t[i + 1] - t[i - 1])</code> : le signe moins, parce que l'absorbance diminue et que la vitesse de disparition est positive.</p>
+      <p>2. Le quotient $\dfrac{v}{A}$ vaut $0{,}20\ \text{min}^{-1}$, à $0{,}01$ près, à toutes les dates : la vitesse est proportionnelle à l'absorbance, donc à la concentration du colorant. La loi d'ordre 1 convient, avec $k\approx0{,}20\ \text{min}^{-1}$ (le facteur de proportionnalité entre $A$ et la concentration se simplifie dans le quotient).</p>
+      <p>3. Si le quotient de la vitesse par l'absorbance n'est pas constant, la vitesse n'est pas proportionnelle à la concentration du colorant : la loi d'ordre 1 ne convient pas.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-pourquoi-la-trempe" data-titre="Pourquoi la trempe ?" data-niveau="2" data-type="raisonnement" data-notions="catalyse mecanisme" data-duree="10" data-calculatrice="non">
+    <p>Pour suivre une transformation lente par titrage, on prélève toutes les cinq minutes $5{,}0$ mL du mélange, qu'on verse aussitôt dans $50$ mL d'eau glacée avant de titrer.</p>
+    <p>1. Pourquoi faut-il bloquer la transformation dans le prélèvement ?<br>2. Expliquer, à l'échelle des entités, pourquoi la dilution et le froid la ralentissent.<br>3. Pourquoi ne pas simplement attendre la fin du titrage sans rien faire ?</p>
+    <details class="correction">
+      <p>1. Le titrage dure quelques minutes ; si la transformation continuait pendant ce temps, on doserait une composition plus avancée que celle de la date du prélèvement.</p>
+      <p>2. Le <strong>froid</strong> rend les entités moins agitées : les chocs sont moins fréquents et surtout bien moins souvent efficaces. La <strong>dilution</strong> divise les concentrations par onze : quand la transformation demande la rencontre de deux réactifs, ils se croisent bien plus rarement, et la vitesse chute fortement. Les deux facteurs cinétiques jouent dans le même sens ; le froid ralentit toutes les transformations, la dilution surtout celles qui font se rencontrer deux réactifs.</p>
+      <p>3. Le résultat dépendrait de la durée du titrage, qui n'est jamais la même : les mesures ne seraient pas comparables d'un prélèvement à l'autre.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-des-fleches-courbes" data-titre="Des flèches courbes" data-niveau="2" data-type="application" data-notions="mecanisme" data-duree="12" data-calculatrice="non">
+    <p>1. La réaction entre l'ion oxonium et l'ion hydroxyde est un acte élémentaire : $\text{H}_3\text{O}^++\text{HO}^-\rightarrow2\,\text{H}_2\text{O}$. Décrire les deux flèches courbes : d'où part chacune, où elle pointe. Justifier le sens par l'électronégativité.<br>
+    2. Premier acte de la transformation du 2-bromo-2-méthylpropane dans l'eau : $(\text{CH}_3)_3\text{C}{-}\text{Br}\rightarrow(\text{CH}_3)_3\text{C}^++\text{Br}^-$. Décrire la flèche courbe. Pourquoi est-ce le brome, et pas le carbone, qui part avec le doublet ?</p>
+    <details class="indice"><p>Repère d'abord la liaison qui se forme et celle qui se rompt. L'oxygène est plus électronégatif que l'hydrogène, le brome plus que le carbone.</p></details>
+    <details class="correction">
+      <p>1. Une liaison se forme entre l'oxygène de $\text{HO}^-$ et un hydrogène de $\text{H}_3\text{O}^+$ ; une liaison O–H de $\text{H}_3\text{O}^+$ se rompt.</p>
+      <p>— Première flèche : elle part d'un <strong>doublet non liant de l'oxygène de $\text{HO}^-$</strong> (site donneur : chargé négativement) et pointe vers un <strong>atome H de $\text{H}_3\text{O}^+$</strong> (site accepteur : il porte une charge partielle $\delta^+$, l'oxygène étant plus électronégatif).</p>
+      <p>— Seconde flèche : elle part du <strong>doublet de la liaison O–H</strong> qui se rompt et pointe vers l'<strong>atome d'oxygène</strong> de l'ion oxonium, le plus électronégatif, qui garde le doublet.</p>
+      <p>2. Une seule flèche : elle part du <strong>doublet de la liaison C–Br</strong> et pointe vers l'<strong>atome de brome</strong>. Le brome est plus électronégatif que le carbone : il attire le doublet de la liaison et part avec lui, en devenant l'ion bromure ; le carbone, qui a perdu sa part du doublet, porte une charge positive.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-dater-un-os" data-titre="Dater un os" data-niveau="2" data-type="probleme" data-notions="decroissance" data-duree="12" data-calculatrice="oui">
+    <p>Dans un os trouvé lors d'une fouille, l'activité due au carbone 14 vaut $2{,}1$ désintégrations par minute et par gramme de carbone. Dans un être vivant, elle vaut $13{,}6$ désintégrations par minute et par gramme de carbone. Demi-vie du carbone 14 : $5\,730$ ans.</p>
+    <p>1. Combien de demi-vies se sont écoulées, à peu près ? Proposer un encadrement de l'âge.<br>2. Calculer l'âge de l'os.<br>3. Pourrait-on dater de la même façon un os de $100\,000$ ans ?</p>
+    <details class="correction">
+      <p>1. $\dfrac{13{,}6}{2{,}1}\approx6{,}5$, entre $2^2=4$ et $2^3=8$ : entre deux et trois demi-vies, donc entre $11\,460$ et $17\,190$ ans.</p>
+      <p>2. $t=\dfrac{t_{1/2}}{\ln2}\,\ln\dfrac{A_0}{A}=\dfrac{5\,730}{0{,}693}\times\ln\dfrac{13{,}6}{2{,}1}=1{,}5\times10^{4}$ ans. Il est bien dans l'encadrement.</p>
+      <p>3. $100\,000$ ans, c'est environ $17$ demi-vies : l'activité serait divisée par $2^{17}$, plus de cent mille. Il resterait environ $10^{-4}$ désintégration par minute et par gramme : trop peu pour être mesuré. On utilise d'autres noyaux pour des durées si longues.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-fluor-18-de-la-tep" data-titre="Le fluor 18 de la TEP" data-niveau="2" data-type="probleme" data-notions="decroissance noyau-instable" data-duree="15" data-calculatrice="oui">
+    <p>Pour un examen par tomographie par émission de positons (TEP), le patient reçoit un sucre marqué au fluor 18 ($Z=9$), radioactif β⁺, de demi-vie $110$ min. La dose doit avoir une activité de $370$ MBq au moment de l'injection. Elle est fabriquée dans un centre éloigné : il s'écoule $2{,}0$ h entre la fin de sa fabrication et l'injection.<br>
+    1. Écrire l'équation de désintégration du fluor 18. Données : N ($Z=7$), O ($Z=8$), Ne ($Z=10$).<br>
+    2. Quelle activité doit avoir la dose à la fin de sa fabrication ?<br>
+    3. Combien de noyaux de fluor 18 contient la dose au moment de l'injection ?<br>
+    4. Pourquoi ne fabrique-t-on pas la dose une semaine à l'avance ?</p>
+    <details class="correction">
+      <p>1. $^{18}_{\;9}\text{F}\rightarrow{}^{18}_{\;8}\text{O}+{}^{0}_{1}\text{e}$ : de l'oxygène 18.</p>
+      <p>2. Entre la fabrication et l'injection, $A=A_0\,\text{e}^{-\lambda t}$, donc $A_0=A\,\text{e}^{\lambda t}=A\times2^{t/t_{1/2}}=370\times2^{120/110}=7{,}9\times10^{2}$ MBq. Il faut fabriquer plus de deux fois la dose utile.</p>
+      <p>3. $\lambda=\dfrac{\ln2}{110\times60}=1{,}05\times10^{-4}\ \text{s}^{-1}$ ; $N=\dfrac{A}{\lambda}=\dfrac{370\times10^{6}}{1{,}05\times10^{-4}}=3{,}5\times10^{12}$ noyaux.</p>
+      <p>4. Une semaine, c'est environ $92$ demi-vies : l'activité serait divisée par $2^{92}$, il ne resterait pratiquement plus de fluor 18. La demi-vie courte, qui protège le patient, impose de produire près du lieu de l'examen.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-conserver-un-medicament" data-titre="Conserver un médicament" data-niveau="2" data-type="probleme" data-notions="ordre1 catalyse" data-duree="20" data-calculatrice="oui">
+    <p>Le principe actif d'un sirop se dégrade lentement selon une loi d'ordre 1. À $25$ °C, son temps de demi-réaction est de $2{,}0$ ans. Le sirop est considéré comme périmé quand il a perdu $10$ % de son principe actif.<br>
+    1. Calculer la constante de vitesse $k$ à $25$ °C, en $\text{an}^{-1}$.<br>
+    2. Au bout de combien de temps le sirop conservé à $25$ °C est-il périmé ? Donner le résultat en mois.<br>
+    3. On admet ici que la constante de vitesse est divisée par deux chaque fois que la température baisse de $10$ °C. Que devient la durée de conservation au réfrigérateur, à $5$ °C ?<br>
+    4. Expliquer à l'échelle des entités pourquoi le froid ralentit la dégradation.</p>
+    <details class="indice"><p>Périmé quand il reste $90$ % du principe actif : $\text{e}^{-kt}=0{,}90$.</p></details>
+    <details class="correction">
+      <p>1. $k=\dfrac{\ln2}{2{,}0}=0{,}35\ \text{an}^{-1}$.</p>
+      <p>2. Il reste $90$ % quand $\text{e}^{-kt}=0{,}90$, soit $t=\dfrac{\ln(1/0{,}90)}{k}=\dfrac{0{,}105}{0{,}347}=0{,}30$ an, environ $3{,}6$ mois.</p>
+      <p>3. De $25$ à $5$ °C, la température baisse de $20$ °C : $k$ est divisé par $2\times2=4$, et la durée de conservation multipliée par $4$ : environ $15$ mois.</p>
+      <p>4. Au froid, les entités sont moins agitées : les chocs entre elles sont moins fréquents, et surtout moins souvent efficaces. Les actes élémentaires de la dégradation ont lieu plus rarement.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="suivi-temporel ordre1" data-duree="12" data-calculatrice="oui">
+    <p>On suit la décoloration d'un colorant par l'eau de Javel, en excès. L'absorbance passe de $1{,}20$ à $0{,}60$ en $7{,}0$ min, puis de $0{,}60$ à $0{,}30$ en $7{,}0$ min de plus ; à partir de $42$ min, on ne voit plus de variation sur la courbe. Un élève demande à une IA le temps de demi-réaction, et ce qu'il deviendrait avec une solution de colorant deux fois plus concentrée. Voici sa réponse. Trouve les erreurs et rédige la réponse correcte.</p>
+    <blockquote class="copie-ia">« La courbe ne bouge plus à partir de 42 min : la réaction dure donc 42 min, et le temps de demi-réaction vaut la moitié, $t_{1/2}=21$ min. C'est d'ailleurs cohérent : la moitié du colorant disparaît pendant le premier $t_{1/2}$, l'autre moitié pendant le second, donc tout a disparu à 42 min. Avec une solution deux fois plus concentrée, il y aura deux fois plus de colorant à détruire : le temps de demi-réaction doublera, $t_{1/2}=42$ min. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 :</strong> le temps de demi-réaction n'est pas la moitié de la durée de la transformation. C'est la date où l'avancement atteint la moitié de sa valeur finale. Le colorant disparaît entièrement : c'est quand l'absorbance vaut $0{,}60$, soit à $7{,}0$ min, donné dans l'énoncé.</p>
+      <p><strong>Erreur 2 :</strong> « l'autre moitié disparaît pendant le second $t_{1/2}$ » est faux : pendant le second, la moitié de ce qui <em>reste</em> disparaît. À $14$ min, l'absorbance vaut $0{,}30$, le quart de la valeur initiale, pas zéro. À $42$ min, six temps de demi-réaction, il reste $\dfrac{1}{2^6}=\dfrac{1}{64}$ du colorant : l'absorbance vaut environ $0{,}02$, invisible sur la courbe, mais pas nulle.</p>
+      <p><strong>Erreur 3 :</strong> les deux temps de demi-réaction successifs sont égaux ($7{,}0$ min chacun) : c'est la signature d'une loi d'ordre 1, pour laquelle $t_{1/2}=\dfrac{\ln2}{k}$ ne dépend pas de la concentration initiale. Avec une solution deux fois plus concentrée (et l'eau de Javel toujours en excès), $t_{1/2}$ reste $7{,}0$ min : la vitesse au départ double, mais il y a deux fois plus de colorant.</p>
+      <p><strong>La bonne réponse :</strong> $t_{1/2}=7{,}0$ min, et il ne change pas avec la concentration initiale du colorant.</p>
+      <p>La réponse enchaînait les « donc » avec aplomb, mais elle partait d'une lecture fausse : la fin « visible » d'une courbe qui s'aplatit n'est pas une date précise, et le temps de demi-réaction se lit sur l'axe des ordonnées d'abord.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Synthèse</h3>
+
+  <article class="exercice" id="ex-etablir-la-loi-de-decroissance" data-titre="Établir la loi de décroissance" data-niveau="3" data-type="raisonnement" data-notions="decroissance" data-duree="20" data-calculatrice="non">
+    <p>Un échantillon contient, à la date $t=0$, $N_0$ noyaux radioactifs de constante radioactive $\lambda$. Entre $t$ et $t+\text{d}t$, le nombre de désintégrations est $\lambda N(t)\,\text{d}t$.<br>
+    1. Établir l'équation différentielle vérifiée par $N(t)$, puis la résoudre.<br>
+    2. Montrer que $t_{1/2}=\dfrac{\ln2}{\lambda}$.<br>
+    3. Montrer que, pour toute date $t$, $N(t+t_{1/2})=\dfrac{N(t)}{2}$. Que signifie ce résultat ?<br>
+    4. Montrer que l'activité $A(t)=\lambda N(t)$ décroît avec la même demi-vie.</p>
+    <details class="indice"><p>Question 1 : pendant $\text{d}t$, le nombre de noyaux varie de $\text{d}N=N(t+\text{d}t)-N(t)$, qui est négatif.</p></details>
+    <details class="correction">
+      <p>1. Les noyaux qui se désintègrent disparaissent : $\text{d}N=-\lambda N\,\text{d}t$, donc $\dfrac{\text{d}N}{\text{d}t}=-\lambda N$. C'est une équation $y'=ay$ avec $a=-\lambda$ ; ses solutions sont $N(t)=C\,\text{e}^{-\lambda t}$. Avec $N(0)=N_0$ : $C=N_0$ et $N(t)=N_0\,\text{e}^{-\lambda t}$.</p>
+      <p>2. $N(t_{1/2})=\dfrac{N_0}{2}$ donne $\text{e}^{-\lambda t_{1/2}}=\dfrac12$, soit $\lambda t_{1/2}=\ln2$ et $t_{1/2}=\dfrac{\ln2}{\lambda}$.</p>
+      <p>3. $N(t+t_{1/2})=N_0\,\text{e}^{-\lambda t}\,\text{e}^{-\lambda t_{1/2}}=N(t)\times\dfrac12$. Quelle que soit la date de départ, il faut une demi-vie pour que le nombre de noyaux restants soit divisé par deux : les noyaux n'« vieillissent » pas, chacun a la même chance de se désintégrer à chaque instant.</p>
+      <p>4. $A(t)=\lambda N_0\,\text{e}^{-\lambda t}=A_0\,\text{e}^{-\lambda t}$ avec $A_0=\lambda N_0$ : même exponentielle, donc même demi-vie.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-temps-de-demi-reaction-qui-ne-bouge-pas" data-titre="Le temps de demi-réaction qui ne bouge pas" data-niveau="3" data-type="raisonnement" data-notions="ordre1 catalyse mecanisme" data-duree="15" data-calculatrice="oui">
+    <p>On étudie la disparition d'un réactif A, entièrement consommé, dans trois expériences.</p>
+    <div class="defile"><table class="simple">
+      <thead><tr><th>Expérience</th><th>$[\text{A}]_0$ (mmol/L)</th><th>Température (°C)</th><th>$t_{1/2}$ (min)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>20</td><td>25</td><td>12</td></tr>
+        <tr><td>2</td><td>40</td><td>25</td><td>12</td></tr>
+        <tr><td>3</td><td>20</td><td>35</td><td>6,0</td></tr>
+      </tbody>
+    </table></div>
+    <p>1. Que suggère la comparaison des expériences 1 et 2 ? Justifier par une démonstration.<br>
+    2. Calculer la constante de vitesse dans les expériences 1 et 3.<br>
+    3. Calculer la vitesse de disparition initiale dans les expériences 1 et 2. Quel facteur cinétique ces deux expériences mettent-elles en évidence, alors que $t_{1/2}$ ne change pas ?<br>
+    4. Interpréter le résultat de l'expérience 3 à l'échelle des entités.</p>
+    <details class="correction">
+      <p>1. Doubler $[\text{A}]_0$ ne change pas $t_{1/2}$ : c'est ce que prévoit une loi d'ordre 1. En effet, si $v=k[\text{A}]$, alors $[\text{A}](t)=[\text{A}]_0\,\text{e}^{-kt}$ et $[\text{A}]=[\text{A}]_0/2$ pour $\text{e}^{-kt}=1/2$, soit $t_{1/2}=\dfrac{\ln2}{k}$, qui ne dépend pas de $[\text{A}]_0$. (Deux expériences ne prouvent pas l'ordre 1, mais elles sont compatibles avec lui.)</p>
+      <p>2. Expérience 1 : $k_1=\dfrac{0{,}693}{12}=5{,}8\times10^{-2}\ \text{min}^{-1}$. Expérience 3 : $k_3=\dfrac{0{,}693}{6{,}0}=0{,}12\ \text{min}^{-1}$, deux fois plus grande.</p>
+      <p>3. $v_1=k_1[\text{A}]_0=0{,}0578\times20=1{,}16\ \text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$ ; $v_2=0{,}0578\times40=2{,}31\ \text{mmol}\cdot\text{L}^{-1}\cdot\text{min}^{-1}$. La vitesse initiale double : la <strong>concentration</strong> est bien un facteur cinétique. Mais il y a deux fois plus de réactif à faire disparaître, et la moitié est atteinte au même moment.</p>
+      <p>4. À $35$ °C, les entités sont plus agitées : les chocs sont plus fréquents et plus souvent efficaces. La constante de vitesse est plus grande, la transformation deux fois plus rapide.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-un-suivi-par-conductimetrie" data-titre="Un suivi par conductimétrie" data-niveau="3" data-type="probleme" data-notions="suivi-temporel ordre1 mecanisme" data-duree="30" data-calculatrice="oui" data-source="Bac 2024, Polynésie, jour 2, exercice 1 : « Suivi cinétique par conductimétrie de l'hydrolyse du chlorure de tertiobutyle »">
+    <p>Le 2-chloro-2-méthylpropane, noté RCl, réagit avec l'eau d'un mélange eau-acétone : $\text{RCl}+2\,\text{H}_2\text{O}\rightarrow\text{ROH}+\text{H}_3\text{O}^++\text{Cl}^-$, où R désigne le groupe $(\text{CH}_3)_3\text{C}$. RCl est le réactif limitant, entièrement consommé. On mesure la conductivité $\sigma$ du mélange ; elle est proportionnelle à l'avancement.</p>
+    <div class="defile"><table class="simple">
+      <tbody>
+        <tr><th>$t$ (min)</th><td>0</td><td>2</td><td>4</td><td>6</td><td>8</td><td>10</td><td>15</td><td>20</td><td>30</td><td>60</td></tr>
+        <tr><th>$\sigma$ (mS/cm)</th><td>0</td><td>0,33</td><td>0,59</td><td>0,80</td><td>0,97</td><td>1,10</td><td>1,32</td><td>1,44</td><td>1,55</td><td>1,60</td></tr>
+      </tbody>
+    </table></div>
+    <p>1. Pourquoi la conductivité augmente-t-elle au cours de la transformation ?<br>
+    2. On prend $\sigma_f=1{,}60$ mS/cm. Exprimer $\dfrac{x}{x_f}$ en fonction de $\sigma$ et $\sigma_f$, puis déterminer le temps de demi-réaction.<br>
+    3. On montre que, si la loi est d'ordre 1, $\ln\left(1-\dfrac{\sigma}{\sigma_f}\right)=-kt$. Calculer $\ln\left(1-\dfrac{\sigma}{\sigma_f}\right)$ à $4$ min et à $10$ min. La loi d'ordre 1 est-elle compatible avec ces mesures ? Donner $k$.<br>
+    4. Le mécanisme comporte trois actes : (1) $\text{RCl}\rightarrow\text{R}^++\text{Cl}^-$ ; (2) $\text{R}^++\text{H}_2\text{O}\rightarrow\text{ROH}_2^+$ ; (3) $\text{ROH}_2^++\text{H}_2\text{O}\rightarrow\text{ROH}+\text{H}_3\text{O}^+$. Identifier les intermédiaires réactionnels, vérifier que les actes redonnent l'équation, et décrire la flèche courbe de l'acte (1) et celle de l'acte (2).</p>
+    <details class="indice"><p>Question 2 : à $t_{1/2}$, $x=x_f/2$, donc $\sigma=\sigma_f/2$.</p></details>
+    <details class="indice"><p>Question 3 : si l'ordre 1 convient, le quotient $\ln\left(1-\sigma/\sigma_f\right)/t$ est le même aux deux dates.</p></details>
+    <details class="correction">
+      <p>1. À partir d'espèces neutres (RCl, l'eau) se forment des ions, $\text{H}_3\text{O}^+$ et $\text{Cl}^-$ : plus il y a d'ions, plus la solution conduit.</p>
+      <p>2. $\sigma$ est proportionnelle à $x$ : $\dfrac{x}{x_f}=\dfrac{\sigma}{\sigma_f}$. À $t_{1/2}$, $\sigma=\dfrac{1{,}60}{2}=0{,}80$ mS/cm : on lit $t_{1/2}=6{,}0$ min.</p>
+      <p>3. À $4$ min : $\ln\left(1-\dfrac{0{,}59}{1{,}60}\right)=\ln(0{,}631)=-0{,}46$, soit $-kt$ avec $k=\dfrac{0{,}46}{4}=0{,}115\ \text{min}^{-1}$. À $10$ min : $\ln\left(1-\dfrac{1{,}10}{1{,}60}\right)=\ln(0{,}3125)=-1{,}16$, soit $k=0{,}116\ \text{min}^{-1}$. Les deux valeurs concordent : l'ordre 1 est compatible, avec $k\approx0{,}12\ \text{min}^{-1}$. Vérification : $\dfrac{\ln2}{k}=\dfrac{0{,}693}{0{,}115}=6{,}0$ min, le temps de demi-réaction lu.</p>
+      <p>4. Intermédiaires : $\text{R}^+$ (formé en 1, consommé en 2) et $\text{ROH}_2^+$ (formé en 2, consommé en 3). La somme des trois actes : $\text{RCl}+2\,\text{H}_2\text{O}\rightarrow\text{ROH}+\text{H}_3\text{O}^++\text{Cl}^-$, l'équation de la réaction.</p>
+      <p>Acte (1) : la flèche part du <strong>doublet de la liaison C–Cl</strong> et pointe vers l'<strong>atome de chlore</strong>, plus électronégatif, qui part avec le doublet et devient $\text{Cl}^-$. Acte (2) : la flèche part d'un <strong>doublet non liant de l'oxygène de l'eau</strong> (site donneur) et pointe vers l'<strong>atome de carbone chargé positivement</strong> de $\text{R}^+$ (site accepteur) : une liaison C–O se forme.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-dater-une-roche" data-titre="Dater une roche" data-niveau="3" data-type="probleme" data-notions="decroissance noyau-instable" data-duree="25" data-calculatrice="oui">
+    <p>L'uranium 238 se transforme, par une suite de désintégrations α et β⁻, en plomb 206, stable. La demi-vie de l'uranium 238 est de $4{,}47\times10^{9}$ ans ; celles des noyaux intermédiaires sont négligeables devant elle : chaque noyau d'uranium 238 qui se désintègre donne, en pratique, un noyau de plomb 206. Dans un cristal de zircon, on mesure aujourd'hui $\dfrac{N_{\text{Pb}}}{N_{\text{U}}}=0{,}50$.<br>
+    1. Combien de désintégrations α la chaîne comporte-t-elle ? Combien de désintégrations β⁻ ? (Données : U, $Z=92$ ; Pb, $Z=82$.)<br>
+    2. On suppose que le cristal ne contenait pas de plomb à sa formation, et qu'il n'en a ni perdu ni gagné depuis. Exprimer $N_0$, le nombre de noyaux d'uranium à la formation, en fonction de $N_{\text{U}}$ et $N_{\text{Pb}}$.<br>
+    3. En déduire l'âge du cristal.<br>
+    4. Que se passerait-il si le cristal avait perdu une partie de son plomb ?</p>
+    <details class="indice"><p>Question 1 : seules les désintégrations α changent $A$, de 4 à chaque fois.</p></details>
+    <details class="correction">
+      <p>1. $A$ passe de $238$ à $206$ : $32$ nucléons perdus, soit $\dfrac{32}{4}=8$ désintégrations α. Les huit α font baisser $Z$ de $16$, de $92$ à $76$ ; or le plomb a $Z=82$ : il faut $6$ désintégrations β⁻, qui font chacune monter $Z$ de $1$.</p>
+      <p>2. Chaque noyau d'uranium disparu a donné un noyau de plomb : $N_0=N_{\text{U}}+N_{\text{Pb}}$.</p>
+      <p>3. $\dfrac{N_0}{N_{\text{U}}}=1+\dfrac{N_{\text{Pb}}}{N_{\text{U}}}=1{,}50$. $t=\dfrac{t_{1/2}}{\ln2}\ln\dfrac{N_0}{N_{\text{U}}}=\dfrac{4{,}47\times10^{9}}{0{,}693}\times\ln1{,}50=2{,}6\times10^{9}$ ans.</p>
+      <p>4. On mesurerait moins de plomb : le rapport $N_{\text{Pb}}/N_{\text{U}}$ serait trop petit, et l'âge calculé trop jeune. Les hypothèses de la question 2 sont les points faibles de toute datation, à vérifier par d'autres mesures.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi la vitesse diminue-t-elle au cours du temps ?</summary>
+      <div><p>Parce que les réactifs s'épuisent. Moins il y en a, moins leurs entités se rencontrent : les chocs, donc les actes élémentaires, se font plus rares. La courbe s'aplatit.</p></div></details>
+    <details><summary>Vitesse volumique de disparition, d'apparition, vitesse de réaction : c'est pareil ?</summary>
+      <div><p>Non. Une vitesse volumique est toujours celle d'une espèce : celle du diiode et celle des ions iodure diffèrent d'un facteur 2 dans la réaction de la partie 3. La « vitesse de réaction », définie à partir de l'avancement, n'est pas au programme : dis toujours de quelle espèce tu parles.</p></div></details>
+    <details><summary>Un catalyseur peut-il rendre possible une réaction impossible ?</summary>
+      <div><p>Non. Il accélère une transformation qui se ferait de toute façon, et il ne change pas l'état final. Il ne fait pas apparaître plus de produit qu'on n'en obtiendrait sans lui, en attendant assez longtemps.</p></div></details>
+    <details><summary>Une transformation d'ordre 1 finit-elle un jour ?</summary>
+      <div><p>Selon le modèle, $[\text{A}]_0\,\text{e}^{-kt}$ n'atteint jamais zéro. En pratique, après sept temps de demi-réaction, il reste moins de 1 % du réactif, et la transformation est terminée pour toute mesure. La loi exponentielle est un modèle, pas une description entité par entité.</p></div></details>
+    <details><summary>Peut-on accélérer une désintégration en chauffant ?</summary>
+      <div><p>Non. La constante radioactive ne dépend ni de la température, ni de la pression, ni de la molécule où se trouve le noyau. C'est ce qui fait de la radioactivité une horloge sûre pour dater, et c'est aussi pourquoi on ne peut pas « éteindre » des déchets radioactifs : il faut attendre.</p></div></details>
+    <details><summary>La demi-vie, c'est la moitié de la durée de vie d'un noyau ?</summary>
+      <div><p>Non. Un noyau ne vieillit pas : à chaque instant, il a la même probabilité de se désintégrer, quel que soit son âge. La demi-vie est une propriété d'un grand nombre de noyaux : la durée au bout de laquelle la moitié d'entre eux s'est désintégrée.</p></div></details>
+    <details><summary>Irradié, contaminé : quelle différence ?</summary>
+      <div><p>Irradié : on a reçu un rayonnement venu de l'extérieur, et on ne devient pas radioactif pour autant. Contaminé : on porte des noyaux radioactifs sur soi ou en soi, qui continuent d'émettre. Une radiographie irradie ; respirer du radon contamine.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

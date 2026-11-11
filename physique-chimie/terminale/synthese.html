@@ -1,0 +1,998 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de synthese.figures.py.
+     Fabriquer la page : python3 outils/figures.py physique-chimie/terminale/synthese.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Synthèse organique · Terminale</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=777d4f002b">
+<script type="module" src="../../assets/js/site.js?v=b8c0332392"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YOV3MPYA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ZGXYQFXP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-HA25DEFB.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ENKCFD2X.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-KMAN6GHR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QJHGDKSX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-LDUECZYH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-PENILRM4.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-A6P62AUH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UIYUFPXH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-2YVRNAKX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QRSN3BQL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3YYESB7U.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FVVGSAX5.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-I7FXDBZR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-SQSIYAEI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-WBNZSXCP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-Z7MBT6SG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-ZP447UBG.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/synthese.js?v=7e94103d83">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-QX5ZDZWL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/synthese.js?v=88d3affa99">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-LXD52375.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="physique-chimie" data-chapitre="synthese" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Terminale spécialité physique-chimie · Constitution et transformations de la matière</span>
+  <h1>Synthèse organique</h1>
+  <p class="chapeau">Le paracétamol d'un comprimé, l'odeur de banane d'un bonbon, la fibre d'une polaire : des molécules fabriquées par des chimistes. Ce chapitre apprend à les lire et à les nommer, puis à concevoir leur synthèse : plus vite, avec plus de produit, en plusieurs étapes s'il le faut, et avec le moins de déchets possible.</p>
+  <ul class="objectifs">
+    <li>Lire et écrire une formule topologique</li><li>Reconnaître huit familles</li><li>Nommer avec des règles données</li><li>Trouver des isomères</li><li>Repérer le motif d'un polymère</li><li>Classer une réaction</li><li>Lire un spectre infrarouge</li><li>Calculer et optimiser un rendement</li><li>Bâtir une synthèse en plusieurs étapes</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Une molécule, ça se fabrique, et ça se contrôle.</strong> Quatre endroits où l'on fait ce que ce chapitre enseigne : ouvre celui qui te parle.</p>
+    <details>
+      <summary>Au laboratoire qualité : le paracétamol de chaque lot</summary>
+      <p>Dans l'usine, un lot de paracétamol vient d'être synthétisé. Avant qu'il parte en comprimés, une technicienne en prélève quelques grammes. Elle mesure sa température de fusion (vers $169$ °C), dépose une goutte de sa solution sur une plaque de chromatographie à côté d'une référence, et enregistre son spectre infrarouge : la bande de la liaison C=O de son groupe amide doit être là, à sa place. Trois contrôles, et le lot est libéré ou bloqué.</p>
+      <p class="discret">Ils s'en servent : les techniciens de contrôle qualité, les techniciens de laboratoire en chimie, les pharmaciens de l'industrie.</p>
+    </details>
+    <details>
+      <summary>Chez un aromaticien : l'odeur de banane d'un bonbon</summary>
+      <p>L'odeur de la banane vient en grande partie d'un ester, l'éthanoate de 3-méthylbutyle. Plutôt que de l'extraire du fruit, on le fabrique à partir d'un acide et d'un alcool, au laboratoire puis à l'usine. Le chimiste cherche les conditions qui donnent le plus d'ester, le plus vite, sans gaspiller : c'est exactement la partie « optimiser » de ce chapitre.</p>
+      <p class="discret">Ils s'en servent : les aromaticiens et parfumeurs, les techniciens de l'industrie agroalimentaire, les ingénieurs procédés.</p>
+    </details>
+    <details>
+      <summary>Au centre de recyclage : la bouteille qui devient une polaire</summary>
+      <p>Une bouteille d'eau est en PET, un polymère : une chaîne immense où le même motif se répète des centaines de fois. Broyée, fondue, filée, elle devient une fibre textile. Des procédés plus récents coupent la chaîne en ses molécules de départ, pour refaire du PET neuf. Pour recycler un polymère, il faut d'abord savoir lire son motif.</p>
+      <p class="discret">Ils s'en servent : les ingénieurs en plasturgie et en matériaux, les techniciens du recyclage, les chimistes des polymères.</p>
+    </details>
+    <details>
+      <summary>Dans une usine pharmaceutique : l'ibuprofène en trois étapes au lieu de six</summary>
+      <p>Pendant vingt ans, l'ibuprofène a été fabriqué en six étapes, qui jetaient plus de la moitié de la matière engagée. Une nouvelle voie, en trois étapes, avec des catalyseurs récupérés et un sous-produit revendu, a remplacé l'ancienne dans les années 1990. Même médicament, beaucoup moins de déchets : une synthèse écoresponsable.</p>
+      <p class="discret">Ils s'en servent : les chimistes de recherche et développement, les ingénieurs procédés, les responsables environnement de l'industrie.</p>
+    </details>
+    <p class="discret">Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-ecrire">1. Écrire une molécule : jusqu'à la formule topologique</h3>
+
+  <div class="bloc remarque" data-titre="Rappel de première : formule brute et formule semi-développée">
+    <p>La <strong>formule brute</strong> compte les atomes de chaque élément : C₄H₁₀O. Elle ne dit pas comment ils sont liés.</p>
+    <p>La <strong>formule développée</strong> montre toutes les liaisons. La <strong>formule semi-développée</strong> les montre toutes, sauf celles qui relient un hydrogène : CH₃–CH(OH)–CH₂–CH₃. Les parenthèses signalent un groupe accroché au carbone qui les précède.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Formule topologique">
+    <p>La chaîne carbonée est dessinée comme une <strong>ligne brisée</strong> :</p>
+    <ul>
+      <li>chaque <strong>sommet</strong> et chaque <strong>extrémité</strong> d'un trait est un atome de carbone ;</li>
+      <li>les atomes d'hydrogène portés par les carbones ne sont <strong>pas écrits</strong> : chaque carbone en porte juste assez pour avoir quatre liaisons ;</li>
+      <li>les autres atomes (O, N, Cl…) sont écrits, <strong>avec</strong> les hydrogènes qu'ils portent (OH, NH₂) ;</li>
+      <li>une double liaison se dessine avec deux traits, une triple avec trois.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="ecritures" viewBox="0 0 660 270" role="img" aria-label="Le butan-2-ol écrit de trois façons. À gauche, la formule développée : quatre atomes de carbone en ligne, chacun entouré de ses atomes d'hydrogène, et un groupe O–H sur le deuxième carbone. Au milieu, la formule semi-développée : CH3–CH(OH)–CH2–CH3. À droite, la formule topologique : une ligne brisée de trois segments, dont chaque sommet et chaque extrémité est un carbone, avec OH sur le deuxième. En dessous, la formule brute commune : C4H10O."><g class="trace ep-2-5 t-ink"><line x1="70.0" y1="150.0" x2="80.0" y2="150.0"/></g><g class="trace ep-2-5 t-ink"><line x1="104.0" y1="150.0" x2="114.0" y2="150.0"/></g><g class="trace ep-2-5 t-ink"><line x1="138.0" y1="150.0" x2="148.0" y2="150.0"/></g><g class="trace ep-2-5 t-ink"><line x1="92.0" y1="138.0" x2="92.0" y2="128.0"/></g><g class="trace ep-2-5 t-ink"><line x1="92.0" y1="104.0" x2="92.0" y2="94.0"/></g><g class="trace ep-2-5 t-ink"><line x1="46.0" y1="150.0" x2="36.0" y2="150.0"/></g><g class="trace ep-2-5 t-ink"><line x1="58.0" y1="138.0" x2="58.0" y2="128.0"/></g><g class="trace ep-2-5 t-ink"><line x1="58.0" y1="162.0" x2="58.0" y2="172.0"/></g><g class="trace ep-2-5 t-ink"><line x1="92.0" y1="162.0" x2="92.0" y2="172.0"/></g><g class="trace ep-2-5 t-ink"><line x1="126.0" y1="138.0" x2="126.0" y2="128.0"/></g><g class="trace ep-2-5 t-ink"><line x1="126.0" y1="162.0" x2="126.0" y2="172.0"/></g><g class="trace ep-2-5 t-ink"><line x1="172.0" y1="150.0" x2="182.0" y2="150.0"/></g><g class="trace ep-2-5 t-ink"><line x1="160.0" y1="138.0" x2="160.0" y2="128.0"/></g><g class="trace ep-2-5 t-ink"><line x1="160.0" y1="162.0" x2="160.0" y2="172.0"/></g><text class="lettre" x="58.0" y="156.5" text-anchor="middle">C</text><text class="lettre" x="92.0" y="156.5" text-anchor="middle">C</text><text class="lettre" x="126.0" y="156.5" text-anchor="middle">C</text><text class="lettre" x="160.0" y="156.5" text-anchor="middle">C</text><text class="lettre" x="92.0" y="122.5" text-anchor="middle">O</text><text class="lettre" x="92.0" y="88.5" text-anchor="middle">H</text><text class="lettre" x="24.0" y="156.5" text-anchor="middle">H</text><text class="lettre" x="58.0" y="122.5" text-anchor="middle">H</text><text class="lettre" x="58.0" y="190.5" text-anchor="middle">H</text><text class="lettre" x="92.0" y="190.5" text-anchor="middle">H</text><text class="lettre" x="126.0" y="122.5" text-anchor="middle">H</text><text class="lettre" x="126.0" y="190.5" text-anchor="middle">H</text><text class="lettre" x="194.0" y="156.5" text-anchor="middle">H</text><text class="lettre" x="160.0" y="122.5" text-anchor="middle">H</text><text class="lettre" x="160.0" y="190.5" text-anchor="middle">H</text><text class="petit" x="125.0" y="26.0" text-anchor="middle">développée</text><text class="petit" x="345.0" y="26.0" text-anchor="middle">semi-développée</text><text class="formule" x="345.0" y="136.0" text-anchor="middle">CH₃–CH(OH)–CH₂–CH₃</text><text class="petit" x="545.0" y="26.0" text-anchor="middle">topologique</text><g class="trace ep-2 t-ink"><line x1="487.8" y1="163.0" x2="525.9" y2="141.0"/></g><g class="trace ep-2 t-ink"><line x1="525.9" y1="141.0" x2="564.1" y2="163.0"/></g><g class="trace ep-2 t-ink"><line x1="564.1" y1="163.0" x2="602.2" y2="141.0"/></g><g class="trace ep-2 t-ink"><line x1="525.9" y1="141.0" x2="525.9" y2="107.0"/></g><text class="formule" x="525.9" y="102.5" text-anchor="middle">O</text><text class="formule" x="531.9" y="102.5">H</text><text class="note" x="320.0" y="232.0" text-anchor="middle">Les trois écrivent la même molécule, de formule brute C₄H₁₀O.</text></svg><figcaption>La même molécule, le butan-2-ol, écrite trois fois. La formule topologique est la plus rapide à écrire et à lire : on ne garde que le squelette et ce qui n'est pas un carbone ou un hydrogène.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Lire une formule topologique">
+    <ol class="etapes">
+      <li><span>Je compte les carbones : tous les sommets et toutes les extrémités.</span></li>
+      <li><span>Pour chaque carbone, j'écris ses hydrogènes : $4-$ (nombre de liaisons qu'il a déjà), une double liaison comptant pour deux.</span></li>
+      <li><span>J'ajoute les atomes écrits en lettres, et les hydrogènes qu'ils portent.</span></li>
+      <li><span>J'écris la formule brute, et je la vérifie en comptant une seconde fois.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Écrire la formule brute de la molécule ci-dessous, le 2-méthylbutan-1-ol.</p>
+      <ol class="pas">
+        <li><span><strong>Les carbones.</strong> Deux extrémités (à gauche et en bas) et trois sommets : 5 carbones. Le bout de droite porte OH : c'est l'oxygène, pas un carbone.</span></li>
+        <li><span><strong>Leurs hydrogènes.</strong> Chaque extrémité n'a qu'une liaison : CH₃, deux fois. Le sommet du haut en a deux : CH₂. Le sommet de la ramification en a trois : CH. Le sommet lié à OH en a deux : CH₂. Soit $3+3+2+1+2=11$ H.</span></li>
+        <li><span><strong>Les atomes écrits.</strong> OH : un O, et un H de plus, soit 12 H.</span></li>
+        <li><span><strong>La formule brute.</strong> C₅H₁₂O.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="lire_topo" viewBox="0 0 480 240" role="img" aria-label="La formule topologique du 2-méthylbutan-1-ol, avec à côté de chaque sommet le nombre d'hydrogènes qu'il porte : CH3 à l'extrémité de gauche et à l'extrémité du bas, CH2 au premier sommet haut, CH au sommet qui porte la ramification, CH2 à côté du groupe OH."><g class="trace ep-2 t-ink"><line x1="129.5" y1="90.5" x2="179.8" y2="61.5"/></g><g class="trace ep-2 t-ink"><line x1="179.8" y1="61.5" x2="230.0" y2="90.5"/></g><g class="trace ep-2 t-ink"><line x1="230.0" y1="90.5" x2="230.0" y2="148.5"/></g><g class="trace ep-2 t-ink"><line x1="230.0" y1="90.5" x2="280.2" y2="61.5"/></g><g class="trace ep-2 t-ink"><line x1="280.2" y1="61.5" x2="321.8" y2="85.5"/></g><text class="formule" x="330.5" y="96.0" text-anchor="middle">O</text><text class="formule" x="336.5" y="96.0">H</text><text class="note" x="112.2" y="105.0" text-anchor="middle">CH₃</text><text class="note" x="179.8" y="46.0" text-anchor="middle">CH₂</text><text class="note" x="212.7" y="105.0" text-anchor="middle">CH</text><text class="note" x="230.0" y="173.0" text-anchor="middle">CH₃</text><text class="note" x="280.2" y="46.0" text-anchor="middle">CH₂</text><text class="note" x="230.0" y="212.0" text-anchor="middle">Chaque carbone porte assez de H pour avoir 4 liaisons : C₅H₁₂O.</text></svg><figcaption>Le 2-méthylbutan-1-ol : à côté de chaque carbone, les hydrogènes qu'il porte. L'extrémité liée à OH n'est pas un carbone : c'est l'oxygène lui-même.</figcaption></figure>
+
+  <div class="bloc definition" data-titre="Les squelettes carbonés">
+    <ul>
+      <li><strong>Saturé</strong> : toutes les liaisons entre carbones sont simples. <strong>Insaturé</strong> : il y a au moins une double liaison C=C ou une triple C≡C.</li>
+      <li><strong>Linéaire</strong> : les carbones s'enchaînent sans embranchement. <strong>Ramifié</strong> : au moins un carbone est lié à trois ou quatre autres carbones.</li>
+      <li><strong>Cyclique</strong> : la chaîne se referme sur elle-même.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="squelettes" viewBox="0 0 680 250" role="img" aria-label="Cinq squelettes carbonés de six carbones. Le hexane, une ligne brisée : saturé, linéaire. Le 2-méthylpentane : une ramification vers le haut. Le hex-2-ène : une double liaison, donc insaturé. Le cyclohexane : un hexagone, cyclique. Le cycle benzénique : un hexagone avec trois doubles liaisons alternées."><g class="trace ep-2 t-ink"><line x1="18.0" y1="106.0" x2="38.8" y2="94.0"/></g><g class="trace ep-2 t-ink"><line x1="38.8" y1="94.0" x2="59.6" y2="106.0"/></g><g class="trace ep-2 t-ink"><line x1="59.6" y1="106.0" x2="80.4" y2="94.0"/></g><g class="trace ep-2 t-ink"><line x1="80.4" y1="94.0" x2="101.2" y2="106.0"/></g><g class="trace ep-2 t-ink"><line x1="101.2" y1="106.0" x2="122.0" y2="94.0"/></g><text class="note" x="70.0" y="185.0" text-anchor="middle">hexane</text><text class="petit" x="70.0" y="205.0" text-anchor="middle">saturé, linéaire</text><g class="trace ep-2 t-ink"><line x1="158.4" y1="118.0" x2="179.2" y2="106.0"/></g><g class="trace ep-2 t-ink"><line x1="179.2" y1="106.0" x2="200.0" y2="118.0"/></g><g class="trace ep-2 t-ink"><line x1="200.0" y1="118.0" x2="220.8" y2="106.0"/></g><g class="trace ep-2 t-ink"><line x1="220.8" y1="106.0" x2="241.6" y2="118.0"/></g><g class="trace ep-2 t-ink"><line x1="179.2" y1="106.0" x2="179.2" y2="82.0"/></g><text class="note" x="200.0" y="185.0" text-anchor="middle">2-méthylpentane</text><text class="petit" x="200.0" y="205.0" text-anchor="middle">ramifié</text><g class="trace ep-2 t-ink"><line x1="278.0" y1="106.0" x2="298.8" y2="94.0"/></g><g class="trace ep-2 t-ink"><line x1="298.8" y1="94.0" x2="319.6" y2="106.0"/><line x1="299.4" y1="101.2" x2="313.1" y2="109.2"/></g><g class="trace ep-2 t-ink"><line x1="319.6" y1="106.0" x2="340.4" y2="94.0"/></g><g class="trace ep-2 t-ink"><line x1="340.4" y1="94.0" x2="361.2" y2="106.0"/></g><g class="trace ep-2 t-ink"><line x1="361.2" y1="106.0" x2="382.0" y2="94.0"/></g><text class="note" x="330.0" y="185.0" text-anchor="middle">hex-2-ène</text><text class="petit" x="330.0" y="205.0" text-anchor="middle">insaturé (C=C)</text><g class="trace ep-2 t-ink"><line x1="460.0" y1="76.0" x2="480.8" y2="88.0"/></g><g class="trace ep-2 t-ink"><line x1="480.8" y1="88.0" x2="480.8" y2="112.0"/></g><g class="trace ep-2 t-ink"><line x1="480.8" y1="112.0" x2="460.0" y2="124.0"/></g><g class="trace ep-2 t-ink"><line x1="460.0" y1="124.0" x2="439.2" y2="112.0"/></g><g class="trace ep-2 t-ink"><line x1="439.2" y1="112.0" x2="439.2" y2="88.0"/></g><g class="trace ep-2 t-ink"><line x1="439.2" y1="88.0" x2="460.0" y2="76.0"/></g><text class="note" x="460.0" y="185.0" text-anchor="middle">cyclohexane</text><text class="petit" x="460.0" y="205.0" text-anchor="middle">cyclique</text><g class="trace ep-2 t-ink"><line x1="585.0" y1="76.0" x2="605.8" y2="88.0"/><line x1="585.5" y1="83.2" x2="599.3" y2="91.2"/></g><g class="trace ep-2 t-ink"><line x1="605.8" y1="88.0" x2="605.8" y2="112.0"/></g><g class="trace ep-2 t-ink"><line x1="605.8" y1="112.0" x2="585.0" y2="124.0"/><line x1="599.3" y1="108.8" x2="585.5" y2="116.8"/></g><g class="trace ep-2 t-ink"><line x1="585.0" y1="124.0" x2="564.2" y2="112.0"/></g><g class="trace ep-2 t-ink"><line x1="564.2" y1="112.0" x2="564.2" y2="88.0"/><line x1="570.2" y1="107.9" x2="570.2" y2="92.1"/></g><g class="trace ep-2 t-ink"><line x1="564.2" y1="88.0" x2="585.0" y2="76.0"/></g><text class="note" x="585.0" y="185.0" text-anchor="middle">cycle benzénique</text><text class="petit" x="585.0" y="205.0" text-anchor="middle">cyclique, insaturé</text></svg><figcaption>Cinq squelettes de six carbones. La même formule brute peut cacher des squelettes différents : C₆H₁₄ pour les deux premiers, C₆H₁₂ pour les deux suivants.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Le cycle benzénique">
+    <p>Six carbones en cycle, avec trois doubles liaisons qui alternent avec des simples. On le rencontre dans beaucoup de molécules des sujets : l'aspirine, le paracétamol, la vanilline. Le programme ne demande rien de plus sur lui : il se lit comme un cycle ordinaire, chaque sommet étant un carbone qui porte un hydrogène s'il n'a pas d'autre liaison.</p>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-familles">2. Huit familles à reconnaître</h3>
+
+  <div class="bloc definition" data-titre="Groupe caractéristique, famille">
+    <p>Un <strong>groupe caractéristique</strong> est un ensemble d'atomes, autres que les C et H de la chaîne, avec leurs liaisons : il donne à la molécule l'essentiel de ses propriétés. Les espèces qui ont le même groupe forment une <strong>famille</strong>.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="familles" viewBox="0 0 660 460" role="img" aria-label="Huit familles, chacune avec une molécule exemple en formule topologique, son groupe caractéristique en rose. En haut, les quatre de première : alcool (groupe OH), aldéhyde (C=O au bout de la chaîne), cétone (C=O dans la chaîne), acide carboxylique (C=O et OH sur le même carbone). En bas, les quatre de terminale : ester (C=O et un O lié à un carbone), amine (un azote lié à des carbones), amide (un azote lié au carbone d'un C=O), halogénoalcane (un chlore lié à un carbone)."><text class="petit" x="320.0" y="22.0" text-anchor="middle">Vues en première</text><text class="petit" x="320.0" y="236.0" text-anchor="middle">Nouvelles en terminale</text><rect class="fond-carte" x="7.0" y="40.0" width="146" height="176" rx="10"/><g class="trace ep-2 t-ink"><line x1="43.6" y1="109.0" x2="67.9" y2="95.0"/></g><g class="trace ep-2 t-ink"><line x1="67.9" y1="95.0" x2="92.1" y2="109.0"/></g><g class="trace ep-2 t-v"><line x1="92.1" y1="109.0" x2="107.7" y2="100.0"/></g><text class="formule plein t-v" x="116.4" y="100.5" text-anchor="middle">O</text><text class="formule plein t-v" x="122.4" y="100.5">H</text><text class="note" x="80.0" y="164.0" text-anchor="middle">alcool</text><text class="petit" x="80.0" y="184.0" text-anchor="middle">hydroxyle –OH</text><text class="petit" x="80.0" y="203.0" text-anchor="middle">-ol</text><rect class="fond-carte" x="167.0" y="40.0" width="146" height="176" rx="10"/><g class="trace ep-2 t-ink"><line x1="203.6" y1="109.0" x2="227.9" y2="95.0"/></g><g class="trace ep-2 t-ink"><line x1="227.9" y1="95.0" x2="252.1" y2="109.0"/></g><g class="trace ep-2 t-v"><line x1="250.6" y1="106.4" x2="266.2" y2="97.4"/><line x1="253.6" y1="111.6" x2="269.2" y2="102.6"/></g><text class="formule plein t-v" x="276.4" y="100.5" text-anchor="middle">O</text><text class="note" x="240.0" y="164.0" text-anchor="middle">aldéhyde</text><text class="petit" x="240.0" y="184.0" text-anchor="middle">carbonyle en bout</text><text class="petit" x="240.0" y="203.0" text-anchor="middle">-al</text><rect class="fond-carte" x="327.0" y="40.0" width="146" height="176" rx="10"/><g class="trace ep-2 t-ink"><line x1="363.6" y1="123.0" x2="387.9" y2="109.0"/></g><g class="trace ep-2 t-ink"><line x1="387.9" y1="109.0" x2="412.1" y2="123.0"/></g><g class="trace ep-2 t-ink"><line x1="412.1" y1="123.0" x2="436.4" y2="109.0"/></g><g class="trace ep-2 t-v"><line x1="384.9" y1="109.0" x2="384.9" y2="91.0"/><line x1="390.9" y1="109.0" x2="390.9" y2="91.0"/></g><text class="formule plein t-v" x="387.9" y="86.5" text-anchor="middle">O</text><text class="note" x="400.0" y="164.0" text-anchor="middle">cétone</text><text class="petit" x="400.0" y="184.0" text-anchor="middle">carbonyle dans la chaîne</text><text class="petit" x="400.0" y="203.0" text-anchor="middle">-one</text><rect class="fond-carte" x="487.0" y="40.0" width="146" height="176" rx="10"/><g class="trace ep-2 t-ink"><line x1="523.6" y1="95.0" x2="547.9" y2="81.0"/></g><g class="trace ep-2 t-ink"><line x1="547.9" y1="81.0" x2="572.1" y2="95.0"/></g><g class="trace ep-2 t-v"><line x1="575.1" y1="95.0" x2="575.1" y2="113.0"/><line x1="569.1" y1="95.0" x2="569.1" y2="113.0"/></g><g class="trace ep-2 t-v"><line x1="572.1" y1="95.0" x2="587.7" y2="86.0"/></g><text class="formule plein t-v" x="572.1" y="128.5" text-anchor="middle">O</text><text class="formule plein t-v" x="596.4" y="86.5" text-anchor="middle">O</text><text class="formule plein t-v" x="602.4" y="86.5">H</text><text class="note" x="560.0" y="164.0" text-anchor="middle">acide carboxylique</text><text class="petit" x="560.0" y="184.0" text-anchor="middle">carboxyle –COOH</text><text class="petit" x="560.0" y="203.0" text-anchor="middle">acide -oïque</text><rect class="fond-carte" x="7.0" y="250.0" width="146" height="176" rx="10"/><g class="trace ep-2 t-ink"><line x1="31.5" y1="333.0" x2="55.8" y2="319.0"/></g><g class="trace ep-2 t-v"><line x1="52.8" y1="319.0" x2="52.8" y2="301.0"/><line x1="58.8" y1="319.0" x2="58.8" y2="301.0"/></g><g class="trace ep-2 t-v"><line x1="55.8" y1="319.0" x2="71.3" y2="328.0"/></g><g class="trace ep-2 t-ink"><line x1="88.7" y1="328.0" x2="104.2" y2="319.0"/></g><g class="trace ep-2 t-ink"><line x1="104.2" y1="319.0" x2="128.5" y2="333.0"/></g><text class="formule plein t-v" x="55.8" y="296.5" text-anchor="middle">O</text><text class="formule plein t-v" x="80.0" y="338.5" text-anchor="middle">O</text><text class="note" x="80.0" y="374.0" text-anchor="middle">ester</text><text class="petit" x="80.0" y="394.0" text-anchor="middle">ester –COO–</text><text class="petit" x="80.0" y="413.0" text-anchor="middle">-oate de -yle</text><rect class="fond-carte" x="167.0" y="250.0" width="146" height="176" rx="10"/><g class="trace ep-2 t-ink"><line x1="203.6" y1="319.0" x2="227.9" y2="305.0"/></g><g class="trace ep-2 t-ink"><line x1="227.9" y1="305.0" x2="252.1" y2="319.0"/></g><g class="trace ep-2 t-v"><line x1="252.1" y1="319.0" x2="267.7" y2="310.0"/></g><text class="formule plein t-v" x="276.4" y="310.5" text-anchor="middle">N</text><text class="formule plein t-v" x="282.4" y="310.5">H₂</text><text class="note" x="240.0" y="374.0" text-anchor="middle">amine</text><text class="petit" x="240.0" y="394.0" text-anchor="middle">amino –N</text><text class="petit" x="240.0" y="413.0" text-anchor="middle">-amine</text><rect class="fond-carte" x="327.0" y="250.0" width="146" height="176" rx="10"/><g class="trace ep-2 t-ink"><line x1="363.6" y1="305.0" x2="387.9" y2="291.0"/></g><g class="trace ep-2 t-ink"><line x1="387.9" y1="291.0" x2="412.1" y2="305.0"/></g><g class="trace ep-2 t-v"><line x1="415.1" y1="305.0" x2="415.1" y2="323.0"/><line x1="409.1" y1="305.0" x2="409.1" y2="323.0"/></g><g class="trace ep-2 t-v"><line x1="412.1" y1="305.0" x2="427.7" y2="296.0"/></g><text class="formule plein t-v" x="412.1" y="338.5" text-anchor="middle">O</text><text class="formule plein t-v" x="436.4" y="296.5" text-anchor="middle">N</text><text class="formule plein t-v" x="442.4" y="296.5">H₂</text><text class="note" x="400.0" y="374.0" text-anchor="middle">amide</text><text class="petit" x="400.0" y="394.0" text-anchor="middle">amide –CO–N</text><text class="petit" x="400.0" y="413.0" text-anchor="middle">-amide</text><rect class="fond-carte" x="487.0" y="250.0" width="146" height="176" rx="10"/><g class="trace ep-2 t-ink"><line x1="535.8" y1="333.0" x2="560.0" y2="319.0"/></g><g class="trace ep-2 t-ink"><line x1="560.0" y1="319.0" x2="584.2" y2="333.0"/></g><g class="trace ep-2 t-v"><line x1="560.0" y1="319.0" x2="560.0" y2="301.0"/></g><text class="formule plein t-v" x="560.0" y="296.5" text-anchor="middle">Cl</text><text class="note" x="560.0" y="374.0" text-anchor="middle">halogénoalcane</text><text class="petit" x="560.0" y="394.0" text-anchor="middle">halogène –Cl, –Br…</text><text class="petit" x="560.0" y="413.0" text-anchor="middle">chloro-, bromo-</text></svg><figcaption>Les quatre familles de première, en haut, et les quatre nouvelles de terminale, en bas. Le groupe caractéristique est en rose ; sous le nom, ce qu'on y voit, puis la terminaison du nom.</figcaption></figure>
+
+  <div class="defile"><table class="simple">
+    <thead><tr><th>Famille</th><th>Ce qu'on voit</th><th>Le nom</th><th>Exemple</th></tr></thead>
+    <tbody>
+      <tr><td>alcool</td><td>O–H sur un carbone qui n'a pas de C=O</td><td>-ol</td><td>CH₃–CH₂–OH, éthanol</td></tr>
+      <tr><td>aldéhyde</td><td>C=O au bout de la chaîne (le carbone porte un H)</td><td>-al</td><td>CH₃–CHO, éthanal</td></tr>
+      <tr><td>cétone</td><td>C=O entre deux carbones</td><td>-one</td><td>CH₃–CO–CH₃, propanone</td></tr>
+      <tr><td>acide carboxylique</td><td>C=O et O–H sur le même carbone : –COOH</td><td>acide …-oïque</td><td>CH₃–COOH, acide éthanoïque</td></tr>
+      <tr><td>ester</td><td>C=O et un O lui-même lié à un carbone : –COO–C</td><td>…-oate de …-yle</td><td>CH₃–COO–CH₃, éthanoate de méthyle</td></tr>
+      <tr><td>amine</td><td>N lié à un ou plusieurs carbones, sans C=O voisin</td><td>-amine</td><td>CH₃–CH₂–NH₂, éthanamine</td></tr>
+      <tr><td>amide</td><td>N lié au carbone d'un C=O : –CO–N</td><td>-amide</td><td>CH₃–CO–NH₂, éthanamide</td></tr>
+      <tr><td>halogénoalcane</td><td>Cl, Br, I ou F lié à un carbone</td><td>chloro-, bromo-…</td><td>CH₃–CH₂–Cl, chloroéthane</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="bloc methode" data-titre="Repérer les groupes d'une molécule">
+    <ol class="etapes">
+      <li><span>Je repère chaque atome qui n'est ni C ni H : O, N, Cl…</span></li>
+      <li><span>Pour chaque O ou N, je regarde son carbone voisin : porte-t-il un C=O ?</span></li>
+      <li><span>Je tranche : C=O avec O–H, acide ; C=O avec O–C, ester ; C=O avec N, amide ; C=O seul, aldéhyde au bout ou cétone au milieu ; O–H sans C=O, alcool ; N sans C=O, amine ; un halogène, halogénoalcane.</span></li>
+      <li><span>J'entoure chaque groupe et j'écris le nom de sa famille.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Repérer les groupes caractéristiques de l'aspirine (figure ci-dessous).</p>
+      <ol class="pas">
+        <li><span><strong>Les atomes à regarder.</strong> Quatre O, sur deux carbones extérieurs au cycle.</span></li>
+        <li><span><strong>En haut à droite.</strong> Un carbone porte =O et –OH : groupe carboxyle, famille des <strong>acides carboxyliques</strong>.</span></li>
+        <li><span><strong>En bas à droite.</strong> Un carbone porte =O et un O lui-même lié au cycle, donc à un carbone : groupe <strong>ester</strong>.</span></li>
+        <li><span><strong>Conclusion.</strong> L'aspirine est à la fois un acide carboxylique et un ester. Elle a les propriétés des deux.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="reperer_groupes" viewBox="0 0 440 320" role="img" aria-label="L'aspirine en formule topologique : un cycle benzénique qui porte deux groupes voisins. En haut à droite, un carbone lié à un =O et à un OH, entouré et nommé groupe carboxyle : famille des acides carboxyliques. En bas à droite, un O lié au cycle puis à un carbone qui porte un =O et un CH3, entouré et nommé groupe ester."><g class="trace ep-2 t-ink"><line x1="150.0" y1="92.0" x2="184.6" y2="112.0"/><line x1="152.9" y1="100.6" x2="175.8" y2="113.8"/></g><g class="trace ep-2 t-ink"><line x1="184.6" y1="112.0" x2="184.6" y2="152.0"/></g><g class="trace ep-2 t-ink"><line x1="184.6" y1="152.0" x2="150.0" y2="172.0"/><line x1="175.8" y1="150.2" x2="152.9" y2="163.4"/></g><g class="trace ep-2 t-ink"><line x1="150.0" y1="172.0" x2="115.4" y2="152.0"/></g><g class="trace ep-2 t-ink"><line x1="115.4" y1="152.0" x2="115.4" y2="112.0"/><line x1="121.4" y1="145.2" x2="121.4" y2="118.8"/></g><g class="trace ep-2 t-ink"><line x1="184.6" y1="112.0" x2="219.3" y2="92.0"/></g><g class="trace ep-2 t-v"><line x1="216.3" y1="92.0" x2="216.3" y2="62.0"/><line x1="222.3" y1="92.0" x2="222.3" y2="62.0"/></g><g class="trace ep-2 t-v"><line x1="219.3" y1="92.0" x2="245.3" y2="107.0"/></g><g class="trace ep-2 t-ink"><line x1="184.6" y1="152.0" x2="210.6" y2="167.0"/></g><g class="trace ep-2 t-w"><line x1="219.3" y1="182.0" x2="219.3" y2="212.0"/></g><g class="trace ep-2 t-w"><line x1="220.8" y1="214.6" x2="194.8" y2="229.6"/><line x1="217.8" y1="209.4" x2="191.8" y2="224.4"/></g><g class="trace ep-2 t-ink"><line x1="219.3" y1="212.0" x2="253.9" y2="232.0"/></g><g class="trace ep-2 t-ink"><line x1="115.4" y1="112.0" x2="150.0" y2="92.0"/></g><text class="formule plein t-v" x="219.3" y="57.5" text-anchor="middle">O</text><text class="formule plein t-v" x="253.9" y="117.5" text-anchor="middle">O</text><text class="formule plein t-v" x="259.9" y="117.5">H</text><text class="formule plein t-w" x="219.3" y="177.5" text-anchor="middle">O</text><text class="formule plein t-w" x="184.6" y="237.5" text-anchor="middle">O</text><g class="trace t-v pointille"><path d="M212.3,36.0 H274.9 A9,9 0 0 1 283.9,45.0 V119.0 A9,9 0 0 1 274.9,128.0 H212.3 A9,9 0 0 1 203.3,119.0 V45.0 A9,9 0 0 1 212.3,36.0 Z"/></g><text class="note plein t-v" x="243.6" y="28.0" text-anchor="middle">acide carboxylique</text><g class="trace t-w pointille"><path d="M177.6,156.0 H226.3 A9,9 0 0 1 235.3,165.0 V239.0 A9,9 0 0 1 226.3,248.0 H177.6 A9,9 0 0 1 168.6,239.0 V165.0 A9,9 0 0 1 177.6,156.0 Z"/></g><text class="note plein t-w" x="258.0" y="266.0" text-anchor="middle">ester</text></svg><figcaption>L'aspirine (acide acétylsalicylique, C₉H₈O₄) : un groupe carboxyle et un groupe ester, sur deux carbones voisins du cycle.</figcaption></figure>
+
+  <div class="bloc piege" data-titre="Le C=O ne suffit pas">
+    <p>Tout le monde voit un C=O et écrit « cétone ». Regarde d'abord ce qui est accroché au <strong>même carbone</strong> : un O–H en fait un acide, un O–C un ester, un N un amide. Et un N sans C=O voisin reste une amine.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Un OH porté par un cycle benzénique">
+    <p>Dans le paracétamol, le groupe OH est accroché directement au cycle. Les chimistes appellent cette famille les <em>phénols</em> ; le programme ne la demande pas, et les sujets parlent alors simplement de « groupe hydroxyle ».</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-nommer">3. Nommer une molécule avec les règles du sujet</h3>
+
+  <div class="bloc remarque" data-titre="Les règles se lisent, elles ne s'apprennent pas par cœur">
+    <p>Au baccalauréat, les règles de nomenclature sont <strong>fournies</strong> dans le sujet. Ce qui est attendu, c'est de savoir les appliquer, dans les deux sens : du nom à la formule, de la formule au nom. Celles ci-dessous sont celles qu'un sujet donne le plus souvent.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Les règles de nomenclature">
+    <ol>
+      <li><strong>La chaîne principale</strong> est la plus longue chaîne de carbones qui contient le carbone du groupe caractéristique.</li>
+      <li><strong>La racine</strong> dit son nombre de carbones : méth- (1), éth- (2), prop- (3), but- (4), pent- (5), hex- (6).</li>
+      <li><strong>La numérotation</strong> commence par le bout qui donne au carbone du groupe le plus petit numéro. Pour un aldéhyde, un acide, un ester ou un amide, ce carbone est toujours le n° 1 : on n'écrit pas son numéro. S'il n'y a pas de groupe, le plus petit numéro va aux ramifications.</li>
+      <li><strong>Les ramifications</strong> (méthyl-, éthyl-) se placent devant la racine, avec le numéro du carbone qui les porte : 2-méthyl…</li>
+      <li><strong>La terminaison</strong> dit la famille : -ane pour un alcane, -ol, -al, -one, acide …-oïque, -amine, -amide ; un halogène est un préfixe : chloro-, bromo-. Une double liaison C=C change -ane en -ène, avec son numéro : but-2-ène.</li>
+    </ol>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="chaine_principale" viewBox="0 0 440 270" role="img" aria-label="Le 3-méthylpentan-2-ol. La ligne droite horizontale du dessin ne compte que quatre carbones ; la chaîne principale, en rose, part de la gauche, passe par le carbone qui porte OH, puis descend dans la branche : cinq carbones, numérotés de 1 à 5 en partant du côté du groupe OH. Le carbone resté seul en haut à droite est un méthyle, sur le carbone 3."><g class="trace ep-2 t-v"><line x1="137.5" y1="112.0" x2="182.5" y2="86.0"/></g><g class="trace ep-2 t-v"><line x1="182.5" y1="86.0" x2="227.5" y2="112.0"/></g><g class="trace ep-2 t-ink"><line x1="227.5" y1="112.0" x2="272.5" y2="86.0"/></g><g class="trace ep-2 t-v"><line x1="227.5" y1="112.0" x2="227.5" y2="164.0"/></g><g class="trace ep-2 t-v"><line x1="227.5" y1="164.0" x2="272.5" y2="190.0"/></g><g class="trace ep-2 t-ink"><line x1="182.5" y1="86.0" x2="182.5" y2="44.0"/></g><text class="formule" x="182.5" y="39.5" text-anchor="middle">O</text><text class="formule" x="188.5" y="39.5">H</text><text class="petit" x="124.5" y="124.0" text-anchor="middle">1</text><text class="petit" x="195.5" y="83.0" text-anchor="middle">2</text><text class="petit" x="214.5" y="124.0" text-anchor="middle">3</text><text class="petit" x="214.5" y="176.0" text-anchor="middle">4</text><text class="petit" x="285.5" y="202.0" text-anchor="middle">5</text><text class="note" x="210.0" y="238.0" text-anchor="middle">chaîne principale : 5 carbones (pentan-) ; méthyle en 3 ; OH en 2</text></svg><figcaption>Le piège du dessin : la ligne droite ne compte que quatre carbones, mais la chaîne la plus longue qui passe par le carbone du OH en compte cinq. Elle est en rose, numérotée depuis le bout le plus proche du OH.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="De la formule au nom">
+    <ol class="etapes">
+      <li><span>Je repère le groupe caractéristique : il donne la terminaison.</span></li>
+      <li><span>Je cherche la plus longue chaîne qui contient le carbone du groupe, sans suivre forcément la ligne du dessin : elle donne la racine.</span></li>
+      <li><span>Je numérote pour donner au carbone du groupe le plus petit numéro.</span></li>
+      <li><span>J'ajoute les ramifications devant, avec leur numéro, et je relis le nom en entier.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Nommer la molécule de la figure ci-dessus.</p>
+      <ol class="pas">
+        <li><span><strong>Le groupe.</strong> Un OH sur un carbone sans C=O : un alcool, terminaison -ol.</span></li>
+        <li><span><strong>La chaîne.</strong> En passant par la branche du bas, cinq carbones : racine pent-.</span></li>
+        <li><span><strong>Les numéros.</strong> Depuis la gauche, le OH est sur le carbone 2 ; depuis l'autre bout, sur le 4. On garde 2 : pentan-2-ol.</span></li>
+        <li><span><strong>La ramification.</strong> Le carbone resté en haut à droite est un méthyle, porté par le carbone 3 : <strong>3-méthylpentan-2-ol</strong>.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Du nom à la formule">
+    <ol class="etapes">
+      <li><span>La racine me donne la chaîne principale : je l'écris et je numérote ses carbones.</span></li>
+      <li><span>La terminaison me dit quel groupe placer, et le numéro, sur quel carbone.</span></li>
+      <li><span>J'accroche les ramifications sur les carbones indiqués.</span></li>
+      <li><span>Je complète les H et je vérifie la formule brute.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Écrire la formule semi-développée de l'acide 2-méthylpropanoïque.</p>
+      <ol class="pas">
+        <li><span><strong>La chaîne.</strong> Prop- : trois carbones, C1–C2–C3.</span></li>
+        <li><span><strong>Le groupe.</strong> Acide …-oïque : C1 porte le groupe –COOH.</span></li>
+        <li><span><strong>La ramification.</strong> 2-méthyl : un CH₃ sur C2.</span></li>
+        <li><span><strong>La formule.</strong> CH₃–CH(CH₃)–COOH, soit C₄H₈O₂.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc propriete" data-titre="Nommer un ester">
+    <p>Un ester R–COO–R′ se nomme en deux mots. La partie qui porte le C=O vient d'un acide : elle prend la terminaison <strong>-oate</strong>. La partie liée à l'oxygène vient d'un alcool : elle devient « <strong>de …-yle</strong> ».</p>
+    <p>CH₃–COO–CH₂–CH₃ : <strong>éthanoate d'éthyle</strong>. CH₃–CH₂–COO–CH₃ : <strong>propanoate de méthyle</strong>. Même formule brute, C₄H₈O₂ : deux esters différents.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pour aller plus loin : N-méthyl…">
+    <p>Quand un groupe est porté par l'azote d'une amine ou d'un amide, son nom commence par « N- » : CH₃–CO–NH–CH₃ est le N-méthyléthanamide. Le paracétamol est ainsi un amide dont l'azote porte le cycle. Les sujets donnent la règle quand ils en ont besoin.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-isomeres">4. Des isomères de constitution</h3>
+
+  <div class="bloc definition" data-titre="Isomères de constitution">
+    <p>Deux espèces sont <strong>isomères de constitution</strong> si elles ont la <strong>même formule brute</strong> mais des atomes enchaînés différemment. Ce sont deux espèces différentes, aux propriétés différentes (températures de changement d'état, odeur, réactivité).</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Ce qui change d'un isomère à l'autre">
+    <p>Le squelette (butanal et 2-méthylpropanal), la place du groupe (butan-1-ol et butan-2-ol), ou la famille elle-même (butanal et butanone). Les chimistes parlent d'isomères de chaîne, de position, de fonction ; le programme ne demande pas ces mots.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="isomeres_c4h8o" viewBox="0 0 580 220" role="img" aria-label="Trois isomères de formule brute C4H8O, qui portent tous un groupe carbonyle : le butanal (C=O au bout d'une chaîne de quatre carbones), le 2-méthylpropanal (C=O au bout, chaîne ramifiée) et la butanone (C=O sur le deuxième carbone)."><g class="trace ep-2 t-ink"><line x1="25.7" y1="102.0" x2="60.4" y2="82.0"/></g><g class="trace ep-2 t-ink"><line x1="60.4" y1="82.0" x2="95.0" y2="102.0"/></g><g class="trace ep-2 t-ink"><line x1="95.0" y1="102.0" x2="129.6" y2="82.0"/></g><g class="trace ep-2 t-ink"><line x1="131.1" y1="79.4" x2="157.1" y2="94.4"/><line x1="128.1" y1="84.6" x2="154.1" y2="99.6"/></g><text class="formule plein t-v" x="164.3" y="107.5" text-anchor="middle">O</text><text class="note" x="95.0" y="160.0" text-anchor="middle">butanal</text><text class="petit" x="95.0" y="180.0" text-anchor="middle">aldéhyde</text><g class="trace ep-2 t-ink"><line x1="228.0" y1="122.0" x2="262.7" y2="102.0"/></g><g class="trace ep-2 t-ink"><line x1="262.7" y1="102.0" x2="262.7" y2="62.0"/></g><g class="trace ep-2 t-ink"><line x1="262.7" y1="102.0" x2="297.3" y2="122.0"/></g><g class="trace ep-2 t-ink"><line x1="295.8" y1="119.4" x2="321.8" y2="104.4"/><line x1="298.8" y1="124.6" x2="324.8" y2="109.6"/></g><text class="formule plein t-v" x="332.0" y="107.5" text-anchor="middle">O</text><text class="note" x="280.0" y="160.0" text-anchor="middle">2-méthylpropanal</text><text class="petit" x="280.0" y="180.0" text-anchor="middle">aldéhyde, chaîne ramifiée</text><g class="trace ep-2 t-ink"><line x1="413.0" y1="122.0" x2="447.7" y2="102.0"/></g><g class="trace ep-2 t-ink"><line x1="447.7" y1="102.0" x2="482.3" y2="122.0"/></g><g class="trace ep-2 t-ink"><line x1="482.3" y1="122.0" x2="517.0" y2="102.0"/></g><g class="trace ep-2 t-ink"><line x1="444.7" y1="102.0" x2="444.7" y2="72.0"/><line x1="450.7" y1="102.0" x2="450.7" y2="72.0"/></g><text class="formule plein t-v" x="447.7" y="67.5" text-anchor="middle">O</text><text class="note" x="465.0" y="160.0" text-anchor="middle">butanone</text><text class="petit" x="465.0" y="180.0" text-anchor="middle">cétone</text></svg><figcaption>Trois isomères de formule C₄H₈O qui portent un C=O. Le butanal et le 2-méthylpropanal diffèrent par leur squelette ; le butanal et la butanone, par leur famille.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Trouver les isomères d'une formule brute">
+    <ol class="etapes">
+      <li><span>Je dessine tous les squelettes carbonés possibles, du plus long au plus ramifié.</span></li>
+      <li><span>Sur chacun, je place le groupe à chaque position possible.</span></li>
+      <li><span>J'élimine les doublons : une molécule retournée ou vue dans un miroir est la même.</span></li>
+      <li><span>Je vérifie la formule brute de chacune et je la nomme.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Trouver les alcools de formule brute C₄H₁₀O.</p>
+      <ol class="pas">
+        <li><span><strong>Les squelettes.</strong> Quatre carbones en ligne, ou trois en ligne et un en ramification.</span></li>
+        <li><span><strong>En ligne.</strong> OH en bout : butan-1-ol ; OH sur un carbone du milieu : butan-2-ol (les deux carbones du milieu donnent la même molécule).</span></li>
+        <li><span><strong>Ramifié.</strong> OH en bout : 2-méthylpropan-1-ol ; OH sur le carbone central : 2-méthylpropan-2-ol.</span></li>
+        <li><span><strong>Bilan.</strong> Quatre alcools, tous C₄H₁₀O. Trois autres isomères existent, où l'oxygène est entre deux carbones (CH₃–O–CH₂–CH₂–CH₃…) : ce ne sont pas des alcools, mais des éthers, une famille que le programme ne demande pas.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Retourner n'est pas isomériser">
+    <p>Le butan-2-ol dessiné avec le OH en bas, ou lu de droite à gauche, reste le butan-2-ol. Avant d'annoncer deux isomères, nomme-les : deux noms identiques, c'est la même molécule.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-polymeres">5. Les polymères</h3>
+
+  <div class="bloc definition" data-titre="Polymère, monomère, motif">
+    <p>Un <strong>polymère</strong> est une macromolécule : une très longue chaîne où le même groupe d'atomes, le <strong>motif</strong>, se répète. On l'écrit entre crochets, avec un indice $n$, le nombre de motifs (des centaines à des dizaines de milliers).</p>
+    <p>Le <strong>monomère</strong> est la petite molécule de départ ; la <strong>polymérisation</strong> est la réaction qui enchaîne les monomères.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="polymere_motif" viewBox="0 0 680 250" role="img" aria-label="À gauche, le monomère, le chloroéthène : deux carbones liés par une double liaison, l'un portant un chlore. Une flèche marquée polymérisation mène, au milieu, à un morceau de la chaîne du PVC : une ligne brisée dont un carbone sur deux porte un chlore. À droite, le motif entre crochets : deux carbones liés par une liaison simple, l'un portant un chlore, et l'indice n."><g class="trace ep-2 t-v"><line x1="52.7" y1="140.0" x2="87.3" y2="120.0"/><line x1="55.6" y1="131.4" x2="78.4" y2="118.2"/></g><g class="trace ep-2 t-ink"><line x1="87.3" y1="120.0" x2="87.3" y2="90.0"/></g><text class="formule" x="87.3" y="85.5" text-anchor="middle">Cl</text><text class="note" x="70.0" y="190.0" text-anchor="middle">monomère</text><text class="petit" x="70.0" y="208.0" text-anchor="middle">chloroéthène</text><g class="trace t-n"><line x1="125" y1="110" x2="177.2" y2="110.0"/><polygon points="185.0,110.0 172.0,115.8 172.0,104.2"/></g><text class="petit" x="155.0" y="96.0" text-anchor="middle">n fois</text><g class="trace ep-2 t-ink"><line x1="241.7" y1="95.5" x2="271.1" y2="78.5"/></g><g class="trace ep-2 t-ink"><line x1="271.1" y1="78.5" x2="300.6" y2="95.5"/></g><g class="trace ep-2 t-ink"><line x1="300.6" y1="95.5" x2="330.0" y2="78.5"/></g><g class="trace ep-2 t-ink"><line x1="330.0" y1="78.5" x2="359.4" y2="95.5"/></g><g class="trace ep-2 t-ink"><line x1="359.4" y1="95.5" x2="388.9" y2="78.5"/></g><g class="trace ep-2 t-ink"><line x1="388.9" y1="78.5" x2="418.3" y2="95.5"/></g><g class="trace ep-2 t-ink"><line x1="300.6" y1="95.5" x2="300.6" y2="119.5"/></g><g class="trace ep-2 t-ink"><line x1="359.4" y1="95.5" x2="359.4" y2="119.5"/></g><g class="trace ep-2 t-ink"><line x1="418.3" y1="95.5" x2="418.3" y2="119.5"/></g><text class="formule" x="300.6" y="135.0" text-anchor="middle">Cl</text><text class="formule" x="359.4" y="135.0" text-anchor="middle">Cl</text><text class="formule" x="418.3" y="135.0" text-anchor="middle">Cl</text><text class="formule" x="225.7" y="100.5" text-anchor="middle">…</text><text class="formule" x="434.3" y="100.5" text-anchor="middle">…</text><text class="note" x="330.0" y="190.0" text-anchor="middle">le polymère (PVC)</text><g class="trace ep-2 t-ink"><line x1="528.0" y1="94.0" x2="562.7" y2="74.0"/></g><g class="trace ep-2 t-ink"><line x1="562.7" y1="74.0" x2="597.3" y2="94.0"/></g><g class="trace ep-2 t-ink"><line x1="597.3" y1="94.0" x2="597.3" y2="124.0"/></g><g class="trace ep-2 t-ink"><line x1="597.3" y1="94.0" x2="632.0" y2="74.0"/></g><text class="formule" x="597.3" y="139.5" text-anchor="middle">Cl</text><g class="trace ep-2 t-ink"><path d="M557.7,95.4 L553.4,97.9 L537.4,70.1 L541.7,67.6"/></g><g class="trace ep-2 t-ink"><path d="M602.3,72.6 L606.6,70.1 L622.6,97.9 L618.3,100.4"/></g><text class="formule" x="630.6" y="103.9" text-anchor="middle">n</text><text class="note" x="580.0" y="190.0" text-anchor="middle">le motif</text><text class="petit" x="580.0" y="208.0" text-anchor="middle">la double liaison s’est ouverte</text></svg><figcaption>Du chloroéthène au PVC. Dans le motif, les deux carbones du monomère sont liés par une liaison simple : la double liaison s'est ouverte pour accrocher les motifs voisins.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Trouver le motif d'un polymère">
+    <ol class="etapes">
+      <li><span>Je repère la suite d'atomes qui se répète le long de la chaîne.</span></li>
+      <li><span>Je la découpe entre deux répétitions, sans couper un groupe en deux.</span></li>
+      <li><span>Je l'écris entre crochets, avec l'indice $n$.</span></li>
+      <li><span>Si le monomère a une double liaison C=C, je vérifie que le motif ne l'a plus.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Le polypropène est obtenu à partir du propène CH₂=CH–CH₃. Écrire son motif.</p>
+      <ol class="pas">
+        <li><span><strong>Ce qui s'ouvre.</strong> La double liaison C=C devient simple ; chaque carbone gagne une liaison vers le motif voisin.</span></li>
+        <li><span><strong>Le motif.</strong> –CH₂–CH(CH₃)– : deux carbones dans la chaîne, le CH₃ en ramification.</span></li>
+        <li><span><strong>Le polymère.</strong> $[\text{–CH}_2\text{–CH(CH}_3\text{)–}]_n$.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="defile"><table class="simple">
+    <thead><tr><th>Polymère</th><th>Origine</th><th>Des usages</th></tr></thead>
+    <tbody>
+      <tr><td>polyéthylène (PE)</td><td>synthétique</td><td>sacs, flacons, films alimentaires</td></tr>
+      <tr><td>polychlorure de vinyle (PVC)</td><td>synthétique</td><td>canalisations, cadres de fenêtres</td></tr>
+      <tr><td>polystyrène (PS)</td><td>synthétique</td><td>emballages, isolants</td></tr>
+      <tr><td>polyester (PET)</td><td>synthétique</td><td>bouteilles, fibres textiles</td></tr>
+      <tr><td>polyamide (nylon)</td><td>synthétique</td><td>vêtements, cordes, pièces mécaniques</td></tr>
+      <tr><td>acide polylactique (PLA)</td><td>synthétique, fait à partir d'amidon de maïs</td><td>gobelets et emballages compostables</td></tr>
+      <tr><td>cellulose, amidon</td><td>naturels (végétaux)</td><td>bois, coton, papier ; réserve d'énergie des plantes</td></tr>
+      <tr><td>protéines, ADN</td><td>naturels (êtres vivants)</td><td>laine, soie, cheveux ; information génétique</td></tr>
+      <tr><td>caoutchouc naturel, chitine</td><td>naturels</td><td>latex de l'hévéa ; carapaces des crustacés</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="bloc remarque" data-titre="Polyester, polyamide">
+    <p>Quand chaque maillon est relié au suivant par un groupe ester, le polymère est un <strong>polyester</strong> (PET, PLA) ; par un groupe amide, un <strong>polyamide</strong> (nylon, et les protéines). Et « naturel » ne s'oppose pas à « polymère » : le coton est un polymère.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-reactions">6. Classer une réaction</h3>
+
+  <div class="bloc definition" data-titre="Substitution, addition, élimination">
+    <ul>
+      <li><strong>Substitution</strong> : un atome ou un groupe de la molécule est remplacé par un autre.</li>
+      <li><strong>Addition</strong> : des atomes s'ajoutent sur une liaison multiple, qui devient simple (ou double, si elle était triple). Deux réactifs donnent un seul produit.</li>
+      <li><strong>Élimination</strong> : des atomes portés par deux carbones voisins partent, et une liaison multiple se forme entre eux. Un réactif donne deux produits.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="categories" viewBox="0 0 660 400" role="img" aria-label="Trois réactions en formules topologiques. Substitution : le 2-méthylpropan-2-ol réagit avec le chlorure d'hydrogène ; le groupe OH, en rose, est remplacé par un chlore : 2-chloro-2-méthylpropane et eau. Addition : l'éthène et l'eau donnent l'éthanol ; la double liaison disparaît, deux réactifs donnent un seul produit. Élimination : le butan-2-ol donne le but-2-ène et l'eau ; une double liaison apparaît, un réactif donne deux produits."><text class="note" x="14.0" y="20.0" text-anchor="start">Substitution</text><text class="petit" x="14.0" y="37.0" text-anchor="start">un atome ou un groupe en remplace un autre</text><text class="note" x="14.0" y="145.0" text-anchor="start">Addition</text><text class="petit" x="14.0" y="162.0" text-anchor="start">deux réactifs → un seul produit ; une liaison multiple disparaît</text><text class="note" x="14.0" y="270.0" text-anchor="start">Élimination</text><text class="petit" x="14.0" y="287.0" text-anchor="start">un réactif → deux produits ; une liaison multiple apparaît</text><g class="trace ep-2 t-ink"><line x1="40.0" y1="75.0" x2="70.0" y2="75.0"/></g><g class="trace ep-2 t-ink"><line x1="70.0" y1="75.0" x2="100.0" y2="75.0"/></g><g class="trace ep-2 t-ink"><line x1="70.0" y1="75.0" x2="70.0" y2="45.0"/></g><g class="trace ep-2 t-v"><line x1="70.0" y1="75.0" x2="70.0" y2="95.0"/></g><text class="formule plein t-v" x="70.0" y="110.5" text-anchor="middle">O</text><text class="formule plein t-v" x="76.0" y="110.5">H</text><text class="formule" x="135.0" y="80.0" text-anchor="middle">+</text><text class="formule" x="170.0" y="80.0" text-anchor="middle">HCl</text><g class="trace t-n"><line x1="205" y1="75" x2="257.2" y2="75.0"/><polygon points="265.0,75.0 252.0,80.8 252.0,69.2"/></g><g class="trace ep-2 t-ink"><line x1="295.0" y1="75.0" x2="325.0" y2="75.0"/></g><g class="trace ep-2 t-ink"><line x1="325.0" y1="75.0" x2="355.0" y2="75.0"/></g><g class="trace ep-2 t-ink"><line x1="325.0" y1="75.0" x2="325.0" y2="45.0"/></g><g class="trace ep-2 t-v"><line x1="325.0" y1="75.0" x2="325.0" y2="95.0"/></g><text class="formule plein t-v" x="325.0" y="110.5" text-anchor="middle">Cl</text><text class="formule" x="390.0" y="80.0" text-anchor="middle">+</text><text class="formule" x="430.0" y="80.0" text-anchor="middle">H₂O</text><g class="trace ep-2 t-v"><line x1="53.8" y1="205.9" x2="83.2" y2="188.9"/><line x1="56.8" y1="211.1" x2="86.2" y2="194.1"/></g><text class="formule" x="135.0" y="205.0" text-anchor="middle">+</text><text class="formule" x="170.0" y="205.0" text-anchor="middle">H₂O</text><g class="trace t-n"><line x1="205" y1="200" x2="257.2" y2="200.0"/><polygon points="265.0,200.0 252.0,205.8 252.0,194.2"/></g><g class="trace ep-2 t-ink"><line x1="295.6" y1="208.5" x2="325.0" y2="191.5"/></g><g class="trace ep-2 t-v"><line x1="325.0" y1="191.5" x2="345.8" y2="203.5"/></g><text class="formule plein t-v" x="354.4" y="214.0" text-anchor="middle">O</text><text class="formule plein t-v" x="360.4" y="214.0">H</text><g class="trace ep-2 t-ink"><line x1="41.0" y1="352.5" x2="67.0" y2="337.5"/></g><g class="trace ep-2 t-ink"><line x1="67.0" y1="337.5" x2="93.0" y2="352.5"/></g><g class="trace ep-2 t-ink"><line x1="93.0" y1="352.5" x2="119.0" y2="337.5"/></g><g class="trace ep-2 t-v"><line x1="67.0" y1="337.5" x2="67.0" y2="317.5"/></g><text class="formule plein t-v" x="67.0" y="313.0" text-anchor="middle">O</text><text class="formule plein t-v" x="73.0" y="313.0">H</text><g class="trace t-n"><line x1="150" y1="330" x2="202.2" y2="330.0"/><polygon points="210.0,330.0 197.0,335.9 197.0,324.1"/></g><g class="trace ep-2 t-ink"><line x1="241.0" y1="337.5" x2="267.0" y2="322.5"/></g><g class="trace ep-2 t-v"><line x1="267.0" y1="322.5" x2="293.0" y2="337.5"/><line x1="268.4" y1="330.2" x2="285.6" y2="340.1"/></g><g class="trace ep-2 t-ink"><line x1="293.0" y1="337.5" x2="319.0" y2="322.5"/></g><text class="formule" x="345.0" y="335.0" text-anchor="middle">+</text><text class="formule" x="385.0" y="335.0" text-anchor="middle">H₂O</text></svg><figcaption>Une réaction de chaque catégorie. En rose, ce qui change : le groupe remplacé, la liaison double qui s'ouvre, la liaison double qui se forme.</figcaption></figure>
+
+  <div class="bloc definition" data-titre="Deux catégories déjà rencontrées">
+    <ul>
+      <li><strong>Acide-base</strong> : un ion H⁺ passe d'un acide à une base. CH₃–COOH + HO⁻ → CH₃–COO⁻ + H₂O.</li>
+      <li><strong>Oxydoréduction</strong> : des électrons passent d'un réducteur à un oxydant. En chimie organique, l'oxydation d'un alcool par les ions permanganate en est l'exemple le plus fréquent : CH₃–CH₂–OH devient l'éthanal CH₃–CHO, puis l'acide éthanoïque CH₃–COOH.</li>
+    </ul>
+  </div>
+
+  <div class="bloc methode" data-titre="Classer une réaction">
+    <ol class="etapes">
+      <li><span>Je cherche d'abord un échange d'ion H⁺ (acide-base), ou un oxydant avec un alcool qui devient aldéhyde, cétone ou acide (oxydoréduction).</span></li>
+      <li><span>Sinon, je compte les réactifs et les produits.</span></li>
+      <li><span>Je compare les liaisons multiples entre carbones : une disparaît (addition) ? une apparaît (élimination) ?</span></li>
+      <li><span>Sinon, je cherche un groupe remplacé par un autre (substitution).</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Classer la réaction CH₃–COOH + CH₃–CH₂–OH → CH₃–COO–CH₂–CH₃ + H₂O.</p>
+      <ol class="pas">
+        <li><span><strong>Ni H⁺ échangé, ni oxydant.</strong> Ce n'est ni une réaction acide-base, ni une oxydoréduction. Deux réactifs, deux produits : ni addition, ni élimination.</span></li>
+        <li><span><strong>Les liaisons multiples.</strong> Aucune entre carbones ; le C=O de l'acide se retrouve dans l'ester : rien ne s'ouvre, rien ne se forme.</span></li>
+        <li><span><strong>Ce qui change.</strong> Sur le carbone du C=O, le groupe –OH est remplacé par –O–CH₂–CH₃.</span></li>
+        <li><span><strong>Conclusion.</strong> Une <strong>substitution</strong>. C'est la formation d'un ester, l'estérification.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Et le détail, étape par étape ?">
+    <p>Chaque réaction se décompose en actes élémentaires, où des doublets d'électrons se déplacent d'un site donneur vers un site accepteur, ce que dessinent les flèches courbes. C'est le chapitre « Cinétique et décroissance radioactive ». Une étape d'un mécanisme se classe, elle aussi, en addition, élimination ou acide-base.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-protocole">7. Les étapes d'une synthèse</h3>
+
+  <div class="bloc remarque" data-titre="Rappel de première : quatre étapes">
+    <p>Toute synthèse suit le même plan : <strong>transformer</strong> les réactifs, <strong>isoler</strong> le produit du mélange, le <strong>purifier</strong>, puis l'<strong>analyser</strong> (est-ce le bon, est-il pur ?). Chaque technique se choisit d'après les propriétés des espèces : état physique, solubilité, densité, température de changement d'état.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Le chauffage à reflux">
+    <p>Le mélange est chauffé dans un ballon surmonté d'un <strong>réfrigérant</strong> à eau. Chauffer accélère la transformation ; les vapeurs montent, se condensent sur les parois froides du réfrigérant et retombent dans le ballon. Ainsi, aucun réactif ni produit ne s'échappe, et aucune vapeur inflammable ne se répand dans la salle. L'eau entre <strong>par le bas</strong> du réfrigérant, pour qu'il soit entièrement rempli ; les grains de pierre ponce régularisent l'ébullition.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="montage_reflux" viewBox="0 0 480 440" role="img" aria-label="Le montage de chauffage à reflux. En bas, un chauffe-ballon. Dessus, un ballon à fond rond qui contient le mélange réactionnel et des grains de pierre ponce. Au-dessus, un réfrigérant à boules vertical, ouvert en haut. L'eau froide entre par le bas du réfrigérant et sort par le haut. Les vapeurs montent, se condensent sur les parois froides et retombent dans le ballon."><path class="fond-carte" d="M102.0,320.0 Q150.0,364.0 198.0,320.0 L190.0,374.0 L110.0,374.0 Z"/><path class="liquide sol-1" d="M104.2,295.2 A46.0,46.0 0 1 0 195.8,295.2 Z"/><path class="verre" d="M141.0,206.0 L141.0,252.9 A48.0,48.0 0 1 0 159.0,252.9 L159.0,206.0"/><circle class="grain" cx="136" cy="322" r="3"/><circle class="grain" cx="160" cy="330" r="3"/><circle class="grain" cx="172" cy="316" r="3"/><rect class="liquide sol-0 op-55" x="136.0" y="52.0" width="28" height="146.0" rx="6"/><rect class="verre" x="136.0" y="52.0" width="28" height="146.0" rx="6"/><path class="verre" d="M145.0,40.0 L145.0,60.0 A9,16.2 0 0 0 145.0,92.5 L145.0,92.5 A9,16.2 0 0 0 145.0,125.0 L145.0,125.0 A9,16.2 0 0 0 145.0,157.5 L145.0,157.5 A9,16.2 0 0 0 145.0,190.0 L145.0,210.0"/><path class="verre" d="M155.0,40.0 L155.0,60.0 A9,16.2 0 0 1 155.0,92.5 L155.0,92.5 A9,16.2 0 0 1 155.0,125.0 L155.0,125.0 A9,16.2 0 0 1 155.0,157.5 L155.0,157.5 A9,16.2 0 0 1 155.0,190.0 L155.0,210.0"/><line class="verre" x1="164.0" y1="184.0" x2="184.0" y2="184.0"/><line class="verre" x1="164.0" y1="66.0" x2="184.0" y2="66.0"/><rect class="verre" x="141" y="200" width="18" height="16" rx="3"/><g class="trace t-u"><line x1="260" y1="184" x2="197.8" y2="184.0"/><polygon points="190.0,184.0 203.0,178.2 203.0,189.8"/></g><text class="note" x="266.0" y="188.0" text-anchor="start">entrée de l’eau froide (en bas)</text><g class="trace t-u"><line x1="190" y1="66" x2="252.2" y2="66.0"/><polygon points="260.0,66.0 247.0,71.8 247.0,60.1"/></g><text class="note" x="266.0" y="70.0" text-anchor="start">sortie de l’eau (en haut)</text><text class="note" x="266.0" y="128.0" text-anchor="start">réfrigérant à boules :</text><text class="note" x="266.0" y="146.0" text-anchor="start">les vapeurs s’y condensent</text><text class="note" x="266.0" y="164.0" text-anchor="start">et retombent dans le ballon</text><text class="petit" x="150.0" y="26.0" text-anchor="middle">ouvert : pas de surpression</text><text class="note" x="266.0" y="300.0" text-anchor="start">ballon : réactifs, catalyseur,</text><text class="note" x="266.0" y="318.0" text-anchor="start">pierre ponce</text><g class="trace t-n"><line x1="260" y1="306" x2="207.8" y2="306.0"/><polygon points="200.0,306.0 213.0,300.1 213.0,311.9"/></g><text class="note" x="266.0" y="372.0" text-anchor="start">chauffe-ballon</text><g class="trace t-n"><line x1="260" y1="368" x2="207.7" y2="361.0"/><polygon points="200.0,360.0 213.7,355.9 212.1,367.5"/></g></svg><figcaption>Le montage à reflux. Le haut du réfrigérant reste ouvert : un montage fermé chauffé monterait en pression.</figcaption></figure>
+
+  <div class="defile"><table class="simple">
+    <thead><tr><th>Étape</th><th>Technique</th><th>Ce qu'elle fait</th><th>La propriété utilisée</th></tr></thead>
+    <tbody>
+      <tr><td>isoler</td><td>extraction liquide-liquide (ampoule à décanter)</td><td>fait passer le produit dans un solvant qui ne se mélange pas à l'eau</td><td>solubilité, densité</td></tr>
+      <tr><td>isoler</td><td>filtration sous pression réduite (Büchner)</td><td>récupère un produit solide</td><td>état physique</td></tr>
+      <tr><td>purifier</td><td>lavage par une solution d'hydrogénocarbonate de sodium</td><td>élimine l'acide restant (dégagement de CO₂)</td><td>propriétés acide-base</td></tr>
+      <tr><td>purifier</td><td>séchage par du sulfate de magnésium anhydre</td><td>retire les traces d'eau de la phase organique</td><td>avidité pour l'eau</td></tr>
+      <tr><td>purifier</td><td>distillation fractionnée</td><td>sépare des liquides</td><td>températures d'ébullition</td></tr>
+      <tr><td>purifier</td><td>recristallisation (décrite par les sujets)</td><td>dissout un solide à chaud, le laisse recristalliser pur à froid</td><td>solubilité selon la température</td></tr>
+      <tr><td>analyser</td><td>chromatographie sur couche mince (CCM)</td><td>compare le produit à une référence</td><td>affinités différentes de chaque espèce pour la plaque et pour l'éluant</td></tr>
+      <tr><td>analyser</td><td>température de fusion ou d'ébullition</td><td>compare à la valeur des tables</td><td>température de changement d'état</td></tr>
+      <tr><td>analyser</td><td>spectre infrarouge</td><td>montre les liaisons présentes</td><td>absorption des radiations IR</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure class="figure-svg"><svg data-figure="extraction" viewBox="0 0 460 400" role="img" aria-label="Une ampoule à décanter tenue verticalement, bouchon en haut, robinet en bas. Elle contient deux phases qui ne se mélangent pas : en haut, la phase organique, moins dense, qui contient l'ester ; en bas, la phase aqueuse, plus dense. Un bécher, sous le robinet, recueille la phase aqueuse."><clipPath id="ampoule"><path d="M138,60 L162,60 L210,200 Q190,250 156,268 L144,268 Q110,250 90,200 Z"/></clipPath><rect class="liquide sol-2" clip-path="url(#ampoule)" x="80" y="128" width="140" height="70"/><rect class="liquide sol-1" clip-path="url(#ampoule)" x="80" y="198" width="140" height="72"/><path class="verre" d="M138,50 L138,60 L90,200 Q110,250 144,268 L144,310 M156,310 L156,268 Q190,250 210,200 L162,60 L162,50"/><rect class="fond-carte" x="136" y="34" width="28" height="18" rx="4"/><rect class="fond-carte" x="128" y="280" width="44" height="12" rx="3"/><line class="trace ep-2 t-n" x1="90.0" y1="198.0" x2="210.0" y2="198.0"/><text class="note" x="236.0" y="150.0" text-anchor="start">phase organique</text><text class="petit" x="236.0" y="168.0" text-anchor="start">(moins dense : l’ester, l’alcool)</text><g class="trace t-n"><line x1="230" y1="154" x2="187.7" y2="159.1"/><polygon points="180.0,160.0 192.2,152.6 193.6,164.3"/></g><text class="note" x="236.0" y="230.0" text-anchor="start">phase aqueuse</text><text class="petit" x="236.0" y="248.0" text-anchor="start">(plus dense : acide, catalyseur, ions)</text><g class="trace t-n"><line x1="230" y1="234" x2="182.8" y2="228.8"/><polygon points="175.0,228.0 188.6,223.6 187.3,235.2"/></g><text class="note" x="236.0" y="290.0" text-anchor="start">robinet</text><g class="trace t-n"><line x1="230" y1="286" x2="183.8" y2="286.0"/><polygon points="176.0,286.0 189.0,280.1 189.0,291.9"/></g><text class="note" x="236.0" y="46.0" text-anchor="start">bouchon : agiter, puis dégazer</text><g class="trace t-n"><line x1="230" y1="42" x2="175.8" y2="42.0"/><polygon points="168.0,42.0 181.0,36.1 181.0,47.9"/></g><rect class="liquide sol-1" x="123" y="352" width="54" height="16" rx="3"/><path class="verre" d="M120,322 L120,368 L180,368 L180,322"/></svg><figcaption>L'extraction : on agite, on dégaze, on laisse reposer, puis on fait couler la phase du bas. La phase du dessus est la moins dense.</figcaption></figure>
+
+  <figure class="figure-svg"><svg data-figure="ccm" viewBox="0 0 460 320" role="img" aria-label="Une plaque de chromatographie sur couche mince. Ligne de dépôt en bas, front de l'éluant en haut. Trois dépôts : A, l'alcool de départ, une tache basse ; B, le produit synthétisé, une seule tache, haute ; C, l'ester pur du commerce, une tache à la même hauteur que celle de B."><rect class="fond-carte" x="60.0" y="30.0" width="200.0" height="230.0" rx="3"/><line class="trace ep-2 t-n pointille" x1="66.0" y1="236.0" x2="254.0" y2="236.0"/><line class="trace ep-2 t-u pointille" x1="66.0" y1="64.5" x2="254.0" y2="64.5"/><circle class="grain" cx="110.0" cy="236.0" r="2.5"/><ellipse class="liquide sol-2" cx="110.0" cy="184.6" rx="8" ry="6"/><ellipse class="contour" cx="110.0" cy="184.6" rx="8" ry="6"/><text class="note" x="110.0" y="278.0" text-anchor="middle">A</text><circle class="grain" cx="160.0" cy="236.0" r="2.5"/><ellipse class="liquide sol-2" cx="160.0" cy="112.5" rx="8" ry="6"/><ellipse class="contour" cx="160.0" cy="112.5" rx="8" ry="6"/><text class="note" x="160.0" y="278.0" text-anchor="middle">B</text><circle class="grain" cx="210.0" cy="236.0" r="2.5"/><ellipse class="liquide sol-2" cx="210.0" cy="112.5" rx="8" ry="6"/><ellipse class="contour" cx="210.0" cy="112.5" rx="8" ry="6"/><text class="note" x="210.0" y="278.0" text-anchor="middle">C</text><text class="note" x="272.0" y="68.5" text-anchor="start">front de l’éluant</text><text class="note" x="272.0" y="240.0" text-anchor="start">ligne de dépôt</text><text class="petit" x="272.0" y="120.0" text-anchor="start">A : alcool de départ</text><text class="petit" x="272.0" y="138.0" text-anchor="start">B : produit synthétisé</text><text class="petit" x="272.0" y="156.0" text-anchor="start">C : ester pur (référence)</text></svg><figcaption>Une CCM qui conclut : le produit B donne une seule tache, à la hauteur de l'ester pur C, et aucune à la hauteur de l'alcool A.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Lire une CCM">
+    <ol class="etapes">
+      <li><span>Je repère ce qui a été déposé à chaque point : réactif, produit obtenu, référence.</span></li>
+      <li><span>Une tache par espèce : je compte les taches de chaque dépôt.</span></li>
+      <li><span>Je compare leurs hauteurs à celles des références.</span></li>
+      <li><span>Je conclus : le produit contient-il l'espèce attendue ? Reste-t-il du réactif ? Une autre espèce ?</span></li>
+    </ol>
+  </div>
+
+  <div class="bloc piege" data-titre="La phase organique n'est pas toujours en haut">
+    <p>La phase du dessus est la <strong>moins dense</strong>. C'est souvent la phase organique (un ester, du cyclohexane), mais pas avec un solvant plus dense que l'eau comme le dichlorométhane. On regarde les densités données, on ne devine pas.</p>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-ir">8. Identifier un groupe par son spectre infrarouge</h3>
+
+  <div class="bloc definition" data-titre="Spectre infrarouge">
+    <p>Une molécule absorbe certaines radiations infrarouges : chaque sorte de liaison (O–H, C=O, C–H…) absorbe dans un domaine qui lui est propre. Le spectre donne la <strong>transmittance</strong> $T$ (en %), la part de la radiation qui traverse l'échantillon, en fonction du <strong>nombre d'onde</strong> :</p>
+    <p class="formule">$\sigma=\dfrac{1}{\lambda}$, en cm⁻¹</p>
+    <p>Une absorption se voit comme une <strong>bande</strong> : un creux vers le bas. L'axe des $\sigma$ va de $4\,000$ à $500$ cm⁻¹ environ, <strong>en décroissant vers la droite</strong>.</p>
+  </div>
+
+  <div class="defile"><table class="simple">
+    <thead><tr><th>Liaison</th><th>Nombre d'onde (cm⁻¹)</th><th>Allure de la bande</th></tr></thead>
+    <tbody>
+      <tr><td>O–H d'un alcool</td><td>3 200 – 3 400</td><td>large et forte</td></tr>
+      <tr><td>O–H d'un acide carboxylique</td><td>2 500 – 3 200</td><td>très large, elle recouvre les C–H</td></tr>
+      <tr><td>N–H d'une amine ou d'un amide</td><td>3 100 – 3 500</td><td>moyenne</td></tr>
+      <tr><td>C–H</td><td>2 800 – 3 000</td><td>fines, dans presque toutes les molécules</td></tr>
+      <tr><td>C=O (ester, acide, aldéhyde, cétone, amide)</td><td>1 650 – 1 750</td><td>fine et forte</td></tr>
+      <tr><td>C=C</td><td>1 620 – 1 680</td><td>moyenne</td></tr>
+    </tbody>
+  </table></div>
+  <p class="discret">Un exemple de table : le sujet donne toujours la sienne, et c'est elle qui fait foi.</p>
+
+  <figure class="figure-svg large"><svg data-figure="spectres_ir" viewBox="0 0 660 460" role="img" aria-label="Deux spectres infrarouges, transmittance en fonction du nombre d'onde, de 4000 à 500 cm⁻¹. En haut, le 3-méthylbutan-1-ol, l'alcool de départ : une bande large et forte vers 3340 cm⁻¹, la liaison O–H, et des bandes fines vers 2900, les liaisons C–H. En bas, l'ester obtenu : plus de bande O–H, toujours les C–H, et une bande fine et très forte vers 1740 cm⁻¹, la liaison C=O."><line class="axe-trait" x1="60.0" y1="178.0" x2="620.0" y2="178.0"/><line class="axe-trait" x1="60.0" y1="28.0" x2="60.0" y2="178.0"/><line class="axe-trait" x1="60.0" y1="178.0" x2="60.0" y2="183.0"/><text class="petit" x="60.0" y="196.0" text-anchor="middle">4000</text><line class="axe-trait" x1="220.0" y1="178.0" x2="220.0" y2="183.0"/><text class="petit" x="220.0" y="196.0" text-anchor="middle">3000</text><line class="axe-trait" x1="380.0" y1="178.0" x2="380.0" y2="183.0"/><text class="petit" x="380.0" y="196.0" text-anchor="middle">2000</text><line class="axe-trait" x1="460.0" y1="178.0" x2="460.0" y2="183.0"/><text class="petit" x="460.0" y="196.0" text-anchor="middle">1500</text><line class="axe-trait" x1="540.0" y1="178.0" x2="540.0" y2="183.0"/><text class="petit" x="540.0" y="196.0" text-anchor="middle">1000</text><line class="axe-trait" x1="620.0" y1="178.0" x2="620.0" y2="183.0"/><text class="petit" x="620.0" y="196.0" text-anchor="middle">500</text><text class="petit" x="54.0" y="182.0" text-anchor="end">0</text><text class="petit" x="54.0" y="107.0" text-anchor="end">50</text><text class="petit" x="54.0" y="32.0" text-anchor="end">100</text><g class="trace ep-2 t-u"><path d="M60.0,28.0 L60.8,28.0 L61.6,28.0 L62.4,28.0 L63.2,28.0 L64.0,28.0 L64.8,28.0 L65.6,28.0 L66.4,28.0 L67.2,28.0 L68.0,28.0 L68.8,28.0 L69.6,28.0 L70.4,28.0 L71.2,28.0 L72.0,28.0 L72.8,28.0 L73.6,28.0 L74.4,28.0 L75.2,28.0 L76.0,28.0 L76.8,28.0 L77.6,28.0 L78.4,28.0 L79.2,28.0 L80.0,28.0 L80.8,28.0 L81.6,28.0 L82.4,28.0 L83.2,28.0 L84.0,28.0 L84.8,28.0 L85.6,28.0 L86.4,28.0 L87.2,28.0 L88.0,28.0 L88.8,28.0 L89.6,28.0 L90.4,28.0 L91.2,28.0 L92.0,28.0 L92.8,28.0 L93.6,28.0 L94.4,28.0 L95.2,28.0 L96.0,28.0 L96.8,28.0 L97.6,28.0 L98.4,28.0 L99.2,28.0 L100.0,28.0 L100.8,28.0 L101.6,28.0 L102.4,28.0 L103.2,28.0 L104.0,28.1 L104.8,28.1 L105.6,28.1 L106.4,28.1 L107.2,28.1 L108.0,28.1 L108.8,28.2 L109.6,28.2 L110.4,28.2 L111.2,28.3 L112.0,28.4 L112.8,28.4 L113.6,28.5 L114.4,28.6 L115.2,28.7 L116.0,28.8 L116.8,28.9 L117.6,29.1 L118.4,29.3 L119.2,29.5 L120.0,29.7 L120.8,30.0 L121.6,30.3 L122.4,30.6 L123.2,31.0 L124.0,31.4 L124.8,31.9 L125.6,32.5 L126.4,33.1 L127.2,33.7 L128.0,34.5 L128.8,35.3 L129.6,36.2 L130.4,37.1 L131.2,38.2 L132.0,39.4 L132.8,40.7 L133.6,42.0 L134.4,43.5 L135.2,45.1 L136.0,46.8 L136.8,48.7 L137.6,50.6 L138.4,52.7 L139.2,54.9 L140.0,57.3 L140.8,59.7 L141.6,62.3 L142.4,64.9 L143.2,67.7 L144.0,70.6 L144.8,73.6 L145.6,76.7 L146.4,79.8 L147.2,83.0 L148.0,86.3 L148.8,89.5 L149.6,92.8 L150.4,96.1 L151.2,99.4 L152.0,102.7 L152.8,105.9 L153.6,109.1 L154.4,112.1 L155.2,115.1 L156.0,117.9 L156.8,120.6 L157.6,123.1 L158.4,125.4 L159.2,127.5 L160.0,129.5 L160.8,131.2 L161.6,132.6 L162.4,133.8 L163.2,134.8 L164.0,135.5 L164.8,135.9 L165.6,136.0 L166.4,135.9 L167.2,135.5 L168.0,134.8 L168.8,133.8 L169.6,132.6 L170.4,131.2 L171.2,129.5 L172.0,127.5 L172.8,125.4 L173.6,123.1 L174.4,120.6 L175.2,117.9 L176.0,115.1 L176.8,112.1 L177.6,109.1 L178.4,105.9 L179.2,102.7 L180.0,99.4 L180.8,96.1 L181.6,92.8 L182.4,89.5 L183.2,86.3 L184.0,83.0 L184.8,79.8 L185.6,76.7 L186.4,73.6 L187.2,70.6 L188.0,67.7 L188.8,64.9 L189.6,62.3 L190.4,59.7 L191.2,57.3 L192.0,54.9 L192.8,52.7 L193.6,50.6 L194.4,48.7 L195.2,46.8 L196.0,45.1 L196.8,43.5 L197.6,42.0 L198.4,40.7 L199.2,39.4 L200.0,38.2 L200.8,37.1 L201.6,36.2 L202.4,35.3 L203.2,34.5 L204.0,33.7 L204.8,33.1 L205.6,32.5 L206.4,31.9 L207.2,31.4 L208.0,31.0 L208.8,30.6 L209.6,30.3 L210.4,30.0 L211.2,29.7 L212.0,29.5 L212.8,29.3 L213.6,29.2 L214.4,29.1 L215.2,29.2 L216.0,29.5 L216.8,30.3 L217.6,31.7 L218.4,34.2 L219.2,38.2 L220.0,44.0 L220.8,52.1 L221.6,62.4 L222.4,74.6 L223.2,87.8 L224.0,100.5 L224.8,111.3 L225.6,118.5 L226.4,121.1 L227.2,118.5 L228.0,111.3 L228.8,100.5 L229.6,87.7 L230.4,74.7 L231.2,62.7 L232.0,53.0 L232.8,46.1 L233.6,42.5 L234.4,42.2 L235.2,45.4 L236.0,51.8 L236.8,60.5 L237.6,70.3 L238.4,79.3 L239.2,85.7 L240.0,88.0 L240.8,85.7 L241.6,79.1 L242.4,69.9 L243.2,59.6 L244.0,50.1 L244.8,42.2 L245.6,36.5 L246.4,32.6 L247.2,30.4 L248.0,29.1 L248.8,28.5 L249.6,28.2 L250.4,28.1 L251.2,28.0 L252.0,28.0 L252.8,28.0 L253.6,28.0 L254.4,28.0 L255.2,28.0 L256.0,28.0 L256.8,28.0 L257.6,28.0 L258.4,28.0 L259.2,28.0 L260.0,28.0 L260.8,28.0 L261.6,28.0 L262.4,28.0 L263.2,28.0 L264.0,28.0 L264.8,28.0 L265.6,28.0 L266.4,28.0 L267.2,28.0 L268.0,28.0 L268.8,28.0 L269.6,28.0 L270.4,28.0 L271.2,28.0 L272.0,28.0 L272.8,28.0 L273.6,28.0 L274.4,28.0 L275.2,28.0 L276.0,28.0 L276.8,28.0 L277.6,28.0 L278.4,28.0 L279.2,28.0 L280.0,28.0 L280.8,28.0 L281.6,28.0 L282.4,28.0 L283.2,28.0 L284.0,28.0 L284.8,28.0 L285.6,28.0 L286.4,28.0 L287.2,28.0 L288.0,28.0 L288.8,28.0 L289.6,28.0 L290.4,28.0 L291.2,28.0 L292.0,28.0 L292.8,28.0 L293.6,28.0 L294.4,28.0 L295.2,28.0 L296.0,28.0 L296.8,28.0 L297.6,28.0 L298.4,28.0 L299.2,28.0 L300.0,28.0 L300.8,28.0 L301.6,28.0 L302.4,28.0 L303.2,28.0 L304.0,28.0 L304.8,28.0 L305.6,28.0 L306.4,28.0 L307.2,28.0 L308.0,28.0 L308.8,28.0 L309.6,28.0 L310.4,28.0 L311.2,28.0 L312.0,28.0 L312.8,28.0 L313.6,28.0 L314.4,28.0 L315.2,28.0 L316.0,28.0 L316.8,28.0 L317.6,28.0 L318.4,28.0 L319.2,28.0 L320.0,28.0 L320.8,28.0 L321.6,28.0 L322.4,28.0 L323.2,28.0 L324.0,28.0 L324.8,28.0 L325.6,28.0 L326.4,28.0 L327.2,28.0 L328.0,28.0 L328.8,28.0 L329.6,28.0 L330.4,28.0 L331.2,28.0 L332.0,28.0 L332.8,28.0 L333.6,28.0 L334.4,28.0 L335.2,28.0 L336.0,28.0 L336.8,28.0 L337.6,28.0 L338.4,28.0 L339.2,28.0 L340.0,28.0 L340.8,28.0 L341.6,28.0 L342.4,28.0 L343.2,28.0 L344.0,28.0 L344.8,28.0 L345.6,28.0 L346.4,28.0 L347.2,28.0 L348.0,28.0 L348.8,28.0 L349.6,28.0 L350.4,28.0 L351.2,28.0 L352.0,28.0 L352.8,28.0 L353.6,28.0 L354.4,28.0 L355.2,28.0 L356.0,28.0 L356.8,28.0 L357.6,28.0 L358.4,28.0 L359.2,28.0 L360.0,28.0 L360.8,28.0 L361.6,28.0 L362.4,28.0 L363.2,28.0 L364.0,28.0 L364.8,28.0 L365.6,28.0 L366.4,28.0 L367.2,28.0 L368.0,28.0 L368.8,28.0 L369.6,28.0 L370.4,28.0 L371.2,28.0 L372.0,28.0 L372.8,28.0 L373.6,28.0 L374.4,28.0 L375.2,28.0 L376.0,28.0 L376.8,28.0 L377.6,28.0 L378.4,28.0 L379.2,28.0 L380.0,28.0 L380.8,28.0 L381.6,28.0 L382.4,28.0 L383.2,28.0 L384.0,28.0 L384.8,28.0 L385.6,28.0 L386.4,28.0 L387.2,28.0 L388.0,28.0 L388.8,28.0 L389.6,28.0 L390.4,28.0 L391.2,28.0 L392.0,28.0 L392.8,28.0 L393.6,28.0 L394.4,28.0 L395.2,28.0 L396.0,28.0 L396.8,28.0 L397.6,28.0 L398.4,28.0 L399.2,28.0 L400.0,28.0 L400.8,28.0 L401.6,28.0 L402.4,28.0 L403.2,28.0 L404.0,28.0 L404.8,28.0 L405.6,28.0 L406.4,28.0 L407.2,28.0 L408.0,28.0 L408.8,28.0 L409.6,28.0 L410.4,28.0 L411.2,28.0 L412.0,28.0 L412.8,28.0 L413.6,28.0 L414.4,28.0 L415.2,28.0 L416.0,28.0 L416.8,28.0 L417.6,28.0 L418.4,28.0 L419.2,28.0 L420.0,28.0 L420.8,28.0 L421.6,28.0 L422.4,28.0 L423.2,28.0 L424.0,28.0 L424.8,28.0 L425.6,28.0 L426.4,28.0 L427.2,28.0 L428.0,28.0 L428.8,28.0 L429.6,28.0 L430.4,28.0 L431.2,28.0 L432.0,28.0 L432.8,28.0 L433.6,28.0 L434.4,28.0 L435.2,28.0 L436.0,28.0 L436.8,28.0 L437.6,28.0 L438.4,28.0 L439.2,28.0 L440.0,28.0 L440.8,28.0 L441.6,28.0 L442.4,28.0 L443.2,28.0 L444.0,28.0 L444.8,28.0 L445.6,28.0 L446.4,28.0 L447.2,28.0 L448.0,28.0 L448.8,28.0 L449.6,28.0 L450.4,28.0 L451.2,28.0 L452.0,28.0 L452.8,28.0 L453.6,28.0 L454.4,28.0 L455.2,28.0 L456.0,28.0 L456.8,28.0 L457.6,28.0 L458.4,28.0 L459.2,28.0 L460.0,28.2 L460.8,28.8 L461.6,30.6 L462.4,35.1 L463.2,43.5 L464.0,54.9 L464.8,65.6 L465.6,70.0 L466.4,65.6 L467.2,54.9 L468.0,43.5 L468.8,35.1 L469.6,30.6 L470.4,28.8 L471.2,28.2 L472.0,28.0 L472.8,28.0 L473.6,28.0 L474.4,28.1 L475.2,28.5 L476.0,30.8 L476.8,37.9 L477.6,49.0 L478.4,55.0 L479.2,49.0 L480.0,37.9 L480.8,30.8 L481.6,28.5 L482.4,28.1 L483.2,28.0 L484.0,28.0 L484.8,28.0 L485.6,28.0 L486.4,28.0 L487.2,28.0 L488.0,28.0 L488.8,28.0 L489.6,28.0 L490.4,28.0 L491.2,28.0 L492.0,28.0 L492.8,28.0 L493.6,28.0 L494.4,28.0 L495.2,28.0 L496.0,28.0 L496.8,28.0 L497.6,28.0 L498.4,28.0 L499.2,28.0 L500.0,28.0 L500.8,28.0 L501.6,28.0 L502.4,28.0 L503.2,28.0 L504.0,28.0 L504.8,28.0 L505.6,28.0 L506.4,28.0 L507.2,28.0 L508.0,28.0 L508.8,28.0 L509.6,28.0 L510.4,28.0 L511.2,28.0 L512.0,28.0 L512.8,28.0 L513.6,28.0 L514.4,28.0 L515.2,28.0 L516.0,28.0 L516.8,28.0 L517.6,28.0 L518.4,28.0 L519.2,28.0 L520.0,28.0 L520.8,28.0 L521.6,28.1 L522.4,28.2 L523.2,28.5 L524.0,29.4 L524.8,31.4 L525.6,35.4 L526.4,42.5 L527.2,53.6 L528.0,68.7 L528.8,86.4 L529.6,103.6 L530.4,116.3 L531.2,121.0 L532.0,116.3 L532.8,103.6 L533.6,86.4 L534.4,68.7 L535.2,53.6 L536.0,42.5 L536.8,35.4 L537.6,31.4 L538.4,29.4 L539.2,28.5 L540.0,28.2 L540.8,28.1 L541.6,28.0 L542.4,28.0 L543.2,28.0 L544.0,28.0 L544.8,28.0 L545.6,28.0 L546.4,28.0 L547.2,28.0 L548.0,28.0 L548.8,28.0 L549.6,28.0 L550.4,28.0 L551.2,28.0 L552.0,28.0 L552.8,28.0 L553.6,28.0 L554.4,28.0 L555.2,28.0 L556.0,28.0 L556.8,28.0 L557.6,28.0 L558.4,28.0 L559.2,28.0 L560.0,28.0 L560.8,28.0 L561.6,28.0 L562.4,28.0 L563.2,28.0 L564.0,28.0 L564.8,28.0 L565.6,28.0 L566.4,28.0 L567.2,28.0 L568.0,28.0 L568.8,28.0 L569.6,28.0 L570.4,28.0 L571.2,28.0 L572.0,28.0 L572.8,28.0 L573.6,28.0 L574.4,28.0 L575.2,28.0 L576.0,28.0 L576.8,28.0 L577.6,28.0 L578.4,28.0 L579.2,28.0 L580.0,28.0 L580.8,28.0 L581.6,28.0 L582.4,28.0 L583.2,28.0 L584.0,28.0 L584.8,28.0 L585.6,28.0 L586.4,28.0 L587.2,28.0 L588.0,28.0 L588.8,28.0 L589.6,28.0 L590.4,28.0 L591.2,28.0 L592.0,28.0 L592.8,28.0 L593.6,28.0 L594.4,28.0 L595.2,28.0 L596.0,28.0 L596.8,28.0 L597.6,28.0 L598.4,28.0 L599.2,28.0 L600.0,28.0 L600.8,28.0 L601.6,28.0 L602.4,28.0 L603.2,28.0 L604.0,28.0 L604.8,28.0 L605.6,28.0 L606.4,28.0 L607.2,28.0 L608.0,28.0 L608.8,28.0 L609.6,28.0 L610.4,28.0 L611.2,28.0 L612.0,28.0 L612.8,28.0 L613.6,28.0 L614.4,28.0 L615.2,28.0 L616.0,28.0 L616.8,28.0 L617.6,28.0 L618.4,28.0 L619.2,28.0 L620.0,28.0"/></g><text class="note" x="100.0" y="20.0" text-anchor="start">3-méthylbutan-1-ol (réactif)</text><text class="petit" x="54.0" y="20.0" text-anchor="end">T (%)</text><text class="petit plein t-v" x="165.6" y="58.0" text-anchor="middle">O–H</text><text class="petit plein t-v" x="226.4" y="58.0" text-anchor="middle">C–H</text><line class="axe-trait" x1="60.0" y1="386.0" x2="620.0" y2="386.0"/><line class="axe-trait" x1="60.0" y1="236.0" x2="60.0" y2="386.0"/><line class="axe-trait" x1="60.0" y1="386.0" x2="60.0" y2="391.0"/><text class="petit" x="60.0" y="404.0" text-anchor="middle">4000</text><line class="axe-trait" x1="220.0" y1="386.0" x2="220.0" y2="391.0"/><text class="petit" x="220.0" y="404.0" text-anchor="middle">3000</text><line class="axe-trait" x1="380.0" y1="386.0" x2="380.0" y2="391.0"/><text class="petit" x="380.0" y="404.0" text-anchor="middle">2000</text><line class="axe-trait" x1="460.0" y1="386.0" x2="460.0" y2="391.0"/><text class="petit" x="460.0" y="404.0" text-anchor="middle">1500</text><line class="axe-trait" x1="540.0" y1="386.0" x2="540.0" y2="391.0"/><text class="petit" x="540.0" y="404.0" text-anchor="middle">1000</text><line class="axe-trait" x1="620.0" y1="386.0" x2="620.0" y2="391.0"/><text class="petit" x="620.0" y="404.0" text-anchor="middle">500</text><text class="petit" x="54.0" y="390.0" text-anchor="end">0</text><text class="petit" x="54.0" y="315.0" text-anchor="end">50</text><text class="petit" x="54.0" y="240.0" text-anchor="end">100</text><g class="trace ep-2 t-u"><path d="M60.0,236.0 L60.8,236.0 L61.6,236.0 L62.4,236.0 L63.2,236.0 L64.0,236.0 L64.8,236.0 L65.6,236.0 L66.4,236.0 L67.2,236.0 L68.0,236.0 L68.8,236.0 L69.6,236.0 L70.4,236.0 L71.2,236.0 L72.0,236.0 L72.8,236.0 L73.6,236.0 L74.4,236.0 L75.2,236.0 L76.0,236.0 L76.8,236.0 L77.6,236.0 L78.4,236.0 L79.2,236.0 L80.0,236.0 L80.8,236.0 L81.6,236.0 L82.4,236.0 L83.2,236.0 L84.0,236.0 L84.8,236.0 L85.6,236.0 L86.4,236.0 L87.2,236.0 L88.0,236.0 L88.8,236.0 L89.6,236.0 L90.4,236.0 L91.2,236.0 L92.0,236.0 L92.8,236.0 L93.6,236.0 L94.4,236.0 L95.2,236.0 L96.0,236.0 L96.8,236.0 L97.6,236.0 L98.4,236.0 L99.2,236.0 L100.0,236.0 L100.8,236.0 L101.6,236.0 L102.4,236.0 L103.2,236.0 L104.0,236.0 L104.8,236.0 L105.6,236.0 L106.4,236.0 L107.2,236.0 L108.0,236.0 L108.8,236.0 L109.6,236.0 L110.4,236.0 L111.2,236.0 L112.0,236.0 L112.8,236.0 L113.6,236.0 L114.4,236.0 L115.2,236.0 L116.0,236.0 L116.8,236.0 L117.6,236.0 L118.4,236.0 L119.2,236.0 L120.0,236.0 L120.8,236.0 L121.6,236.0 L122.4,236.0 L123.2,236.0 L124.0,236.0 L124.8,236.0 L125.6,236.0 L126.4,236.0 L127.2,236.0 L128.0,236.0 L128.8,236.0 L129.6,236.0 L130.4,236.0 L131.2,236.0 L132.0,236.0 L132.8,236.0 L133.6,236.0 L134.4,236.0 L135.2,236.0 L136.0,236.0 L136.8,236.0 L137.6,236.0 L138.4,236.0 L139.2,236.0 L140.0,236.0 L140.8,236.0 L141.6,236.0 L142.4,236.0 L143.2,236.0 L144.0,236.0 L144.8,236.0 L145.6,236.0 L146.4,236.0 L147.2,236.0 L148.0,236.0 L148.8,236.0 L149.6,236.0 L150.4,236.0 L151.2,236.0 L152.0,236.0 L152.8,236.0 L153.6,236.0 L154.4,236.0 L155.2,236.0 L156.0,236.0 L156.8,236.0 L157.6,236.0 L158.4,236.0 L159.2,236.0 L160.0,236.0 L160.8,236.0 L161.6,236.0 L162.4,236.0 L163.2,236.0 L164.0,236.0 L164.8,236.0 L165.6,236.0 L166.4,236.0 L167.2,236.0 L168.0,236.0 L168.8,236.0 L169.6,236.0 L170.4,236.0 L171.2,236.0 L172.0,236.0 L172.8,236.0 L173.6,236.0 L174.4,236.0 L175.2,236.0 L176.0,236.0 L176.8,236.0 L177.6,236.0 L178.4,236.0 L179.2,236.0 L180.0,236.0 L180.8,236.0 L181.6,236.0 L182.4,236.0 L183.2,236.0 L184.0,236.0 L184.8,236.0 L185.6,236.0 L186.4,236.0 L187.2,236.0 L188.0,236.0 L188.8,236.0 L189.6,236.0 L190.4,236.0 L191.2,236.0 L192.0,236.0 L192.8,236.0 L193.6,236.0 L194.4,236.0 L195.2,236.0 L196.0,236.0 L196.8,236.0 L197.6,236.0 L198.4,236.0 L199.2,236.0 L200.0,236.0 L200.8,236.0 L201.6,236.0 L202.4,236.0 L203.2,236.0 L204.0,236.0 L204.8,236.0 L205.6,236.0 L206.4,236.0 L207.2,236.0 L208.0,236.0 L208.8,236.0 L209.6,236.0 L210.4,236.0 L211.2,236.0 L212.0,236.0 L212.8,236.0 L213.6,236.1 L214.4,236.2 L215.2,236.4 L216.0,236.8 L216.8,237.6 L217.6,239.1 L218.4,241.6 L219.2,245.5 L220.0,251.2 L220.8,259.1 L221.6,269.1 L222.4,280.9 L223.2,293.7 L224.0,306.1 L224.8,316.5 L225.6,323.5 L226.4,326.0 L227.2,323.5 L228.0,316.5 L228.8,306.1 L229.6,293.7 L230.4,281.0 L231.2,269.2 L232.0,259.4 L232.8,252.0 L233.6,247.5 L234.4,245.9 L235.2,247.5 L236.0,252.5 L236.8,260.5 L237.6,270.3 L238.4,280.1 L239.2,287.4 L240.0,290.0 L240.8,287.3 L241.6,279.9 L242.4,269.9 L243.2,259.6 L244.0,250.8 L244.8,244.4 L245.6,240.3 L246.4,238.0 L247.2,236.8 L248.0,236.3 L248.8,236.1 L249.6,236.0 L250.4,236.0 L251.2,236.0 L252.0,236.0 L252.8,236.0 L253.6,236.0 L254.4,236.0 L255.2,236.0 L256.0,236.0 L256.8,236.0 L257.6,236.0 L258.4,236.0 L259.2,236.0 L260.0,236.0 L260.8,236.0 L261.6,236.0 L262.4,236.0 L263.2,236.0 L264.0,236.0 L264.8,236.0 L265.6,236.0 L266.4,236.0 L267.2,236.0 L268.0,236.0 L268.8,236.0 L269.6,236.0 L270.4,236.0 L271.2,236.0 L272.0,236.0 L272.8,236.0 L273.6,236.0 L274.4,236.0 L275.2,236.0 L276.0,236.0 L276.8,236.0 L277.6,236.0 L278.4,236.0 L279.2,236.0 L280.0,236.0 L280.8,236.0 L281.6,236.0 L282.4,236.0 L283.2,236.0 L284.0,236.0 L284.8,236.0 L285.6,236.0 L286.4,236.0 L287.2,236.0 L288.0,236.0 L288.8,236.0 L289.6,236.0 L290.4,236.0 L291.2,236.0 L292.0,236.0 L292.8,236.0 L293.6,236.0 L294.4,236.0 L295.2,236.0 L296.0,236.0 L296.8,236.0 L297.6,236.0 L298.4,236.0 L299.2,236.0 L300.0,236.0 L300.8,236.0 L301.6,236.0 L302.4,236.0 L303.2,236.0 L304.0,236.0 L304.8,236.0 L305.6,236.0 L306.4,236.0 L307.2,236.0 L308.0,236.0 L308.8,236.0 L309.6,236.0 L310.4,236.0 L311.2,236.0 L312.0,236.0 L312.8,236.0 L313.6,236.0 L314.4,236.0 L315.2,236.0 L316.0,236.0 L316.8,236.0 L317.6,236.0 L318.4,236.0 L319.2,236.0 L320.0,236.0 L320.8,236.0 L321.6,236.0 L322.4,236.0 L323.2,236.0 L324.0,236.0 L324.8,236.0 L325.6,236.0 L326.4,236.0 L327.2,236.0 L328.0,236.0 L328.8,236.0 L329.6,236.0 L330.4,236.0 L331.2,236.0 L332.0,236.0 L332.8,236.0 L333.6,236.0 L334.4,236.0 L335.2,236.0 L336.0,236.0 L336.8,236.0 L337.6,236.0 L338.4,236.0 L339.2,236.0 L340.0,236.0 L340.8,236.0 L341.6,236.0 L342.4,236.0 L343.2,236.0 L344.0,236.0 L344.8,236.0 L345.6,236.0 L346.4,236.0 L347.2,236.0 L348.0,236.0 L348.8,236.0 L349.6,236.0 L350.4,236.0 L351.2,236.0 L352.0,236.0 L352.8,236.0 L353.6,236.0 L354.4,236.0 L355.2,236.0 L356.0,236.0 L356.8,236.0 L357.6,236.0 L358.4,236.0 L359.2,236.0 L360.0,236.0 L360.8,236.0 L361.6,236.0 L362.4,236.0 L363.2,236.0 L364.0,236.0 L364.8,236.0 L365.6,236.0 L366.4,236.0 L367.2,236.0 L368.0,236.0 L368.8,236.0 L369.6,236.0 L370.4,236.0 L371.2,236.0 L372.0,236.0 L372.8,236.0 L373.6,236.0 L374.4,236.0 L375.2,236.0 L376.0,236.0 L376.8,236.0 L377.6,236.0 L378.4,236.0 L379.2,236.0 L380.0,236.0 L380.8,236.0 L381.6,236.0 L382.4,236.0 L383.2,236.0 L384.0,236.0 L384.8,236.0 L385.6,236.0 L386.4,236.0 L387.2,236.0 L388.0,236.0 L388.8,236.0 L389.6,236.0 L390.4,236.0 L391.2,236.0 L392.0,236.0 L392.8,236.0 L393.6,236.0 L394.4,236.0 L395.2,236.0 L396.0,236.0 L396.8,236.0 L397.6,236.0 L398.4,236.0 L399.2,236.0 L400.0,236.0 L400.8,236.0 L401.6,236.0 L402.4,236.0 L403.2,236.0 L404.0,236.0 L404.8,236.0 L405.6,236.0 L406.4,236.0 L407.2,236.0 L408.0,236.0 L408.8,236.0 L409.6,236.0 L410.4,236.0 L411.2,236.0 L412.0,236.0 L412.8,236.0 L413.6,236.0 L414.4,236.1 L415.2,236.5 L416.0,237.8 L416.8,242.0 L417.6,252.3 L418.4,272.4 L419.2,302.7 L420.0,336.5 L420.8,360.5 L421.6,363.0 L422.4,342.5 L423.2,309.5 L424.0,277.7 L424.8,255.5 L425.6,243.5 L426.4,238.4 L427.2,236.6 L428.0,236.1 L428.8,236.0 L429.6,236.0 L430.4,236.0 L431.2,236.0 L432.0,236.0 L432.8,236.0 L433.6,236.0 L434.4,236.0 L435.2,236.0 L436.0,236.0 L436.8,236.0 L437.6,236.0 L438.4,236.0 L439.2,236.0 L440.0,236.0 L440.8,236.0 L441.6,236.0 L442.4,236.0 L443.2,236.0 L444.0,236.0 L444.8,236.0 L445.6,236.0 L446.4,236.0 L447.2,236.0 L448.0,236.0 L448.8,236.0 L449.6,236.0 L450.4,236.0 L451.2,236.0 L452.0,236.0 L452.8,236.0 L453.6,236.0 L454.4,236.0 L455.2,236.0 L456.0,236.0 L456.8,236.0 L457.6,236.0 L458.4,236.0 L459.2,236.0 L460.0,236.1 L460.8,236.4 L461.6,237.6 L462.4,241.1 L463.2,248.4 L464.0,259.4 L464.8,270.3 L465.6,275.0 L466.4,270.3 L467.2,259.4 L468.0,248.4 L468.8,241.1 L469.6,237.6 L470.4,236.4 L471.2,236.1 L472.0,236.0 L472.8,236.0 L473.6,236.0 L474.4,236.0 L475.2,236.0 L476.0,236.0 L476.8,236.1 L477.6,236.8 L478.4,240.7 L479.2,252.6 L480.0,271.0 L480.8,281.0 L481.6,271.0 L482.4,252.6 L483.2,240.7 L484.0,236.8 L484.8,236.1 L485.6,236.0 L486.4,236.0 L487.2,236.0 L488.0,236.0 L488.8,236.0 L489.6,236.1 L490.4,236.2 L491.2,236.5 L492.0,237.2 L492.8,238.5 L493.6,240.9 L494.4,245.1 L495.2,251.6 L496.0,261.2 L496.8,274.1 L497.6,290.1 L498.4,308.0 L499.2,326.1 L500.0,341.6 L500.8,352.2 L501.6,356.0 L502.4,352.2 L503.2,341.6 L504.0,326.1 L504.8,308.0 L505.6,290.1 L506.4,274.1 L507.2,261.2 L508.0,251.6 L508.8,245.1 L509.6,240.9 L510.4,238.5 L511.2,237.2 L512.0,236.5 L512.8,236.2 L513.6,236.1 L514.4,236.0 L515.2,236.0 L516.0,236.0 L516.8,236.0 L517.6,236.0 L518.4,236.0 L519.2,236.0 L520.0,236.0 L520.8,236.0 L521.6,236.0 L522.4,236.0 L523.2,236.0 L524.0,236.0 L524.8,236.1 L525.6,236.4 L526.4,237.4 L527.2,239.7 L528.0,244.7 L528.8,253.5 L529.6,266.0 L530.4,280.1 L531.2,291.5 L532.0,296.0 L532.8,291.5 L533.6,280.1 L534.4,266.0 L535.2,253.5 L536.0,244.7 L536.8,239.7 L537.6,237.4 L538.4,236.4 L539.2,236.1 L540.0,236.0 L540.8,236.0 L541.6,236.0 L542.4,236.0 L543.2,236.0 L544.0,236.0 L544.8,236.0 L545.6,236.0 L546.4,236.0 L547.2,236.0 L548.0,236.0 L548.8,236.0 L549.6,236.0 L550.4,236.0 L551.2,236.0 L552.0,236.0 L552.8,236.0 L553.6,236.0 L554.4,236.0 L555.2,236.0 L556.0,236.0 L556.8,236.0 L557.6,236.0 L558.4,236.0 L559.2,236.0 L560.0,236.0 L560.8,236.0 L561.6,236.0 L562.4,236.0 L563.2,236.0 L564.0,236.0 L564.8,236.0 L565.6,236.0 L566.4,236.0 L567.2,236.0 L568.0,236.0 L568.8,236.0 L569.6,236.0 L570.4,236.0 L571.2,236.0 L572.0,236.0 L572.8,236.0 L573.6,236.0 L574.4,236.0 L575.2,236.0 L576.0,236.0 L576.8,236.0 L577.6,236.0 L578.4,236.0 L579.2,236.0 L580.0,236.0 L580.8,236.0 L581.6,236.0 L582.4,236.0 L583.2,236.0 L584.0,236.0 L584.8,236.0 L585.6,236.0 L586.4,236.0 L587.2,236.0 L588.0,236.0 L588.8,236.0 L589.6,236.0 L590.4,236.0 L591.2,236.0 L592.0,236.0 L592.8,236.0 L593.6,236.0 L594.4,236.0 L595.2,236.0 L596.0,236.0 L596.8,236.0 L597.6,236.0 L598.4,236.0 L599.2,236.0 L600.0,236.0 L600.8,236.0 L601.6,236.0 L602.4,236.0 L603.2,236.0 L604.0,236.0 L604.8,236.0 L605.6,236.0 L606.4,236.0 L607.2,236.0 L608.0,236.0 L608.8,236.0 L609.6,236.0 L610.4,236.0 L611.2,236.0 L612.0,236.0 L612.8,236.0 L613.6,236.0 L614.4,236.0 L615.2,236.0 L616.0,236.0 L616.8,236.0 L617.6,236.0 L618.4,236.0 L619.2,236.0 L620.0,236.0"/></g><text class="note" x="100.0" y="228.0" text-anchor="start">l’ester obtenu (produit)</text><text class="petit" x="54.0" y="228.0" text-anchor="end">T (%)</text><text class="petit plein t-v" x="226.4" y="266.0" text-anchor="middle">C–H</text><text class="petit plein t-v" x="421.3" y="266.0" text-anchor="middle">C=O</text><text class="petit" x="620.0" y="422.0" text-anchor="end">nombre d’onde σ (cm⁻¹)</text></svg><figcaption>Avant et après l'estérification. La bande large de l'O–H a disparu ; une bande C=O fine et forte est apparue vers 1 740 cm⁻¹. Les bandes C–H, communes aux deux, ne disent rien.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Montrer qu'une transformation a eu lieu">
+    <ol class="etapes">
+      <li><span>J'écris les liaisons du réactif et du produit, et je repère celles qui diffèrent.</span></li>
+      <li><span>Dans la table, je cherche où elles absorbent.</span></li>
+      <li><span>Sur les spectres, je vérifie que la bande qui doit disparaître a disparu, et que celle qui doit apparaître est là.</span></li>
+      <li><span>Je laisse de côté les bandes communes, comme les C–H, et je conclus.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> L'alcool de la figure a été transformé en ester. Les spectres le confirment-ils ?</p>
+      <ol class="pas">
+        <li><span><strong>Ce qui change.</strong> L'alcool a une liaison O–H ; l'ester n'en a plus, mais il a une liaison C=O.</span></li>
+        <li><span><strong>La table.</strong> O–H d'alcool : 3 200 – 3 400 cm⁻¹, large ; C=O : 1 650 – 1 750 cm⁻¹, fine.</span></li>
+        <li><span><strong>Les spectres.</strong> La bande vers 3 340 cm⁻¹ du réactif est absente du produit ; une bande forte vers 1 740 cm⁻¹ y est apparue.</span></li>
+        <li><span><strong>Conclusion.</strong> Le groupe hydroxyle a disparu, un C=O s'est formé : la transformation a eu lieu, et le produit ne contient plus d'alcool en quantité visible.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Trois lectures fausses">
+    <ul>
+      <li><strong>L'axe à l'envers.</strong> Les nombres d'onde diminuent vers la droite : 3 300 cm⁻¹ est à gauche du spectre.</li>
+      <li><strong>Les C–H pris pour des O–H.</strong> Les bandes fines vers 2 900 cm⁻¹ sont présentes presque partout : elles ne prouvent rien.</li>
+      <li><strong>La bande C=O seule.</strong> Elle ne dit pas si le produit est un ester ou un acide : c'est la bande O–H très large de l'acide, de 2 500 à 3 200 cm⁻¹, qui les sépare.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 9 ===== -->
+  <h3 id="c-rendement">9. Le rendement d'une synthèse</h3>
+
+  <div class="bloc definition" data-titre="Rendement">
+    <p>Le <strong>rendement</strong> $\eta$ compare ce qu'on a obtenu à ce qu'on obtiendrait si le réactif limitant était entièrement consommé :</p>
+    <p class="formule">$\eta=\dfrac{n_{\text{obtenue}}}{n_{\max}}=\dfrac{m_{\text{obtenue}}}{m_{\max}}$</p>
+    <p>Il n'a pas d'unité ; il est compris entre $0$ et $1$, souvent donné en pourcentage.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Les quantités de départ">
+    <p>Pour un solide pesé : $n=\dfrac{m}{M}$. Pour un liquide mesuré en volume : $m=\rho\times V$, donc $n=\dfrac{\rho\times V}{M}$, avec $\rho$ en g·mL⁻¹ et $V$ en mL.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer un rendement">
+    <ol class="etapes">
+      <li><span>Je calcule la quantité de chaque réactif.</span></li>
+      <li><span>Je trouve le réactif limitant : je divise chaque quantité par son coefficient dans l'équation, et je garde la plus petite.</span></li>
+      <li><span>J'en déduis la quantité maximale de produit, puis sa masse maximale.</span></li>
+      <li><span>Je divise ce que j'ai obtenu par ce maximum.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> On chauffe $15{,}0$ mL d'acide éthanoïque ($\rho=1{,}05$ g·mL⁻¹, $M=60{,}1$ g·mol⁻¹) et $20{,}0$ mL de 3-méthylbutan-1-ol ($\rho=0{,}810$ g·mL⁻¹, $M=88{,}1$ g·mol⁻¹). L'équation est acide + alcool → ester + eau. On obtient $15{,}6$ g d'ester ($M=130{,}2$ g·mol⁻¹). Calculer le rendement.</p>
+      <ol class="pas">
+        <li><span><strong>Les quantités.</strong> $n_{\text{acide}}=\dfrac{1{,}05\times15{,}0}{60{,}1}=0{,}262$ mol ; $n_{\text{alcool}}=\dfrac{0{,}810\times20{,}0}{88{,}1}=0{,}184$ mol.</span></li>
+        <li><span><strong>Le limitant.</strong> Les coefficients valent 1 : l'alcool, le plus petit, est limitant.</span></li>
+        <li><span><strong>Le maximum.</strong> $n_{\max}=0{,}184$ mol d'ester, soit $m_{\max}=0{,}184\times130{,}2=23{,}9$ g.</span></li>
+        <li><span><strong>Le rendement.</strong> $\eta=\dfrac{15{,}6}{23{,}9}=0{,}65$, soit $65$ %.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Trois rendements faux">
+    <ul>
+      <li><strong>Calculé sur le réactif en excès.</strong> Ici, sur l'acide : $\dfrac{15{,}6/130{,}2}{0{,}262}=0{,}46$. Trop petit, et faux : c'est le limitant qui fixe le maximum.</li>
+      <li><strong>Un rapport de masses de réactif et de produit.</strong> $\dfrac{15{,}6}{16{,}2}$ ne veut rien dire : ces deux espèces n'ont pas la même masse molaire.</li>
+      <li><strong>Plus de 100 %.</strong> Ce n'est jamais un exploit : le produit pesé est encore humide, ou mélangé à autre chose.</li>
+    </ul>
+  </div>
+
+  <!-- ===== 10 ===== -->
+  <h3 id="c-optimiser">10. Optimiser une étape : plus vite, et plus de produit</h3>
+
+  <div class="bloc propriete" data-titre="Aller plus vite">
+    <p>Ce qui accélère une transformation (les facteurs cinétiques) : une température plus élevée, d'où le chauffage à reflux ; un <strong>catalyseur</strong>, comme les ions H⁺ de l'acide sulfurique pour l'estérification ; des réactifs plus concentrés. Ces opérations raccourcissent la durée. Le catalyseur <strong>ne change pas l'état final</strong> : il accélère autant la réaction dans un sens que dans l'autre, et n'est pas consommé. La température non plus, ou presque, <strong>pour une estérification</strong>, dont la constante d'équilibre varie très peu avec elle. (Un réactif mis en excès, lui, change aussi l'état final : voir plus bas.)</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Une transformation non totale : l'estérification">
+    <p>acide + alcool ⇄ ester + eau. La transformation s'arrête dans un état d'équilibre, où les quatre espèces sont présentes. Pour beaucoup d'estérifications, la constante d'équilibre vaut environ $K=4$, et dépend très peu de la température. Le quotient de réaction s'écrit :</p>
+    <p class="formule">$Q_r=\dfrac{[\text{ester}]\,[\text{eau}]}{[\text{acide}]\,[\text{alcool}]}$</p>
+    <p>Tant que $Q_r&lt;K$, la transformation avance dans le sens direct. Partant d'une mole d'acide et d'une mole d'alcool, elle s'arrête à $\dfrac{x^2}{(1-x)^2}=4$, soit $x=\dfrac23$ : un rendement de $67$ %.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Obtenir plus de produit">
+    <ul>
+      <li><strong>Un réactif en excès.</strong> Plus d'alcool au départ : le dénominateur de $Q_r$ grandit, $Q_r&lt;K$, la transformation avance plus loin. On met en excès le réactif le moins cher ou le plus facile à éliminer ; le rendement se calcule toujours sur l'autre.</li>
+      <li><strong>Un produit éliminé.</strong> Retirer l'eau au fur et à mesure (montage Dean-Stark), ou distiller l'ester s'il est le plus volatil : le numérateur de $Q_r$ reste petit, $Q_r$ reste inférieur à $K$, et la transformation se poursuit jusqu'à être presque totale.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="rendement_exces" viewBox="0 0 510 268" role="img" aria-label="Le rendement final de l'estérification en fonction de la quantité d'alcool pour une mole d'acide, avec K = 4. Courbe croissante qui se rapproche de 100 % : 67 % pour 1 mole d'alcool, 85 % pour 2, 90 % pour 3, 94 % pour 5."><g class="trace t-n"><line x1="80" y1="210" x2="465.0" y2="210"/></g><g class="trace t-n"><line x1="80" y1="210" x2="80" y2="10"/></g><g class="trace t-n pointille"><line x1="80" y1="170" x2="465.0" y2="170"/></g><text class="petit" x="38.0" y="174.8">60 %</text><g class="trace t-n pointille"><line x1="80" y1="130" x2="465.0" y2="130"/></g><text class="petit" x="38.0" y="134.8">70 %</text><g class="trace t-n pointille"><line x1="80" y1="90" x2="465.0" y2="90"/></g><text class="petit" x="38.0" y="94.8">80 %</text><g class="trace t-n pointille"><line x1="80" y1="50" x2="465.0" y2="50"/></g><text class="petit" x="38.0" y="54.8">90 %</text><g class="trace t-n pointille"><line x1="80" y1="10" x2="465.0" y2="10"/></g><text class="petit" x="38.0" y="14.8">100 %</text><text class="petit" x="76.5" y="226">1</text><text class="petit" x="146.5" y="226">2</text><text class="petit" x="216.5" y="226">3</text><text class="petit" x="286.5" y="226">4</text><text class="petit" x="356.5" y="226">5</text><text class="petit" x="426.5" y="226">6</text><g class="trace t-u"><path d="M80.0,143.3 L81.6,140.3 L83.2,137.4 L84.8,134.6 L86.4,131.9 L88.0,129.3 L89.6,126.8 L91.2,124.3 L92.8,122.0 L94.4,119.7 L96.0,117.5 L97.6,115.3 L99.2,113.2 L100.9,111.2 L102.5,109.3 L104.1,107.4 L105.7,105.6 L107.3,103.8 L108.9,102.1 L110.5,100.5 L112.1,98.9 L113.7,97.3 L115.3,95.8 L116.9,94.4 L118.5,93.0 L120.1,91.6 L121.7,90.2 L123.3,88.9 L124.9,87.7 L126.5,86.5 L128.1,85.3 L129.7,84.1 L131.3,83.0 L132.9,81.9 L134.5,80.8 L136.1,79.8 L137.8,78.8 L139.4,77.8 L141.0,76.8 L142.6,75.9 L144.2,75.0 L145.8,74.1 L147.4,73.2 L149.0,72.4 L150.6,71.6 L152.2,70.8 L153.8,70.0 L155.4,69.2 L157.0,68.5 L158.6,67.8 L160.2,67.1 L161.8,66.4 L163.4,65.7 L165.0,65.0 L166.6,64.4 L168.2,63.7 L169.8,63.1 L171.4,62.5 L173.0,61.9 L174.6,61.3 L176.2,60.8 L177.9,60.2 L179.5,59.7 L181.1,59.1 L182.7,58.6 L184.3,58.1 L185.9,57.6 L187.5,57.1 L189.1,56.6 L190.7,56.1 L192.3,55.7 L193.9,55.2 L195.5,54.8 L197.1,54.3 L198.7,53.9 L200.3,53.5 L201.9,53.1 L203.5,52.7 L205.1,52.3 L206.7,51.9 L208.3,51.5 L209.9,51.1 L211.5,50.7 L213.1,50.4 L214.8,50.0 L216.4,49.6 L218.0,49.3 L219.6,49.0 L221.2,48.6 L222.8,48.3 L224.4,48.0 L226.0,47.7 L227.6,47.3 L229.2,47.0 L230.8,46.7 L232.4,46.4 L234.0,46.1 L235.6,45.8 L237.2,45.6 L238.8,45.3 L240.4,45.0 L242.0,44.7 L243.6,44.5 L245.2,44.2 L246.8,43.9 L248.4,43.7 L250.0,43.4 L251.6,43.2 L253.2,42.9 L254.9,42.7 L256.5,42.4 L258.1,42.2 L259.7,42.0 L261.3,41.8 L262.9,41.5 L264.5,41.3 L266.1,41.1 L267.7,40.9 L269.3,40.7 L270.9,40.4 L272.5,40.2 L274.1,40.0 L275.7,39.8 L277.3,39.6 L278.9,39.4 L280.5,39.2 L282.1,39.1 L283.7,38.9 L285.3,38.7 L286.9,38.5 L288.5,38.3 L290.1,38.1 L291.8,38.0 L293.4,37.8 L295.0,37.6 L296.6,37.4 L298.2,37.3 L299.8,37.1 L301.4,36.9 L303.0,36.8 L304.6,36.6 L306.2,36.4 L307.8,36.3 L309.4,36.1 L311.0,36.0 L312.6,35.8 L314.2,35.7 L315.8,35.5 L317.4,35.4 L319.0,35.2 L320.6,35.1 L322.2,35.0 L323.8,34.8 L325.4,34.7 L327.0,34.5 L328.6,34.4 L330.2,34.3 L331.9,34.1 L333.5,34.0 L335.1,33.9 L336.7,33.7 L338.3,33.6 L339.9,33.5 L341.5,33.4 L343.1,33.2 L344.7,33.1 L346.3,33.0 L347.9,32.9 L349.5,32.8 L351.1,32.6 L352.7,32.5 L354.3,32.4 L355.9,32.3 L357.5,32.2 L359.1,32.1 L360.7,32.0 L362.3,31.9 L363.9,31.8 L365.5,31.6 L367.1,31.5 L368.8,31.4 L370.4,31.3 L372.0,31.2 L373.6,31.1 L375.2,31.0 L376.8,30.9 L378.4,30.8 L380.0,30.7 L381.6,30.6 L383.2,30.5 L384.8,30.4 L386.4,30.3 L388.0,30.3 L389.6,30.2 L391.2,30.1 L392.8,30.0 L394.4,29.9 L396.0,29.8 L397.6,29.7 L399.2,29.6 L400.8,29.5 L402.4,29.4 L404.0,29.4 L405.6,29.3 L407.2,29.2 L408.9,29.1 L410.5,29.0 L412.1,28.9 L413.7,28.9 L415.3,28.8 L416.9,28.7 L418.5,28.6 L420.1,28.5 L421.7,28.5 L423.3,28.4 L424.9,28.3 L426.5,28.2 L428.1,28.2 L429.7,28.1 L431.3,28.0 L432.9,27.9 L434.5,27.9 L436.1,27.8 L437.7,27.7 L439.3,27.6 L440.9,27.6 L442.5,27.5 L444.1,27.4 L445.8,27.4 L447.4,27.3 L449.0,27.2 L450.6,27.2 L452.2,27.1 L453.8,27.0 L455.4,27.0 L457.0,26.9 L458.6,26.8 L460.2,26.8 L461.8,26.7 L463.4,26.6 L465.0,26.6"/></g><circle class="pt pt-v" cx="80" cy="143.3" r="4.5"/><text class="lettre" x="88.0" y="165.3">67 %</text><circle class="pt pt-v" cx="150" cy="71.9" r="4.5"/><text class="lettre" x="158.0" y="93.9">85 %</text><circle class="pt pt-v" cx="220" cy="48.9" r="4.5"/><text class="lettre" x="228.0" y="70.9">90 %</text><circle class="pt pt-v" cx="360" cy="32.0" r="4.5"/><text class="lettre" x="368.0" y="54.0">94 %</text><text class="petit" x="192.0" y="247.6">mol d’alcool pour 1 mol d’acide</text></svg><figcaption>Le rendement final de l'estérification, calculé avec $K=4$, selon la quantité d'alcool pour une mole d'acide. Doubler l'alcool fait passer de 67 % à 85 % ; l'excès aide de moins en moins.</figcaption></figure>
+
+  <figure class="figure-svg"><svg data-figure="dean_stark" viewBox="0 0 500 440" role="img" aria-label="Le montage Dean-Stark. Un ballon chauffé contient l'acide, l'alcool, le catalyseur et le cyclohexane. Les vapeurs montent dans un tube latéral jusqu'au réfrigérant vertical, s'y condensent et tombent dans un tube gradué. Le liquide s'y sépare en deux couches : l'eau, plus dense, reste au fond et s'accumule ; le cyclohexane, au-dessus, déborde et retourne dans le ballon. L'eau est retirée du milieu à mesure qu'elle se forme."><path class="fond-carte" d="M62.0,340.0 Q110.0,384.0 158.0,340.0 L150.0,394.0 L70.0,394.0 Z"/><path class="liquide sol-1" d="M66.2,315.4 A44.0,44.0 0 1 0 153.8,315.4 Z"/><path class="verre" d="M101.0,244.0 L101.0,274.9 A46.0,46.0 0 1 0 119.0,274.9 L119.0,244.0"/><path class="verre" d="M101,244 L101,150 L196,150 L196,160 M119,244 L119,168 L190,168"/><rect class="liquide sol-1" x="190" y="232" width="20" height="48" rx="3"/><rect class="liquide sol-2" x="190" y="196" width="20" height="36"/><path class="verre" d="M190,168 L190,280 Q200,292 210,280 L210,150"/><line class="verre" x1="210.0" y1="190.0" x2="216.0" y2="190.0"/><line class="verre" x1="210.0" y1="201.0" x2="216.0" y2="201.0"/><line class="verre" x1="210.0" y1="212.0" x2="216.0" y2="212.0"/><line class="verre" x1="210.0" y1="223.0" x2="216.0" y2="223.0"/><line class="verre" x1="210.0" y1="234.0" x2="216.0" y2="234.0"/><line class="verre" x1="210.0" y1="245.0" x2="216.0" y2="245.0"/><line class="verre" x1="210.0" y1="256.0" x2="216.0" y2="256.0"/><line class="verre" x1="210.0" y1="267.0" x2="216.0" y2="267.0"/><rect class="liquide sol-0 op-55" x="186.0" y="42.0" width="28" height="96.0" rx="6"/><rect class="verre" x="186.0" y="42.0" width="28" height="96.0" rx="6"/><line class="verre" x1="195.0" y1="30.0" x2="195.0" y2="150.0"/><line class="verre" x1="205.0" y1="30.0" x2="205.0" y2="150.0"/><line class="verre" x1="214.0" y1="124.0" x2="234.0" y2="124.0"/><line class="verre" x1="214.0" y1="56.0" x2="234.0" y2="56.0"/><g class="trace t-v"><line x1="104" y1="210" x2="104.0" y2="173.8"/><polygon points="104.0,166.0 109.8,179.0 98.2,179.0"/></g><text class="note" x="232.0" y="92.0" text-anchor="start">réfrigérant : les vapeurs se condensent</text><text class="note" x="232.0" y="212.0" text-anchor="start">cyclohexane : déborde et</text><text class="note" x="232.0" y="230.0" text-anchor="start">retourne dans le ballon</text><g class="trace t-n"><line x1="226" y1="214" x2="217.2" y2="214.0"/><polygon points="214.0,214.0 219.4,211.6 219.4,216.4"/></g><text class="note" x="232.0" y="266.0" text-anchor="start">eau : plus dense, elle reste</text><text class="note" x="232.0" y="284.0" text-anchor="start">au fond du tube gradué</text><g class="trace t-n"><line x1="226" y1="268" x2="217.2" y2="263.6"/><polygon points="214.0,262.0 220.6,262.3 218.2,267.1"/></g><text class="note" x="232.0" y="330.0" text-anchor="start">ballon : acide, alcool,</text><text class="note" x="232.0" y="348.0" text-anchor="start">catalyseur, cyclohexane</text><g class="trace t-n"><line x1="226" y1="334" x2="167.7" y2="323.4"/><polygon points="160.0,322.0 173.8,318.6 171.7,330.1"/></g></svg><figcaption>Le montage Dean-Stark. L'eau formée part avec les vapeurs du cyclohexane, se condense et tombe au fond du tube gradué : elle ne revient plus dans le ballon. Le volume d'eau recueilli permet aussi de suivre l'avancement.</figcaption></figure>
+
+  <div class="bloc methode" data-titre="Justifier une optimisation">
+    <ol class="etapes">
+      <li><span>Je décide si la modification agit sur la vitesse (température, catalyseur, concentration) ou sur l'état final (excès, élimination d'un produit).</span></li>
+      <li><span>Pour l'état final, j'écris $Q_r$ et je dis comment il varie juste après la modification.</span></li>
+      <li><span>Je compare $Q_r$ à $K$ et j'en déduis le sens d'évolution.</span></li>
+      <li><span>Je conclus sur le rendement, en le calculant sur le réactif limitant.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Une estérification à une mole d'acide et une mole d'alcool donne $67$ %. Que se passe-t-il avec trois moles d'alcool ?</p>
+      <ol class="pas">
+        <li><span><strong>Ce qui change.</strong> Une quantité de réactif : l'état final.</span></li>
+        <li><span><strong>Le quotient.</strong> Avec plus d'alcool, le dénominateur de $Q_r$ est plus grand : pour un même avancement, $Q_r$ est plus petit qu'avec une seule mole.</span></li>
+        <li><span><strong>Le sens.</strong> $Q_r$ reste inférieur à $K$ plus longtemps : la transformation avance plus loin dans le sens direct.</span></li>
+        <li><span><strong>Le rendement.</strong> $\dfrac{x^2}{(1-x)(3-x)}=4$ donne $x\approx0{,}90$ : $90$ % de l'acide, le limitant, est transformé.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc piege" data-titre="Vitesse ou rendement ?">
+    <p>Pour une estérification, chauffer plus fort ou ajouter un catalyseur permet d'atteindre <strong>plus vite</strong> l'état final, pas d'obtenir <strong>plus</strong> de produit. Pour monter le rendement final, il faut agir sur $Q_r$ : un excès, ou un produit retiré.</p>
+  </div>
+
+  <!-- ===== 11 ===== -->
+  <h3 id="c-strategie">11. Une synthèse en plusieurs étapes</h3>
+
+  <div class="bloc definition" data-titre="Séquence réactionnelle">
+    <p>Une molécule complexe se fabrique en plusieurs <strong>étapes</strong>. Chacune modifie un <strong>groupe caractéristique</strong> (oxyder un alcool, former un ester…) ou la <strong>chaîne carbonée</strong> (l'allonger, la ramifier, la polymériser). Les sujets donnent une <strong>banque de réactions</strong> : à toi de choisir lesquelles enchaîner, et dans quel ordre.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Bâtir une séquence à partir d'une banque">
+    <ol class="etapes">
+      <li><span>Je compare la molécule de départ et la cible : la chaîne a-t-elle changé ? quels groupes ont changé ?</span></li>
+      <li><span>Je pars de la cible : quelle réaction de la banque la donne, et à partir de quoi ?</span></li>
+      <li><span>Je remonte ainsi jusqu'à la molécule de départ.</span></li>
+      <li><span>Je vérifie que chaque étape ne touche pas un autre groupe, et je nomme sa catégorie.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Fabriquer l'éthanoate d'éthyle en ne partant que d'éthène, avec une banque qui contient : l'addition d'eau sur une double liaison C=C ; l'oxydation d'un alcool en acide carboxylique ; l'estérification.</p>
+      <ol class="pas">
+        <li><span><strong>La cible.</strong> L'éthanoate d'éthyle vient de l'acide éthanoïque et de l'éthanol, par estérification.</span></li>
+        <li><span><strong>L'éthanol.</strong> L'addition d'eau sur l'éthène le donne : CH₂=CH₂ + H₂O → CH₃–CH₂–OH.</span></li>
+        <li><span><strong>L'acide.</strong> L'oxydation d'une partie de cet éthanol donne l'acide éthanoïque.</span></li>
+        <li><span><strong>La séquence.</strong> Addition, puis oxydoréduction sur une partie de l'éthanol, puis estérification (une substitution) entre l'acide et le reste de l'éthanol.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Modifier la chaîne carbonée">
+    <p>Le <strong>craquage</strong> casse une longue chaîne en morceaux plus courts : C₁₀H₂₂ → C₈H₁₈ + C₂H₄. C'est de là que vient l'éthène des polymères. La <strong>polymérisation</strong>, au contraire, relie des milliers de petites molécules en une seule chaîne. Les sujets donnent, dans leur banque, d'autres réactions qui créent une liaison entre deux carbones : elles s'utilisent comme les autres.</p>
+  </div>
+
+  <div class="bloc definition" data-titre="Protéger un groupe">
+    <p>Quand le réactif d'une étape attaquerait aussi un autre groupe de la molécule, on <strong>protège</strong> d'abord ce groupe : on le transforme en un groupe qui ne réagit pas. On fait l'étape voulue, puis on le <strong>déprotège</strong> : il redevient ce qu'il était. Le prix à payer : deux étapes de plus, donc du temps, des réactifs, et du rendement perdu à chaque étape.</p>
+  </div>
+
+  <figure class="figure-svg large"><svg data-figure="dipeptides" viewBox="0 0 660 320" role="img" aria-label="En haut, sans protection : la glycine et l'alanine mélangées, avec un réactif de couplage, donnent quatre dipeptides, Gly–Gly, Gly–Ala, Ala–Gly et Ala–Ala. En bas, avec protection : on bloque le groupe amino de la glycine et le groupe carboxyle de l'alanine ; le couplage ne peut plus former qu'une liaison, puis la déprotection rend Gly–Ala seul."><text class="note" x="14.0" y="26.0" text-anchor="start">Sans protection</text><rect class="fond-carte" x="37.0" y="58.0" width="86" height="34" rx="8"/><text class="note" x="80.0" y="80.0" text-anchor="middle">Gly + Ala</text><g class="trace t-n"><line x1="128" y1="74" x2="188.2" y2="74.0"/><polygon points="196.0,74.0 183.0,79.8 183.0,68.2"/></g><text class="petit" x="162.0" y="62.0" text-anchor="middle">couplage</text><rect class="fond-carte" x="207.0" y="58.0" width="86" height="34" rx="8"/><text class="note" x="250.0" y="80.0" text-anchor="middle">Gly–Gly</text><rect class="fond-carte" x="307.0" y="58.0" width="86" height="34" rx="8"/><text class="note plein t-v" x="350.0" y="80.0" text-anchor="middle">Gly–Ala</text><rect class="fond-carte" x="407.0" y="58.0" width="86" height="34" rx="8"/><text class="note" x="450.0" y="80.0" text-anchor="middle">Ala–Gly</text><rect class="fond-carte" x="507.0" y="58.0" width="86" height="34" rx="8"/><text class="note" x="550.0" y="80.0" text-anchor="middle">Ala–Ala</text><text class="petit" x="400.0" y="118.0" text-anchor="middle">quatre produits : un mélange à séparer</text><text class="note" x="14.0" y="166.0" text-anchor="start">Avec protection</text><rect class="fond-carte" x="37.0" y="198.0" width="86" height="34" rx="8"/><text class="note" x="80.0" y="220.0" text-anchor="middle">P–Gly</text><rect class="fond-carte" x="37.0" y="240.0" width="86" height="34" rx="8"/><text class="note" x="80.0" y="262.0" text-anchor="middle">Ala–P′</text><g class="trace t-n"><line x1="128" y1="240" x2="188.2" y2="240.0"/><polygon points="196.0,240.0 183.0,245.8 183.0,234.2"/></g><text class="petit" x="162.0" y="228.0" text-anchor="middle">couplage</text><rect class="fond-carte" x="200.0" y="218.0" width="112" height="34" rx="8"/><text class="note" x="256.0" y="240.0" text-anchor="middle">P–Gly–Ala–P′</text><g class="trace t-n"><line x1="316" y1="240" x2="382.2" y2="240.0"/><polygon points="390.0,240.0 377.0,245.8 377.0,234.2"/></g><text class="petit" x="353.0" y="228.0" text-anchor="middle">déprotection</text><rect class="fond-carte" x="397.0" y="218.0" width="86" height="34" rx="8"/><text class="note plein t-v" x="440.0" y="240.0" text-anchor="middle">Gly–Ala</text><text class="petit" x="440.0" y="282.0" text-anchor="middle">un seul produit</text><text class="petit" x="14.0" y="290.0" text-anchor="start">P : groupe protecteur de –NH₂ ; P′ : de –COOH</text></svg><figcaption>Relier deux acides aminés, la glycine (Gly) et l'alanine (Ala). Chacun a un groupe amino et un groupe carboxyle : sans protection, n'importe lequel peut réagir avec n'importe lequel. Bloquer un groupe de chaque ne laisse qu'une possibilité.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Gly–Ala, et seulement lui">
+    <p>On veut que le groupe carboxyle de la glycine forme un amide avec le groupe amino de l'alanine. On protège donc le groupe amino de la glycine et le groupe carboxyle de l'alanine. Seule reste possible la liaison voulue. Une dernière étape retire les deux groupes protecteurs.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="La liaison peptidique">
+    <p>La liaison formée entre deux acides aminés est un groupe amide ; les biologistes l'appellent liaison peptidique. Une protéine est une longue chaîne de ces liaisons : un polyamide naturel.</p>
+  </div>
+
+  <!-- ===== 12 ===== -->
+  <h3 id="c-ecoresponsable">12. Une synthèse écoresponsable</h3>
+
+  <div class="bloc definition" data-titre="Les leviers d'une synthèse écoresponsable">
+    <ul>
+      <li><strong>L'énergie</strong> : une température plus basse, une durée plus courte, un chauffage par micro-ondes, un catalyseur qui permet tout cela.</li>
+      <li><strong>Les réactifs</strong> : moins dangereux, si possible issus de ressources renouvelables ; un catalyseur, réutilisable, plutôt qu'un réactif consommé.</li>
+      <li><strong>Les solvants</strong> : l'eau ou l'éthanol, ou pas de solvant du tout, plutôt qu'un solvant toxique.</li>
+      <li><strong>Les sous-produits</strong> : moins nombreux, et valorisés quand on peut les revendre ou les réutiliser.</li>
+      <li><strong>Les étapes</strong> : moins nombreuses, chaque étape coûtant de l'énergie, des solvants et du rendement.</li>
+    </ul>
+  </div>
+
+  <div class="bloc methode" data-titre="Discuter l'impact d'une synthèse">
+    <ol class="etapes">
+      <li><span>Je liste ce qui entre (réactifs, solvants, énergie) et ce qui sort (produit, sous-produits, déchets).</span></li>
+      <li><span>Pour chacun, je relève la donnée du sujet : danger, quantité, température, durée.</span></li>
+      <li><span>Je propose une amélioration et je dis ce qu'elle change.</span></li>
+      <li><span>Je vérifie qu'elle ne coûte pas trop en rendement ou en sécurité.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Deux protocoles pour le même ester : (A) trois heures de reflux dans du dichlorométhane, avec de l'acide sulfurique ; (B) dix minutes au four à micro-ondes, sans solvant, avec un catalyseur solide qu'on filtre et qu'on réutilise. Les rendements sont voisins. Lequel est le plus écoresponsable ?</p>
+      <ol class="pas">
+        <li><span><strong>L'énergie.</strong> Dix minutes contre trois heures de chauffage : avantage à B.</span></li>
+        <li><span><strong>Le solvant.</strong> B n'en utilise pas ; A utilise un solvant toxique, qu'il faut ensuite traiter.</span></li>
+        <li><span><strong>Le catalyseur.</strong> Celui de B est récupéré ; l'acide de A finit dans les eaux de lavage.</span></li>
+        <li><span><strong>Conclusion.</strong> Avec un rendement voisin, B est le plus écoresponsable sur les trois points.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="L'économie d'atomes">
+    <p>Certains sujets la définissent : le rapport entre la masse molaire du produit voulu et la somme des masses molaires des réactifs, chacune multipliée par son coefficient dans l'équation. À $100$ %, tous les atomes des réactifs finissent dans le produit, et il n'y a aucun sous-produit. Ce n'est pas un rendement : une synthèse peut avoir un excellent rendement et jeter la moitié de ses atomes.</p>
+  </div>
+
+  <!-- ===== 13 ===== -->
+  <h3 id="c-pieges">13. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs que tout le monde fait">
+    <ul>
+      <li><strong>Oublier les H sous-entendus</strong> d'une formule topologique, ou les extrémités des traits, qui sont des carbones.</li>
+      <li><strong>Prendre un ester pour un acide</strong>, un amide pour une amine : regarde ce qui est accroché au carbone du C=O.</li>
+      <li><strong>Suivre la ligne du dessin</strong> pour la chaîne principale : c'est la plus longue qui passe par le carbone du groupe, même si elle tourne.</li>
+      <li><strong>Numéroter du mauvais côté</strong> : le carbone du groupe doit avoir le plus petit numéro.</li>
+      <li><strong>Inverser le nom d'un ester</strong> : « -oate » pour la partie qui porte le C=O, « de …-yle » pour celle liée à l'oxygène.</li>
+      <li><strong>Garder la double liaison dans le motif</strong> d'un polymère : elle s'est ouverte pour relier les motifs.</li>
+      <li><strong>Lire l'axe d'un spectre IR à l'envers</strong>, ou prendre les bandes C–H vers 2 900 cm⁻¹ pour un O–H.</li>
+      <li><strong>Calculer le rendement sur le réactif en excès</strong>, ou par un rapport de masses.</li>
+      <li><strong>Croire que le catalyseur ou le chauffage augmentent le rendement</strong> : ils accélèrent ; pour une estérification, l'état final ne bouge pas.</li>
+      <li><strong>Oublier la déprotection</strong> : le produit porterait encore son groupe protecteur.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">14. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Lire une formule topologique en une minute"></div>
+    <div class="video" data-titre="Estérification : pourquoi un excès augmente le rendement"></div>
+    <div class="video" data-titre="TP : synthèse d'un arôme, du reflux au spectre IR"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Six laboratoires, dans l'ordre du cours. D'abord lire des formules topologiques, reconnaître les groupes de vraies molécules et les nommer. Puis lire des spectres infrarouges, optimiser une estérification contre la montre, et bâtir une synthèse en plusieurs étapes à partir d'une banque de réactions.</p>
+  <div class="labo" data-labo="synthese" data-outil="ecrire"></div>
+  <div class="labo" data-labo="synthese" data-outil="familles"></div>
+  <div class="labo" data-labo="synthese" data-outil="nommer"></div>
+  <div class="labo" data-labo="synthese" data-outil="ir"></div>
+  <div class="labo" data-labo="synthese" data-outil="optimiser"></div>
+  <div class="labo" data-labo="synthese" data-outil="sequence"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le jeu tire des questions nouvelles à chaque partie : formules, familles, noms, isomères, polymères, catégories de réactions, spectres, rendements et optimisation. Les réponses numériques sont acceptées à l'arrondi demandé près. Le quiz vérifie les réflexes du cours.</p>
+
+  <div class="jeu" data-generateurs="synthese" data-questions="10" data-titre="Le défi du chimiste de synthèse"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Dans une formule topologique, un sommet lié à deux autres carbones par des liaisons simples porte…</p>
+      <ul class="choix"><li class="bon">deux atomes d'hydrogène</li><li>aucun atome d'hydrogène</li><li>un atome d'hydrogène</li><li>quatre atomes d'hydrogène</li></ul>
+      <div class="explication">Un carbone a quatre liaisons. Il en a deux vers ses voisins : il lui faut deux H, sous-entendus. C'est un CH₂.</div>
+    </div>
+    <div class="question" data-reponse="8">
+      <p>Combien d'atomes d'hydrogène compte le propan-2-ol, CH₃–CH(OH)–CH₃ ?</p>
+      <div class="explication">Deux CH₃ (6 H), un CH (1 H) et le H du groupe OH : $6+1+1=8$. Formule brute C₃H₈O.</div>
+    </div>
+    <div class="question">
+      <p>CH₃–COO–CH₂–CH₃ appartient à la famille des…</p>
+      <ul class="choix"><li class="bon">esters</li><li>acides carboxyliques</li><li>cétones</li><li>alcools</li></ul>
+      <div class="explication">Le carbone du C=O porte un O lui-même lié à un carbone : –COO–C, un ester. C'est l'éthanoate d'éthyle.</div>
+    </div>
+    <div class="question">
+      <p>Le nom de CH₃–CH₂–CO–CH₃ est…</p>
+      <ul class="choix"><li class="bon">butanone (butan-2-one)</li><li>butanal</li><li>butan-2-ol</li><li>propanone</li></ul>
+      <div class="explication">C=O entre deux carbones : une cétone, terminaison -one. Quatre carbones : but-. Le C=O est en 2 en partant du bout le plus proche.</div>
+    </div>
+    <div class="question">
+      <p>Le butanal et la butanone sont…</p>
+      <ul class="choix"><li class="bon">des isomères de constitution</li><li>deux noms de la même molécule</li><li>de formules brutes différentes</li><li>deux polymères</li></ul>
+      <div class="explication">Même formule brute, C₄H₈O, mais le C=O est au bout de la chaîne dans l'un (un aldéhyde), au milieu dans l'autre (une cétone) : la famille change. Deux isomères de constitution.</div>
+    </div>
+    <div class="question">
+      <p>Le polypropène est obtenu à partir du propène CH₂=CH–CH₃. Son motif est…</p>
+      <ul class="choix"><li class="bon">–CH₂–CH(CH₃)–</li><li>–CH₂=CH(CH₃)–</li><li>–CH₂–CH₂–CH₂–</li><li>CH₂=CH–CH₃</li></ul>
+      <div class="explication">La double liaison s'ouvre : dans le motif, les deux carbones sont liés par une liaison simple, et le CH₃ reste en ramification.</div>
+    </div>
+    <div class="question">
+      <p>La réaction CH₂=CH₂ + HBr → CH₃–CH₂Br est…</p>
+      <ul class="choix"><li class="bon">une addition</li><li>une substitution</li><li>une élimination</li><li>une réaction acide-base</li></ul>
+      <div class="explication">Deux réactifs, un seul produit, et la double liaison est devenue simple : les atomes H et Br se sont ajoutés.</div>
+    </div>
+    <div class="question">
+      <p>Ajouter un catalyseur à une estérification…</p>
+      <ul class="choix"><li class="bon">fait atteindre plus vite le même état final</li><li>augmente le rendement final</li><li>déplace l'équilibre vers l'ester</li><li>est consommé par la réaction</li></ul>
+      <div class="explication">Un catalyseur accélère la transformation dans les deux sens, sans être consommé : l'état final, donc le rendement, ne change pas.</div>
+    </div>
+    <div class="question" data-reponse="65" data-tolerance="0,5">
+      <p>On fait réagir $0{,}20$ mol d'acide et $0{,}50$ mol d'alcool (une mole de chacun pour une mole d'ester). On obtient $0{,}13$ mol d'ester. Calcule le rendement, en %.</p>
+      <div class="explication">L'acide est limitant : $n_{\max}=0{,}20$ mol. $\eta=\dfrac{0{,}13}{0{,}20}=0{,}65$, soit $65$ %. Sur l'alcool, en excès, on trouverait $26$ % : faux.</div>
+    </div>
+    <div class="question">
+      <p>Après une synthèse, la bande large vers 3 300 cm⁻¹ du réactif a disparu du spectre du produit. Cela montre que…</p>
+      <ul class="choix"><li class="bon">la liaison O–H de l'alcool a disparu</li><li>une liaison C=O s'est formée</li><li>les liaisons C–H ont disparu</li><li>la transformation n'a pas eu lieu</li></ul>
+      <div class="explication">Une bande large et forte vers 3 200 – 3 400 cm⁻¹ est celle de l'O–H d'un alcool. Pour un C=O, il faudrait regarder vers 1 700 cm⁻¹.</div>
+    </div>
+    <div class="question">
+      <p>Dans une synthèse en plusieurs étapes, on protège un groupe…</p>
+      <ul class="choix"><li class="bon">pour qu'un réactif ne l'attaque pas pendant une étape</li><li>pour accélérer la réaction</li><li>pour éviter de chauffer</li><li>pour augmenter le nombre de produits</li></ul>
+      <div class="explication">La protection bloque un groupe qui réagirait aussi ; la déprotection le rend ensuite. Elle coûte deux étapes, mais évite un mélange de produits.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+  <p>Trois niveaux, à faire dans l'ordre : ★ appliquer une méthode du cours, ★★ exploiter une situation de laboratoire, ★★★ raisonner et concevoir une synthèse. Rédige, vérifie tes formules brutes, puis ouvre la correction.</p>
+
+  <h3>Niveau 1 · Appliquer le cours</h3>
+
+  <article class="exercice" id="ex-trois-molecules-a-lire" data-titre="Trois molécules à lire" data-niveau="1" data-type="application" data-notions="topologique familles-t" data-duree="12" data-calculatrice="non">
+    <p>On donne les formules topologiques de trois espèces A, B et C.</p>
+    <figure class="figure-svg"><svg data-figure="ex_topo" viewBox="0 0 660 220" role="img" aria-label="Trois formules topologiques, A, B et C. A : une chaîne de cinq carbones avec un =O sur le deuxième et une ramification sur le quatrième. B : un C=O lié à un O, lui-même lié à un carbone, au bout d'une chaîne de trois carbones. C : une chaîne de quatre carbones ramifiée sur le deuxième, terminée par un carbone qui porte un =O et un OH."><g class="trace ep-2 t-ink"><line x1="40.7" y1="122.0" x2="75.4" y2="102.0"/></g><g class="trace ep-2 t-ink"><line x1="72.4" y1="102.0" x2="72.4" y2="72.0"/><line x1="78.4" y1="102.0" x2="78.4" y2="72.0"/></g><g class="trace ep-2 t-ink"><line x1="75.4" y1="102.0" x2="110.0" y2="122.0"/></g><g class="trace ep-2 t-ink"><line x1="110.0" y1="122.0" x2="144.6" y2="102.0"/></g><g class="trace ep-2 t-ink"><line x1="144.6" y1="102.0" x2="179.3" y2="122.0"/></g><g class="trace ep-2 t-ink"><line x1="144.6" y1="102.0" x2="144.6" y2="62.0"/></g><text class="formule" x="75.4" y="67.5" text-anchor="middle">O</text><text class="note" x="110.0" y="180.0" text-anchor="middle">A</text><g class="trace ep-2 t-ink"><line x1="260.7" y1="82.0" x2="295.4" y2="62.0"/></g><g class="trace ep-2 t-ink"><line x1="295.4" y1="62.0" x2="330.0" y2="82.0"/></g><g class="trace ep-2 t-ink"><line x1="333.0" y1="82.0" x2="333.0" y2="112.0"/><line x1="327.0" y1="82.0" x2="327.0" y2="112.0"/></g><g class="trace ep-2 t-ink"><line x1="330.0" y1="82.0" x2="356.0" y2="67.0"/></g><g class="trace ep-2 t-ink"><line x1="373.3" y1="67.0" x2="399.3" y2="82.0"/></g><text class="formule" x="330.0" y="127.5" text-anchor="middle">O</text><text class="formule" x="364.6" y="67.5" text-anchor="middle">O</text><text class="note" x="330.0" y="180.0" text-anchor="middle">B</text><g class="trace ep-2 t-ink"><line x1="465.7" y1="122.0" x2="500.4" y2="102.0"/></g><g class="trace ep-2 t-ink"><line x1="500.4" y1="102.0" x2="535.0" y2="122.0"/></g><g class="trace ep-2 t-ink"><line x1="535.0" y1="122.0" x2="569.6" y2="102.0"/></g><g class="trace ep-2 t-ink"><line x1="500.4" y1="102.0" x2="500.4" y2="62.0"/></g><g class="trace ep-2 t-ink"><line x1="566.6" y1="102.0" x2="566.6" y2="72.0"/><line x1="572.6" y1="102.0" x2="572.6" y2="72.0"/></g><g class="trace ep-2 t-ink"><line x1="569.6" y1="102.0" x2="595.6" y2="117.0"/></g><text class="formule" x="569.6" y="67.5" text-anchor="middle">O</text><text class="formule" x="604.3" y="127.5" text-anchor="middle">O</text><text class="formule" x="610.3" y="127.5">H</text><text class="note" x="535.0" y="180.0" text-anchor="middle">C</text></svg><figcaption>Les trois molécules de l'exercice.</figcaption></figure>
+    <p>1. Écrire la formule brute de chacune.<br>2. Écrire leurs formules semi-développées.<br>3. Donner la famille de chacune.<br>4. B et C sont-elles isomères ?</p>
+    <details class="indice"><p>Compte les sommets et les extrémités ; chaque carbone porte $4-$ (nombre de liaisons) hydrogènes, une double liaison comptant pour deux.</p></details>
+    <details class="correction">
+      <p>1. A : six carbones, un O : C₆H₁₂O. B : quatre carbones, deux O : C₄H₈O₂. C : cinq carbones, deux O : C₅H₁₀O₂.</p>
+      <p>2. A : CH₃–CO–CH₂–CH(CH₃)–CH₃. B : CH₃–CH₂–COO–CH₃. C : CH₃–CH(CH₃)–CH₂–COOH.</p>
+      <p>3. A : C=O entre deux carbones, une <strong>cétone</strong> (la 4-méthylpentan-2-one). B : C=O et un O lié à un carbone, un <strong>ester</strong> (le propanoate de méthyle). C : C=O et OH sur le même carbone, un <strong>acide carboxylique</strong> (l'acide 3-méthylbutanoïque).</p>
+      <p>4. Non : leurs formules brutes, C₄H₈O₂ et C₅H₁₀O₂, sont différentes. Des isomères ont la même formule brute.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-les-groupes-de-la-benzocaine" data-titre="Les groupes de la benzocaïne" data-niveau="1" data-type="application" data-notions="familles-t topologique categories-reactions" data-duree="10" data-calculatrice="non">
+    <p>La benzocaïne est un anesthésique local, présent dans des pommades et des pastilles pour la gorge.</p>
+    <figure class="figure-svg"><svg data-figure="ex_benzocaine" viewBox="0 0 380 340" role="img" aria-label="La benzocaïne en formule topologique : un cycle benzénique. En haut, un carbone lié au cycle porte un =O et un O, lui-même lié à une chaîne de deux carbones. En bas, un groupe NH2 lié au cycle."><g class="trace ep-2 t-ink"><line x1="162.7" y1="160.0" x2="197.3" y2="180.0"/><line x1="165.6" y1="168.6" x2="188.4" y2="181.8"/></g><g class="trace ep-2 t-ink"><line x1="197.3" y1="180.0" x2="197.3" y2="220.0"/></g><g class="trace ep-2 t-ink"><line x1="197.3" y1="220.0" x2="162.7" y2="240.0"/><line x1="188.4" y1="218.2" x2="165.6" y2="231.4"/></g><g class="trace ep-2 t-ink"><line x1="162.7" y1="240.0" x2="128.0" y2="220.0"/></g><g class="trace ep-2 t-ink"><line x1="128.0" y1="220.0" x2="128.0" y2="180.0"/><line x1="134.0" y1="213.2" x2="134.0" y2="186.8"/></g><g class="trace ep-2 t-ink"><line x1="162.7" y1="160.0" x2="162.7" y2="120.0"/></g><g class="trace ep-2 t-ink"><line x1="161.2" y1="122.6" x2="135.2" y2="107.6"/><line x1="164.2" y1="117.4" x2="138.2" y2="102.4"/></g><g class="trace ep-2 t-ink"><line x1="162.7" y1="120.0" x2="188.7" y2="105.0"/></g><g class="trace ep-2 t-ink"><line x1="197.3" y1="90.0" x2="197.3" y2="60.0"/></g><g class="trace ep-2 t-ink"><line x1="197.3" y1="60.0" x2="232.0" y2="40.0"/></g><g class="trace ep-2 t-ink"><line x1="162.7" y1="240.0" x2="162.7" y2="270.0"/></g><g class="trace ep-2 t-ink"><line x1="128.0" y1="180.0" x2="162.7" y2="160.0"/></g><text class="formule" x="128.0" y="105.5" text-anchor="middle">O</text><text class="formule" x="197.3" y="105.5" text-anchor="middle">O</text><text class="formule" x="162.7" y="285.5" text-anchor="middle">N</text><text class="formule" x="168.7" y="285.5">H₂</text></svg><figcaption>La benzocaïne.</figcaption></figure>
+    <p>1. Donner sa formule brute.<br>2. Entourer ses deux groupes caractéristiques et nommer leurs familles.<br>3. Elle se prépare à partir de l'acide 4-aminobenzoïque, H₂N–C₆H₄–COOH, et d'un alcool. Lequel ? Quelle est la catégorie de cette réaction ?</p>
+    <details class="indice"><p>En haut, le carbone du C=O porte aussi un O. Regarde ce qui est accroché à cet O : un H ou un carbone ?</p></details>
+    <details class="correction">
+      <p>1. Cycle : 6 C, dont 4 portent un H. Le carbone du C=O, puis la chaîne de deux carbones (CH₂ et CH₃). Le groupe NH₂. Soit C₉H₁₁NO₂.</p>
+      <p>2. En haut, –COO– lié à une chaîne carbonée : un groupe <strong>ester</strong>. En bas, –NH₂ lié au cycle, sans C=O voisin : une <strong>amine</strong>.</p>
+      <p>3. L'ester se forme entre le groupe carboxyle de l'acide et un alcool à deux carbones : l'<strong>éthanol</strong>. Le –OH de l'acide est remplacé par –O–CH₂–CH₃ : une <strong>substitution</strong> (une estérification). La benzocaïne est le 4-aminobenzoate d'éthyle.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-nommer-avec-les-regles-du-sujet" data-titre="Nommer avec les règles du sujet" data-niveau="1" data-type="application" data-notions="familles-t familles-org" data-duree="12" data-calculatrice="non">
+    <p>Les règles de nomenclature sont celles du cours (partie 3).</p>
+    <p>1. Nommer : a) CH₃–CH₂–CH₂–CHO ; b) CH₃–CH(CH₃)–CH₂–OH ; c) CH₃–CO–CH₂–CH₂–CH₃ ; d) CH₃–COO–CH₃ ; e) CH₃–CH₂–NH₂ ; f) CH₃–CHCl–CH₃.<br>2. Écrire la formule semi-développée : g) acide butanoïque ; h) propanamide.</p>
+    <details class="indice"><p>Pour chaque formule, commence par la famille : elle donne la terminaison.</p></details>
+    <details class="correction">
+      <p>a) Aldéhyde à quatre carbones : <strong>butanal</strong>. b) Alcool ; la chaîne la plus longue qui contient le carbone du OH compte trois carbones, avec un méthyle en 2 : <strong>2-méthylpropan-1-ol</strong>. c) Cétone à cinq carbones, C=O en 2 : <strong>pentan-2-one</strong>. d) Ester : la partie CH₃–CO– vient de l'acide éthanoïque, la partie –CH₃ du méthanol : <strong>éthanoate de méthyle</strong>. e) Amine à deux carbones : <strong>éthanamine</strong>. f) Chlore sur le carbone 2 d'une chaîne à trois carbones : <strong>2-chloropropane</strong>.</p>
+      <p>g) CH₃–CH₂–CH₂–COOH. h) CH₃–CH₂–CO–NH₂.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-monomere-et-motif" data-titre="Monomère et motif" data-niveau="1" data-type="application" data-notions="polymeres" data-duree="10" data-calculatrice="non">
+    <p>1. Le polytétrafluoroéthylène (PTFE), qui couvre les poêles antiadhésives, est obtenu à partir du tétrafluoroéthène CF₂=CF₂. Écrire son motif.<br>2. Voici un morceau de la chaîne du polystyrène : …–CH₂–CH(C₆H₅)–CH₂–CH(C₆H₅)–CH₂–CH(C₆H₅)–… Écrire son motif, puis son monomère (C₆H₅ est un cycle benzénique).<br>3. Citer deux polymères naturels et un usage de chacun.</p>
+    <details class="correction">
+      <p>1. La double liaison s'ouvre : motif –CF₂–CF₂–, polymère $[\text{–CF}_2\text{–CF}_2\text{–}]_n$.</p>
+      <p>2. La suite qui se répète est –CH₂–CH(C₆H₅)–. Le monomère a une double liaison entre ces deux carbones : CH₂=CH–C₆H₅ (le styrène).</p>
+      <p>3. Par exemple : la cellulose (le coton, le papier) ; les protéines (la laine, la soie) ; l'amidon (réserve d'énergie de la pomme de terre) ; le caoutchouc naturel (le latex de l'hévéa).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-quelle-categorie" data-titre="Quelle catégorie ?" data-niveau="1" data-type="application" data-notions="categories-reactions" data-duree="10" data-calculatrice="non">
+    <p>Donner la catégorie de chaque réaction : substitution, addition, élimination, acide-base ou oxydoréduction.</p>
+    <p>a) CH₃–CH₂–CH₂–OH → CH₃–CH=CH₂ + H₂O<br>b) CH₂=CH–CH₃ + H₂ → CH₃–CH₂–CH₃<br>c) CH₃–CH₂–Br + HO⁻ → CH₃–CH₂–OH + Br⁻<br>d) CH₃–COOH + HO⁻ → CH₃–COO⁻ + H₂O<br>e) CH₃–CH₂–OH → CH₃–CHO, en présence d'ions permanganate<br>f) CH₃–COOH + CH₃–OH → CH₃–COO–CH₃ + H₂O</p>
+    <details class="correction">
+      <p>a) Un réactif, deux produits, une double liaison apparaît : <strong>élimination</strong> (d'eau).</p>
+      <p>b) Deux réactifs, un produit, la double liaison disparaît : <strong>addition</strong> (de dihydrogène).</p>
+      <p>c) Br est remplacé par OH : <strong>substitution</strong>.</p>
+      <p>d) L'acide cède un ion H⁺ à HO⁻ : <strong>acide-base</strong>.</p>
+      <p>e) L'alcool est oxydé en aldéhyde par les ions permanganate : <strong>oxydoréduction</strong>.</p>
+      <p>f) Le –OH de l'acide est remplacé par –O–CH₃ : <strong>substitution</strong> (estérification).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-rendement-de-l-aspirine" data-titre="Le rendement de l'aspirine" data-niveau="1" data-type="application" data-notions="synthese-1" data-duree="15" data-calculatrice="oui">
+    <p>On synthétise l'aspirine à partir de $5{,}00$ g d'acide salicylique (C₇H₆O₃, $M=138{,}1$ g·mol⁻¹) et de $7{,}0$ mL d'anhydride éthanoïque (C₄H₆O₃, $M=102{,}1$ g·mol⁻¹, $\rho=1{,}08$ g·mL⁻¹). Équation : C₇H₆O₃ + C₄H₆O₃ → C₉H₈O₄ + C₂H₄O₂. Après purification et séchage, on pèse $5{,}20$ g d'aspirine (C₉H₈O₄, $M=180{,}2$ g·mol⁻¹).</p>
+    <p>1. Calculer les quantités de réactifs. Lequel est limitant ?<br>2. Calculer la masse maximale d'aspirine, puis le rendement.<br>3. Pourquoi l'anhydride est-il mis en excès ?<br>4. Un camarade trouve $6{,}80$ g avant séchage. Que penser de son rendement ?</p>
+    <details class="indice"><p>Pour l'anhydride, liquide : $n=\dfrac{\rho\times V}{M}$.</p></details>
+    <details class="correction">
+      <p>1. $n_{\text{acide}}=\dfrac{5{,}00}{138{,}1}=3{,}62\times10^{-2}$ mol ; $n_{\text{anhydride}}=\dfrac{1{,}08\times7{,}0}{102{,}1}=7{,}4\times10^{-2}$ mol. Coefficients égaux : l'acide salicylique est limitant.</p>
+      <p>2. $n_{\max}=3{,}62\times10^{-2}$ mol, $m_{\max}=3{,}62\times10^{-2}\times180{,}2=6{,}52$ g. $\eta=\dfrac{5{,}20}{6{,}52}=0{,}80$, soit $80$ %.</p>
+      <p>3. Pour que tout l'acide salicylique réagisse : c'est lui qu'on veut transformer entièrement, et l'anhydride restant est détruit par l'eau à la fin du protocole.</p>
+      <p>4. $\dfrac{6{,}80}{6{,}52}=1{,}04$ : plus de $100$ %. Impossible : le produit pesé contient encore autre chose, de l'eau ou de l'acide éthanoïque. Il faut le sécher avant de peser.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Exploiter une situation</h3>
+
+  <article class="exercice" id="ex-les-alcools-de-formule-c4h10o" data-titre="Les alcools de formule C₄H₁₀O" data-niveau="2" data-type="raisonnement" data-notions="topologique familles-org" data-duree="15" data-calculatrice="non">
+    <p>1. Écrire les formules semi-développées de tous les alcools de formule brute C₄H₁₀O, et les nommer.<br>2. Qu'est-ce qui distingue le butan-1-ol du butan-2-ol ? le butan-1-ol du 2-méthylpropan-1-ol ?<br>3. Proposer un isomère de C₄H₁₀O qui n'est pas un alcool.</p>
+    <details class="indice"><p>Deux squelettes possibles pour quatre carbones : en ligne, ou trois en ligne avec un en ramification.</p></details>
+    <details class="correction">
+      <p>1. Chaîne de quatre carbones : CH₃–CH₂–CH₂–CH₂–OH, <strong>butan-1-ol</strong> ; CH₃–CH(OH)–CH₂–CH₃, <strong>butan-2-ol</strong>. Chaîne ramifiée : CH₃–CH(CH₃)–CH₂–OH, <strong>2-méthylpropan-1-ol</strong> ; (CH₃)₃C–OH, <strong>2-méthylpropan-2-ol</strong>. Quatre alcools.</p>
+      <p>2. Le butan-1-ol et le butan-2-ol ont la même chaîne : seule la place du OH change. Le butan-1-ol et le 2-méthylpropan-1-ol ont tous deux le OH en bout de chaîne : c'est le squelette qui change, linéaire dans l'un, ramifié dans l'autre.</p>
+      <p>3. L'oxygène placé entre deux carbones : CH₃–O–CH₂–CH₂–CH₃, ou CH₃–CH₂–O–CH₂–CH₃. Ce sont des éthers, une famille hors programme : même formule brute, propriétés très différentes.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-l-arome-de-banane" data-titre="L'arôme de banane" data-niveau="2" data-type="probleme" data-notions="synthese-1 optimiser-synthese spectre-ir" data-duree="25" data-calculatrice="oui" data-source="Métropole 2023, jour 1 : « Synthèse de l'arôme de banane »">
+    <p>Pour préparer l'éthanoate de 3-méthylbutyle, l'arôme de banane, on introduit dans un ballon $15{,}0$ mL d'acide éthanoïque, $20{,}0$ mL de 3-méthylbutan-1-ol, quelques gouttes d'acide sulfurique concentré et des grains de pierre ponce. On chauffe à reflux $45$ minutes. Après refroidissement, on verse le mélange dans de l'eau froide, on sépare la phase organique, on la lave par une solution d'hydrogénocarbonate de sodium, puis on la sèche. On obtient $15{,}6$ g d'ester.</p>
+    <p>Données : acide éthanoïque $\rho=1{,}05$ g·mL⁻¹, $M=60{,}1$ g·mol⁻¹ ; 3-méthylbutan-1-ol $\rho=0{,}810$ g·mL⁻¹, $M=88{,}1$ g·mol⁻¹ ; ester $M=130{,}2$ g·mol⁻¹, peu soluble dans l'eau, densité $0{,}87$.</p>
+    <p>1. Écrire l'équation avec les formules semi-développées.<br>2. Quel est le rôle du chauffage à reflux ? de l'acide sulfurique ?<br>3. Pendant le lavage, un gaz se dégage. Lequel, et pourquoi ?<br>4. Calculer le rendement.<br>5. Le spectre IR du produit n'a pas de bande large vers 3 300 cm⁻¹, mais une bande forte vers 1 740 cm⁻¹. Conclure.<br>6. Proposer deux modifications qui augmenteraient le rendement.</p>
+    <details class="indice"><p>Question 3 : l'ion hydrogénocarbonate est une base. Que reste-t-il d'acide dans la phase organique ?</p></details>
+    <details class="indice"><p>Question 4 : la méthode « Calculer un rendement » du cours, partie 9, porte sur ces mêmes nombres.</p></details>
+    <details class="correction">
+      <p>1. CH₃–COOH + HO–CH₂–CH₂–CH(CH₃)–CH₃ ⇄ CH₃–COO–CH₂–CH₂–CH(CH₃)–CH₃ + H₂O.</p>
+      <p>2. Le chauffage accélère la transformation ; le réfrigérant renvoie les vapeurs dans le ballon, sans perte de matière. L'acide sulfurique est un catalyseur : il accélère encore, sans changer l'état final.</p>
+      <p>3. Du dioxyde de carbone : l'ion hydrogénocarbonate réagit avec l'acide éthanoïque restant (et les traces d'acide sulfurique). Ce lavage élimine l'acide du produit.</p>
+      <p>4. $n_{\text{acide}}=0{,}262$ mol, $n_{\text{alcool}}=0{,}184$ mol : l'alcool est limitant. $m_{\max}=0{,}184\times130{,}2=23{,}9$ g ; $\eta=\dfrac{15{,}6}{23{,}9}=0{,}65$, soit $65$ %.</p>
+      <p>5. La liaison O–H de l'alcool (et de l'acide) a disparu, une liaison C=O d'ester est présente : le produit est bien l'ester, sans alcool ni acide en quantité visible.</p>
+      <p>6. Mettre davantage d'acide éthanoïque (un excès plus grand), ou retirer l'eau au fur et à mesure avec un montage Dean-Stark. Dans les deux cas, $Q_r$ reste inférieur à $K$ et la transformation va plus loin. Chauffer plus longtemps n'y changerait rien si l'état final est atteint.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-plus-d-ester-avec-un-exces" data-titre="Plus d'ester avec un excès" data-niveau="2" data-type="probleme" data-notions="optimiser-synthese" data-duree="20" data-calculatrice="oui">
+    <p>Pour l'estérification acide + alcool ⇄ ester + eau, on prend $K=4{,}0$. Les quatre espèces sont dans le même volume : dans $Q_r$, on peut remplacer les concentrations par les quantités de matière.</p>
+    <p>1. On part de $1{,}0$ mol d'acide et $1{,}0$ mol d'alcool. Montrer que l'avancement final $x_f$ vérifie $\dfrac{x_f^2}{(1-x_f)^2}=4$, et le calculer. En déduire le rendement.<br>2. On ajoute $2{,}0$ mol d'alcool au mélange à l'équilibre. Calculer $Q_r$ juste après l'ajout. Dans quel sens le système évolue-t-il ?<br>3. On part cette fois de $1{,}0$ mol d'acide et $3{,}0$ mol d'alcool. Calculer le rendement final.</p>
+    <details class="indice"><p>Question 1 : prends la racine carrée des deux membres, en gardant la racine positive.</p></details>
+    <details class="indice"><p>Question 3 : $\dfrac{x^2}{(1-x)(3-x)}=4$ donne une équation du second degré ; garde la solution comprise entre 0 et 1.</p></details>
+    <details class="correction">
+      <p>1. À l'équilibre : acide $1-x_f$, alcool $1-x_f$, ester $x_f$, eau $x_f$. $K=\dfrac{x_f\times x_f}{(1-x_f)(1-x_f)}=4$, donc $\dfrac{x_f}{1-x_f}=2$, soit $x_f=\dfrac23\approx0{,}67$ mol. Rendement : $67$ %.</p>
+      <p>2. Juste après l'ajout : ester $\tfrac23$ mol, eau $\tfrac23$ mol, acide $\tfrac13$ mol, alcool $\tfrac13+2=\tfrac73$ mol. $Q_r=\dfrac{\frac23\times\frac23}{\frac13\times\frac73}=\dfrac47\approx0{,}57&lt;K$ : le système évolue dans le sens direct, il se forme encore de l'ester.</p>
+      <p>3. $\dfrac{x^2}{(1-x)(3-x)}=4$ donne $x^2=4(3-4x+x^2)$, soit $3x^2-16x+12=0$. Solutions : $x\approx0{,}90$ et $x\approx4{,}4$ ; seule la première est possible (l'acide est limitant, $x\leqslant1$). Rendement : $90$ %.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-dean-stark" data-titre="Le Dean-Stark" data-niveau="2" data-type="probleme" data-notions="optimiser-synthese synthese-1" data-duree="15" data-calculatrice="oui">
+    <p>On chauffe $0{,}200$ mol d'acide et $0{,}200$ mol d'alcool, avec un catalyseur et du cyclohexane, dans un montage Dean-Stark. Dans le tube gradué, on relève le volume d'eau : $2{,}2$ mL après $30$ min, $3{,}3$ mL après $60$ min, $3{,}4$ mL après $90$ min et après $120$ min. Données : eau $\rho=1{,}00$ g·mL⁻¹, $M=18{,}0$ g·mol⁻¹ ; le cyclohexane ne se mélange pas à l'eau, il est moins dense qu'elle.</p>
+    <p>1. Pourquoi l'eau s'accumule-t-elle au fond du tube gradué ?<br>2. Quel volume d'eau recueillerait-on si la transformation était totale ?<br>3. Calculer le rendement final.<br>4. Sans Dean-Stark, le rendement serait de $67$ %. Expliquer la différence avec le quotient de réaction.</p>
+    <details class="correction">
+      <p>1. L'eau ne se mélange pas au cyclohexane et elle est plus dense : elle tombe au fond, tandis que le cyclohexane déborde et retourne dans le ballon.</p>
+      <p>2. Transformation totale : $x_{\max}=0{,}200$ mol d'eau, soit $0{,}200\times18{,}0=3{,}60$ g, donc $3{,}6$ mL.</p>
+      <p>3. $n_{\text{eau}}=\dfrac{3{,}4\times1{,}00}{18{,}0}=0{,}189$ mol $=x_f$. $\eta=\dfrac{0{,}189}{0{,}200}=0{,}94$, soit $94$ % (ou directement $\dfrac{3{,}4}{3{,}6}$).</p>
+      <p>4. L'eau retirée n'est plus dans le mélange : le numérateur de $Q_r$ reste très petit, $Q_r$ reste inférieur à $K$, et la transformation continue presque jusqu'au bout. Sans Dean-Stark, elle s'arrête quand $Q_r=K$, vers $67$ %.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-deux-spectres-ir" data-titre="Deux spectres infrarouges" data-niveau="2" data-type="application" data-notions="spectre-ir familles-org" data-duree="10" data-calculatrice="non">
+    <p>On oxyde le propan-1-ol, CH₃–CH₂–CH₂–OH, en acide propanoïque, CH₃–CH₂–COOH. On enregistre le spectre du réactif et celui du produit, sans noter lequel est lequel.</p>
+    <figure class="figure-svg large"><svg data-figure="ex_ir_oxydation" viewBox="0 0 660 460" role="img" aria-label="Deux spectres infrarouges, A et B, de 4000 à 500 cm⁻¹. A : une bande large et forte vers 3330 cm⁻¹, des bandes fines vers 2900. B : une bande très large qui s'étend de 3300 à 2500 cm⁻¹ environ, sur laquelle les bandes C–H se devinent, et une bande fine et très forte vers 1710 cm⁻¹."><line class="axe-trait" x1="60.0" y1="178.0" x2="620.0" y2="178.0"/><line class="axe-trait" x1="60.0" y1="28.0" x2="60.0" y2="178.0"/><line class="axe-trait" x1="60.0" y1="178.0" x2="60.0" y2="183.0"/><text class="petit" x="60.0" y="196.0" text-anchor="middle">4000</text><line class="axe-trait" x1="220.0" y1="178.0" x2="220.0" y2="183.0"/><text class="petit" x="220.0" y="196.0" text-anchor="middle">3000</text><line class="axe-trait" x1="380.0" y1="178.0" x2="380.0" y2="183.0"/><text class="petit" x="380.0" y="196.0" text-anchor="middle">2000</text><line class="axe-trait" x1="460.0" y1="178.0" x2="460.0" y2="183.0"/><text class="petit" x="460.0" y="196.0" text-anchor="middle">1500</text><line class="axe-trait" x1="540.0" y1="178.0" x2="540.0" y2="183.0"/><text class="petit" x="540.0" y="196.0" text-anchor="middle">1000</text><line class="axe-trait" x1="620.0" y1="178.0" x2="620.0" y2="183.0"/><text class="petit" x="620.0" y="196.0" text-anchor="middle">500</text><text class="petit" x="54.0" y="182.0" text-anchor="end">0</text><text class="petit" x="54.0" y="107.0" text-anchor="end">50</text><text class="petit" x="54.0" y="32.0" text-anchor="end">100</text><g class="trace ep-2 t-u"><path d="M60.0,28.0 L60.8,28.0 L61.6,28.0 L62.4,28.0 L63.2,28.0 L64.0,28.0 L64.8,28.0 L65.6,28.0 L66.4,28.0 L67.2,28.0 L68.0,28.0 L68.8,28.0 L69.6,28.0 L70.4,28.0 L71.2,28.0 L72.0,28.0 L72.8,28.0 L73.6,28.0 L74.4,28.0 L75.2,28.0 L76.0,28.0 L76.8,28.0 L77.6,28.0 L78.4,28.0 L79.2,28.0 L80.0,28.0 L80.8,28.0 L81.6,28.0 L82.4,28.0 L83.2,28.0 L84.0,28.0 L84.8,28.0 L85.6,28.0 L86.4,28.0 L87.2,28.0 L88.0,28.0 L88.8,28.0 L89.6,28.0 L90.4,28.0 L91.2,28.0 L92.0,28.0 L92.8,28.0 L93.6,28.0 L94.4,28.0 L95.2,28.0 L96.0,28.0 L96.8,28.0 L97.6,28.0 L98.4,28.0 L99.2,28.0 L100.0,28.0 L100.8,28.0 L101.6,28.1 L102.4,28.1 L103.2,28.1 L104.0,28.1 L104.8,28.1 L105.6,28.1 L106.4,28.2 L107.2,28.2 L108.0,28.2 L108.8,28.3 L109.6,28.3 L110.4,28.4 L111.2,28.5 L112.0,28.5 L112.8,28.6 L113.6,28.7 L114.4,28.8 L115.2,29.0 L116.0,29.1 L116.8,29.3 L117.6,29.5 L118.4,29.7 L119.2,29.9 L120.0,30.2 L120.8,30.5 L121.6,30.8 L122.4,31.2 L123.2,31.6 L124.0,32.1 L124.8,32.6 L125.6,33.2 L126.4,33.8 L127.2,34.5 L128.0,35.3 L128.8,36.1 L129.6,37.0 L130.4,38.0 L131.2,39.1 L132.0,40.2 L132.8,41.5 L133.6,42.8 L134.4,44.2 L135.2,45.7 L136.0,47.4 L136.8,49.1 L137.6,50.9 L138.4,52.9 L139.2,54.9 L140.0,57.1 L140.8,59.3 L141.6,61.7 L142.4,64.1 L143.2,66.6 L144.0,69.2 L144.8,71.9 L145.6,74.7 L146.4,77.5 L147.2,80.4 L148.0,83.4 L148.8,86.3 L149.6,89.3 L150.4,92.3 L151.2,95.3 L152.0,98.3 L152.8,101.3 L153.6,104.2 L154.4,107.0 L155.2,109.8 L156.0,112.5 L156.8,115.0 L157.6,117.5 L158.4,119.8 L159.2,122.0 L160.0,124.0 L160.8,125.8 L161.6,127.4 L162.4,128.9 L163.2,130.1 L164.0,131.1 L164.8,132.0 L165.6,132.5 L166.4,132.9 L167.2,133.0 L168.0,132.9 L168.8,132.5 L169.6,132.0 L170.4,131.1 L171.2,130.1 L172.0,128.9 L172.8,127.4 L173.6,125.8 L174.4,124.0 L175.2,122.0 L176.0,119.8 L176.8,117.5 L177.6,115.0 L178.4,112.5 L179.2,109.8 L180.0,107.0 L180.8,104.2 L181.6,101.3 L182.4,98.3 L183.2,95.3 L184.0,92.3 L184.8,89.3 L185.6,86.3 L186.4,83.4 L187.2,80.4 L188.0,77.5 L188.8,74.7 L189.6,71.9 L190.4,69.2 L191.2,66.6 L192.0,64.1 L192.8,61.7 L193.6,59.3 L194.4,57.1 L195.2,54.9 L196.0,52.9 L196.8,50.9 L197.6,49.1 L198.4,47.4 L199.2,45.7 L200.0,44.2 L200.8,42.8 L201.6,41.5 L202.4,40.2 L203.2,39.1 L204.0,38.0 L204.8,37.0 L205.6,36.1 L206.4,35.3 L207.2,34.5 L208.0,33.8 L208.8,33.2 L209.6,32.6 L210.4,32.1 L211.2,31.6 L212.0,31.2 L212.8,30.9 L213.6,30.5 L214.4,30.3 L215.2,30.2 L216.0,30.3 L216.8,30.7 L217.6,31.8 L218.4,33.9 L219.2,37.5 L220.0,43.1 L220.8,51.2 L221.6,61.7 L222.4,74.4 L223.2,88.0 L224.0,100.9 L224.8,111.3 L225.6,117.3 L226.4,117.8 L227.2,112.8 L228.0,103.1 L228.8,90.4 L229.6,76.7 L230.4,63.7 L231.2,52.7 L232.0,44.4 L232.8,39.1 L233.6,37.0 L234.4,38.1 L235.2,42.8 L236.0,50.8 L236.8,61.3 L237.6,72.7 L238.4,82.3 L239.2,87.5 L240.0,86.9 L240.8,80.6 L241.6,70.3 L242.4,58.7 L243.2,48.1 L244.0,39.9 L244.8,34.3 L245.6,31.0 L246.4,29.3 L247.2,28.5 L248.0,28.2 L248.8,28.1 L249.6,28.0 L250.4,28.0 L251.2,28.0 L252.0,28.0 L252.8,28.0 L253.6,28.0 L254.4,28.0 L255.2,28.0 L256.0,28.0 L256.8,28.0 L257.6,28.0 L258.4,28.0 L259.2,28.0 L260.0,28.0 L260.8,28.0 L261.6,28.0 L262.4,28.0 L263.2,28.0 L264.0,28.0 L264.8,28.0 L265.6,28.0 L266.4,28.0 L267.2,28.0 L268.0,28.0 L268.8,28.0 L269.6,28.0 L270.4,28.0 L271.2,28.0 L272.0,28.0 L272.8,28.0 L273.6,28.0 L274.4,28.0 L275.2,28.0 L276.0,28.0 L276.8,28.0 L277.6,28.0 L278.4,28.0 L279.2,28.0 L280.0,28.0 L280.8,28.0 L281.6,28.0 L282.4,28.0 L283.2,28.0 L284.0,28.0 L284.8,28.0 L285.6,28.0 L286.4,28.0 L287.2,28.0 L288.0,28.0 L288.8,28.0 L289.6,28.0 L290.4,28.0 L291.2,28.0 L292.0,28.0 L292.8,28.0 L293.6,28.0 L294.4,28.0 L295.2,28.0 L296.0,28.0 L296.8,28.0 L297.6,28.0 L298.4,28.0 L299.2,28.0 L300.0,28.0 L300.8,28.0 L301.6,28.0 L302.4,28.0 L303.2,28.0 L304.0,28.0 L304.8,28.0 L305.6,28.0 L306.4,28.0 L307.2,28.0 L308.0,28.0 L308.8,28.0 L309.6,28.0 L310.4,28.0 L311.2,28.0 L312.0,28.0 L312.8,28.0 L313.6,28.0 L314.4,28.0 L315.2,28.0 L316.0,28.0 L316.8,28.0 L317.6,28.0 L318.4,28.0 L319.2,28.0 L320.0,28.0 L320.8,28.0 L321.6,28.0 L322.4,28.0 L323.2,28.0 L324.0,28.0 L324.8,28.0 L325.6,28.0 L326.4,28.0 L327.2,28.0 L328.0,28.0 L328.8,28.0 L329.6,28.0 L330.4,28.0 L331.2,28.0 L332.0,28.0 L332.8,28.0 L333.6,28.0 L334.4,28.0 L335.2,28.0 L336.0,28.0 L336.8,28.0 L337.6,28.0 L338.4,28.0 L339.2,28.0 L340.0,28.0 L340.8,28.0 L341.6,28.0 L342.4,28.0 L343.2,28.0 L344.0,28.0 L344.8,28.0 L345.6,28.0 L346.4,28.0 L347.2,28.0 L348.0,28.0 L348.8,28.0 L349.6,28.0 L350.4,28.0 L351.2,28.0 L352.0,28.0 L352.8,28.0 L353.6,28.0 L354.4,28.0 L355.2,28.0 L356.0,28.0 L356.8,28.0 L357.6,28.0 L358.4,28.0 L359.2,28.0 L360.0,28.0 L360.8,28.0 L361.6,28.0 L362.4,28.0 L363.2,28.0 L364.0,28.0 L364.8,28.0 L365.6,28.0 L366.4,28.0 L367.2,28.0 L368.0,28.0 L368.8,28.0 L369.6,28.0 L370.4,28.0 L371.2,28.0 L372.0,28.0 L372.8,28.0 L373.6,28.0 L374.4,28.0 L375.2,28.0 L376.0,28.0 L376.8,28.0 L377.6,28.0 L378.4,28.0 L379.2,28.0 L380.0,28.0 L380.8,28.0 L381.6,28.0 L382.4,28.0 L383.2,28.0 L384.0,28.0 L384.8,28.0 L385.6,28.0 L386.4,28.0 L387.2,28.0 L388.0,28.0 L388.8,28.0 L389.6,28.0 L390.4,28.0 L391.2,28.0 L392.0,28.0 L392.8,28.0 L393.6,28.0 L394.4,28.0 L395.2,28.0 L396.0,28.0 L396.8,28.0 L397.6,28.0 L398.4,28.0 L399.2,28.0 L400.0,28.0 L400.8,28.0 L401.6,28.0 L402.4,28.0 L403.2,28.0 L404.0,28.0 L404.8,28.0 L405.6,28.0 L406.4,28.0 L407.2,28.0 L408.0,28.0 L408.8,28.0 L409.6,28.0 L410.4,28.0 L411.2,28.0 L412.0,28.0 L412.8,28.0 L413.6,28.0 L414.4,28.0 L415.2,28.0 L416.0,28.0 L416.8,28.0 L417.6,28.0 L418.4,28.0 L419.2,28.0 L420.0,28.0 L420.8,28.0 L421.6,28.0 L422.4,28.0 L423.2,28.0 L424.0,28.0 L424.8,28.0 L425.6,28.0 L426.4,28.0 L427.2,28.0 L428.0,28.0 L428.8,28.0 L429.6,28.0 L430.4,28.0 L431.2,28.0 L432.0,28.0 L432.8,28.0 L433.6,28.0 L434.4,28.0 L435.2,28.0 L436.0,28.0 L436.8,28.0 L437.6,28.0 L438.4,28.0 L439.2,28.0 L440.0,28.0 L440.8,28.0 L441.6,28.0 L442.4,28.0 L443.2,28.0 L444.0,28.0 L444.8,28.0 L445.6,28.0 L446.4,28.0 L447.2,28.0 L448.0,28.0 L448.8,28.0 L449.6,28.0 L450.4,28.0 L451.2,28.0 L452.0,28.0 L452.8,28.0 L453.6,28.0 L454.4,28.0 L455.2,28.0 L456.0,28.0 L456.8,28.0 L457.6,28.0 L458.4,28.0 L459.2,28.0 L460.0,28.0 L460.8,28.1 L461.6,28.4 L462.4,29.6 L463.2,33.1 L464.0,40.4 L464.8,51.4 L465.6,62.3 L466.4,67.0 L467.2,62.3 L468.0,51.4 L468.8,40.4 L469.6,33.1 L470.4,29.6 L471.2,28.4 L472.0,28.1 L472.8,28.0 L473.6,28.0 L474.4,28.0 L475.2,28.0 L476.0,28.0 L476.8,28.0 L477.6,28.0 L478.4,28.0 L479.2,28.0 L480.0,28.0 L480.8,28.0 L481.6,28.0 L482.4,28.0 L483.2,28.0 L484.0,28.0 L484.8,28.0 L485.6,28.0 L486.4,28.0 L487.2,28.0 L488.0,28.0 L488.8,28.0 L489.6,28.0 L490.4,28.0 L491.2,28.0 L492.0,28.0 L492.8,28.0 L493.6,28.0 L494.4,28.0 L495.2,28.0 L496.0,28.0 L496.8,28.0 L497.6,28.0 L498.4,28.0 L499.2,28.0 L500.0,28.0 L500.8,28.0 L501.6,28.0 L502.4,28.0 L503.2,28.0 L504.0,28.0 L504.8,28.0 L505.6,28.0 L506.4,28.0 L507.2,28.0 L508.0,28.0 L508.8,28.0 L509.6,28.0 L510.4,28.0 L511.2,28.0 L512.0,28.0 L512.8,28.0 L513.6,28.0 L514.4,28.0 L515.2,28.0 L516.0,28.0 L516.8,28.0 L517.6,28.0 L518.4,28.0 L519.2,28.0 L520.0,28.0 L520.8,28.1 L521.6,28.2 L522.4,28.5 L523.2,29.4 L524.0,31.3 L524.8,35.2 L525.6,42.0 L526.4,52.7 L527.2,67.4 L528.0,84.5 L528.8,101.2 L529.6,113.5 L530.4,118.0 L531.2,113.5 L532.0,101.2 L532.8,84.5 L533.6,67.4 L534.4,52.7 L535.2,42.0 L536.0,35.2 L536.8,31.3 L537.6,29.5 L538.4,28.8 L539.2,29.2 L540.0,30.9 L540.8,34.6 L541.6,41.1 L542.4,50.5 L543.2,61.1 L544.0,69.7 L544.8,73.0 L545.6,69.7 L546.4,61.0 L547.2,50.5 L548.0,41.1 L548.8,34.5 L549.6,30.8 L550.4,29.0 L551.2,28.3 L552.0,28.1 L552.8,28.0 L553.6,28.0 L554.4,28.0 L555.2,28.0 L556.0,28.0 L556.8,28.0 L557.6,28.0 L558.4,28.0 L559.2,28.0 L560.0,28.0 L560.8,28.0 L561.6,28.0 L562.4,28.0 L563.2,28.0 L564.0,28.0 L564.8,28.0 L565.6,28.0 L566.4,28.0 L567.2,28.0 L568.0,28.0 L568.8,28.0 L569.6,28.0 L570.4,28.0 L571.2,28.0 L572.0,28.0 L572.8,28.0 L573.6,28.0 L574.4,28.0 L575.2,28.0 L576.0,28.0 L576.8,28.0 L577.6,28.0 L578.4,28.0 L579.2,28.0 L580.0,28.0 L580.8,28.0 L581.6,28.0 L582.4,28.0 L583.2,28.0 L584.0,28.0 L584.8,28.0 L585.6,28.0 L586.4,28.0 L587.2,28.0 L588.0,28.0 L588.8,28.0 L589.6,28.0 L590.4,28.0 L591.2,28.0 L592.0,28.0 L592.8,28.0 L593.6,28.0 L594.4,28.0 L595.2,28.0 L596.0,28.0 L596.8,28.0 L597.6,28.0 L598.4,28.0 L599.2,28.0 L600.0,28.0 L600.8,28.0 L601.6,28.0 L602.4,28.0 L603.2,28.0 L604.0,28.0 L604.8,28.0 L605.6,28.0 L606.4,28.0 L607.2,28.0 L608.0,28.0 L608.8,28.0 L609.6,28.0 L610.4,28.0 L611.2,28.0 L612.0,28.0 L612.8,28.0 L613.6,28.0 L614.4,28.0 L615.2,28.0 L616.0,28.0 L616.8,28.0 L617.6,28.0 L618.4,28.0 L619.2,28.0 L620.0,28.0"/></g><text class="note" x="100.0" y="20.0" text-anchor="start">spectre A</text><text class="petit" x="54.0" y="20.0" text-anchor="end">T (%)</text><line class="axe-trait" x1="60.0" y1="386.0" x2="620.0" y2="386.0"/><line class="axe-trait" x1="60.0" y1="236.0" x2="60.0" y2="386.0"/><line class="axe-trait" x1="60.0" y1="386.0" x2="60.0" y2="391.0"/><text class="petit" x="60.0" y="404.0" text-anchor="middle">4000</text><line class="axe-trait" x1="220.0" y1="386.0" x2="220.0" y2="391.0"/><text class="petit" x="220.0" y="404.0" text-anchor="middle">3000</text><line class="axe-trait" x1="380.0" y1="386.0" x2="380.0" y2="391.0"/><text class="petit" x="380.0" y="404.0" text-anchor="middle">2000</text><line class="axe-trait" x1="460.0" y1="386.0" x2="460.0" y2="391.0"/><text class="petit" x="460.0" y="404.0" text-anchor="middle">1500</text><line class="axe-trait" x1="540.0" y1="386.0" x2="540.0" y2="391.0"/><text class="petit" x="540.0" y="404.0" text-anchor="middle">1000</text><line class="axe-trait" x1="620.0" y1="386.0" x2="620.0" y2="391.0"/><text class="petit" x="620.0" y="404.0" text-anchor="middle">500</text><text class="petit" x="54.0" y="390.0" text-anchor="end">0</text><text class="petit" x="54.0" y="315.0" text-anchor="end">50</text><text class="petit" x="54.0" y="240.0" text-anchor="end">100</text><g class="trace ep-2 t-u"><path d="M60.0,236.0 L60.8,236.0 L61.6,236.0 L62.4,236.0 L63.2,236.0 L64.0,236.0 L64.8,236.0 L65.6,236.0 L66.4,236.0 L67.2,236.0 L68.0,236.0 L68.8,236.0 L69.6,236.0 L70.4,236.0 L71.2,236.0 L72.0,236.0 L72.8,236.0 L73.6,236.0 L74.4,236.0 L75.2,236.0 L76.0,236.0 L76.8,236.0 L77.6,236.1 L78.4,236.1 L79.2,236.1 L80.0,236.1 L80.8,236.1 L81.6,236.1 L82.4,236.1 L83.2,236.1 L84.0,236.1 L84.8,236.1 L85.6,236.1 L86.4,236.1 L87.2,236.1 L88.0,236.2 L88.8,236.2 L89.6,236.2 L90.4,236.2 L91.2,236.2 L92.0,236.2 L92.8,236.2 L93.6,236.3 L94.4,236.3 L95.2,236.3 L96.0,236.3 L96.8,236.3 L97.6,236.4 L98.4,236.4 L99.2,236.4 L100.0,236.4 L100.8,236.5 L101.6,236.5 L102.4,236.5 L103.2,236.6 L104.0,236.6 L104.8,236.7 L105.6,236.7 L106.4,236.8 L107.2,236.8 L108.0,236.9 L108.8,236.9 L109.6,237.0 L110.4,237.0 L111.2,237.1 L112.0,237.2 L112.8,237.3 L113.6,237.3 L114.4,237.4 L115.2,237.5 L116.0,237.6 L116.8,237.7 L117.6,237.8 L118.4,237.9 L119.2,238.0 L120.0,238.2 L120.8,238.3 L121.6,238.4 L122.4,238.6 L123.2,238.7 L124.0,238.9 L124.8,239.0 L125.6,239.2 L126.4,239.4 L127.2,239.6 L128.0,239.7 L128.8,239.9 L129.6,240.2 L130.4,240.4 L131.2,240.6 L132.0,240.8 L132.8,241.1 L133.6,241.4 L134.4,241.6 L135.2,241.9 L136.0,242.2 L136.8,242.5 L137.6,242.8 L138.4,243.2 L139.2,243.5 L140.0,243.9 L140.8,244.2 L141.6,244.6 L142.4,245.0 L143.2,245.4 L144.0,245.8 L144.8,246.3 L145.6,246.7 L146.4,247.2 L147.2,247.7 L148.0,248.1 L148.8,248.7 L149.6,249.2 L150.4,249.7 L151.2,250.3 L152.0,250.9 L152.8,251.4 L153.6,252.0 L154.4,252.7 L155.2,253.3 L156.0,253.9 L156.8,254.6 L157.6,255.3 L158.4,256.0 L159.2,256.7 L160.0,257.4 L160.8,258.2 L161.6,259.0 L162.4,259.7 L163.2,260.5 L164.0,261.3 L164.8,262.1 L165.6,263.0 L166.4,263.8 L167.2,264.7 L168.0,265.6 L168.8,266.5 L169.6,267.4 L170.4,268.3 L171.2,269.2 L172.0,270.1 L172.8,271.1 L173.6,272.0 L174.4,273.0 L175.2,274.0 L176.0,274.9 L176.8,275.9 L177.6,276.9 L178.4,277.9 L179.2,278.9 L180.0,279.9 L180.8,280.9 L181.6,282.0 L182.4,283.0 L183.2,284.0 L184.0,285.0 L184.8,286.0 L185.6,287.0 L186.4,288.0 L187.2,289.0 L188.0,290.0 L188.8,291.0 L189.6,292.0 L190.4,293.0 L191.2,293.9 L192.0,294.9 L192.8,295.8 L193.6,296.7 L194.4,297.7 L195.2,298.6 L196.0,299.4 L196.8,300.3 L197.6,301.2 L198.4,302.0 L199.2,302.8 L200.0,303.6 L200.8,304.3 L201.6,305.1 L202.4,305.8 L203.2,306.5 L204.0,307.2 L204.8,307.8 L205.6,308.4 L206.4,309.0 L207.2,309.5 L208.0,310.1 L208.8,310.6 L209.6,311.0 L210.4,311.5 L211.2,311.9 L212.0,312.2 L212.8,312.6 L213.6,312.9 L214.4,313.2 L215.2,313.6 L216.0,314.2 L216.8,315.0 L217.6,316.4 L218.4,318.6 L219.2,321.8 L220.0,326.1 L220.8,331.4 L221.6,337.0 L222.4,342.0 L223.2,345.4 L224.0,346.6 L224.8,345.1 L225.6,341.2 L226.4,335.9 L227.2,330.0 L228.0,324.4 L228.8,319.7 L229.6,316.1 L230.4,313.6 L231.2,311.9 L232.0,310.7 L232.8,309.8 L233.6,309.1 L234.4,308.4 L235.2,307.8 L236.0,307.2 L236.8,306.5 L237.6,305.8 L238.4,305.1 L239.2,304.3 L240.0,303.6 L240.8,302.8 L241.6,302.0 L242.4,301.2 L243.2,300.3 L244.0,299.4 L244.8,298.6 L245.6,297.7 L246.4,296.7 L247.2,295.8 L248.0,294.9 L248.8,293.9 L249.6,293.0 L250.4,292.0 L251.2,291.0 L252.0,290.0 L252.8,289.0 L253.6,288.0 L254.4,287.0 L255.2,286.0 L256.0,285.0 L256.8,284.0 L257.6,283.0 L258.4,282.0 L259.2,280.9 L260.0,279.9 L260.8,278.9 L261.6,277.9 L262.4,276.9 L263.2,275.9 L264.0,274.9 L264.8,274.0 L265.6,273.0 L266.4,272.0 L267.2,271.1 L268.0,270.1 L268.8,269.2 L269.6,268.3 L270.4,267.4 L271.2,266.5 L272.0,265.6 L272.8,264.7 L273.6,263.8 L274.4,263.0 L275.2,262.1 L276.0,261.3 L276.8,260.5 L277.6,259.7 L278.4,259.0 L279.2,258.2 L280.0,257.4 L280.8,256.7 L281.6,256.0 L282.4,255.3 L283.2,254.6 L284.0,253.9 L284.8,253.3 L285.6,252.7 L286.4,252.0 L287.2,251.4 L288.0,250.9 L288.8,250.3 L289.6,249.7 L290.4,249.2 L291.2,248.7 L292.0,248.1 L292.8,247.7 L293.6,247.2 L294.4,246.7 L295.2,246.3 L296.0,245.8 L296.8,245.4 L297.6,245.0 L298.4,244.6 L299.2,244.2 L300.0,243.9 L300.8,243.5 L301.6,243.2 L302.4,242.8 L303.2,242.5 L304.0,242.2 L304.8,241.9 L305.6,241.6 L306.4,241.4 L307.2,241.1 L308.0,240.8 L308.8,240.6 L309.6,240.4 L310.4,240.2 L311.2,239.9 L312.0,239.7 L312.8,239.6 L313.6,239.4 L314.4,239.2 L315.2,239.0 L316.0,238.9 L316.8,238.7 L317.6,238.6 L318.4,238.4 L319.2,238.3 L320.0,238.2 L320.8,238.0 L321.6,237.9 L322.4,237.8 L323.2,237.7 L324.0,237.6 L324.8,237.5 L325.6,237.4 L326.4,237.3 L327.2,237.3 L328.0,237.2 L328.8,237.1 L329.6,237.0 L330.4,237.0 L331.2,236.9 L332.0,236.9 L332.8,236.8 L333.6,236.8 L334.4,236.7 L335.2,236.7 L336.0,236.6 L336.8,236.6 L337.6,236.5 L338.4,236.5 L339.2,236.5 L340.0,236.4 L340.8,236.4 L341.6,236.4 L342.4,236.4 L343.2,236.3 L344.0,236.3 L344.8,236.3 L345.6,236.3 L346.4,236.3 L347.2,236.2 L348.0,236.2 L348.8,236.2 L349.6,236.2 L350.4,236.2 L351.2,236.2 L352.0,236.2 L352.8,236.1 L353.6,236.1 L354.4,236.1 L355.2,236.1 L356.0,236.1 L356.8,236.1 L357.6,236.1 L358.4,236.1 L359.2,236.1 L360.0,236.1 L360.8,236.1 L361.6,236.1 L362.4,236.1 L363.2,236.0 L364.0,236.0 L364.8,236.0 L365.6,236.0 L366.4,236.0 L367.2,236.0 L368.0,236.0 L368.8,236.0 L369.6,236.0 L370.4,236.0 L371.2,236.0 L372.0,236.0 L372.8,236.0 L373.6,236.0 L374.4,236.0 L375.2,236.0 L376.0,236.0 L376.8,236.0 L377.6,236.0 L378.4,236.0 L379.2,236.0 L380.0,236.0 L380.8,236.0 L381.6,236.0 L382.4,236.0 L383.2,236.0 L384.0,236.0 L384.8,236.0 L385.6,236.0 L386.4,236.0 L387.2,236.0 L388.0,236.0 L388.8,236.0 L389.6,236.0 L390.4,236.0 L391.2,236.0 L392.0,236.0 L392.8,236.0 L393.6,236.0 L394.4,236.0 L395.2,236.0 L396.0,236.0 L396.8,236.0 L397.6,236.0 L398.4,236.0 L399.2,236.0 L400.0,236.0 L400.8,236.0 L401.6,236.0 L402.4,236.0 L403.2,236.0 L404.0,236.0 L404.8,236.0 L405.6,236.0 L406.4,236.0 L407.2,236.0 L408.0,236.0 L408.8,236.0 L409.6,236.0 L410.4,236.0 L411.2,236.0 L412.0,236.0 L412.8,236.0 L413.6,236.0 L414.4,236.0 L415.2,236.0 L416.0,236.0 L416.8,236.1 L417.6,236.4 L418.4,237.1 L419.2,238.8 L420.0,242.5 L420.8,249.6 L421.6,261.5 L422.4,279.2 L423.2,302.0 L424.0,327.0 L424.8,349.0 L425.6,362.6 L426.4,363.9 L427.2,352.6 L428.0,331.8 L428.8,307.0 L429.6,283.5 L430.4,264.6 L431.2,251.6 L432.0,243.6 L432.8,239.4 L433.6,237.3 L434.4,236.5 L435.2,236.2 L436.0,236.0 L436.8,236.0 L437.6,236.0 L438.4,236.0 L439.2,236.0 L440.0,236.0 L440.8,236.0 L441.6,236.0 L442.4,236.0 L443.2,236.0 L444.0,236.0 L444.8,236.0 L445.6,236.0 L446.4,236.0 L447.2,236.0 L448.0,236.0 L448.8,236.0 L449.6,236.0 L450.4,236.0 L451.2,236.0 L452.0,236.0 L452.8,236.0 L453.6,236.0 L454.4,236.0 L455.2,236.0 L456.0,236.0 L456.8,236.0 L457.6,236.0 L458.4,236.0 L459.2,236.0 L460.0,236.0 L460.8,236.0 L461.6,236.0 L462.4,236.0 L463.2,236.0 L464.0,236.0 L464.8,236.0 L465.6,236.1 L466.4,236.3 L467.2,237.0 L468.0,238.8 L468.8,242.5 L469.6,249.1 L470.4,258.5 L471.2,269.0 L472.0,277.7 L472.8,281.0 L473.6,277.7 L474.4,269.0 L475.2,258.5 L476.0,249.1 L476.8,242.5 L477.6,238.8 L478.4,237.0 L479.2,236.3 L480.0,236.1 L480.8,236.0 L481.6,236.0 L482.4,236.0 L483.2,236.0 L484.0,236.0 L484.8,236.0 L485.6,236.0 L486.4,236.0 L487.2,236.0 L488.0,236.0 L488.8,236.0 L489.6,236.1 L490.4,236.2 L491.2,236.4 L492.0,236.8 L492.8,237.5 L493.6,238.9 L494.4,241.1 L495.2,244.7 L496.0,249.9 L496.8,257.2 L497.6,266.4 L498.4,277.2 L499.2,288.9 L500.0,300.3 L500.8,309.8 L501.6,316.2 L502.4,318.5 L503.2,316.2 L504.0,309.8 L504.8,300.3 L505.6,288.9 L506.4,277.2 L507.2,266.4 L508.0,257.2 L508.8,249.9 L509.6,244.7 L510.4,241.1 L511.2,238.9 L512.0,237.5 L512.8,236.8 L513.6,236.4 L514.4,236.2 L515.2,236.1 L516.0,236.0 L516.8,236.0 L517.6,236.0 L518.4,236.0 L519.2,236.0 L520.0,236.0 L520.8,236.0 L521.6,236.0 L522.4,236.0 L523.2,236.0 L524.0,236.0 L524.8,236.0 L525.6,236.0 L526.4,236.0 L527.2,236.0 L528.0,236.0 L528.8,236.0 L529.6,236.0 L530.4,236.0 L531.2,236.0 L532.0,236.0 L532.8,236.0 L533.6,236.0 L534.4,236.0 L535.2,236.0 L536.0,236.1 L536.8,236.1 L537.6,236.3 L538.4,236.5 L539.2,236.9 L540.0,237.5 L540.8,238.5 L541.6,240.1 L542.4,242.2 L543.2,245.2 L544.0,249.0 L544.8,253.7 L545.6,259.0 L546.4,264.8 L547.2,270.6 L548.0,275.9 L548.8,280.2 L549.6,283.0 L550.4,284.0 L551.2,283.0 L552.0,280.2 L552.8,275.9 L553.6,270.6 L554.4,264.8 L555.2,259.0 L556.0,253.7 L556.8,249.0 L557.6,245.2 L558.4,242.2 L559.2,240.1 L560.0,238.5 L560.8,237.5 L561.6,236.9 L562.4,236.5 L563.2,236.3 L564.0,236.1 L564.8,236.1 L565.6,236.0 L566.4,236.0 L567.2,236.0 L568.0,236.0 L568.8,236.0 L569.6,236.0 L570.4,236.0 L571.2,236.0 L572.0,236.0 L572.8,236.0 L573.6,236.0 L574.4,236.0 L575.2,236.0 L576.0,236.0 L576.8,236.0 L577.6,236.0 L578.4,236.0 L579.2,236.0 L580.0,236.0 L580.8,236.0 L581.6,236.0 L582.4,236.0 L583.2,236.0 L584.0,236.0 L584.8,236.0 L585.6,236.0 L586.4,236.0 L587.2,236.0 L588.0,236.0 L588.8,236.0 L589.6,236.0 L590.4,236.0 L591.2,236.0 L592.0,236.0 L592.8,236.0 L593.6,236.0 L594.4,236.0 L595.2,236.0 L596.0,236.0 L596.8,236.0 L597.6,236.0 L598.4,236.0 L599.2,236.0 L600.0,236.0 L600.8,236.0 L601.6,236.0 L602.4,236.0 L603.2,236.0 L604.0,236.0 L604.8,236.0 L605.6,236.0 L606.4,236.0 L607.2,236.0 L608.0,236.0 L608.8,236.0 L609.6,236.0 L610.4,236.0 L611.2,236.0 L612.0,236.0 L612.8,236.0 L613.6,236.0 L614.4,236.0 L615.2,236.0 L616.0,236.0 L616.8,236.0 L617.6,236.0 L618.4,236.0 L619.2,236.0 L620.0,236.0"/></g><text class="note" x="100.0" y="228.0" text-anchor="start">spectre B</text><text class="petit" x="54.0" y="228.0" text-anchor="end">T (%)</text><text class="petit" x="620.0" y="422.0" text-anchor="end">nombre d’onde σ (cm⁻¹)</text></svg><figcaption>Les spectres A et B.</figcaption></figure>
+    <p>1. Attribuer chaque spectre à son espèce, en justifiant par deux bandes.<br>2. Peut-on affirmer, avec ce seul spectre, que le produit ne contient plus du tout d'alcool ?</p>
+    <details class="indice"><p>Cherche une bande fine et forte vers 1 700 cm⁻¹, et compare la largeur des bandes au-dessus de 2 500 cm⁻¹.</p></details>
+    <details class="correction">
+      <p>1. B a une bande fine et forte vers 1 710 cm⁻¹ (C=O) et une bande très large de 2 500 à 3 300 cm⁻¹ environ (O–H d'acide) : B est l'acide propanoïque. A n'a pas de C=O et a une bande large vers 3 330 cm⁻¹ (O–H d'alcool) : A est le propan-1-ol.</p>
+      <p>2. Non. La bande O–H d'un reste d'alcool tomberait dans la bande très large de l'acide : on ne la verrait pas. Une CCM, avec l'alcool en référence, le dirait.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-une-ccm-pour-conclure" data-titre="Une CCM pour conclure" data-niveau="2" data-type="application" data-notions="synthese-1" data-duree="10" data-calculatrice="non">
+    <p>Après une estérification, on fait une CCM avec quatre dépôts : 1, l'alcool de départ ; 2, le produit brut ; 3, le produit après distillation ; 4, l'ester du commerce.</p>
+    <figure class="figure-svg"><svg data-figure="ex_ccm" viewBox="0 0 480 320" role="img" aria-label="Une plaque de CCM à quatre dépôts. 1 : l'alcool de départ, une tache basse. 2 : le produit brut, deux taches, une basse à la hauteur de l'alcool et une haute. 3 : le produit après purification, une seule tache haute. 4 : l'ester du commerce, une tache haute, à la même hauteur."><rect class="fond-carte" x="50.0" y="30.0" width="240.0" height="230.0" rx="3"/><line class="trace ep-2 t-n pointille" x1="56.0" y1="236.0" x2="284.0" y2="236.0"/><line class="trace ep-2 t-u pointille" x1="56.0" y1="64.5" x2="284.0" y2="64.5"/><circle class="grain" cx="98.0" cy="236.0" r="2.5"/><ellipse class="liquide sol-2" cx="98.0" cy="188.0" rx="8" ry="6"/><ellipse class="contour" cx="98.0" cy="188.0" rx="8" ry="6"/><text class="note" x="98.0" y="278.0" text-anchor="middle">1</text><circle class="grain" cx="146.0" cy="236.0" r="2.5"/><ellipse class="liquide sol-2" cx="146.0" cy="188.0" rx="8" ry="6"/><ellipse class="contour" cx="146.0" cy="188.0" rx="8" ry="6"/><ellipse class="liquide sol-2" cx="146.0" cy="109.1" rx="8" ry="6"/><ellipse class="contour" cx="146.0" cy="109.1" rx="8" ry="6"/><text class="note" x="146.0" y="278.0" text-anchor="middle">2</text><circle class="grain" cx="194.0" cy="236.0" r="2.5"/><ellipse class="liquide sol-2" cx="194.0" cy="109.1" rx="8" ry="6"/><ellipse class="contour" cx="194.0" cy="109.1" rx="8" ry="6"/><text class="note" x="194.0" y="278.0" text-anchor="middle">3</text><circle class="grain" cx="242.0" cy="236.0" r="2.5"/><ellipse class="liquide sol-2" cx="242.0" cy="109.1" rx="8" ry="6"/><ellipse class="contour" cx="242.0" cy="109.1" rx="8" ry="6"/><text class="note" x="242.0" y="278.0" text-anchor="middle">4</text><text class="petit" x="300.0" y="100.0" text-anchor="start">1 : alcool de départ</text><text class="petit" x="300.0" y="118.0" text-anchor="start">2 : produit brut</text><text class="petit" x="300.0" y="136.0" text-anchor="start">3 : produit purifié</text><text class="petit" x="300.0" y="154.0" text-anchor="start">4 : ester du commerce</text></svg><figcaption>La plaque, après élution et révélation.</figcaption></figure>
+    <p>1. Que montre le dépôt 2 ?<br>2. Que montre le dépôt 3 ?<br>3. À quoi sert le dépôt 4 ?</p>
+    <details class="correction">
+      <p>1. Deux taches : une à la hauteur de l'alcool, une à la hauteur de l'ester. Le produit brut contient l'ester, mais aussi de l'alcool qui n'a pas réagi.</p>
+      <p>2. Une seule tache, à la hauteur de l'ester : la distillation a retiré l'alcool ; à la sensibilité de la CCM, le produit est pur.</p>
+      <p>3. C'est la référence : sans elle, on ne saurait pas quelle tache est celle de l'ester.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-du-mais-au-gobelet" data-titre="Du maïs au gobelet" data-niveau="2" data-type="probleme" data-notions="polymeres familles-org" data-duree="15" data-calculatrice="non">
+    <p>Le PLA, acide polylactique, sert à faire des gobelets compostables. L'amidon du maïs est transformé en glucose, puis, par fermentation, en acide lactique, CH₃–CH(OH)–COOH. Les molécules d'acide lactique s'enchaînent ensuite : le groupe –OH de l'une réagit avec le groupe –COOH de la suivante, en libérant de l'eau.</p>
+    <p>1. Nommer les deux groupes caractéristiques de l'acide lactique.<br>2. Quel groupe se forme entre deux maillons ? Le PLA est-il un polyester ou un polyamide ?<br>3. Écrire le motif du PLA.<br>4. Le PLA est-il un polymère naturel ou synthétique ?</p>
+    <details class="correction">
+      <p>1. Un groupe hydroxyle (alcool) et un groupe carboxyle (acide carboxylique).</p>
+      <p>2. –OH et –COOH forment un groupe ester, –COO– : le PLA est un polyester.</p>
+      <p>3. Motif : –O–CH(CH₃)–CO–, répété : $[\text{–O–CH(CH}_3\text{)–CO–}]_n$.</p>
+      <p>4. Synthétique : il n'existe pas dans la nature, on le fabrique. Il est en revanche <strong>biosourcé</strong>, fait à partir d'une ressource renouvelable, le maïs. Ses groupes ester peuvent être coupés par l'eau, à chaud : c'est ce qui le rend compostable en installation industrielle. (L'industrie passe par un intermédiaire, le lactide ; l'idée reste celle de l'exercice.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA" data-niveau="2" data-type="corrige-ia" data-notions="optimiser-synthese synthese-1" data-duree="12" data-calculatrice="oui">
+    <p>Un élève a demandé à une IA de calculer le rendement d'une estérification et de l'améliorer. Voici sa réponse. Elle est sûre d'elle. Trouve les erreurs, puis rédige la bonne réponse.</p>
+    <blockquote class="copie-ia">« On a fait réagir $0{,}50$ mol d'acide éthanoïque et $1{,}00$ mol de butan-1-ol, et obtenu $0{,}42$ mol d'éthanoate de butyle. Le rendement vaut $\dfrac{0{,}42}{1{,}00}=42$ %, ce qui est faible. Pour l'améliorer, ajoute plus d'acide sulfurique et chauffe plus fort : le catalyseur et la température déplacent l'équilibre vers l'ester, et tu dépasseras $90$ %. Prévois-en beaucoup, car l'acide sulfurique est consommé par la réaction. »</blockquote>
+    <details class="indice"><p>Quel est le réactif limitant ? Et que change un catalyseur à l'état final ?</p></details>
+    <details class="correction">
+      <p><strong>Erreur 1 : le rendement sur le réactif en excès.</strong> Une mole d'acide pour une mole d'alcool : avec $0{,}50$ mol d'acide et $1{,}00$ mol d'alcool, l'acide est limitant. $n_{\max}=0{,}50$ mol et $\eta=\dfrac{0{,}42}{0{,}50}=0{,}84$, soit $84$ %, pas $42$ %.</p>
+      <p><strong>Erreur 2 : le catalyseur et la température ne déplacent pas l'équilibre.</strong> Ils accélèrent la transformation ; l'état final ne change pas ($K$ dépend très peu de la température pour une estérification). Pour aller au-delà, il faut agir sur $Q_r$ : un excès plus grand, ou retirer l'eau.</p>
+      <p><strong>Erreur 3 : le catalyseur n'est pas consommé.</strong> Quelques gouttes suffisent ; en mettre « beaucoup » ajoute un produit dangereux à éliminer.</p>
+      <p><strong>La bonne réponse.</strong> Le rendement est de $84$ %. C'est déjà ce que prévoit $K=4$ pour un excès double d'alcool : l'état final est atteint. Pour approcher $100$ %, il faut retirer l'eau au fur et à mesure (Dean-Stark) ou augmenter encore l'excès de butan-1-ol.</p>
+      <p>Une réponse fluide peut être fausse dès la première ligne. Le réflexe : chercher le réactif limitant avant tout calcul de rendement.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Raisonner et concevoir</h3>
+
+  <article class="exercice" id="ex-deux-acides-amines-quatre-dipeptides" data-titre="Deux acides aminés, quatre dipeptides" data-niveau="3" data-type="raisonnement" data-notions="strategie-synthese familles-t" data-duree="20" data-calculatrice="oui" data-source="Nouvelle-Calédonie 2025, jour 2 : « Synthèse d'un édulcorant : l'aspartame »">
+    <p>La glycine, H₂N–CH₂–COOH, et l'alanine, H₂N–CH(CH₃)–COOH, sont deux acides aminés. Un réactif de couplage relie le groupe carboxyle d'une molécule au groupe amino d'une autre, en libérant de l'eau.</p>
+    <p>1. Nommer les groupes caractéristiques d'un acide aminé.<br>2. Quel groupe se forme lors du couplage ?<br>3. On mélange glycine, alanine et réactif de couplage. Combien de dipeptides peut-on obtenir ? Les nommer (Gly–Ala signifie : le carboxyle de la glycine relié à l'amino de l'alanine).<br>4. On ne veut que Gly–Ala. Quels groupes faut-il protéger ? Dans quel ordre se font les étapes ?<br>5. La glycine passe par trois étapes : sa protection, le couplage, puis la déprotection. Chacune a un rendement de $90$ %. Calculer le rendement global à partir de la glycine.</p>
+    <details class="indice"><p>Question 3 : chaque molécule peut se lier à une molécule de la même espèce ou de l'autre, et dans les deux sens.</p></details>
+    <details class="correction">
+      <p>1. Un groupe amino (amine) et un groupe carboxyle (acide carboxylique).</p>
+      <p>2. Un groupe amide, –CO–NH– (la liaison peptidique).</p>
+      <p>3. Quatre : Gly–Gly, Ala–Ala, Gly–Ala et Ala–Gly. Le mélange est à séparer, et le rendement en Gly–Ala est faible.</p>
+      <p>4. Il faut bloquer le groupe amino de la glycine (sinon elle réagit par son NH₂) et le groupe carboxyle de l'alanine (sinon elle réagit par son COOH). Ordre : protéger la glycine et l'alanine, coupler, puis déprotéger.</p>
+      <p>5. Les rendements des étapes successives se multiplient : $0{,}90^3\approx0{,}73$, soit $73$ %. Chaque étape ajoutée fait perdre du produit : c'est le prix de la protection. Sans elle, on n'aurait pas $90$ % de Gly–Ala, mais un mélange de quatre dipeptides à séparer, avec beaucoup moins de Gly–Ala.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-de-l-ethene-a-l-ester" data-titre="De l'éthène à l'ester" data-niveau="3" data-type="probleme" data-notions="strategie-synthese categories-reactions" data-duree="20" data-calculatrice="non">
+    <p>On dispose d'éthène, CH₂=CH₂, d'eau et d'un oxydant, et de cette banque de réactions :<br>R1 : addition d'eau sur une double liaison C=C (catalyseur acide) ;<br>R2 : oxydation d'un alcool CH₃–CH₂–OH en acide CH₃–COOH ;<br>R3 : acide + alcool ⇄ ester + eau ;<br>R4 : élimination d'eau d'un alcool, qui forme une double liaison C=C ;<br>R5 : ester + eau ⇄ acide + alcool.</p>
+    <p>1. On veut l'éthanoate d'éthyle, CH₃–COO–CH₂–CH₃. De quels réactifs vient-il ?<br>2. Proposer une séquence de réactions de la banque, en ne partant que de l'éthène. Donner la catégorie de chaque étape.<br>3. Pourquoi R4 et R5 ne servent-elles pas ici ?<br>4. L'éthène est lui-même obtenu par craquage : C₁₀H₂₂ → C₈H₁₈ + C₂H₄. Cette étape modifie-t-elle un groupe caractéristique ou la chaîne carbonée ?</p>
+    <details class="indice"><p>Pars de la cible : l'ester se fait par R3, à partir de deux molécules à deux carbones.</p></details>
+    <details class="correction">
+      <p>1. De l'acide éthanoïque, CH₃–COOH, et de l'éthanol, CH₃–CH₂–OH, par R3.</p>
+      <p>2. Étape 1, R1 : CH₂=CH₂ + H₂O → CH₃–CH₂–OH, une <strong>addition</strong>. Étape 2, R2 sur une partie de l'éthanol : CH₃–CH₂–OH → CH₃–COOH, une <strong>oxydoréduction</strong>. Étape 3, R3 entre l'acide et le reste de l'éthanol : une <strong>substitution</strong> (estérification).</p>
+      <p>3. R4 ferait l'inverse de R1 : elle ramènerait l'éthanol à l'éthène. R5 ferait l'inverse de R3 : elle détruirait l'ester. Une séquence ne doit contenir que des étapes qui avancent vers la cible.</p>
+      <p>4. La chaîne carbonée : une chaîne de dix carbones est coupée en deux, de huit et de deux carbones. Aucun groupe caractéristique n'est en jeu (des alcanes et un alcène).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-deux-voies-pour-l-ibuprofene" data-titre="Deux voies pour l'ibuprofène" data-niveau="3" data-type="raisonnement" data-notions="strategie-synthese" data-duree="20" data-calculatrice="oui">
+    <p>L'ibuprofène (C₁₃H₁₈O₂, $M=206{,}3$ g·mol⁻¹) a longtemps été fabriqué par une voie A ; une voie B l'a remplacée dans les années 1990. Données simplifiées :</p>
+    <ul>
+      <li>voie A : six étapes ; tous les réactifs sont consommés ; somme de leurs masses molaires : $514{,}5$ g·mol⁻¹ ;</li>
+      <li>voie B : trois étapes ; des catalyseurs récupérés ; somme des masses molaires des réactifs : $266{,}3$ g·mol⁻¹ ; le seul sous-produit, l'acide éthanoïque ($M=60{,}1$ g·mol⁻¹), est récupéré et vendu.</li>
+    </ul>
+    <p>On définit l'économie d'atomes : $EA=\dfrac{M(\text{produit voulu})}{\text{somme des }M\text{ des réactifs}}$, chaque masse molaire étant multipliée par son coefficient dans l'équation.</p>
+    <p>1. Calculer l'économie d'atomes de chaque voie.<br>2. Donner trois arguments qui font de la voie B une synthèse plus écoresponsable.<br>3. Si l'on compte l'acide éthanoïque vendu comme un produit utile, que devient l'économie d'atomes de B ?</p>
+    <details class="correction">
+      <p>1. A : $\dfrac{206{,}3}{514{,}5}=0{,}40$, soit $40$ %. B : $\dfrac{206{,}3}{266{,}3}=0{,}77$, soit $77$ %.</p>
+      <p>2. Deux fois moins d'étapes (moins d'énergie, de solvants et de pertes) ; des catalyseurs récupérés au lieu de réactifs consommés ; un sous-produit valorisé au lieu d'un déchet ; plus des trois quarts de la matière engagée se retrouve dans le médicament, contre moins de la moitié.</p>
+      <p>3. $\dfrac{206{,}3+60{,}1}{266{,}3}\approx1{,}00$ : presque tous les atomes des réactifs finissent dans un produit utile.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-quel-parametre-pour-quoi" data-titre="Quel paramètre pour quoi ?" data-niveau="3" data-type="raisonnement" data-notions="optimiser-synthese" data-duree="15" data-calculatrice="non">
+    <p>Une estérification à $1$ mol d'acide et $1$ mol d'alcool, sans catalyseur, à $20$ °C, n'a donné que $20$ % d'ester en une heure. Pour chaque modification, dire si elle agit sur la vitesse, sur le rendement final, sur les deux ou sur aucun, et justifier.</p>
+    <p>a) Chauffer à reflux.<br>b) Ajouter quelques gouttes d'acide sulfurique.<br>c) Prendre $3$ mol d'alcool.<br>d) Retirer l'eau par un montage Dean-Stark.<br>e) Prendre $2$ mol de chaque réactif, dans un ballon deux fois plus grand.<br>f) Prolonger le chauffage de $3$ h, alors que l'état final était atteint au bout de $45$ min.</p>
+    <details class="correction">
+      <p>a) La vitesse : la température est un facteur cinétique. $K$ change très peu : le rendement final reste vers $67$ %. On l'atteint seulement plus tôt.</p>
+      <p>b) La vitesse : un catalyseur accélère sans changer l'état final.</p>
+      <p>c) Le rendement final (et un peu la vitesse, l'alcool étant plus concentré) : $Q_r$ diminue, la transformation va plus loin, jusqu'à $90$ % de l'acide.</p>
+      <p>d) Le rendement final : l'eau retirée garde $Q_r$ sous $K$ ; la transformation devient presque totale.</p>
+      <p>e) Aucun : on obtient deux fois plus d'ester, mais le rendement, rapport entre obtenu et maximum, ne change pas. Les concentrations non plus.</p>
+      <p>f) Aucun : une fois l'état final atteint, attendre ne change plus rien.</p>
+    </details>
+  </article>
+
+</section>
+
+<!-- ============================ 5. FAQ ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Dans une formule topologique, où sont passés les hydrogènes ?</summary>
+      <div><p>Ceux des carbones ne sont pas écrits : chaque carbone en porte juste assez pour avoir quatre liaisons. Un bout de trait a une liaison, donc trois H (CH₃) ; un sommet entre deux traits en a deux (CH₂). Les H portés par O ou N, eux, sont toujours écrits : OH, NH₂.</p></div></details>
+    <details><summary>Pourquoi apprendre la nomenclature, si les règles sont dans le sujet ?</summary>
+      <div><p>Parce que le sujet donne les règles, pas leur mode d'emploi. Trouver la chaîne principale quand elle tourne, numéroter du bon côté, lire un nom d'ester dans le bon sens : c'est ce que tu travailles ici, et ce qui fait perdre des points le jour J.</p></div></details>
+    <details><summary>Un catalyseur augmente-t-il le rendement ?</summary>
+      <div><p>Non. Il fait atteindre plus vite l'état final, sans le changer : il accélère la réaction dans un sens autant que dans l'autre. Pour obtenir plus de produit, il faut agir sur le quotient de réaction : un réactif en excès, ou un produit qu'on retire.</p></div></details>
+    <details><summary>Pourquoi chauffer à reflux plutôt que chauffer tout court ?</summary>
+      <div><p>Un ballon chauffé sans réfrigérant perdrait ses vapeurs : des réactifs et du produit en moins, et des vapeurs parfois inflammables dans la salle. Le réfrigérant les condense et les renvoie dans le ballon. Il reste ouvert en haut, pour que la pression ne monte pas.</p></div></details>
+    <details><summary>Un rendement de 104 %, c'est possible ?</summary>
+      <div><p>Non : on ne peut pas obtenir plus que le maximum. Un rendement au-dessus de 100 % signale un produit encore humide ou impur, ou une erreur de calcul : un coefficient oublié dans l'équation, une masse molaire fausse. (Un réactif limitant mal choisi donne, lui, un rendement trop petit.)</p></div></details>
+    <details><summary>Ester ou acide carboxylique : comment ne plus confondre ?</summary>
+      <div><p>Les deux ont un C=O suivi d'un O. Regarde ce qui est accroché à ce second O : un H, c'est un acide (–COOH) ; un carbone, c'est un ester (–COO–C). Au spectre IR, l'acide a en plus une bande O–H très large, de 2 500 à 3 200 cm⁻¹.</p></div></details>
+    <details><summary>Écoresponsable, ça change quoi, concrètement, pour une synthèse ?</summary>
+      <div><p>Ça change les choix : un solvant moins toxique ou pas de solvant, un chauffage plus court, un catalyseur qu'on récupère, moins d'étapes, des sous-produits qu'on revend. Les sujets donnent les données ; on attend de toi que tu les compares et que tu proposes une amélioration argumentée.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
