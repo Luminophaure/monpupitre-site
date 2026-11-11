@@ -1,0 +1,683 @@
+<!doctype html>
+<!-- Page SOURCE : les {{figure:…}} sont remplacées par les dessins de evolutions.figures.py.
+     Fabriquer la page : python3 outils/figures.py maths/seconde/evolutions.source.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2BE78" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#3A2416" media="(prefers-color-scheme: dark)">
+<title>Proportions et évolutions · Seconde</title>
+<link rel="stylesheet" href="../../assets/css/site.css?v=111fcfb17b">
+<script type="module" src="../../assets/js/site.js?v=c4b81692c8"></script>
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RX3YRJWK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-L3RIADE5.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-WI2PIFVU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YKB2URKU.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VENTQ6WV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-AX43OW76.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5W5DBSGE.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BITKDJOX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-3M335KPL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-RPV7EMWX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-76QCITJR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-BLFYQ3XI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OJDEQMKV.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-EZ4NCM5Z.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-UAXMCQTP.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-5AEB74MQ.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-WEZMJ7CA.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FVJXEWHE.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-YCH7DEA6.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-GEHM2RGR.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-D3GNX7HK.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-FEEBOQJD.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-XK5D2ATL.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-B6L2MXFX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-JQTPXG2C.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MENTKLMX.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-VU2IYO2E.js">
+<link rel="modulepreload" href="../../assets/js/labos/evolutions.js?v=42eb796048">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-R5ZP37C7.js">
+<link rel="modulepreload" href="../../assets/js/generateurs/evolutions.js?v=51c3fef9ca">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-MMDKQFWI.js">
+<link rel="modulepreload" href="../../assets/js/chunks/quiz-UCCVZOZW.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-OUJCQTEH.js">
+<link rel="modulepreload" href="../../assets/js/chunks/chunk-7OW3BAC2.js">
+<link rel="modulepreload" href="../../assets/js/chunks/tuteur-WEF2LHNI.js">
+<link rel="preload" as="script" href="../../assets/js/pack-bureau.js?v=44ae1c04fb">
+<link rel="preload" as="script" href="../../assets/vendor/katex/katex.min.js?v=6d481709e3">
+<link rel="preload" as="script" href="../../assets/vendor/katex/auto-render.min.js?v=82dca94048">
+</head>
+<body data-matiere="maths" data-chapitre="evolutions" data-mise-en-page="classeur">
+<main class="chapitre">
+
+<header class="chap-tete">
+  <span class="niveau">Seconde · Information chiffrée</span>
+  <h1>Proportions et évolutions</h1>
+  <p class="chapeau">« 20 % des élèves » et « +20 % en un an » : le même signe dit deux choses différentes. Une <strong>proportion</strong> compare une partie à un tout ; une <strong>évolution</strong> compare une valeur d'après à une valeur d'avant. On apprend à les calculer, à les enchaîner, à revenir en arrière, et à ne jamais additionner deux pourcentages au hasard.</p>
+  <ul class="objectifs">
+    <li>Écrire une proportion en fraction, en décimal et en pourcentage</li><li>Calculer une partie, le tout, une proportion de proportion</li><li>Calculer une variation absolue et un taux d'évolution</li><li>Passer d'un taux au coefficient multiplicateur, et retour</li><li>Retrouver une valeur d'après ou une valeur d'avant</li><li>Enchaîner des évolutions et revenir au départ</li><li>Distinguer une proportion d'une évolution</li>
+  </ul>
+</header>
+
+<!-- ============================ 1. COURS ============================ -->
+<section id="cours">
+  <h2>Cours</h2>
+
+  <aside class="vraie-vie">
+    <span class="vv-etiquette">Dans la vraie vie</span>
+    <p><strong>Pendant les soldes, Yanis repère un blouson à 120 €.</strong> L'étiquette annonce −30 %, et une affiche promet −20 % de plus en caisse. « −50 % : il sera à 60 € ! » À la caisse, il paie 67,20 €. La caisse ne s'est pas trompée : la première remise fait passer le blouson à 84 €, et la seconde se calcule sur 84 €, pas sur 120 €. En tout, le prix a baissé de 44 %, pas de 50 %. Et quand les soldes finissent, une hausse de 30 % ne suffit pas pour revenir de 84 € à 120 € : $84\times1{,}3=109{,}20$. Pourquoi ? C'est tout ce chapitre.</p>
+    <p class="discret">Ils s'en servent : les vendeurs et les responsables de magasin (remises, prix hors taxes), les comptables et les gestionnaires de paie (hausses de salaire, cotisations), les conseillers bancaires (intérêts), les journalistes et les chargés d'études (chiffres du chômage, de la santé, des prix). Fiches métiers sur <a href="https://www.onisep.fr" rel="noopener">onisep.fr</a>.</p>
+  </aside>
+
+  <!-- ===== 1 ===== -->
+  <h3 id="c-proportion">1. Proportion d'une sous-population</h3>
+
+  <div class="bloc definition" data-titre="Proportion">
+    <p>Une <strong>population</strong> $E$ compte $n_E$ individus ; une <strong>sous-population</strong> $A$ de $E$ en compte $n_A$. La <strong>proportion</strong> de $A$ dans $E$ est le nombre</p>
+    $$p=\frac{n_A}{n_E}.$$
+    <p>C'est un nombre entre $0$ et $1$, sans unité. Il s'écrit en fraction, en décimal ou en <strong>pourcentage</strong> : « $t\,\%$ » veut dire $\dfrac{t}{100}$. Ainsi $\dfrac{7}{20}=0{,}35=35\,\%$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="cent-cases" viewBox="0 0 446 243" role="img" aria-label="Un carré de 100 cases, 10 sur 10. Les 35 premières cases, trois lignes et demie en partant du haut, sont coloriées. À droite : 35 cases sur 100, 35/100 = 7/20 = 0,35 = 35 %."><rect class="carreau" x="17.8" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="17.8" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="38.6" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="59.4" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="80.2" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="101.0" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="121.8" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="142.6" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="163.4" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="184.2" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="17.8" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="205.0" y="17.8" width="20.8" height="20.8"/><rect class="carreau" x="17.8" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="17.8" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="38.6" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="59.4" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="80.2" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="101.0" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="121.8" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="142.6" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="163.4" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="184.2" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="38.6" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="205.0" y="38.6" width="20.8" height="20.8"/><rect class="carreau" x="17.8" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="17.8" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="38.6" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="59.4" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="80.2" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="101.0" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="121.8" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="142.6" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="163.4" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="184.2" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="59.4" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="205.0" y="59.4" width="20.8" height="20.8"/><rect class="carreau" x="17.8" y="80.2" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="17.8" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="80.2" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="38.6" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="80.2" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="59.4" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="80.2" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="80.2" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="80.2" width="20.8" height="20.8"/><rect class="plein t-u op-70" x="101.0" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="80.2" width="20.8" height="20.8"/><rect class="carreau" x="17.8" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="101.0" width="20.8" height="20.8"/><rect class="carreau" x="17.8" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="121.8" width="20.8" height="20.8"/><rect class="carreau" x="17.8" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="142.6" width="20.8" height="20.8"/><rect class="carreau" x="17.8" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="163.4" width="20.8" height="20.8"/><rect class="carreau" x="17.8" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="184.2" width="20.8" height="20.8"/><rect class="carreau" x="17.8" y="205.0" width="20.8" height="20.8"/><rect class="carreau" x="38.6" y="205.0" width="20.8" height="20.8"/><rect class="carreau" x="59.4" y="205.0" width="20.8" height="20.8"/><rect class="carreau" x="80.2" y="205.0" width="20.8" height="20.8"/><rect class="carreau" x="101.0" y="205.0" width="20.8" height="20.8"/><rect class="carreau" x="121.8" y="205.0" width="20.8" height="20.8"/><rect class="carreau" x="142.6" y="205.0" width="20.8" height="20.8"/><rect class="carreau" x="163.4" y="205.0" width="20.8" height="20.8"/><rect class="carreau" x="184.2" y="205.0" width="20.8" height="20.8"/><rect class="carreau" x="205.0" y="205.0" width="20.8" height="20.8"/><text class="lettre" x="244.0" y="54.2">35 cases sur 100</text><text class="moyen" x="244.0" y="95.8">35/100 = 7/20</text><text class="moyen" x="244.0" y="132.2">= 0,35</text><text class="moyen" x="244.0" y="168.6">= 35 %</text><text class="petit" x="244.0" y="210.2">trois écritures, une part</text></svg><figcaption>35 cases sur 100 : une seule part, trois écritures. Une proportion ne dépasse jamais 1, soit 100 % : la partie est dans le tout.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Les écritures à connaître">
+    <div class="defile">
+      <table>
+        <thead><tr><th>Fraction</th><th>$\frac12$</th><th>$\frac14$</th><th>$\frac34$</th><th>$\frac15$</th><th>$\frac1{10}$</th><th>$\frac38$</th><th>$\frac13$</th></tr></thead>
+        <tbody>
+          <tr><th>Décimal</th><td>$0{,}5$</td><td>$0{,}25$</td><td>$0{,}75$</td><td>$0{,}2$</td><td>$0{,}1$</td><td>$0{,}375$</td><td>$\approx0{,}333$</td></tr>
+          <tr><th>Pourcentage</th><td>$50\,\%$</td><td>$25\,\%$</td><td>$75\,\%$</td><td>$20\,\%$</td><td>$10\,\%$</td><td>$37{,}5\,\%$</td><td>$\approx33{,}3\,\%$</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>De tête : 10 %, c'est diviser par 10 ; 5 %, la moitié de 10 % ; 25 %, le quart ; 1 %, diviser par 100. Ainsi 15 % de 80 font $8+4=12$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="La partie et le tout">
+    <p>Si $p$ est la proportion de $A$ dans $E$ :</p>
+    $$n_A=p\times n_E\qquad\text{et}\qquad n_E=\frac{n_A}{p}.$$
+    <p>Ce sont deux façons d'écrire la même égalité $p=\dfrac{n_A}{n_E}$.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer une proportion, une partie ou le tout">
+    <ol class="etapes">
+      <li><span>Je repère le <strong>tout</strong> (la population de référence) et la <strong>partie</strong>.</span></li>
+      <li><span>J'écris $p=\dfrac{\text{partie}}{\text{tout}}$, avec $p$ en écriture décimale.</span></li>
+      <li><span>Je remplace ce que je connais, et je calcule ce qui manque : une proportion, une partie ($p\times$ tout) ou le tout (partie $\div p$).</span></li>
+      <li><span>Je vérifie que la partie est plus petite que le tout.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> a) Dans un lycée de 1 200 élèves, 45 % sont demi-pensionnaires. Combien sont-ils ? b) Dans un autre lycée, 210 élèves sont internes, soit 15 % des élèves. Combien d'élèves compte ce lycée ? c) Dans une classe de 32 élèves, 12 font de l'allemand. Quelle proportion, en pourcentage ?</p>
+      <ol class="pas">
+        <li><strong>a) Une partie.</strong> $0{,}45\times1\,200=540$ : 540 demi-pensionnaires.</li>
+        <li><strong>b) Le tout.</strong> $210=0{,}15\times n$, donc $n=\dfrac{210}{0{,}15}=\dfrac{21\,000}{15}=1\,400$ élèves. Contrôle : $0{,}15\times1\,400=210$.</li>
+        <li><strong>c) Une proportion.</strong> $\dfrac{12}{32}=\dfrac38=0{,}375=37{,}5\,\%$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 2 ===== -->
+  <h3 id="c-proportion-de-proportion">2. Proportion d'une proportion</h3>
+
+  <div class="bloc propriete" data-titre="Pourcentage de pourcentage">
+    <p>Si $B$ est une partie de $A$, elle-même partie de $E$, que $A$ représente la proportion $p$ de $E$ et $B$ la proportion $p'$ de $A$, alors $B$ représente la proportion</p>
+    $$p\times p'\quad\text{de }E.$$
+    <p>Pourquoi : $n_B=p'\times n_A$ et $n_A=p\times n_E$, donc $n_B=p'\times p\times n_E$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="emboites" viewBox="0 0 462 264" role="img" aria-label="Un carré de 10 sur 10 représente tous les adhérents d'un club. Les 4 colonnes de gauche, 40 % du carré, sont les filles. Dans ces 4 colonnes, les 3 lignes du bas, 30 % de la bande des filles, sont les filles qui font de la compétition : 12 cases sur 100, soit 12 % du club. 0,4 × 0,3 = 0,12."><rect class="forme" x="17.8" y="38.6" width="208.0" height="208.0"/><rect class="forme-3" x="17.8" y="38.6" width="83.2" height="208.0"/><rect class="plein t-u op-70" x="17.8" y="184.2" width="83.2" height="62.4"/><g class="trace t-n"><line x1="38.6" y1="246.6" x2="38.6" y2="38.6"/></g><g class="trace t-n"><line x1="17.8" y1="225.8" x2="225.8" y2="225.8"/></g><g class="trace t-n"><line x1="59.4" y1="246.6" x2="59.4" y2="38.6"/></g><g class="trace t-n"><line x1="17.8" y1="205.0" x2="225.8" y2="205.0"/></g><g class="trace t-n"><line x1="80.2" y1="246.6" x2="80.2" y2="38.6"/></g><g class="trace t-n"><line x1="17.8" y1="184.2" x2="225.8" y2="184.2"/></g><g class="trace t-n"><line x1="101.0" y1="246.6" x2="101.0" y2="38.6"/></g><g class="trace t-n"><line x1="17.8" y1="163.4" x2="225.8" y2="163.4"/></g><g class="trace t-n"><line x1="121.8" y1="246.6" x2="121.8" y2="38.6"/></g><g class="trace t-n"><line x1="17.8" y1="142.6" x2="225.8" y2="142.6"/></g><g class="trace t-n"><line x1="142.6" y1="246.6" x2="142.6" y2="38.6"/></g><g class="trace t-n"><line x1="17.8" y1="121.8" x2="225.8" y2="121.8"/></g><g class="trace t-n"><line x1="163.4" y1="246.6" x2="163.4" y2="38.6"/></g><g class="trace t-n"><line x1="17.8" y1="101.0" x2="225.8" y2="101.0"/></g><g class="trace t-n"><line x1="184.2" y1="246.6" x2="184.2" y2="38.6"/></g><g class="trace t-n"><line x1="17.8" y1="80.2" x2="225.8" y2="80.2"/></g><g class="trace t-n"><line x1="205.0" y1="246.6" x2="205.0" y2="38.6"/></g><g class="trace t-n"><line x1="17.8" y1="59.4" x2="225.8" y2="59.4"/></g><text class="note" x="244.0" y="46.4">tout le carré : le club</text><text class="note" x="244.0" y="82.8">4 colonnes : les filles,</text><text class="moyen" x="244.0" y="101.0">40 % du club</text><text class="note" x="244.0" y="137.4">3 lignes de la bande :</text><text class="note" x="244.0" y="155.6">30 % des filles, en compétition</text><text class="lettre" x="244.0" y="197.2">0,4 × 0,3 = 0,12</text><text class="moyen" x="244.0" y="228.4">12 cases sur 100 : 12 %</text></svg><figcaption>Le club entier fait 100 cases. Les filles occupent 4 colonnes sur 10 ; dans ces colonnes, 3 lignes sur 10 sont en compétition. Il reste 4 × 3 = 12 cases : 12 % du club.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Les filles en compétition">
+    <p>Dans un club sportif, 40 % des adhérents sont des filles, et 30 % des filles font de la compétition. La proportion de filles en compétition <strong>parmi tous les adhérents</strong> est $0{,}4\times0{,}3=0{,}12$, soit 12 %.</p>
+    <p>Avec 250 adhérents : $0{,}4\times250=100$ filles, dont $0{,}3\times100=30$ en compétition, et $\dfrac{30}{250}=0{,}12$. Les deux calculs disent la même chose.</p>
+  </div>
+
+  <div class="bloc remarque" data-titre="Quand les proportions s'additionnent">
+    <p>Deux sous-populations <strong>sans individu commun</strong>, dans le <strong>même</strong> tout, ont des proportions qui s'additionnent : si les filles en compétition font 12 % des adhérents, et les garçons en compétition 15 % des adhérents, alors 27 % des adhérents font de la compétition. On n'additionne jamais deux pourcentages qui ne parlent pas du même tout.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h3 id="c-variation">3. Variation absolue, taux d'évolution</h3>
+
+  <div class="bloc definition" data-titre="Variation absolue, taux d'évolution">
+    <p>Une grandeur passe d'une valeur de départ $V_1$ (strictement positive) à une valeur d'arrivée $V_2$.</p>
+    <ul>
+      <li>La <strong>variation absolue</strong> est la différence $V_2-V_1$. Elle a l'unité de la grandeur (des euros, des habitants…).</li>
+      <li>Le <strong>taux d'évolution</strong>, ou <strong>variation relative</strong>, est le nombre $t=\dfrac{V_2-V_1}{V_1}$. Il n'a pas d'unité ; on l'écrit souvent en pourcentage.</li>
+    </ul>
+    <p>Si $t\gt0$, c'est une hausse ; si $t\lt0$, une baisse.</p>
+  </div>
+
+  <div class="bloc exemple" data-titre="Deux évolutions">
+    <p>Un abonnement passe de 40 € à 46 € : la variation absolue est $+6$ €, le taux $\dfrac{6}{40}=0{,}15$, soit une hausse de 15 %.</p>
+    <p>Une commune passe de 2 500 à 2 400 habitants : la variation absolue est $-100$ habitants, le taux $\dfrac{-100}{2\,500}=-0{,}04$, soit une baisse de 4 %.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer un taux d'évolution">
+    <ol class="etapes">
+      <li><span>Je repère la valeur <strong>de départ</strong> $V_1$ : celle d'avant.</span></li>
+      <li><span>Je calcule la variation absolue $V_2-V_1$.</span></li>
+      <li><span>Je la divise par $V_1$, et j'écris le résultat en pourcentage.</span></li>
+      <li><span>Je conclus par une phrase : hausse ou baisse, de combien de pour cent.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un vélo passe de 250 € à 200 €, puis, après les soldes, de 200 € à 250 €. Calcule le taux de chaque évolution.</p>
+      <ol class="pas">
+        <li><strong>La baisse.</strong> $V_1=250$, $V_2-V_1=-50$, $t=\dfrac{-50}{250}=-0{,}2$ : une baisse de 20 %.</li>
+        <li><strong>La hausse.</strong> Maintenant $V_1=200$ : $t=\dfrac{50}{200}=0{,}25$, une hausse de 25 %.</li>
+        <li><strong>Ce qu'il faut voir.</strong> Les mêmes 50 € ne font pas le même pourcentage : on ne divise pas par la même valeur de départ.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Le lien avec « Nombres et intervalles »">
+    <p>Comparer deux nombres par leur différence ou leur quotient (<a href="nombres.html#c-encadrer">Nombres et intervalles, partie 6</a>), c'est ce qu'on fait ici : la variation absolue est la différence $V_2-V_1$, une variation <strong>additive</strong> ; le quotient $\dfrac{V_2}{V_1}$ dit combien de fois plus, une variation <strong>multiplicative</strong> (partie suivante).</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h3 id="c-coefficient">4. Le coefficient multiplicateur</h3>
+
+  <div class="bloc definition" data-titre="Coefficient multiplicateur">
+    <p>Quand une grandeur passe de $V_1$ à $V_2$, le <strong>coefficient multiplicateur</strong> est le nombre $CM=\dfrac{V_2}{V_1}$ : celui par lequel on multiplie $V_1$ pour obtenir $V_2$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Du taux au coefficient">
+    <p>Si $t$ est le taux d'évolution (en écriture décimale) :</p>
+    $$CM=1+t\qquad\text{et}\qquad V_2=(1+t)\times V_1.$$
+    <p>Augmenter de $p\,\%$, c'est multiplier par $1+\dfrac{p}{100}$ ; diminuer de $p\,\%$, c'est multiplier par $1-\dfrac{p}{100}$. Une hausse donne $CM\gt1$, une baisse $0\leqslant CM\lt1$.</p>
+    <p>Pourquoi : on garde les 100 % de départ et on ajoute $t\times V_1$, donc $V_2=V_1+t\times V_1=(1+t)\times V_1$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="barre-coefficient" viewBox="0 0 462 191" role="img" aria-label="Deux barres. En haut, une barre de 100 % prolongée de 15 % : 115 %, la valeur est multipliée par 1,15. En bas, une barre de 100 % dont on retire les 15 derniers pour cent : il reste 85 %, la valeur est multipliée par 0,85."><rect class="forme" x="17.8" y="46.4" width="260.0" height="31.2"/><rect class="plein t-w op-70" x="277.8" y="46.4" width="39.0" height="31.2"/><text class="lettre" x="98.4" y="68.5">100 %</text><text class="moyen" x="281.7" y="37.3">+15 %</text><text class="lettre" x="329.8" y="68.5">115 % : × 1,15</text><rect class="forme" x="17.8" y="124.4" width="221.0" height="31.2"/><rect class="contour t-v pointille" x="238.8" y="124.4" width="39.0" height="31.2"/><text class="lettre" x="82.8" y="146.5">100 % − 15 %</text><text class="moyen" x="242.7" y="115.3">−15 %</text><text class="lettre" x="293.4" y="146.5">85 % : × 0,85</text></svg><figcaption>On garde toujours les 100 % de départ. Une hausse de 15 % donne 115 %, soit × 1,15 ; une baisse de 15 % laisse 85 %, soit × 0,85.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Des correspondances à connaître">
+    <div class="defile">
+      <table>
+        <thead><tr><th>Évolution</th><th>$+5\,\%$</th><th>$+3\,\%$</th><th>$+30\,\%$</th><th>$+100\,\%$</th><th>$+150\,\%$</th><th>$-5\,\%$</th><th>$-20\,\%$</th><th>$-40\,\%$</th></tr></thead>
+        <tbody><tr><th>Coefficient</th><td>$1{,}05$</td><td>$1{,}03$</td><td>$1{,}3$</td><td>$2$</td><td>$2{,}5$</td><td>$0{,}95$</td><td>$0{,}8$</td><td>$0{,}6$</td></tr></tbody>
+      </table>
+    </div>
+    <p>Une hausse de 100 %, c'est doubler. Une hausse peut dépasser 100 % ; une baisse, non : $-100\,\%$ amène à 0.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Du taux au coefficient, et retour">
+    <ol class="etapes">
+      <li><span>J'écris le taux en décimal : $3\,\%=0{,}03$, et pas $0{,}3$.</span></li>
+      <li><span>Pour une hausse, j'ajoute à 1 ; pour une baisse, je retire de 1.</span></li>
+      <li><span>Dans l'autre sens, je calcule $CM-1$ : positif, c'est une hausse ; négatif, une baisse. Je l'écris en pourcentage.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> a) Quel coefficient pour une baisse de 8 % ? b) Pour une hausse de 0,5 % ? c) Multiplier par 1,4 : quelle évolution ? d) Multiplier par 0,75 ?</p>
+      <ol class="pas">
+        <li><strong>a)</strong> $1-0{,}08=0{,}92$.</li>
+        <li><strong>b)</strong> $0{,}5\,\%=0{,}005$, donc $1{,}005$.</li>
+        <li><strong>c)</strong> $1{,}4-1=0{,}4$ : une hausse de 40 %.</li>
+        <li><strong>d)</strong> $0{,}75-1=-0{,}25$ : une baisse de 25 %. Le 75 % est ce qui <strong>reste</strong>, pas ce qu'on enlève.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Une fonction linéaire">
+    <p>Appliquer une même hausse de 5 % à tous les prix, c'est la fonction $x\mapsto1{,}05x$ : une fonction linéaire, vue en troisième. Le coefficient multiplicateur est son coefficient, et les prix d'après sont proportionnels aux prix d'avant.</p>
+  </div>
+
+  <!-- ===== 5 ===== -->
+  <h3 id="c-appliquer">5. Appliquer une évolution : la valeur d'après, la valeur d'avant</h3>
+
+  <div class="bloc propriete" data-titre="Avant, après">
+    <p>Avec le coefficient multiplicateur $CM$ :</p>
+    $$V_2=CM\times V_1\qquad\text{et}\qquad V_1=\frac{V_2}{CM}.$$
+    <p>Pour aller vers l'après, on multiplie ; pour revenir vers l'avant, on divise par le <strong>même</strong> coefficient.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="fleches" viewBox="0 0 410 176" role="img" aria-label="Deux cases : à gauche, la valeur d'avant, 80 € ; à droite, la valeur d'après, 68 €. Une flèche du haut va de gauche à droite, marquée × 0,85 : appliquer la remise. Une flèche du bas revient de droite à gauche, marquée ÷ 0,85 : retrouver la valeur d'avant."><rect class="forme-4" x="20.4" y="67.2" width="93.6" height="41.6"/><rect class="forme-3" x="296.0" y="67.2" width="93.6" height="41.6"/><text class="lettre" x="45.1" y="94.5">80 €</text><text class="lettre" x="320.7" y="94.5">68 €</text><text class="petit" x="20.4" y="134.8">valeur d'avant</text><text class="petit" x="296.0" y="134.8">valeur d'après</text><g class="trace t-u"><line x1="124.4" y1="62.0" x2="277.8" y2="62.0"/><polygon points="285.6,62.0 272.6,67.8 272.6,56.1"/></g><text class="lettre" x="168.6" y="46.4">× 0,85</text><text class="petit" x="147.8" y="25.6">remise de 15 %</text><g class="trace t-v"><line x1="285.6" y1="114.0" x2="132.2" y2="114.0"/><polygon points="124.4,114.0 137.4,108.2 137.4,119.8"/></g><text class="lettre" x="168.6" y="141.3">÷ 0,85</text><text class="petit" x="132.2" y="160.8">retrouver la valeur d'avant</text></svg><figcaption>Le même coefficient dans les deux sens : × 0,85 pour appliquer la remise, ÷ 0,85 pour retrouver le prix d'avant.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="La valeur d'après">
+    <p>Un loyer de 240 € augmente de 15 % : $240\times1{,}15=276$ €. (De tête : 10 % font 24, 5 % font 12, donc 15 % font 36, et $240+36=276$.)</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Retrouver la valeur d'avant">
+    <ol class="etapes">
+      <li><span>Je calcule le coefficient multiplicateur de l'évolution.</span></li>
+      <li><span>J'écris $V_1\times CM=V_2$, avec $V_1$ inconnue.</span></li>
+      <li><span>Je divise la valeur d'après par le coefficient.</span></li>
+      <li><span>Je vérifie : j'applique l'évolution à ma réponse, je dois retomber sur la valeur d'après.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Après une remise de 15 %, un casque coûte 68 €. Quel était son prix avant la remise ?</p>
+      <ol class="pas">
+        <li><strong>Le coefficient.</strong> Une baisse de 15 % : $CM=0{,}85$.</li>
+        <li><strong>L'équation.</strong> $V_1\times0{,}85=68$.</li>
+        <li><strong>La division.</strong> $V_1=\dfrac{68}{0{,}85}=\dfrac{6\,800}{85}=80$ €.</li>
+        <li><strong>La vérification.</strong> $80\times0{,}85=68$. Ajouter 15 % à 68 € aurait donné $78{,}20$ €, et $78{,}20\times0{,}85=66{,}47$, pas 68 : les 15 % se calculent sur le prix d'avant, pas sur celui d'après.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc exemple" data-titre="Hors taxes, toutes taxes comprises">
+    <p>En France, la TVA ordinaire vaut 20 % du prix hors taxes (HT) : prix TTC $=1{,}2\times$ prix HT. Un vélo affiché 360 € TTC coûte donc $\dfrac{360}{1{,}2}=300$ € HT. La TVA, 60 €, fait 20 % du prix HT, mais seulement $\dfrac{60}{360}=\dfrac16\approx16{,}7\,\%$ du prix TTC : ce n'est pas la même référence.</p>
+  </div>
+
+  <!-- ===== 6 ===== -->
+  <h3 id="c-successives">6. Évolutions successives</h3>
+
+  <div class="bloc propriete" data-titre="Le coefficient global">
+    <p>Quand plusieurs évolutions se suivent, le coefficient multiplicateur global est le <strong>produit</strong> des coefficients :</p>
+    $$CM=CM_1\times CM_2\times\cdots$$
+    <p>Le taux d'évolution global est $CM-1$. Les taux, eux, ne s'additionnent pas.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="deux-etapes" viewBox="0 0 436 259" role="img" aria-label="Trois barres. La première vaut 100. La deuxième, après une hausse de 10 % (× 1,1), vaut 110. La troisième, après une baisse de 20 % de 110 (× 0,8), vaut 88. Une ligne en pointillés marque le niveau 100 : la troisième barre est en dessous. En bas, une flèche de la première à la troisième barre : × 0,88, soit −12 %."><rect class="forme-4" x="30.8" y="51.6" width="62.4" height="156.0"/><rect class="forme-3" x="181.6" y="36.0" width="62.4" height="171.6"/><rect class="plein t-u op-55" x="332.4" y="70.3" width="62.4" height="137.3"/><g class="trace t-n pointille"><line x1="20.4" y1="51.6" x2="415.6" y2="51.6"/></g><text class="lettre" x="47.7" y="140.0">100</text><text class="lettre" x="198.5" y="140.0">110</text><text class="lettre" x="354.5" y="140.0">88</text><text class="moyen" x="104.9" y="21.7">× 1,1</text><text class="petit" x="104.9" y="39.9">+10 %</text><text class="moyen" x="257.0" y="21.7">× 0,8</text><text class="petit" x="257.0" y="39.9">−20 %</text><g class="trace t-v"><line x1="62.0" y1="229.7" x2="355.8" y2="229.7"/><polygon points="363.6,229.7 350.6,235.5 350.6,223.8"/></g><text class="note" x="140.0" y="249.2">× 1,1 × 0,8 = × 0,88 : −12 %</text></svg><figcaption>+10 % puis −20 % : on passe de 100 à 110, puis de 110 à 88. La baisse de 20 % porte sur 110, pas sur 100. En tout, × 0,88 : une baisse de 12 %, pas de 10 %.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="L'ordre ne compte pas">
+    <p>Une baisse de 20 % suivie d'une hausse de 10 % donne aussi $0{,}8\times1{,}1=0{,}88$ : le produit ne dépend pas de l'ordre.</p>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer un taux global">
+    <ol class="etapes">
+      <li><span>J'écris le coefficient de chaque évolution.</span></li>
+      <li><span>Je les multiplie.</span></li>
+      <li><span>Je retire 1, et j'écris le taux global en pourcentage.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Le blouson de Yanis (120 €) : −30 %, puis −20 % de plus en caisse. Quelle remise globale ? Quel prix payé ?</p>
+      <ol class="pas">
+        <li><strong>Les coefficients.</strong> $0{,}7$ et $0{,}8$.</li>
+        <li><strong>Le produit.</strong> $0{,}7\times0{,}8=0{,}56$.</li>
+        <li><strong>Le taux global.</strong> $0{,}56-1=-0{,}44$ : une remise globale de 44 %, pas de 50 %. Prix payé : $120\times0{,}56=67{,}20$ €.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="bloc remarque" data-titre="Pour aller plus loin : la même hausse, répétée">
+    <p>Trois hausses de 10 % font $1{,}1\times1{,}1\times1{,}1=1{,}331$, soit +33,1 % et non +30 %. Une même hausse répétée chaque année, c'est une suite géométrique : tu les étudieras en première.</p>
+  </div>
+
+  <!-- ===== 7 ===== -->
+  <h3 id="c-reciproque">7. L'évolution réciproque</h3>
+
+  <div class="bloc definition" data-titre="Évolution réciproque">
+    <p>L'<strong>évolution réciproque</strong> d'une évolution de $V_1$ à $V_2$ est celle qui ramène de $V_2$ à $V_1$.</p>
+  </div>
+
+  <div class="bloc propriete" data-titre="Le coefficient réciproque">
+    <p>Si l'évolution a pour coefficient $CM$, l'évolution réciproque a pour coefficient $\dfrac{1}{CM}$ : aller puis revenir, c'est multiplier par 1. Son taux est $\dfrac{1}{CM}-1$.</p>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="aller-retour" viewBox="0 0 436 259" role="img" aria-label="Trois barres : 100, puis 80 après une baisse de 20 % (× 0,8), puis 100 de nouveau après une hausse de 25 % (× 1,25). Les 20 € perdus sont 20 % de 100 ; les 20 € regagnés sont 25 % de 80. 0,8 × 1,25 = 1."><rect class="forme-4" x="30.8" y="51.6" width="62.4" height="156.0"/><rect class="forme-3" x="181.6" y="82.8" width="62.4" height="124.8"/><rect class="forme-4" x="332.4" y="51.6" width="62.4" height="156.0"/><g class="trace t-n pointille"><line x1="20.4" y1="51.6" x2="415.6" y2="51.6"/></g><text class="lettre" x="47.7" y="140.0">100</text><text class="lettre" x="203.7" y="140.0">80</text><text class="lettre" x="349.3" y="140.0">100</text><text class="moyen" x="102.3" y="21.7">× 0,8</text><text class="petit" x="102.3" y="39.9">−20 %</text><text class="moyen" x="253.1" y="21.7">× 1,25</text><text class="petit" x="253.1" y="39.9">+25 %</text><text class="note" x="30.8" y="234.9">20 sur 100 : 20 %</text><text class="note" x="181.6" y="234.9">20 sur 80 : 25 %</text><text class="note" x="332.4" y="234.9">0,8 × 1,25 = 1</text></svg><figcaption>Une baisse de 20 % fait perdre 20 sur 100 ; pour revenir, il faut regagner 20 sur 80, soit 25 %. L'opposé de −20 % n'est pas le retour.</figcaption></figure>
+
+  <div class="bloc exemple" data-titre="Des allers et retours">
+    <div class="defile">
+      <table>
+        <thead><tr><th>Évolution</th><th>$-20\,\%$</th><th>$+25\,\%$</th><th>$-50\,\%$</th><th>$+100\,\%$</th><th>$-75\,\%$</th></tr></thead>
+        <tbody>
+          <tr><th>Coefficient</th><td>$0{,}8$</td><td>$1{,}25$</td><td>$0{,}5$</td><td>$2$</td><td>$0{,}25$</td></tr>
+          <tr><th>Réciproque</th><td>$1{,}25$ : $+25\,\%$</td><td>$0{,}8$ : $-20\,\%$</td><td>$2$ : $+100\,\%$</td><td>$0{,}5$ : $-50\,\%$</td><td>$4$ : $+300\,\%$</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="bloc methode" data-titre="Calculer un taux réciproque">
+    <ol class="etapes">
+      <li><span>J'écris le coefficient de l'évolution.</span></li>
+      <li><span>Je prends son inverse.</span></li>
+      <li><span>Je retire 1, et j'écris le taux en pourcentage.</span></li>
+    </ol>
+    <div class="deroule">
+      <p class="consigne"><strong>Exercice.</strong> Un article baisse de 40 %. De combien doit-il augmenter pour revenir à son prix ?</p>
+      <ol class="pas">
+        <li><strong>Le coefficient.</strong> $0{,}6$.</li>
+        <li><strong>L'inverse.</strong> $\dfrac{1}{0{,}6}=\dfrac{10}{6}=\dfrac53\approx1{,}667$.</li>
+        <li><strong>Le taux.</strong> $\dfrac53-1=\dfrac23\approx0{,}667$ : une hausse d'environ 66,7 %. Contrôle : 100 € deviennent 60 €, et $60\times\dfrac53=100$.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== 8 ===== -->
+  <h3 id="c-proportion-ou-evolution">8. Proportion ou évolution ?</h3>
+
+  <div class="bloc methode" data-titre="Lire un pourcentage">
+    <ol class="etapes">
+      <li><span>Je cherche ce que le pourcentage compare : une partie à un tout (une <strong>proportion</strong>), ou une valeur d'après à une valeur d'avant (une <strong>évolution</strong>).</span></li>
+      <li><span>Je repère la <strong>référence</strong> : le tout, ou la valeur de départ. C'est elle qui est « 100 % ».</span></li>
+      <li><span>Je ne combine deux pourcentages que s'ils ont la même référence (des parts sans individu commun s'additionnent) ou s'ils s'enchaînent (les coefficients se multiplient).</span></li>
+    </ol>
+  </div>
+
+  <div class="bloc exemple" data-titre="Trois phrases de journal">
+    <ul>
+      <li>« 52 % des élèves du lycée sont des filles » : une proportion, de référence les élèves du lycée.</li>
+      <li>« Le ticket de bus a augmenté de 10 % » : une évolution, de référence l'ancien prix.</li>
+      <li>« Le taux de chômage passe de 8 % à 10 % » : deux proportions, et leur évolution. Le taux gagne 2 <strong>points</strong>, mais il augmente de $\dfrac{2}{8}=25\,\%$.</li>
+    </ul>
+  </div>
+
+  <figure class="figure-svg"><svg data-figure="points" viewBox="0 0 436 238" role="img" aria-label="Deux barres : un taux de chômage de 8 %, puis de 10 %. Entre les deux, le taux gagne 2 points de pourcentage. Mais 2 sur 8, c’est un quart : le taux de chômage a augmenté de 25 %."><g class="trace t-n"><line x1="25.6" y1="207.6" x2="233.6" y2="207.6"/></g><rect class="forme-4" x="46.4" y="93.2" width="62.4" height="114.4"/><rect class="plein t-u op-55" x="150.4" y="64.6" width="62.4" height="143.0"/><text class="lettre" x="63.3" y="84.1">8 %</text><text class="lettre" x="162.1" y="55.5">10 %</text><text class="petit" x="55.5" y="227.1">avant</text><text class="petit" x="162.1" y="227.1">après</text><text class="lettre" x="254.4" y="72.4">10 − 8 = 2 points</text><text class="lettre" x="254.4" y="108.8">2 / 8 = 0,25</text><text class="moyen" x="254.4" y="145.2">soit +25 %</text><text class="petit" x="254.4" y="186.8">deux nombres différents</text></svg><figcaption>De 8 % à 10 % : 2 points de plus, une hausse de 25 %. Écrire « une hausse de 2 % » serait faux.</figcaption></figure>
+
+  <div class="bloc remarque" data-titre="Le point de pourcentage">
+    <p>Quand on compare deux pourcentages par leur <strong>différence</strong>, l'unité est le <strong>point</strong> de pourcentage. Le mot n'est pas au programme, mais il évite une erreur que font aussi des journaux.</p>
+  </div>
+
+  <!-- ===== 9 ===== -->
+  <h3 id="c-pieges">9. Les pièges classiques</h3>
+  <div class="bloc piege" data-titre="Les erreurs qui coûtent des points">
+    <ul>
+      <li><strong>Augmenter $x$ de 3 %, écrit $x+0{,}03$, $x+3$ ou $1{,}3x$.</strong> C'est $1{,}03x$. Au test de début de seconde de 2025, sept élèves sur dix se sont trompés ici : tout le monde peut s'y faire prendre.</li>
+      <li><strong>Additionner des évolutions successives.</strong> +10 % puis −20 % ne font pas −10 % : $1{,}1\times0{,}8=0{,}88$, soit −12 %.</li>
+      <li><strong>Prendre l'opposé pour revenir.</strong> Après −20 %, il faut +25 %, pas +20 % : la hausse se calcule sur une valeur plus petite.</li>
+      <li><strong>Appliquer le taux à la mauvaise valeur.</strong> Pour retrouver le prix d'avant une remise de 15 %, on ne rajoute pas 15 % au prix soldé : on divise par 0,85.</li>
+      <li><strong>Diviser par la valeur d'arrivée.</strong> Le taux d'évolution se calcule sur la valeur de départ : $\dfrac{V_2-V_1}{V_1}$.</li>
+      <li><strong>« × 0,6, c'est −60 % ».</strong> 0,6 est ce qui reste : c'est une baisse de 40 %.</li>
+      <li><strong>Additionner une proportion et une proportion de proportion.</strong> 40 % de filles, dont 30 % en compétition : 12 % du club, pas 70 %, ni 30 %.</li>
+      <li><strong>Confondre points et pourcentages.</strong> De 8 % à 10 %, c'est +2 points, mais +25 %.</li>
+    </ul>
+  </div>
+
+  <h3 id="c-videos">10. Pour revoir en vidéo</h3>
+  <div class="videos">
+    <div class="video" data-titre="Coefficient multiplicateur et taux d'évolution"></div>
+    <div class="video" data-titre="Évolutions successives et réciproques"></div>
+  </div>
+</section>
+
+<!-- ============================ 2. EXPLORER ============================ -->
+<section id="explorer">
+  <h2>Explorer</h2>
+  <p>Trois expériences, dans l'ordre du cours : régler la part d'une part sur un carré de 100 cases ; trouver le bon multiplicateur pour une hausse, une baisse, puis le prix d'avant ; chercher l'évolution qui ramène au départ, ou qui donne le taux global voulu.</p>
+
+  <div class="labo" data-labo="evolutions" data-outil="emboites"></div>
+  <div class="labo" data-labo="evolutions" data-outil="coefficient"></div>
+  <div class="labo" data-labo="evolutions" data-outil="retour"></div>
+</section>
+
+<!-- ============================ 3. S'ENTRAÎNER ============================ -->
+<section id="entrainement">
+  <h2>S'entraîner</h2>
+  <p>Le défi tire des questions au hasard : écritures d'une proportion, partie et tout, proportion de proportion, taux et coefficient, valeur d'après et valeur d'avant, évolutions successives et réciproques, proportion ou évolution. Le quiz reprend les réflexes du cours. Sans calculatrice. Quand on te demande un pourcentage, tape le nombre seul, sans le signe % (−12 pour une baisse de 12 %).</p>
+
+  <div class="jeu" data-generateurs="evolutions" data-questions="10" data-titre="Le défi des pourcentages"></div>
+
+  <div class="quiz" data-titre="Les réflexes du chapitre">
+    <div class="question">
+      <p>Augmenter un prix de 3 %, c'est le multiplier par :</p>
+      <ul class="choix">
+        <li class="bon">$1{,}03$</li><li>$1{,}3$</li><li>$0{,}03$</li><li>$3{,}03$</li>
+      </ul>
+      <div class="explication">On garde les 100 % et on ajoute 3 % : $1+0{,}03=1{,}03$. Le coefficient $1{,}3$ correspond à une hausse de 30 %, et $0{,}03$ ne garderait que 3 % du prix.</div>
+    </div>
+    <div class="question" data-reponse="40|40 %">
+      <p>Dans une classe de 30 élèves, 12 sont demi-pensionnaires. Quelle proportion, en pourcentage ? (Le nombre seul.)</p>
+      <div class="explication">$\dfrac{12}{30}=\dfrac25=0{,}4$, soit 40 %.</div>
+    </div>
+    <div class="question">
+      <p>60 % des adhérents d'un club ont moins de 18 ans, et 30 % de ceux-là font de la natation. Quelle part de tous les adhérents sont des moins de 18 ans nageurs ?</p>
+      <ul class="choix">
+        <li class="bon">18 %</li><li>90 %</li><li>30 %</li><li>1 800 %</li>
+      </ul>
+      <div class="explication">Une proportion de proportion : $0{,}6\times0{,}3=0{,}18$, soit 18 %. On n'additionne pas (90 %), et on ne garde pas les 30 %, qui portent sur les moins de 18 ans seulement. 1 800 vient de $60\times30$ sans repasser par les décimaux.</div>
+    </div>
+    <div class="question" data-reponse="25|25 %|+25|+25 %">
+      <p>Un prix passe de 40 € à 50 €. Quel est le taux d'évolution, en pourcentage ? (Le nombre seul.)</p>
+      <div class="explication">$\dfrac{50-40}{40}=\dfrac{10}{40}=0{,}25$ : une hausse de 25 %. On divise par la valeur de départ, 40, pas par 50.</div>
+    </div>
+    <div class="question">
+      <p>Multiplier une quantité par $0{,}7$, c'est :</p>
+      <ul class="choix">
+        <li class="bon">la baisser de 30 %</li><li>la baisser de 70 %</li><li>la baisser de 0,3 %</li><li>l'augmenter de 70 %</li>
+      </ul>
+      <div class="explication">$0{,}7-1=-0{,}3$ : une baisse de 30 %. Le 0,7 est ce qui reste, 70 % de la quantité.</div>
+    </div>
+    <div class="question" data-reponse="40">
+      <p>Après une hausse de 20 %, un abonnement coûte 48 €. Quel était son prix avant, en euros ?</p>
+      <div class="explication">$V_1\times1{,}2=48$, donc $V_1=\dfrac{48}{1{,}2}=40$ €. Contrôle : $40\times1{,}2=48$. Retirer 20 % de 48 donnerait 38,40 €, faux : les 20 % portent sur le prix d'avant.</div>
+    </div>
+    <div class="question">
+      <p>Un prix augmente de 20 %, puis baisse de 20 %. Au total :</p>
+      <ul class="choix">
+        <li class="bon">il baisse de 4 %</li><li>il revient à sa valeur de départ</li><li>il augmente de 4 %</li><li>il baisse de 40 %</li>
+      </ul>
+      <div class="explication">$1{,}2\times0{,}8=0{,}96$ : une baisse de 4 %. La baisse de 20 % porte sur un prix déjà augmenté, donc elle retire plus que la hausse n'avait ajouté.</div>
+    </div>
+    <div class="question" data-reponse="100|100 %|+100|+100 %">
+      <p>Après une baisse de 50 %, de combien de pour cent faut-il augmenter pour revenir au départ ? (Le nombre seul.)</p>
+      <div class="explication">Le coefficient $0{,}5$ a pour inverse $2$ : il faut doubler, soit une hausse de 100 %. Pas de 50 % : la moitié de la moitié ne refait pas le tout.</div>
+    </div>
+    <div class="question">
+      <p>Le taux de réussite d'un examen passe de 80 % à 84 %. C'est :</p>
+      <ul class="choix">
+        <li class="bon">une hausse de 4 points, soit de 5 %</li><li>une hausse de 4 %</li><li>une hausse de 4 points, soit de 4 %</li><li>une hausse de 84 %</li>
+      </ul>
+      <div class="explication">La différence $84-80=4$ se compte en points. Le taux d'évolution est $\dfrac{4}{80}=0{,}05$, soit une hausse de 5 %.</div>
+    </div>
+    <div class="question" data-reponse="21|21 %|+21|+21 %">
+      <p>Deux hausses successives de 10 % : quel est le taux global, en pourcentage ? (Le nombre seul.)</p>
+      <div class="explication">$1{,}1\times1{,}1=1{,}21$ : une hausse de 21 %, pas de 20 %. La seconde hausse porte aussi sur la première.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. EXERCICES CORRIGÉS ============================ -->
+<section id="exercices">
+  <h2>Exercices corrigés</h2>
+
+  <h3 id="ex-guides">Avec le tuteur : écris chaque étape</h3>
+  <p>Pas de correction à ouvrir : tu écris chaque ligne de ta résolution, et le vérificateur te dit si elle a les mêmes solutions que la précédente. Écris <code>0,3x</code> pour $0{,}3x$, et termine par une ligne du type <code>x=50</code> (<code>t=…</code> ou <code>c=…</code> quand l'énoncé le dit). Sans calculatrice.</p>
+
+  <article class="exercice" id="ex-le-prix-d-avant-la-remise" data-titre="Le prix d'avant la remise" data-niveau="1" data-type="guide" data-notions="coefficient" data-duree="5" data-calculatrice="non">
+    <p>Après une remise de 15 %, une veste coûte 102 €. On note $x$ son prix d'avant, en euros. Le prix d'avant, moins 15 % du prix d'avant, donne 102 : $x-0{,}15x=102$. Résous l'équation. Commence par réduire le membre de gauche.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="ev-remise" data-depart="x-0,15x=102" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-avant-la-hausse" data-titre="Avant la hausse" data-niveau="1" data-type="guide" data-notions="coefficient" data-duree="5" data-calculatrice="non">
+    <p>Après une hausse de 25 %, un abonnement de transport coûte 150 € par an. Avec $x$ son prix d'avant, en euros : $x+0{,}25x=150$. Résous l'équation.</p>
+    <div class="tuteur" data-tuteur="equation" data-id="ev-hausse" data-depart="x+0,25x=150" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-le-taux-cache" data-titre="Le taux caché" data-niveau="2" data-type="guide" data-notions="pourcentages coefficient" data-duree="6" data-calculatrice="non">
+    <p>Le prix d'une trottinette passe de 200 € à 230 €. On note $t$ le taux d'évolution, en écriture décimale. Le prix d'avant, plus $t$ fois le prix d'avant, donne le prix d'après : $200+200t=230$. Résous l'équation, puis écris le taux en pourcentage.</p>
+    <div class="tuteur" data-tuteur="equation" data-lettre="t" data-id="ev-taux" data-depart="200+200t=230" data-consigne="Résous :"></div>
+  </article>
+
+  <article class="exercice" id="ex-le-coefficient-du-retour" data-titre="Le coefficient du retour" data-niveau="2" data-type="guide" data-notions="successives" data-duree="5" data-calculatrice="non">
+    <p>Un prix baisse de 20 % : il est multiplié par $0{,}8$. On cherche le coefficient $c$ qui le ramène à sa valeur de départ : aller puis revenir, c'est multiplier par 1, donc $0{,}8c=1$. Résous l'équation, puis dis de combien de pour cent il faut augmenter.</p>
+    <div class="tuteur" data-tuteur="equation" data-lettre="c" data-id="ev-retour" data-depart="0,8c=1" data-consigne="Résous :"></div>
+  </article>
+
+  <h3 id="ex-corriges">Avec les corrections</h3>
+  <p>Trois niveaux, à faire dans l'ordre : ★ appliquer le cours, ★★ enchaîner dans des situations, ★★★ raisonner. Rédige avant d'ouvrir la correction, et termine par une phrase. Sans calculatrice.</p>
+
+  <h3>Niveau 1 · Appliquer le cours</h3>
+
+  <article class="exercice" id="ex-trois-ecritures" data-titre="Trois écritures d'une même part" data-niveau="1" data-type="application" data-notions="proportions" data-duree="8" data-calculatrice="non">
+    <p>1. Écris chaque proportion sous les deux autres formes (fraction irréductible, décimal, pourcentage) : a) $\dfrac35$ · b) $0{,}45$ · c) $12{,}5\,\%$ · d) $\dfrac{7}{20}$ · e) $\dfrac13$, en arrondissant au dixième de pour cent.</p>
+    <p>2. Range dans l'ordre croissant : $\dfrac25$ ; $0{,}38$ ; $41\,\%$.</p>
+    <details class="correction">
+      <p>1. a) $\dfrac35=0{,}6=60\,\%$. b) $0{,}45=\dfrac{45}{100}=\dfrac{9}{20}=45\,\%$. c) $12{,}5\,\%=0{,}125=\dfrac{125}{1\,000}=\dfrac18$. d) $\dfrac{7}{20}=\dfrac{35}{100}=0{,}35=35\,\%$. e) $\dfrac13=0{,}333\ldots\approx33{,}3\,\%$ : l'écriture décimale ne s'arrête pas, le pourcentage est arrondi.</p>
+      <p>2. Je passe tout en décimal : $\dfrac25=0{,}4$ et $41\,\%=0{,}41$. Donc $0{,}38\lt\dfrac25\lt41\,\%$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-part-et-le-tout" data-titre="La part et le tout" data-niveau="1" data-type="application" data-notions="proportions" data-duree="8" data-calculatrice="non">
+    <p>a) Calcule 15 % de 260.<br>b) Dans un groupe de 24 élèves, 18 viennent au lycée à vélo. Quelle proportion, en pourcentage ?<br>c) Lors d'un sondage, 63 personnes ont répondu « oui », soit 35 % des personnes interrogées. Combien de personnes ont été interrogées ?<br>d) Une infirmière scolaire a reçu 42 élèves dans la semaine, dont 14 pour un vaccin. Quelle proportion, arrondie au dixième de pour cent ?</p>
+    <details class="indice"><p>Repère à chaque fois le tout et la partie, puis écris $p=\dfrac{\text{partie}}{\text{tout}}$. En c), le tout est l'inconnue.</p></details>
+    <details class="correction">
+      <p>a) $0{,}15\times260=39$ (10 % font 26, 5 % font 13).</p>
+      <p>b) $\dfrac{18}{24}=\dfrac34=0{,}75$ : 75 %.</p>
+      <p>c) $63=0{,}35\times n$, donc $n=\dfrac{63}{0{,}35}=\dfrac{6\,300}{35}=180$ personnes. Contrôle : $0{,}35\times180=63$.</p>
+      <p>d) $\dfrac{14}{42}=\dfrac13\approx0{,}333$, soit environ 33,3 %.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-du-taux-au-coefficient" data-titre="Du taux au coefficient" data-niveau="1" data-type="application" data-notions="coefficient" data-duree="6" data-calculatrice="non">
+    <p>1. Donne le coefficient multiplicateur : a) hausse de 12 % · b) baisse de 12 % · c) hausse de 0,5 % · d) baisse de 3 % · e) hausse de 200 %.</p>
+    <p>2. Donne l'évolution, en pourcentage : f) × 1,07 · g) × 0,65 · h) × 2 · i) × 0,99 · j) × 1,6.</p>
+    <details class="correction">
+      <p>1. a) $1{,}12$ · b) $0{,}88$ · c) $1{,}005$ · d) $0{,}97$ · e) $1+2=3$ : on triple.</p>
+      <p>2. f) $1{,}07-1=0{,}07$ : +7 % · g) $0{,}65-1=-0{,}35$ : −35 % · h) +100 % · i) −1 % · j) +60 %.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-avant-apres" data-titre="Avant, après" data-niveau="1" data-type="application" data-notions="pourcentages" data-duree="8" data-calculatrice="non">
+    <p>Pour chaque évolution, donne la variation absolue (avec son unité) et le taux d'évolution en pourcentage.</p>
+    <p>a) Un prix passe de 80 € à 92 €. · b) Le stock de farine d'une boulangerie passe de 250 kg à 200 kg. · c) Une commune passe de 1 600 à 1 640 habitants. · d) Un élève passe de 12 jours d'absence à 9 jours.</p>
+    <details class="correction">
+      <p>a) $92-80=+12$ € ; $\dfrac{12}{80}=0{,}15$ : +15 %.</p>
+      <p>b) $200-250=-50$ kg ; $\dfrac{-50}{250}=-0{,}2$ : −20 %.</p>
+      <p>c) $+40$ habitants ; $\dfrac{40}{1\,600}=0{,}025$ : +2,5 %.</p>
+      <p>d) $-3$ jours ; $\dfrac{-3}{12}=-0{,}25$ : −25 %. Le taux n'a pas d'unité, la variation absolue en a une.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-prix-solde" data-titre="Le prix soldé" data-niveau="1" data-type="application" data-notions="coefficient" data-duree="8" data-calculatrice="non">
+    <p>a) Un blouson à 85 € est soldé à −20 %. Quel est son nouveau prix ?<br>b) Un loyer de 640 € augmente de 2,5 %. Quel est le nouveau loyer ?<br>c) Après une baisse de 25 %, un jeu coûte 57 €. Quel était son prix avant ?</p>
+    <details class="correction">
+      <p>a) $85\times0{,}8=68$ €.</p>
+      <p>b) $640\times1{,}025=656$ € (2,5 % de 640, c'est 16).</p>
+      <p>c) $V_1\times0{,}75=57$, donc $V_1=\dfrac{57}{0{,}75}=\dfrac{5\,700}{75}=76$ €. Contrôle : $76\times0{,}75=57$. Ajouter 25 % à 57 € donnerait 71,25 €, faux.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 2 · Enchaîner</h3>
+
+  <article class="exercice" id="ex-le-club-de-sport" data-titre="Le club de sport" data-niveau="2" data-type="probleme" data-notions="proportions" data-duree="12" data-calculatrice="non">
+    <p>Un club compte 400 adhérents, dont 45 % de filles. 20 % des filles et 40 % des garçons font de la compétition.</p>
+    <p>1. Quelle proportion des adhérents sont des filles en compétition ?<br>2. Quelle proportion des adhérents sont des garçons en compétition ?<br>3. Quelle proportion des adhérents font de la compétition ? Combien sont-ils ?<br>4. Léo affirme : « 20 % + 40 % = 60 % des adhérents font de la compétition. » Explique son erreur.</p>
+    <details class="indice"><p>Pour 2, commence par la proportion de garçons dans le club.</p></details>
+    <details class="correction">
+      <p>1. $0{,}45\times0{,}2=0{,}09$ : 9 % des adhérents.</p>
+      <p>2. Les garçons font $100-45=55\,\%$ du club : $0{,}55\times0{,}4=0{,}22$, soit 22 % des adhérents.</p>
+      <p>3. Les deux groupes n'ont aucun adhérent commun et sont comptés dans le même tout : $9\,\%+22\,\%=31\,\%$. Cela fait $0{,}31\times400=124$ adhérents. Contrôle : 180 filles dont 36 en compétition, 220 garçons dont 88 : $36+88=124$.</p>
+      <p>4. 20 % porte sur les filles, 40 % sur les garçons : deux références différentes, qu'on n'additionne pas. Il faut d'abord ramener chaque part au club entier.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-deux-remises-ou-une-seule" data-titre="Deux remises ou une seule ?" data-niveau="2" data-type="probleme" data-notions="successives" data-duree="10" data-calculatrice="non">
+    <p>Un blouson coûte 150 €. Le magasin A fait −40 %, puis −10 % de plus en caisse. Le magasin B fait −45 % d'un coup.</p>
+    <p>1. Calcule le prix payé dans chaque magasin.<br>2. Quelle remise globale fait le magasin A ?<br>3. Le résultat dépend-il du prix du blouson ?</p>
+    <details class="correction">
+      <p>1. A : $150\times0{,}6=90$ €, puis $90\times0{,}9=81$ €. B : $150\times0{,}55=82{,}50$ €. Le magasin A est le moins cher.</p>
+      <p>2. $0{,}6\times0{,}9=0{,}54$ : une remise globale de 46 %. Moins que $40+10=50\,\%$, mais plus que les 45 % de B.</p>
+      <p>3. Non : quel que soit le prix $P$, A fait payer $0{,}54P$ et B $0{,}55P$. On compare les coefficients.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-le-retour-au-prix" data-titre="Le retour au prix" data-niveau="2" data-type="application" data-notions="successives" data-duree="8" data-calculatrice="non">
+    <p>Quelle évolution ramène à la valeur de départ ? a) après une baisse de 20 % · b) après une hausse de 60 % · c) après une baisse de 75 %.</p>
+    <p>d) Explique pourquoi, après une baisse, la hausse qui ramène au départ est toujours plus grande, en pourcentage.</p>
+    <details class="correction">
+      <p>a) $\dfrac1{0{,}8}=1{,}25$ : une hausse de 25 %.</p>
+      <p>b) $\dfrac{1}{1{,}6}=\dfrac{10}{16}=0{,}625$ : une baisse de 37,5 %.</p>
+      <p>c) $\dfrac1{0{,}25}=4$ : une hausse de 300 % (il faut quadrupler).</p>
+      <p>d) Il faut regagner le même montant que celui perdu, mais ce montant se compare maintenant à une valeur plus petite : le même nombre d'euros fait un plus grand pourcentage. Par le calcul : après une baisse de taux $t$ (entre 0 et 1), le coefficient du retour est $\dfrac{1}{1-t}$, et la hausse vaut $\dfrac{1}{1-t}-1=\dfrac{t}{1-t}$, plus grand que $t$ puisque $1-t\lt1$.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-hors-taxes-toutes-taxes" data-titre="Hors taxes, toutes taxes" data-niveau="2" data-type="probleme" data-notions="coefficient" data-duree="12" data-calculatrice="non">
+    <p>La TVA ordinaire vaut 20 % du prix hors taxes (HT). Le prix toutes taxes comprises (TTC) est le prix HT augmenté de la TVA.</p>
+    <p>1. Un casque coûte 45 € HT. Quel est son prix TTC ?<br>2. Une lampe est affichée 96 € TTC. Quel est son prix HT ? Combien de TVA paie-t-on ?<br>3. Quelle part du prix TTC de la lampe la TVA représente-t-elle ? Pourquoi n'est-ce pas 20 % ?<br>4. Pour l'alimentation, la TVA vaut 5,5 %. Un panier coûte 40 € HT : quel est son prix TTC ?</p>
+    <details class="correction">
+      <p>1. $45\times1{,}2=54$ € TTC.</p>
+      <p>2. $\dfrac{96}{1{,}2}=80$ € HT. La TVA est $96-80=16$ €.</p>
+      <p>3. $\dfrac{16}{96}=\dfrac16\approx16{,}7\,\%$. Les 20 % se calculent sur le prix HT (16 est 20 % de 80), pas sur le prix TTC : la référence n'est pas la même.</p>
+      <p>4. $40\times1{,}055=42{,}20$ € TTC (5,5 % de 40, c'est 2,20).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-proportion-ou-evolution" data-titre="Proportion ou évolution ?" data-niveau="2" data-type="raisonnement" data-notions="proportions pourcentages" data-duree="10" data-calculatrice="non">
+    <p>Pour chaque phrase, dis si le pourcentage est une proportion ou une évolution, et quelle est sa référence.</p>
+    <p>a) « 52 % des élèves du lycée sont des filles. »<br>b) « Le prix du ticket de bus a augmenté de 10 % cette année. »<br>c) « Ce vaccin réduit de 90 % le risque de forme grave. »<br>d) « Le taux de réussite est passé de 80 % à 84 %. »</p>
+    <p>e) Un journal écrit : « Le taux d'abstention passe de 10 % à 15 %, une hausse de 5 %. » Corrige la phrase.</p>
+    <details class="correction">
+      <p>a) Une proportion ; référence : les élèves du lycée.</p>
+      <p>b) Une évolution ; référence : le prix de l'an dernier.</p>
+      <p>c) Une variation relative, calculée comme une évolution (une baisse de 90 %) ; référence : le risque sans le vaccin, qui fait 100 %. Ici, on ne compare pas un avant et un après, mais deux situations, avec et sans vaccin : le calcul est le même.</p>
+      <p>d) Deux proportions, de référence les candidats ; leur évolution : +4 points, soit $\dfrac{4}{80}=+5\,\%$.</p>
+      <p>e) La différence fait 5 <strong>points</strong> ; le taux d'abstention a augmenté de $\dfrac{5}{10}=50\,\%$. On écrit : « une hausse de 5 points, soit de 50 % ».</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-six-automatismes" data-titre="Six automatismes, comme à l'épreuve" data-niveau="2" data-type="application" data-notions="proportions coefficient successives" data-duree="10" data-calculatrice="non" data-source="Épreuves anticipées de mathématiques 2026, automatismes (voie technologique ; voie générale, Asie)">
+    <p>Sans calculatrice, une réponse courte pour chaque question.</p>
+    <p>1. Un prix passe de 50 € à 40 €. Quel est le pourcentage de la remise ?<br>2. 70 % des participants à une course ont plus de 18 ans, et 20 % de ceux-là sont étudiants. Quelle part des participants sont des étudiants de plus de 18 ans ?<br>3. Une hausse de 20 % est suivie d'une baisse de 10 %. Quelle est l'évolution globale ?<br>4. Multiplier par 0,7 revient à… ?<br>5. Combien font 30 % de 60 ?<br>6. Après une hausse de 50 %, un prix vaut 90 €. Quel était-il avant ?</p>
+    <details class="correction">
+      <p>1. $\dfrac{40-50}{50}=-0{,}2$ : une remise de 20 %.</p>
+      <p>2. $0{,}7\times0{,}2=0{,}14$ : 14 %.</p>
+      <p>3. $1{,}2\times0{,}9=1{,}08$ : une hausse de 8 %.</p>
+      <p>4. Baisser de 30 %.</p>
+      <p>5. $0{,}3\times60=18$.</p>
+      <p>6. $\dfrac{90}{1{,}5}=60$ €.</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-corrige-l-ia" data-titre="Corrige l'IA : les soldes en cascade" data-niveau="2" data-type="corrige-ia" data-notions="successives coefficient" data-duree="12" data-calculatrice="non">
+    <p>Pendant les soldes, un magasin fait −25 %, puis −20 % de plus en caisse. Une élève a demandé à une IA ce que ça change. Voici sa réponse. Trouve les erreurs, et rédige la bonne réponse.</p>
+    <blockquote class="copie-ia">« Les remises s'ajoutent : −25 % puis −20 %, cela fait −45 %. Le sac à dos à 80 € te coûtera donc $80\times0{,}55=44$ €. Ton ami a payé un autre sac 36 € avec les mêmes remises : pour retrouver son prix d'origine, on rajoute les 45 % retirés, soit $36\times1{,}45=52{,}20$ €. Et à la fin des soldes, une hausse de 45 % ramènera chaque prix à sa valeur de départ. »</blockquote>
+    <details class="correction">
+      <p><strong>Erreur 1 : les remises ne s'ajoutent pas.</strong> La seconde porte sur un prix déjà baissé. Les coefficients se multiplient : $0{,}75\times0{,}8=0{,}6$, une remise globale de 40 %. Le sac coûte $80\times0{,}6=48$ €.</p>
+      <p><strong>Erreur 2 : on ne retrouve pas le prix d'avant en rajoutant le pourcentage.</strong> Le prix soldé est le prix d'origine multiplié par $0{,}6$ : on divise, $\dfrac{36}{0{,}6}=60$ €. Contrôle : $60\times0{,}6=36$. (Même avec ses 45 %, l'IA se trompait de référence : $52{,}20\times0{,}55=28{,}71$, pas 36.)</p>
+      <p><strong>Erreur 3 : le retour n'est pas l'opposé.</strong> Il faut le coefficient $\dfrac1{0{,}6}=\dfrac53\approx1{,}667$, une hausse d'environ 66,7 %. Contrôle : $48\times\dfrac53=80$, alors que $48\times1{,}45=69{,}60$.</p>
+      <p><strong>La bonne réponse :</strong> remise globale de 40 % ; le sac à 80 € coûte 48 € ; l'autre sac valait 60 € ; il faudrait une hausse d'environ 66,7 % pour revenir au prix de départ. Une réponse fluide et sûre d'elle peut se tromper dès sa première phrase : on vérifie toujours en appliquant les coefficients.</p>
+    </details>
+  </article>
+
+  <h3>Niveau 3 · Raisonner</h3>
+
+  <article class="exercice" id="ex-hausse-puis-baisse" data-titre="Une hausse puis une baisse du même taux" data-niveau="3" data-type="raisonnement" data-notions="successives" data-duree="12" data-calculatrice="non">
+    <p>1. Un prix de 200 € augmente de 10 %, puis baisse de 10 %. Quel est le prix final ? Quelle est l'évolution globale ?<br>2. Un prix augmente de $t$, puis baisse de $t$ (avec $t$ en écriture décimale, $0\lt t\lt1$). Montre que le coefficient global est $1-t^2$. Qu'en conclus-tu ?<br>3. L'ordre compte-t-il ?<br>4. Pour quel taux $t$ la baisse globale est-elle de 4 % ?</p>
+    <details class="correction">
+      <p>1. $200\times1{,}1=220$ €, puis $220\times0{,}9=198$ €. Coefficient global $1{,}1\times0{,}9=0{,}99$ : une baisse de 1 %.</p>
+      <p>2. $(1+t)(1-t)=1-t^2$ (identité remarquable). Comme $t\neq0$, $t^2\gt0$, donc $1-t^2\lt1$ : le prix final est toujours plus bas que le prix de départ. L'évolution globale est une baisse de taux $t^2$, soit $100t^2\,\%$ (pour $t=0{,}1$ : $0{,}01$, soit 1 %).</p>
+      <p>3. Non : $(1-t)(1+t)$ est le même produit.</p>
+      <p>4. $t^2=0{,}04$ et $t\gt0$, donc $t=0{,}2$ : une hausse de 20 % puis une baisse de 20 % (contrôle : $1{,}2\times0{,}8=0{,}96$).</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-trois-hausses-de-10" data-titre="Trois hausses de 10 %" data-niveau="3" data-type="raisonnement" data-notions="successives" data-duree="10" data-calculatrice="non">
+    <p>Une agence annonce : « Votre loyer augmentera de 10 % par an pendant trois ans, soit 30 % en tout. »</p>
+    <p>1. Calcule le coefficient global, sans calculatrice. Quelle est l'évolution réelle sur trois ans ?<br>2. Et trois baisses de 10 % de suite ?<br>3. Corrige la phrase de l'agence.</p>
+    <details class="correction">
+      <p>1. $1{,}1\times1{,}1=1{,}21$, puis $1{,}21\times1{,}1=1{,}331$ : une hausse de 33,1 %, pas de 30 %.</p>
+      <p>2. $0{,}9\times0{,}9=0{,}81$, puis $0{,}81\times0{,}9=0{,}729$ : une baisse de 27,1 %, pas de 30 %.</p>
+      <p>3. « Votre loyer augmentera de 10 % par an pendant trois ans, soit 33,1 % en tout. » Chaque hausse porte aussi sur les hausses d'avant. (En première, une même hausse répétée deviendra une suite géométrique.)</p>
+    </details>
+  </article>
+
+  <article class="exercice" id="ex-la-bonne-reference" data-titre="La bonne référence" data-niveau="3" data-type="raisonnement" data-notions="successives pourcentages" data-duree="10" data-calculatrice="non">
+    <p>Le magasin A affiche : « Chez B, c'est 25 % plus cher que chez nous. » Le magasin B répond : « Chez A, c'est 20 % moins cher que chez nous. »</p>
+    <p>1. Les deux phrases peuvent-elles être vraies en même temps ? Justifie avec des coefficients.<br>2. Si un prix C est 50 % plus élevé qu'un prix D, de combien de pour cent D est-il moins élevé que C ?</p>
+    <details class="correction">
+      <p>1. Oui. La phrase de A dit : prix chez B $=1{,}25\times$ prix chez A. Alors prix chez A $=\dfrac{\text{prix chez B}}{1{,}25}=0{,}8\times$ prix chez B : 20 % moins cher que chez B. Les deux phrases disent la même chose, avec deux références différentes (exemple : 80 € chez A, 100 € chez B).</p>
+      <p>2. $C=1{,}5\times D$, donc $D=\dfrac{C}{1{,}5}=\dfrac23\,C$ : D est inférieur de $\dfrac13\approx33{,}3\,\%$ à C, pas de 50 %.</p>
+    </details>
+  </article>
+</section>
+
+<!-- ============================ 5. QUESTIONS FRÉQUENTES ============================ -->
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  <div class="faq">
+    <details><summary>Pourquoi 3 %, c'est 0,03 et pas 0,3 ?</summary>
+      <div><p>« Pour cent » veut dire « divisé par cent » : $3\,\%=\dfrac{3}{100}=0{,}03$. Le nombre $0{,}3$ vaut $\dfrac{30}{100}$, soit 30 %. Pour vérifier, calcule 3 % de 100 : tu dois trouver 3.</p></div></details>
+    <details><summary>Une hausse de 10 % puis une baisse de 10 % : on revient au départ ?</summary>
+      <div><p>Non : $1{,}1\times0{,}9=0{,}99$, on perd 1 %. La baisse porte sur une valeur plus grande que celle de départ, elle retire donc plus que la hausse n'avait ajouté. Un aller-retour du même taux fait toujours perdre.</p></div></details>
+    <details><summary>Un pourcentage peut-il dépasser 100 % ?</summary>
+      <div><p>Une proportion, non : la partie ne dépasse pas le tout. Une hausse, oui : +150 %, c'est multiplier par 2,5. Une baisse, elle, ne dépasse pas −100 % : on arriverait en dessous de 0.</p></div></details>
+    <details><summary>C'est quoi, un « point » de pourcentage ?</summary>
+      <div><p>L'écart entre deux pourcentages. Un taux qui passe de 8 % à 10 % gagne 2 points ; en pourcentage, il augmente de $\dfrac28=25\,\%$. Les deux nombres sont justes, mais ils ne disent pas la même chose.</p></div></details>
+    <details><summary>Faut-il écrire le taux −0,12 ou −12 % ?</summary>
+      <div><p>Les deux désignent le même nombre : $-12\,\%=-0{,}12$. Dans un calcul, on utilise l'écriture décimale ; dans la phrase de conclusion, le pourcentage se lit mieux. Dans le jeu du site, tape −12 quand on te demande des pourcentages.</p></div></details>
+    <details><summary>Quand faut-il diviser au lieu de multiplier ?</summary>
+      <div><p>Quand tu cherches la valeur d'<strong>avant</strong>. L'évolution va de l'avant vers l'après en multipliant par le coefficient ; pour revenir, tu divises par ce même coefficient. Vérifie toujours en appliquant l'évolution à ta réponse.</p></div></details>
+    <details><summary>Et si la même hausse revient chaque année ?</summary>
+      <div><p>On multiplie par le même coefficient à chaque fois : $1{,}02$, puis encore $1{,}02$… Avec deux ou trois années, le calcul se fait à la main. Pour un nombre d'années quelconque, c'est une suite géométrique, au programme de première.</p></div></details>
+    <details><summary>Quel lien avec les fonctions linéaires ?</summary>
+      <div><p>Le coefficient multiplicateur est un nombre. Mais appliquer une hausse de 5 % à n'importe quelle valeur $x$, c'est la fonction linéaire $x\mapsto1{,}05x$, de coefficient $1{,}05$. Sa représentation est une droite qui passe par l'origine, et les valeurs d'après sont proportionnelles aux valeurs d'avant.</p></div></details>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
